@@ -3,76 +3,91 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 
-type ProfileRow = {
-  id: string;
-  display_name: string | null;
-  first_name: string | null;
-  last_name: string | null;
+type TaskTemplateCadence = "daily" | "weekly_quota";
+
+type TaskTemplateRow = {
+  id: number;
+  slug: string;
+  title: string;
+  description: string | null;
+  cadence: TaskTemplateCadence;
+  weekly_target: number | null;
 };
 
 type PlanDayTaskRow = {
   id: number;
+  plan_day_id: number;
   is_required: boolean;
   sort_order: number;
-  task_templates: {
-    id: number;
-    slug: string;
-    title: string;
-    description: string | null;
-  } | null;
+  task_template_id: number;
+  task_templates: TaskTemplateRow | null;
+};
+
+type PlanDayRow = {
+  id: number;
+  day_number: number;
+  title: string | null;
+  reflection_prompt: string | null;
 };
 
 type UserTaskCompletionRow = {
-  id: number;
-  user_id: string;
   plan_day_task_id: number;
-  completed_at: string | null;
 };
 
-type MemberStatusRow = {
-  id: string;
-  displayName: string;
-  fullName: string;
-  status: "Not started" | "In progress" | "Completed";
-  requiredCompleted: number;
-  requiredTotal: number;
-  optionalCompleted: number;
-  optionalTotal: number;
+type WeeklyQuotaProgressRow = {
+  templateId: number;
+  title: string;
+  description: string | null;
+  target: number;
+  completedCount: number;
+  assignedCount: number;
 };
 
-function getBrotherhoodName(profile: ProfileRow) {
-  if (profile.first_name && profile.last_name) {
-    return `${profile.first_name} ${profile.last_name.charAt(0)}.`;
+function cadenceLabel(template?: TaskTemplateRow | null) {
+  if (!template) {
+    return "Daily";
   }
 
-  if (profile.first_name) {
-    return profile.first_name;
+  if (template.cadence === "weekly_quota") {
+    return `Weekly quota${template.weekly_target ? ` (${template.weekly_target}x)` : ""}`;
   }
 
-  if (profile.display_name) {
-    return profile.display_name;
-  }
-
-  return "Brother";
+  return "Daily";
 }
 
-function getFullName(profile: ProfileRow) {
-  if (profile.first_name && profile.last_name) {
-    return `${profile.first_name} ${profile.last_name}`;
+function buildWeeklyQuotaProgress(
+  tasks: PlanDayTaskRow[],
+  completionIds: Set<number>
+): WeeklyQuotaProgressRow[] {
+  const grouped = new Map<number, PlanDayTaskRow[]>();
+
+  for (const task of tasks) {
+    if (task.task_templates?.cadence !== "weekly_quota") {
+      continue;
+    }
+
+    const existing = grouped.get(task.task_template_id) ?? [];
+    existing.push(task);
+    grouped.set(task.task_template_id, existing);
   }
 
-  if (profile.display_name) {
-    return profile.display_name;
-  }
+  return Array.from(grouped.entries())
+    .map(([templateId, groupedTasks]) => {
+      const template = groupedTasks[0]?.task_templates;
 
-  if (profile.first_name) {
-    return profile.first_name;
-  }
-
-  return "Brother";
+      return {
+        templateId,
+        title: template?.title || "Untitled Task",
+        description: template?.description || null,
+        target: template?.weekly_target ?? 1,
+        completedCount: groupedTasks.filter((task) => completionIds.has(task.id)).length,
+        assignedCount: groupedTasks.length,
+      };
+    })
+    .sort((a, b) => a.title.localeCompare(b.title));
 }
 
-export default async function BrotherhoodPage() {
+export default async function ThisWeekPage() {
   const supabase = await createClient();
 
   const {
@@ -96,7 +111,7 @@ export default async function BrotherhoodPage() {
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Brotherhood
+              This Week
             </h1>
             <p className="mt-4 text-sm text-zinc-300 sm:text-base">
               No active challenge plan was found. Add or activate a plan in
@@ -109,26 +124,25 @@ export default async function BrotherhoodPage() {
   }
 
   const challenge = getChallengeTiming(activePlan.total_days);
-  const currentDayNumber = challenge.currentDayNumber;
 
-  const { data: planDay, error: planDayError } = await supabase
+  const { data: weekDaysData, error: weekDaysError } = await supabase
     .from("plan_days")
-    .select("id, day_number, title")
+    .select("id, day_number, title, reflection_prompt")
     .eq("plan_id", activePlan.id)
-    .eq("day_number", currentDayNumber)
-    .maybeSingle();
+    .gte("day_number", challenge.weekStartDay)
+    .lte("day_number", challenge.weekEndDay)
+    .order("day_number", { ascending: true });
 
-  if (planDayError || !planDay) {
+  if (weekDaysError || !weekDaysData || weekDaysData.length === 0) {
     return (
       <main className="min-h-screen bg-black text-white">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Brotherhood
+              This Week
             </h1>
             <p className="mt-4 text-sm text-zinc-300 sm:text-base">
-              Day {currentDayNumber} has not been created for the active plan
-              yet.
+              No days were found for this week in the active plan yet.
             </p>
           </div>
         </div>
@@ -136,171 +150,98 @@ export default async function BrotherhoodPage() {
     );
   }
 
-  const { data: rawTasks, error: tasksError } = await supabase
-    .from("plan_day_tasks")
-    .select(
-      `
-        id,
-        is_required,
-        sort_order,
-        task_templates (
-          id,
-          slug,
-          title,
-          description
+  const weekDays = (weekDaysData ?? []) as PlanDayRow[];
+  const weekDayIds = weekDays.map((day) => day.id);
+
+  const { data: weekTasksData, error: weekTasksError } = weekDayIds.length
+    ? await supabase
+        .from("plan_day_tasks")
+        .select(
+          `
+            id,
+            plan_day_id,
+            is_required,
+            sort_order,
+            task_template_id,
+            task_templates (
+              id,
+              slug,
+              title,
+              description,
+              cadence,
+              weekly_target
+            )
+          `
         )
-      `
+        .in("plan_day_id", weekDayIds)
+        .order("sort_order", { ascending: true })
+    : { data: [], error: null };
+
+  if (weekTasksError) {
+    return (
+      <main className="min-h-screen bg-black text-white">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              This Week
+            </h1>
+            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
+              There was a problem loading this week&apos;s tasks.
+            </p>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  const weekTasks = (weekTasksData ?? []) as unknown as PlanDayTaskRow[];
+  const weekTaskIds = weekTasks.map((task) => task.id);
+
+  const { data: completionsData } = weekTaskIds.length
+    ? await supabase
+        .from("user_task_completions")
+        .select("plan_day_task_id")
+        .eq("user_id", user.id)
+        .in("plan_day_task_id", weekTaskIds)
+    : { data: [] };
+
+  const completionIds = new Set(
+    ((completionsData ?? []) as UserTaskCompletionRow[]).map(
+      (completion) => completion.plan_day_task_id
     )
-    .eq("plan_day_id", planDay.id)
-    .order("sort_order", { ascending: true });
+  );
 
-  if (tasksError) {
-    return (
-      <main className="min-h-screen bg-black text-white">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Brotherhood
-            </h1>
-            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
-              There was a problem loading today&apos;s tasks.
-            </p>
-          </div>
-        </div>
-      </main>
-    );
-  }
+  const weeklyQuotaProgress = buildWeeklyQuotaProgress(weekTasks, completionIds);
 
-  const tasks = (rawTasks ?? []) as unknown as PlanDayTaskRow[];
-  const requiredTaskIds = tasks
-    .filter((task) => task.is_required)
-    .map((task) => task.id);
-  const optionalTaskIds = tasks
-    .filter((task) => !task.is_required)
-    .map((task) => task.id);
-  const allTaskIds = tasks.map((task) => task.id);
+  const requiredDailyTasks = weekTasks.filter(
+    (task) =>
+      task.task_templates?.cadence !== "weekly_quota" && task.is_required
+  );
 
-  const { data: rawProfiles, error: profilesError } = await supabase
-    .from("profiles")
-    .select("id, display_name, first_name, last_name")
-    .order("first_name", { ascending: true });
+  const optionalDailyTasks = weekTasks.filter(
+    (task) =>
+      task.task_templates?.cadence !== "weekly_quota" && !task.is_required
+  );
 
-  if (profilesError) {
-    return (
-      <main className="min-h-screen bg-black text-white">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Brotherhood
-            </h1>
-            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
-              There was a problem loading the brotherhood.
-            </p>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
-  const profiles = (rawProfiles ?? []) as ProfileRow[];
-
-  if (profiles.length === 0) {
-    return (
-      <main className="min-h-screen bg-black text-white">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
-              {activePlan.name}
-            </p>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Brotherhood
-            </h1>
-            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
-              No members are showing yet because no profiles have been created.
-            </p>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
-  const profileIds = profiles.map((profile) => profile.id);
-
-  const { data: rawCompletions, error: completionsError } =
-    profileIds.length > 0 && allTaskIds.length > 0
-      ? await supabase
-          .from("user_task_completions")
-          .select("id, user_id, plan_day_task_id, completed_at")
-          .in("user_id", profileIds)
-          .in("plan_day_task_id", allTaskIds)
-      : { data: [], error: null };
-
-  if (completionsError) {
-    return (
-      <main className="min-h-screen bg-black text-white">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Brotherhood
-            </h1>
-            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
-              There was a problem loading member completion data.
-            </p>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
-  const completions = (rawCompletions ?? []) as UserTaskCompletionRow[];
-
-  const members: MemberStatusRow[] = profiles.map((profile) => {
-    const memberCompletions = completions.filter(
-      (completion) => completion.user_id === profile.id && completion.completed_at
-    );
-
-    const completedTaskIds = new Set(
-      memberCompletions.map((completion) => completion.plan_day_task_id)
-    );
-
-    const requiredCompleted = requiredTaskIds.filter((taskId) =>
-      completedTaskIds.has(taskId)
-    ).length;
-
-    const optionalCompleted = optionalTaskIds.filter((taskId) =>
-      completedTaskIds.has(taskId)
-    ).length;
-
-    let status: "Not started" | "In progress" | "Completed" = "Not started";
-
-    if (requiredTaskIds.length > 0 && requiredCompleted === requiredTaskIds.length) {
-      status = "Completed";
-    } else if (requiredCompleted > 0 || optionalCompleted > 0) {
-      status = "In progress";
-    }
-
-    if (!challenge.hasStarted) {
-      status = "Not started";
-    }
-
-    return {
-      id: profile.id,
-      displayName: getBrotherhoodName(profile),
-      fullName: getFullName(profile),
-      status,
-      requiredCompleted: challenge.hasStarted ? requiredCompleted : 0,
-      requiredTotal: requiredTaskIds.length,
-      optionalCompleted: challenge.hasStarted ? optionalCompleted : 0,
-      optionalTotal: optionalTaskIds.length,
-    };
-  });
-
-  const startedToday = members.filter(
-    (member) => member.status !== "Not started"
+  const completedRequiredDailyCount = requiredDailyTasks.filter((task) =>
+    completionIds.has(task.id)
   ).length;
-  const completedToday = members.filter(
-    (member) => member.status === "Completed"
+
+  const completedOptionalDailyCount = optionalDailyTasks.filter((task) =>
+    completionIds.has(task.id)
   ).length;
+
+  const completedWeeklyQuotaGoals = weeklyQuotaProgress.filter(
+    (quota) => quota.completedCount >= quota.target
+  ).length;
+
+  const tasksByDayId = new Map<number, PlanDayTaskRow[]>();
+
+  for (const task of weekTasks) {
+    const existing = tasksByDayId.get(task.plan_day_id) ?? [];
+    existing.push(task);
+    tasksByDayId.set(task.plan_day_id, existing);
+  }
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -311,8 +252,8 @@ export default async function BrotherhoodPage() {
               The challenge begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              Brotherhood statuses will go live on launch day. For now,
-              everyone is shown as pre-start.
+              You&apos;re previewing Week 1 right now. Weekly quota tasks are
+              shown, but completion stays locked until launch day.
             </p>
           </div>
         )}
@@ -323,10 +264,16 @@ export default async function BrotherhoodPage() {
               The 90-day challenge is complete.
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              You&apos;re viewing final-day accountability.
+              You&apos;re viewing the final week of the challenge.
             </p>
           </div>
         )}
+
+        <div className="mb-5">
+          <p className="break-all text-sm text-zinc-400 sm:break-normal">
+            Signed in as {user.email}
+          </p>
+        </div>
 
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -334,11 +281,11 @@ export default async function BrotherhoodPage() {
               {activePlan.name}
             </p>
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Brotherhood
+              This Week
             </h1>
             <p className="mt-3 max-w-3xl text-sm text-zinc-300 sm:text-base">
-              Keep track of one another and see who has started, who is in
-              progress, and who has completed today.
+              Weekly quota tasks are flexible by day, but still required across
+              the full week. Daily required tasks remain tied to each day.
             </p>
           </div>
 
@@ -353,7 +300,7 @@ export default async function BrotherhoodPage() {
               href="/today"
               className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
             >
-              Go to Today
+              View Today
             </Link>
           </div>
         </div>
@@ -361,98 +308,297 @@ export default async function BrotherhoodPage() {
         <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Current Day
+              Week Range
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              Day {planDay.day_number}
+              {challenge.weekStartDay}-{challenge.weekEndDay}
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              {!challenge.hasStarted
-                ? `${planDay.title || `Day ${planDay.day_number}`} Preview`
-                : planDay.title || `Day ${planDay.day_number}`}
+              Days in the current challenge week.
             </p>
           </div>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Members
+              Required Daily Progress
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {members.length}
+              {completedRequiredDailyCount}/{requiredDailyTasks.length}
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              Men currently in the brotherhood.
+              Daily obligations completed this week so far.
             </p>
           </div>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Started Today
+              Weekly Quotas Met
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {startedToday}
+              {completedWeeklyQuotaGoals}/{weeklyQuotaProgress.length}
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              Men who have begun today&apos;s disciplines.
+              Flexible weekly goals currently reached.
             </p>
           </div>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Completed Today
+              Optional Daily Completed
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {completedToday}
+              {completedOptionalDailyCount}/{optionalDailyTasks.length}
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              Men who finished all required tasks.
+              Good extra disciplines completed this week.
             </p>
           </div>
         </div>
 
-        <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+        <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
           <div className="mb-5">
             <h2 className="text-xl font-semibold sm:text-2xl">
-              Today&apos;s Member Status
+              Weekly Quota Progress
             </h2>
             <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-              First name plus last initial for clarity while keeping things
-              clean.
+              These disciplines can be completed on any assigned day in the week.
             </p>
           </div>
 
-          <div className="space-y-3">
-            {members.map((member) => (
-              <div
-                key={member.id}
-                className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
-              >
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                  <div className="min-w-0">
-                    <p className="truncate font-medium text-white">
-                      {member.displayName}
-                    </p>
-                    <p className="mt-1 break-words text-xs text-zinc-500 sm:text-sm">
-                      {member.fullName}
-                    </p>
+          {weeklyQuotaProgress.length === 0 ? (
+            <p className="text-sm text-zinc-400 sm:text-base">
+              No weekly quota tasks are configured for this week.
+            </p>
+          ) : (
+            <div className="grid gap-4 lg:grid-cols-2">
+              {weeklyQuotaProgress.map((quota) => (
+                <div
+                  key={quota.templateId}
+                  className="rounded-xl border border-zinc-800 bg-black p-4"
+                >
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <p className="font-medium text-white">{quota.title}</p>
+                      <p className="mt-1 text-sm text-zinc-400">
+                        {quota.description ||
+                          "Counts toward your weekly target instead of one required day."}
+                      </p>
+                    </div>
+
+                    <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                      {Math.min(quota.completedCount, quota.target)}/{quota.target}
+                    </span>
                   </div>
 
-                  <div className="flex flex-col gap-2 text-sm sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
-                    <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
-                      {member.status}
+                  <div className="mt-4 h-2 w-full rounded-full bg-zinc-800">
+                    <div
+                      className="h-2 rounded-full bg-white"
+                      style={{
+                        width: `${Math.min(
+                          100,
+                          (quota.completedCount / quota.target) * 100
+                        )}%`,
+                      }}
+                    />
+                  </div>
+
+                  <p className="mt-3 text-sm text-zinc-300">
+                    Available on {quota.assignedCount} assigned day
+                    {quota.assignedCount === 1 ? "" : "s"} this week.
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <div className="space-y-6">
+          {weekDays.map((day) => {
+            const dayTasks = tasksByDayId.get(day.id) ?? [];
+            const requiredDaily = dayTasks.filter(
+              (task) =>
+                task.task_templates?.cadence !== "weekly_quota" && task.is_required
+            );
+            const optionalDaily = dayTasks.filter(
+              (task) =>
+                task.task_templates?.cadence !== "weekly_quota" && !task.is_required
+            );
+            const availableWeeklyQuota = dayTasks.filter(
+              (task) => task.task_templates?.cadence === "weekly_quota"
+            );
+
+            return (
+              <section
+                key={day.id}
+                className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6"
+              >
+                <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
+                      Day {day.day_number}
+                    </p>
+                    <h2 className="mt-2 text-xl font-semibold sm:text-2xl">
+                      {day.title || `Day ${day.day_number}`}
+                    </h2>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
+                    <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                      {requiredDaily.length} Required Daily
                     </span>
-                    <span className="text-xs text-zinc-300 sm:text-sm">
-                      Required: {member.requiredCompleted}/{member.requiredTotal}
+                    <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                      {availableWeeklyQuota.length} Weekly Quota
                     </span>
-                    <span className="text-xs text-zinc-500 sm:text-sm">
-                      Optional: {member.optionalCompleted}/{member.optionalTotal}
+                    <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                      {optionalDaily.length} Optional Daily
                     </span>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
+
+                <div className="grid gap-6 xl:grid-cols-3">
+                  <div>
+                    <h3 className="mb-3 text-base font-semibold sm:text-lg">
+                      Required Daily
+                    </h3>
+
+                    {requiredDaily.length === 0 ? (
+                      <p className="text-sm text-zinc-400 sm:text-base">
+                        No required daily tasks.
+                      </p>
+                    ) : (
+                      <div className="space-y-3">
+                        {requiredDaily.map((task) => {
+                          const isCompleted = completionIds.has(task.id);
+
+                          return (
+                            <div
+                              key={task.id}
+                              className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
+                            >
+                              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                                <div className="min-w-0">
+                                  <p className="font-medium text-white">
+                                    {task.task_templates?.title || "Untitled Task"}
+                                  </p>
+                                  {task.task_templates?.description && (
+                                    <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
+                                      {task.task_templates.description}
+                                    </p>
+                                  )}
+                                </div>
+
+                                <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                                  {isCompleted ? "Completed" : "Open"}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    <h3 className="mb-3 text-base font-semibold sm:text-lg">
+                      Weekly Quota Available
+                    </h3>
+
+                    {availableWeeklyQuota.length === 0 ? (
+                      <p className="text-sm text-zinc-400 sm:text-base">
+                        No weekly quota tasks available this day.
+                      </p>
+                    ) : (
+                      <div className="space-y-3">
+                        {availableWeeklyQuota.map((task) => {
+                          const isCompleted = completionIds.has(task.id);
+                          const quota = weeklyQuotaProgress.find(
+                            (progress) => progress.templateId === task.task_template_id
+                          );
+
+                          return (
+                            <div
+                              key={task.id}
+                              className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
+                            >
+                              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                                <div className="min-w-0">
+                                  <p className="font-medium text-white">
+                                    {task.task_templates?.title || "Untitled Task"}
+                                  </p>
+                                  <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
+                                    {quota
+                                      ? `${Math.min(quota.completedCount, quota.target)}/${quota.target} this week`
+                                      : cadenceLabel(task.task_templates)}
+                                  </p>
+                                </div>
+
+                                <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                                  {isCompleted ? "Completed Today" : "Available Today"}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    <h3 className="mb-3 text-base font-semibold sm:text-lg">
+                      Optional Daily
+                    </h3>
+
+                    {optionalDaily.length === 0 ? (
+                      <p className="text-sm text-zinc-400 sm:text-base">
+                        No optional daily tasks.
+                      </p>
+                    ) : (
+                      <div className="space-y-3">
+                        {optionalDaily.map((task) => {
+                          const isCompleted = completionIds.has(task.id);
+
+                          return (
+                            <div
+                              key={task.id}
+                              className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
+                            >
+                              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                                <div className="min-w-0">
+                                  <p className="font-medium text-white">
+                                    {task.task_templates?.title || "Untitled Task"}
+                                  </p>
+                                  {task.task_templates?.description && (
+                                    <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
+                                      {task.task_templates.description}
+                                    </p>
+                                  )}
+                                </div>
+
+                                <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                                  {isCompleted ? "Completed" : "Open"}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-6 rounded-xl border border-zinc-800 bg-black px-4 py-4">
+                  <h3 className="text-base font-semibold sm:text-lg">
+                    Reflection Prompt
+                  </h3>
+                  <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+                    {day.reflection_prompt ||
+                      "No reflection prompt has been assigned for this day yet."}
+                  </p>
+                </div>
+              </section>
+            );
+          })}
+        </div>
       </div>
     </main>
   );

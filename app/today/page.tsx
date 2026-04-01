@@ -1,30 +1,114 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
-import TodayTaskToggle from "@/components/today-task-toggle";
 import { getChallengeTiming } from "@/lib/challenge";
+
+type TaskTemplateCadence = "daily" | "weekly_quota";
+
+type TaskTemplateRow = {
+  id: number;
+  slug: string;
+  title: string;
+  description: string | null;
+  cadence: TaskTemplateCadence;
+  weekly_target: number | null;
+};
 
 type PlanDayTaskRow = {
   id: number;
+  plan_day_id: number;
   is_required: boolean;
   sort_order: number;
-  task_templates: {
-    id: number;
-    slug: string;
-    title: string;
-    description: string | null;
-  } | null;
+  task_template_id: number;
+  task_templates: TaskTemplateRow | null;
+};
+
+type PlanDayRow = {
+  id: number;
+  day_number: number;
+  title: string | null;
+  reflection_prompt: string | null;
 };
 
 type UserTaskCompletionRow = {
-  id: number;
   plan_day_task_id: number;
-  completed_at: string | null;
 };
 
-type TaskWithCompletion = PlanDayTaskRow & {
-  isCompleted: boolean;
+type WeeklyProgress = {
+  completedCount: number;
+  target: number;
+  assignedCount: number;
 };
+
+function cadenceLabel(template?: TaskTemplateRow | null) {
+  if (!template) {
+    return "Daily";
+  }
+
+  if (template.cadence === "weekly_quota") {
+    return `Weekly quota${template.weekly_target ? ` (${template.weekly_target}x)` : ""}`;
+  }
+
+  return "Daily";
+}
+
+function uniqueNumbers(values: number[]) {
+  return Array.from(new Set(values));
+}
+
+async function toggleTaskCompletion(formData: FormData) {
+  "use server";
+
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    redirect("/auth/login");
+  }
+
+  const planDayTaskId = Number(formData.get("plan_day_task_id"));
+  const isPreview = formData.get("is_preview") === "true";
+
+  if (!Number.isFinite(planDayTaskId)) {
+    revalidatePath("/today");
+    return;
+  }
+
+  if (isPreview) {
+    revalidatePath("/today");
+    return;
+  }
+
+  const { data: existingCompletion } = await supabase
+    .from("user_task_completions")
+    .select("plan_day_task_id")
+    .eq("user_id", user.id)
+    .eq("plan_day_task_id", planDayTaskId)
+    .maybeSingle();
+
+  if (existingCompletion) {
+    await supabase
+      .from("user_task_completions")
+      .delete()
+      .eq("user_id", user.id)
+      .eq("plan_day_task_id", planDayTaskId);
+  } else {
+    await supabase.from("user_task_completions").insert({
+      user_id: user.id,
+      plan_day_task_id: planDayTaskId,
+    });
+  }
+
+  revalidatePath("/today");
+  revalidatePath("/this-week");
+  revalidatePath("/dashboard");
+  revalidatePath("/brotherhood");
+}
 
 export default async function TodayPage() {
   const supabase = await createClient();
@@ -47,9 +131,11 @@ export default async function TodayPage() {
   if (activePlanError || !activePlan) {
     return (
       <main className="min-h-screen bg-black text-white">
-        <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Today</h1>
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Today
+            </h1>
             <p className="mt-4 text-sm text-zinc-300 sm:text-base">
               No active challenge plan was found. Add or activate a plan in
               Supabase before using this page.
@@ -61,24 +147,27 @@ export default async function TodayPage() {
   }
 
   const challenge = getChallengeTiming(activePlan.total_days);
-  const currentDayNumber = challenge.currentDayNumber;
+  const selectedDay = challenge.hasStarted
+    ? challenge.currentDayNumber
+    : 1;
 
   const { data: planDay, error: planDayError } = await supabase
     .from("plan_days")
     .select("id, day_number, title, reflection_prompt")
     .eq("plan_id", activePlan.id)
-    .eq("day_number", currentDayNumber)
+    .eq("day_number", selectedDay)
     .maybeSingle();
 
   if (planDayError || !planDay) {
     return (
       <main className="min-h-screen bg-black text-white">
-        <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Today</h1>
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Today
+            </h1>
             <p className="mt-4 text-sm text-zinc-300 sm:text-base">
-              Day {currentDayNumber} has not been created for the active plan
-              yet.
+              Day {selectedDay} has not been created for the active plan yet.
             </p>
           </div>
         </div>
@@ -86,18 +175,22 @@ export default async function TodayPage() {
     );
   }
 
-  const { data: rawTasks, error: tasksError } = await supabase
+  const { data: planDayTasksData, error: tasksError } = await supabase
     .from("plan_day_tasks")
     .select(
       `
         id,
+        plan_day_id,
         is_required,
         sort_order,
+        task_template_id,
         task_templates (
           id,
           slug,
           title,
-          description
+          description,
+          cadence,
+          weekly_target
         )
       `
     )
@@ -107,9 +200,11 @@ export default async function TodayPage() {
   if (tasksError) {
     return (
       <main className="min-h-screen bg-black text-white">
-        <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Today</h1>
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Today
+            </h1>
             <p className="mt-4 text-sm text-zinc-300 sm:text-base">
               There was a problem loading today&apos;s tasks.
             </p>
@@ -119,90 +214,148 @@ export default async function TodayPage() {
     );
   }
 
-  const tasks = (rawTasks ?? []) as unknown as PlanDayTaskRow[];
-  const taskIds = tasks.map((task) => task.id);
+  const todayTasks = (planDayTasksData ?? []) as unknown as PlanDayTaskRow[];
+  const todayTaskIds = todayTasks.map((task) => task.id);
 
-  const { data: rawCompletions, error: completionsError } = taskIds.length
+  const { data: todayCompletionsData } = todayTaskIds.length
     ? await supabase
         .from("user_task_completions")
-        .select("id, plan_day_task_id, completed_at")
+        .select("plan_day_task_id")
         .eq("user_id", user.id)
-        .in("plan_day_task_id", taskIds)
-    : { data: [], error: null };
+        .in("plan_day_task_id", todayTaskIds)
+    : { data: [] };
 
-  if (completionsError) {
-    return (
-      <main className="min-h-screen bg-black text-white">
-        <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Today</h1>
-            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
-              There was a problem loading your completion data.
-            </p>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
-  const completions = (rawCompletions ?? []) as UserTaskCompletionRow[];
-  const completionMap = new Map(
-    completions.map((completion) => [
-      completion.plan_day_task_id,
-      Boolean(completion.completed_at),
-    ])
+  const todayCompletionIds = new Set(
+    ((todayCompletionsData ?? []) as UserTaskCompletionRow[]).map(
+      (completion) => completion.plan_day_task_id
+    )
   );
 
-  const tasksWithCompletion: TaskWithCompletion[] = tasks.map((task) => ({
-    ...task,
-    isCompleted: challenge.hasStarted
-      ? completionMap.get(task.id) ?? false
-      : false,
-  }));
+  const weeklyQuotaTemplateIds = uniqueNumbers(
+    todayTasks
+      .filter((task) => task.task_templates?.cadence === "weekly_quota")
+      .map((task) => task.task_template_id)
+  );
 
-  const requiredTasks = tasksWithCompletion.filter((task) => task.is_required);
-  const optionalTasks = tasksWithCompletion.filter((task) => !task.is_required);
+  let weeklyProgressByTemplateId = new Map<number, WeeklyProgress>();
 
-  const requiredCompletedCount = requiredTasks.filter(
-    (task) => task.isCompleted
-  ).length;
-  const optionalCompletedCount = optionalTasks.filter(
-    (task) => task.isCompleted
-  ).length;
+  if (weeklyQuotaTemplateIds.length > 0) {
+    const { data: weekDaysData } = await supabase
+      .from("plan_days")
+      .select("id, day_number, title, reflection_prompt")
+      .eq("plan_id", activePlan.id)
+      .gte("day_number", challenge.weekStartDay)
+      .lte("day_number", challenge.weekEndDay)
+      .order("day_number", { ascending: true });
 
-  const totalTaskCount = tasksWithCompletion.length;
-  const totalCompletedCount = tasksWithCompletion.filter(
-    (task) => task.isCompleted
-  ).length;
+    const weekDays = (weekDaysData ?? []) as PlanDayRow[];
+    const weekDayIds = weekDays.map((day) => day.id);
 
-  const percentComplete =
-    totalTaskCount > 0
-      ? Math.round((totalCompletedCount / totalTaskCount) * 100)
-      : 0;
+    const { data: weekTasksData } = weekDayIds.length
+      ? await supabase
+          .from("plan_day_tasks")
+          .select(
+            `
+              id,
+              plan_day_id,
+              is_required,
+              sort_order,
+              task_template_id,
+              task_templates (
+                id,
+                slug,
+                title,
+                description,
+                cadence,
+                weekly_target
+              )
+            `
+          )
+          .in("plan_day_id", weekDayIds)
+          .in("task_template_id", weeklyQuotaTemplateIds)
+      : { data: [] };
 
-  let dayStatus = "Not started";
-  if (!challenge.hasStarted) {
-    dayStatus = "Pre-start";
-  } else if (
-    requiredTasks.length > 0 &&
-    requiredCompletedCount === requiredTasks.length
-  ) {
-    dayStatus = "Completed";
-  } else if (totalCompletedCount > 0) {
-    dayStatus = "In progress";
+    const weekTasks = (weekTasksData ?? []) as unknown as PlanDayTaskRow[];
+    const weekTaskIds = weekTasks.map((task) => task.id);
+
+    const { data: weekCompletionsData } = weekTaskIds.length
+      ? await supabase
+          .from("user_task_completions")
+          .select("plan_day_task_id")
+          .eq("user_id", user.id)
+          .in("plan_day_task_id", weekTaskIds)
+      : { data: [] };
+
+    const weekCompletionIds = new Set(
+      ((weekCompletionsData ?? []) as UserTaskCompletionRow[]).map(
+        (completion) => completion.plan_day_task_id
+      )
+    );
+
+    const grouped = new Map<number, PlanDayTaskRow[]>();
+
+    for (const task of weekTasks) {
+      const existing = grouped.get(task.task_template_id) ?? [];
+      existing.push(task);
+      grouped.set(task.task_template_id, existing);
+    }
+
+    for (const [templateId, tasks] of grouped.entries()) {
+      const template = tasks[0]?.task_templates;
+      const target =
+        template?.cadence === "weekly_quota"
+          ? template.weekly_target ?? 1
+          : 0;
+
+      const completedCount = tasks.filter((task) =>
+        weekCompletionIds.has(task.id)
+      ).length;
+
+      weeklyProgressByTemplateId.set(templateId, {
+        completedCount,
+        target,
+        assignedCount: tasks.length,
+      });
+    }
   }
+
+  const requiredDailyTasks = todayTasks.filter(
+    (task) =>
+      task.task_templates?.cadence !== "weekly_quota" && task.is_required
+  );
+
+  const weeklyQuotaTasks = todayTasks.filter(
+    (task) => task.task_templates?.cadence === "weekly_quota"
+  );
+
+  const optionalDailyTasks = todayTasks.filter(
+    (task) =>
+      task.task_templates?.cadence !== "weekly_quota" && !task.is_required
+  );
+
+  const completedTodayCount = todayTasks.filter((task) =>
+    todayCompletionIds.has(task.id)
+  ).length;
+
+  const completedRequiredDailyCount = requiredDailyTasks.filter((task) =>
+    todayCompletionIds.has(task.id)
+  ).length;
+
+  const requiredDailyComplete =
+    requiredDailyTasks.length > 0 &&
+    completedRequiredDailyCount === requiredDailyTasks.length;
 
   return (
     <main className="min-h-screen bg-black text-white">
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         {!challenge.hasStarted && (
           <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <p className="text-base font-semibold text-white sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              You&apos;re currently previewing Day 1. Task completion is locked
-              until launch day.
+              You are in preview mode right now. You can review Day 1, but task
+              completion will stay locked until launch day.
             </p>
           </div>
         )}
@@ -210,35 +363,48 @@ export default async function TodayPage() {
         {challenge.isComplete && (
           <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <p className="text-base font-semibold text-white sm:text-lg">
-              The 90-day challenge is complete.
+              The challenge is complete.
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              You&apos;re viewing the final day of the challenge.
+              You are viewing the final day of the challenge.
             </p>
           </div>
         )}
 
-        <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-5">
           <p className="break-all text-sm text-zinc-400 sm:break-normal">
             Signed in as {user.email}
           </p>
-
-          <Link
-            href="/this-week"
-            className="rounded-lg border border-zinc-700 px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-zinc-900"
-          >
-            This Week Preview
-          </Link>
         </div>
 
-        <div className="mb-8">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
-            {activePlan.name}
-          </p>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Today</h1>
-          <p className="mt-3 max-w-2xl text-sm text-zinc-300 sm:text-base">
-            Focus on what is in front of you. One faithful day at a time.
-          </p>
+        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
+              {activePlan.name}
+            </p>
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Today
+            </h1>
+            <p className="mt-3 max-w-3xl text-sm text-zinc-300 sm:text-base">
+              Daily disciplines still matter, but flexible weekly quota tasks
+              now count toward the full week instead of forcing one exact day.
+            </p>
+          </div>
+
+          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]">
+            <Link
+              href="/dashboard"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+            >
+              Back to Dashboard
+            </Link>
+            <Link
+              href="/this-week"
+              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
+            >
+              View This Week
+            </Link>
+          </div>
         </div>
 
         <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -247,95 +413,158 @@ export default async function TodayPage() {
               Current Day
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              Day {planDay.day_number}
+              Day {selectedDay}
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              {!challenge.hasStarted
-                ? `${planDay.title || `Day ${planDay.day_number}`} Preview`
-                : planDay.title || `Day ${planDay.day_number}`}
+              {planDay.title || `Day ${selectedDay}`}
             </p>
           </div>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Day Status
+              Required Daily
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {dayStatus}
+              {completedRequiredDailyCount}/{requiredDailyTasks.length}
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              Required tasks drive completion.
+              {requiredDailyComplete
+                ? "All daily required tasks completed."
+                : "Daily required tasks still remaining."}
             </p>
           </div>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Required Progress
+              Weekly Quota Tasks
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {requiredCompletedCount}/{requiredTasks.length}
+              {weeklyQuotaTasks.length}
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              {requiredTasks.length === 0
-                ? "No required tasks today."
-                : "Required tasks completed."}
+              Available today and counted across the full week.
             </p>
           </div>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Overall Progress
+              Completed Today
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {percentComplete}%
+              {completedTodayCount}/{todayTasks.length}
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              {totalCompletedCount}/{totalTaskCount} tasks completed.
+              Total tasks marked complete on this day.
             </p>
           </div>
         </div>
 
-        <div className="grid gap-6">
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h2 className="text-xl font-semibold sm:text-2xl">
-                  Required Today
-                </h2>
-                <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-                  {challenge.hasStarted
-                    ? "Click each task to mark it complete or undo it."
-                    : "Preview only until launch day."}
-                </p>
-              </div>
+        <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
+            Day {planDay.day_number}
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold sm:text-3xl">
+            {planDay.title || `Day ${planDay.day_number}`}
+          </h2>
 
-              <Link
-                href="/this-week"
-                className="rounded-lg border border-zinc-700 px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-zinc-900"
-              >
-                View This Week
-              </Link>
+          <div className="mt-4 grid gap-4 xl:grid-cols-2">
+            <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
+              <h3 className="text-base font-semibold sm:text-lg">
+                Reflection Prompt
+              </h3>
+              <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+                {planDay.reflection_prompt ||
+                  "No reflection prompt has been assigned for this day yet."}
+              </p>
             </div>
 
-            {requiredTasks.length === 0 ? (
+            <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
+              <h3 className="text-base font-semibold sm:text-lg">
+                Current Week
+              </h3>
+              <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+                Days {challenge.weekStartDay} through {challenge.weekEndDay}
+              </p>
+              <p className="mt-2 text-sm text-zinc-400 sm:text-base">
+                Weekly quota progress below is counted across this full range.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div className="grid gap-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+            <div className="mb-5">
+              <h2 className="text-xl font-semibold sm:text-2xl">
+                Required Daily Tasks
+              </h2>
+              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
+                These are the disciplines that still need to happen on this
+                specific day.
+              </p>
+            </div>
+
+            {requiredDailyTasks.length === 0 ? (
               <p className="text-sm text-zinc-400 sm:text-base">
-                No required tasks assigned today.
+                No required daily tasks are assigned today.
               </p>
             ) : (
-              <div className="space-y-3">
-                {requiredTasks.map((task) => (
-                  <TodayTaskToggle
-                    key={task.id}
-                    userId={user.id}
-                    planDayTaskId={task.id}
-                    title={task.task_templates?.title || "Untitled Task"}
-                    description={task.task_templates?.description}
-                    isRequired={true}
-                    initialCompleted={task.isCompleted}
-                    isLocked={!challenge.hasStarted}
-                    lockedMessage={`Preview only until ${challenge.startDateLabel}.`}
-                  />
-                ))}
+              <div className="space-y-4">
+                {requiredDailyTasks.map((task) => {
+                  const isCompleted = todayCompletionIds.has(task.id);
+
+                  return (
+                    <div
+                      key={task.id}
+                      className="rounded-xl border border-zinc-800 bg-black p-4"
+                    >
+                      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <p className="font-medium text-white">
+                              {task.task_templates?.title || "Untitled Task"}
+                            </p>
+                            <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                              Required
+                            </span>
+                            <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                              {cadenceLabel(task.task_templates)}
+                            </span>
+                          </div>
+
+                          <p className="mt-2 text-sm text-zinc-400 sm:text-base">
+                            {task.task_templates?.description ||
+                              "No description provided for this task."}
+                          </p>
+                        </div>
+
+                        <form action={toggleTaskCompletion}>
+                          <input
+                            type="hidden"
+                            name="plan_day_task_id"
+                            value={task.id}
+                          />
+                          <input
+                            type="hidden"
+                            name="is_preview"
+                            value={(!challenge.hasStarted).toString()}
+                          />
+                          <button
+                            type="submit"
+                            disabled={!challenge.hasStarted}
+                            className={`rounded-lg px-4 py-2 font-semibold transition ${
+                              isCompleted
+                                ? "bg-zinc-700 text-white hover:bg-zinc-600"
+                                : "bg-white text-black hover:bg-zinc-200"
+                            } disabled:cursor-not-allowed disabled:opacity-50`}
+                          >
+                            {isCompleted ? "Completed" : "Mark Complete"}
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </section>
@@ -343,66 +572,167 @@ export default async function TodayPage() {
           <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <div className="mb-5">
               <h2 className="text-xl font-semibold sm:text-2xl">
-                Optional Today
+                Weekly Quota Tasks
               </h2>
               <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-                {challenge.hasStarted
-                  ? "Helpful extras that support the path without being mandatory."
-                  : "Optional disciplines are also locked until launch day."}
+                These can be completed on whichever day works best, as long as
+                the weekly target is reached.
               </p>
             </div>
 
-            {optionalTasks.length === 0 ? (
+            {weeklyQuotaTasks.length === 0 ? (
               <p className="text-sm text-zinc-400 sm:text-base">
-                No optional tasks assigned today.
+                No weekly quota tasks are available today.
               </p>
             ) : (
-              <div className="space-y-3">
-                {optionalTasks.map((task) => (
-                  <TodayTaskToggle
-                    key={task.id}
-                    userId={user.id}
-                    planDayTaskId={task.id}
-                    title={task.task_templates?.title || "Untitled Task"}
-                    description={task.task_templates?.description}
-                    isRequired={false}
-                    initialCompleted={task.isCompleted}
-                    isLocked={!challenge.hasStarted}
-                    lockedMessage={`Preview only until ${challenge.startDateLabel}.`}
-                  />
-                ))}
+              <div className="space-y-4">
+                {weeklyQuotaTasks.map((task) => {
+                  const isCompleted = todayCompletionIds.has(task.id);
+                  const progress =
+                    weeklyProgressByTemplateId.get(task.task_template_id);
+                  const progressLabel = progress
+                    ? `${Math.min(progress.completedCount, progress.target)}/${progress.target}`
+                    : task.task_templates?.weekly_target
+                    ? `0/${task.task_templates.weekly_target}`
+                    : "0/1";
+
+                  return (
+                    <div
+                      key={task.id}
+                      className="rounded-xl border border-zinc-800 bg-black p-4"
+                    >
+                      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <p className="font-medium text-white">
+                              {task.task_templates?.title || "Untitled Task"}
+                            </p>
+                            <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                              Weekly quota
+                            </span>
+                            <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                              {progressLabel} this week
+                            </span>
+                          </div>
+
+                          <p className="mt-2 text-sm text-zinc-400 sm:text-base">
+                            {task.task_templates?.description ||
+                              "Counts toward your weekly target instead of a fixed-day requirement."}
+                          </p>
+
+                          <p className="mt-3 text-sm text-zinc-300 sm:text-base">
+                            Weekly target:{" "}
+                            <span className="font-semibold text-white">
+                              {task.task_templates?.weekly_target ?? 1}
+                            </span>
+                          </p>
+                        </div>
+
+                        <form action={toggleTaskCompletion}>
+                          <input
+                            type="hidden"
+                            name="plan_day_task_id"
+                            value={task.id}
+                          />
+                          <input
+                            type="hidden"
+                            name="is_preview"
+                            value={(!challenge.hasStarted).toString()}
+                          />
+                          <button
+                            type="submit"
+                            disabled={!challenge.hasStarted}
+                            className={`rounded-lg px-4 py-2 font-semibold transition ${
+                              isCompleted
+                                ? "bg-zinc-700 text-white hover:bg-zinc-600"
+                                : "bg-white text-black hover:bg-zinc-200"
+                            } disabled:cursor-not-allowed disabled:opacity-50`}
+                          >
+                            {isCompleted ? "Completed Today" : "Count This Today"}
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </section>
 
           <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">
-              Reflection Prompt
-            </h2>
-            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
-              {planDay.reflection_prompt ||
-                "No reflection prompt has been assigned for today yet."}
-            </p>
-          </section>
+            <div className="mb-5">
+              <h2 className="text-xl font-semibold sm:text-2xl">
+                Optional Daily Tasks
+              </h2>
+              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
+                Good disciplines that help the path, but are not required for
+                this specific day.
+              </p>
+            </div>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">
-              How This Works
-            </h2>
-            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
-              Required tasks determine whether the day is complete. Optional
-              tasks do not block completion, but they still count toward your
-              overall progress.
-            </p>
-            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
-              {challenge.hasStarted
-                ? "You can also uncheck a task later the same day if you marked it by mistake."
-                : `Task completion is disabled until ${challenge.startDateLabel}.`}
-            </p>
-            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
-              Optional tasks completed today: {optionalCompletedCount}/
-              {optionalTasks.length}
-            </p>
+            {optionalDailyTasks.length === 0 ? (
+              <p className="text-sm text-zinc-400 sm:text-base">
+                No optional daily tasks are assigned today.
+              </p>
+            ) : (
+              <div className="space-y-4">
+                {optionalDailyTasks.map((task) => {
+                  const isCompleted = todayCompletionIds.has(task.id);
+
+                  return (
+                    <div
+                      key={task.id}
+                      className="rounded-xl border border-zinc-800 bg-black p-4"
+                    >
+                      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <p className="font-medium text-white">
+                              {task.task_templates?.title || "Untitled Task"}
+                            </p>
+                            <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                              Optional
+                            </span>
+                            <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                              {cadenceLabel(task.task_templates)}
+                            </span>
+                          </div>
+
+                          <p className="mt-2 text-sm text-zinc-400 sm:text-base">
+                            {task.task_templates?.description ||
+                              "No description provided for this task."}
+                          </p>
+                        </div>
+
+                        <form action={toggleTaskCompletion}>
+                          <input
+                            type="hidden"
+                            name="plan_day_task_id"
+                            value={task.id}
+                          />
+                          <input
+                            type="hidden"
+                            name="is_preview"
+                            value={(!challenge.hasStarted).toString()}
+                          />
+                          <button
+                            type="submit"
+                            disabled={!challenge.hasStarted}
+                            className={`rounded-lg px-4 py-2 font-semibold transition ${
+                              isCompleted
+                                ? "bg-zinc-700 text-white hover:bg-zinc-600"
+                                : "bg-white text-black hover:bg-zinc-200"
+                            } disabled:cursor-not-allowed disabled:opacity-50`}
+                          >
+                            {isCompleted ? "Completed" : "Mark Complete"}
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </section>
         </div>
       </div>

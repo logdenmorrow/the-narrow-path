@@ -7,18 +7,15 @@ import { getChallengeTiming } from "@/lib/challenge";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
-type PlanDayRow = {
-  id: number;
-  day_number: number;
-  title: string | null;
-  reflection_prompt: string | null;
-};
+type TaskTemplateCadence = "daily" | "weekly_quota";
 
 type TaskTemplateRow = {
   id: number;
   slug: string;
   title: string;
   description: string | null;
+  cadence: TaskTemplateCadence;
+  weekly_target: number | null;
 };
 
 type PlanDayTaskRow = {
@@ -31,6 +28,8 @@ type PlanDayTaskRow = {
     slug: string;
     title: string;
     description: string | null;
+    cadence: TaskTemplateCadence;
+    weekly_target: number | null;
   } | null;
 };
 
@@ -99,6 +98,37 @@ function createAdminClient() {
       autoRefreshToken: false,
     },
   });
+}
+
+function parseCadence(value: FormDataEntryValue | null): TaskTemplateCadence {
+  return value === "weekly_quota" ? "weekly_quota" : "daily";
+}
+
+function resolveWeeklyTarget(
+  rawValue: FormDataEntryValue | null,
+  cadence: TaskTemplateCadence
+) {
+  if (cadence === "daily") {
+    return null;
+  }
+
+  const parsed = Math.floor(Number(rawValue ?? 0));
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+}
+
+function cadenceLabel(template?: {
+  cadence: TaskTemplateCadence;
+  weekly_target: number | null;
+} | null) {
+  if (!template) {
+    return "Daily";
+  }
+
+  if (template.cadence === "weekly_quota") {
+    return `Weekly quota${template.weekly_target ? ` (${template.weekly_target}x)` : ""}`;
+  }
+
+  return "Daily";
 }
 
 async function requireAdminUser() {
@@ -256,6 +286,8 @@ async function createTaskTemplate(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim();
   const slugInput = String(formData.get("slug") ?? "").trim();
   const description = String(formData.get("description") ?? "").trim();
+  const cadence = parseCadence(formData.get("cadence"));
+  const weeklyTarget = resolveWeeklyTarget(formData.get("weekly_target"), cadence);
 
   if (!title) {
     revalidateAppPaths();
@@ -268,6 +300,8 @@ async function createTaskTemplate(formData: FormData) {
     title,
     slug,
     description: description || null,
+    cadence,
+    weekly_target: weeklyTarget,
   });
 
   revalidateAppPaths();
@@ -286,6 +320,8 @@ async function saveTaskTemplate(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim();
   const slugInput = String(formData.get("slug") ?? "").trim();
   const description = String(formData.get("description") ?? "").trim();
+  const cadence = parseCadence(formData.get("cadence"));
+  const weeklyTarget = resolveWeeklyTarget(formData.get("weekly_target"), cadence);
 
   if (!title) {
     revalidateAppPaths();
@@ -300,6 +336,8 @@ async function saveTaskTemplate(formData: FormData) {
       title,
       slug,
       description: description || null,
+      cadence,
+      weekly_target: weeklyTarget,
     })
     .eq("id", templateId);
 
@@ -573,7 +611,7 @@ export default async function AdminPlanPage({
 
   const { data: taskTemplatesData } = await supabase
     .from("task_templates")
-    .select("id, slug, title, description")
+    .select("id, slug, title, description, cadence, weekly_target")
     .order("title", { ascending: true });
 
   const taskTemplates = (taskTemplatesData ?? []) as TaskTemplateRow[];
@@ -591,7 +629,9 @@ export default async function AdminPlanPage({
               id,
               slug,
               title,
-              description
+              description,
+              cadence,
+              weekly_target
             )
           `
         )
@@ -618,6 +658,10 @@ export default async function AdminPlanPage({
     activePlan.total_days
   );
 
+  const weeklyQuotaTemplates = taskTemplates.filter(
+    (template) => template.cadence === "weekly_quota"
+  );
+
   return (
     <main className="min-h-screen bg-black text-white">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
@@ -630,8 +674,8 @@ export default async function AdminPlanPage({
               Admin Plan Editor
             </h1>
             <p className="mt-3 max-w-3xl text-sm text-zinc-300 sm:text-base">
-              Edit one day at a time, copy whole days or weeks, and tune task
-              templates without going back to raw SQL.
+              Edit days, assign tasks, and manage daily versus weekly quota
+              disciplines without dropping back into SQL.
             </p>
           </div>
 
@@ -737,13 +781,13 @@ export default async function AdminPlanPage({
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Live Week
+              Weekly Quota Templates
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {challenge.weekStartDay}-{challenge.weekEndDay}
+              {weeklyQuotaTemplates.length}
             </p>
             <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              Current week window
+              Flexible disciplines tracked across a full week.
             </p>
           </div>
         </div>
@@ -806,6 +850,47 @@ export default async function AdminPlanPage({
         </div>
 
         <div className="grid gap-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+            <div className="mb-5">
+              <h2 className="text-xl font-semibold sm:text-2xl">
+                Weekly Quota Notes
+              </h2>
+              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
+                A weekly quota task is not meant to be required on a specific
+                day. Assign it to the days you want it available, keep those day
+                instances optional, and the app will count completions toward the
+                week-wide target.
+              </p>
+            </div>
+
+            {weeklyQuotaTemplates.length === 0 ? (
+              <p className="text-sm text-zinc-400 sm:text-base">
+                No weekly quota templates exist yet.
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {weeklyQuotaTemplates.map((template) => (
+                  <div
+                    key={template.id}
+                    className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
+                  >
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <p className="font-medium text-white">{template.title}</p>
+                        <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
+                          {template.description || template.slug}
+                        </p>
+                      </div>
+                      <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                        {cadenceLabel(template)}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
           <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <div className="mb-5">
               <h2 className="text-xl font-semibold sm:text-2xl">
@@ -1007,11 +1092,18 @@ export default async function AdminPlanPage({
                     className="rounded-xl border border-zinc-800 bg-black p-4"
                   >
                     <div className="mb-3">
-                      <p className="font-medium text-white">
-                        {task.task_templates?.title || "Untitled Task"}
-                      </p>
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <p className="font-medium text-white">
+                          {task.task_templates?.title || "Untitled Task"}
+                        </p>
+                        <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                          {cadenceLabel(task.task_templates)}
+                        </span>
+                      </div>
                       <p className="mt-1 text-xs text-zinc-500 sm:text-sm">
-                        {task.task_templates?.description || task.task_templates?.slug}
+                        {task.task_templates?.description ||
+                          task.task_templates?.slug ||
+                          "No description"}
                       </p>
                     </div>
 
@@ -1113,6 +1205,9 @@ export default async function AdminPlanPage({
                     {availableTemplates.map((template) => (
                       <option key={template.id} value={template.id}>
                         {template.title}
+                        {template.cadence === "weekly_quota" && template.weekly_target
+                          ? ` (weekly ${template.weekly_target}x)`
+                          : ""}
                       </option>
                     ))}
                   </select>
@@ -1163,8 +1258,8 @@ export default async function AdminPlanPage({
                 Edit Task Templates
               </h2>
               <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-                Rename and refine templates here. Changes update everywhere the
-                template is used.
+                Rename templates, choose daily versus weekly quota behavior, and
+                set the weekly target where needed.
               </p>
             </div>
 
@@ -1217,6 +1312,44 @@ export default async function AdminPlanPage({
                       </div>
                     </div>
 
+                    <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                      <div className="grid gap-2">
+                        <label
+                          htmlFor={`template-cadence-${template.id}`}
+                          className="text-sm font-medium text-zinc-300"
+                        >
+                          Cadence
+                        </label>
+                        <select
+                          id={`template-cadence-${template.id}`}
+                          name="cadence"
+                          defaultValue={template.cadence}
+                          className="rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none"
+                        >
+                          <option value="daily">Daily</option>
+                          <option value="weekly_quota">Weekly quota</option>
+                        </select>
+                      </div>
+
+                      <div className="grid gap-2">
+                        <label
+                          htmlFor={`template-weekly-target-${template.id}`}
+                          className="text-sm font-medium text-zinc-300"
+                        >
+                          Weekly Target
+                        </label>
+                        <input
+                          id={`template-weekly-target-${template.id}`}
+                          name="weekly_target"
+                          type="number"
+                          min={1}
+                          defaultValue={template.weekly_target ?? ""}
+                          placeholder="Leave blank for daily tasks"
+                          className="rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none"
+                        />
+                      </div>
+                    </div>
+
                     <div className="mt-4 grid gap-2">
                       <label
                         htmlFor={`template-description-${template.id}`}
@@ -1254,7 +1387,8 @@ export default async function AdminPlanPage({
                 Create New Task Template
               </h2>
               <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-                Add a reusable task definition, then assign it to any day you want.
+                Add a reusable task definition, choose daily or weekly quota,
+                and assign it wherever you want.
               </p>
             </div>
 
@@ -1285,6 +1419,43 @@ export default async function AdminPlanPage({
                   placeholder="abstain_from_social_media"
                   className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                 />
+              </div>
+
+              <div className="grid gap-4 lg:grid-cols-2">
+                <div className="grid gap-2">
+                  <label
+                    htmlFor="new-task-cadence"
+                    className="text-sm font-medium text-zinc-300"
+                  >
+                    Cadence
+                  </label>
+                  <select
+                    id="new-task-cadence"
+                    name="cadence"
+                    defaultValue="daily"
+                    className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                  >
+                    <option value="daily">Daily</option>
+                    <option value="weekly_quota">Weekly quota</option>
+                  </select>
+                </div>
+
+                <div className="grid gap-2">
+                  <label
+                    htmlFor="new-task-weekly-target"
+                    className="text-sm font-medium text-zinc-300"
+                  >
+                    Weekly Target
+                  </label>
+                  <input
+                    id="new-task-weekly-target"
+                    name="weekly_target"
+                    type="number"
+                    min={1}
+                    placeholder="Example: 3"
+                    className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                  />
+                </div>
               </div>
 
               <div className="grid gap-2">
