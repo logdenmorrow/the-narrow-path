@@ -28,6 +28,12 @@ type PlanDayRow = {
   day_number: number;
   title: string | null;
   reflection_prompt: string | null;
+  reading_mission: string | null;
+  reading_focus: string | null;
+  reading_title: string | null;
+  reading_reference: string | null;
+  reading_notes: string | null;
+  reading_text: string | null;
 };
 
 type UserTaskCompletionRow = {
@@ -42,18 +48,6 @@ type WeeklyQuotaProgressRow = {
   completedCount: number;
   assignedCount: number;
 };
-
-function cadenceLabel(template?: TaskTemplateRow | null) {
-  if (!template) {
-    return "Daily";
-  }
-
-  if (template.cadence === "weekly_quota") {
-    return `Weekly quota${template.weekly_target ? ` (${template.weekly_target}x)` : ""}`;
-  }
-
-  return "Daily";
-}
 
 function buildWeeklyQuotaProgress(
   tasks: PlanDayTaskRow[],
@@ -127,7 +121,20 @@ export default async function ThisWeekPage() {
 
   const { data: weekDaysData, error: weekDaysError } = await supabase
     .from("plan_days")
-    .select("id, day_number, title, reflection_prompt")
+    .select(
+      `
+        id,
+        day_number,
+        title,
+        reflection_prompt,
+        reading_mission,
+        reading_focus,
+        reading_title,
+        reading_reference,
+        reading_notes,
+        reading_text
+      `
+    )
     .eq("plan_id", activePlan.id)
     .gte("day_number", challenge.weekStartDay)
     .lte("day_number", challenge.weekEndDay)
@@ -289,7 +296,7 @@ export default async function ThisWeekPage() {
             </p>
           </div>
 
-          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]">
+          <div className="grid w-full gap-3 sm:grid-cols-3 lg:w-auto lg:min-w-[560px]">
             <Link
               href="/dashboard"
               className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
@@ -298,9 +305,15 @@ export default async function ThisWeekPage() {
             </Link>
             <Link
               href="/today"
-              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
             >
               View Today
+            </Link>
+            <Link
+              href="/daily-reading"
+              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
+            >
+              Daily Reading
             </Link>
           </div>
         </div>
@@ -440,9 +453,18 @@ export default async function ThisWeekPage() {
                     <h2 className="mt-2 text-xl font-semibold sm:text-2xl">
                       {day.title || `Day ${day.day_number}`}
                     </h2>
+                    <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+                      {day.reading_reference || "No reading reference assigned yet."}
+                    </p>
                   </div>
 
                   <div className="flex flex-wrap gap-2 sm:gap-3">
+                    <Link
+                      href={`/daily-reading?day=${day.day_number}`}
+                      className="rounded-lg border border-zinc-700 px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-zinc-900"
+                    >
+                      Open Reading
+                    </Link>
                     <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
                       {requiredDaily.length} Required Daily
                     </span>
@@ -528,7 +550,7 @@ export default async function ThisWeekPage() {
                                   <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
                                     {quota
                                       ? `${Math.min(quota.completedCount, quota.target)}/${quota.target} this week`
-                                      : cadenceLabel(task.task_templates)}
+                                      : "Weekly quota"}
                                   </p>
                                 </div>
 
@@ -586,14 +608,26 @@ export default async function ThisWeekPage() {
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-xl border border-zinc-800 bg-black px-4 py-4">
-                  <h3 className="text-base font-semibold sm:text-lg">
-                    Reflection Prompt
-                  </h3>
-                  <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-                    {day.reflection_prompt ||
-                      "No reflection prompt has been assigned for this day yet."}
-                  </p>
+                <div className="mt-6 grid gap-4 xl:grid-cols-2">
+                  <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
+                    <h3 className="text-base font-semibold sm:text-lg">Reading</h3>
+                    <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+                      {day.reading_title || "No reading title assigned yet"}
+                    </p>
+                    <p className="mt-2 text-sm text-zinc-400 sm:text-base">
+                      {day.reading_reference || "No scripture reference assigned yet"}
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
+                    <h3 className="text-base font-semibold sm:text-lg">
+                      Reflection Prompt
+                    </h3>
+                    <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+                      {day.reflection_prompt ||
+                        "No reflection prompt has been assigned for this day yet."}
+                    </p>
+                  </div>
                 </div>
               </section>
             );

@@ -29,6 +29,12 @@ type PlanDayRow = {
   day_number: number;
   title: string | null;
   reflection_prompt: string | null;
+  reading_mission: string | null;
+  reading_focus: string | null;
+  reading_title: string | null;
+  reading_reference: string | null;
+  reading_notes: string | null;
+  reading_text: string | null;
 };
 
 type UserTaskCompletionRow = {
@@ -108,6 +114,7 @@ async function toggleTaskCompletion(formData: FormData) {
   revalidatePath("/this-week");
   revalidatePath("/dashboard");
   revalidatePath("/brotherhood");
+  revalidatePath("/daily-reading");
 }
 
 export default async function TodayPage() {
@@ -147,18 +154,29 @@ export default async function TodayPage() {
   }
 
   const challenge = getChallengeTiming(activePlan.total_days);
-  const selectedDay = challenge.hasStarted
-    ? challenge.currentDayNumber
-    : 1;
+  const selectedDay = challenge.hasStarted ? challenge.currentDayNumber : 1;
 
-  const { data: planDay, error: planDayError } = await supabase
+  const { data: planDayData, error: planDayError } = await supabase
     .from("plan_days")
-    .select("id, day_number, title, reflection_prompt")
+    .select(
+      `
+        id,
+        day_number,
+        title,
+        reflection_prompt,
+        reading_mission,
+        reading_focus,
+        reading_title,
+        reading_reference,
+        reading_notes,
+        reading_text
+      `
+    )
     .eq("plan_id", activePlan.id)
     .eq("day_number", selectedDay)
     .maybeSingle();
 
-  if (planDayError || !planDay) {
+  if (planDayError || !planDayData) {
     return (
       <main className="min-h-screen bg-black text-white">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
@@ -174,6 +192,8 @@ export default async function TodayPage() {
       </main>
     );
   }
+
+  const planDay = planDayData as PlanDayRow;
 
   const { data: planDayTasksData, error: tasksError } = await supabase
     .from("plan_day_tasks")
@@ -391,7 +411,7 @@ export default async function TodayPage() {
             </p>
           </div>
 
-          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]">
+          <div className="grid w-full gap-3 sm:grid-cols-3 lg:w-auto lg:min-w-[560px]">
             <Link
               href="/dashboard"
               className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
@@ -400,9 +420,15 @@ export default async function TodayPage() {
             </Link>
             <Link
               href="/this-week"
-              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
             >
               View This Week
+            </Link>
+            <Link
+              href="/daily-reading"
+              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
+            >
+              Open Daily Reading
             </Link>
           </div>
         </div>
@@ -458,6 +484,49 @@ export default async function TodayPage() {
             </p>
           </div>
         </div>
+
+        <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+          <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
+                Today&apos;s Reading
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold sm:text-3xl">
+                {planDay.reading_title || "Daily Reading"}
+              </h2>
+              <p className="mt-3 text-sm text-zinc-300 sm:text-base">
+                {planDay.reading_reference || "No scripture reference assigned yet."}
+              </p>
+            </div>
+
+            <Link
+              href="/daily-reading"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+            >
+              Open Reading Page
+            </Link>
+          </div>
+
+          <div className="grid gap-4 xl:grid-cols-2">
+            <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
+              <h3 className="text-base font-semibold sm:text-lg">Mission</h3>
+              <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+                {planDay.reading_mission || "No mission assigned yet."}
+              </p>
+              <p className="mt-3 text-sm text-zinc-400 sm:text-base">
+                {planDay.reading_focus || "No focus added yet."}
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
+              <h3 className="text-base font-semibold sm:text-lg">Reading Notes</h3>
+              <p className="mt-2 line-clamp-6 whitespace-pre-wrap text-sm text-zinc-300 sm:text-base">
+                {planDay.reading_notes ||
+                  "No reading notes or meditation prompt have been added yet."}
+              </p>
+            </div>
+          </div>
+        </section>
 
         <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
           <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">

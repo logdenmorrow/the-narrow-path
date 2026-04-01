@@ -51,6 +51,20 @@ export default function RootLayout({
                   </Link>
 
                   <Link
+                    href="/this-week"
+                    className="transition hover:text-white"
+                  >
+                    This Week
+                  </Link>
+
+                  <Link
+                    href="/daily-reading"
+                    className="transition hover:text-white"
+                  >
+                    Daily Reading
+                  </Link>
+
+                  <Link
                     href="/brotherhood"
                     className="transition hover:text-white"
                   >
