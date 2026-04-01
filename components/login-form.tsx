@@ -41,7 +41,7 @@ export function LoginForm({
         throw error;
       }
 
-      window.location.assign("/dashboard");
+      window.location.replace("/dashboard");
       return;
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
@@ -68,9 +68,9 @@ export function LoginForm({
                   type="email"
                   placeholder="name@example.com"
                   required
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
                 />
               </div>
 
@@ -80,9 +80,9 @@ export function LoginForm({
                   id="password"
                   type="password"
                   required
+                  autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="current-password"
                 />
               </div>
 
