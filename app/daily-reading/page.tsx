@@ -63,10 +63,7 @@ function splitIntoReadableParagraphs(text: string) {
   for (const sentence of sentences) {
     const nextLength = currentLength + sentence.length;
 
-    if (
-      current.length > 0 &&
-      (current.length >= 3 || nextLength > 420)
-    ) {
+    if (current.length > 0 && (current.length >= 3 || nextLength > 420)) {
       paragraphs.push(current.join(" ").trim());
       current = [sentence];
       currentLength = sentence.length;
@@ -81,6 +78,10 @@ function splitIntoReadableParagraphs(text: string) {
   }
 
   return paragraphs;
+}
+
+function isCatechismDay(reference?: string | null) {
+  return !!reference && /^CCC\b/i.test(reference.trim());
 }
 
 export default async function DailyReadingPage({
@@ -177,12 +178,10 @@ export default async function DailyReadingPage({
   const nextDay =
     selectedDay < activePlan.total_days ? selectedDay + 1 : activePlan.total_days;
 
-  const readingParagraphs = splitIntoReadableParagraphs(
-    planDay.reading_text ?? ""
-  );
-  const noteParagraphs = splitIntoReadableParagraphs(
-    planDay.reading_notes ?? ""
-  );
+  const noteParagraphs = splitIntoReadableParagraphs(planDay.reading_notes ?? "");
+  const readingParagraphs = splitIntoReadableParagraphs(planDay.reading_text ?? "");
+  const catechismDay = isCatechismDay(planDay.reading_reference);
+  const hasReadingText = readingParagraphs.length > 0;
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -264,19 +263,44 @@ export default async function DailyReadingPage({
           </section>
 
           <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
-              Reading
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {planDay.reading_title || "No reading title assigned yet"}
-            </h2>
-            <p className="mt-3 text-base text-zinc-300 sm:text-lg">
-              {planDay.reading_reference || "No scripture reference assigned yet"}
-            </p>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
+                  Reading
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold sm:text-3xl">
+                  {planDay.reading_title || "No reading title assigned yet"}
+                </h2>
+                <p className="mt-3 text-base text-zinc-300 sm:text-lg">
+                  {planDay.reading_reference || "No reference assigned yet"}
+                </p>
+              </div>
+
+              <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-zinc-300 sm:text-xs">
+                {catechismDay ? "Catechism Day" : "Scripture Day"}
+              </span>
+            </div>
           </section>
 
+          {catechismDay && (
+            <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+              <h2 className="text-xl font-semibold sm:text-2xl">
+                Today&apos;s Focus
+              </h2>
+              <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-5 py-5 sm:px-6 sm:py-6">
+                <p className="text-sm leading-7 text-zinc-300 sm:text-base">
+                  Today is a Catechism reading day. Use the reference above and
+                  the notes below as your guide, then read those Catechism
+                  paragraphs in your preferred edition or source.
+                </p>
+              </div>
+            </section>
+          )}
+
           <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">Reading Notes</h2>
+            <h2 className="text-xl font-semibold sm:text-2xl">
+              {catechismDay ? "Catholic Insight" : "Reading Notes"}
+            </h2>
 
             {noteParagraphs.length > 0 ? (
               <div className="mt-4 space-y-4">
@@ -296,28 +320,30 @@ export default async function DailyReadingPage({
             )}
           </section>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">RSV-2CE Text</h2>
+          {!catechismDay && (
+            <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+              <h2 className="text-xl font-semibold sm:text-2xl">RSV-2CE Text</h2>
 
-            <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-5 py-5 sm:px-6 sm:py-6">
-              {readingParagraphs.length > 0 ? (
-                <article className="space-y-5">
-                  {readingParagraphs.map((paragraph, index) => (
-                    <p
-                      key={`reading-${index}`}
-                      className="text-sm leading-8 text-zinc-200 sm:text-base"
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </article>
-              ) : (
-                <p className="text-sm text-zinc-400 sm:text-base">
-                  No passage text has been added yet for this day.
-                </p>
-              )}
-            </div>
-          </section>
+              <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-5 py-5 sm:px-6 sm:py-6">
+                {hasReadingText ? (
+                  <article className="space-y-5">
+                    {readingParagraphs.map((paragraph, index) => (
+                      <p
+                        key={`reading-${index}`}
+                        className="text-sm leading-8 text-zinc-200 sm:text-base"
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </article>
+                ) : (
+                  <p className="text-sm text-zinc-400 sm:text-base">
+                    No passage text has been added yet for this day.
+                  </p>
+                )}
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </main>
