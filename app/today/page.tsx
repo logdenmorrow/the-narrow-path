@@ -35,8 +35,10 @@ function uniqueTaskIds(tasks: PlanDayTaskRecord[]) {
 
 function TaskCard({
   task,
+  locked,
 }: {
   task: ReturnType<typeof buildTaskViewModels>[number];
+  locked: boolean;
 }) {
   return (
     <div className="rounded-xl border border-zinc-800 bg-black p-4">
@@ -74,6 +76,7 @@ function TaskCard({
         <TaskCompletionForm
           planDayTaskId={task.id}
           completed={task.isCompleted}
+          locked={locked}
         />
       </div>
     </div>
@@ -327,7 +330,9 @@ export default async function TodayPage({
       arr.findIndex((other) => other.taskTemplateId === task.taskTemplateId) === index
   );
 
-  const completedRequiredCount = requiredTasks.filter((task) => task.isCompleted).length;
+  const completedRequiredCount = requiredTasks.filter(
+    (task) => task.isCompleted
+  ).length;
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -375,7 +380,9 @@ export default async function TodayPage({
             <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
               Day Status
             </p>
-            <p className="mt-3 text-3xl font-bold">{completedRequiredCount}/{requiredTasks.length}</p>
+            <p className="mt-3 text-3xl font-bold">
+              {completedRequiredCount}/{requiredTasks.length}
+            </p>
             <p className="mt-2 text-sm text-zinc-300">Required tasks completed</p>
           </div>
 
@@ -404,7 +411,9 @@ export default async function TodayPage({
 
         {uniqueQuotaTasks.length > 0 && (
           <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">Weekly and Monthly Progress</h2>
+            <h2 className="text-xl font-semibold sm:text-2xl">
+              Weekly and Monthly Progress
+            </h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {uniqueQuotaTasks.map((task) => (
                 <div
@@ -414,7 +423,9 @@ export default async function TodayPage({
                   <p className="text-sm font-semibold text-white">{task.title}</p>
                   <p className="mt-2 text-sm text-zinc-300">{task.progressLabel}</p>
                   {task.note ? (
-                    <p className="mt-2 text-xs leading-5 text-zinc-500">{task.note}</p>
+                    <p className="mt-2 text-xs leading-5 text-zinc-500">
+                      {task.note}
+                    </p>
                   ) : null}
                 </div>
               ))}
@@ -428,7 +439,13 @@ export default async function TodayPage({
 
             <div className="mt-4 space-y-3">
               {requiredTasks.length > 0 ? (
-                requiredTasks.map((task) => <TaskCard key={task.id} task={task} />)
+                requiredTasks.map((task) => (
+                  <TaskCard
+                    key={task.id}
+                    task={task}
+                    locked={!challenge.hasStarted}
+                  />
+                ))
               ) : (
                 <p className="text-sm text-zinc-400">No required tasks for this day.</p>
               )}
@@ -440,7 +457,13 @@ export default async function TodayPage({
 
             <div className="mt-4 space-y-3">
               {optionalTasks.length > 0 ? (
-                optionalTasks.map((task) => <TaskCard key={task.id} task={task} />)
+                optionalTasks.map((task) => (
+                  <TaskCard
+                    key={task.id}
+                    task={task}
+                    locked={!challenge.hasStarted}
+                  />
+                ))
               ) : (
                 <p className="text-sm text-zinc-400">No optional tasks for this day.</p>
               )}

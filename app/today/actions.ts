@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { getChallengeTiming } from "@/lib/challenge";
 
 export async function toggleTaskCompletion(formData: FormData) {
   const rawPlanDayTaskId = formData.get("planDayTaskId");
@@ -24,6 +25,22 @@ export async function toggleTaskCompletion(formData: FormData) {
 
   if (!user) {
     throw new Error("You must be signed in to complete tasks.");
+  }
+
+  const { data: activePlan, error: activePlanError } = await supabase
+    .from("challenge_plans")
+    .select("id, total_days")
+    .eq("is_active", true)
+    .maybeSingle();
+
+  if (activePlanError || !activePlan) {
+    throw new Error("No active challenge plan was found.");
+  }
+
+  const challenge = getChallengeTiming(activePlan.total_days);
+
+  if (!challenge.hasStarted) {
+    return;
   }
 
   const { data: existing, error: existingError } = await supabase
