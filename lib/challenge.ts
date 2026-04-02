@@ -3,13 +3,15 @@ const CHALLENGE_TIME_ZONE = "America/New_York";
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
-type ChallengeTiming = {
+export type ChallengeTiming = {
   startDate: string;
   startDateLabel: string;
   timeZone: string;
   hasStarted: boolean;
   hasEnded: boolean;
   currentDayNumber: number;
+  weekStartDay: number;
+  weekEndDay: number;
 };
 
 function toUtcDayValue(isoDate: string) {
@@ -17,7 +19,10 @@ function toUtcDayValue(isoDate: string) {
   return Date.UTC(year, month - 1, day);
 }
 
-function getIsoDateInTimeZone(date = new Date(), timeZone = CHALLENGE_TIME_ZONE) {
+function getIsoDateInTimeZone(
+  date = new Date(),
+  timeZone = CHALLENGE_TIME_ZONE
+) {
   const parts = new Intl.DateTimeFormat("en-CA", {
     timeZone,
     year: "numeric",
@@ -55,6 +60,9 @@ export function getChallengeTiming(totalDays: number): ChallengeTiming {
     ? Math.min(diffDays + 1, safeTotalDays)
     : 1;
 
+  const weekStartDay = Math.floor((currentDayNumber - 1) / 7) * 7 + 1;
+  const weekEndDay = Math.min(safeTotalDays, weekStartDay + 6);
+
   return {
     startDate: CHALLENGE_START_DATE,
     startDateLabel: getStartDateLabel(),
@@ -62,5 +70,7 @@ export function getChallengeTiming(totalDays: number): ChallengeTiming {
     hasStarted,
     hasEnded,
     currentDayNumber,
+    weekStartDay,
+    weekEndDay,
   };
 }
