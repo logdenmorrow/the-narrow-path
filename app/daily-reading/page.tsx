@@ -26,6 +26,63 @@ function normalizeDayNumber(value: number, totalDays: number) {
   return rounded;
 }
 
+function normalizeWhitespace(text: string) {
+  return text
+    .replace(/\r\n/g, "\n")
+    .replace(/\u00a0/g, " ")
+    .replace(/[ \t]+/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+function splitIntoReadableParagraphs(text: string) {
+  const cleaned = normalizeWhitespace(text);
+
+  if (!cleaned) {
+    return [];
+  }
+
+  const explicitParagraphs = cleaned
+    .split(/\n\s*\n/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  if (explicitParagraphs.length > 1) {
+    return explicitParagraphs;
+  }
+
+  const sentences =
+    cleaned.match(/[^.!?]+[.!?]+["'”’)]*|[^.!?]+$/g)?.map((sentence) =>
+      sentence.trim()
+    ) ?? [cleaned];
+
+  const paragraphs: string[] = [];
+  let current: string[] = [];
+  let currentLength = 0;
+
+  for (const sentence of sentences) {
+    const nextLength = currentLength + sentence.length;
+
+    if (
+      current.length > 0 &&
+      (current.length >= 3 || nextLength > 420)
+    ) {
+      paragraphs.push(current.join(" ").trim());
+      current = [sentence];
+      currentLength = sentence.length;
+    } else {
+      current.push(sentence);
+      currentLength = nextLength;
+    }
+  }
+
+  if (current.length > 0) {
+    paragraphs.push(current.join(" ").trim());
+  }
+
+  return paragraphs;
+}
+
 export default async function DailyReadingPage({
   searchParams,
 }: {
@@ -120,6 +177,13 @@ export default async function DailyReadingPage({
   const nextDay =
     selectedDay < activePlan.total_days ? selectedDay + 1 : activePlan.total_days;
 
+  const readingParagraphs = splitIntoReadableParagraphs(
+    planDay.reading_text ?? ""
+  );
+  const noteParagraphs = splitIntoReadableParagraphs(
+    planDay.reading_notes ?? ""
+  );
+
   return (
     <main className="min-h-screen bg-black text-white">
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
@@ -155,7 +219,7 @@ export default async function DailyReadingPage({
               Back to Today
             </Link>
             <Link
-              href={`/this-week`}
+              href="/this-week"
               className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
             >
               View This Week
@@ -213,22 +277,45 @@ export default async function DailyReadingPage({
 
           <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">Reading Notes</h2>
-            <p className="mt-4 whitespace-pre-wrap text-sm text-zinc-300 sm:text-base">
-              {planDay.reading_notes ||
-                "No reading notes or meditation prompt have been added yet."}
-            </p>
+
+            {noteParagraphs.length > 0 ? (
+              <div className="mt-4 space-y-4">
+                {noteParagraphs.map((paragraph, index) => (
+                  <p
+                    key={`note-${index}`}
+                    className="text-sm leading-7 text-zinc-300 sm:text-base"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-4 text-sm text-zinc-400 sm:text-base">
+                No reading notes or meditation prompt have been added yet.
+              </p>
+            )}
           </section>
 
           <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">RSV-2CE Text</h2>
-            <p className="mt-2 text-xs uppercase tracking-[0.2em] text-zinc-500">
-              Paste approved text here in the database when ready
-            </p>
-            <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-4 py-4">
-              <p className="whitespace-pre-wrap text-sm leading-7 text-zinc-200 sm:text-base">
-                {planDay.reading_text ||
-                  "No passage text has been added yet for this day."}
-              </p>
+
+            <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-5 py-5 sm:px-6 sm:py-6">
+              {readingParagraphs.length > 0 ? (
+                <article className="space-y-5">
+                  {readingParagraphs.map((paragraph, index) => (
+                    <p
+                      key={`reading-${index}`}
+                      className="text-sm leading-8 text-zinc-200 sm:text-base"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </article>
+              ) : (
+                <p className="text-sm text-zinc-400 sm:text-base">
+                  No passage text has been added yet for this day.
+                </p>
+              )}
             </div>
           </section>
         </div>
