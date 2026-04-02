@@ -261,7 +261,7 @@ export default async function BrotherhoodPage() {
             <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Current Day</p>
             <p className="mt-3 text-3xl font-bold">Day {currentDayNumber}</p>
             <p className="mt-2 text-sm text-zinc-300">
-              {formatReadableDate(typedTodayTasks[0]?.dayDate)}
+              {formatReadableDate(typedTodayTasks[0]?.day_date)}
             </p>
           </div>
 
