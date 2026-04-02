@@ -8,39 +8,59 @@ export async function toggleTaskCompletion(formData: FormData) {
   const planDayTaskId = Number(rawPlanDayTaskId);
 
   if (!Number.isFinite(planDayTaskId)) {
-    return;
+    throw new Error("Invalid plan day task id.");
   }
 
   const supabase = await createClient();
 
   const {
     data: { user },
+    error: userError,
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    return;
+  if (userError) {
+    throw new Error(`Could not read authenticated user: ${userError.message}`);
   }
 
-  const { data: existing } = await supabase
+  if (!user) {
+    throw new Error("You must be signed in to complete tasks.");
+  }
+
+  const { data: existing, error: existingError } = await supabase
     .from("user_task_completions")
     .select("id")
     .eq("user_id", user.id)
     .eq("plan_day_task_id", planDayTaskId)
     .maybeSingle();
 
+  if (existingError) {
+    throw new Error(`Could not check existing completion: ${existingError.message}`);
+  }
+
   if (existing?.id) {
-    await supabase
+    const { error: deleteError } = await supabase
       .from("user_task_completions")
       .delete()
       .eq("id", existing.id);
+
+    if (deleteError) {
+      throw new Error(`Could not remove completion: ${deleteError.message}`);
+    }
   } else {
-    await supabase.from("user_task_completions").insert({
-      user_id: user.id,
-      plan_day_task_id: planDayTaskId,
-    });
+    const { error: insertError } = await supabase
+      .from("user_task_completions")
+      .insert({
+        user_id: user.id,
+        plan_day_task_id: planDayTaskId,
+      });
+
+    if (insertError) {
+      throw new Error(`Could not save completion: ${insertError.message}`);
+    }
   }
 
   revalidatePath("/today");
   revalidatePath("/this-week");
   revalidatePath("/brotherhood");
+  revalidatePath("/dashboard");
 }
