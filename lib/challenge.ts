@@ -9,6 +9,7 @@ export type ChallengeTiming = {
   timeZone: string;
   hasStarted: boolean;
   hasEnded: boolean;
+  isComplete: boolean;
   currentDayNumber: number;
   weekStartDay: number;
   weekEndDay: number;
@@ -55,6 +56,7 @@ export function getChallengeTiming(totalDays: number): ChallengeTiming {
 
   const hasStarted = diffDays >= 0;
   const hasEnded = diffDays >= safeTotalDays;
+  const isComplete = hasEnded;
 
   const currentDayNumber = hasStarted
     ? Math.min(diffDays + 1, safeTotalDays)
@@ -69,6 +71,7 @@ export function getChallengeTiming(totalDays: number): ChallengeTiming {
     timeZone: CHALLENGE_TIME_ZONE,
     hasStarted,
     hasEnded,
+    isComplete,
     currentDayNumber,
     weekStartDay,
     weekEndDay,
