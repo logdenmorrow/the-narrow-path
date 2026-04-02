@@ -282,27 +282,19 @@ export default async function DailyReadingPage({
             </div>
           </section>
 
-          {catechismDay && (
-            <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-              <h2 className="text-xl font-semibold sm:text-2xl">
-                Today&apos;s Focus
-              </h2>
-              <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-5 py-5 sm:px-6 sm:py-6">
-                <p className="text-sm leading-7 text-zinc-300 sm:text-base">
-                  Today is a Catechism reading day. Use the reference above and
-                  the notes below as your guide, then read those Catechism
-                  paragraphs in your preferred edition or source.
-                </p>
-              </div>
-            </section>
-          )}
-
           <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">
-              {catechismDay ? "Catholic Insight" : "Reading Notes"}
+              {catechismDay ? "Today's Focus" : "Reading Notes"}
             </h2>
 
-            {noteParagraphs.length > 0 ? (
+            {catechismDay ? (
+              <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-5 py-5 sm:px-6 sm:py-6">
+                <p className="text-sm leading-7 text-zinc-300 sm:text-base">
+                  Today is a Catechism reading day. The full Catechism text for these
+                  paragraphs is included below.
+                </p>
+              </div>
+            ) : noteParagraphs.length > 0 ? (
               <div className="mt-4 space-y-4">
                 {noteParagraphs.map((paragraph, index) => (
                   <p
@@ -320,30 +312,49 @@ export default async function DailyReadingPage({
             )}
           </section>
 
-          {!catechismDay && (
+          {noteParagraphs.length > 0 && (
             <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-              <h2 className="text-xl font-semibold sm:text-2xl">RSV-2CE Text</h2>
+              <h2 className="text-xl font-semibold sm:text-2xl">
+                {catechismDay ? "Catholic Insight" : "Companion Note"}
+              </h2>
 
-              <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-5 py-5 sm:px-6 sm:py-6">
-                {hasReadingText ? (
-                  <article className="space-y-5">
-                    {readingParagraphs.map((paragraph, index) => (
-                      <p
-                        key={`reading-${index}`}
-                        className="text-sm leading-8 text-zinc-200 sm:text-base"
-                      >
-                        {paragraph}
-                      </p>
-                    ))}
-                  </article>
-                ) : (
-                  <p className="text-sm text-zinc-400 sm:text-base">
-                    No passage text has been added yet for this day.
+              <div className="mt-4 space-y-4">
+                {noteParagraphs.map((paragraph, index) => (
+                  <p
+                    key={`insight-${index}`}
+                    className="text-sm leading-7 text-zinc-300 sm:text-base"
+                  >
+                    {paragraph}
                   </p>
-                )}
+                ))}
               </div>
             </section>
           )}
+
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+            <h2 className="text-xl font-semibold sm:text-2xl">
+              {catechismDay ? "Catechism Text" : "RSV-2CE Text"}
+            </h2>
+
+            <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-5 py-5 sm:px-6 sm:py-6">
+              {hasReadingText ? (
+                <article className="space-y-5">
+                  {readingParagraphs.map((paragraph, index) => (
+                    <p
+                      key={`reading-${index}`}
+                      className="text-sm leading-8 text-zinc-200 sm:text-base"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </article>
+              ) : (
+                <p className="text-sm text-zinc-400 sm:text-base">
+                  No reading text has been added yet for this day.
+                </p>
+              )}
+            </div>
+          </section>
         </div>
       </div>
     </main>
