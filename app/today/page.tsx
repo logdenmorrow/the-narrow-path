@@ -43,8 +43,8 @@ function TaskCard({
   lockedLabel?: string;
 }) {
   return (
-    <div className="rounded-xl border border-zinc-800 bg-black p-4">
-      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+    <div className="rounded-xl border border-zinc-800 bg-black p-4 transition hover:border-zinc-700">
+      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between md:gap-4">
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="text-base font-semibold text-white sm:text-lg">
@@ -336,6 +336,10 @@ export default async function TodayPage({
   const completedRequiredCount = requiredTasks.filter(
     (task) => task.isCompleted
   ).length;
+  const requiredCompletionPercent =
+    requiredTasks.length > 0
+      ? Math.round((completedRequiredCount / requiredTasks.length) * 100)
+      : 0;
   const previousDay = selectedDay > 1 ? selectedDay - 1 : 1;
   const nextDay =
     selectedDay < activePlan.total_days ? selectedDay + 1 : activePlan.total_days;
@@ -409,15 +413,21 @@ export default async function TodayPage({
         )}
 
         <div className="mb-6 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
+	          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
             <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
               Day Status
             </p>
             <p className="mt-3 text-3xl font-bold">
               {completedRequiredCount}/{requiredTasks.length}
             </p>
-            <p className="mt-2 text-sm text-zinc-300">Required tasks completed</p>
-          </div>
+	            <p className="mt-2 text-sm text-zinc-300">Required tasks completed</p>
+              <div className="mt-4 h-2 rounded-full bg-zinc-800">
+                <div
+                  className="h-2 rounded-full bg-emerald-400 transition-all"
+                  style={{ width: `${requiredCompletionPercent}%` }}
+                />
+              </div>
+	          </div>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
             <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
@@ -448,14 +458,31 @@ export default async function TodayPage({
               Weekly and Monthly Progress
             </h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {uniqueQuotaTasks.map((task) => (
+	              {uniqueQuotaTasks.map((task) => (
                 <div
                   key={`quota-${task.taskTemplateId}`}
                   className="rounded-xl border border-zinc-800 bg-black p-4"
                 >
-                  <p className="text-sm font-semibold text-white">{task.title}</p>
-                  <p className="mt-2 text-sm text-zinc-300">{task.progressLabel}</p>
-                  {task.note ? (
+	                  <p className="text-sm font-semibold text-white">{task.title}</p>
+	                  <p className="mt-2 text-sm text-zinc-300">{task.progressLabel}</p>
+                    <div className="mt-3 h-2 rounded-full bg-zinc-800">
+                      <div
+                        className="h-2 rounded-full bg-blue-400 transition-all"
+                        style={{
+                          width: `${
+                            task.progressCount !== null &&
+                            task.quotaTarget &&
+                            task.quotaTarget > 0
+                              ? Math.min(
+                                  100,
+                                  Math.round((task.progressCount / task.quotaTarget) * 100)
+                                )
+                              : 0
+                          }%`,
+                        }}
+                      />
+                    </div>
+	                  {task.note ? (
                     <p className="mt-2 text-xs leading-5 text-zinc-500">
                       {task.note}
                     </p>

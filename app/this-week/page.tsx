@@ -243,6 +243,23 @@ export default async function ThisWeekPage({
                 >
                   <p className="text-sm font-semibold text-white">{task.title}</p>
                   <p className="mt-2 text-sm text-zinc-300">{task.progressLabel}</p>
+                  <div className="mt-3 h-2 rounded-full bg-zinc-800">
+                    <div
+                      className="h-2 rounded-full bg-blue-400 transition-all"
+                      style={{
+                        width: `${
+                          task.progressCount !== null &&
+                          task.quotaTarget &&
+                          task.quotaTarget > 0
+                            ? Math.min(
+                                100,
+                                Math.round((task.progressCount / task.quotaTarget) * 100)
+                              )
+                            : 0
+                        }%`,
+                      }}
+                    />
+                  </div>
                 </div>
               ))}
             </div>
@@ -263,6 +280,10 @@ export default async function ThisWeekPage({
                   <h2 className="mt-2 text-xl font-semibold">
                     {dateLabel || `Day ${day.day_number}`}
                   </h2>
+                  <p className="mt-2 text-xs text-zinc-400">
+                    Required done: {required.filter((task) => task.isCompleted).length}/
+                    {required.length}
+                  </p>
                   <p className="mt-2 text-sm text-zinc-300">
                     {day.reading_title ?? day.title ?? "Daily Reading"}
                   </p>
