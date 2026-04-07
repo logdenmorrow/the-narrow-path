@@ -3,32 +3,33 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-
-const tabs = [
-  { href: "/today", label: "Today" },
-  { href: "/this-week", label: "Week" },
-  { href: "/daily-reading", label: "Reading" },
-  { href: "/brotherhood", label: "Brotherhood" },
-];
+import { isActivePath, mobileTabItems } from "@/lib/navigation";
 
 export default function MobileTabBar() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-zinc-800 bg-black/95 px-2 py-2 backdrop-blur sm:hidden">
-      <nav className="mx-auto grid max-w-6xl grid-cols-4 gap-1">
-        {tabs.map((tab) => {
-          const active = pathname === tab.href || pathname.startsWith(`${tab.href}/`);
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-zinc-800 bg-black/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur sm:hidden">
+      <nav aria-label="Primary mobile" className="mx-auto grid max-w-6xl grid-cols-4 gap-1">
+        {mobileTabItems.map((tab) => {
+          const active = isActivePath(pathname, tab.href);
+          const Icon = tab.icon;
+
           return (
             <Link
               key={tab.href}
               href={tab.href}
+              aria-current={active ? "page" : undefined}
               className={cn(
-                "rounded-md px-2 py-2 text-center text-xs font-semibold transition",
-                active ? "bg-zinc-100 text-black" : "text-zinc-300 hover:bg-zinc-900"
+                "flex min-h-14 flex-col items-center justify-center gap-1 rounded-xl px-2 py-2 text-[11px] font-semibold leading-none transition",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/90 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+                active
+                  ? "bg-zinc-100 text-black"
+                  : "text-zinc-300 hover:bg-zinc-900 hover:text-white"
               )}
             >
-              {tab.label}
+              <Icon className="h-4 w-4" aria-hidden="true" />
+              <span>{tab.label}</span>
             </Link>
           );
         })}
