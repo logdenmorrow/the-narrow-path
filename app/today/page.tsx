@@ -36,9 +36,11 @@ function uniqueTaskIds(tasks: PlanDayTaskRecord[]) {
 function TaskCard({
   task,
   locked,
+  lockedLabel,
 }: {
   task: ReturnType<typeof buildTaskViewModels>[number];
   locked: boolean;
+  lockedLabel?: string;
 }) {
   return (
     <div className="rounded-xl border border-zinc-800 bg-black p-4">
@@ -77,6 +79,7 @@ function TaskCard({
           planDayTaskId={task.id}
           completed={task.isCompleted}
           locked={locked}
+          lockedLabel={lockedLabel}
         />
       </div>
     </div>
@@ -333,6 +336,13 @@ export default async function TodayPage({
   const completedRequiredCount = requiredTasks.filter(
     (task) => task.isCompleted
   ).length;
+  const previousDay = selectedDay > 1 ? selectedDay - 1 : 1;
+  const nextDay =
+    selectedDay < activePlan.total_days ? selectedDay + 1 : activePlan.total_days;
+  const canEditSelectedDay = challenge.hasStarted && selectedDay <= challenge.currentDayNumber;
+  const lockLabel = !challenge.hasStarted
+    ? "Locked Until Launch"
+    : "Future Day Locked";
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -359,7 +369,19 @@ export default async function TodayPage({
             </p>
           </div>
 
-          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]">
+          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[420px]">
+            <Link
+              href={`/today?day=${previousDay}`}
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+            >
+              Previous Day
+            </Link>
+            <Link
+              href={`/today?day=${nextDay}`}
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+            >
+              Next Day
+            </Link>
             <Link
               href={`/daily-reading?day=${typedPlanDay.day_number}`}
               className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
@@ -374,6 +396,17 @@ export default async function TodayPage({
             </Link>
           </div>
         </div>
+
+        {!canEditSelectedDay && (
+          <div className="mb-6 rounded-2xl border border-amber-900 bg-amber-950/40 p-4 sm:p-6">
+            <p className="font-semibold text-amber-200">
+              Future days are view-only.
+            </p>
+            <p className="mt-2 text-sm text-amber-100/80 sm:text-base">
+              You can mark tasks complete for today or any earlier challenge day.
+            </p>
+          </div>
+        )}
 
         <div className="mb-6 grid gap-4 sm:grid-cols-3">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
@@ -443,7 +476,8 @@ export default async function TodayPage({
                   <TaskCard
                     key={task.id}
                     task={task}
-                    locked={!challenge.hasStarted}
+                    locked={!canEditSelectedDay}
+                    lockedLabel={lockLabel}
                   />
                 ))
               ) : (
@@ -461,7 +495,8 @@ export default async function TodayPage({
                   <TaskCard
                     key={task.id}
                     task={task}
-                    locked={!challenge.hasStarted}
+                    locked={!canEditSelectedDay}
+                    lockedLabel={lockLabel}
                   />
                 ))
               ) : (

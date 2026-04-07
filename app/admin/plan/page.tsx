@@ -679,7 +679,7 @@ export default async function AdminPlanPage({
             </p>
           </div>
 
-          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]">
+          <div className="grid w-full gap-3 sm:grid-cols-3 lg:w-auto lg:min-w-[560px]">
             <Link
               href="/dashboard"
               className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
@@ -691,6 +691,12 @@ export default async function AdminPlanPage({
               className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
             >
               View Today
+            </Link>
+            <Link
+              href="/admin/plan/export"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+            >
+              Export Completions CSV
             </Link>
           </div>
         </div>
