@@ -43,6 +43,34 @@ export async function toggleTaskCompletion(formData: FormData) {
     return;
   }
 
+  const { data: taskRow, error: taskError } = await supabase
+    .from("plan_day_tasks")
+    .select("id, plan_day_id")
+    .eq("id", planDayTaskId)
+    .maybeSingle();
+
+  if (taskError || !taskRow) {
+    throw new Error("The selected task could not be found.");
+  }
+
+  const { data: planDay, error: planDayError } = await supabase
+    .from("plan_days")
+    .select("id, day_number, plan_id")
+    .eq("id", taskRow.plan_day_id)
+    .maybeSingle();
+
+  if (planDayError || !planDay) {
+    throw new Error("The selected day could not be found.");
+  }
+
+  if (planDay.plan_id !== activePlan.id) {
+    throw new Error("You can only complete tasks from the active plan.");
+  }
+
+  if (planDay.day_number > challenge.currentDayNumber) {
+    throw new Error("Future-day tasks cannot be completed yet.");
+  }
+
   const { data: existing, error: existingError } = await supabase
     .from("user_task_completions")
     .select("id")
@@ -69,6 +97,8 @@ export async function toggleTaskCompletion(formData: FormData) {
       .insert({
         user_id: user.id,
         plan_day_task_id: planDayTaskId,
+        completed_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       });
 
     if (insertError) {

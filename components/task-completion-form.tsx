@@ -6,9 +6,11 @@ import { toggleTaskCompletion } from "@/app/today/actions";
 function SubmitButton({
   completed,
   locked,
+  lockedLabel,
 }: {
   completed: boolean;
   locked: boolean;
+  lockedLabel?: string;
 }) {
   const { pending } = useFormStatus();
 
@@ -27,7 +29,7 @@ function SubmitButton({
       {pending
         ? "Saving..."
         : locked
-        ? "Locked Until Launch"
+        ? lockedLabel ?? "Locked"
         : completed
         ? "Completed"
         : "Mark Complete"}
@@ -39,15 +41,17 @@ export function TaskCompletionForm({
   planDayTaskId,
   completed,
   locked,
+  lockedLabel,
 }: {
   planDayTaskId: number;
   completed: boolean;
   locked: boolean;
+  lockedLabel?: string;
 }) {
   return (
     <form action={toggleTaskCompletion}>
       <input type="hidden" name="planDayTaskId" value={planDayTaskId} />
-      <SubmitButton completed={completed} locked={locked} />
+      <SubmitButton completed={completed} locked={locked} lockedLabel={lockedLabel} />
     </form>
   );
 }

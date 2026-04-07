@@ -250,7 +250,7 @@ export default async function ThisWeekPage({
         )}
 
         <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
-          {dayModels.map(({ day, models, required, optional, dateLabel }) => (
+          {dayModels.map(({ day, required, optional, dateLabel }) => (
             <section
               key={day.id}
               className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5"
