@@ -18,11 +18,11 @@ function SubmitButton({
     <button
       type="submit"
       disabled={pending || locked}
-      className={`rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition sm:text-sm ${
+      className={`w-full rounded-lg px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] transition sm:w-auto sm:text-sm ${
         locked
           ? "border border-amber-800 bg-amber-950/30 text-amber-200"
           : completed
-          ? "border border-emerald-700 bg-emerald-900/30 text-emerald-200 hover:bg-emerald-900/50"
+          ? "border border-emerald-700 bg-emerald-900/30 text-emerald-200 hover:bg-emerald-900/50 motion-safe:animate-pulse"
           : "border border-zinc-700 bg-zinc-900 text-zinc-200 hover:bg-zinc-800"
       } disabled:cursor-not-allowed disabled:opacity-70`}
     >
@@ -31,7 +31,7 @@ function SubmitButton({
         : locked
         ? lockedLabel ?? "Locked"
         : completed
-        ? "Completed"
+        ? "Completed ✓"
         : "Mark Complete"}
     </button>
   );
