@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
+import { ensureProfileForUser } from "@/lib/profile";
 
 type TaskTemplateCadence = "daily" | "weekly_quota";
 
@@ -32,6 +33,7 @@ type PlanDayRow = {
 
 type UserTaskCompletionRow = {
   plan_day_task_id: number;
+  completed_at?: string | null;
 };
 
 type ProfileRow = {
@@ -113,6 +115,30 @@ function buildWeeklyQuotaProgress(
     .sort((a, b) => a.title.localeCompare(b.title));
 }
 
+function buildDailyStreak(
+  requiredTasksByDay: Map<number, number[]>,
+  completionIds: Set<number>,
+  currentDay: number
+) {
+  let streak = 0;
+
+  for (let day = currentDay; day >= 1; day -= 1) {
+    const requiredTaskIds = requiredTasksByDay.get(day) ?? [];
+    if (requiredTaskIds.length === 0) {
+      continue;
+    }
+
+    const completedAll = requiredTaskIds.every((taskId) => completionIds.has(taskId));
+    if (!completedAll) {
+      break;
+    }
+
+    streak += 1;
+  }
+
+  return streak;
+}
+
 export default async function DashboardPage() {
   const supabase = await createClient();
 
@@ -124,6 +150,8 @@ export default async function DashboardPage() {
   if (userError || !user) {
     redirect("/auth/login");
   }
+
+  await ensureProfileForUser(supabase, user);
 
   const { data: profileData } = await supabase
     .from("profiles")
@@ -276,6 +304,122 @@ export default async function DashboardPage() {
   ).length;
 
   const weeklyQuotaProgress = buildWeeklyQuotaProgress(weekTasks, completionIds);
+  const yesterdayDay = selectedDay > 1 ? selectedDay - 1 : null;
+  const { data: yesterdayPlanDayData } = yesterdayDay
+    ? await supabase
+        .from("plan_days")
+        .select("id, day_number, title, reflection_prompt")
+        .eq("plan_id", activePlan.id)
+        .eq("day_number", yesterdayDay)
+        .maybeSingle()
+    : { data: null };
+
+  const yesterdayPlanDay = (yesterdayPlanDayData ?? null) as PlanDayRow | null;
+
+  const { data: yesterdayTasksData } = yesterdayPlanDay
+    ? await supabase
+        .from("plan_day_tasks")
+        .select(
+          `
+            id,
+            plan_day_id,
+            is_required,
+            sort_order,
+            task_template_id,
+            task_templates (
+              id,
+              slug,
+              title,
+              description,
+              cadence,
+              weekly_target
+            )
+          `
+        )
+        .eq("plan_day_id", yesterdayPlanDay.id)
+    : { data: [] };
+
+  const yesterdayTasks = (yesterdayTasksData ?? []) as unknown as PlanDayTaskRow[];
+  const yesterdayRequiredTasks = yesterdayTasks.filter(
+    (task) =>
+      task.task_templates?.cadence !== "weekly_quota" && task.is_required
+  );
+
+  const yesterdayTaskIds = yesterdayRequiredTasks.map((task) => task.id);
+  const { data: yesterdayCompletionsData } = yesterdayTaskIds.length
+    ? await supabase
+        .from("user_task_completions")
+        .select("plan_day_task_id")
+        .eq("user_id", user.id)
+        .in("plan_day_task_id", yesterdayTaskIds)
+    : { data: [] };
+
+  const yesterdayCompletionIds = new Set(
+    ((yesterdayCompletionsData ?? []) as UserTaskCompletionRow[]).map(
+      (completion) => completion.plan_day_task_id
+    )
+  );
+
+  const missedYesterdayCount = yesterdayRequiredTasks.filter(
+    (task) => !yesterdayCompletionIds.has(task.id)
+  ).length;
+
+  const { data: allPlanDaysData } = await supabase
+    .from("plan_days")
+    .select("id, day_number")
+    .eq("plan_id", activePlan.id)
+    .lte("day_number", selectedDay)
+    .order("day_number", { ascending: true });
+
+  const allPlanDays = (allPlanDaysData ?? []) as Array<{ id: number; day_number: number }>;
+  const allPlanDayIds = allPlanDays.map((day) => day.id);
+
+  const { data: allRequiredTasksData } = allPlanDayIds.length
+    ? await supabase
+        .from("plan_day_tasks")
+        .select(
+          `
+            id,
+            plan_day_id,
+            is_required,
+            task_templates (
+              cadence
+            )
+          `
+        )
+        .in("plan_day_id", allPlanDayIds)
+        .eq("is_required", true)
+    : { data: [] };
+
+  const allRequiredTasks = (allRequiredTasksData ?? []) as unknown as Array<{
+    id: number;
+    plan_day_id: number;
+    is_required: boolean;
+    task_templates: { cadence: TaskTemplateCadence } | null;
+  }>;
+
+  const requiredTasksByDay = new Map<number, number[]>();
+  const planDayNumberById = new Map(allPlanDays.map((day) => [day.id, day.day_number]));
+  for (const task of allRequiredTasks) {
+    if (task.task_templates?.cadence === "weekly_quota") {
+      continue;
+    }
+
+    const dayNumber = planDayNumberById.get(task.plan_day_id);
+    if (!dayNumber) {
+      continue;
+    }
+
+    const existing = requiredTasksByDay.get(dayNumber) ?? [];
+    existing.push(task.id);
+    requiredTasksByDay.set(dayNumber, existing);
+  }
+
+  const dailyStreakCount = buildDailyStreak(
+    requiredTasksByDay,
+    completionIds,
+    selectedDay
+  );
   const memberCount = (await supabase.from("profiles").select("id")).data?.length ?? 0;
   const isAdmin = isAllowedAdminEmail(user.email);
 
@@ -403,6 +547,12 @@ export default async function DashboardPage() {
               >
                 Brotherhood
               </Link>
+              <Link
+                href={`/today?day=${Math.max(selectedDay - 1, 1)}`}
+                className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+              >
+                Review Yesterday
+              </Link>
               {isAdmin && (
                 <Link
                   href="/admin/plan"
@@ -443,9 +593,32 @@ export default async function DashboardPage() {
                   {weeklyQuotaToday.length}
                 </p>
               </div>
+
+              <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
+                <p className="text-xs uppercase tracking-wide text-zinc-400">
+                  Daily Streak
+                </p>
+                <p className="mt-2 text-2xl font-semibold">{dailyStreakCount} days</p>
+              </div>
             </div>
           </section>
         </div>
+
+        {yesterdayDay && (
+          <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+            <h2 className="text-xl font-semibold sm:text-2xl">Missed Yesterday?</h2>
+            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
+              Day {yesterdayDay} still has {missedYesterdayCount} required task
+              {missedYesterdayCount === 1 ? "" : "s"} not completed.
+            </p>
+            <Link
+              href={`/today?day=${yesterdayDay}`}
+              className="mt-4 inline-flex rounded-lg border border-zinc-700 px-4 py-3 font-semibold text-white transition hover:bg-zinc-900"
+            >
+              Review Day {yesterdayDay}
+            </Link>
+          </section>
+        )}
 
         <div className="grid gap-6 lg:grid-cols-2">
           <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">

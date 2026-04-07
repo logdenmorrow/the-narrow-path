@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
+import { ensureProfileForUser } from "@/lib/profile";
 import {
   buildTaskViewModels,
   formatReadableDate,
@@ -36,6 +37,8 @@ export default async function BrotherhoodPage() {
   if (userError || !user) {
     redirect("/auth/login");
   }
+
+  await ensureProfileForUser(supabase, user);
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")
@@ -296,9 +299,10 @@ export default async function BrotherhoodPage() {
 
           <div className="mt-4 space-y-3">
             {memberRows.map((member) => (
-              <div
+              <Link
                 key={member.profile.id}
-                className="rounded-xl border border-zinc-800 bg-black p-4"
+                href={`/brotherhood/${member.profile.id}?day=${currentDayNumber}`}
+                className="block rounded-xl border border-zinc-800 bg-black p-4 transition hover:border-zinc-600"
               >
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                   <div>
@@ -341,7 +345,7 @@ export default async function BrotherhoodPage() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
 
             {memberRows.length === 0 && (
