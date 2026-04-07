@@ -5,7 +5,6 @@ import AuthNav from "@/components/auth-nav";
 import AuthStateListener from "@/components/auth-state-listener";
 import MainNav from "@/components/main-nav";
 import MobileTabBar from "@/components/mobile-tab-bar";
-import ProgressStrip from "@/components/progress-strip";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -27,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-	      <body className="bg-black text-white">
+      <body className="bg-black text-white">
         <AuthStateListener />
 
         <header className="border-b border-zinc-800 bg-black">
@@ -42,29 +41,24 @@ export default function RootLayout({
                 </Link>
               </div>
 
-	              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:flex-1 lg:justify-end">
-	                <div className="hidden sm:block">
-	                  <MainNav />
-	                </div>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:flex-1 lg:justify-end">
+                <div className="hidden sm:block">
+                  <MainNav />
+                </div>
 
-	                <div className="sm:shrink-0">
-                  <Suspense
-                    fallback={<div className="text-sm text-zinc-500">...</div>}
-                  >
+                <div className="sm:shrink-0">
+                  <Suspense fallback={<div className="text-sm text-zinc-500">...</div>}>
                     <AuthNav />
                   </Suspense>
                 </div>
               </div>
-	            </div>
-	            <Suspense fallback={null}>
-	              <ProgressStrip />
-	            </Suspense>
-	          </div>
-	        </header>
+            </div>
+          </div>
+        </header>
 
-	        <div className="pb-16 sm:pb-0">{children}</div>
-	        <MobileTabBar />
-	      </body>
+        <div className="pb-16 sm:pb-0">{children}</div>
+        <MobileTabBar />
+      </body>
     </html>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormStatus } from "react-dom";
-import { toggleTaskCompletion } from "@/app/today/actions";
+import { toggleTaskCompletion } from "@/app/(authenticated)/today/actions";
 
 function SubmitButton({
   completed,
