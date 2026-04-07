@@ -50,6 +50,33 @@ export default async function HomePage() {
               </Link>
             </div>
           )}
+
+          <div className="mx-auto mt-10 max-w-2xl rounded-2xl border border-zinc-800 bg-zinc-950 p-4 text-left sm:p-6">
+            <p className="text-xs uppercase tracking-[0.25em] text-zinc-400">
+              Product Preview
+            </p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              <div className="rounded-xl border border-zinc-800 bg-black p-3">
+                <p className="text-xs text-zinc-400">Today</p>
+                <p className="mt-1 text-sm font-semibold text-white">Required 3/5</p>
+                <div className="mt-2 h-1.5 rounded-full bg-zinc-800">
+                  <div className="h-1.5 w-3/5 rounded-full bg-emerald-400" />
+                </div>
+              </div>
+              <div className="rounded-xl border border-zinc-800 bg-black p-3">
+                <p className="text-xs text-zinc-400">This Week</p>
+                <p className="mt-1 text-sm font-semibold text-white">Prayer 5/7</p>
+                <div className="mt-2 h-1.5 rounded-full bg-zinc-800">
+                  <div className="h-1.5 w-2/3 rounded-full bg-blue-400" />
+                </div>
+              </div>
+              <div className="rounded-xl border border-zinc-800 bg-black p-3">
+                <p className="text-xs text-zinc-400">Reading</p>
+                <p className="mt-1 text-sm font-semibold text-white">John 15:1-11</p>
+                <p className="mt-2 text-xs text-zinc-500">Daily reflection prompt</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
