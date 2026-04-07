@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
-import { TaskCompletionForm } from "@/components/task-completion-form";
+import { TodayTaskCard } from "@/components/today-task-card";
 import {
   buildTaskViewModels,
   formatReadableDate,
@@ -31,59 +31,6 @@ function normalizeDayNumber(value: number, totalDays: number) {
 
 function uniqueTaskIds(tasks: PlanDayTaskRecord[]) {
   return [...new Set(tasks.map((task) => task.id))];
-}
-
-function TaskCard({
-  task,
-  locked,
-  lockedLabel,
-}: {
-  task: ReturnType<typeof buildTaskViewModels>[number];
-  locked: boolean;
-  lockedLabel?: string;
-}) {
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-black p-4 transition hover:border-zinc-700">
-      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between md:gap-4">
-        <div className="space-y-2">
-          <div className="flex flex-wrap items-center gap-2">
-            <h3 className="text-base font-semibold text-white sm:text-lg">
-              {task.title}
-            </h3>
-
-            {task.isRequired && (
-              <span className="rounded-full border border-red-700 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-red-200">
-                Required Today
-              </span>
-            )}
-
-            {!task.isRequired && task.isOptional && (
-              <span className="rounded-full border border-zinc-700 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-zinc-300">
-                Optional Today
-              </span>
-            )}
-
-            {task.progressLabel && (
-              <span className="rounded-full border border-blue-700 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-blue-200">
-                {task.progressLabel}
-              </span>
-            )}
-          </div>
-
-          {task.note ? (
-            <p className="text-sm leading-6 text-zinc-400">{task.note}</p>
-          ) : null}
-        </div>
-
-        <TaskCompletionForm
-          planDayTaskId={task.id}
-          completed={task.isCompleted}
-          locked={locked}
-          lockedLabel={lockedLabel}
-        />
-      </div>
-    </div>
-  );
 }
 
 export default async function TodayPage({
@@ -500,9 +447,15 @@ export default async function TodayPage({
             <div className="mt-4 space-y-3">
               {requiredTasks.length > 0 ? (
                 requiredTasks.map((task) => (
-                  <TaskCard
+                  <TodayTaskCard
                     key={task.id}
-                    task={task}
+                    planDayTaskId={task.id}
+                    title={task.title}
+                    note={task.note}
+                    isRequired={task.isRequired}
+                    isOptional={task.isOptional}
+                    progressLabel={task.progressLabel}
+                    completed={task.isCompleted}
                     locked={!canEditSelectedDay}
                     lockedLabel={lockLabel}
                   />
@@ -519,9 +472,15 @@ export default async function TodayPage({
             <div className="mt-4 space-y-3">
               {optionalTasks.length > 0 ? (
                 optionalTasks.map((task) => (
-                  <TaskCard
+                  <TodayTaskCard
                     key={task.id}
-                    task={task}
+                    planDayTaskId={task.id}
+                    title={task.title}
+                    note={task.note}
+                    isRequired={task.isRequired}
+                    isOptional={task.isOptional}
+                    progressLabel={task.progressLabel}
+                    completed={task.isCompleted}
                     locked={!canEditSelectedDay}
                     lockedLabel={lockLabel}
                   />
