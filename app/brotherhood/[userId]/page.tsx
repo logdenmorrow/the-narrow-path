@@ -291,7 +291,7 @@ export default async function BrotherhoodMemberPage({
               Open Daily Reading
             </Link>
             <Link
-              href={`/brotherhood`}
+              href="/brotherhood"
               className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
             >
               Back to Brotherhood
