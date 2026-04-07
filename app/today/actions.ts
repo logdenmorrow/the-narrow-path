@@ -5,6 +5,19 @@ import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 
 export async function toggleTaskCompletion(formData: FormData) {
+  await toggleTaskCompletionWithResult(null, formData);
+}
+
+export type ToggleTaskCompletionResult = {
+  status: "idle" | "success";
+  planDayTaskId: number | null;
+  transitionedToComplete: boolean;
+};
+
+export async function toggleTaskCompletionWithResult(
+  _previousState: ToggleTaskCompletionResult | null,
+  formData: FormData
+): Promise<ToggleTaskCompletionResult> {
   const rawPlanDayTaskId = formData.get("planDayTaskId");
   const planDayTaskId = Number(rawPlanDayTaskId);
 
@@ -40,7 +53,11 @@ export async function toggleTaskCompletion(formData: FormData) {
   const challenge = getChallengeTiming(activePlan.total_days);
 
   if (!challenge.hasStarted) {
-    return;
+    return {
+      status: "success",
+      planDayTaskId,
+      transitionedToComplete: false,
+    };
   }
 
   const { data: taskRow, error: taskError } = await supabase
@@ -110,4 +127,10 @@ export async function toggleTaskCompletion(formData: FormData) {
   revalidatePath("/this-week");
   revalidatePath("/brotherhood");
   revalidatePath("/dashboard");
+
+  return {
+    status: "success",
+    planDayTaskId,
+    transitionedToComplete: !existing?.id,
+  };
 }
