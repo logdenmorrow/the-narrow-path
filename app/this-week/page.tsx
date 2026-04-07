@@ -19,6 +19,8 @@ type PlanDayRow = {
   reading_reference: string | null;
 };
 
+type MeterTone = "neutral" | "accent" | "success";
+
 function normalizeDayNumber(value: number, totalDays: number) {
   if (!Number.isFinite(value)) return 1;
   const rounded = Math.floor(value);
@@ -29,6 +31,45 @@ function normalizeDayNumber(value: number, totalDays: number) {
 
 function uniqueTaskIds(tasks: PlanDayTaskRecord[]) {
   return [...new Set(tasks.map((task) => task.id))];
+}
+
+function getQuotaMeterTone(completed: number, target: number): MeterTone {
+  if (target <= 0) {
+    return "neutral";
+  }
+
+  const ratio = completed / target;
+  if (ratio >= 1) {
+    return "success";
+  }
+  if (ratio >= 0.75) {
+    return "accent";
+  }
+  return "neutral";
+}
+
+function getQuotaMeterClasses(tone: MeterTone) {
+  if (tone === "success") {
+    return {
+      track: "bg-emerald-950/60",
+      fill: "bg-emerald-400",
+      text: "text-emerald-200 border-emerald-700",
+    };
+  }
+
+  if (tone === "accent") {
+    return {
+      track: "bg-blue-950/60",
+      fill: "bg-blue-400",
+      text: "text-blue-200 border-blue-700",
+    };
+  }
+
+  return {
+    track: "bg-zinc-800",
+    fill: "bg-zinc-300",
+    text: "text-zinc-300 border-zinc-700",
+  };
 }
 
 export default async function ThisWeekPage({
@@ -236,32 +277,47 @@ export default async function ThisWeekPage({
           <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">Week Progress</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {quotaSummaries.map((task) => (
-                <div
-                  key={`quota-${task.taskTemplateId}`}
-                  className="rounded-xl border border-zinc-800 bg-black p-4"
-                >
-                  <p className="text-sm font-semibold text-white">{task.title}</p>
-                  <p className="mt-2 text-sm text-zinc-300">{task.progressLabel}</p>
-                  <div className="mt-3 h-2 rounded-full bg-zinc-800">
+              {quotaSummaries.map((task) => {
+                const safeTarget = Math.max(task.quotaTarget ?? 1, 1);
+                const clampedCompleted = Math.max(task.progressCount ?? 0, 0);
+                const meterNow = Math.min(clampedCompleted, safeTarget);
+                const meterPercent = Math.min(
+                  100,
+                  Math.round((clampedCompleted / safeTarget) * 100)
+                );
+                const tone = getQuotaMeterTone(clampedCompleted, safeTarget);
+                const meterClasses = getQuotaMeterClasses(tone);
+
+                return (
+                  <div
+                    key={`quota-${task.taskTemplateId}`}
+                    className="rounded-xl border border-zinc-800 bg-black p-4"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-sm font-semibold text-white">{task.title}</p>
+                      <span
+                        className={`rounded-full border px-2 py-1 text-[10px] font-semibold tracking-wide ${meterClasses.text}`}
+                      >
+                        {meterNow}/{safeTarget}
+                      </span>
+                    </div>
                     <div
-                      className="h-2 rounded-full bg-blue-400 transition-all"
-                      style={{
-                        width: `${
-                          task.progressCount !== null &&
-                          task.quotaTarget &&
-                          task.quotaTarget > 0
-                            ? Math.min(
-                                100,
-                                Math.round((task.progressCount / task.quotaTarget) * 100)
-                              )
-                            : 0
-                        }%`,
-                      }}
-                    />
+                      className={`mt-3 h-2 rounded-full ${meterClasses.track}`}
+                      role="progressbar"
+                      aria-label={`${task.title} weekly progress`}
+                      aria-valuenow={meterNow}
+                      aria-valuemin={0}
+                      aria-valuemax={safeTarget}
+                    >
+                      <div
+                        className={`h-2 rounded-full transition-all ${meterClasses.fill}`}
+                        style={{ width: `${meterPercent}%` }}
+                      />
+                    </div>
+                    <p className="mt-2 text-sm text-zinc-300">{task.progressLabel}</p>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </section>
         )}

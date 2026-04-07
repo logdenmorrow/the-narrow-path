@@ -50,6 +50,8 @@ type WeeklyQuotaProgressRow = {
   completedCount: number;
 };
 
+type MeterTone = "neutral" | "accent" | "success";
+
 function getAdminEmails() {
   return (process.env.ADMIN_EMAILS ?? "")
     .split(",")
@@ -136,6 +138,46 @@ function buildDailyStreak(
   }
 
   return streak;
+}
+
+function getQuotaMeterTone(completed: number, target: number): MeterTone {
+  if (target <= 0) {
+    return "neutral";
+  }
+
+  const ratio = completed / target;
+  if (ratio >= 1) {
+    return "success";
+  }
+
+  if (ratio >= 0.75) {
+    return "accent";
+  }
+
+  return "neutral";
+}
+
+function getQuotaMeterClasses(tone: MeterTone) {
+  switch (tone) {
+    case "success":
+      return {
+        track: "bg-emerald-950/60",
+        fill: "bg-emerald-400",
+        text: "text-emerald-200 border-emerald-700",
+      };
+    case "accent":
+      return {
+        track: "bg-blue-950/60",
+        fill: "bg-blue-400",
+        text: "text-blue-200 border-blue-700",
+      };
+    default:
+      return {
+        track: "bg-zinc-800",
+        fill: "bg-zinc-300",
+        text: "text-zinc-300 border-zinc-700",
+      };
+  }
 }
 
 export default async function DashboardPage() {
@@ -671,38 +713,54 @@ export default async function DashboardPage() {
               </p>
             ) : (
               <div className="mt-4 space-y-4">
-                {weeklyQuotaProgress.map((quota) => (
-                  <div
-                    key={quota.templateId}
-                    className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
-                  >
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                      <div className="min-w-0">
-                        <p className="font-medium text-white">{quota.title}</p>
-                        <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
-                          {quota.description ||
-                            "Flexible weekly task that can be completed on any assigned day."}
-                        </p>
+                {weeklyQuotaProgress.map((quota) => {
+                  const safeTarget = Math.max(quota.target, 1);
+                  const clampedCompleted = Math.max(quota.completedCount, 0);
+                  const meterNow = Math.min(clampedCompleted, safeTarget);
+                  const meterPercent = Math.min(
+                    100,
+                    Math.round((clampedCompleted / safeTarget) * 100)
+                  );
+                  const tone = getQuotaMeterTone(clampedCompleted, safeTarget);
+                  const meterClasses = getQuotaMeterClasses(tone);
+
+                  return (
+                    <div
+                      key={quota.templateId}
+                      className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
+                    >
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                        <div className="min-w-0">
+                          <p className="font-medium text-white">{quota.title}</p>
+                          <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
+                            {quota.description ||
+                              "Flexible weekly task that can be completed on any assigned day."}
+                          </p>
+                        </div>
+
+                        <span
+                          className={`w-fit rounded-full border px-3 py-1 text-[10px] uppercase tracking-wide sm:text-xs ${meterClasses.text}`}
+                        >
+                          {meterNow}/{safeTarget}
+                        </span>
                       </div>
 
-                      <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
-                        {Math.min(quota.completedCount, quota.target)}/{quota.target}
-                      </span>
-                    </div>
-
-                    <div className="mt-4 h-2 w-full rounded-full bg-zinc-800">
                       <div
-                        className="h-2 rounded-full bg-white"
-                        style={{
-                          width: `${Math.min(
-                            100,
-                            (quota.completedCount / quota.target) * 100
-                          )}%`,
-                        }}
-                      />
+                        className={`mt-4 h-2 w-full rounded-full ${meterClasses.track}`}
+                        role="progressbar"
+                        aria-label={`${quota.title} weekly progress`}
+                        aria-valuenow={meterNow}
+                        aria-valuemin={0}
+                        aria-valuemax={safeTarget}
+                      >
+                        <div
+                          className={`h-2 rounded-full transition-all ${meterClasses.fill}`}
+                          style={{ width: `${meterPercent}%` }}
+                        />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </section>
