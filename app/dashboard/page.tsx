@@ -436,6 +436,23 @@ export default async function DashboardPage() {
     is_required: boolean;
     task_templates: { cadence: TaskTemplateCadence } | null;
   }>;
+  const allRequiredTaskIds = allRequiredTasks
+    .filter((task) => task.task_templates?.cadence !== "weekly_quota")
+    .map((task) => task.id);
+
+  const { data: allRequiredCompletionsData } = allRequiredTaskIds.length
+    ? await supabase
+        .from("user_task_completions")
+        .select("plan_day_task_id")
+        .eq("user_id", user.id)
+        .in("plan_day_task_id", allRequiredTaskIds)
+    : { data: [] };
+
+  const allRequiredCompletionIds = new Set(
+    ((allRequiredCompletionsData ?? []) as UserTaskCompletionRow[]).map(
+      (completion) => completion.plan_day_task_id
+    )
+  );
 
   const requiredTasksByDay = new Map<number, number[]>();
   const planDayNumberById = new Map(allPlanDays.map((day) => [day.id, day.day_number]));
@@ -456,7 +473,7 @@ export default async function DashboardPage() {
 
   const dailyStreakCount = buildDailyStreak(
     requiredTasksByDay,
-    completionIds,
+    allRequiredCompletionIds, // Streaks must consider all required-task completions through selectedDay, not only today/week data.
     selectedDay
   );
   const memberCount = (await supabase.from("profiles").select("id")).data?.length ?? 0;
