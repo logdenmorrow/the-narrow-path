@@ -178,6 +178,7 @@ export default async function DailyReadingPage({
   const nextDay =
     selectedDay < activePlan.total_days ? selectedDay + 1 : activePlan.total_days;
 
+  const focusParagraphs = splitIntoReadableParagraphs(planDay.reading_focus ?? "");
   const noteParagraphs = splitIntoReadableParagraphs(planDay.reading_notes ?? "");
   const readingParagraphs = splitIntoReadableParagraphs(planDay.reading_text ?? "");
   const catechismDay = isCatechismDay(planDay.reading_reference);
@@ -284,7 +285,7 @@ export default async function DailyReadingPage({
 
           <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">
-              {catechismDay ? "Today's Focus" : "Reading Notes"}
+              {catechismDay ? "Today's Focus" : "Reading Focus"}
             </h2>
 
             {catechismDay ? (
@@ -294,11 +295,11 @@ export default async function DailyReadingPage({
                   paragraphs is included below.
                 </p>
               </div>
-            ) : noteParagraphs.length > 0 ? (
+            ) : focusParagraphs.length > 0 ? (
               <div className="mt-4 space-y-4">
-                {noteParagraphs.map((paragraph, index) => (
+                {focusParagraphs.map((paragraph, index) => (
                   <p
-                    key={`note-${index}`}
+                    key={`focus-${index}`}
                     className="text-sm leading-7 text-zinc-300 sm:text-base"
                   >
                     {paragraph}
@@ -307,7 +308,7 @@ export default async function DailyReadingPage({
               </div>
             ) : (
               <p className="mt-4 text-sm text-zinc-400 sm:text-base">
-                No reading notes or meditation prompt have been added yet.
+                No reading focus has been added yet.
               </p>
             )}
           </section>
