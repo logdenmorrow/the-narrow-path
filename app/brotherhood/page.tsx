@@ -180,6 +180,12 @@ export default async function BrotherhoodPage() {
         (task) => task.isOptional && task.isCompleted
       ).length;
       const optionalTotal = taskModels.filter((task) => task.isOptional).length;
+      const requiredDoneToday = taskModels.filter(
+        (task) => task.isRequired && task.isCompleted
+      ).length;
+      const optionalDoneToday = taskModels.filter(
+        (task) => task.isOptional && task.isCompleted
+      ).length;
 
       const quotaRows = taskModels
         .filter((task) => task.progressLabel)
@@ -188,11 +194,13 @@ export default async function BrotherhoodPage() {
             arr.findIndex((other) => other.taskTemplateId === task.taskTemplateId) ===
             index
         );
+      const hasWeeklyMomentum = quotaRows.some((row) => (row.progressCount ?? 0) > 0);
+      const startedToday = requiredDoneToday > 0 || optionalDoneToday > 0;
 
       let statusLabel = "Not Started";
       if (requiredSummary.completedAll) {
         statusLabel = "Daily Core Complete";
-      } else if (requiredSummary.started) {
+      } else if (startedToday) {
         statusLabel = "Started";
       }
 
@@ -204,8 +212,8 @@ export default async function BrotherhoodPage() {
         optionalDone,
         optionalTotal,
         quotaRows,
-        startedToday:
-          requiredSummary.started || optionalDone > 0 || quotaRows.some((row) => (row.progressCount ?? 0) > 0),
+        hasWeeklyMomentum,
+        startedToday,
         completedToday: requiredSummary.completedAll,
         statusLabel,
       };
@@ -340,6 +348,12 @@ export default async function BrotherhoodPage() {
                     <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-zinc-300">
                       Optional: {member.optionalDone}/{member.optionalTotal}
                     </span>
+
+                    {member.hasWeeklyMomentum && (
+                      <span className="rounded-full border border-violet-700 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-violet-200">
+                        Weekly Momentum
+                      </span>
+                    )}
                   </div>
                 </div>
               </Link>
