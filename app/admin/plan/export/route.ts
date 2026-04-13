@@ -12,7 +12,7 @@ function isAllowedAdminEmail(email?: string | null) {
   const adminEmails = getAdminEmails();
 
   if (adminEmails.length === 0) {
-    return true;
+    return false;
   }
 
   if (!email) {
