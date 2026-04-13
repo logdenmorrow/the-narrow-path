@@ -62,7 +62,15 @@ export async function toggleTaskCompletionWithResult(
 
   const { data: taskRow, error: taskError } = await supabase
     .from("plan_day_tasks")
-    .select("id, plan_day_id")
+    .select(
+      `
+        id,
+        plan_day_id,
+        task_templates (
+          slug
+        )
+      `
+    )
     .eq("id", planDayTaskId)
     .maybeSingle();
 
@@ -86,6 +94,32 @@ export async function toggleTaskCompletionWithResult(
 
   if (planDay.day_number > challenge.currentDayNumber) {
     throw new Error("Future-day tasks cannot be completed yet.");
+  }
+
+  const taskTemplateRelation = taskRow.task_templates as
+    | { slug: string | null }
+    | Array<{ slug: string | null }>
+    | null;
+  const taskTemplate = Array.isArray(taskTemplateRelation)
+    ? (taskTemplateRelation[0] ?? null)
+    : taskTemplateRelation;
+  const isReflectionTask = taskTemplate?.slug === "reflection";
+
+  if (isReflectionTask) {
+    const { data: reflectionEntry, error: reflectionError } = await supabase
+      .from("user_reflection_entries")
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("plan_day_id", planDay.id)
+      .maybeSingle();
+
+    if (reflectionError) {
+      throw new Error(`Could not verify reflection entry: ${reflectionError.message}`);
+    }
+
+    if (!reflectionEntry?.id) {
+      throw new Error("Save a reflection entry before completing this task.");
+    }
   }
 
   const { data: existing, error: existingError } = await supabase
