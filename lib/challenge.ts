@@ -13,6 +13,7 @@ export type ChallengeTiming = {
   currentDayNumber: number;
   weekStartDay: number;
   weekEndDay: number;
+  weekNumber: number;
 };
 
 function toUtcDayValue(isoDate: string) {
@@ -64,6 +65,7 @@ export function getChallengeTiming(totalDays: number): ChallengeTiming {
 
   const weekStartDay = Math.floor((currentDayNumber - 1) / 7) * 7 + 1;
   const weekEndDay = Math.min(safeTotalDays, weekStartDay + 6);
+  const weekNumber = Math.floor((currentDayNumber - 1) / 7) + 1;
 
   return {
     startDate: CHALLENGE_START_DATE,
@@ -75,5 +77,6 @@ export function getChallengeTiming(totalDays: number): ChallengeTiming {
     currentDayNumber,
     weekStartDay,
     weekEndDay,
+    weekNumber,
   };
 }
