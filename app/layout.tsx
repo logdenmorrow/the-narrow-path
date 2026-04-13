@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_APP_URL ??
       (process.env.VERCEL_URL
         ? `https://${process.env.VERCEL_URL}`
-        : "http://localhost:3000"),
+        : "http://localhost:3000")
   ),
 };
 
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-	      <body className="bg-black text-white">
+      <body className="bg-black text-white">
         <AuthStateListener />
 
         <header className="border-b border-zinc-800 bg-black">
@@ -42,12 +42,12 @@ export default function RootLayout({
                 </Link>
               </div>
 
-	              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:flex-1 lg:justify-end">
-	                <div className="hidden sm:block">
-	                  <MainNav />
-	                </div>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:flex-1 lg:justify-end">
+                <div className="hidden sm:block">
+                  <MainNav />
+                </div>
 
-	                <div className="sm:shrink-0">
+                <div className="sm:shrink-0">
                   <Suspense
                     fallback={<div className="text-sm text-zinc-500">...</div>}
                   >
@@ -55,16 +55,16 @@ export default function RootLayout({
                   </Suspense>
                 </div>
               </div>
-	            </div>
-	            <Suspense fallback={null}>
-	              <ProgressStrip />
-	            </Suspense>
-	          </div>
-	        </header>
+            </div>
+            <Suspense fallback={null}>
+              <ProgressStrip />
+            </Suspense>
+          </div>
+        </header>
 
-	        <div className="pb-16 sm:pb-0">{children}</div>
-	        <MobileTabBar />
-	      </body>
+        <div className="mobile-page-shell">{children}</div>
+        <MobileTabBar />
+      </body>
     </html>
   );
 }

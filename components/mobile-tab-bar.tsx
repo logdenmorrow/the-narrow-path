@@ -9,7 +9,7 @@ export default function MobileTabBar() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-zinc-800 bg-black/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur sm:hidden">
+    <div className="mobile-tab-bar fixed inset-x-0 bottom-0 z-40 border-t border-zinc-800 bg-black/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur sm:hidden">
       <nav aria-label="Primary mobile" className="mx-auto grid max-w-6xl grid-cols-4 gap-1">
         {mobileTabItems.map((tab) => {
           const active = isActivePath(pathname, tab.href);
