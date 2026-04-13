@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import { saveReflectionEntry } from "@/app/reflection/actions";
+import { decryptJournalEntry } from "@/lib/journal-crypto";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -15,7 +16,10 @@ type PlanDayRow = {
 
 type ReflectionEntryRow = {
   id: number;
-  entry_text: string;
+  entry_ciphertext: string | null;
+  entry_iv: string | null;
+  entry_auth_tag: string | null;
+  encryption_version: number | null;
 };
 
 function normalizeDayNumber(value: number, totalDays: number) {
@@ -95,13 +99,33 @@ export default async function ReflectionPage({
 
   const { data: entryData } = await supabase
     .from("user_reflection_entries")
-    .select("id, entry_text")
+    .select("id, entry_ciphertext, entry_iv, entry_auth_tag, encryption_version")
     .eq("user_id", user.id)
     .eq("plan_day_id", planDay.id)
     .maybeSingle();
 
   const entry = (entryData ?? null) as ReflectionEntryRow | null;
-  const hasSavedEntry = Boolean(entry?.entry_text?.trim());
+
+  let entryText = "";
+  if (
+    entry?.entry_ciphertext &&
+    entry.entry_iv &&
+    entry.entry_auth_tag &&
+    Number.isFinite(entry.encryption_version)
+  ) {
+    try {
+      entryText = decryptJournalEntry({
+        ciphertext: entry.entry_ciphertext,
+        iv: entry.entry_iv,
+        authTag: entry.entry_auth_tag,
+        encryptionVersion: entry.encryption_version as number,
+      });
+    } catch {
+      entryText = "";
+    }
+  }
+
+  const hasSavedEntry = Boolean(entry?.id);
   const isLocked = !challenge.hasStarted || selectedDay > challenge.currentDayNumber;
 
   return (
@@ -148,7 +172,7 @@ export default async function ReflectionPage({
             <textarea
               id="entryText"
               name="entryText"
-              defaultValue={entry?.entry_text ?? ""}
+              defaultValue={entryText}
               required
               rows={14}
               disabled={isLocked}

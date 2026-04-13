@@ -78,6 +78,7 @@ If you wish to just develop locally and not deploy to Vercel, [follow the steps 
   ```env
   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
+  JOURNAL_ENCRYPTION_KEY=[BASE64-ENCODED 32-BYTE KEY FOR AES-256-GCM]
   ```
   > [!NOTE]
   > This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
@@ -85,6 +86,12 @@ If you wish to just develop locally and not deploy to Vercel, [follow the steps 
   > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
 
   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
+  
+  `JOURNAL_ENCRYPTION_KEY` must be base64 for exactly 32 random bytes. Generate one with:
+
+  ```bash
+  openssl rand -base64 32
+  ```
 
 5. You can now run the Next.js local development server:
 
