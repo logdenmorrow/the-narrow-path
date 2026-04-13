@@ -58,7 +58,6 @@ export async function saveReflectionEntry(formData: FormData) {
       entry_iv: encryptedEntry.iv,
       entry_auth_tag: encryptedEntry.authTag,
       encryption_version: encryptedEntry.encryptionVersion,
-      entry_text: null,
       updated_at: now,
     },
     {
