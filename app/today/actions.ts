@@ -99,6 +99,8 @@ export async function toggleTaskCompletionWithResult(
     throw new Error(`Could not check existing completion: ${existingError.message}`);
   }
 
+  // Completion model: row existence means "completed".
+  // Toggle on => insert row; toggle off => delete row.
   if (existing?.id) {
     const { error: deleteError } = await supabase
       .from("user_task_completions")

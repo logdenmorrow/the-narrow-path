@@ -344,9 +344,9 @@ export default async function BrotherhoodMemberPage({
                           {task.note ? (
                             <p className="text-sm leading-6 text-zinc-400">{task.note}</p>
                           ) : null}
-                          {completion?.completed_at ? (
+                          {completion ? (
                             <p className="text-xs text-zinc-500">
-                              Completed: {toCompletedLabel(completion.completed_at)}
+                              Completed: {toCompletedLabel(completion.completed_at ?? completion.updated_at)}
                             </p>
                           ) : (
                             <p className="text-xs text-zinc-500">Not completed</p>
@@ -387,9 +387,9 @@ export default async function BrotherhoodMemberPage({
                           {task.progressLabel ? (
                             <p className="text-xs text-blue-200">{task.progressLabel}</p>
                           ) : null}
-                          {completion?.completed_at ? (
+                          {completion ? (
                             <p className="text-xs text-zinc-500">
-                              Completed: {toCompletedLabel(completion.completed_at)}
+                              Completed: {toCompletedLabel(completion.completed_at ?? completion.updated_at)}
                             </p>
                           ) : (
                             <p className="text-xs text-zinc-500">Not completed</p>
