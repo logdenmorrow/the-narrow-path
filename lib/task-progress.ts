@@ -81,7 +81,8 @@ export function buildTaskViewModels(
   dayTasks: PlanDayTaskRecord[],
   scopeTasks: PlanDayTaskRecord[],
   completions: CompletionRecord[],
-  userId: string
+  userId: string,
+  completionOverrides?: Map<number, boolean>
 ): TaskViewModel[] {
   const userCompletions = completions.filter((row) => row.user_id === userId);
   const completedTaskIds = new Set(userCompletions.map((row) => row.plan_day_task_id));
@@ -137,7 +138,8 @@ export function buildTaskViewModels(
         slug: template.slug,
         isRequired: task.is_required,
         isOptional: task.is_optional,
-        isCompleted: completedTaskIds.has(task.id),
+        isCompleted:
+          completionOverrides?.get(task.id) ?? completedTaskIds.has(task.id),
         quotaScope: task.quota_scope,
         quotaTarget: task.quota_target,
         progressCount,

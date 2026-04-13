@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { toggleTaskCompletion } from "@/app/today/actions";
 
@@ -13,6 +14,7 @@ type TodayTaskCardProps = {
   completed: boolean;
   locked: boolean;
   lockedLabel?: string;
+  href?: string;
 };
 
 const INTERACTIVE_TARGET_SELECTOR =
@@ -28,12 +30,13 @@ export function TodayTaskCard({
   completed,
   locked,
   lockedLabel,
+  href,
 }: TodayTaskCardProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [optimisticCompleted, setOptimisticCompleted] = useState(completed);
 
-  const isBusy = isSubmitting || locked;
+  const isBusy = isSubmitting || locked || Boolean(href);
 
   const submitTask = async (formData: FormData) => {
     if (isBusy) return;
@@ -114,7 +117,7 @@ export function TodayTaskCard({
 
         <button
           type="submit"
-          disabled={isBusy}
+          disabled={isSubmitting || locked || Boolean(href)}
           aria-label={`Toggle completion for ${title}`}
           aria-pressed={optimisticCompleted}
           className="flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-900 text-zinc-100 transition hover:bg-zinc-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-70"
@@ -135,12 +138,23 @@ export function TodayTaskCard({
       <p className="mt-3 text-xs uppercase tracking-[0.2em] text-zinc-500">
         {isSubmitting
           ? "Saving..."
+          : href
+          ? "Open journal"
           : locked
           ? lockedLabel ?? "Locked"
           : optimisticCompleted
           ? "Completed"
           : "Tap to mark complete"}
       </p>
+
+      {href ? (
+        <Link
+          href={href}
+          className="mt-3 inline-flex rounded-lg border border-zinc-700 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-200 transition hover:bg-zinc-900"
+        >
+          Open Reflection
+        </Link>
+      ) : null}
     </form>
   );
 }

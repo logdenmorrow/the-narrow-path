@@ -35,6 +35,11 @@ type UserTaskCompletionRow = {
   completed_at?: string | null;
 };
 
+type ReflectionEntryRow = {
+  id: number;
+  entry_text: string;
+};
+
 type ProfileRow = {
   id: string;
   display_name: string | null;
@@ -315,6 +320,28 @@ export default async function DashboardPage() {
       (completion) => completion.plan_day_task_id
     )
   );
+
+  const reflectionTodayTask = todayTasks.find((task) => {
+    const relation = task.task_templates;
+    const template = Array.isArray(relation) ? relation[0] : relation;
+    return template?.slug === "reflection";
+  });
+
+  const { data: reflectionEntryData } = planDay
+    ? await supabase
+        .from("user_reflection_entries")
+        .select("id, entry_text")
+        .eq("user_id", user.id)
+        .eq("plan_day_id", planDay.id)
+        .maybeSingle()
+    : { data: null };
+
+  const reflectionEntry = (reflectionEntryData ?? null) as ReflectionEntryRow | null;
+  const hasSavedReflection = Boolean(reflectionEntry?.entry_text?.trim());
+
+  if (reflectionTodayTask?.id && hasSavedReflection) {
+    completionIds.add(reflectionTodayTask.id);
+  }
 
   const requiredDailyToday = todayTasks.filter(
     (task) =>
@@ -789,6 +816,12 @@ export default async function DashboardPage() {
             {planDay?.reflection_prompt ||
               "No reflection prompt has been assigned for this day yet."}
           </p>
+          <Link
+            href={`/reflection?day=${selectedDay}`}
+            className="mt-4 inline-flex rounded-lg border border-zinc-700 px-4 py-3 font-semibold text-white transition hover:bg-zinc-900"
+          >
+            Open Reflection
+          </Link>
         </section>
       </div>
     </main>

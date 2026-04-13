@@ -21,6 +21,11 @@ type PlanDayRow = {
   reading_reference: string | null;
 };
 
+type ReflectionEntryRow = {
+  id: number;
+  entry_text: string;
+};
+
 function normalizeDayNumber(value: number, totalDays: number) {
   if (!Number.isFinite(value)) return 1;
   const rounded = Math.floor(value);
@@ -262,11 +267,34 @@ export default async function TodayPage({
         .in("plan_day_task_id", scopeTaskIds)
     : { data: [] as CompletionRecord[] };
 
+  const reflectionTask = typedDayTasks.find((task) => {
+    const relation = task.task_templates;
+    const template = Array.isArray(relation) ? relation[0] : relation;
+    return template?.slug === "reflection";
+  });
+
+  const { data: reflectionEntryData } = reflectionTask
+    ? await supabase
+        .from("user_reflection_entries")
+        .select("id, entry_text")
+        .eq("user_id", user.id)
+        .eq("plan_day_id", selectedPlanDayId)
+        .maybeSingle()
+    : { data: null };
+
+  const reflectionEntry = (reflectionEntryData ?? null) as ReflectionEntryRow | null;
+  const hasSavedReflection = Boolean(reflectionEntry?.entry_text?.trim());
+  const completionOverrides = new Map<number, boolean>();
+  if (reflectionTask) {
+    completionOverrides.set(reflectionTask.id, hasSavedReflection);
+  }
+
   const taskModels = buildTaskViewModels(
     typedDayTasks,
     scopeTasks,
     (completions ?? []) as CompletionRecord[],
-    user.id
+    user.id,
+    completionOverrides
   );
 
   const requiredTasks = taskModels.filter((task) => task.isRequired);
@@ -458,6 +486,11 @@ export default async function TodayPage({
                     completed={task.isCompleted}
                     locked={!canEditSelectedDay}
                     lockedLabel={lockLabel}
+                    href={
+                      task.slug === "reflection"
+                        ? `/reflection?day=${typedPlanDay.day_number}`
+                        : undefined
+                    }
                   />
                 ))
               ) : (
@@ -483,6 +516,11 @@ export default async function TodayPage({
                     completed={task.isCompleted}
                     locked={!canEditSelectedDay}
                     lockedLabel={lockLabel}
+                    href={
+                      task.slug === "reflection"
+                        ? `/reflection?day=${typedPlanDay.day_number}`
+                        : undefined
+                    }
                   />
                 ))
               ) : (
