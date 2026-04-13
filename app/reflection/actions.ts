@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
+import { encryptJournalEntry } from "@/lib/journal-crypto";
 
 export async function saveReflectionEntry(formData: FormData) {
   const planDayId = Number(formData.get("planDayId"));
@@ -44,6 +45,8 @@ export async function saveReflectionEntry(formData: FormData) {
     throw new Error("Future reflections are locked.");
   }
 
+  const encryptedEntry = encryptJournalEntry(entryText);
+
   const now = new Date().toISOString();
   const { error: upsertError } = await supabase.from("user_reflection_entries").upsert(
     {
@@ -51,7 +54,11 @@ export async function saveReflectionEntry(formData: FormData) {
       plan_day_id: planDayId,
       challenge_day_number: dayNumber,
       prompt_text: promptText,
-      entry_text: entryText,
+      entry_ciphertext: encryptedEntry.ciphertext,
+      entry_iv: encryptedEntry.iv,
+      entry_auth_tag: encryptedEntry.authTag,
+      encryption_version: encryptedEntry.encryptionVersion,
+      entry_text: null,
       updated_at: now,
     },
     {

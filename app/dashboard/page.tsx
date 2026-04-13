@@ -37,7 +37,6 @@ type UserTaskCompletionRow = {
 
 type ReflectionEntryRow = {
   id: number;
-  entry_text: string;
 };
 
 type ProfileRow = {
@@ -330,14 +329,14 @@ export default async function DashboardPage() {
   const { data: reflectionEntryData } = planDay
     ? await supabase
         .from("user_reflection_entries")
-        .select("id, entry_text")
+        .select("id")
         .eq("user_id", user.id)
         .eq("plan_day_id", planDay.id)
         .maybeSingle()
     : { data: null };
 
   const reflectionEntry = (reflectionEntryData ?? null) as ReflectionEntryRow | null;
-  const hasSavedReflection = Boolean(reflectionEntry?.entry_text?.trim());
+  const hasSavedReflection = Boolean(reflectionEntry?.id);
 
   if (reflectionTodayTask?.id && hasSavedReflection) {
     completionIds.add(reflectionTodayTask.id);

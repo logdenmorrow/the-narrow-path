@@ -23,7 +23,6 @@ type PlanDayRow = {
 
 type ReflectionEntryRow = {
   id: number;
-  entry_text: string;
 };
 
 function normalizeDayNumber(value: number, totalDays: number) {
@@ -276,14 +275,14 @@ export default async function TodayPage({
   const { data: reflectionEntryData } = reflectionTask
     ? await supabase
         .from("user_reflection_entries")
-        .select("id, entry_text")
+        .select("id")
         .eq("user_id", user.id)
         .eq("plan_day_id", selectedPlanDayId)
         .maybeSingle()
     : { data: null };
 
   const reflectionEntry = (reflectionEntryData ?? null) as ReflectionEntryRow | null;
-  const hasSavedReflection = Boolean(reflectionEntry?.entry_text?.trim());
+  const hasSavedReflection = Boolean(reflectionEntry?.id);
   const completionOverrides = new Map<number, boolean>();
   if (reflectionTask) {
     completionOverrides.set(reflectionTask.id, hasSavedReflection);
