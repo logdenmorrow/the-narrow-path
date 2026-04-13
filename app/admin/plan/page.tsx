@@ -44,7 +44,7 @@ function isAllowedAdminEmail(email?: string | null) {
   const adminEmails = getAdminEmails();
 
   if (adminEmails.length === 0) {
-    return true;
+    return false;
   }
 
   if (!email) {
@@ -742,8 +742,8 @@ export default async function AdminPlanPage({
               Admin email lock is not configured yet.
             </p>
             <p className="mt-2 text-sm text-yellow-100/80 sm:text-base">
-              Right now, any signed-in user can access this page. Later, add
-              ADMIN_EMAILS to .env.local to restrict it.
+              Admin access is currently disabled. Add ADMIN_EMAILS to .env.local
+              with a comma-separated allowlist, then restart the dev server.
             </p>
           </div>
         )}
