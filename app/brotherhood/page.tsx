@@ -296,9 +296,9 @@ export default async function BrotherhoodPage() {
           </div>
         </div>
 
-        <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+        <section className="rounded-2xl border border-[#b09166] bg-[#f2e6cd]/95 p-5 shadow-[0_12px_28px_-18px_rgba(68,44,23,0.52)] dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none sm:p-6">
           <h2 className="text-xl font-semibold sm:text-2xl">Today&apos;s Member Status</h2>
-          <p className="mt-2 text-sm text-zinc-400">
+          <p className="mt-2 text-sm text-[#5a452b] dark:text-zinc-400">
             First name plus last initial for clarity, plus weekly quota progress for flexible disciplines.
           </p>
 
@@ -307,19 +307,19 @@ export default async function BrotherhoodPage() {
               <Link
                 key={member.profile.id}
                 href={`/brotherhood/${member.profile.id}?day=${currentDayNumber}`}
-                className="block rounded-xl border border-zinc-800 bg-black p-4 transition hover:border-zinc-600"
+                className="block rounded-xl border border-[#ab8b61] bg-[#f8efdd] p-4 shadow-[0_8px_20px_-14px_rgba(68,44,23,0.55)] transition hover:border-[#94724a] hover:bg-[#f3e5ca] dark:border-zinc-800 dark:bg-black dark:shadow-none dark:hover:border-zinc-600 dark:hover:bg-black"
               >
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                   <div>
-                    <p className="text-base font-semibold text-white">{member.shortName}</p>
-                    <p className="mt-1 text-sm text-zinc-500">{member.fullName}</p>
+                    <p className="text-base font-semibold text-[#312111] dark:text-white">{member.shortName}</p>
+                    <p className="mt-1 text-sm text-[#5e4a31] dark:text-zinc-500">{member.fullName}</p>
 
                     {member.quotaRows.length > 0 && (
                       <div className="mt-3 flex flex-wrap gap-2">
                         {member.quotaRows.map((row) => (
                           <span
                             key={`${member.profile.id}-${row.taskTemplateId}`}
-                            className="rounded-full border border-zinc-700 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-zinc-300"
+                            className="rounded-full border border-[#95744b] bg-[#efe1c6] px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-[#4b3620] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300"
                           >
                             {row.title}: {row.progressCount ?? 0}/{row.quotaTarget ?? 0}
                           </span>
@@ -332,25 +332,25 @@ export default async function BrotherhoodPage() {
                     <span
                       className={`rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${
                         member.completedToday
-                          ? "border border-[#6e5b35] bg-[#3f321a]/30 text-[#f0dfb7] dark:border-[#8f7642] dark:bg-[#2c2314] dark:text-[#e9d4a6]"
+                          ? "border border-[#5f4b2d] bg-[#e7d9be] text-[#3f2f18] dark:border-[#8f7642] dark:bg-[#2c2314] dark:text-[#e9d4a6]"
                           : member.startedToday
-                          ? "border border-[#6a4a2f] bg-[#3b2a1e]/30 text-[#e9cfb5] dark:border-[#7c5838] dark:bg-[#271d16] dark:text-[#ddc3a8]"
-                          : "border border-[#7a6647] bg-[#2e261d]/20 text-[#d8c4a4] dark:border-[#6e5c42] dark:bg-[#211b14] dark:text-[#cdbb9f]"
+                          ? "border border-[#755236] bg-[#eddcc8] text-[#4a341f] dark:border-[#7c5838] dark:bg-[#271d16] dark:text-[#ddc3a8]"
+                          : "border border-[#8d7350] bg-[#efe2ca] text-[#5a4328] dark:border-[#6e5c42] dark:bg-[#211b14] dark:text-[#cdbb9f]"
                       }`}
                     >
                       {member.statusLabel}
                     </span>
 
-                    <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-zinc-300">
+                    <span className="rounded-full border border-[#95744b] bg-[#efe1c6] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[#49341f] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300">
                       Required: {member.requiredSummary.done}/{member.requiredSummary.total}
                     </span>
 
-                    <span className="rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-zinc-300">
+                    <span className="rounded-full border border-[#95744b] bg-[#efe1c6] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[#49341f] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300">
                       Optional: {member.optionalDone}/{member.optionalTotal}
                     </span>
 
                     {member.hasWeeklyMomentum && (
-                      <span className="rounded-full border border-[#705a3a] bg-[#32271a]/25 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[#e4cfad] dark:border-[#87704a] dark:bg-[#292014] dark:text-[#d8c09b]">
+                      <span className="rounded-full border border-[#826642] bg-[#eadcc2] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[#4e3923] dark:border-[#87704a] dark:bg-[#292014] dark:text-[#d8c09b]">
                         Weekly Momentum
                       </span>
                     )}
@@ -360,7 +360,7 @@ export default async function BrotherhoodPage() {
             ))}
 
             {memberRows.length === 0 && (
-              <p className="text-sm text-zinc-400">No members found yet.</p>
+              <p className="text-sm text-[#5a452b] dark:text-zinc-400">No members found yet.</p>
             )}
           </div>
         </section>
