@@ -274,7 +274,7 @@ export default async function ThisWeekPage({
         </div>
 
         {quotaSummaries.length > 0 && (
-          <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+          <section className="mb-6 rounded-2xl border border-[#b09166] bg-[#f2e6cd]/95 p-5 shadow-[0_12px_28px_-18px_rgba(68,44,23,0.52)] dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">Week Progress</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {quotaSummaries.map((task) => {
@@ -291,10 +291,10 @@ export default async function ThisWeekPage({
                 return (
                   <div
                     key={`quota-${task.taskTemplateId}`}
-                    className="rounded-xl border border-zinc-800 bg-black p-4"
+                    className="rounded-xl border border-[#aa8a5f] bg-[#f8efdd] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] dark:border-zinc-800 dark:bg-black dark:shadow-none"
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <p className="text-sm font-semibold text-white">{task.title}</p>
+                      <p className="text-sm font-semibold text-[#342313] dark:text-white">{task.title}</p>
                       <span
                         className={`rounded-full border px-2 py-1 text-[10px] font-semibold tracking-wide ${meterClasses.text}`}
                       >
@@ -314,7 +314,7 @@ export default async function ThisWeekPage({
                         style={{ width: `${meterPercent}%` }}
                       />
                     </div>
-                    <p className="mt-2 text-sm text-zinc-300">{task.progressLabel}</p>
+                    <p className="mt-2 text-sm text-[#4f3a22] dark:text-zinc-300">{task.progressLabel}</p>
                   </div>
                 );
               })}
@@ -326,31 +326,31 @@ export default async function ThisWeekPage({
           {dayModels.map(({ day, required, optional, dateLabel }) => (
             <section
               key={day.id}
-              className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5"
+              className="rounded-2xl border border-[#ad8e63] bg-[#f4e9d2]/95 p-5 shadow-[0_14px_32px_-22px_rgba(68,44,23,0.58)] dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none"
             >
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
+                  <p className="text-xs uppercase tracking-[0.2em] text-[#5b462b] dark:text-zinc-400">
                     Day {day.day_number}
                   </p>
                   <h2 className="mt-2 text-xl font-semibold">
                     {dateLabel || `Day ${day.day_number}`}
                   </h2>
-                  <p className="mt-2 text-xs text-zinc-400">
+                  <p className="mt-2 text-xs text-[#5d482d] dark:text-zinc-400">
                     Required done: {required.filter((task) => task.isCompleted).length}/
                     {required.length}
                   </p>
-                  <p className="mt-2 text-sm text-zinc-300">
+                  <p className="mt-2 text-sm text-[#46331d] dark:text-zinc-300">
                     {day.reading_title ?? day.title ?? "Daily Reading"}
                   </p>
-                  <p className="mt-1 text-xs text-zinc-500">
+                  <p className="mt-1 text-xs text-[#6a5538] dark:text-zinc-500">
                     {day.reading_reference ?? ""}
                   </p>
                 </div>
 
                 <Link
                   href={`/today?day=${day.day_number}`}
-                  className="rounded-lg border border-zinc-700 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-zinc-900"
+                  className="rounded-lg border border-[#9c7c53] bg-[#efe1c6] px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#3b2918] transition hover:bg-[#e5d1ae] dark:border-zinc-700 dark:bg-transparent dark:text-white dark:hover:bg-zinc-900"
                 >
                   Open
                 </Link>
@@ -358,7 +358,7 @@ export default async function ThisWeekPage({
 
               <div className="mt-5 space-y-4">
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-zinc-400">
+                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-[#5a452b] dark:text-zinc-400">
                     Required
                   </h3>
                   <div className="mt-3 space-y-2">
@@ -366,37 +366,37 @@ export default async function ThisWeekPage({
                       required.map((task) => (
                         <div
                           key={task.id}
-                          className="rounded-lg border border-zinc-800 bg-black p-3"
+                          className="rounded-lg border border-[#aa895e] bg-[#f8efde] p-3 dark:border-zinc-800 dark:bg-black"
                         >
                           <div className="flex items-center justify-between gap-3">
-                            <p className="text-sm font-medium text-white">
+                            <p className="text-sm font-medium text-[#312111] dark:text-white">
                               {task.title}
                             </p>
                             <span
-                              className={`rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em] ${
+                              className={`rounded-full border px-2 py-1 text-[10px] uppercase tracking-[0.2em] ${
                                 task.isCompleted
-                                  ? "border border-emerald-700 text-emerald-200"
-                                  : "border border-red-700 text-red-200"
+                                  ? "border-emerald-700 bg-emerald-100/70 text-emerald-900 dark:bg-transparent dark:text-emerald-200"
+                                  : "border-red-700 bg-red-100/70 text-red-900 dark:bg-transparent dark:text-red-200"
                               }`}
                             >
                               {task.isCompleted ? "Done" : "Required"}
                             </span>
                           </div>
                           {task.note ? (
-                            <p className="mt-2 text-xs leading-5 text-zinc-500">
+                            <p className="mt-2 text-xs leading-5 text-[#5f4b31] dark:text-zinc-500">
                               {task.note}
                             </p>
                           ) : null}
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-zinc-500">No required tasks.</p>
+                      <p className="text-sm text-[#5f4b31] dark:text-zinc-500">No required tasks.</p>
                     )}
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-zinc-400">
+                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-[#5a452b] dark:text-zinc-400">
                     Optional
                   </h3>
                   <div className="mt-3 space-y-2">
@@ -404,32 +404,32 @@ export default async function ThisWeekPage({
                       optional.map((task) => (
                         <div
                           key={task.id}
-                          className="rounded-lg border border-zinc-800 bg-black p-3"
+                          className="rounded-lg border border-[#aa895e] bg-[#f8efde] p-3 dark:border-zinc-800 dark:bg-black"
                         >
                           <div className="flex items-center justify-between gap-3">
-                            <p className="text-sm font-medium text-white">
+                            <p className="text-sm font-medium text-[#312111] dark:text-white">
                               {task.title}
                             </p>
-                            <span className="rounded-full border border-zinc-700 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-zinc-300">
+                            <span className="rounded-full border border-[#93724a] bg-[#efe1c6] px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-[#49341f] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300">
                               {task.isCompleted ? "Done" : "Optional"}
                             </span>
                           </div>
 
                           {task.progressLabel ? (
-                            <p className="mt-2 text-xs leading-5 text-blue-300">
+                            <p className="mt-2 text-xs leading-5 text-[#2f4f9f] dark:text-blue-300">
                               {task.progressLabel}
                             </p>
                           ) : null}
 
                           {task.note ? (
-                            <p className="mt-2 text-xs leading-5 text-zinc-500">
+                            <p className="mt-2 text-xs leading-5 text-[#5f4b31] dark:text-zinc-500">
                               {task.note}
                             </p>
                           ) : null}
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-zinc-500">No optional tasks.</p>
+                      <p className="text-sm text-[#5f4b31] dark:text-zinc-500">No optional tasks.</p>
                     )}
                   </div>
                 </div>
