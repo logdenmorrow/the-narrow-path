@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { AppActionBar } from "@/components/page-actions";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import {
@@ -257,20 +260,21 @@ export default async function ThisWeekPage({
             </p>
           </div>
 
-          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]">
-            <Link
-              href={`/today?day=${selectedDay}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Back to Today
-            </Link>
-            <Link
-              href={`/daily-reading?day=${selectedDay}`}
-              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
-            >
-              Daily Reading
-            </Link>
-          </div>
+          <AppActionBar
+            className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]"
+            actions={[
+              {
+                href: `/today?day=${selectedDay}`,
+                label: "Back to Today",
+                variant: "outline",
+              },
+              {
+                href: `/daily-reading?day=${selectedDay}`,
+                label: "Daily Reading",
+                variant: "primary",
+              },
+            ]}
+          />
         </div>
 
         {quotaSummaries.length > 0 && (
@@ -348,12 +352,9 @@ export default async function ThisWeekPage({
                   </p>
                 </div>
 
-                <Link
-                  href={`/today?day=${day.day_number}`}
-                  className="rounded-lg border border-[#9c7c53] bg-[#efe1c6] px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#3b2918] transition hover:bg-[#e5d1ae] dark:border-zinc-700 dark:bg-transparent dark:text-white dark:hover:bg-zinc-900"
-                >
-                  Open
-                </Link>
+                <Button asChild size="xs" variant="secondary">
+                  <Link href={`/today?day=${day.day_number}`}>Open</Link>
+                </Button>
               </div>
 
               <div className="mt-5 space-y-4">
@@ -372,15 +373,9 @@ export default async function ThisWeekPage({
                             <p className="text-sm font-medium text-[#312111] dark:text-white">
                               {task.title}
                             </p>
-                            <span
-                              className={`rounded-full border px-2 py-1 text-[10px] uppercase tracking-[0.2em] ${
-                                task.isCompleted
-                                  ? "border-emerald-700 bg-emerald-100/70 text-emerald-900 dark:bg-transparent dark:text-emerald-200"
-                                  : "border-red-700 bg-red-100/70 text-red-900 dark:bg-transparent dark:text-red-200"
-                              }`}
-                            >
+                            <Badge variant={task.isCompleted ? "done" : "required"}>
                               {task.isCompleted ? "Done" : "Required"}
-                            </span>
+                            </Badge>
                           </div>
                           {task.note ? (
                             <p className="mt-2 text-xs leading-5 text-[#5f4b31] dark:text-zinc-500">
@@ -410,9 +405,9 @@ export default async function ThisWeekPage({
                             <p className="text-sm font-medium text-[#312111] dark:text-white">
                               {task.title}
                             </p>
-                            <span className="rounded-full border border-[#93724a] bg-[#efe1c6] px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-[#49341f] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300">
+                            <Badge variant={task.isCompleted ? "done" : "optional"}>
                               {task.isCompleted ? "Done" : "Optional"}
-                            </span>
+                            </Badge>
                           </div>
 
                           {task.progressLabel ? (

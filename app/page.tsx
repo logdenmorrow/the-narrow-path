@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { AppActionBar } from "@/components/page-actions";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function HomePage() {
@@ -25,39 +25,40 @@ export default async function HomePage() {
             focus, and daily accountability.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            {isSignedIn ? (
-              <>
-                <Link
-                  href="/today"
-                  className="rounded-lg bg-[#7a5331] px-6 py-3 text-base font-semibold text-[#f9efdc] shadow-md transition hover:bg-[#694727]"
-                >
-                  Open Today&apos;s Reading
-                </Link>
-                <Link
-                  href="/dashboard"
-                  className="rounded-lg border border-[#f0dec0] bg-[#f8efd9]/20 px-6 py-3 text-base font-semibold text-[#f8ecd5] transition hover:bg-[#f5e7ca]/30"
-                >
-                  Go to Dashboard
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/auth/sign-up"
-                  className="rounded-lg bg-[#7a5331] px-6 py-3 text-base font-semibold text-[#f9efdc] shadow-md transition hover:bg-[#694727]"
-                >
-                  Get Started
-                </Link>
-                <Link
-                  href="/auth/login"
-                  className="rounded-lg border border-[#f0dec0] bg-[#f8efd9]/20 px-6 py-3 text-base font-semibold text-[#f8ecd5] transition hover:bg-[#f5e7ca]/30"
-                >
-                  Learn More
-                </Link>
-              </>
-            )}
-          </div>
+          <AppActionBar
+            className="mt-8"
+            actions={
+              isSignedIn
+                ? [
+                    {
+                      href: "/today",
+                      label: "Open Today's Reading",
+                      variant: "primary",
+                      size: "lg",
+                    },
+                    {
+                      href: "/dashboard",
+                      label: "Go to Dashboard",
+                      variant: "outline",
+                      size: "lg",
+                    },
+                  ]
+                : [
+                    {
+                      href: "/auth/sign-up",
+                      label: "Get Started",
+                      variant: "primary",
+                      size: "lg",
+                    },
+                    {
+                      href: "/auth/login",
+                      label: "Learn More",
+                      variant: "outline",
+                      size: "lg",
+                    },
+                  ]
+            }
+          />
         </div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-3">
