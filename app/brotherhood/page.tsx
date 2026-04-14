@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { AppActionBar } from "@/components/page-actions";
+import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import {
@@ -248,20 +250,13 @@ export default async function BrotherhoodPage() {
             </p>
           </div>
 
-          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]">
-            <Link
-              href="/dashboard"
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Back to Dashboard
-            </Link>
-            <Link
-              href="/today"
-              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
-            >
-              Go to Today
-            </Link>
-          </div>
+          <AppActionBar
+            className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]"
+            actions={[
+              { href: "/dashboard", label: "Back to Dashboard", variant: "outline" },
+              { href: "/today", label: "Go to Today", variant: "primary" },
+            ]}
+          />
         </div>
 
         <div className="mb-6 grid gap-4 sm:grid-cols-4">
@@ -317,42 +312,43 @@ export default async function BrotherhoodPage() {
                     {member.quotaRows.length > 0 && (
                       <div className="mt-3 flex flex-wrap gap-2">
                         {member.quotaRows.map((row) => (
-                          <span
+                          <Badge
                             key={`${member.profile.id}-${row.taskTemplateId}`}
-                            className="rounded-full border border-[#95744b] bg-[#efe1c6] px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-[#4b3620] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300"
+                            variant="optional"
+                            className="text-[9px]"
                           >
                             {row.title}: {row.progressCount ?? 0}/{row.quotaTarget ?? 0}
-                          </span>
+                          </Badge>
                         ))}
                       </div>
                     )}
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 lg:justify-end">
-                    <span
-                      className={`rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${
+                    <Badge
+                      variant={
                         member.completedToday
-                          ? "border border-[#5f4b2d] bg-[#e7d9be] text-[#3f2f18] dark:border-[#8f7642] dark:bg-[#2c2314] dark:text-[#e9d4a6]"
+                          ? "done"
                           : member.startedToday
-                          ? "border border-[#755236] bg-[#eddcc8] text-[#4a341f] dark:border-[#7c5838] dark:bg-[#271d16] dark:text-[#ddc3a8]"
-                          : "border border-[#8d7350] bg-[#efe2ca] text-[#5a4328] dark:border-[#6e5c42] dark:bg-[#211b14] dark:text-[#cdbb9f]"
-                      }`}
+                            ? "started"
+                            : "optional"
+                      }
                     >
                       {member.statusLabel}
-                    </span>
+                    </Badge>
 
-                    <span className="rounded-full border border-[#95744b] bg-[#efe1c6] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[#49341f] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300">
+                    <Badge variant="required">
                       Required: {member.requiredSummary.done}/{member.requiredSummary.total}
-                    </span>
+                    </Badge>
 
-                    <span className="rounded-full border border-[#95744b] bg-[#efe1c6] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[#49341f] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300">
+                    <Badge variant="optional">
                       Optional: {member.optionalDone}/{member.optionalTotal}
-                    </span>
+                    </Badge>
 
                     {member.hasWeeklyMomentum && (
-                      <span className="rounded-full border border-[#826642] bg-[#eadcc2] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[#4e3923] dark:border-[#87704a] dark:bg-[#292014] dark:text-[#d8c09b]">
+                      <Badge variant="momentum">
                         Weekly Momentum
-                      </span>
+                      </Badge>
                     )}
                   </div>
                 </div>

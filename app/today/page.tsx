@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import { AppActionBar } from "@/components/page-actions";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import { TodayTaskCard } from "@/components/today-task-card";
@@ -347,32 +347,31 @@ export default async function TodayPage({
             </p>
           </div>
 
-          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[420px]">
-            <Link
-              href={`/today?day=${previousDay}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Previous Day
-            </Link>
-            <Link
-              href={`/today?day=${nextDay}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Next Day
-            </Link>
-            <Link
-              href={`/daily-reading?day=${typedPlanDay.day_number}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Open Daily Reading
-            </Link>
-            <Link
-              href={`/this-week?day=${typedPlanDay.day_number}`}
-              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
-            >
-              View This Week
-            </Link>
-          </div>
+          <AppActionBar
+            className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[420px]"
+            actions={[
+              {
+                href: `/today?day=${previousDay}`,
+                label: "Previous Day",
+                variant: "outline",
+              },
+              {
+                href: `/today?day=${nextDay}`,
+                label: "Next Day",
+                variant: "outline",
+              },
+              {
+                href: `/daily-reading?day=${typedPlanDay.day_number}`,
+                label: "Open Daily Reading",
+                variant: "secondary",
+              },
+              {
+                href: `/this-week?day=${typedPlanDay.day_number}`,
+                label: "View This Week",
+                variant: "primary",
+              },
+            ]}
+          />
         </div>
 
         {!canEditSelectedDay && (

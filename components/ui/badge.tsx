@@ -4,17 +4,27 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors focus:outline-none focus:ring-2 focus:ring-[#d7bf97] focus:ring-offset-2 focus:ring-offset-[#140f0a]",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
+          "border-[#6b4a2c] bg-[#f0e0c2] text-[#432c19] dark:border-[#7f6544] dark:bg-[#2e2218] dark:text-[#f1ddbc]",
         secondary:
-          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "border-[#8d7050] bg-[#efe1c7] text-[#4a3520] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300",
         destructive:
-          "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
-        outline: "text-foreground",
+          "border-[#7f1d1d] bg-[#fee2e2] text-[#7f1d1d] dark:border-[#7f1d1d] dark:bg-[#3a1515] dark:text-[#fecaca]",
+        outline:
+          "border-[#8d7050] bg-transparent text-[#4a3520] dark:border-zinc-700 dark:text-zinc-300",
+        required:
+          "border-[#7f1d1d] bg-[#fee2e2] text-[#7f1d1d] dark:border-[#7f1d1d] dark:bg-[#3a1515] dark:text-[#fecaca]",
+        optional:
+          "border-[#8d7050] bg-[#efe1c7] text-[#4a3520] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300",
+        done: "border-emerald-700 bg-emerald-100/70 text-emerald-900 dark:bg-transparent dark:text-emerald-200",
+        started:
+          "border-[#755236] bg-[#eddcc8] text-[#4a341f] dark:border-[#7c5838] dark:bg-[#271d16] dark:text-[#ddc3a8]",
+        momentum:
+          "border-[#826642] bg-[#eadcc2] text-[#4e3923] dark:border-[#87704a] dark:bg-[#292014] dark:text-[#d8c09b]",
       },
     },
     defaultVariants: {

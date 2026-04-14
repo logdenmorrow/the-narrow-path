@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import { AppActionBar } from "@/components/page-actions";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 
@@ -211,44 +211,35 @@ export default async function DailyReadingPage({
             </p>
           </div>
 
-          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]">
-            <Link
-              href="/today"
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Back to Today
-            </Link>
-            <Link
-              href="/this-week"
-              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
-            >
-              View This Week
-            </Link>
-          </div>
+          <AppActionBar
+            className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]"
+            actions={[
+              { href: "/today", label: "Back to Today", variant: "outline" },
+              { href: "/this-week", label: "View This Week", variant: "primary" },
+            ]}
+          />
         </div>
 
-        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <Link
-            href={`/daily-reading?day=${previousDay}`}
-            className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-          >
-            Previous Day
-          </Link>
-
-          <Link
-            href={`/daily-reading?day=${defaultDay}`}
-            className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-          >
-            Jump to Current Day
-          </Link>
-
-          <Link
-            href={`/daily-reading?day=${nextDay}`}
-            className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-          >
-            Next Day
-          </Link>
-        </div>
+        <AppActionBar
+          className="mb-6 flex-col sm:flex-row sm:items-center sm:justify-between"
+          actions={[
+            {
+              href: `/daily-reading?day=${previousDay}`,
+              label: "Previous Day",
+              variant: "outline",
+            },
+            {
+              href: `/daily-reading?day=${defaultDay}`,
+              label: "Jump to Current Day",
+              variant: "secondary",
+            },
+            {
+              href: `/daily-reading?day=${nextDay}`,
+              label: "Next Day",
+              variant: "outline",
+            },
+          ]}
+        />
 
         <div className="grid gap-6">
           <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
