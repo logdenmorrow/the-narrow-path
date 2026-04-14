@@ -332,10 +332,10 @@ export default async function BrotherhoodPage() {
                     <span
                       className={`rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${
                         member.completedToday
-                          ? "border border-emerald-700 text-emerald-200"
+                          ? "border border-[#6e5b35] bg-[#3f321a]/30 text-[#f0dfb7] dark:border-[#8f7642] dark:bg-[#2c2314] dark:text-[#e9d4a6]"
                           : member.startedToday
-                          ? "border border-blue-700 text-blue-200"
-                          : "border border-zinc-700 text-zinc-300"
+                          ? "border border-[#6a4a2f] bg-[#3b2a1e]/30 text-[#e9cfb5] dark:border-[#7c5838] dark:bg-[#271d16] dark:text-[#ddc3a8]"
+                          : "border border-[#7a6647] bg-[#2e261d]/20 text-[#d8c4a4] dark:border-[#6e5c42] dark:bg-[#211b14] dark:text-[#cdbb9f]"
                       }`}
                     >
                       {member.statusLabel}
@@ -350,7 +350,7 @@ export default async function BrotherhoodPage() {
                     </span>
 
                     {member.hasWeeklyMomentum && (
-                      <span className="rounded-full border border-violet-700 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-violet-200">
+                      <span className="rounded-full border border-[#705a3a] bg-[#32271a]/25 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[#e4cfad] dark:border-[#87704a] dark:bg-[#292014] dark:text-[#d8c09b]">
                         Weekly Momentum
                       </span>
                     )}
