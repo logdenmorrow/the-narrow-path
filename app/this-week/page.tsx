@@ -96,7 +96,7 @@ export default async function ThisWeekPage({
 
   if (activePlanError || !activePlan) {
     return (
-      <main className="min-h-screen bg-black text-white">
+      <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
             <h1 className="text-3xl font-bold">This Week</h1>
@@ -136,7 +136,7 @@ export default async function ThisWeekPage({
 
   if (weekPlanDaysError || typedWeekPlanDays.length === 0) {
     return (
-      <main className="min-h-screen bg-black text-white">
+      <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
             <h1 className="text-3xl font-bold">This Week</h1>
@@ -182,7 +182,7 @@ export default async function ThisWeekPage({
 
   if (weekTasksError) {
     return (
-      <main className="min-h-screen bg-black text-white">
+      <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
             <h1 className="text-3xl font-bold">This Week</h1>
@@ -233,7 +233,7 @@ export default async function ThisWeekPage({
     );
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="monastic-page">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
         {!challenge.hasStarted && (
           <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">

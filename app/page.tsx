@@ -11,70 +11,86 @@ export default async function HomePage() {
   const isSignedIn = Boolean(user);
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      <section className="mx-auto flex min-h-[calc(100vh-73px)] max-w-6xl items-center justify-center px-4 py-12 sm:px-6">
-        <div className="w-full max-w-3xl text-center">
-          <p className="mb-4 text-xs uppercase tracking-[0.35em] text-zinc-400 sm:text-sm">
-            A Brotherhood of Discipline
+    <main className="monastic-page">
+      <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
+        <div className="monastic-card monastic-hero overflow-hidden p-6 text-[#f8eedc] sm:p-10">
+          <p className="text-xs uppercase tracking-[0.28em] text-[#f7e3ba] sm:text-sm">
+            Prayer • Discipline • Brotherhood
           </p>
-
-          <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            The Narrow Path
+          <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-6xl">
+            Stay on the Narrow Path
           </h1>
-
-          <p className="mx-auto mt-6 max-w-2xl text-base text-zinc-300 sm:text-xl">
-            A private app for men pursuing prayer, discipline, perseverance, and
-            accountability together.
+          <p className="mt-4 max-w-2xl text-lg text-[#f3e6cf] sm:text-2xl">
+            A devotional challenge crafted for men pursuing fidelity, spiritual
+            focus, and daily accountability.
           </p>
 
-          {isSignedIn ? (
-            <div className="mt-8">
-              <p className="text-sm text-zinc-400 sm:text-base">
-                You&apos;re already signed in.
-              </p>
-            </div>
-          ) : (
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link
-                href="/auth/sign-up"
-                className="inline-flex min-w-[140px] items-center justify-center rounded-lg bg-white px-5 py-3 font-semibold text-black transition hover:bg-zinc-200"
-              >
-                Get Started
-              </Link>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {isSignedIn ? (
+              <>
+                <Link
+                  href="/today"
+                  className="rounded-lg bg-[#7a5331] px-6 py-3 text-base font-semibold text-[#f9efdc] shadow-md transition hover:bg-[#694727]"
+                >
+                  Open Today&apos;s Reading
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className="rounded-lg border border-[#f0dec0] bg-[#f8efd9]/20 px-6 py-3 text-base font-semibold text-[#f8ecd5] transition hover:bg-[#f5e7ca]/30"
+                >
+                  Go to Dashboard
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/auth/sign-up"
+                  className="rounded-lg bg-[#7a5331] px-6 py-3 text-base font-semibold text-[#f9efdc] shadow-md transition hover:bg-[#694727]"
+                >
+                  Get Started
+                </Link>
+                <Link
+                  href="/auth/login"
+                  className="rounded-lg border border-[#f0dec0] bg-[#f8efd9]/20 px-6 py-3 text-base font-semibold text-[#f8ecd5] transition hover:bg-[#f5e7ca]/30"
+                >
+                  Learn More
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
 
-              <Link
-                href="/auth/login"
-                className="inline-flex min-w-[140px] items-center justify-center rounded-lg border border-zinc-700 px-5 py-3 font-semibold text-white transition hover:bg-zinc-900"
-              >
-                Login
-              </Link>
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {[
+            ["✝", "Daily Challenges", "Commit to practical ascetic rhythms."],
+            ["♰", "Spiritual Readings", "Ground the day in the Word of God."],
+            ["♥", "Brotherhood", "Walk shoulder-to-shoulder with brothers."],
+          ].map(([icon, title, body]) => (
+            <div key={title} className="monastic-card p-6 text-center">
+              <p className="text-lg text-[#7b5533]">{icon}</p>
+              <h2 className="mt-1 text-3xl font-semibold text-[#432c1f]">{title}</h2>
+              <p className="mt-2 text-base text-[#6a4b33]">{body}</p>
             </div>
-          )}
+          ))}
+        </div>
 
-          <div className="mx-auto mt-10 max-w-2xl rounded-2xl border border-zinc-800 bg-zinc-950 p-4 text-left sm:p-6">
-            <p className="text-xs uppercase tracking-[0.25em] text-zinc-400">
-              Product Preview
-            </p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-xl border border-zinc-800 bg-black p-3">
-                <p className="text-xs text-zinc-400">Today</p>
-                <p className="mt-1 text-sm font-semibold text-white">Required 3/5</p>
-                <div className="mt-2 h-1.5 rounded-full bg-zinc-800">
-                  <div className="h-1.5 w-3/5 rounded-full bg-emerald-400" />
-                </div>
-              </div>
-              <div className="rounded-xl border border-zinc-800 bg-black p-3">
-                <p className="text-xs text-zinc-400">This Week</p>
-                <p className="mt-1 text-sm font-semibold text-white">Prayer 5/7</p>
-                <div className="mt-2 h-1.5 rounded-full bg-zinc-800">
-                  <div className="h-1.5 w-2/3 rounded-full bg-blue-400" />
-                </div>
-              </div>
-              <div className="rounded-xl border border-zinc-800 bg-black p-3">
-                <p className="text-xs text-zinc-400">Reading</p>
-                <p className="mt-1 text-sm font-semibold text-white">John 15:1-11</p>
-                <p className="mt-2 text-xs text-zinc-500">Daily reflection prompt</p>
-              </div>
+        <div className="monastic-card mt-8 p-6">
+          <h3 className="text-center text-4xl font-semibold text-[#432c1f]">Today&apos;s Progress</h3>
+          <div className="mt-4 grid gap-4 sm:grid-cols-3">
+            <div className="rounded-xl border border-[#ccb48f] bg-[#fbf5e8] p-4">
+              <p className="text-sm uppercase tracking-[0.2em] text-[#715137]">Required</p>
+              <p className="text-3xl font-semibold text-[#4a2f1e]">3/5</p>
+              <div className="mt-3 h-2 rounded-full bg-[#deceb2]"><div className="h-2 w-3/5 rounded-full bg-[#7a5331]" /></div>
+            </div>
+            <div className="rounded-xl border border-[#ccb48f] bg-[#fbf5e8] p-4">
+              <p className="text-sm uppercase tracking-[0.2em] text-[#715137]">Prayer</p>
+              <p className="text-3xl font-semibold text-[#4a2f1e]">5/7</p>
+              <div className="mt-3 h-2 rounded-full bg-[#deceb2]"><div className="h-2 w-2/3 rounded-full bg-[#7a5331]" /></div>
+            </div>
+            <div className="rounded-xl border border-[#ccb48f] bg-[#fbf5e8] p-4">
+              <p className="text-sm uppercase tracking-[0.2em] text-[#715137]">Reading</p>
+              <p className="text-xl font-semibold text-[#4a2f1e]">Acts 4:1-12</p>
+              <p className="mt-2 text-sm text-[#6a4b33]">No Other Name Under Heaven</p>
             </div>
           </div>
         </div>
