@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppActionBar } from "@/components/page-actions";
-import { Badge } from "@/components/ui/badge";
+import {
+  StatusPill,
+  TaskCard,
+  TaskCardHeader,
+  TaskCardMeta,
+} from "@/components/task-card";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import {
@@ -299,60 +305,58 @@ export default async function BrotherhoodPage() {
 
           <div className="mt-4 space-y-3">
             {memberRows.map((member) => (
-              <Link
+              <TaskCard
                 key={member.profile.id}
-                href={`/brotherhood/${member.profile.id}?day=${currentDayNumber}`}
-                className="block rounded-xl border border-[#ab8b61] bg-[#f8efdd] p-4 shadow-[0_8px_20px_-14px_rgba(68,44,23,0.55)] transition hover:border-[#94724a] hover:bg-[#f3e5ca] dark:border-zinc-800 dark:bg-black dark:shadow-none dark:hover:border-zinc-600 dark:hover:bg-black"
+                className="bg-[#f8efdd] p-4 transition hover:border-[#94724a] hover:bg-[#f3e5ca] dark:bg-black dark:hover:border-zinc-600 dark:hover:bg-black"
               >
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                  <div>
-                    <p className="text-base font-semibold text-[#312111] dark:text-white">{member.shortName}</p>
-                    <p className="mt-1 text-sm text-[#5e4a31] dark:text-zinc-500">{member.fullName}</p>
+                <TaskCardHeader
+                  title={member.shortName}
+                  description={member.fullName}
+                  action={
+                    <Button asChild variant="secondary" size="xs">
+                      <Link href={`/brotherhood/${member.profile.id}?day=${currentDayNumber}`}>
+                        Open Member
+                      </Link>
+                    </Button>
+                  }
+                />
 
-                    {member.quotaRows.length > 0 && (
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {member.quotaRows.map((row) => (
-                          <Badge
-                            key={`${member.profile.id}-${row.taskTemplateId}`}
-                            variant="optional"
-                            className="text-[9px]"
-                          >
-                            {row.title}: {row.progressCount ?? 0}/{row.quotaTarget ?? 0}
-                          </Badge>
-                        ))}
-                      </div>
-                    )}
+                <TaskCardMeta className="mt-3">
+                  <StatusPill
+                    tone={
+                      member.completedToday
+                        ? "done"
+                        : member.startedToday
+                          ? "started"
+                          : "optional"
+                    }
+                  >
+                    {member.statusLabel}
+                  </StatusPill>
+                  <StatusPill tone="required">
+                    Required: {member.requiredSummary.done}/{member.requiredSummary.total}
+                  </StatusPill>
+                  <StatusPill tone="optional">
+                    Optional: {member.optionalDone}/{member.optionalTotal}
+                  </StatusPill>
+                  {member.hasWeeklyMomentum ? (
+                    <StatusPill tone="momentum">Weekly Momentum</StatusPill>
+                  ) : null}
+                </TaskCardMeta>
+
+                {member.quotaRows.length > 0 ? (
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {member.quotaRows.map((row) => (
+                      <StatusPill
+                        key={`${member.profile.id}-${row.taskTemplateId}`}
+                        tone="progress"
+                      >
+                        {row.title}: {row.progressCount ?? 0}/{row.quotaTarget ?? 0}
+                      </StatusPill>
+                    ))}
                   </div>
-
-                  <div className="flex flex-wrap items-center gap-2 lg:justify-end">
-                    <Badge
-                      variant={
-                        member.completedToday
-                          ? "done"
-                          : member.startedToday
-                            ? "started"
-                            : "optional"
-                      }
-                    >
-                      {member.statusLabel}
-                    </Badge>
-
-                    <Badge variant="required">
-                      Required: {member.requiredSummary.done}/{member.requiredSummary.total}
-                    </Badge>
-
-                    <Badge variant="optional">
-                      Optional: {member.optionalDone}/{member.optionalTotal}
-                    </Badge>
-
-                    {member.hasWeeklyMomentum && (
-                      <Badge variant="momentum">
-                        Weekly Momentum
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-              </Link>
+                ) : null}
+              </TaskCard>
             ))}
 
             {memberRows.length === 0 && (

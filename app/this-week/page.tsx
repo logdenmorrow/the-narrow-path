@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppActionBar } from "@/components/page-actions";
-import { Badge } from "@/components/ui/badge";
+import {
+  StatusPill,
+  TaskCard,
+  TaskCardHeader,
+  TaskCardMeta,
+} from "@/components/task-card";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
@@ -328,34 +333,25 @@ export default async function ThisWeekPage({
 
         <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
           {dayModels.map(({ day, required, optional, dateLabel }) => (
-            <section
-              key={day.id}
-              className="rounded-2xl border border-[#ad8e63] bg-[#f4e9d2]/95 p-5 shadow-[0_14px_32px_-22px_rgba(68,44,23,0.58)] dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-[#5b462b] dark:text-zinc-400">
-                    Day {day.day_number}
-                  </p>
-                  <h2 className="mt-2 text-xl font-semibold">
-                    {dateLabel || `Day ${day.day_number}`}
-                  </h2>
-                  <p className="mt-2 text-xs text-[#5d482d] dark:text-zinc-400">
-                    Required done: {required.filter((task) => task.isCompleted).length}/
-                    {required.length}
-                  </p>
-                  <p className="mt-2 text-sm text-[#46331d] dark:text-zinc-300">
-                    {day.reading_title ?? day.title ?? "Daily Reading"}
-                  </p>
-                  <p className="mt-1 text-xs text-[#6a5538] dark:text-zinc-500">
-                    {day.reading_reference ?? ""}
-                  </p>
-                </div>
+            <TaskCard key={day.id}>
+              <TaskCardHeader
+                eyebrow={`Day ${day.day_number}`}
+                title={dateLabel || `Day ${day.day_number}`}
+                description={day.reading_title ?? day.title ?? "Daily Reading"}
+                action={
+                  <Button asChild size="xs" variant="secondary">
+                    <Link href={`/today?day=${day.day_number}`}>Open</Link>
+                  </Button>
+                }
+              />
 
-                <Button asChild size="xs" variant="secondary">
-                  <Link href={`/today?day=${day.day_number}`}>Open</Link>
-                </Button>
-              </div>
+              <TaskCardMeta className="mt-3">
+                <span>
+                  Required done: {required.filter((task) => task.isCompleted).length}/
+                  {required.length}
+                </span>
+                {day.reading_reference ? <span>{day.reading_reference}</span> : null}
+              </TaskCardMeta>
 
               <div className="mt-5 space-y-4">
                 <div>
@@ -373,9 +369,9 @@ export default async function ThisWeekPage({
                             <p className="text-sm font-medium text-[#312111] dark:text-white">
                               {task.title}
                             </p>
-                            <Badge variant={task.isCompleted ? "done" : "required"}>
+                            <StatusPill tone={task.isCompleted ? "done" : "required"}>
                               {task.isCompleted ? "Done" : "Required"}
-                            </Badge>
+                            </StatusPill>
                           </div>
                           {task.note ? (
                             <p className="mt-2 text-xs leading-5 text-[#5f4b31] dark:text-zinc-500">
@@ -405,9 +401,9 @@ export default async function ThisWeekPage({
                             <p className="text-sm font-medium text-[#312111] dark:text-white">
                               {task.title}
                             </p>
-                            <Badge variant={task.isCompleted ? "done" : "optional"}>
+                            <StatusPill tone={task.isCompleted ? "done" : "optional"}>
                               {task.isCompleted ? "Done" : "Optional"}
-                            </Badge>
+                            </StatusPill>
                           </div>
 
                           {task.progressLabel ? (
@@ -429,7 +425,7 @@ export default async function ThisWeekPage({
                   </div>
                 </div>
               </div>
-            </section>
+            </TaskCard>
           ))}
         </div>
       </div>
