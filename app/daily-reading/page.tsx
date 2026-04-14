@@ -108,13 +108,13 @@ export default async function DailyReadingPage({
 
   if (activePlanError || !activePlan) {
     return (
-      <main className="min-h-screen bg-app text-fg">
+      <main className="min-h-screen bg-black text-white">
         <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Daily Reading
             </h1>
-            <p className="mt-4 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
               No active challenge plan was found.
             </p>
           </div>
@@ -159,13 +159,13 @@ export default async function DailyReadingPage({
 
   if (planDayError || !planDay) {
     return (
-      <main className="min-h-screen bg-app text-fg">
+      <main className="min-h-screen bg-black text-white">
         <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Daily Reading
             </h1>
-            <p className="mt-4 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
               Day {selectedDay} has not been created yet.
             </p>
           </div>
@@ -185,14 +185,14 @@ export default async function DailyReadingPage({
   const hasReadingText = readingParagraphs.length > 0;
 
   return (
-    <main className="min-h-screen bg-app text-fg">
+    <main className="min-h-screen bg-black text-white">
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
         {!challenge.hasStarted && (
-          <div className="mb-6 rounded-2xl border border-border bg-surface p-4 sm:p-6">
-            <p className="text-base font-semibold text-fg sm:text-lg">
+          <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+            <p className="text-base font-semibold text-white sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
             </p>
-            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
               You&apos;re previewing the reading plan before launch.
             </p>
           </div>
@@ -200,13 +200,13 @@ export default async function DailyReadingPage({
 
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-muted sm:text-sm">
+            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
               {activePlan.name}
             </p>
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Daily Reading
             </h1>
-            <p className="mt-3 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
               Day {planDay.day_number}
             </p>
           </div>
@@ -214,13 +214,13 @@ export default async function DailyReadingPage({
           <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]">
             <Link
               href="/today"
-              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
             >
               Back to Today
             </Link>
             <Link
               href="/this-week"
-              className="rounded-lg bg-accent px-4 py-3 text-center font-semibold text-accent-foreground transition hover:bg-accent-hover"
+              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
             >
               View This Week
             </Link>
@@ -230,67 +230,67 @@ export default async function DailyReadingPage({
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <Link
             href={`/daily-reading?day=${previousDay}`}
-            className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+            className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
           >
             Previous Day
           </Link>
 
           <Link
             href={`/daily-reading?day=${defaultDay}`}
-            className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+            className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
           >
             Jump to Current Day
           </Link>
 
           <Link
             href={`/daily-reading?day=${nextDay}`}
-            className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+            className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
           >
             Next Day
           </Link>
         </div>
 
         <div className="grid gap-6">
-          <section className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-muted sm:text-sm">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+            <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
               Mission
             </p>
             <h2 className="mt-2 text-2xl font-semibold sm:text-3xl">
               {planDay.reading_mission || "No mission assigned yet"}
             </h2>
-            <p className="mt-4 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
               {planDay.reading_focus || "No mission focus has been added yet."}
             </p>
           </section>
 
-          <section className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-muted sm:text-sm">
+                <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
                   Reading
                 </p>
                 <h2 className="mt-2 text-2xl font-semibold sm:text-3xl">
                   {planDay.reading_title || "No reading title assigned yet"}
                 </h2>
-                <p className="mt-3 text-base text-muted-foreground sm:text-lg">
+                <p className="mt-3 text-base text-zinc-300 sm:text-lg">
                   {planDay.reading_reference || "No reference assigned yet"}
                 </p>
               </div>
 
-              <span className="w-fit rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:text-xs">
+              <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-zinc-300 sm:text-xs">
                 {catechismDay ? "Catechism Day" : "Scripture Day"}
               </span>
             </div>
           </section>
 
-          <section className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">
               {catechismDay ? "Today's Focus" : "Reading Focus"}
             </h2>
 
             {catechismDay ? (
-              <div className="mt-4 rounded-xl border border-border bg-app px-5 py-5 sm:px-6 sm:py-6">
-                <p className="text-sm leading-7 text-muted-foreground sm:text-base">
+              <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-5 py-5 sm:px-6 sm:py-6">
+                <p className="text-sm leading-7 text-zinc-300 sm:text-base">
                   Today is a Catechism reading day. The full Catechism text for these
                   paragraphs is included below.
                 </p>
@@ -300,21 +300,21 @@ export default async function DailyReadingPage({
                 {focusParagraphs.map((paragraph, index) => (
                   <p
                     key={`focus-${index}`}
-                    className="text-sm leading-7 text-muted-foreground sm:text-base"
+                    className="text-sm leading-7 text-zinc-300 sm:text-base"
                   >
                     {paragraph}
                   </p>
                 ))}
               </div>
             ) : (
-              <p className="mt-4 text-sm text-muted sm:text-base">
+              <p className="mt-4 text-sm text-zinc-400 sm:text-base">
                 No reading focus has been added yet.
               </p>
             )}
           </section>
 
           {noteParagraphs.length > 0 && (
-            <section className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+            <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
               <h2 className="text-xl font-semibold sm:text-2xl">
                 {catechismDay ? "Catholic Insight" : "Companion Note"}
               </h2>
@@ -323,7 +323,7 @@ export default async function DailyReadingPage({
                 {noteParagraphs.map((paragraph, index) => (
                   <p
                     key={`insight-${index}`}
-                    className="text-sm leading-7 text-muted-foreground sm:text-base"
+                    className="text-sm leading-7 text-zinc-300 sm:text-base"
                   >
                     {paragraph}
                   </p>
@@ -332,25 +332,25 @@ export default async function DailyReadingPage({
             </section>
           )}
 
-          <section className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">
               {catechismDay ? "Catechism Text" : "RSV-2CE Text"}
             </h2>
 
-            <div className="mt-4 rounded-xl border border-border bg-app px-5 py-5 sm:px-6 sm:py-6">
+            <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-5 py-5 sm:px-6 sm:py-6">
               {hasReadingText ? (
                 <article className="space-y-5">
                   {readingParagraphs.map((paragraph, index) => (
                     <p
                       key={`reading-${index}`}
-                      className="text-sm leading-8 text-fg sm:text-base"
+                      className="text-sm leading-8 text-zinc-200 sm:text-base"
                     >
                       {paragraph}
                     </p>
                   ))}
                 </article>
               ) : (
-                <p className="text-sm text-muted sm:text-base">
+                <p className="text-sm text-zinc-400 sm:text-base">
                   No reading text has been added yet for this day.
                 </p>
               )}

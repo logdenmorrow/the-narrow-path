@@ -13,26 +13,6 @@ export default {
     extend: {
       colors: {
         background: "hsl(var(--background))",
-        app: "hsl(var(--app-bg))",
-        page: "hsl(var(--page-bg))",
-        surface: {
-          DEFAULT: "hsl(var(--surface))",
-          elevated: "hsl(var(--surface-elevated))",
-        },
-        fg: "hsl(var(--text-primary))",
-        text: {
-          secondary: "hsl(var(--text-secondary))",
-          muted: "hsl(var(--text-muted))",
-        },
-        success: "hsl(var(--success))",
-        warning: "hsl(var(--warning))",
-        "accent-hover": "hsl(var(--accent-hover))",
-        "progress-track": "hsl(var(--progress-track))",
-        "progress-fill": "hsl(var(--progress-fill))",
-        "nav-selected": "hsl(var(--nav-selected))",
-        chip: "hsl(var(--chip-bg))",
-        checkbox: "hsl(var(--checkbox-bg))",
-        "reading-callout": "hsl(var(--reading-callout-bg))",
         foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",

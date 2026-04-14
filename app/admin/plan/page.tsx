@@ -571,13 +571,13 @@ export default async function AdminPlanPage({
 
   if (activePlanError || !activePlan) {
     return (
-      <main className="min-h-screen bg-app text-fg">
+      <main className="min-h-screen bg-black text-white">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Admin Plan Editor
             </h1>
-            <p className="mt-4 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
               No active challenge plan was found. Add or activate a plan in
               Supabase before using this page.
             </p>
@@ -663,17 +663,17 @@ export default async function AdminPlanPage({
   );
 
   return (
-    <main className="min-h-screen bg-app text-fg">
+    <main className="min-h-screen bg-black text-white">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-muted sm:text-sm">
+            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
               {activePlan.name}
             </p>
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Admin Plan Editor
             </h1>
-            <p className="mt-3 max-w-3xl text-sm text-muted-foreground sm:text-base">
+            <p className="mt-3 max-w-3xl text-sm text-zinc-300 sm:text-base">
               Edit days, assign tasks, and manage daily versus weekly quota
               disciplines without dropping back into SQL.
             </p>
@@ -682,19 +682,19 @@ export default async function AdminPlanPage({
           <div className="grid w-full gap-3 sm:grid-cols-3 lg:w-auto lg:min-w-[560px]">
             <Link
               href="/dashboard"
-              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
             >
               Back to Dashboard
             </Link>
             <Link
               href="/today"
-              className="rounded-lg bg-accent px-4 py-3 text-center font-semibold text-accent-foreground transition hover:bg-accent-hover"
+              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
             >
               View Today
             </Link>
             <Link
               href="/admin/plan/export"
-              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
             >
               Export Completions CSV
             </Link>
@@ -702,22 +702,22 @@ export default async function AdminPlanPage({
         </div>
 
         {!challenge.hasStarted && (
-          <div className="mb-6 rounded-2xl border border-border bg-surface p-4 sm:p-6">
-            <p className="text-base font-semibold text-fg sm:text-lg">
+          <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+            <p className="text-base font-semibold text-white sm:text-lg">
               Challenge starts on {challenge.startDateLabel}.
             </p>
-            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
               You&apos;re currently building preview content before launch day.
             </p>
           </div>
         )}
 
         {challenge.isComplete && (
-          <div className="mb-6 rounded-2xl border border-border bg-surface p-4 sm:p-6">
-            <p className="text-base font-semibold text-fg sm:text-lg">
+          <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+            <p className="text-base font-semibold text-white sm:text-lg">
               The challenge is complete.
             </p>
-            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
               Admin preview is currently anchored to the final challenge day and
               final week.
             </p>
@@ -749,50 +749,50 @@ export default async function AdminPlanPage({
         )}
 
         <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-muted sm:text-sm">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
               Active Plan
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
               {activePlan.name}
             </p>
-            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
               {activePlan.total_days} total days
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-muted sm:text-sm">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
               Editing
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
               Day {selectedDay}
             </p>
-            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
               {planDay ? "Day exists" : "Day not created yet"}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-muted sm:text-sm">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
               Live Challenge Day
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
               {challenge.hasStarted ? `Day ${challenge.currentDayNumber}` : "Pre-start"}
             </p>
-            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
               {challenge.startDateLabel}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-muted sm:text-sm">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
               Weekly Quota Templates
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
               {weeklyQuotaTemplates.length}
             </p>
-            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
               Flexible disciplines tracked across a full week.
             </p>
           </div>
@@ -802,28 +802,28 @@ export default async function AdminPlanPage({
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <Link
               href={`/admin/plan?day=${previousDay}`}
-              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
             >
               Previous Day
             </Link>
 
             <Link
               href={`/admin/plan?day=${nextDay}`}
-              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
             >
               Next Day
             </Link>
 
             <Link
               href={`/admin/plan?day=${challenge.currentDayNumber}`}
-              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
             >
               Jump to Live Day
             </Link>
 
             <Link
               href={`/admin/plan?day=${challenge.weekStartDay}`}
-              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
             >
               Jump to Live Week
             </Link>
@@ -834,7 +834,7 @@ export default async function AdminPlanPage({
             method="get"
             className="flex flex-col gap-3 sm:flex-row sm:items-center"
           >
-            <label htmlFor="day" className="text-sm text-muted">
+            <label htmlFor="day" className="text-sm text-zinc-400">
               Jump to day
             </label>
             <input
@@ -844,11 +844,11 @@ export default async function AdminPlanPage({
               min={1}
               max={activePlan.total_days}
               defaultValue={selectedDay}
-              className="w-full rounded-lg border border-border bg-app px-3 py-3 text-fg outline-none sm:w-32"
+              className="w-full rounded-lg border border-zinc-700 bg-black px-3 py-3 text-white outline-none sm:w-32"
             />
             <button
               type="submit"
-              className="rounded-lg bg-accent px-4 py-3 font-semibold text-accent-foreground transition hover:bg-accent-hover sm:w-auto"
+              className="rounded-lg bg-white px-4 py-3 font-semibold text-black transition hover:bg-zinc-200 sm:w-auto"
             >
               Go
             </button>
@@ -856,12 +856,12 @@ export default async function AdminPlanPage({
         </div>
 
         <div className="grid gap-6">
-          <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <div className="mb-5">
               <h2 className="text-xl font-semibold sm:text-2xl">
                 Weekly Quota Notes
               </h2>
-              <p className="mt-1 text-sm text-muted sm:text-base">
+              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
                 A weekly quota task is not meant to be required on a specific
                 day. Assign it to the days you want it available, keep those day
                 instances optional, and the app will count completions toward the
@@ -870,7 +870,7 @@ export default async function AdminPlanPage({
             </div>
 
             {weeklyQuotaTemplates.length === 0 ? (
-              <p className="text-sm text-muted sm:text-base">
+              <p className="text-sm text-zinc-400 sm:text-base">
                 No weekly quota templates exist yet.
               </p>
             ) : (
@@ -878,16 +878,16 @@ export default async function AdminPlanPage({
                 {weeklyQuotaTemplates.map((template) => (
                   <div
                     key={template.id}
-                    className="rounded-xl border border-border bg-app px-4 py-4"
+                    className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
                   >
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                       <div>
-                        <p className="font-medium text-fg">{template.title}</p>
-                        <p className="mt-1 text-xs text-muted sm:text-sm">
+                        <p className="font-medium text-white">{template.title}</p>
+                        <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
                           {template.description || template.slug}
                         </p>
                       </div>
-                      <span className="w-fit rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-wide text-muted-foreground sm:text-xs">
+                      <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
                         {cadenceLabel(template)}
                       </span>
                     </div>
@@ -897,12 +897,12 @@ export default async function AdminPlanPage({
             )}
           </section>
 
-          <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <div className="mb-5">
               <h2 className="text-xl font-semibold sm:text-2xl">
                 Copy Day to Another Day
               </h2>
-              <p className="mt-1 text-sm text-muted sm:text-base">
+              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
                 This copies the selected day title, reflection prompt, and all
                 assigned tasks to another day. The target day is fully replaced.
               </p>
@@ -915,7 +915,7 @@ export default async function AdminPlanPage({
               <div className="grid gap-2">
                 <label
                   htmlFor="source_day_number"
-                  className="text-sm font-medium text-muted-foreground"
+                  className="text-sm font-medium text-zinc-300"
                 >
                   Source Day
                 </label>
@@ -926,14 +926,14 @@ export default async function AdminPlanPage({
                   min={1}
                   max={activePlan.total_days}
                   defaultValue={selectedDay}
-                  className="rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                  className="rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                 />
               </div>
 
               <div className="grid gap-2">
                 <label
                   htmlFor="target_day_number"
-                  className="text-sm font-medium text-muted-foreground"
+                  className="text-sm font-medium text-zinc-300"
                 >
                   Target Day
                 </label>
@@ -944,7 +944,7 @@ export default async function AdminPlanPage({
                   min={1}
                   max={activePlan.total_days}
                   defaultValue={Math.min(selectedDay + 1, activePlan.total_days)}
-                  className="rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                  className="rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                 />
               </div>
 
@@ -952,7 +952,7 @@ export default async function AdminPlanPage({
                 <button
                   type="submit"
                   disabled={!adminKeyConfigured}
-                  className="w-full rounded-lg bg-accent px-5 py-3 font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50 lg:w-auto"
+                  className="w-full rounded-lg bg-white px-5 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50 lg:w-auto"
                 >
                   Copy Day
                 </button>
@@ -960,12 +960,12 @@ export default async function AdminPlanPage({
             </form>
           </section>
 
-          <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <div className="mb-5">
               <h2 className="text-xl font-semibold sm:text-2xl">
                 Copy Week to Another Week
               </h2>
-              <p className="mt-1 text-sm text-muted sm:text-base">
+              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
                 Copy a full 7-day block. Each target day is replaced with the
                 source day&apos;s title, prompt, and tasks.
               </p>
@@ -979,7 +979,7 @@ export default async function AdminPlanPage({
               <div className="grid gap-2">
                 <label
                   htmlFor="source_week_start_day"
-                  className="text-sm font-medium text-muted-foreground"
+                  className="text-sm font-medium text-zinc-300"
                 >
                   Source Week Start
                 </label>
@@ -990,14 +990,14 @@ export default async function AdminPlanPage({
                   min={1}
                   max={activePlan.total_days}
                   defaultValue={normalizeWeekStartDay(selectedDay, activePlan.total_days)}
-                  className="rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                  className="rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                 />
               </div>
 
               <div className="grid gap-2">
                 <label
                   htmlFor="target_week_start_day"
-                  className="text-sm font-medium text-muted-foreground"
+                  className="text-sm font-medium text-zinc-300"
                 >
                   Target Week Start
                 </label>
@@ -1008,7 +1008,7 @@ export default async function AdminPlanPage({
                   min={1}
                   max={activePlan.total_days}
                   defaultValue={suggestedTargetWeekStart}
-                  className="rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                  className="rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                 />
               </div>
 
@@ -1016,7 +1016,7 @@ export default async function AdminPlanPage({
                 <button
                   type="submit"
                   disabled={!adminKeyConfigured}
-                  className="w-full rounded-lg bg-accent px-5 py-3 font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50 lg:w-auto"
+                  className="w-full rounded-lg bg-white px-5 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50 lg:w-auto"
                 >
                   Copy Week
                 </button>
@@ -1024,10 +1024,10 @@ export default async function AdminPlanPage({
             </form>
           </section>
 
-          <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <div className="mb-5">
               <h2 className="text-xl font-semibold sm:text-2xl">Day Details</h2>
-              <p className="mt-1 text-sm text-muted sm:text-base">
+              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
                 Create or update the selected day title and reflection prompt.
               </p>
             </div>
@@ -1037,7 +1037,7 @@ export default async function AdminPlanPage({
               <input type="hidden" name="day_number" value={selectedDay} />
 
               <div className="grid gap-2">
-                <label htmlFor="title" className="text-sm font-medium text-muted-foreground">
+                <label htmlFor="title" className="text-sm font-medium text-zinc-300">
                   Day Title
                 </label>
                 <input
@@ -1046,14 +1046,14 @@ export default async function AdminPlanPage({
                   type="text"
                   defaultValue={planDay?.title ?? ""}
                   placeholder={`Day ${selectedDay}`}
-                  className="w-full rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                  className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                 />
               </div>
 
               <div className="grid gap-2">
                 <label
                   htmlFor="reflection_prompt"
-                  className="text-sm font-medium text-muted-foreground"
+                  className="text-sm font-medium text-zinc-300"
                 >
                   Reflection Prompt
                 </label>
@@ -1063,31 +1063,31 @@ export default async function AdminPlanPage({
                   rows={4}
                   defaultValue={planDay?.reflection_prompt ?? ""}
                   placeholder="Write the reflection prompt for this day..."
-                  className="w-full rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                  className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={!adminKeyConfigured}
-                className="w-full rounded-lg bg-accent px-5 py-3 font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+                className="w-full rounded-lg bg-white px-5 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
                 Save Day Details
               </button>
             </form>
           </section>
 
-          <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <div className="mb-5">
               <h2 className="text-xl font-semibold sm:text-2xl">Assigned Tasks</h2>
-              <p className="mt-1 text-sm text-muted sm:text-base">
+              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
                 Reorder tasks, switch between required and optional, or remove
                 them from this day.
               </p>
             </div>
 
             {assignedTasks.length === 0 ? (
-              <p className="text-sm text-muted sm:text-base">
+              <p className="text-sm text-zinc-400 sm:text-base">
                 No tasks are assigned to this day yet.
               </p>
             ) : (
@@ -1095,18 +1095,18 @@ export default async function AdminPlanPage({
                 {assignedTasks.map((task) => (
                   <div
                     key={task.id}
-                    className="rounded-xl border border-border bg-app p-4"
+                    className="rounded-xl border border-zinc-800 bg-black p-4"
                   >
                     <div className="mb-3">
                       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <p className="font-medium text-fg">
+                        <p className="font-medium text-white">
                           {task.task_templates?.title || "Untitled Task"}
                         </p>
-                        <span className="w-fit rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-wide text-muted-foreground sm:text-xs">
+                        <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
                           {cadenceLabel(task.task_templates)}
                         </span>
                       </div>
-                      <p className="mt-1 text-xs text-muted sm:text-sm">
+                      <p className="mt-1 text-xs text-zinc-500 sm:text-sm">
                         {task.task_templates?.description ||
                           task.task_templates?.slug ||
                           "No description"}
@@ -1121,7 +1121,7 @@ export default async function AdminPlanPage({
                         <input type="hidden" name="plan_day_task_id" value={task.id} />
                         <input type="hidden" name="day_number" value={selectedDay} />
 
-                        <label className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <label className="flex items-center gap-2 text-sm text-zinc-300">
                           <input
                             type="checkbox"
                             name="is_required"
@@ -1134,7 +1134,7 @@ export default async function AdminPlanPage({
                         <div className="grid gap-1">
                           <label
                             htmlFor={`sort-order-${task.id}`}
-                            className="text-sm text-muted"
+                            className="text-sm text-zinc-400"
                           >
                             Sort Order
                           </label>
@@ -1143,7 +1143,7 @@ export default async function AdminPlanPage({
                             name="sort_order"
                             type="number"
                             defaultValue={task.sort_order}
-                            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-fg outline-none lg:w-28"
+                            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-white outline-none lg:w-28"
                           />
                         </div>
 
@@ -1151,7 +1151,7 @@ export default async function AdminPlanPage({
                           <button
                             type="submit"
                             disabled={!adminKeyConfigured}
-                            className="rounded-lg bg-accent px-4 py-2 font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
+                            className="rounded-lg bg-white px-4 py-2 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50"
                           >
                             Save Task
                           </button>
@@ -1176,18 +1176,18 @@ export default async function AdminPlanPage({
             )}
           </section>
 
-          <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <div className="mb-5">
               <h2 className="text-xl font-semibold sm:text-2xl">
                 Add Existing Task
               </h2>
-              <p className="mt-1 text-sm text-muted sm:text-base">
+              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
                 Assign one of your reusable task templates to this day.
               </p>
             </div>
 
             {availableTemplates.length === 0 ? (
-              <p className="text-sm text-muted sm:text-base">
+              <p className="text-sm text-zinc-400 sm:text-base">
                 All existing templates are already assigned to this day.
               </p>
             ) : (
@@ -1198,14 +1198,14 @@ export default async function AdminPlanPage({
                 <div className="lg:col-span-2 grid gap-2">
                   <label
                     htmlFor="task_template_id"
-                    className="text-sm font-medium text-muted-foreground"
+                    className="text-sm font-medium text-zinc-300"
                   >
                     Task Template
                   </label>
                   <select
                     id="task_template_id"
                     name="task_template_id"
-                    className="rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                    className="rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                     defaultValue={availableTemplates[0]?.id}
                   >
                     {availableTemplates.map((template) => (
@@ -1222,7 +1222,7 @@ export default async function AdminPlanPage({
                 <div className="grid gap-2">
                   <label
                     htmlFor="new_task_sort_order"
-                    className="text-sm font-medium text-muted-foreground"
+                    className="text-sm font-medium text-zinc-300"
                   >
                     Sort Order
                   </label>
@@ -1231,12 +1231,12 @@ export default async function AdminPlanPage({
                     name="sort_order"
                     type="number"
                     defaultValue={assignedTasks.length + 1}
-                    className="rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                    className="rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                   />
                 </div>
 
                 <div className="flex flex-col justify-end gap-3">
-                  <label className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <label className="flex items-center gap-2 text-sm text-zinc-300">
                     <input
                       type="checkbox"
                       name="is_required"
@@ -1249,7 +1249,7 @@ export default async function AdminPlanPage({
                   <button
                     type="submit"
                     disabled={!adminKeyConfigured}
-                    className="w-full rounded-lg bg-accent px-5 py-3 font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
+                    className="w-full rounded-lg bg-white px-5 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     Add Task
                   </button>
@@ -1258,19 +1258,19 @@ export default async function AdminPlanPage({
             )}
           </section>
 
-          <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <div className="mb-5">
               <h2 className="text-xl font-semibold sm:text-2xl">
                 Edit Task Templates
               </h2>
-              <p className="mt-1 text-sm text-muted sm:text-base">
+              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
                 Rename templates, choose daily versus weekly quota behavior, and
                 set the weekly target where needed.
               </p>
             </div>
 
             {taskTemplates.length === 0 ? (
-              <p className="text-sm text-muted sm:text-base">
+              <p className="text-sm text-zinc-400 sm:text-base">
                 No task templates exist yet.
               </p>
             ) : (
@@ -1279,7 +1279,7 @@ export default async function AdminPlanPage({
                   <form
                     key={template.id}
                     action={saveTaskTemplate}
-                    className="rounded-xl border border-border bg-app p-4"
+                    className="rounded-xl border border-zinc-800 bg-black p-4"
                   >
                     <input type="hidden" name="template_id" value={template.id} />
                     <input type="hidden" name="day_number" value={selectedDay} />
@@ -1288,7 +1288,7 @@ export default async function AdminPlanPage({
                       <div className="grid gap-2">
                         <label
                           htmlFor={`template-title-${template.id}`}
-                          className="text-sm font-medium text-muted-foreground"
+                          className="text-sm font-medium text-zinc-300"
                         >
                           Title
                         </label>
@@ -1297,14 +1297,14 @@ export default async function AdminPlanPage({
                           name="title"
                           type="text"
                           defaultValue={template.title}
-                          className="rounded-lg border border-border bg-surface px-4 py-3 text-fg outline-none"
+                          className="rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none"
                         />
                       </div>
 
                       <div className="grid gap-2">
                         <label
                           htmlFor={`template-slug-${template.id}`}
-                          className="text-sm font-medium text-muted-foreground"
+                          className="text-sm font-medium text-zinc-300"
                         >
                           Slug
                         </label>
@@ -1313,7 +1313,7 @@ export default async function AdminPlanPage({
                           name="slug"
                           type="text"
                           defaultValue={template.slug}
-                          className="rounded-lg border border-border bg-surface px-4 py-3 text-fg outline-none"
+                          className="rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none"
                         />
                       </div>
                     </div>
@@ -1322,7 +1322,7 @@ export default async function AdminPlanPage({
                       <div className="grid gap-2">
                         <label
                           htmlFor={`template-cadence-${template.id}`}
-                          className="text-sm font-medium text-muted-foreground"
+                          className="text-sm font-medium text-zinc-300"
                         >
                           Cadence
                         </label>
@@ -1330,7 +1330,7 @@ export default async function AdminPlanPage({
                           id={`template-cadence-${template.id}`}
                           name="cadence"
                           defaultValue={template.cadence}
-                          className="rounded-lg border border-border bg-surface px-4 py-3 text-fg outline-none"
+                          className="rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none"
                         >
                           <option value="daily">Daily</option>
                           <option value="weekly_quota">Weekly quota</option>
@@ -1340,7 +1340,7 @@ export default async function AdminPlanPage({
                       <div className="grid gap-2">
                         <label
                           htmlFor={`template-weekly-target-${template.id}`}
-                          className="text-sm font-medium text-muted-foreground"
+                          className="text-sm font-medium text-zinc-300"
                         >
                           Weekly Target
                         </label>
@@ -1351,7 +1351,7 @@ export default async function AdminPlanPage({
                           min={1}
                           defaultValue={template.weekly_target ?? ""}
                           placeholder="Leave blank for daily tasks"
-                          className="rounded-lg border border-border bg-surface px-4 py-3 text-fg outline-none"
+                          className="rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none"
                         />
                       </div>
                     </div>
@@ -1359,7 +1359,7 @@ export default async function AdminPlanPage({
                     <div className="mt-4 grid gap-2">
                       <label
                         htmlFor={`template-description-${template.id}`}
-                        className="text-sm font-medium text-muted-foreground"
+                        className="text-sm font-medium text-zinc-300"
                       >
                         Description
                       </label>
@@ -1368,7 +1368,7 @@ export default async function AdminPlanPage({
                         name="description"
                         rows={3}
                         defaultValue={template.description ?? ""}
-                        className="rounded-lg border border-border bg-surface px-4 py-3 text-fg outline-none"
+                        className="rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none"
                       />
                     </div>
 
@@ -1376,7 +1376,7 @@ export default async function AdminPlanPage({
                       <button
                         type="submit"
                         disabled={!adminKeyConfigured}
-                        className="w-full rounded-lg bg-accent px-4 py-3 font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+                        className="w-full rounded-lg bg-white px-4 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
                       >
                         Save Template
                       </button>
@@ -1387,12 +1387,12 @@ export default async function AdminPlanPage({
             )}
           </section>
 
-          <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <div className="mb-5">
               <h2 className="text-xl font-semibold sm:text-2xl">
                 Create New Task Template
               </h2>
-              <p className="mt-1 text-sm text-muted sm:text-base">
+              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
                 Add a reusable task definition, choose daily or weekly quota,
                 and assign it wherever you want.
               </p>
@@ -1402,7 +1402,7 @@ export default async function AdminPlanPage({
               <input type="hidden" name="day_number" value={selectedDay} />
 
               <div className="grid gap-2">
-                <label htmlFor="new-task-title" className="text-sm font-medium text-muted-foreground">
+                <label htmlFor="new-task-title" className="text-sm font-medium text-zinc-300">
                   Title
                 </label>
                 <input
@@ -1410,12 +1410,12 @@ export default async function AdminPlanPage({
                   name="title"
                   type="text"
                   placeholder="Abstain from social media"
-                  className="w-full rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                  className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                 />
               </div>
 
               <div className="grid gap-2">
-                <label htmlFor="new-task-slug" className="text-sm font-medium text-muted-foreground">
+                <label htmlFor="new-task-slug" className="text-sm font-medium text-zinc-300">
                   Slug (optional)
                 </label>
                 <input
@@ -1423,7 +1423,7 @@ export default async function AdminPlanPage({
                   name="slug"
                   type="text"
                   placeholder="abstain_from_social_media"
-                  className="w-full rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                  className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                 />
               </div>
 
@@ -1431,7 +1431,7 @@ export default async function AdminPlanPage({
                 <div className="grid gap-2">
                   <label
                     htmlFor="new-task-cadence"
-                    className="text-sm font-medium text-muted-foreground"
+                    className="text-sm font-medium text-zinc-300"
                   >
                     Cadence
                   </label>
@@ -1439,7 +1439,7 @@ export default async function AdminPlanPage({
                     id="new-task-cadence"
                     name="cadence"
                     defaultValue="daily"
-                    className="w-full rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                    className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                   >
                     <option value="daily">Daily</option>
                     <option value="weekly_quota">Weekly quota</option>
@@ -1449,7 +1449,7 @@ export default async function AdminPlanPage({
                 <div className="grid gap-2">
                   <label
                     htmlFor="new-task-weekly-target"
-                    className="text-sm font-medium text-muted-foreground"
+                    className="text-sm font-medium text-zinc-300"
                   >
                     Weekly Target
                   </label>
@@ -1459,7 +1459,7 @@ export default async function AdminPlanPage({
                     type="number"
                     min={1}
                     placeholder="Example: 3"
-                    className="w-full rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                    className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                   />
                 </div>
               </div>
@@ -1467,7 +1467,7 @@ export default async function AdminPlanPage({
               <div className="grid gap-2">
                 <label
                   htmlFor="new-task-description"
-                  className="text-sm font-medium text-muted-foreground"
+                  className="text-sm font-medium text-zinc-300"
                 >
                   Description
                 </label>
@@ -1476,14 +1476,14 @@ export default async function AdminPlanPage({
                   name="description"
                   rows={3}
                   placeholder="Short description for what this task means."
-                  className="w-full rounded-lg border border-border bg-app px-4 py-3 text-fg outline-none"
+                  className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={!adminKeyConfigured}
-                className="w-full rounded-lg bg-accent px-5 py-3 font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50 sm:w-fit"
+                className="w-full rounded-lg bg-white px-5 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50 sm:w-fit"
               >
                 Create Task Template
               </button>

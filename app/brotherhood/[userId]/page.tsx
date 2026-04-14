@@ -95,11 +95,11 @@ export default async function BrotherhoodMemberPage({
 
   if (activePlanError || !activePlan) {
     return (
-      <main className="min-h-screen bg-app text-fg">
+      <main className="min-h-screen bg-black text-white">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-border bg-surface p-6">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
             <h1 className="text-3xl font-bold">Brotherhood</h1>
-            <p className="mt-3 text-muted-foreground">No active challenge plan was found.</p>
+            <p className="mt-3 text-zinc-300">No active challenge plan was found.</p>
           </div>
         </div>
       </main>
@@ -129,11 +129,11 @@ export default async function BrotherhoodMemberPage({
 
   if (!selectedPlanDayId) {
     return (
-      <main className="min-h-screen bg-app text-fg">
+      <main className="min-h-screen bg-black text-white">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-border bg-surface p-6">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
             <h1 className="text-3xl font-bold">Brotherhood</h1>
-            <p className="mt-3 text-muted-foreground">Day {selectedDay} was not found.</p>
+            <p className="mt-3 text-zinc-300">Day {selectedDay} was not found.</p>
           </div>
         </div>
       </main>
@@ -253,17 +253,17 @@ export default async function BrotherhoodMemberPage({
     selectedDay < activePlan.total_days ? selectedDay + 1 : activePlan.total_days;
 
   return (
-    <main className="min-h-screen bg-app text-fg">
+    <main className="min-h-screen bg-black text-white">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-muted">
+            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400">
               {activePlan.name}
             </p>
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               {typedProfile.display_name ?? "Member"}
             </h1>
-            <p className="mt-3 text-sm text-muted-foreground sm:text-base">
+            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
               Day {typedPlanDay.day_number} accountability details.
             </p>
           </div>
@@ -271,25 +271,25 @@ export default async function BrotherhoodMemberPage({
           <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[420px]">
             <Link
               href={`/brotherhood/${selectedUserId}?day=${previousDay}`}
-              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
             >
               Previous Day
             </Link>
             <Link
               href={`/brotherhood/${selectedUserId}?day=${nextDay}`}
-              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
             >
               Next Day
             </Link>
             <Link
               href={`/daily-reading?day=${typedPlanDay.day_number}`}
-              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
+              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
             >
               Open Daily Reading
             </Link>
             <Link
               href={`/brotherhood`}
-              className="rounded-lg bg-accent px-4 py-3 text-center font-semibold text-accent-foreground transition hover:bg-accent-hover"
+              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
             >
               Back to Brotherhood
             </Link>
@@ -297,35 +297,35 @@ export default async function BrotherhoodMemberPage({
         </div>
 
         <div className="mb-6 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl border border-border bg-surface p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted">Day Status</p>
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
+            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Day Status</p>
             <p className="mt-3 text-3xl font-bold">
               {completedRequiredCount}/{requiredTasks.length}
             </p>
-            <p className="mt-2 text-sm text-muted-foreground">Required tasks completed</p>
+            <p className="mt-2 text-sm text-zinc-300">Required tasks completed</p>
           </div>
 
-          <div className="rounded-2xl border border-border bg-surface p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted">Date</p>
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
+            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Date</p>
             <p className="mt-3 text-2xl font-bold">
               {formatReadableDate(taskModels[0]?.dayDate)}
             </p>
-            <p className="mt-2 text-sm text-muted-foreground">Challenge calendar date</p>
+            <p className="mt-2 text-sm text-zinc-300">Challenge calendar date</p>
           </div>
 
-          <div className="rounded-2xl border border-border bg-surface p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted">Reading</p>
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
+            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Reading</p>
             <p className="mt-3 text-lg font-bold">
               {typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
             </p>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="mt-2 text-sm text-zinc-300">
               {typedPlanDay.reading_reference ?? "Open the reading page"}
             </p>
           </div>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <section className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">Required Tasks</h2>
 
             <div className="mt-4 space-y-3">
@@ -336,23 +336,23 @@ export default async function BrotherhoodMemberPage({
                   return (
                     <div
                       key={task.id}
-                      className="rounded-xl border border-border bg-app p-4"
+                      className="rounded-xl border border-zinc-800 bg-black p-4"
                     >
                       <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                         <div className="space-y-1">
-                          <p className="text-base font-semibold text-fg">{task.title}</p>
+                          <p className="text-base font-semibold text-white">{task.title}</p>
                           {task.note ? (
-                            <p className="text-sm leading-6 text-muted">{task.note}</p>
+                            <p className="text-sm leading-6 text-zinc-400">{task.note}</p>
                           ) : null}
                           {completion ? (
-                            <p className="text-xs text-muted">
+                            <p className="text-xs text-zinc-500">
                               Completed: {toCompletedLabel(completion.completed_at ?? completion.updated_at)}
                             </p>
                           ) : (
-                            <p className="text-xs text-muted">Not completed</p>
+                            <p className="text-xs text-zinc-500">Not completed</p>
                           )}
                         </div>
-                        <span className={`rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${task.isCompleted ? "border border-emerald-700 text-emerald-200" : "border border-border text-muted-foreground"}`}>
+                        <span className={`rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${task.isCompleted ? "border border-emerald-700 text-emerald-200" : "border border-zinc-700 text-zinc-300"}`}>
                           {task.isCompleted ? "Completed" : "Open"}
                         </span>
                       </div>
@@ -360,12 +360,12 @@ export default async function BrotherhoodMemberPage({
                   );
                 })
               ) : (
-                <p className="text-sm text-muted">No required tasks for this day.</p>
+                <p className="text-sm text-zinc-400">No required tasks for this day.</p>
               )}
             </div>
           </section>
 
-          <section className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">Optional + Quota Tasks</h2>
 
             <div className="mt-4 space-y-3">
@@ -376,26 +376,26 @@ export default async function BrotherhoodMemberPage({
                   return (
                     <div
                       key={task.id}
-                      className="rounded-xl border border-border bg-app p-4"
+                      className="rounded-xl border border-zinc-800 bg-black p-4"
                     >
                       <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                         <div className="space-y-1">
-                          <p className="text-base font-semibold text-fg">{task.title}</p>
+                          <p className="text-base font-semibold text-white">{task.title}</p>
                           {task.note ? (
-                            <p className="text-sm leading-6 text-muted">{task.note}</p>
+                            <p className="text-sm leading-6 text-zinc-400">{task.note}</p>
                           ) : null}
                           {task.progressLabel ? (
                             <p className="text-xs text-blue-200">{task.progressLabel}</p>
                           ) : null}
                           {completion ? (
-                            <p className="text-xs text-muted">
+                            <p className="text-xs text-zinc-500">
                               Completed: {toCompletedLabel(completion.completed_at ?? completion.updated_at)}
                             </p>
                           ) : (
-                            <p className="text-xs text-muted">Not completed</p>
+                            <p className="text-xs text-zinc-500">Not completed</p>
                           )}
                         </div>
-                        <span className={`rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${task.isCompleted ? "border border-emerald-700 text-emerald-200" : "border border-border text-muted-foreground"}`}>
+                        <span className={`rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${task.isCompleted ? "border border-emerald-700 text-emerald-200" : "border border-zinc-700 text-zinc-300"}`}>
                           {task.isCompleted ? "Completed" : "Open"}
                         </span>
                       </div>
@@ -403,15 +403,15 @@ export default async function BrotherhoodMemberPage({
                   );
                 })
               ) : (
-                <p className="text-sm text-muted">No optional tasks for this day.</p>
+                <p className="text-sm text-zinc-400">No optional tasks for this day.</p>
               )}
             </div>
           </section>
         </div>
 
-        <section className="mt-6 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+        <section className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
           <h2 className="text-xl font-semibold sm:text-2xl">Reflection Prompt</h2>
-          <p className="mt-3 text-sm text-muted-foreground sm:text-base">
+          <p className="mt-3 text-sm text-zinc-300 sm:text-base">
             {typedPlanDay.reflection_prompt ?? "No reflection prompt for this day."}
           </p>
         </section>

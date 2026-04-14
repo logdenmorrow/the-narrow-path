@@ -129,33 +129,33 @@ export default async function ReflectionPage({
   const isLocked = !challenge.hasStarted || selectedDay > challenge.currentDayNumber;
 
   return (
-    <main className="min-h-screen bg-app text-fg">
+    <main className="min-h-screen bg-black text-white">
       <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
         <div className="mb-6 flex flex-wrap gap-3">
           <Link
             href={`/today?day=${selectedDay}`}
-            className="rounded-lg border border-border px-4 py-3 font-semibold text-fg transition hover:bg-surface-elevated"
+            className="rounded-lg border border-zinc-700 px-4 py-3 font-semibold text-white transition hover:bg-zinc-900"
           >
             Back to Today
           </Link>
           <Link
             href="/dashboard"
-            className="rounded-lg border border-border px-4 py-3 font-semibold text-fg transition hover:bg-surface-elevated"
+            className="rounded-lg border border-zinc-700 px-4 py-3 font-semibold text-white transition hover:bg-zinc-900"
           >
             Dashboard
           </Link>
         </div>
 
-        <section className="rounded-2xl border border-border bg-surface p-6">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted">Day {selectedDay}</p>
+        <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Day {selectedDay}</p>
           <h1 className="mt-2 text-3xl font-bold">Reflection</h1>
-          <p className="mt-4 text-base text-muted-foreground">
+          <p className="mt-4 text-base text-zinc-300">
             {planDay.reflection_prompt || "No reflection prompt has been assigned for this day yet."}
           </p>
 
-          <div className="mt-5 rounded-xl border border-border bg-app px-4 py-3">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted">Task Status</p>
-            <p className="mt-2 text-sm font-semibold text-fg">
+          <div className="mt-5 rounded-xl border border-zinc-800 bg-black px-4 py-3">
+            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Task Status</p>
+            <p className="mt-2 text-sm font-semibold text-white">
               {hasSavedEntry ? "Completed (saved entry)" : "Incomplete (save entry to complete)"}
             </p>
           </div>
@@ -166,7 +166,7 @@ export default async function ReflectionPage({
             <input type="hidden" name="reflectionTaskId" value={reflectionTask?.id ?? ""} />
             <input type="hidden" name="promptText" value={planDay.reflection_prompt ?? ""} />
 
-            <label htmlFor="entryText" className="block text-sm font-semibold text-muted-foreground">
+            <label htmlFor="entryText" className="block text-sm font-semibold text-zinc-300">
               Journal Entry
             </label>
             <textarea
@@ -176,14 +176,14 @@ export default async function ReflectionPage({
               required
               rows={14}
               disabled={isLocked}
-              className="w-full rounded-xl border border-border bg-app px-4 py-3 text-sm text-fg outline-none ring-ring placeholder:text-muted focus:ring-2 disabled:cursor-not-allowed disabled:opacity-70"
+              className="w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-sm text-white outline-none ring-zinc-500 placeholder:text-zinc-500 focus:ring-2 disabled:cursor-not-allowed disabled:opacity-70"
               placeholder="Write your reflection for today."
             />
 
             <button
               type="submit"
               disabled={isLocked}
-              className="rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-70"
+              className="rounded-lg bg-white px-4 py-3 text-sm font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-70"
             >
               Save Reflection
             </button>

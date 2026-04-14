@@ -4,107 +4,69 @@
 
 @layer base {
   :root {
-    --background: 38 32% 95%;
-    --foreground: 22 20% 19%;
-    --card: 40 30% 92%;
-    --card-foreground: 22 20% 19%;
-    --popover: 40 34% 94%;
-    --popover-foreground: 22 20% 19%;
-
-    --primary: 30 33% 35%;
-    --primary-foreground: 42 38% 93%;
-    --secondary: 35 20% 89%;
-    --secondary-foreground: 24 14% 28%;
-    --muted: 35 22% 86%;
-    --muted-foreground: 26 12% 38%;
-
-    --accent: 34 37% 41%;
-    --accent-foreground: 39 42% 93%;
-    --accent-hover: 33 34% 36%;
-
-    --destructive: 0 62% 46%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --success: 136 25% 34%;
-    --warning: 35 42% 42%;
-
-    --border: 30 17% 74%;
-    --input: 30 17% 74%;
-    --ring: 34 38% 42%;
-
-    --app-bg: 40 36% 93%;
-    --page-bg: 40 35% 95%;
-    --surface: 40 29% 92%;
-    --surface-elevated: 38 24% 88%;
-    --text-primary: 22 18% 19%;
-    --text-secondary: 25 14% 31%;
-    --text-muted: 26 10% 43%;
-    --progress-track: 33 20% 78%;
-    --progress-fill: 34 36% 38%;
-    --nav-selected: 34 31% 40%;
-    --chip-bg: 36 24% 88%;
-    --checkbox-bg: 35 19% 88%;
-    --reading-callout-bg: 42 28% 90%;
-
-    --radius: 0.75rem;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
     --mobile-tab-safe-area: env(safe-area-inset-bottom, 0px);
     --mobile-tab-bar-height: calc(4.5rem + max(0.5rem, var(--mobile-tab-safe-area)));
     --mobile-tab-content-offset: calc(var(--mobile-tab-bar-height) + 0.5rem);
   }
 
   .dark {
-    --background: 30 10% 10%;
-    --foreground: 39 26% 88%;
-    --card: 30 9% 13%;
-    --card-foreground: 39 26% 88%;
-    --popover: 30 9% 12%;
-    --popover-foreground: 39 26% 88%;
-
-    --primary: 39 23% 84%;
-    --primary-foreground: 28 18% 14%;
-    --secondary: 28 10% 18%;
-    --secondary-foreground: 39 23% 86%;
-    --muted: 28 10% 18%;
-    --muted-foreground: 34 12% 62%;
-
-    --accent: 35 38% 58%;
-    --accent-foreground: 27 18% 14%;
-    --accent-hover: 35 34% 52%;
-
-    --destructive: 0 58% 52%;
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --success: 133 27% 47%;
-    --warning: 36 40% 58%;
-
-    --border: 28 8% 24%;
-    --input: 28 8% 24%;
-    --ring: 35 33% 62%;
-
-    --app-bg: 24 10% 9%;
-    --page-bg: 24 10% 10%;
-    --surface: 25 10% 13%;
-    --surface-elevated: 26 10% 16%;
-    --text-primary: 39 26% 88%;
-    --text-secondary: 35 15% 74%;
-    --text-muted: 34 10% 60%;
-    --progress-track: 28 8% 24%;
-    --progress-fill: 36 36% 64%;
-    --nav-selected: 36 34% 58%;
-    --chip-bg: 27 9% 19%;
-    --checkbox-bg: 28 8% 22%;
-    --reading-callout-bg: 29 9% 17%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
   }
 
   * {
     @apply border-border;
   }
 
-  html,
   body {
-    @apply bg-app text-fg antialiased;
-  }
-
-  body {
-    @apply selection:bg-accent/30 selection:text-fg;
+    @apply bg-background text-foreground;
   }
 
   .mobile-page-shell {
@@ -117,18 +79,6 @@
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     will-change: transform;
-  }
-
-  .app-page {
-    @apply min-h-screen bg-page;
-  }
-
-  .app-card {
-    @apply rounded-2xl border border-border bg-surface shadow-sm;
-  }
-
-  .app-card-elevated {
-    @apply rounded-xl border border-border bg-surface-elevated;
   }
 
   @media (min-width: 640px) {

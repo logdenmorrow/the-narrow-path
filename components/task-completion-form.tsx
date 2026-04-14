@@ -11,10 +11,12 @@ function SubmitButton({
   completed,
   locked,
   lockedLabel,
+  pulseCheck,
 }: {
   completed: boolean;
   locked: boolean;
   lockedLabel?: string;
+  pulseCheck: boolean;
 }) {
   const { pending } = useFormStatus();
 
@@ -27,7 +29,7 @@ function SubmitButton({
           ? "border border-amber-800 bg-amber-950/30 text-amber-200"
           : completed
           ? "border border-emerald-700 bg-emerald-900/30 text-emerald-200 hover:bg-emerald-900/50"
-          : "border border-border bg-surface-elevated text-fg hover:bg-progress-track"
+          : "border border-zinc-700 bg-zinc-900 text-zinc-200 hover:bg-zinc-800"
       } disabled:cursor-not-allowed disabled:opacity-70`}
     >
       {pending
@@ -35,7 +37,18 @@ function SubmitButton({
         : locked
         ? lockedLabel ?? "Locked"
         : completed
-        ? "Completed"
+        ? (
+            <span className="inline-flex items-center gap-1">
+              Completed
+              <span
+                className={`inline-block ${
+                  pulseCheck ? "motion-safe:animate-ping motion-reduce:animate-none" : ""
+                }`}
+              >
+                ✓
+              </span>
+            </span>
+          )
         : "Mark Complete"}
     </button>
   );
@@ -53,6 +66,7 @@ export function TaskCompletionForm({
   lockedLabel?: string;
 }) {
   const [showToast, setShowToast] = useState(false);
+  const [pulseCheck, setPulseCheck] = useState(false);
   const [state, formAction] = useActionState<ToggleTaskCompletionResult, FormData>(
     toggleTaskCompletionWithResult,
     {
@@ -69,11 +83,14 @@ export function TaskCompletionForm({
       state.transitionedToComplete
     ) {
       setShowToast(true);
+      setPulseCheck(true);
 
-      const toastTimer = window.setTimeout(() => setShowToast(false), 1200);
+      const toastTimer = window.setTimeout(() => setShowToast(false), 1400);
+      const pulseTimer = window.setTimeout(() => setPulseCheck(false), 500);
 
       return () => {
         window.clearTimeout(toastTimer);
+        window.clearTimeout(pulseTimer);
       };
     }
   }, [state, planDayTaskId]);
@@ -82,18 +99,23 @@ export function TaskCompletionForm({
     <div className="relative">
       <form action={formAction}>
         <input type="hidden" name="planDayTaskId" value={planDayTaskId} />
-        <SubmitButton completed={completed} locked={locked} lockedLabel={lockedLabel} />
+        <SubmitButton
+          completed={completed}
+          locked={locked}
+          lockedLabel={lockedLabel}
+          pulseCheck={pulseCheck}
+        />
       </form>
 
       <div
         aria-live="polite"
-        className={`pointer-events-none absolute right-0 top-full mt-2 rounded-md border border-border bg-surface px-3 py-2 text-xs font-medium text-muted-foreground shadow-lg transition motion-reduce:transition-none ${
+        className={`pointer-events-none absolute right-0 top-full mt-2 rounded-md border border-emerald-700/60 bg-emerald-950/90 px-3 py-2 text-xs font-medium text-emerald-100 shadow-lg transition motion-reduce:transition-none ${
           showToast
             ? "translate-y-0 opacity-100 motion-safe:duration-150"
             : "translate-y-1 opacity-0 motion-safe:duration-100"
         }`}
       >
-        Saved
+        Nice—+1 consistency
       </div>
     </div>
   );
