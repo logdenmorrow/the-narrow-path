@@ -177,9 +177,9 @@ function getQuotaMeterClasses(tone: MeterTone) {
       };
     default:
       return {
-        track: "bg-zinc-800",
-        fill: "bg-zinc-300",
-        text: "text-zinc-300 border-zinc-700",
+        track: "bg-progress-track",
+        fill: "bg-progress-fill",
+        text: "text-muted-foreground border-border",
       };
   }
 }
@@ -212,13 +212,13 @@ export default async function DashboardPage() {
 
   if (activePlanError || !activePlan) {
     return (
-      <main className="min-h-screen bg-black text-white">
+      <main className="min-h-screen bg-app text-fg">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+          <div className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Dashboard
             </h1>
-            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-4 text-sm text-muted-foreground sm:text-base">
               No active challenge plan was found. Add or activate a plan in
               Supabase before using this page.
             </p>
@@ -506,14 +506,14 @@ export default async function DashboardPage() {
   const isAdmin = isAllowedAdminEmail(user.email);
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-app text-fg">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         {!challenge.hasStarted && (
-          <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-base font-semibold text-white sm:text-lg">
+          <div className="mb-6 rounded-2xl border border-border bg-surface p-4 sm:p-6">
+            <p className="text-base font-semibold text-fg sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
               You&apos;re currently in preview mode. Daily and weekly quota
               progress will begin counting at launch.
             </p>
@@ -521,20 +521,20 @@ export default async function DashboardPage() {
         )}
 
         <div className="mb-5">
-          <p className="break-all text-sm text-zinc-400 sm:break-normal">
+          <p className="break-all text-sm text-muted sm:break-normal">
             Signed in as {user.email}
           </p>
         </div>
 
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
+            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-muted sm:text-sm">
               {activePlan.name}
             </p>
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Welcome, {getDisplayName(profile, user.email)}
             </h1>
-            <p className="mt-3 max-w-3xl text-sm text-zinc-300 sm:text-base">
+            <p className="mt-3 max-w-3xl text-sm text-muted-foreground sm:text-base">
               Daily disciplines keep the day grounded. Weekly quota tasks give
               you flexibility without lowering the standard.
             </p>
@@ -543,13 +543,13 @@ export default async function DashboardPage() {
           <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]">
             <Link
               href="/today"
-              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
+              className="rounded-lg bg-accent px-4 py-3 text-center font-semibold text-accent-foreground transition hover:bg-accent-hover"
             >
               Go to Today
             </Link>
             <Link
               href="/this-week"
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
             >
               View This Week
             </Link>
@@ -557,88 +557,88 @@ export default async function DashboardPage() {
         </div>
 
         <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
+          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+            <p className="text-xs uppercase tracking-wide text-muted sm:text-sm">
               Current Day
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
               Day {selectedDay}
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
               {planDay?.title || `Day ${selectedDay}`}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
+          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+            <p className="text-xs uppercase tracking-wide text-muted sm:text-sm">
               Required Daily
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
               {completedRequiredDailyTodayCount}/{requiredDailyToday.length}
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
               Core daily disciplines completed today.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
+          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+            <p className="text-xs uppercase tracking-wide text-muted sm:text-sm">
               Weekly Quota Goals
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
               {weeklyQuotaProgress.filter((quota) => quota.completedCount >= quota.target).length}/
               {weeklyQuotaProgress.length}
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
               Flexible weekly goals currently met.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
+          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+            <p className="text-xs uppercase tracking-wide text-muted sm:text-sm">
               Brotherhood Members
             </p>
             <p className="mt-2 text-2xl font-semibold sm:text-3xl">
               {memberCount}
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
               Men currently on the path.
             </p>
           </div>
         </div>
 
         <div className="mb-6 grid gap-4 lg:grid-cols-2">
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+          <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">Quick Links</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               <Link
                 href="/today"
-                className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
+                className="rounded-lg bg-accent px-4 py-3 text-center font-semibold text-accent-foreground transition hover:bg-accent-hover"
               >
                 Today
               </Link>
               <Link
                 href="/this-week"
-                className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+                className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
               >
                 This Week
               </Link>
               <Link
                 href="/brotherhood"
-                className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+                className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
               >
                 Brotherhood
               </Link>
               <Link
                 href={`/today?day=${Math.max(selectedDay - 1, 1)}`}
-                className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+                className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
               >
                 Review Yesterday
               </Link>
               {isAdmin && (
                 <Link
                   href="/admin/plan"
-                  className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+                  className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
                 >
                   Admin Plan
                 </Link>
@@ -646,11 +646,11 @@ export default async function DashboardPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+          <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">Today&apos;s Summary</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
-                <p className="text-xs uppercase tracking-wide text-zinc-400">
+              <div className="rounded-xl border border-border bg-app px-4 py-4">
+                <p className="text-xs uppercase tracking-wide text-muted">
                   Completed Today
                 </p>
                 <p className="mt-2 text-2xl font-semibold">
@@ -658,8 +658,8 @@ export default async function DashboardPage() {
                 </p>
               </div>
 
-              <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
-                <p className="text-xs uppercase tracking-wide text-zinc-400">
+              <div className="rounded-xl border border-border bg-app px-4 py-4">
+                <p className="text-xs uppercase tracking-wide text-muted">
                   Optional Done
                 </p>
                 <p className="mt-2 text-2xl font-semibold">
@@ -667,8 +667,8 @@ export default async function DashboardPage() {
                 </p>
               </div>
 
-              <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
-                <p className="text-xs uppercase tracking-wide text-zinc-400">
+              <div className="rounded-xl border border-border bg-app px-4 py-4">
+                <p className="text-xs uppercase tracking-wide text-muted">
                   Weekly Available
                 </p>
                 <p className="mt-2 text-2xl font-semibold">
@@ -676,8 +676,8 @@ export default async function DashboardPage() {
                 </p>
               </div>
 
-              <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
-                <p className="text-xs uppercase tracking-wide text-zinc-400">
+              <div className="rounded-xl border border-border bg-app px-4 py-4">
+                <p className="text-xs uppercase tracking-wide text-muted">
                   Daily Streak
                 </p>
                 <p className="mt-2 text-2xl font-semibold">{dailyStreakCount} days</p>
@@ -687,15 +687,15 @@ export default async function DashboardPage() {
         </div>
 
         {yesterdayDay && (
-          <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+          <section className="mb-6 rounded-2xl border border-border bg-surface p-4 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">Missed Yesterday?</h2>
-            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-3 text-sm text-muted-foreground sm:text-base">
               Day {yesterdayDay} still has {missedYesterdayCount} required task
               {missedYesterdayCount === 1 ? "" : "s"} not completed.
             </p>
             <Link
               href={`/today?day=${yesterdayDay}`}
-              className="mt-4 inline-flex rounded-lg border border-zinc-700 px-4 py-3 font-semibold text-white transition hover:bg-zinc-900"
+              className="mt-4 inline-flex rounded-lg border border-border px-4 py-3 font-semibold text-fg transition hover:bg-surface-elevated"
             >
               Review Day {yesterdayDay}
             </Link>
@@ -703,13 +703,13 @@ export default async function DashboardPage() {
         )}
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+          <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">
               Today&apos;s Required Daily Tasks
             </h2>
 
             {requiredDailyToday.length === 0 ? (
-              <p className="mt-4 text-sm text-zinc-400 sm:text-base">
+              <p className="mt-4 text-sm text-muted sm:text-base">
                 No required daily tasks are assigned today.
               </p>
             ) : (
@@ -720,21 +720,21 @@ export default async function DashboardPage() {
                   return (
                     <div
                       key={task.id}
-                      className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
+                      className="rounded-xl border border-border bg-app px-4 py-4"
                     >
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div className="min-w-0">
-                          <p className="font-medium text-white">
+                          <p className="font-medium text-fg">
                             {task.task_templates?.title || "Untitled Task"}
                           </p>
                           {task.task_templates?.description && (
-                            <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
+                            <p className="mt-1 text-xs text-muted sm:text-sm">
                               {task.task_templates.description}
                             </p>
                           )}
                         </div>
 
-                        <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                        <span className="w-fit rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-wide text-muted-foreground sm:text-xs">
                           {isCompleted ? "Completed" : "Open"}
                         </span>
                       </div>
@@ -745,13 +745,13 @@ export default async function DashboardPage() {
             )}
           </section>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+          <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">
               Weekly Quota Progress
             </h2>
 
             {weeklyQuotaProgress.length === 0 ? (
-              <p className="mt-4 text-sm text-zinc-400 sm:text-base">
+              <p className="mt-4 text-sm text-muted sm:text-base">
                 No weekly quota tasks are configured for this week.
               </p>
             ) : (
@@ -770,12 +770,12 @@ export default async function DashboardPage() {
                   return (
                     <div
                       key={quota.templateId}
-                      className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
+                      className="rounded-xl border border-border bg-app px-4 py-4"
                     >
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div className="min-w-0">
-                          <p className="font-medium text-white">{quota.title}</p>
-                          <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
+                          <p className="font-medium text-fg">{quota.title}</p>
+                          <p className="mt-1 text-xs text-muted sm:text-sm">
                             {quota.description ||
                               "Flexible weekly task that can be completed on any assigned day."}
                           </p>
@@ -809,15 +809,15 @@ export default async function DashboardPage() {
           </section>
         </div>
 
-        <section className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
+        <section className="mt-6 rounded-2xl border border-border bg-surface p-4 sm:p-6">
           <h2 className="text-xl font-semibold sm:text-2xl">Reflection Prompt</h2>
-          <p className="mt-4 text-sm text-zinc-300 sm:text-base">
+          <p className="mt-4 text-sm text-muted-foreground sm:text-base">
             {planDay?.reflection_prompt ||
               "No reflection prompt has been assigned for this day yet."}
           </p>
           <Link
             href={`/reflection?day=${selectedDay}`}
-            className="mt-4 inline-flex rounded-lg border border-zinc-700 px-4 py-3 font-semibold text-white transition hover:bg-zinc-900"
+            className="mt-4 inline-flex rounded-lg border border-border px-4 py-3 font-semibold text-fg transition hover:bg-surface-elevated"
           >
             Open Reflection
           </Link>

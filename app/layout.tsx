@@ -6,6 +6,7 @@ import AuthStateListener from "@/components/auth-state-listener";
 import MainNav from "@/components/main-nav";
 import MobileTabBar from "@/components/mobile-tab-bar";
 import ProgressStrip from "@/components/progress-strip";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,44 +27,46 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="bg-black text-white">
-        <AuthStateListener />
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-app text-fg">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AuthStateListener />
 
-        <header className="border-b border-zinc-800 bg-black">
-          <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex items-center justify-between gap-4">
-                <Link
-                  href="/"
-                  className="text-lg font-semibold tracking-tight sm:text-xl"
-                >
-                  The Narrow Path
-                </Link>
-              </div>
-
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:flex-1 lg:justify-end">
-                <div className="hidden sm:block">
-                  <MainNav />
-                </div>
-
-                <div className="sm:shrink-0">
-                  <Suspense
-                    fallback={<div className="text-sm text-zinc-500">...</div>}
+          <header className="border-b border-border bg-surface/95 backdrop-blur">
+            <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div className="flex items-center justify-between gap-4">
+                  <Link
+                    href="/"
+                    className="font-serif text-xl font-semibold tracking-tight sm:text-2xl"
                   >
-                    <AuthNav />
-                  </Suspense>
+                    The Narrow Path
+                  </Link>
+                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:flex-1 lg:justify-end">
+                  <div className="hidden sm:block">
+                    <MainNav />
+                  </div>
+
+                  <div className="sm:shrink-0">
+                    <Suspense
+                      fallback={<div className="text-sm text-muted">...</div>}
+                    >
+                      <AuthNav />
+                    </Suspense>
+                  </div>
                 </div>
               </div>
+              <Suspense fallback={null}>
+                <ProgressStrip />
+              </Suspense>
             </div>
-            <Suspense fallback={null}>
-              <ProgressStrip />
-            </Suspense>
-          </div>
-        </header>
+          </header>
 
-        <div className="mobile-page-shell">{children}</div>
-        <MobileTabBar />
+          <div className="mobile-page-shell">{children}</div>
+          <MobileTabBar />
+        </ThemeProvider>
       </body>
     </html>
   );

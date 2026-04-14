@@ -12,7 +12,7 @@ export default function MainNav({ mobile = false }: { mobile?: boolean }) {
     <nav
       aria-label="Primary"
       className={cn(
-        "flex flex-wrap items-center text-sm text-zinc-300",
+        "flex flex-wrap items-center text-sm text-muted-foreground",
         mobile ? "justify-around gap-2" : "gap-x-3 gap-y-2 sm:gap-x-4"
       )}
     >
@@ -25,11 +25,11 @@ export default function MainNav({ mobile = false }: { mobile?: boolean }) {
             href={item.href}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "relative rounded-lg px-2.5 py-1.5 font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/90 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+              "relative rounded-lg px-2.5 py-1.5 font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               "after:absolute after:bottom-0 after:left-2.5 after:right-2.5 after:h-0.5 after:rounded-full after:transition after:content-['']",
               active
-                ? "text-white after:bg-white"
-                : "text-zinc-300 hover:text-white after:bg-transparent"
+                ? "text-fg after:bg-nav-selected"
+                : "text-muted-foreground hover:text-fg after:bg-transparent"
             )}
           >
             {item.label}

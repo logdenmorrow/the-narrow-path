@@ -61,11 +61,11 @@ export default async function TodayPage({
 
   if (activePlanError || !activePlan) {
     return (
-      <main className="min-h-screen bg-black text-white">
+      <main className="min-h-screen bg-app text-fg">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="rounded-2xl border border-border bg-surface p-6">
             <h1 className="text-3xl font-bold">Today</h1>
-            <p className="mt-3 text-zinc-300">No active challenge plan was found.</p>
+            <p className="mt-3 text-muted-foreground">No active challenge plan was found.</p>
           </div>
         </div>
       </main>
@@ -93,11 +93,11 @@ export default async function TodayPage({
 
   if (allPlanDaysError || !allPlanDays) {
     return (
-      <main className="min-h-screen bg-black text-white">
+      <main className="min-h-screen bg-app text-fg">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="rounded-2xl border border-border bg-surface p-6">
             <h1 className="text-3xl font-bold">Today</h1>
-            <p className="mt-3 text-zinc-300">Could not load plan days.</p>
+            <p className="mt-3 text-muted-foreground">Could not load plan days.</p>
           </div>
         </div>
       </main>
@@ -109,11 +109,11 @@ export default async function TodayPage({
 
   if (!selectedPlanDayId) {
     return (
-      <main className="min-h-screen bg-black text-white">
+      <main className="min-h-screen bg-app text-fg">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="rounded-2xl border border-border bg-surface p-6">
             <h1 className="text-3xl font-bold">Today</h1>
-            <p className="mt-3 text-zinc-300">Day {selectedDay} was not found.</p>
+            <p className="mt-3 text-muted-foreground">Day {selectedDay} was not found.</p>
           </div>
         </div>
       </main>
@@ -132,11 +132,11 @@ export default async function TodayPage({
 
   if (planDayError || !typedPlanDay) {
     return (
-      <main className="min-h-screen bg-black text-white">
+      <main className="min-h-screen bg-app text-fg">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="rounded-2xl border border-border bg-surface p-6">
             <h1 className="text-3xl font-bold">Today</h1>
-            <p className="mt-3 text-zinc-300">Could not load today&apos;s plan.</p>
+            <p className="mt-3 text-muted-foreground">Could not load today&apos;s plan.</p>
           </div>
         </div>
       </main>
@@ -185,11 +185,11 @@ export default async function TodayPage({
 
   if (dayTasksError) {
     return (
-      <main className="min-h-screen bg-black text-white">
+      <main className="min-h-screen bg-app text-fg">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="rounded-2xl border border-border bg-surface p-6">
             <h1 className="text-3xl font-bold">Today</h1>
-            <p className="mt-3 text-zinc-300">Could not load today&apos;s tasks.</p>
+            <p className="mt-3 text-muted-foreground">Could not load today&apos;s tasks.</p>
           </div>
         </div>
       </main>
@@ -323,14 +323,14 @@ export default async function TodayPage({
     : "Future Day Locked";
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-app text-fg">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         {!challenge.hasStarted && (
-          <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-base font-semibold text-white sm:text-lg">
+          <div className="mb-6 rounded-2xl border border-border bg-surface p-4 sm:p-6">
+            <p className="text-base font-semibold text-fg sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-sm text-muted-foreground sm:text-base">
               You&apos;re previewing the plan before launch.
             </p>
           </div>
@@ -338,11 +338,11 @@ export default async function TodayPage({
 
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400">
+            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-muted">
               {activePlan.name}
             </p>
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Today</h1>
-            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-3 text-sm text-muted-foreground sm:text-base">
               Day {typedPlanDay.day_number}
             </p>
           </div>
@@ -350,25 +350,25 @@ export default async function TodayPage({
           <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[420px]">
             <Link
               href={`/today?day=${previousDay}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
             >
               Previous Day
             </Link>
             <Link
               href={`/today?day=${nextDay}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
             >
               Next Day
             </Link>
             <Link
               href={`/daily-reading?day=${typedPlanDay.day_number}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+              className="rounded-lg border border-border px-4 py-3 text-center font-semibold text-fg transition hover:bg-surface-elevated"
             >
               Open Daily Reading
             </Link>
             <Link
               href={`/this-week?day=${typedPlanDay.day_number}`}
-              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
+              className="rounded-lg bg-accent px-4 py-3 text-center font-semibold text-accent-foreground transition hover:bg-accent-hover"
             >
               View This Week
             </Link>
@@ -387,15 +387,15 @@ export default async function TodayPage({
         )}
 
         <div className="mb-6 grid gap-4 sm:grid-cols-3">
-	          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
+	          <div className="rounded-2xl border border-border bg-surface p-5">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted">
               Day Status
             </p>
             <p className="mt-3 text-3xl font-bold">
               {completedRequiredCount}/{requiredTasks.length}
             </p>
-	            <p className="mt-2 text-sm text-zinc-300">Required tasks completed</p>
-              <div className="mt-4 h-2 rounded-full bg-zinc-800">
+	            <p className="mt-2 text-sm text-muted-foreground">Required tasks completed</p>
+              <div className="mt-4 h-2 rounded-full bg-progress-track">
                 <div
                   className="h-2 rounded-full bg-emerald-400 transition-all"
                   style={{ width: `${requiredCompletionPercent}%` }}
@@ -403,31 +403,31 @@ export default async function TodayPage({
               </div>
 	          </div>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
+          <div className="rounded-2xl border border-border bg-surface p-5">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted">
               Date
             </p>
             <p className="mt-3 text-2xl font-bold">
               {formatReadableDate(taskModels[0]?.dayDate)}
             </p>
-            <p className="mt-2 text-sm text-zinc-300">Challenge calendar date</p>
+            <p className="mt-2 text-sm text-muted-foreground">Challenge calendar date</p>
           </div>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
+          <div className="rounded-2xl border border-border bg-surface p-5">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted">
               Reading
             </p>
             <p className="mt-3 text-lg font-bold">
               {typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
             </p>
-            <p className="mt-2 text-sm text-zinc-300">
+            <p className="mt-2 text-sm text-muted-foreground">
               {typedPlanDay.reading_reference ?? "Open the reading page"}
             </p>
           </div>
         </div>
 
         {uniqueQuotaTasks.length > 0 && (
-          <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+          <section className="mb-6 rounded-2xl border border-border bg-surface p-5 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">
               Weekly and Monthly Progress
             </h2>
@@ -435,11 +435,11 @@ export default async function TodayPage({
 	              {uniqueQuotaTasks.map((task) => (
                 <div
                   key={`quota-${task.taskTemplateId}`}
-                  className="rounded-xl border border-zinc-800 bg-black p-4"
+                  className="rounded-xl border border-border bg-app p-4"
                 >
-	                  <p className="text-sm font-semibold text-white">{task.title}</p>
-	                  <p className="mt-2 text-sm text-zinc-300">{task.progressLabel}</p>
-                    <div className="mt-3 h-2 rounded-full bg-zinc-800">
+	                  <p className="text-sm font-semibold text-fg">{task.title}</p>
+	                  <p className="mt-2 text-sm text-muted-foreground">{task.progressLabel}</p>
+                    <div className="mt-3 h-2 rounded-full bg-progress-track">
                       <div
                         className="h-2 rounded-full bg-blue-400 transition-all"
                         style={{
@@ -457,7 +457,7 @@ export default async function TodayPage({
                       />
                     </div>
 	                  {task.note ? (
-                    <p className="mt-2 text-xs leading-5 text-zinc-500">
+                    <p className="mt-2 text-xs leading-5 text-muted">
                       {task.note}
                     </p>
                   ) : null}
@@ -468,7 +468,7 @@ export default async function TodayPage({
         )}
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+          <section className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">Required Today</h2>
 
             <div className="mt-4 space-y-3">
@@ -493,12 +493,12 @@ export default async function TodayPage({
                   />
                 ))
               ) : (
-                <p className="text-sm text-zinc-400">No required tasks for this day.</p>
+                <p className="text-sm text-muted">No required tasks for this day.</p>
               )}
             </div>
           </section>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+          <section className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
             <h2 className="text-xl font-semibold sm:text-2xl">Optional Today</h2>
 
             <div className="mt-4 space-y-3">
@@ -523,7 +523,7 @@ export default async function TodayPage({
                   />
                 ))
               ) : (
-                <p className="text-sm text-zinc-400">No optional tasks for this day.</p>
+                <p className="text-sm text-muted">No optional tasks for this day.</p>
               )}
             </div>
           </section>

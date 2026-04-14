@@ -1,8 +1,8 @@
 export default function Loading() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-app text-fg">
       <div className="mx-auto max-w-4xl px-6 py-12">
-        <p className="text-zinc-400">Loading today...</p>
+        <p className="text-muted">Loading today...</p>
       </div>
     </main>
   );
