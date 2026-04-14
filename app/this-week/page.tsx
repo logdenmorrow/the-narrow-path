@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming } from "@/lib/challenge";
 import { StatusPill } from "@/components/status-pill";
 import { TaskCard } from "@/components/task-card";
 import { TaskCardHeader } from "@/components/task-card-header";
 import { TaskCardMeta } from "@/components/task-card-meta";
+import { createClient } from "@/lib/supabase/server";
+import { getChallengeTiming } from "@/lib/challenge";
 import {
   buildTaskViewModels,
   formatReadableDate,
@@ -328,7 +328,10 @@ export default async function ThisWeekPage({
 
         <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
           {dayModels.map(({ day, required, optional, dateLabel }) => (
-            <section key={day.id} className="rounded-2xl border border-[#ad8e63] bg-[#f4e9d2]/95 p-5 shadow-[0_14px_32px_-22px_rgba(68,44,23,0.58)] dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none">
+            <section
+              key={day.id}
+              className="rounded-2xl border border-[#ad8e63] bg-[#f4e9d2]/95 p-5 shadow-[0_14px_32px_-22px_rgba(68,44,23,0.58)] dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none"
+            >
               <p className="text-xs uppercase tracking-[0.2em] text-[#5b462b] dark:text-zinc-400">
                 Day {day.day_number}
               </p>

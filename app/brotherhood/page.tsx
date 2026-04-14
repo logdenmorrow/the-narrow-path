@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming } from "@/lib/challenge";
 import { StatusPill } from "@/components/status-pill";
 import { TaskCard } from "@/components/task-card";
 import { TaskCardHeader } from "@/components/task-card-header";
 import { TaskCardMeta } from "@/components/task-card-meta";
+import { createClient } from "@/lib/supabase/server";
+import { getChallengeTiming } from "@/lib/challenge";
 import {
   buildTaskViewModels,
   formatReadableDate,

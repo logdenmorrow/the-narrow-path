@@ -15,7 +15,7 @@ type StatusPillProps = {
   className?: string;
 };
 
-const TONE_CLASSES: Record<StatusPillTone, string> = {
+const toneClasses: Record<StatusPillTone, string> = {
   required:
     "border-[#ab3f30] bg-[#f2ddd4] text-[#782819] dark:border-red-800 dark:bg-red-950/40 dark:text-red-200",
   optional:
@@ -36,7 +36,7 @@ export function StatusPill({ label, tone = "neutral", className }: StatusPillPro
     <span
       className={cn(
         "inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
-        TONE_CLASSES[tone],
+        toneClasses[tone],
         className
       )}
     >
