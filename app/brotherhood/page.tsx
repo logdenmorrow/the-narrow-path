@@ -2,6 +2,10 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
+import { StatusPill } from "@/components/status-pill";
+import { TaskCard } from "@/components/task-card";
+import { TaskCardHeader } from "@/components/task-card-header";
+import { TaskCardMeta } from "@/components/task-card-meta";
 import {
   buildTaskViewModels,
   formatReadableDate,
@@ -199,7 +203,7 @@ export default async function BrotherhoodPage() {
 
       let statusLabel = "Not Started";
       if (requiredSummary.completedAll) {
-        statusLabel = "Daily Core Complete";
+        statusLabel = "Done";
       } else if (startedToday) {
         statusLabel = "Started";
       }
@@ -307,55 +311,47 @@ export default async function BrotherhoodPage() {
               <Link
                 key={member.profile.id}
                 href={`/brotherhood/${member.profile.id}?day=${currentDayNumber}`}
-                className="block rounded-xl border border-[#ab8b61] bg-[#f8efdd] p-4 shadow-[0_8px_20px_-14px_rgba(68,44,23,0.55)] transition hover:border-[#94724a] hover:bg-[#f3e5ca] dark:border-zinc-800 dark:bg-black dark:shadow-none dark:hover:border-zinc-600 dark:hover:bg-black"
+                className="block"
               >
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                  <div>
-                    <p className="text-base font-semibold text-[#312111] dark:text-white">{member.shortName}</p>
-                    <p className="mt-1 text-sm text-[#5e4a31] dark:text-zinc-500">{member.fullName}</p>
+                <TaskCard interactive>
+                  <TaskCardHeader title={member.shortName} subtitle={member.fullName} />
 
-                    {member.quotaRows.length > 0 && (
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {member.quotaRows.map((row) => (
-                          <span
-                            key={`${member.profile.id}-${row.taskTemplateId}`}
-                            className="rounded-full border border-[#95744b] bg-[#efe1c6] px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-[#4b3620] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300"
-                          >
-                            {row.title}: {row.progressCount ?? 0}/{row.quotaTarget ?? 0}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  {member.quotaRows.length > 0 && (
+                    <TaskCardMeta>
+                      {member.quotaRows.map((row) => (
+                        <StatusPill
+                          key={`${member.profile.id}-${row.taskTemplateId}`}
+                          label={`${row.title}: ${row.progressCount ?? 0}/${row.quotaTarget ?? 0}`}
+                          tone="quota"
+                        />
+                      ))}
+                    </TaskCardMeta>
+                  )}
 
-                  <div className="flex flex-wrap items-center gap-2 lg:justify-end">
-                    <span
-                      className={`rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${
+                  <TaskCardMeta className="mt-3">
+                    <StatusPill
+                      label={member.statusLabel}
+                      tone={
                         member.completedToday
-                          ? "border border-[#5f4b2d] bg-[#e7d9be] text-[#3f2f18] dark:border-[#8f7642] dark:bg-[#2c2314] dark:text-[#e9d4a6]"
+                          ? "done"
                           : member.startedToday
-                          ? "border border-[#755236] bg-[#eddcc8] text-[#4a341f] dark:border-[#7c5838] dark:bg-[#271d16] dark:text-[#ddc3a8]"
-                          : "border border-[#8d7350] bg-[#efe2ca] text-[#5a4328] dark:border-[#6e5c42] dark:bg-[#211b14] dark:text-[#cdbb9f]"
-                      }`}
-                    >
-                      {member.statusLabel}
-                    </span>
-
-                    <span className="rounded-full border border-[#95744b] bg-[#efe1c6] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[#49341f] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300">
-                      Required: {member.requiredSummary.done}/{member.requiredSummary.total}
-                    </span>
-
-                    <span className="rounded-full border border-[#95744b] bg-[#efe1c6] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[#49341f] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300">
-                      Optional: {member.optionalDone}/{member.optionalTotal}
-                    </span>
-
+                          ? "started"
+                          : "neutral"
+                      }
+                    />
+                    <StatusPill
+                      label={`Required ${member.requiredSummary.done}/${member.requiredSummary.total}`}
+                      tone="required"
+                    />
+                    <StatusPill
+                      label={`Optional ${member.optionalDone}/${member.optionalTotal}`}
+                      tone="optional"
+                    />
                     {member.hasWeeklyMomentum && (
-                      <span className="rounded-full border border-[#826642] bg-[#eadcc2] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[#4e3923] dark:border-[#87704a] dark:bg-[#292014] dark:text-[#d8c09b]">
-                        Weekly Momentum
-                      </span>
+                      <StatusPill label="Weekly Momentum" tone="quota" />
                     )}
-                  </div>
-                </div>
+                  </TaskCardMeta>
+                </TaskCard>
               </Link>
             ))}
 

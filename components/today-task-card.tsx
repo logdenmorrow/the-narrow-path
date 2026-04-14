@@ -3,6 +3,10 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { toggleTaskCompletion } from "@/app/today/actions";
+import { cn } from "@/lib/utils";
+import { StatusPill } from "@/components/status-pill";
+import { TaskCardActions } from "@/components/task-card-actions";
+import { TaskCardMeta } from "@/components/task-card-meta";
 
 type TodayTaskCardProps = {
   planDayTaskId: number;
@@ -66,46 +70,40 @@ export function TodayTaskCard({
 
         formRef.current?.requestSubmit();
       }}
-      className={`group rounded-xl border bg-[#f8f0df] p-4 transition ${
+      className={cn(
+        "group rounded-xl border bg-[#f8f0df] p-4 transition active:scale-[0.99] active:bg-[#efe2ca]",
         optimisticCompleted
           ? "border-[#1e8f6a]/60"
           : "border-[#c8ad84] hover:border-[#a98056]"
-      } active:scale-[0.99] active:bg-[#efe2ca]`}
+      )}
     >
       <input type="hidden" name="planDayTaskId" value={planDayTaskId} />
 
-      <div className="flex items-start justify-between gap-4">
-        <div className="space-y-2">
-          <div className="flex flex-wrap items-center gap-2">
-            <h3
-              className={`text-base font-semibold sm:text-lg ${
-                optimisticCompleted ? "text-[#70543c]" : "text-[#3c2a1b]"
-              }`}
-            >
-              {title}
-            </h3>
-
-            {isRequired && (
-              <span className="rounded-full border border-[#ab3f30] px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-[#8d2f21]">
-                Required Today
-              </span>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <h3
+            className={cn(
+              "text-base font-semibold sm:text-lg",
+              optimisticCompleted ? "text-[#70543c]" : "text-[#3c2a1b]"
             )}
+          >
+            {title}
+          </h3>
 
-            {!isRequired && isOptional && (
-              <span className="rounded-full border border-[#ab8f67] px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-[#6f5138]">
-                Optional Today
-              </span>
-            )}
-
-            {progressLabel && (
-              <span className="rounded-full border border-[#4b7190] px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-[#385670]">
-                {progressLabel}
-              </span>
-            )}
-          </div>
+          <TaskCardMeta className="mt-2">
+            {isRequired && <StatusPill label="Required" tone="required" />}
+            {!isRequired && isOptional && <StatusPill label="Optional" tone="optional" />}
+            {progressLabel && <StatusPill label={progressLabel} tone="quota" />}
+            {locked && <StatusPill label={lockedLabel ?? "Locked"} tone="locked" />}
+          </TaskCardMeta>
 
           {note ? (
-            <p className={`text-sm leading-6 ${optimisticCompleted ? "text-[#876955]" : "text-[#6c4c32]"}`}>
+            <p
+              className={cn(
+                "mt-2 text-sm leading-6",
+                optimisticCompleted ? "text-[#876955]" : "text-[#6c4c32]"
+              )}
+            >
               {note}
             </p>
           ) : null}
@@ -116,15 +114,16 @@ export function TodayTaskCard({
           disabled={isSubmitting || locked || Boolean(href)}
           aria-label={`Toggle completion for ${title}`}
           aria-pressed={optimisticCompleted}
-          className="flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-[#b99f77] bg-[#efe3cb] text-[#5b3f28] transition hover:bg-[#e4d3b4] active:scale-95 disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex min-h-12 min-w-12 items-center justify-center rounded-lg border border-[#b99f77] bg-[#efe3cb] text-[#5b3f28] transition hover:bg-[#e4d3b4] active:scale-95 disabled:cursor-not-allowed disabled:opacity-70"
         >
           <span
             aria-hidden="true"
-            className={`flex h-6 w-6 items-center justify-center rounded border text-sm font-semibold ${
+            className={cn(
+              "flex h-6 w-6 items-center justify-center rounded border text-sm font-semibold",
               optimisticCompleted
                 ? "border-[#2f8067] bg-[#7cd9b7] text-[#1f3c30]"
                 : "border-[#9f8a6b] bg-transparent text-transparent"
-            }`}
+            )}
           >
             ✓
           </span>
@@ -135,21 +134,23 @@ export function TodayTaskCard({
         {isSubmitting
           ? "Saving..."
           : href
-          ? "Open journal"
+          ? "Journal entry required"
           : locked
           ? lockedLabel ?? "Locked"
           : optimisticCompleted
-          ? "Completed"
-          : "Tap to mark complete"}
+          ? "Done"
+          : "Tap card or checkbox to mark done"}
       </p>
 
       {href ? (
-        <Link
-          href={href}
-          className="mt-3 inline-flex rounded-lg border border-[#b99f77] px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#5f432d] transition hover:bg-[#e9dbc3]"
-        >
-          Open Reflection
-        </Link>
+        <TaskCardActions>
+          <Link
+            href={href}
+            className="inline-flex min-h-11 items-center rounded-lg border border-[#b99f77] px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#5f432d] transition hover:bg-[#e9dbc3]"
+          >
+            Open Reflection
+          </Link>
+        </TaskCardActions>
       ) : null}
     </form>
   );

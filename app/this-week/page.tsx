@@ -2,6 +2,10 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
+import { StatusPill } from "@/components/status-pill";
+import { TaskCard } from "@/components/task-card";
+import { TaskCardHeader } from "@/components/task-card-header";
+import { TaskCardMeta } from "@/components/task-card-meta";
 import {
   buildTaskViewModels,
   formatReadableDate,
@@ -324,37 +328,32 @@ export default async function ThisWeekPage({
 
         <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
           {dayModels.map(({ day, required, optional, dateLabel }) => (
-            <section
-              key={day.id}
-              className="rounded-2xl border border-[#ad8e63] bg-[#f4e9d2]/95 p-5 shadow-[0_14px_32px_-22px_rgba(68,44,23,0.58)] dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-[#5b462b] dark:text-zinc-400">
-                    Day {day.day_number}
-                  </p>
-                  <h2 className="mt-2 text-xl font-semibold">
-                    {dateLabel || `Day ${day.day_number}`}
-                  </h2>
-                  <p className="mt-2 text-xs text-[#5d482d] dark:text-zinc-400">
-                    Required done: {required.filter((task) => task.isCompleted).length}/
-                    {required.length}
-                  </p>
-                  <p className="mt-2 text-sm text-[#46331d] dark:text-zinc-300">
-                    {day.reading_title ?? day.title ?? "Daily Reading"}
-                  </p>
-                  <p className="mt-1 text-xs text-[#6a5538] dark:text-zinc-500">
-                    {day.reading_reference ?? ""}
-                  </p>
-                </div>
-
-                <Link
-                  href={`/today?day=${day.day_number}`}
-                  className="rounded-lg border border-[#9c7c53] bg-[#efe1c6] px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#3b2918] transition hover:bg-[#e5d1ae] dark:border-zinc-700 dark:bg-transparent dark:text-white dark:hover:bg-zinc-900"
-                >
-                  Open
-                </Link>
-              </div>
+            <section key={day.id} className="rounded-2xl border border-[#ad8e63] bg-[#f4e9d2]/95 p-5 shadow-[0_14px_32px_-22px_rgba(68,44,23,0.58)] dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#5b462b] dark:text-zinc-400">
+                Day {day.day_number}
+              </p>
+              <TaskCardHeader
+                className="mt-2"
+                title={dateLabel || `Day ${day.day_number}`}
+                subtitle={day.reading_title ?? day.title ?? "Daily Reading"}
+                action={
+                  <Link
+                    href={`/today?day=${day.day_number}`}
+                    className="inline-flex min-h-11 items-center rounded-lg border border-[#9c7c53] bg-[#efe1c6] px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#3b2918] transition hover:bg-[#e5d1ae] dark:border-zinc-700 dark:bg-transparent dark:text-white dark:hover:bg-zinc-900"
+                  >
+                    Open
+                  </Link>
+                }
+              />
+              <p className="mt-2 text-xs text-[#6a5538] dark:text-zinc-500">
+                {day.reading_reference ?? ""}
+              </p>
+              <TaskCardMeta className="mt-3">
+                <StatusPill
+                  label={`Required ${required.filter((task) => task.isCompleted).length}/${required.length}`}
+                  tone="quota"
+                />
+              </TaskCardMeta>
 
               <div className="mt-5 space-y-4">
                 <div>
@@ -364,30 +363,23 @@ export default async function ThisWeekPage({
                   <div className="mt-3 space-y-2">
                     {required.length > 0 ? (
                       required.map((task) => (
-                        <div
-                          key={task.id}
-                          className="rounded-lg border border-[#aa895e] bg-[#f8efde] p-3 dark:border-zinc-800 dark:bg-black"
-                        >
-                          <div className="flex items-center justify-between gap-3">
-                            <p className="text-sm font-medium text-[#312111] dark:text-white">
-                              {task.title}
-                            </p>
-                            <span
-                              className={`rounded-full border px-2 py-1 text-[10px] uppercase tracking-[0.2em] ${
-                                task.isCompleted
-                                  ? "border-emerald-700 bg-emerald-100/70 text-emerald-900 dark:bg-transparent dark:text-emerald-200"
-                                  : "border-red-700 bg-red-100/70 text-red-900 dark:bg-transparent dark:text-red-200"
-                              }`}
-                            >
-                              {task.isCompleted ? "Done" : "Required"}
-                            </span>
-                          </div>
+                        <TaskCard key={task.id} completed={task.isCompleted}>
+                          <TaskCardHeader
+                            title={task.title}
+                            titleClassName="text-sm font-medium"
+                            action={
+                              <StatusPill
+                                label={task.isCompleted ? "Done" : "Required"}
+                                tone={task.isCompleted ? "done" : "required"}
+                              />
+                            }
+                          />
                           {task.note ? (
                             <p className="mt-2 text-xs leading-5 text-[#5f4b31] dark:text-zinc-500">
                               {task.note}
                             </p>
                           ) : null}
-                        </div>
+                        </TaskCard>
                       ))
                     ) : (
                       <p className="text-sm text-[#5f4b31] dark:text-zinc-500">No required tasks.</p>
@@ -402,23 +394,22 @@ export default async function ThisWeekPage({
                   <div className="mt-3 space-y-2">
                     {optional.length > 0 ? (
                       optional.map((task) => (
-                        <div
-                          key={task.id}
-                          className="rounded-lg border border-[#aa895e] bg-[#f8efde] p-3 dark:border-zinc-800 dark:bg-black"
-                        >
-                          <div className="flex items-center justify-between gap-3">
-                            <p className="text-sm font-medium text-[#312111] dark:text-white">
-                              {task.title}
-                            </p>
-                            <span className="rounded-full border border-[#93724a] bg-[#efe1c6] px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-[#49341f] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300">
-                              {task.isCompleted ? "Done" : "Optional"}
-                            </span>
-                          </div>
+                        <TaskCard key={task.id} completed={task.isCompleted}>
+                          <TaskCardHeader
+                            title={task.title}
+                            titleClassName="text-sm font-medium"
+                            action={
+                              <StatusPill
+                                label={task.isCompleted ? "Done" : "Optional"}
+                                tone={task.isCompleted ? "done" : "optional"}
+                              />
+                            }
+                          />
 
                           {task.progressLabel ? (
-                            <p className="mt-2 text-xs leading-5 text-[#2f4f9f] dark:text-blue-300">
-                              {task.progressLabel}
-                            </p>
+                            <TaskCardMeta className="mt-2">
+                              <StatusPill label={task.progressLabel} tone="quota" />
+                            </TaskCardMeta>
                           ) : null}
 
                           {task.note ? (
@@ -426,7 +417,7 @@ export default async function ThisWeekPage({
                               {task.note}
                             </p>
                           ) : null}
-                        </div>
+                        </TaskCard>
                       ))
                     ) : (
                       <p className="text-sm text-[#5f4b31] dark:text-zinc-500">No optional tasks.</p>
