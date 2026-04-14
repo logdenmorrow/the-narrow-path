@@ -55,13 +55,13 @@ export default async function ProgressStrip() {
 
   return (
     <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
-      <span className="rounded-full border border-zinc-700 bg-zinc-950 px-3 py-1 text-zinc-200">
+      <span className="rounded-full border border-[#c8ae83] bg-[#f1e6cf] px-3 py-1 font-semibold text-[#5a3a24]">
         Day {selectedDay}/{activePlan.total_days}
       </span>
-      <span className="rounded-full border border-zinc-700 bg-zinc-950 px-3 py-1 text-zinc-200">
+      <span className="rounded-full border border-[#c8ae83] bg-[#f1e6cf] px-3 py-1 font-semibold text-[#5a3a24]">
         Required {completedRequiredCount}/{totalRequiredCount}
       </span>
-      <span className="rounded-full border border-zinc-700 bg-zinc-950 px-3 py-1 text-zinc-200">
+      <span className="rounded-full border border-[#c8ae83] bg-[#f1e6cf] px-3 py-1 font-semibold text-[#5a3a24]">
         Week {challenge.weekNumber}
       </span>
     </div>
