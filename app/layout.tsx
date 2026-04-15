@@ -39,7 +39,10 @@ export default function RootLayout({
               <div className="monastic-topbar">
                 <div className="flex items-start justify-between gap-4 lg:items-center">
                   <div className="space-y-2">
-                    <Link href="/" className="monastic-wordmark monastic-heading text-2xl font-semibold sm:text-[2rem]">
+                    <Link
+                      href="/"
+                      className="monastic-wordmark monastic-heading text-[1.5rem] font-semibold sm:text-[2rem]"
+                    >
                       <span className="monastic-wordmark-mark">+</span>
                       <span>The Narrow Path</span>
                     </Link>
@@ -58,7 +61,7 @@ export default function RootLayout({
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                   <div className="hidden sm:block">
                     <MainNav />
                   </div>

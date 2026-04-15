@@ -11,6 +11,7 @@ import {
 import { AppActionBar } from "@/components/page-actions";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
+import { applyReflectionCompletionOverride, getReflectionTaskId } from "@/lib/task-progress";
 
 type TaskTemplateCadence = "daily" | "weekly_quota";
 
@@ -329,11 +330,7 @@ export default async function DashboardPage() {
     )
   );
 
-  const reflectionTodayTask = todayTasks.find((task) => {
-    const relation = task.task_templates;
-    const template = Array.isArray(relation) ? relation[0] : relation;
-    return template?.slug === "reflection";
-  });
+  const reflectionTaskId = getReflectionTaskId(todayTasks);
 
   const { data: reflectionEntryData } = planDay
     ? await supabase
@@ -347,9 +344,11 @@ export default async function DashboardPage() {
   const reflectionEntry = (reflectionEntryData ?? null) as ReflectionEntryRow | null;
   const hasSavedReflection = Boolean(reflectionEntry?.id);
 
-  if (reflectionTodayTask?.id && hasSavedReflection) {
-    completionIds.add(reflectionTodayTask.id);
-  }
+  applyReflectionCompletionOverride(
+    completionIds,
+    reflectionTaskId,
+    hasSavedReflection
+  );
 
   const requiredDailyToday = todayTasks.filter(
     (task) =>

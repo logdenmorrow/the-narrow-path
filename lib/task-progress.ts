@@ -48,6 +48,8 @@ export type TaskViewModel = {
   displayOrder: number;
 };
 
+type ReflectionTaskLike = Pick<PlanDayTaskRecord, "id" | "task_templates">;
+
 function normalizeTaskTemplate(
   relation: TaskTemplateRelation
 ): { title: string; slug: string } {
@@ -75,6 +77,48 @@ function scopeKey(task: PlanDayTaskRecord): string | null {
   }
 
   return null;
+}
+
+export function getReflectionTaskId(tasks: ReflectionTaskLike[]): number | null {
+  for (const task of tasks) {
+    const template = normalizeTaskTemplate(task.task_templates);
+    if (template.slug === "reflection") {
+      return task.id;
+    }
+  }
+
+  return null;
+}
+
+export function createReflectionCompletionOverrides(
+  reflectionTaskId: number | null,
+  hasSavedReflection: boolean
+) {
+  const overrides = new Map<number, boolean>();
+
+  if (reflectionTaskId !== null) {
+    overrides.set(reflectionTaskId, hasSavedReflection);
+  }
+
+  return overrides;
+}
+
+export function applyReflectionCompletionOverride(
+  completedTaskIds: Set<number>,
+  reflectionTaskId: number | null,
+  hasSavedReflection: boolean
+) {
+  if (reflectionTaskId === null) {
+    return completedTaskIds;
+  }
+
+  if (hasSavedReflection) {
+    completedTaskIds.add(reflectionTaskId);
+  } else {
+    completedTaskIds.delete(reflectionTaskId);
+  }
+
+  return completedTaskIds;
 }
 
 export function buildTaskViewModels(
