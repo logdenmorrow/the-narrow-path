@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
 import { toggleTaskCompletion } from "@/app/today/actions";
@@ -25,6 +26,14 @@ const INTERACTIVE_TARGET_SELECTOR =
   "a, button, input, textarea, select, [role='button'], [role='link']";
 const MIN_PENDING_VISIBILITY_MS = 180;
 
+function waitForNextPaint() {
+  return new Promise<void>((resolve) => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => resolve());
+    });
+  });
+}
+
 export function TodayTaskCard({
   planDayTaskId,
   title,
@@ -39,16 +48,26 @@ export function TodayTaskCard({
 }: TodayTaskCardProps) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
-  const previousCompletedRef = useRef(completed);
+  const latestServerCompletedRef = useRef(completed);
+  const pendingTargetRef = useRef<boolean | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [optimisticCompleted, setOptimisticCompleted] = useState(completed);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    if (completed !== previousCompletedRef.current) {
-      previousCompletedRef.current = completed;
-      setOptimisticCompleted(completed);
+    const serverValueChanged = completed !== latestServerCompletedRef.current;
+    latestServerCompletedRef.current = completed;
+
+    if (!serverValueChanged) {
+      return;
     }
+
+    if (pendingTargetRef.current !== null && completed !== pendingTargetRef.current) {
+      return;
+    }
+
+    pendingTargetRef.current = null;
+    setOptimisticCompleted(completed);
   }, [completed]);
 
   const isBusy = isSubmitting || locked || Boolean(href);
@@ -56,17 +75,24 @@ export function TodayTaskCard({
   const submitTask = async (formData: FormData) => {
     if (isBusy) return;
 
-    const nextCompleted = !optimisticCompleted;
+    const previousCompleted = latestServerCompletedRef.current;
+    const nextCompleted = !previousCompleted;
     const startedAt = Date.now();
-    setIsSubmitting(true);
-    setOptimisticCompleted(nextCompleted);
-    setErrorMessage(null);
+
+    pendingTargetRef.current = nextCompleted;
+    flushSync(() => {
+      setIsSubmitting(true);
+      setOptimisticCompleted(nextCompleted);
+      setErrorMessage(null);
+    });
 
     try {
+      await waitForNextPaint();
       await toggleTaskCompletion(formData);
       router.refresh();
     } catch (error) {
-      setOptimisticCompleted((prev) => !prev);
+      pendingTargetRef.current = null;
+      setOptimisticCompleted(previousCompleted);
       setErrorMessage(
         error instanceof Error ? error.message : "Could not update this task right now."
       );
@@ -156,8 +182,8 @@ export function TodayTaskCard({
                 isSubmitting
                   ? "border-[#7d887b] bg-[rgba(154,185,165,0.12)] text-[#7d887b]"
                   : optimisticCompleted
-                  ? "border-[#57785e] bg-[#9ab9a5] text-[#223127]"
-                  : "border-[color:var(--line-strong)] bg-transparent text-transparent"
+                    ? "border-[#57785e] bg-[#9ab9a5] text-[#223127]"
+                    : "border-[color:var(--line-strong)] bg-transparent text-transparent"
               }`}
             >
               {isSubmitting ? (
@@ -174,14 +200,14 @@ export function TodayTaskCard({
             {errorMessage
               ? errorMessage
               : isSubmitting
-              ? "Saving..."
-              : href
-                ? "Open journal"
-                : locked
-                  ? lockedLabel ?? "Locked"
-                  : optimisticCompleted
-                    ? "Completed"
-                    : "Tap to mark complete"}
+                ? "Saving..."
+                : href
+                  ? "Open journal"
+                  : locked
+                    ? lockedLabel ?? "Locked"
+                    : optimisticCompleted
+                      ? "Completed"
+                      : "Tap to mark complete"}
           </span>
 
           {href ? (
