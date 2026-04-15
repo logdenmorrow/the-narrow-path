@@ -25,6 +25,7 @@ type TodayTaskCardProps = {
 const INTERACTIVE_TARGET_SELECTOR =
   "a, button, input, textarea, select, [role='button'], [role='link']";
 const MIN_PENDING_VISIBILITY_MS = 180;
+const optimisticCompletionOverrides = new Map<number, boolean>();
 
 function waitForNextPaint() {
   return new Promise<void>((resolve) => {
@@ -51,12 +52,27 @@ export function TodayTaskCard({
   const latestServerCompletedRef = useRef(completed);
   const pendingTargetRef = useRef<boolean | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [optimisticCompleted, setOptimisticCompleted] = useState(completed);
+  const [optimisticCompleted, setOptimisticCompleted] = useState(
+    optimisticCompletionOverrides.get(planDayTaskId) ?? completed
+  );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
+    const optimisticOverride = optimisticCompletionOverrides.get(planDayTaskId);
     const serverValueChanged = completed !== latestServerCompletedRef.current;
     latestServerCompletedRef.current = completed;
+
+    if (optimisticOverride !== undefined) {
+      if (completed === optimisticOverride) {
+        optimisticCompletionOverrides.delete(planDayTaskId);
+        pendingTargetRef.current = null;
+        setOptimisticCompleted(completed);
+        return;
+      }
+
+      setOptimisticCompleted(optimisticOverride);
+      return;
+    }
 
     if (!serverValueChanged) {
       return;
@@ -79,6 +95,7 @@ export function TodayTaskCard({
     const nextCompleted = !previousCompleted;
     const startedAt = Date.now();
 
+    optimisticCompletionOverrides.set(planDayTaskId, nextCompleted);
     pendingTargetRef.current = nextCompleted;
     flushSync(() => {
       setIsSubmitting(true);
@@ -91,6 +108,7 @@ export function TodayTaskCard({
       await toggleTaskCompletion(formData);
       router.refresh();
     } catch (error) {
+      optimisticCompletionOverrides.delete(planDayTaskId);
       pendingTargetRef.current = null;
       setOptimisticCompleted(previousCompleted);
       setErrorMessage(
