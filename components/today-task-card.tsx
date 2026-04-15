@@ -38,15 +38,17 @@ export function TodayTaskCard({
 }: TodayTaskCardProps) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
+  const previousCompletedRef = useRef(completed);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [optimisticCompleted, setOptimisticCompleted] = useState(completed);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isSubmitting) {
+    if (completed !== previousCompletedRef.current) {
+      previousCompletedRef.current = completed;
       setOptimisticCompleted(completed);
     }
-  }, [completed, isSubmitting]);
+  }, [completed]);
 
   const isBusy = isSubmitting || locked || Boolean(href);
 
