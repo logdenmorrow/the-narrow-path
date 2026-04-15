@@ -23,6 +23,7 @@ type TodayTaskCardProps = {
 
 const INTERACTIVE_TARGET_SELECTOR =
   "a, button, input, textarea, select, [role='button'], [role='link']";
+const MIN_PENDING_VISIBILITY_MS = 180;
 
 export function TodayTaskCard({
   planDayTaskId,
@@ -56,6 +57,7 @@ export function TodayTaskCard({
     if (isBusy) return;
 
     const nextCompleted = !optimisticCompleted;
+    const startedAt = Date.now();
     setIsSubmitting(true);
     setOptimisticCompleted(nextCompleted);
     setErrorMessage(null);
@@ -69,6 +71,13 @@ export function TodayTaskCard({
         error instanceof Error ? error.message : "Could not update this task right now."
       );
     } finally {
+      const elapsed = Date.now() - startedAt;
+      const remainingDelay = Math.max(0, MIN_PENDING_VISIBILITY_MS - elapsed);
+
+      if (remainingDelay > 0) {
+        await new Promise((resolve) => window.setTimeout(resolve, remainingDelay));
+      }
+
       setIsSubmitting(false);
     }
   };
