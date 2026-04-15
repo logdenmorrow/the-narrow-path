@@ -1,7 +1,19 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import type { ReactNode } from "react";
 import { createClient as createSupabaseAdminClient } from "@supabase/supabase-js";
+import {
+  HeroPanel,
+  MetricCard,
+  PageFrame,
+  SectionHeader,
+  SurfaceCard,
+  SurfaceInset,
+} from "@/components/monastic-ui";
+import { AppActionBar } from "@/components/page-actions";
+import { StatusPill } from "@/components/task-card";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 
@@ -98,6 +110,40 @@ function createAdminClient() {
       autoRefreshToken: false,
     },
   });
+}
+
+const fieldClassName = "monastic-field";
+const compactFieldClassName = "monastic-field px-3 py-2";
+const labelClassName = "text-sm font-medium text-monastic-1";
+const helperTextClassName = "text-sm text-monastic-1 sm:text-base";
+const checkboxClassName = "monastic-checkbox";
+
+type AdminSectionProps = {
+  kicker: string;
+  title: string;
+  description: string;
+  children: ReactNode;
+  action?: ReactNode;
+};
+
+function AdminSection({
+  kicker,
+  title,
+  description,
+  children,
+  action,
+}: AdminSectionProps) {
+  return (
+    <SurfaceCard>
+      <SectionHeader
+        kicker={kicker}
+        title={title}
+        description={description}
+        action={action}
+      />
+      <div className="mt-5">{children}</div>
+    </SurfaceCard>
+  );
 }
 
 function parseCadence(value: FormDataEntryValue | null): TaskTemplateCadence {
@@ -571,18 +617,16 @@ export default async function AdminPlanPage({
 
   if (activePlanError || !activePlan) {
     return (
-      <main className="min-h-screen bg-black text-white">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Admin Plan Editor
-            </h1>
-            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
-              No active challenge plan was found. Add or activate a plan in
-              Supabase before using this page.
-            </p>
-          </div>
-        </div>
+      <main className="monastic-page">
+        <PageFrame className="space-y-6">
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Admin"
+              title="Admin Plan Editor"
+              description="No active challenge plan was found. Add or activate a plan in Supabase before using this page."
+            />
+          </SurfaceCard>
+        </PageFrame>
       </main>
     );
   }
@@ -663,260 +707,196 @@ export default async function AdminPlanPage({
   );
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
-              {activePlan.name}
-            </p>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Admin Plan Editor
-            </h1>
-            <p className="mt-3 max-w-3xl text-sm text-zinc-300 sm:text-base">
-              Edit days, assign tasks, and manage daily versus weekly quota
-              disciplines without dropping back into SQL.
-            </p>
-          </div>
+    <main className="monastic-page">
+      <PageFrame className="space-y-6">
+        <HeroPanel className="py-7 sm:py-8">
+          <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
+            <div className="text-[#f7ebd8]">
+              <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
+              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">
+                Admin Plan Editor
+              </h1>
+              <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
+                Edit days, assign tasks, and manage daily versus weekly quota
+                disciplines without dropping back into SQL.
+              </p>
+            </div>
 
-          <div className="grid w-full gap-3 sm:grid-cols-3 lg:w-auto lg:min-w-[560px]">
-            <Link
-              href="/dashboard"
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Back to Dashboard
-            </Link>
-            <Link
-              href="/today"
-              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
-            >
-              View Today
-            </Link>
-            <Link
-              href="/admin/plan/export"
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Export Completions CSV
-            </Link>
+            <AppActionBar
+              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-3"
+              actions={[
+                { href: "/dashboard", label: "Back to Dashboard", variant: "secondary" },
+                { href: "/today", label: "View Today", variant: "primary" },
+                { href: "/admin/plan/export", label: "Export CSV", variant: "outline" },
+              ]}
+            />
           </div>
-        </div>
+        </HeroPanel>
 
         {!challenge.hasStarted && (
-          <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-base font-semibold text-white sm:text-lg">
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               Challenge starts on {challenge.startDateLabel}.
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               You&apos;re currently building preview content before launch day.
             </p>
-          </div>
+          </SurfaceCard>
         )}
 
         {challenge.isComplete && (
-          <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-base font-semibold text-white sm:text-lg">
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               The challenge is complete.
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               Admin preview is currently anchored to the final challenge day and
               final week.
             </p>
-          </div>
+          </SurfaceCard>
         )}
 
         {!adminKeyConfigured && (
-          <div className="mb-6 rounded-2xl border border-red-900 bg-red-950/40 p-4 sm:p-6">
-            <p className="font-semibold text-red-200">
+          <SurfaceCard className="border-[rgba(145,53,53,0.42)] bg-[linear-gradient(180deg,rgba(107,24,24,0.16),rgba(61,15,15,0.08))]">
+            <p className="font-semibold text-[#7c1d1d] dark:text-[#fecaca]">
               Admin writes are not configured yet.
             </p>
-            <p className="mt-2 text-sm text-red-100/80 sm:text-base">
+            <p className="mt-2 text-sm text-[#7f1d1d] dark:text-[#fee2e2] sm:text-base">
               Add SUPABASE_SECRET_KEY or SUPABASE_SERVICE_ROLE_KEY to
               .env.local, then restart the dev server.
             </p>
-          </div>
+          </SurfaceCard>
         )}
 
         {!adminEmailsConfigured && (
-          <div className="mb-6 rounded-2xl border border-yellow-900 bg-yellow-950/40 p-4 sm:p-6">
-            <p className="font-semibold text-yellow-200">
+          <SurfaceCard className="border-[rgba(161,98,7,0.42)] bg-[linear-gradient(180deg,rgba(161,98,7,0.12),rgba(120,53,15,0.08))]">
+            <p className="font-semibold text-[#854d0e] dark:text-[#fde68a]">
               Admin email lock is not configured yet.
             </p>
-            <p className="mt-2 text-sm text-yellow-100/80 sm:text-base">
+            <p className="mt-2 text-sm text-[#713f12] dark:text-[#fef3c7] sm:text-base">
               Admin access is currently disabled. Add ADMIN_EMAILS to .env.local
               with a comma-separated allowlist, then restart the dev server.
             </p>
-          </div>
+          </SurfaceCard>
         )}
 
-        <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Active Plan
-            </p>
-            <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {activePlan.name}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              {activePlan.total_days} total days
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Editing
-            </p>
-            <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              Day {selectedDay}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              {planDay ? "Day exists" : "Day not created yet"}
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Live Challenge Day
-            </p>
-            <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {challenge.hasStarted ? `Day ${challenge.currentDayNumber}` : "Pre-start"}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              {challenge.startDateLabel}
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Weekly Quota Templates
-            </p>
-            <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {weeklyQuotaTemplates.length}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              Flexible disciplines tracked across a full week.
-            </p>
-          </div>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <MetricCard
+            label="Active Plan"
+            value={activePlan.name}
+            detail={`${activePlan.total_days} total days`}
+          />
+          <MetricCard
+            label="Editing"
+            value={`Day ${selectedDay}`}
+            detail={planDay ? "Day exists" : "Day not created yet"}
+          />
+          <MetricCard
+            label="Live Challenge Day"
+            value={challenge.hasStarted ? `Day ${challenge.currentDayNumber}` : "Pre-start"}
+            detail={challenge.startDateLabel}
+          />
+          <MetricCard
+            label="Weekly Quota Templates"
+            value={`${weeklyQuotaTemplates.length}`}
+            detail="Flexible disciplines tracked across a full week."
+          />
         </div>
 
-        <div className="mb-6 flex flex-col gap-3">
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <Link
-              href={`/admin/plan?day=${previousDay}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
+        <SurfaceCard>
+          <SectionHeader
+            kicker="Navigation"
+            title="Move through the plan quickly."
+            description="Jump by day, follow the live challenge window, or step day by day."
+          />
+          <div className="mt-5 flex flex-col gap-4">
+            <div className="grid gap-3 rounded-[1.4rem] border border-monastic bg-monastic-panel p-2 shadow-[0_18px_34px_-30px_rgba(42,25,15,0.8)] sm:grid-cols-2 xl:grid-cols-4">
+              {[previousDay, nextDay, challenge.currentDayNumber, challenge.weekStartDay].map(
+                (day, index) => (
+                  <Button
+                    key={`${day}-${index}`}
+                    asChild
+                    variant={index < 2 ? "secondary" : "outline"}
+                  >
+                    <Link
+                      href={`/admin/plan?day=${day}`}
+                    >
+                      {index === 0
+                        ? "Previous Day"
+                        : index === 1
+                          ? "Next Day"
+                          : index === 2
+                            ? "Jump to Live Day"
+                            : "Jump to Live Week"}
+                    </Link>
+                  </Button>
+                )
+              )}
+            </div>
+            <form
+              action="/admin/plan"
+              method="get"
+              className="flex flex-col gap-3 sm:flex-row sm:items-end"
             >
-              Previous Day
-            </Link>
-
-            <Link
-              href={`/admin/plan?day=${nextDay}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Next Day
-            </Link>
-
-            <Link
-              href={`/admin/plan?day=${challenge.currentDayNumber}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Jump to Live Day
-            </Link>
-
-            <Link
-              href={`/admin/plan?day=${challenge.weekStartDay}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Jump to Live Week
-            </Link>
+              <div className="grid gap-2">
+                <label htmlFor="day" className={labelClassName}>
+                  Jump to day
+                </label>
+                <input
+                  id="day"
+                  name="day"
+                  type="number"
+                  min={1}
+                  max={activePlan.total_days}
+                  defaultValue={selectedDay}
+                  className={`${fieldClassName} sm:w-32`}
+                />
+              </div>
+              <Button type="submit" variant="secondary">
+                Go
+              </Button>
+            </form>
           </div>
-
-          <form
-            action="/admin/plan"
-            method="get"
-            className="flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
-            <label htmlFor="day" className="text-sm text-zinc-400">
-              Jump to day
-            </label>
-            <input
-              id="day"
-              name="day"
-              type="number"
-              min={1}
-              max={activePlan.total_days}
-              defaultValue={selectedDay}
-              className="w-full rounded-lg border border-zinc-700 bg-black px-3 py-3 text-white outline-none sm:w-32"
-            />
-            <button
-              type="submit"
-              className="rounded-lg bg-white px-4 py-3 font-semibold text-black transition hover:bg-zinc-200 sm:w-auto"
-            >
-              Go
-            </button>
-          </form>
-        </div>
+        </SurfaceCard>
 
         <div className="grid gap-6">
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <div className="mb-5">
-              <h2 className="text-xl font-semibold sm:text-2xl">
-                Weekly Quota Notes
-              </h2>
-              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-                A weekly quota task is not meant to be required on a specific
-                day. Assign it to the days you want it available, keep those day
-                instances optional, and the app will count completions toward the
-                week-wide target.
-              </p>
-            </div>
-
+          <AdminSection
+            kicker="Quota"
+            title="Weekly Quota Notes"
+            description="A weekly quota task is not meant to be required on a specific day. Assign it to the days you want it available, keep those day instances optional, and the app will count completions toward the week-wide target."
+          >
             {weeklyQuotaTemplates.length === 0 ? (
-              <p className="text-sm text-zinc-400 sm:text-base">
-                No weekly quota templates exist yet.
-              </p>
+              <p className={helperTextClassName}>No weekly quota templates exist yet.</p>
             ) : (
               <div className="space-y-3">
                 {weeklyQuotaTemplates.map((template) => (
-                  <div
-                    key={template.id}
-                    className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
-                  >
+                  <SurfaceInset key={template.id}>
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                       <div>
-                        <p className="font-medium text-white">{template.title}</p>
-                        <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
+                        <p className="font-medium text-monastic-0">{template.title}</p>
+                        <p className="mt-1 text-xs text-monastic-2 sm:text-sm">
                           {template.description || template.slug}
                         </p>
                       </div>
-                      <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
-                        {cadenceLabel(template)}
-                      </span>
+                      <StatusPill tone="progress">{cadenceLabel(template)}</StatusPill>
                     </div>
-                  </div>
+                  </SurfaceInset>
                 ))}
               </div>
             )}
-          </section>
+          </AdminSection>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <div className="mb-5">
-              <h2 className="text-xl font-semibold sm:text-2xl">
-                Copy Day to Another Day
-              </h2>
-              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-                This copies the selected day title, reflection prompt, and all
-                assigned tasks to another day. The target day is fully replaced.
-              </p>
-            </div>
-
+          <AdminSection
+            kicker="Copy"
+            title="Copy Day to Another Day"
+            description="This copies the selected day title, reflection prompt, and all assigned tasks to another day. The target day is fully replaced."
+          >
             <form action={copyDayToDay} className="grid gap-4 lg:grid-cols-4">
               <input type="hidden" name="plan_id" value={activePlan.id} />
               <input type="hidden" name="return_day_number" value={selectedDay} />
 
               <div className="grid gap-2">
-                <label
-                  htmlFor="source_day_number"
-                  className="text-sm font-medium text-zinc-300"
-                >
+                <label htmlFor="source_day_number" className={labelClassName}>
                   Source Day
                 </label>
                 <input
@@ -926,15 +906,12 @@ export default async function AdminPlanPage({
                   min={1}
                   max={activePlan.total_days}
                   defaultValue={selectedDay}
-                  className="rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                  className={fieldClassName}
                 />
               </div>
 
               <div className="grid gap-2">
-                <label
-                  htmlFor="target_day_number"
-                  className="text-sm font-medium text-zinc-300"
-                >
+                <label htmlFor="target_day_number" className={labelClassName}>
                   Target Day
                 </label>
                 <input
@@ -944,43 +921,30 @@ export default async function AdminPlanPage({
                   min={1}
                   max={activePlan.total_days}
                   defaultValue={Math.min(selectedDay + 1, activePlan.total_days)}
-                  className="rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                  className={fieldClassName}
                 />
               </div>
 
               <div className="lg:col-span-2 flex items-end">
-                <button
-                  type="submit"
-                  disabled={!adminKeyConfigured}
-                  className="w-full rounded-lg bg-white px-5 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50 lg:w-auto"
-                >
+                <Button type="submit" disabled={!adminKeyConfigured}>
                   Copy Day
-                </button>
+                </Button>
               </div>
             </form>
-          </section>
+          </AdminSection>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <div className="mb-5">
-              <h2 className="text-xl font-semibold sm:text-2xl">
-                Copy Week to Another Week
-              </h2>
-              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-                Copy a full 7-day block. Each target day is replaced with the
-                source day&apos;s title, prompt, and tasks.
-              </p>
-            </div>
-
+          <AdminSection
+            kicker="Copy"
+            title="Copy Week to Another Week"
+            description="Copy a full 7-day block. Each target day is replaced with the source day&apos;s title, prompt, and tasks."
+          >
             <form action={copyWeekToWeek} className="grid gap-4 lg:grid-cols-4">
               <input type="hidden" name="plan_id" value={activePlan.id} />
               <input type="hidden" name="total_days" value={activePlan.total_days} />
               <input type="hidden" name="return_day_number" value={selectedDay} />
 
               <div className="grid gap-2">
-                <label
-                  htmlFor="source_week_start_day"
-                  className="text-sm font-medium text-zinc-300"
-                >
+                <label htmlFor="source_week_start_day" className={labelClassName}>
                   Source Week Start
                 </label>
                 <input
@@ -990,15 +954,12 @@ export default async function AdminPlanPage({
                   min={1}
                   max={activePlan.total_days}
                   defaultValue={normalizeWeekStartDay(selectedDay, activePlan.total_days)}
-                  className="rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                  className={fieldClassName}
                 />
               </div>
 
               <div className="grid gap-2">
-                <label
-                  htmlFor="target_week_start_day"
-                  className="text-sm font-medium text-zinc-300"
-                >
+                <label htmlFor="target_week_start_day" className={labelClassName}>
                   Target Week Start
                 </label>
                 <input
@@ -1008,36 +969,29 @@ export default async function AdminPlanPage({
                   min={1}
                   max={activePlan.total_days}
                   defaultValue={suggestedTargetWeekStart}
-                  className="rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                  className={fieldClassName}
                 />
               </div>
 
               <div className="lg:col-span-2 flex items-end">
-                <button
-                  type="submit"
-                  disabled={!adminKeyConfigured}
-                  className="w-full rounded-lg bg-white px-5 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50 lg:w-auto"
-                >
+                <Button type="submit" disabled={!adminKeyConfigured}>
                   Copy Week
-                </button>
+                </Button>
               </div>
             </form>
-          </section>
+          </AdminSection>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <div className="mb-5">
-              <h2 className="text-xl font-semibold sm:text-2xl">Day Details</h2>
-              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-                Create or update the selected day title and reflection prompt.
-              </p>
-            </div>
-
+          <AdminSection
+            kicker="Day"
+            title="Day Details"
+            description="Create or update the selected day title and reflection prompt."
+          >
             <form action={saveDayDetails} className="space-y-4">
               <input type="hidden" name="plan_id" value={activePlan.id} />
               <input type="hidden" name="day_number" value={selectedDay} />
 
               <div className="grid gap-2">
-                <label htmlFor="title" className="text-sm font-medium text-zinc-300">
+                <label htmlFor="title" className={labelClassName}>
                   Day Title
                 </label>
                 <input
@@ -1046,15 +1000,12 @@ export default async function AdminPlanPage({
                   type="text"
                   defaultValue={planDay?.title ?? ""}
                   placeholder={`Day ${selectedDay}`}
-                  className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                  className={fieldClassName}
                 />
               </div>
 
               <div className="grid gap-2">
-                <label
-                  htmlFor="reflection_prompt"
-                  className="text-sm font-medium text-zinc-300"
-                >
+                <label htmlFor="reflection_prompt" className={labelClassName}>
                   Reflection Prompt
                 </label>
                 <textarea
@@ -1063,50 +1014,37 @@ export default async function AdminPlanPage({
                   rows={4}
                   defaultValue={planDay?.reflection_prompt ?? ""}
                   placeholder="Write the reflection prompt for this day..."
-                  className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                  className={`${fieldClassName} min-h-32`}
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={!adminKeyConfigured}
-                className="w-full rounded-lg bg-white px-5 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
-              >
+              <Button type="submit" disabled={!adminKeyConfigured}>
                 Save Day Details
-              </button>
+              </Button>
             </form>
-          </section>
+          </AdminSection>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <div className="mb-5">
-              <h2 className="text-xl font-semibold sm:text-2xl">Assigned Tasks</h2>
-              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-                Reorder tasks, switch between required and optional, or remove
-                them from this day.
-              </p>
-            </div>
-
+          <AdminSection
+            kicker="Assignments"
+            title="Assigned Tasks"
+            description="Reorder tasks, switch between required and optional, or remove them from this day."
+          >
             {assignedTasks.length === 0 ? (
-              <p className="text-sm text-zinc-400 sm:text-base">
-                No tasks are assigned to this day yet.
-              </p>
+              <p className={helperTextClassName}>No tasks are assigned to this day yet.</p>
             ) : (
               <div className="space-y-4">
                 {assignedTasks.map((task) => (
-                  <div
-                    key={task.id}
-                    className="rounded-xl border border-zinc-800 bg-black p-4"
-                  >
+                  <SurfaceInset key={task.id}>
                     <div className="mb-3">
                       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <p className="font-medium text-white">
+                        <p className="font-medium text-monastic-0">
                           {task.task_templates?.title || "Untitled Task"}
                         </p>
-                        <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                        <StatusPill tone={task.is_required ? "required" : "optional"}>
                           {cadenceLabel(task.task_templates)}
-                        </span>
+                        </StatusPill>
                       </div>
-                      <p className="mt-1 text-xs text-zinc-500 sm:text-sm">
+                      <p className="mt-1 text-xs text-monastic-2 sm:text-sm">
                         {task.task_templates?.description ||
                           task.task_templates?.slug ||
                           "No description"}
@@ -1121,12 +1059,12 @@ export default async function AdminPlanPage({
                         <input type="hidden" name="plan_day_task_id" value={task.id} />
                         <input type="hidden" name="day_number" value={selectedDay} />
 
-                        <label className="flex items-center gap-2 text-sm text-zinc-300">
+                        <label className="flex items-center gap-2 text-sm text-monastic-1">
                           <input
                             type="checkbox"
                             name="is_required"
                             defaultChecked={task.is_required}
-                            className="h-4 w-4"
+                            className={checkboxClassName}
                           />
                           Required
                         </label>
@@ -1134,7 +1072,7 @@ export default async function AdminPlanPage({
                         <div className="grid gap-1">
                           <label
                             htmlFor={`sort-order-${task.id}`}
-                            className="text-sm text-zinc-400"
+                            className={labelClassName}
                           >
                             Sort Order
                           </label>
@@ -1143,51 +1081,43 @@ export default async function AdminPlanPage({
                             name="sort_order"
                             type="number"
                             defaultValue={task.sort_order}
-                            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-white outline-none lg:w-28"
+                            className={`${compactFieldClassName} lg:w-28`}
                           />
                         </div>
 
                         <div className="flex flex-col gap-3 sm:flex-row">
-                          <button
-                            type="submit"
-                            disabled={!adminKeyConfigured}
-                            className="rounded-lg bg-white px-4 py-2 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50"
-                          >
+                          <Button type="submit" disabled={!adminKeyConfigured} size="sm">
                             Save Task
-                          </button>
+                          </Button>
                         </div>
                       </form>
 
                       <form action={removeAssignedTask}>
                         <input type="hidden" name="plan_day_task_id" value={task.id} />
                         <input type="hidden" name="day_number" value={selectedDay} />
-                        <button
+                        <Button
                           type="submit"
                           disabled={!adminKeyConfigured}
-                          className="w-full rounded-lg border border-red-800 px-4 py-2 font-semibold text-red-200 transition hover:bg-red-950 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+                          variant="destructive"
+                          size="sm"
                         >
                           Remove
-                        </button>
+                        </Button>
                       </form>
                     </div>
-                  </div>
+                  </SurfaceInset>
                 ))}
               </div>
             )}
-          </section>
+          </AdminSection>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <div className="mb-5">
-              <h2 className="text-xl font-semibold sm:text-2xl">
-                Add Existing Task
-              </h2>
-              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-                Assign one of your reusable task templates to this day.
-              </p>
-            </div>
-
+          <AdminSection
+            kicker="Assignments"
+            title="Add Existing Task"
+            description="Assign one of your reusable task templates to this day."
+          >
             {availableTemplates.length === 0 ? (
-              <p className="text-sm text-zinc-400 sm:text-base">
+              <p className={helperTextClassName}>
                 All existing templates are already assigned to this day.
               </p>
             ) : (
@@ -1196,16 +1126,13 @@ export default async function AdminPlanPage({
                 <input type="hidden" name="day_number" value={selectedDay} />
 
                 <div className="lg:col-span-2 grid gap-2">
-                  <label
-                    htmlFor="task_template_id"
-                    className="text-sm font-medium text-zinc-300"
-                  >
+                  <label htmlFor="task_template_id" className={labelClassName}>
                     Task Template
                   </label>
                   <select
                     id="task_template_id"
                     name="task_template_id"
-                    className="rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                    className={fieldClassName}
                     defaultValue={availableTemplates[0]?.id}
                   >
                     {availableTemplates.map((template) => (
@@ -1220,10 +1147,7 @@ export default async function AdminPlanPage({
                 </div>
 
                 <div className="grid gap-2">
-                  <label
-                    htmlFor="new_task_sort_order"
-                    className="text-sm font-medium text-zinc-300"
-                  >
+                  <label htmlFor="new_task_sort_order" className={labelClassName}>
                     Sort Order
                   </label>
                   <input
@@ -1231,178 +1155,139 @@ export default async function AdminPlanPage({
                     name="sort_order"
                     type="number"
                     defaultValue={assignedTasks.length + 1}
-                    className="rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                    className={fieldClassName}
                   />
                 </div>
 
                 <div className="flex flex-col justify-end gap-3">
-                  <label className="flex items-center gap-2 text-sm text-zinc-300">
+                  <label className="flex items-center gap-2 text-sm text-monastic-1">
                     <input
                       type="checkbox"
                       name="is_required"
                       defaultChecked
-                      className="h-4 w-4"
+                      className={checkboxClassName}
                     />
                     Required
                   </label>
 
-                  <button
-                    type="submit"
-                    disabled={!adminKeyConfigured}
-                    className="w-full rounded-lg bg-white px-5 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50"
-                  >
+                  <Button type="submit" disabled={!adminKeyConfigured}>
                     Add Task
-                  </button>
+                  </Button>
                 </div>
               </form>
             )}
-          </section>
+          </AdminSection>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <div className="mb-5">
-              <h2 className="text-xl font-semibold sm:text-2xl">
-                Edit Task Templates
-              </h2>
-              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-                Rename templates, choose daily versus weekly quota behavior, and
-                set the weekly target where needed.
-              </p>
-            </div>
-
+          <AdminSection
+            kicker="Templates"
+            title="Edit Task Templates"
+            description="Rename templates, choose daily versus weekly quota behavior, and set the weekly target where needed."
+          >
             {taskTemplates.length === 0 ? (
-              <p className="text-sm text-zinc-400 sm:text-base">
-                No task templates exist yet.
-              </p>
+              <p className={helperTextClassName}>No task templates exist yet.</p>
             ) : (
               <div className="space-y-4">
                 {taskTemplates.map((template) => (
-                  <form
-                    key={template.id}
-                    action={saveTaskTemplate}
-                    className="rounded-xl border border-zinc-800 bg-black p-4"
-                  >
-                    <input type="hidden" name="template_id" value={template.id} />
-                    <input type="hidden" name="day_number" value={selectedDay} />
+                  <SurfaceInset key={template.id}>
+                    <form action={saveTaskTemplate} className="space-y-4">
+                      <input type="hidden" name="template_id" value={template.id} />
+                      <input type="hidden" name="day_number" value={selectedDay} />
 
-                    <div className="grid gap-4 lg:grid-cols-2">
-                      <div className="grid gap-2">
-                        <label
-                          htmlFor={`template-title-${template.id}`}
-                          className="text-sm font-medium text-zinc-300"
-                        >
-                          Title
+                      <div className="grid gap-4 lg:grid-cols-2">
+                        <div className="grid gap-2">
+                          <label htmlFor={`template-title-${template.id}`} className={labelClassName}>
+                            Title
+                          </label>
+                          <input
+                            id={`template-title-${template.id}`}
+                            name="title"
+                            type="text"
+                            defaultValue={template.title}
+                            className={fieldClassName}
+                          />
+                        </div>
+
+                        <div className="grid gap-2">
+                          <label htmlFor={`template-slug-${template.id}`} className={labelClassName}>
+                            Slug
+                          </label>
+                          <input
+                            id={`template-slug-${template.id}`}
+                            name="slug"
+                            type="text"
+                            defaultValue={template.slug}
+                            className={fieldClassName}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                        <div className="grid gap-2">
+                          <label htmlFor={`template-cadence-${template.id}`} className={labelClassName}>
+                            Cadence
+                          </label>
+                          <select
+                            id={`template-cadence-${template.id}`}
+                            name="cadence"
+                            defaultValue={template.cadence}
+                            className={fieldClassName}
+                          >
+                            <option value="daily">Daily</option>
+                            <option value="weekly_quota">Weekly quota</option>
+                          </select>
+                        </div>
+
+                        <div className="grid gap-2">
+                          <label htmlFor={`template-weekly-target-${template.id}`} className={labelClassName}>
+                            Weekly Target
+                          </label>
+                          <input
+                            id={`template-weekly-target-${template.id}`}
+                            name="weekly_target"
+                            type="number"
+                            min={1}
+                            defaultValue={template.weekly_target ?? ""}
+                            placeholder="Leave blank for daily tasks"
+                            className={fieldClassName}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="mt-4 grid gap-2">
+                        <label htmlFor={`template-description-${template.id}`} className={labelClassName}>
+                          Description
                         </label>
-                        <input
-                          id={`template-title-${template.id}`}
-                          name="title"
-                          type="text"
-                          defaultValue={template.title}
-                          className="rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none"
+                        <textarea
+                          id={`template-description-${template.id}`}
+                          name="description"
+                          rows={3}
+                          defaultValue={template.description ?? ""}
+                          className={`${fieldClassName} min-h-28`}
                         />
                       </div>
 
-                      <div className="grid gap-2">
-                        <label
-                          htmlFor={`template-slug-${template.id}`}
-                          className="text-sm font-medium text-zinc-300"
-                        >
-                          Slug
-                        </label>
-                        <input
-                          id={`template-slug-${template.id}`}
-                          name="slug"
-                          type="text"
-                          defaultValue={template.slug}
-                          className="rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none"
-                        />
+                      <div className="mt-4">
+                        <Button type="submit" disabled={!adminKeyConfigured}>
+                          Save Template
+                        </Button>
                       </div>
-                    </div>
-
-                    <div className="mt-4 grid gap-4 lg:grid-cols-2">
-                      <div className="grid gap-2">
-                        <label
-                          htmlFor={`template-cadence-${template.id}`}
-                          className="text-sm font-medium text-zinc-300"
-                        >
-                          Cadence
-                        </label>
-                        <select
-                          id={`template-cadence-${template.id}`}
-                          name="cadence"
-                          defaultValue={template.cadence}
-                          className="rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none"
-                        >
-                          <option value="daily">Daily</option>
-                          <option value="weekly_quota">Weekly quota</option>
-                        </select>
-                      </div>
-
-                      <div className="grid gap-2">
-                        <label
-                          htmlFor={`template-weekly-target-${template.id}`}
-                          className="text-sm font-medium text-zinc-300"
-                        >
-                          Weekly Target
-                        </label>
-                        <input
-                          id={`template-weekly-target-${template.id}`}
-                          name="weekly_target"
-                          type="number"
-                          min={1}
-                          defaultValue={template.weekly_target ?? ""}
-                          placeholder="Leave blank for daily tasks"
-                          className="rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="mt-4 grid gap-2">
-                      <label
-                        htmlFor={`template-description-${template.id}`}
-                        className="text-sm font-medium text-zinc-300"
-                      >
-                        Description
-                      </label>
-                      <textarea
-                        id={`template-description-${template.id}`}
-                        name="description"
-                        rows={3}
-                        defaultValue={template.description ?? ""}
-                        className="rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none"
-                      />
-                    </div>
-
-                    <div className="mt-4">
-                      <button
-                        type="submit"
-                        disabled={!adminKeyConfigured}
-                        className="w-full rounded-lg bg-white px-4 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
-                      >
-                        Save Template
-                      </button>
-                    </div>
-                  </form>
+                    </form>
+                  </SurfaceInset>
                 ))}
               </div>
             )}
-          </section>
+          </AdminSection>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <div className="mb-5">
-              <h2 className="text-xl font-semibold sm:text-2xl">
-                Create New Task Template
-              </h2>
-              <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-                Add a reusable task definition, choose daily or weekly quota,
-                and assign it wherever you want.
-              </p>
-            </div>
-
+          <AdminSection
+            kicker="Templates"
+            title="Create New Task Template"
+            description="Add a reusable task definition, choose daily or weekly quota, and assign it wherever you want."
+          >
             <form action={createTaskTemplate} className="grid gap-4">
               <input type="hidden" name="day_number" value={selectedDay} />
 
               <div className="grid gap-2">
-                <label htmlFor="new-task-title" className="text-sm font-medium text-zinc-300">
+                <label htmlFor="new-task-title" className={labelClassName}>
                   Title
                 </label>
                 <input
@@ -1410,12 +1295,12 @@ export default async function AdminPlanPage({
                   name="title"
                   type="text"
                   placeholder="Abstain from social media"
-                  className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                  className={fieldClassName}
                 />
               </div>
 
               <div className="grid gap-2">
-                <label htmlFor="new-task-slug" className="text-sm font-medium text-zinc-300">
+                <label htmlFor="new-task-slug" className={labelClassName}>
                   Slug (optional)
                 </label>
                 <input
@@ -1423,23 +1308,20 @@ export default async function AdminPlanPage({
                   name="slug"
                   type="text"
                   placeholder="abstain_from_social_media"
-                  className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                  className={fieldClassName}
                 />
               </div>
 
               <div className="grid gap-4 lg:grid-cols-2">
                 <div className="grid gap-2">
-                  <label
-                    htmlFor="new-task-cadence"
-                    className="text-sm font-medium text-zinc-300"
-                  >
+                  <label htmlFor="new-task-cadence" className={labelClassName}>
                     Cadence
                   </label>
                   <select
                     id="new-task-cadence"
                     name="cadence"
                     defaultValue="daily"
-                    className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                    className={fieldClassName}
                   >
                     <option value="daily">Daily</option>
                     <option value="weekly_quota">Weekly quota</option>
@@ -1447,10 +1329,7 @@ export default async function AdminPlanPage({
                 </div>
 
                 <div className="grid gap-2">
-                  <label
-                    htmlFor="new-task-weekly-target"
-                    className="text-sm font-medium text-zinc-300"
-                  >
+                  <label htmlFor="new-task-weekly-target" className={labelClassName}>
                     Weekly Target
                   </label>
                   <input
@@ -1459,16 +1338,13 @@ export default async function AdminPlanPage({
                     type="number"
                     min={1}
                     placeholder="Example: 3"
-                    className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                    className={fieldClassName}
                   />
                 </div>
               </div>
 
               <div className="grid gap-2">
-                <label
-                  htmlFor="new-task-description"
-                  className="text-sm font-medium text-zinc-300"
-                >
+                <label htmlFor="new-task-description" className={labelClassName}>
                   Description
                 </label>
                 <textarea
@@ -1476,21 +1352,17 @@ export default async function AdminPlanPage({
                   name="description"
                   rows={3}
                   placeholder="Short description for what this task means."
-                  className="w-full rounded-lg border border-zinc-700 bg-black px-4 py-3 text-white outline-none"
+                  className={`${fieldClassName} min-h-28`}
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={!adminKeyConfigured}
-                className="w-full rounded-lg bg-white px-5 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50 sm:w-fit"
-              >
+              <Button type="submit" disabled={!adminKeyConfigured}>
                 Create Task Template
-              </button>
+              </Button>
             </form>
-          </section>
+          </AdminSection>
         </div>
-      </div>
+      </PageFrame>
     </main>
   );
 }
