@@ -1,5 +1,12 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import {
+  HeroPanel,
+  MetricCard,
+  PageFrame,
+  SectionHeader,
+  SurfaceCard,
+} from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 import {
   StatusPill,
@@ -233,75 +240,67 @@ export default async function BrotherhoodPage() {
 
   return (
     <main className="monastic-page">
-      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <PageFrame className="space-y-6">
         {!challenge.hasStarted && (
-          <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-base font-semibold text-white sm:text-lg">
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               Brotherhood statuses will go live on launch day. For now, everyone is shown as pre-start.
             </p>
-          </div>
+          </SurfaceCard>
         )}
 
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400">
-              {activePlan.name}
-            </p>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Brotherhood</h1>
-            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
-              See today&apos;s required progress and weekly quota momentum across the group.
-            </p>
-          </div>
+        <HeroPanel className="py-7 sm:py-8">
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <div className="text-[#f7ebd8]">
+              <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
+              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">Brotherhood</h1>
+              <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
+                See today&apos;s required progress and weekly quota momentum across the group.
+              </p>
+            </div>
 
-          <AppActionBar
-            className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]"
-            actions={[
-              { href: "/dashboard", label: "Back to Dashboard", variant: "outline" },
-              { href: "/today", label: "Go to Today", variant: "primary" },
-            ]}
+            <AppActionBar
+              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
+              actions={[
+                { href: "/dashboard", label: "Back to Dashboard", variant: "secondary" },
+                { href: "/today", label: "Go to Today", variant: "primary" },
+              ]}
+            />
+          </div>
+        </HeroPanel>
+
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <MetricCard
+            label="Current Day"
+            value={`Day ${currentDayNumber}`}
+            detail={formatReadableDate(typedTodayTasks[0]?.day_date)}
+          />
+          <MetricCard
+            label="Members"
+            value={`${memberRows.length}`}
+            detail="Men currently in the brotherhood."
+          />
+          <MetricCard
+            label="Started Today"
+            value={`${startedCount}`}
+            detail="Members who have begun today’s tasks."
+          />
+          <MetricCard
+            label="Completed Daily Core"
+            value={`${completedCount}`}
+            detail="Members who finished all required daily tasks."
           />
         </div>
 
-        <div className="mb-6 grid gap-4 sm:grid-cols-4">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Current Day</p>
-            <p className="mt-3 text-3xl font-bold">Day {currentDayNumber}</p>
-            <p className="mt-2 text-sm text-zinc-300">
-              {formatReadableDate(typedTodayTasks[0]?.day_date)}
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Members</p>
-            <p className="mt-3 text-3xl font-bold">{memberRows.length}</p>
-            <p className="mt-2 text-sm text-zinc-300">Men currently in the brotherhood.</p>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Started Today</p>
-            <p className="mt-3 text-3xl font-bold">{startedCount}</p>
-            <p className="mt-2 text-sm text-zinc-300">Members who have begun today&apos;s tasks.</p>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
-              Completed Daily Core
-            </p>
-            <p className="mt-3 text-3xl font-bold">{completedCount}</p>
-            <p className="mt-2 text-sm text-zinc-300">
-              Members who finished all required daily tasks.
-            </p>
-          </div>
-        </div>
-
-        <section className="rounded-2xl border border-[#b09166] bg-[#f2e6cd]/95 p-5 shadow-[0_12px_28px_-18px_rgba(68,44,23,0.52)] dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none sm:p-6">
-          <h2 className="text-xl font-semibold sm:text-2xl">Today&apos;s Member Status</h2>
-          <p className="mt-2 text-sm text-[#5a452b] dark:text-zinc-400">
-            First name plus last initial for clarity, plus weekly quota progress for flexible disciplines.
-          </p>
+        <SurfaceCard>
+          <SectionHeader
+            kicker="Today&apos;s Member Status"
+            title="The body of men, seen at a glance."
+            description="First name plus last initial for clarity, plus weekly quota progress for flexible disciplines."
+          />
 
           <div className="mt-4 space-y-3">
             {memberRows.map((member) => (
@@ -360,11 +359,11 @@ export default async function BrotherhoodPage() {
             ))}
 
             {memberRows.length === 0 && (
-              <p className="text-sm text-[#5a452b] dark:text-zinc-400">No members found yet.</p>
+              <p className="text-sm text-monastic-1">No members found yet.</p>
             )}
           </div>
-        </section>
-      </div>
+        </SurfaceCard>
+      </PageFrame>
     </main>
   );
 }

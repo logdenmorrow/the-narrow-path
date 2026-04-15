@@ -1,5 +1,14 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import {
+  HeroPanel,
+  MetricCard,
+  PageFrame,
+  SectionHeader,
+  SurfaceCard,
+  SurfaceInset,
+} from "@/components/monastic-ui";
+import { AppActionBar } from "@/components/page-actions";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 
@@ -507,7 +516,7 @@ export default async function DashboardPage() {
 
   return (
     <main className="monastic-page">
-      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <PageFrame className="space-y-6">
         {!challenge.hasStarted && (
           <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
             <p className="text-base font-semibold text-white sm:text-lg">
@@ -526,190 +535,137 @@ export default async function DashboardPage() {
           </p>
         </div>
 
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
-              {activePlan.name}
-            </p>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Welcome, {getDisplayName(profile, user.email)}
-            </h1>
-            <p className="mt-3 max-w-3xl text-sm text-zinc-300 sm:text-base">
-              Daily disciplines keep the day grounded. Weekly quota tasks give
-              you flexibility without lowering the standard.
-            </p>
-          </div>
+        <HeroPanel className="mb-6 py-7 sm:py-8">
+          <div className="grid gap-6 lg:grid-cols-[1.12fr_0.88fr] lg:items-end">
+            <div className="text-[#f7ebd8]">
+              <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
+              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">
+                Welcome, {getDisplayName(profile, user.email)}
+              </h1>
+              <p className="mt-3 text-lg leading-8 text-[#f0dec1]">
+                Daily disciplines keep the day grounded. Weekly quota tasks give
+                you flexibility without lowering the standard.
+              </p>
+            </div>
 
-          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]">
-            <Link
-              href="/today"
-              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
-            >
-              Go to Today
-            </Link>
-            <Link
-              href="/this-week"
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              View This Week
-            </Link>
+            <AppActionBar
+              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
+              actions={[
+                { href: "/today", label: "Go to Today", variant: "primary" },
+                { href: "/this-week", label: "View This Week", variant: "secondary" },
+              ]}
+            />
           </div>
-        </div>
+        </HeroPanel>
 
         <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Current Day
-            </p>
-            <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              Day {selectedDay}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              {planDay?.title || `Day ${selectedDay}`}
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Required Daily
-            </p>
-            <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {completedRequiredDailyTodayCount}/{requiredDailyToday.length}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              Core daily disciplines completed today.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Weekly Quota Goals
-            </p>
-            <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {weeklyQuotaProgress.filter((quota) => quota.completedCount >= quota.target).length}/
-              {weeklyQuotaProgress.length}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              Flexible weekly goals currently met.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-xs uppercase tracking-wide text-zinc-400 sm:text-sm">
-              Brotherhood Members
-            </p>
-            <p className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {memberCount}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
-              Men currently on the path.
-            </p>
-          </div>
+          <MetricCard
+            label="Current Day"
+            value={`Day ${selectedDay}`}
+            detail={planDay?.title || `Day ${selectedDay}`}
+          />
+          <MetricCard
+            label="Required Daily"
+            value={`${completedRequiredDailyTodayCount}/${requiredDailyToday.length}`}
+            detail="Core daily disciplines completed today."
+            meterValue={
+              requiredDailyToday.length
+                ? Math.round((completedRequiredDailyTodayCount / requiredDailyToday.length) * 100)
+                : 0
+            }
+          />
+          <MetricCard
+            label="Weekly Quota Goals"
+            value={`${weeklyQuotaProgress.filter((quota) => quota.completedCount >= quota.target).length}/${weeklyQuotaProgress.length}`}
+            detail="Flexible weekly goals currently met."
+          />
+          <MetricCard
+            label="Brotherhood Members"
+            value={`${memberCount}`}
+            detail="Men currently on the path."
+          />
         </div>
 
         <div className="mb-6 grid gap-4 lg:grid-cols-2">
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">Quick Links</h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              <Link
-                href="/today"
-                className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
-              >
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Quick Access"
+              title="Open the next faithful step."
+              description={`Signed in as ${user.email}`}
+            />
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              <Link href="/today" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                 Today
               </Link>
-              <Link
-                href="/this-week"
-                className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-              >
+              <Link href="/this-week" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                 This Week
               </Link>
-              <Link
-                href="/brotherhood"
-                className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-              >
+              <Link href="/brotherhood" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                 Brotherhood
               </Link>
-              <Link
-                href={`/today?day=${Math.max(selectedDay - 1, 1)}`}
-                className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-              >
+              <Link href={`/today?day=${Math.max(selectedDay - 1, 1)}`} className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                 Review Yesterday
               </Link>
               {isAdmin && (
-                <Link
-                  href="/admin/plan"
-                  className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-                >
+                <Link href="/admin/plan" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                   Admin Plan
                 </Link>
               )}
             </div>
-          </section>
+          </SurfaceCard>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">Today&apos;s Summary</h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
-                <p className="text-xs uppercase tracking-wide text-zinc-400">
-                  Completed Today
-                </p>
-                <p className="mt-2 text-2xl font-semibold">
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Today&apos;s Summary"
+              title="Where the day currently stands."
+            />
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              <SurfaceInset>
+                <div className="section-kicker">Completed Today</div>
+                <p className="mt-2 text-3xl font-semibold text-monastic-0">
                   {completedTodayCount}/{todayTasks.length}
                 </p>
-              </div>
-
-              <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
-                <p className="text-xs uppercase tracking-wide text-zinc-400">
-                  Optional Done
-                </p>
-                <p className="mt-2 text-2xl font-semibold">
+              </SurfaceInset>
+              <SurfaceInset>
+                <div className="section-kicker">Optional Done</div>
+                <p className="mt-2 text-3xl font-semibold text-monastic-0">
                   {completedOptionalTodayCount}/{optionalToday.length}
                 </p>
-              </div>
-
-              <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
-                <p className="text-xs uppercase tracking-wide text-zinc-400">
-                  Weekly Available
-                </p>
-                <p className="mt-2 text-2xl font-semibold">
-                  {weeklyQuotaToday.length}
-                </p>
-              </div>
-
-              <div className="rounded-xl border border-zinc-800 bg-black px-4 py-4">
-                <p className="text-xs uppercase tracking-wide text-zinc-400">
-                  Daily Streak
-                </p>
-                <p className="mt-2 text-2xl font-semibold">{dailyStreakCount} days</p>
-              </div>
+              </SurfaceInset>
+              <SurfaceInset>
+                <div className="section-kicker">Weekly Available</div>
+                <p className="mt-2 text-3xl font-semibold text-monastic-0">{weeklyQuotaToday.length}</p>
+              </SurfaceInset>
+              <SurfaceInset>
+                <div className="section-kicker">Daily Streak</div>
+                <p className="mt-2 text-3xl font-semibold text-monastic-0">{dailyStreakCount} days</p>
+              </SurfaceInset>
             </div>
-          </section>
+          </SurfaceCard>
         </div>
 
         {yesterdayDay && (
-          <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">Missed Yesterday?</h2>
-            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
+          <SurfaceCard className="mb-6">
+            <SectionHeader kicker="Look Back" title="Missed Yesterday?" />
+            <p className="mt-3 text-sm text-monastic-1 sm:text-base">
               Day {yesterdayDay} still has {missedYesterdayCount} required task
               {missedYesterdayCount === 1 ? "" : "s"} not completed.
             </p>
             <Link
               href={`/today?day=${yesterdayDay}`}
-              className="mt-4 inline-flex rounded-lg border border-zinc-700 px-4 py-3 font-semibold text-white transition hover:bg-zinc-900"
+              className="mt-4 inline-flex rounded-[1rem] border border-monastic px-4 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]"
             >
               Review Day {yesterdayDay}
             </Link>
-          </section>
+          </SurfaceCard>
         )}
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">
-              Today&apos;s Required Daily Tasks
-            </h2>
+          <SurfaceCard>
+            <SectionHeader kicker="Daily Core" title="Today&apos;s Required Daily Tasks" />
 
             {requiredDailyToday.length === 0 ? (
-              <p className="mt-4 text-sm text-zinc-400 sm:text-base">
+              <p className="mt-4 text-sm text-monastic-1 sm:text-base">
                 No required daily tasks are assigned today.
               </p>
             ) : (
@@ -720,21 +676,21 @@ export default async function DashboardPage() {
                   return (
                     <div
                       key={task.id}
-                      className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
+                      className="monastic-subcard px-4 py-4"
                     >
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div className="min-w-0">
-                          <p className="font-medium text-white">
+                          <p className="font-medium text-monastic-0">
                             {task.task_templates?.title || "Untitled Task"}
                           </p>
                           {task.task_templates?.description && (
-                            <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
+                            <p className="mt-1 text-xs text-monastic-1 sm:text-sm">
                               {task.task_templates.description}
                             </p>
                           )}
                         </div>
 
-                        <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-300 sm:text-xs">
+                        <span className="w-fit rounded-full border border-monastic px-3 py-1 text-[10px] uppercase tracking-wide text-monastic-1 sm:text-xs">
                           {isCompleted ? "Completed" : "Open"}
                         </span>
                       </div>
@@ -743,15 +699,13 @@ export default async function DashboardPage() {
                 })}
               </div>
             )}
-          </section>
+          </SurfaceCard>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">
-              Weekly Quota Progress
-            </h2>
+          <SurfaceCard>
+            <SectionHeader kicker="Quota Disciplines" title="Weekly Quota Progress" />
 
             {weeklyQuotaProgress.length === 0 ? (
-              <p className="mt-4 text-sm text-zinc-400 sm:text-base">
+              <p className="mt-4 text-sm text-monastic-1 sm:text-base">
                 No weekly quota tasks are configured for this week.
               </p>
             ) : (
@@ -770,12 +724,12 @@ export default async function DashboardPage() {
                   return (
                     <div
                       key={quota.templateId}
-                      className="rounded-xl border border-zinc-800 bg-black px-4 py-4"
+                      className="monastic-subcard px-4 py-4"
                     >
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div className="min-w-0">
-                          <p className="font-medium text-white">{quota.title}</p>
-                          <p className="mt-1 text-xs text-zinc-400 sm:text-sm">
+                          <p className="font-medium text-monastic-0">{quota.title}</p>
+                          <p className="mt-1 text-xs text-monastic-1 sm:text-sm">
                             {quota.description ||
                               "Flexible weekly task that can be completed on any assigned day."}
                           </p>
@@ -806,23 +760,23 @@ export default async function DashboardPage() {
                 })}
               </div>
             )}
-          </section>
+          </SurfaceCard>
         </div>
 
-        <section className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-          <h2 className="text-xl font-semibold sm:text-2xl">Reflection Prompt</h2>
-          <p className="mt-4 text-sm text-zinc-300 sm:text-base">
+        <SurfaceCard className="mt-6">
+          <SectionHeader kicker="Examen" title="Reflection Prompt" />
+          <p className="mt-4 text-sm text-monastic-1 sm:text-base">
             {planDay?.reflection_prompt ||
               "No reflection prompt has been assigned for this day yet."}
           </p>
           <Link
             href={`/reflection?day=${selectedDay}`}
-            className="mt-4 inline-flex rounded-lg border border-zinc-700 px-4 py-3 font-semibold text-white transition hover:bg-zinc-900"
+            className="mt-4 inline-flex rounded-[1rem] border border-monastic px-4 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]"
           >
             Open Reflection
           </Link>
-        </section>
-      </div>
+        </SurfaceCard>
+      </PageFrame>
     </main>
   );
 }

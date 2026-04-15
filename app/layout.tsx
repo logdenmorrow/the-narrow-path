@@ -6,6 +6,8 @@ import AuthStateListener from "@/components/auth-state-listener";
 import MainNav from "@/components/main-nav";
 import MobileTabBar from "@/components/mobile-tab-bar";
 import ProgressStrip from "@/components/progress-strip";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import "./globals.css";
 
 
@@ -28,41 +30,56 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="monastic-shell bg-black text-white">
-        <AuthStateListener />
+      <body className="monastic-shell">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AuthStateListener />
 
-        <header className="monastic-header border-b border-zinc-800 bg-black">
-          <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex items-center justify-between gap-4">
-                <Link
-                  href="/"
-                  className="monastic-heading text-xl font-semibold tracking-wide sm:text-2xl"
-                >
-                  The Narrow Path
-                </Link>
-              </div>
+          <header className="monastic-header">
+            <div className="monastic-frame">
+              <div className="monastic-topbar">
+                <div className="flex items-start justify-between gap-4 lg:items-center">
+                  <div className="space-y-2">
+                    <Link href="/" className="monastic-wordmark monastic-heading text-2xl font-semibold sm:text-[2rem]">
+                      <span className="monastic-wordmark-mark">+</span>
+                      <span>The Narrow Path</span>
+                    </Link>
+                    <p className="hidden text-sm tracking-[0.18em] text-monastic-2 sm:block">
+                      Prayer • Discipline • Brotherhood
+                    </p>
+                  </div>
 
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:flex-1 lg:justify-end">
-                <div className="hidden sm:block">
-                  <MainNav />
+                  <div className="flex items-center gap-3">
+                    <ThemeSwitcher />
+                    <div className="hidden sm:block">
+                      <Suspense fallback={<div className="text-sm text-monastic-2">...</div>}>
+                        <AuthNav />
+                      </Suspense>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="sm:shrink-0">
-                  <Suspense fallback={<div className="text-sm text-zinc-500">...</div>}>
-                    <AuthNav />
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                  <div className="hidden sm:block">
+                    <MainNav />
+                  </div>
+
+                  <div className="sm:hidden">
+                    <Suspense fallback={<div className="text-sm text-monastic-2">...</div>}>
+                      <AuthNav mobile />
+                    </Suspense>
+                  </div>
+
+                  <Suspense fallback={null}>
+                    <ProgressStrip />
                   </Suspense>
                 </div>
               </div>
             </div>
-            <Suspense fallback={null}>
-              <ProgressStrip />
-            </Suspense>
-          </div>
-        </header>
+          </header>
 
-        <div className="mobile-page-shell">{children}</div>
-        <MobileTabBar />
+          <div className="mobile-page-shell">{children}</div>
+          <MobileTabBar />
+        </ThemeProvider>
       </body>
     </html>
   );

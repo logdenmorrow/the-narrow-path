@@ -74,11 +74,11 @@ export function TodayTaskCard({
       <input type="hidden" name="planDayTaskId" value={planDayTaskId} />
 
       <TaskCard
-        className={`p-4 transition ${
+        className={`p-4 transition duration-200 ${
           optimisticCompleted
-            ? "border-emerald-700/60 bg-[#f0e8d8] dark:bg-zinc-950"
-            : "bg-[#f8f0df] hover:border-[#a98056] dark:bg-zinc-950"
-        } active:scale-[0.99] active:bg-[#efe2ca] dark:active:bg-zinc-900`}
+            ? "border-[rgba(86,124,102,0.45)] bg-[rgba(151,186,164,0.09)]"
+            : "hover:border-[color:var(--line-strong)] hover:bg-[color:var(--surface-2)]"
+        } active:scale-[0.99]`}
       >
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0 space-y-3">
@@ -86,8 +86,8 @@ export function TodayTaskCard({
               <h3
                 className={`text-base font-semibold sm:text-lg ${
                   optimisticCompleted
-                    ? "text-[#70543c] dark:text-emerald-100"
-                    : "text-[#3c2a1b] dark:text-white"
+                    ? "text-[#5d725f] dark:text-[#a7ccb9]"
+                    : "text-monastic-0"
                 }`}
               >
                 {title}
@@ -106,8 +106,8 @@ export function TodayTaskCard({
               <p
                 className={`text-sm leading-6 ${
                   optimisticCompleted
-                    ? "text-[#876955] dark:text-zinc-300"
-                    : "text-[#6c4c32] dark:text-zinc-300"
+                    ? "text-[#6f776d] dark:text-[#c2b49c]"
+                    : "text-monastic-1"
                 }`}
               >
                 {note}
@@ -122,14 +122,14 @@ export function TodayTaskCard({
             aria-pressed={optimisticCompleted}
             variant="secondary"
             size="icon"
-            className="h-11 w-11 shrink-0"
+            className="h-12 w-12 shrink-0 rounded-[1.1rem]"
           >
             <span
               aria-hidden="true"
-              className={`flex h-6 w-6 items-center justify-center rounded border ${
+              className={`flex h-7 w-7 items-center justify-center rounded-[0.7rem] border ${
                 optimisticCompleted
-                  ? "border-[#2f8067] bg-[#7cd9b7] text-[#1f3c30]"
-                  : "border-[#9f8a6b] bg-transparent text-transparent dark:border-zinc-600"
+                  ? "border-[#57785e] bg-[#9ab9a5] text-[#223127]"
+                  : "border-[color:var(--line-strong)] bg-transparent text-transparent"
               }`}
             >
               <Check className="h-4 w-4" />
@@ -138,7 +138,7 @@ export function TodayTaskCard({
         </div>
 
         <TaskCardMeta className="mt-3 justify-between gap-3">
-          <span className="uppercase tracking-[0.2em] text-[#84654a] dark:text-zinc-400">
+          <span>
             {isSubmitting
               ? "Saving..."
               : href
