@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
 import { toggleTaskCompletion } from "@/app/today/actions";
@@ -38,7 +38,6 @@ export function TodayTaskCard({
 }: TodayTaskCardProps) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
-  const [isRefreshing, startRefreshTransition] = useTransition();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [optimisticCompleted, setOptimisticCompleted] = useState(completed);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -49,7 +48,7 @@ export function TodayTaskCard({
     }
   }, [completed, isSubmitting]);
 
-  const isBusy = isSubmitting || isRefreshing || locked || Boolean(href);
+  const isBusy = isSubmitting || locked || Boolean(href);
 
   const submitTask = async (formData: FormData) => {
     if (isBusy) return;
@@ -61,9 +60,7 @@ export function TodayTaskCard({
 
     try {
       await toggleTaskCompletion(formData);
-      startRefreshTransition(() => {
-        router.refresh();
-      });
+      router.refresh();
     } catch (error) {
       setOptimisticCompleted((prev) => !prev);
       setErrorMessage(
@@ -137,7 +134,7 @@ export function TodayTaskCard({
             disabled={isBusy}
             aria-label={`Toggle completion for ${title}`}
             aria-pressed={optimisticCompleted}
-            aria-busy={isSubmitting || isRefreshing}
+            aria-busy={isSubmitting}
             variant="secondary"
             size="icon"
             className="h-12 w-12 shrink-0 rounded-[1.1rem]"
@@ -145,14 +142,14 @@ export function TodayTaskCard({
             <span
               aria-hidden="true"
               className={`flex h-7 w-7 items-center justify-center rounded-[0.7rem] border transition ${
-                isSubmitting || isRefreshing
+                isSubmitting
                   ? "border-[#7d887b] bg-[rgba(154,185,165,0.12)] text-[#7d887b]"
                   : optimisticCompleted
                   ? "border-[#57785e] bg-[#9ab9a5] text-[#223127]"
                   : "border-[color:var(--line-strong)] bg-transparent text-transparent"
               }`}
             >
-              {isSubmitting || isRefreshing ? (
+              {isSubmitting ? (
                 <span className="h-4 w-4 rounded-full border-2 border-current border-t-transparent motion-safe:animate-spin motion-reduce:animate-none" />
               ) : (
                 <Check className="h-4 w-4" />
@@ -165,7 +162,7 @@ export function TodayTaskCard({
           <span>
             {errorMessage
               ? errorMessage
-              : isSubmitting || isRefreshing
+              : isSubmitting
               ? "Saving..."
               : href
                 ? "Open journal"
