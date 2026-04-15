@@ -106,18 +106,20 @@ export default async function HomePage() {
               </p>
 
               <div className="mt-6 space-y-4">
-                <SurfaceInset className="border-white/10 bg-[rgba(255,246,229,0.08)]">
+                <SurfaceInset className="home-office-inset dark:border-white/10 dark:bg-[rgba(255,246,229,0.08)]">
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="section-kicker text-[#d9ba83]">Required Today</p>
-                      <p className="mt-2 text-2xl font-semibold text-white">
+                      <p className="section-kicker text-[#9b6a3d] dark:text-[#d9ba83]">
+                        Required Today
+                      </p>
+                      <p className="mt-2 text-2xl font-semibold text-[#2f2117] dark:text-white">
                         {overview.requiredProgress.value}
                       </p>
-                      <p className="mt-2 text-sm leading-6 text-[#ead8bc]">
+                      <p className="mt-2 text-sm leading-6 text-[#6b4b2f] dark:text-[#ead8bc]">
                         {overview.requiredProgress.detail}
                       </p>
                     </div>
-                    <div className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.22em] text-[#ead6b0]">
+                    <div className="rounded-full border border-[rgba(139,96,55,0.24)] px-3 py-1 text-xs uppercase tracking-[0.22em] text-[#8b6037] dark:border-white/10 dark:text-[#ead6b0]">
                       {overview.challengeDayLabel}
                     </div>
                   </div>
@@ -129,20 +131,30 @@ export default async function HomePage() {
                 </SurfaceInset>
 
                 <div className="grid gap-3 sm:grid-cols-2">
-                  <SurfaceInset className="border-white/10 bg-[rgba(255,246,229,0.06)]">
-                    <div className="section-kicker text-[#d9ba83]">{overview.weeklyFocus.label}</div>
-                    <p className="mt-2 text-xl font-semibold text-white">{overview.weeklyFocus.value}</p>
-                    <p className="mt-2 text-sm leading-6 text-[#ead8bc]">{overview.weeklyFocus.detail}</p>
+                  <SurfaceInset className="home-office-inset dark:border-white/10 dark:bg-[rgba(255,246,229,0.06)]">
+                    <div className="section-kicker text-[#9b6a3d] dark:text-[#d9ba83]">
+                      {overview.weeklyFocus.label}
+                    </div>
+                    <p className="mt-2 text-xl font-semibold text-[#2f2117] dark:text-white">
+                      {overview.weeklyFocus.value}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-[#6b4b2f] dark:text-[#ead8bc]">
+                      {overview.weeklyFocus.detail}
+                    </p>
                     {typeof overview.weeklyFocus.meterValue === "number" ? (
                       <div className="monastic-meter mt-3">
                         <span style={{ width: `${overview.weeklyFocus.meterValue}%` }} />
                       </div>
                     ) : null}
                   </SurfaceInset>
-                  <SurfaceInset className="border-white/10 bg-[rgba(255,246,229,0.06)]">
-                    <div className="section-kicker text-[#d9ba83]">{overview.reflection.label}</div>
-                    <p className="mt-2 text-xl font-semibold text-white">{overview.reflection.value}</p>
-                    <p className="mt-2 text-sm leading-6 text-[#ead8bc]">
+                  <SurfaceInset className="home-office-inset dark:border-white/10 dark:bg-[rgba(255,246,229,0.06)]">
+                    <div className="section-kicker text-[#9b6a3d] dark:text-[#d9ba83]">
+                      {overview.reflection.label}
+                    </div>
+                    <p className="mt-2 text-xl font-semibold text-[#2f2117] dark:text-white">
+                      {overview.reflection.value}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-[#6b4b2f] dark:text-[#ead8bc]">
                       {overview.reflection.detail}
                     </p>
                     {typeof overview.reflection.meterValue === "number" ? (
