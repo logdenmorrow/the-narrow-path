@@ -404,7 +404,7 @@ export default async function TodayPage({
           />
           <MetricCard
             label="Reading"
-            value={typedPlanDay.reading_reference ?? "Daily office"}
+            value={typedPlanDay.reading_reference ?? "Daily reading"}
             detail={typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
           />
           <MetricCard
@@ -491,7 +491,7 @@ export default async function TodayPage({
             <SectionHeader
               kicker="Optional Disciplines"
               title="Optional Today"
-              description="Flexible practices that still reinforce the rule of life."
+              description="Flexible practices that still reinforce daily discipline and fidelity."
             />
             <div className="mt-5 space-y-3">
               {optionalTasks.length > 0 ? (

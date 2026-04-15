@@ -153,7 +153,7 @@ export async function getHomepageOverview(
   supabase: SupabaseServerClient
 ): Promise<HomepageOverview> {
   const fallback: HomepageOverview = {
-    readingTitle: "Today's Office",
+    readingTitle: "Today's Reading",
     readingReference: "Live reading unavailable",
     challengeDayLabel: "Day unavailable",
     hasLiveData: false,
@@ -253,7 +253,7 @@ export async function getHomepageOverview(
       return {
         ...fallback,
         readingTitle:
-          currentPlanDayData.reading_title ?? currentPlanDayData.title ?? "Today's Office",
+          currentPlanDayData.reading_title ?? currentPlanDayData.title ?? "Today's Reading",
         readingReference: currentPlanDayData.reading_reference ?? "Daily reading",
         challengeDayLabel: `Day ${selectedDay}`,
       };
@@ -291,7 +291,7 @@ export async function getHomepageOverview(
       return {
         ...fallback,
         readingTitle:
-          currentPlanDayData.reading_title ?? currentPlanDayData.title ?? "Today's Office",
+          currentPlanDayData.reading_title ?? currentPlanDayData.title ?? "Today's Reading",
         readingReference: currentPlanDayData.reading_reference ?? "Daily reading",
         challengeDayLabel: `Day ${selectedDay}`,
       };
@@ -311,7 +311,7 @@ export async function getHomepageOverview(
       return {
         ...fallback,
         readingTitle:
-          currentPlanDayData.reading_title ?? currentPlanDayData.title ?? "Today's Office",
+          currentPlanDayData.reading_title ?? currentPlanDayData.title ?? "Today's Reading",
         readingReference: currentPlanDayData.reading_reference ?? "Daily reading",
         challengeDayLabel: `Day ${selectedDay}`,
       };
@@ -374,7 +374,7 @@ export async function getHomepageOverview(
 
     return {
       readingTitle:
-        currentPlanDayData.reading_title ?? currentPlanDayData.title ?? "Today's Office",
+        currentPlanDayData.reading_title ?? currentPlanDayData.title ?? "Today's Reading",
       readingReference: currentPlanDayData.reading_reference ?? "Daily reading",
       challengeDayLabel: `Day ${selectedDay}`,
       hasLiveData: true,

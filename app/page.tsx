@@ -13,7 +13,7 @@ import { createClient } from "@/lib/supabase/server";
 const pillars = [
   {
     title: "Daily Challenges",
-    body: "A disciplined rule of life for prayer, restraint, Scripture, and concrete obedience.",
+    body: "A disciplined Christian pattern of prayer, restraint, Scripture, and concrete obedience.",
   },
   {
     title: "Sacred Reading",
@@ -33,14 +33,14 @@ const liturgy = [
 ];
 
 const publicOfficeMoments = [
-  "A daily reading framed for quiet attention instead of hurried scrolling.",
-  "A visible rule of life that keeps prayer, restraint, and obedience in view.",
-  "A shared brotherhood standard that encourages steadiness without spectacle.",
+  "A daily reading that calls men back to prayer instead of hurried scrolling.",
+  "A clear structure that keeps prayer, restraint, and obedience in view.",
+  "A shared brotherhood standard that strengthens steadiness without spectacle.",
 ];
 
 const publicHighlights = [
   {
-    label: "Daily Office",
+    label: "Daily Reading",
     value: "Scripture, mission, and focus",
     detail: "Each day begins with a prepared reading and a clear direction for the day.",
   },
@@ -52,7 +52,7 @@ const publicHighlights = [
   {
     label: "Shared Standard",
     value: "Brotherhood with accountability",
-    detail: "Men move under the same rule, with progress meant to steady rather than perform.",
+    detail: "Men move under the same standard, with progress meant to steady rather than perform.",
   },
 ];
 
@@ -72,14 +72,14 @@ export default async function HomePage() {
         <HeroPanel>
           <div className="grid gap-6 lg:grid-cols-[1.2fr_0.78fr] lg:items-end lg:gap-8">
             <div className="max-w-3xl text-[#f7ebd8]">
-              <p className="section-kicker text-[#ead6b0]">Quiet Monastic Formation</p>
+              <p className="section-kicker text-[#ead6b0]">Disciplined Christian Living</p>
               <h1 className="mt-4 text-[2.9rem] font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
                 Stay on the Narrow Path with order, reverence, and brotherhood.
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-[#f3e5cf] sm:text-xl sm:leading-8">
-                The Narrow Path turns a devotional challenge into a crafted ritual:
-                daily readings, visible disciplines, and a shared standard that feels
-                solemn instead of gamified.
+                The Narrow Path helps ordinary men pursue God with daily readings,
+                clear disciplines, and shared accountability that stays serious
+                without turning performative.
               </p>
 
               <AppActionBar
@@ -126,7 +126,7 @@ export default async function HomePage() {
             {isSignedIn && overview ? (
               <SurfaceCard className="home-office-card text-[#4a3525] dark:border-white/10 dark:bg-[rgba(19,14,11,0.38)] dark:text-[#f2e5d0] dark:backdrop-blur-sm">
                 <div className="section-kicker text-[#8b6037] dark:text-[#d9ba83]">
-                  Today&apos;s Office
+                  Today&apos;s Reading
                 </div>
                 <h2 className="mt-3 text-3xl font-semibold text-[#2f2117] dark:text-white">
                   {overview.readingTitle}
@@ -199,14 +199,14 @@ export default async function HomePage() {
             ) : (
               <SurfaceCard className="home-office-card text-[#4a3525] dark:border-white/10 dark:bg-[rgba(19,14,11,0.38)] dark:text-[#f2e5d0] dark:backdrop-blur-sm">
                 <div className="section-kicker text-[#8b6037] dark:text-[#d9ba83]">
-                  Inside The Rule
+                  What You&apos;ll Find Inside
                 </div>
                 <h2 className="mt-3 text-3xl font-semibold text-[#2f2117] dark:text-white">
-                  A devotional rhythm built for steadiness.
+                  A serious rhythm built for ordinary men.
                 </h2>
                 <p className="mt-2 text-base leading-7 text-[#6b4b2f] dark:text-[#ead8bc]">
-                  The Narrow Path is built around the daily office, a visible rule of life,
-                  and a shared brotherhood standard that keeps devotion grounded and clear.
+                  The Narrow Path is built around daily Scripture, spiritual discipline,
+                  and brotherhood accountability that keeps devotion grounded and clear.
                 </p>
 
                 <div className="mt-6 grid gap-3">
@@ -239,9 +239,9 @@ export default async function HomePage() {
         <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
           <SurfaceCard>
             <SectionHeader
-              kicker="A More Intentional Rule"
+              kicker="A More Intentional Rhythm"
               title="The experience feels devotional first, productive second."
-              description="Every surface is meant to feel calm, tactile, and deliberate: parchment light mode, ember-and-stone dark mode, clear hierarchy, and actions that feel ceremonial instead of generic."
+              description="Every surface is meant to feel calm, tactile, and deliberate: parchment light mode, ember-and-stone dark mode, clear hierarchy, and actions that feel weighty instead of generic."
             />
 
             <div className="mt-6 grid gap-3">

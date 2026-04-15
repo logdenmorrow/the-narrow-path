@@ -379,8 +379,8 @@ export default async function BrotherhoodMemberPage({
               </h1>
               <p className="mt-3 text-lg leading-8 text-[#ead8bc]">{memberFullName}</p>
               <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
-                Day {typedPlanDay.day_number} accountability details in the same rule
-                of life you see everywhere else in the app.
+                Day {typedPlanDay.day_number} accountability details in the same
+                disciplined rhythm you see everywhere else in the app.
               </p>
             </div>
 
@@ -426,7 +426,7 @@ export default async function BrotherhoodMemberPage({
           />
           <MetricCard
             label="Reading"
-            value={typedPlanDay.reading_reference ?? "Daily office"}
+            value={typedPlanDay.reading_reference ?? "Daily reading"}
             detail={typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
           />
           <MetricCard
