@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 
-export default function SignOutButton() {
+export default function SignOutButton({ mobile = false }: { mobile?: boolean }) {
   async function handleLogout() {
     "use server";
 
@@ -14,7 +14,7 @@ export default function SignOutButton() {
 
   return (
     <form action={handleLogout}>
-      <Button type="submit" variant="outline" size="sm">
+      <Button type="submit" variant="outline" size={mobile ? "xs" : "sm"}>
         Logout
       </Button>
     </form>

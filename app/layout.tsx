@@ -37,11 +37,11 @@ export default function RootLayout({
           <header className="monastic-header">
             <div className="monastic-frame">
               <div className="monastic-topbar">
-                <div className="flex items-start justify-between gap-4 lg:items-center">
-                  <div className="space-y-2">
+                <div className="flex items-center justify-between gap-3 lg:items-center">
+                  <div className="space-y-1 sm:space-y-2">
                     <Link
                       href="/"
-                      className="monastic-wordmark monastic-heading text-[1.5rem] font-semibold sm:text-[2rem]"
+                      className="monastic-wordmark monastic-heading text-[1.35rem] font-semibold sm:text-[2rem]"
                     >
                       <span className="monastic-wordmark-mark">+</span>
                       <span>The Narrow Path</span>
@@ -51,8 +51,13 @@ export default function RootLayout({
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <ThemeSwitcher />
+                    <div className="sm:hidden">
+                      <Suspense fallback={<div className="text-sm text-monastic-2">...</div>}>
+                        <AuthNav mobile />
+                      </Suspense>
+                    </div>
                     <div className="hidden sm:block">
                       <Suspense fallback={<div className="text-sm text-monastic-2">...</div>}>
                         <AuthNav />
@@ -61,15 +66,9 @@ export default function RootLayout({
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
                   <div className="hidden sm:block">
                     <MainNav />
-                  </div>
-
-                  <div className="sm:hidden">
-                    <Suspense fallback={<div className="text-sm text-monastic-2">...</div>}>
-                      <AuthNav mobile />
-                    </Suspense>
                   </div>
 
                   <Suspense fallback={null}>
