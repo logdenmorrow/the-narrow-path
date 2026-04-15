@@ -7,6 +7,7 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { getHomepageOverview } from "@/lib/homepage-overview";
 import { createClient } from "@/lib/supabase/server";
 
 const pillars = [
@@ -39,6 +40,7 @@ export default async function HomePage() {
   } = await supabase.auth.getUser();
 
   const isSignedIn = Boolean(user);
+  const overview = await getHomepageOverview(supabase);
 
   return (
     <main className="monastic-page">
@@ -94,39 +96,54 @@ export default async function HomePage() {
 
             <SurfaceCard className="border-white/10 bg-[rgba(19,14,11,0.38)] text-[#f2e5d0] backdrop-blur-sm">
               <div className="section-kicker text-[#d9ba83]">Today&apos;s Office</div>
-              <h2 className="mt-3 text-3xl font-semibold text-white">No Other Name Under Heaven</h2>
-              <p className="mt-2 text-base text-[#ead8bc]">Acts 4:1-12</p>
+              <h2 className="mt-3 text-3xl font-semibold text-white">{overview.readingTitle}</h2>
+              <p className="mt-2 text-base text-[#ead8bc]">{overview.readingReference}</p>
 
               <div className="mt-6 space-y-4">
                 <SurfaceInset className="border-white/10 bg-[rgba(255,246,229,0.08)]">
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <p className="section-kicker text-[#d9ba83]">Required Today</p>
-                      <p className="mt-2 text-2xl font-semibold text-white">3 / 5 complete</p>
+                      <p className="mt-2 text-2xl font-semibold text-white">
+                        {overview.requiredProgress.value}
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-[#ead8bc]">
+                        {overview.requiredProgress.detail}
+                      </p>
                     </div>
                     <div className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.22em] text-[#ead6b0]">
-                      Day 9
+                      {overview.challengeDayLabel}
                     </div>
                   </div>
-                  <div className="monastic-meter mt-4">
-                    <span style={{ width: "60%" }} />
-                  </div>
+                  {typeof overview.requiredProgress.meterValue === "number" ? (
+                    <div className="monastic-meter mt-4">
+                      <span style={{ width: `${overview.requiredProgress.meterValue}%` }} />
+                    </div>
+                  ) : null}
                 </SurfaceInset>
 
                 <div className="grid gap-3 sm:grid-cols-2">
                   <SurfaceInset className="border-white/10 bg-[rgba(255,246,229,0.06)]">
-                    <div className="section-kicker text-[#d9ba83]">Weekly Momentum</div>
-                    <p className="mt-2 text-xl font-semibold text-white">Prayer 5 / 7</p>
-                    <div className="monastic-meter mt-3">
-                      <span style={{ width: "71%" }} />
-                    </div>
+                    <div className="section-kicker text-[#d9ba83]">{overview.weeklyFocus.label}</div>
+                    <p className="mt-2 text-xl font-semibold text-white">{overview.weeklyFocus.value}</p>
+                    <p className="mt-2 text-sm leading-6 text-[#ead8bc]">{overview.weeklyFocus.detail}</p>
+                    {typeof overview.weeklyFocus.meterValue === "number" ? (
+                      <div className="monastic-meter mt-3">
+                        <span style={{ width: `${overview.weeklyFocus.meterValue}%` }} />
+                      </div>
+                    ) : null}
                   </SurfaceInset>
                   <SurfaceInset className="border-white/10 bg-[rgba(255,246,229,0.06)]">
-                    <div className="section-kicker text-[#d9ba83]">Reading Rhythm</div>
-                    <p className="mt-2 text-xl font-semibold text-white">Reflection open</p>
+                    <div className="section-kicker text-[#d9ba83]">{overview.reflection.label}</div>
+                    <p className="mt-2 text-xl font-semibold text-white">{overview.reflection.value}</p>
                     <p className="mt-2 text-sm leading-6 text-[#ead8bc]">
-                      Capture the grace, resistance, and one concrete act of obedience.
+                      {overview.reflection.detail}
                     </p>
+                    {typeof overview.reflection.meterValue === "number" ? (
+                      <div className="monastic-meter mt-3">
+                        <span style={{ width: `${overview.reflection.meterValue}%` }} />
+                      </div>
+                    ) : null}
                   </SurfaceInset>
                 </div>
               </div>
@@ -164,21 +181,21 @@ export default async function HomePage() {
 
           <div className="grid gap-4">
             <MetricCard
-              label="Required Today"
-              value="3 / 5"
-              detail="Visible, tactile completion cues keep the daily core in view."
-              meterValue={60}
+              label={overview.dailyCore.label}
+              value={overview.dailyCore.value}
+              detail={overview.dailyCore.detail}
+              meterValue={overview.dailyCore.meterValue}
             />
             <MetricCard
-              label="Weekly Prayer"
-              value="5 / 7"
-              detail="Quota disciplines stay flexible without feeling secondary."
-              meterValue={71}
+              label={overview.weeklyFocus.label}
+              value={overview.weeklyFocus.value}
+              detail={overview.weeklyFocus.detail}
+              meterValue={overview.weeklyFocus.meterValue}
             />
             <MetricCard
-              label="Brotherhood"
-              value="18 men"
-              detail="The group view makes momentum communal, not abstract."
+              label={overview.brotherhood.label}
+              value={overview.brotherhood.value}
+              detail={overview.brotherhood.detail}
             />
           </div>
         </section>
