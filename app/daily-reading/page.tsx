@@ -1,4 +1,11 @@
 import { redirect } from "next/navigation";
+import {
+  HeroPanel,
+  PageFrame,
+  SectionHeader,
+  SurfaceCard,
+  SurfaceInset,
+} from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
@@ -186,42 +193,44 @@ export default async function DailyReadingPage({
 
   return (
     <main className="monastic-page">
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
+      <PageFrame className="max-w-5xl space-y-6">
         {!challenge.hasStarted && (
-          <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-base font-semibold text-white sm:text-lg">
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               You&apos;re previewing the reading plan before launch.
             </p>
-          </div>
+          </SurfaceCard>
         )}
 
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
-              {activePlan.name}
-            </p>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Daily Reading
-            </h1>
-            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
-              Day {planDay.day_number}
-            </p>
-          </div>
+        <HeroPanel className="py-7 sm:py-8">
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <div className="text-[#f7ebd8]">
+              <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
+              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">Daily Reading</h1>
+              <p className="mt-3 text-lg text-[#ead8bc]">Day {planDay.day_number}</p>
+              <h2 className="mt-6 text-3xl font-semibold text-white sm:text-4xl">
+                {planDay.reading_title || "No reading title assigned yet"}
+              </h2>
+              <p className="mt-2 text-xl text-[#ead8bc]">
+                {planDay.reading_reference || "No reference assigned yet"}
+              </p>
+            </div>
 
-          <AppActionBar
-            className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]"
-            actions={[
-              { href: "/today", label: "Back to Today", variant: "outline" },
-              { href: "/this-week", label: "View This Week", variant: "primary" },
-            ]}
-          />
-        </div>
+            <AppActionBar
+              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
+              actions={[
+                { href: "/today", label: "Back to Today", variant: "secondary" },
+                { href: "/this-week", label: "View This Week", variant: "primary" },
+              ]}
+            />
+          </div>
+        </HeroPanel>
 
         <AppActionBar
-          className="mb-6 flex-col sm:flex-row sm:items-center sm:justify-between"
+          className="flex-col sm:flex-row sm:items-center sm:justify-between"
           actions={[
             {
               href: `/daily-reading?day=${previousDay}`,
@@ -242,113 +251,104 @@ export default async function DailyReadingPage({
         />
 
         <div className="grid gap-6">
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
-              Mission
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold sm:text-3xl">
-              {planDay.reading_mission || "No mission assigned yet"}
-            </h2>
-            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
+          <SurfaceCard>
+            <SectionHeader kicker="Mission" title={planDay.reading_mission || "No mission assigned yet"} />
+            <p className="mt-4 text-sm text-monastic-1 sm:text-base">
               {planDay.reading_focus || "No mission focus has been added yet."}
             </p>
-          </section>
+          </SurfaceCard>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 sm:text-sm">
-                  Reading
-                </p>
-                <h2 className="mt-2 text-2xl font-semibold sm:text-3xl">
-                  {planDay.reading_title || "No reading title assigned yet"}
-                </h2>
-                <p className="mt-3 text-base text-zinc-300 sm:text-lg">
-                  {planDay.reading_reference || "No reference assigned yet"}
-                </p>
-              </div>
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Reading"
+              title={planDay.reading_title || "No reading title assigned yet"}
+              description={planDay.reading_reference || "No reference assigned yet"}
+              action={
+                <span className="rounded-full border border-monastic px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-monastic-1">
+                  {catechismDay ? "Catechism Day" : "Scripture Day"}
+                </span>
+              }
+            />
+          </SurfaceCard>
 
-              <span className="w-fit rounded-full border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-zinc-300 sm:text-xs">
-                {catechismDay ? "Catechism Day" : "Scripture Day"}
-              </span>
-            </div>
-          </section>
-
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">
-              {catechismDay ? "Today's Focus" : "Reading Focus"}
-            </h2>
+          <SurfaceCard>
+            <SectionHeader
+              kicker={catechismDay ? "Today's Focus" : "Reading Focus"}
+              title={catechismDay ? "Read in the key of doctrine and devotion." : "Read slowly and take the text inward."}
+            />
 
             {catechismDay ? (
-              <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-5 py-5 sm:px-6 sm:py-6">
-                <p className="text-sm leading-7 text-zinc-300 sm:text-base">
+              <SurfaceInset className="mt-4">
+                <p className="text-sm leading-7 text-monastic-1 sm:text-base">
                   Today is a Catechism reading day. The full Catechism text for these
                   paragraphs is included below.
                 </p>
-              </div>
+              </SurfaceInset>
             ) : focusParagraphs.length > 0 ? (
               <div className="mt-4 space-y-4">
                 {focusParagraphs.map((paragraph, index) => (
                   <p
                     key={`focus-${index}`}
-                    className="text-sm leading-7 text-zinc-300 sm:text-base"
+                    className="text-sm leading-7 text-monastic-1 sm:text-base"
                   >
                     {paragraph}
                   </p>
                 ))}
               </div>
             ) : (
-              <p className="mt-4 text-sm text-zinc-400 sm:text-base">
+              <p className="mt-4 text-sm text-monastic-1 sm:text-base">
                 No reading focus has been added yet.
               </p>
             )}
-          </section>
+          </SurfaceCard>
 
           {noteParagraphs.length > 0 && (
-            <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-              <h2 className="text-xl font-semibold sm:text-2xl">
-                {catechismDay ? "Catholic Insight" : "Companion Note"}
-              </h2>
+            <SurfaceCard>
+              <SectionHeader
+                kicker={catechismDay ? "Catholic Insight" : "Companion Note"}
+                title={catechismDay ? "Read with the Church." : "A brief guide for meditation."}
+              />
 
               <div className="mt-4 space-y-4">
                 {noteParagraphs.map((paragraph, index) => (
                   <p
                     key={`insight-${index}`}
-                    className="text-sm leading-7 text-zinc-300 sm:text-base"
+                    className="text-sm leading-7 text-monastic-1 sm:text-base"
                   >
                     {paragraph}
                   </p>
                 ))}
               </div>
-            </section>
+            </SurfaceCard>
           )}
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">
-              {catechismDay ? "Catechism Text" : "RSV-2CE Text"}
-            </h2>
+          <SurfaceCard>
+            <SectionHeader
+              kicker={catechismDay ? "Catechism Text" : "RSV-2CE Text"}
+              title="Read the text itself without hurry."
+            />
 
-            <div className="mt-4 rounded-xl border border-zinc-800 bg-black px-5 py-5 sm:px-6 sm:py-6">
+            <SurfaceInset className="mt-4 px-5 py-5 sm:px-6 sm:py-6">
               {hasReadingText ? (
                 <article className="space-y-5">
                   {readingParagraphs.map((paragraph, index) => (
                     <p
                       key={`reading-${index}`}
-                      className="text-sm leading-8 text-zinc-200 sm:text-base"
+                      className="text-base leading-8 text-monastic-0"
                     >
                       {paragraph}
                     </p>
                   ))}
                 </article>
               ) : (
-                <p className="text-sm text-zinc-400 sm:text-base">
+                <p className="text-sm text-monastic-1 sm:text-base">
                   No reading text has been added yet for this day.
                 </p>
               )}
-            </div>
-          </section>
+            </SurfaceInset>
+          </SurfaceCard>
         </div>
-      </div>
+      </PageFrame>
     </main>
   );
 }

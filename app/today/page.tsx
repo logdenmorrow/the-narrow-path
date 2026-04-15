@@ -2,6 +2,14 @@ import { redirect } from "next/navigation";
 import { AppActionBar } from "@/components/page-actions";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
+import {
+  HeroPanel,
+  MetricCard,
+  PageFrame,
+  SectionHeader,
+  SurfaceCard,
+  SurfaceInset,
+} from "@/components/monastic-ui";
 import { TodayTaskCard } from "@/components/today-task-card";
 import {
   buildTaskViewModels,
@@ -324,153 +332,137 @@ export default async function TodayPage({
 
   return (
     <main className="monastic-page">
-      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <PageFrame className="space-y-6">
         {!challenge.hasStarted && (
-          <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-base font-semibold text-white sm:text-lg">
+          <SurfaceCard className="border-[rgba(168,129,81,0.38)]">
+            <p className="text-lg font-semibold text-monastic-0">
               The challenge begins on {challenge.startDateLabel}.
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-base leading-7 text-monastic-1">
               You&apos;re previewing the plan before launch.
             </p>
-          </div>
+          </SurfaceCard>
         )}
 
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400">
-              {activePlan.name}
-            </p>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Today</h1>
-            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
-              Day {typedPlanDay.day_number}
-            </p>
-          </div>
+        <HeroPanel className="py-7 sm:py-8">
+          <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+            <div className="text-[#f7ebd8]">
+              <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
+              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">Today</h1>
+              <p className="mt-3 text-lg text-[#f0dec1]">
+                Day {typedPlanDay.day_number} • {formatReadableDate(taskModels[0]?.dayDate)}
+              </p>
+              <h2 className="mt-6 text-3xl font-semibold text-white sm:text-4xl">
+                {typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
+              </h2>
+              <p className="mt-2 text-xl text-[#ead8bc]">
+                {typedPlanDay.reading_reference ?? "Open the reading page"}
+              </p>
+            </div>
 
-          <AppActionBar
-            className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[420px]"
-            actions={[
-              {
-                href: `/today?day=${previousDay}`,
-                label: "Previous Day",
-                variant: "outline",
-              },
-              {
-                href: `/today?day=${nextDay}`,
-                label: "Next Day",
-                variant: "outline",
-              },
-              {
-                href: `/daily-reading?day=${typedPlanDay.day_number}`,
-                label: "Open Daily Reading",
-                variant: "secondary",
-              },
-              {
-                href: `/this-week?day=${typedPlanDay.day_number}`,
-                label: "View This Week",
-                variant: "primary",
-              },
-            ]}
-          />
-        </div>
+            <AppActionBar
+              className="grid w-full gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
+              actions={[
+                {
+                  href: `/today?day=${previousDay}`,
+                  label: "Previous Day",
+                  variant: "secondary",
+                },
+                {
+                  href: `/today?day=${nextDay}`,
+                  label: "Next Day",
+                  variant: "secondary",
+                },
+                {
+                  href: `/daily-reading?day=${typedPlanDay.day_number}`,
+                  label: "Daily Reading",
+                  variant: "outline",
+                },
+                {
+                  href: `/this-week?day=${typedPlanDay.day_number}`,
+                  label: "This Week",
+                  variant: "primary",
+                },
+              ]}
+            />
+          </div>
+        </HeroPanel>
 
         {!canEditSelectedDay && (
-          <div className="mb-6 rounded-2xl border border-amber-900 bg-amber-950/40 p-4 sm:p-6">
-            <p className="font-semibold text-amber-200">
-              Future days are view-only.
-            </p>
-            <p className="mt-2 text-sm text-amber-100/80 sm:text-base">
+          <SurfaceCard className="border-[rgba(168,129,81,0.38)]">
+            <p className="text-lg font-semibold text-monastic-0">Future days are view-only.</p>
+            <p className="mt-2 text-base leading-7 text-monastic-1">
               You can mark tasks complete for today or any earlier challenge day.
             </p>
-          </div>
+          </SurfaceCard>
         )}
 
-        <div className="mb-6 grid gap-4 sm:grid-cols-3">
-	          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
-              Day Status
-            </p>
-            <p className="mt-3 text-3xl font-bold">
-              {completedRequiredCount}/{requiredTasks.length}
-            </p>
-	            <p className="mt-2 text-sm text-zinc-300">Required tasks completed</p>
-              <div className="mt-4 h-2 rounded-full bg-zinc-800">
-                <div
-                  className="h-2 rounded-full bg-emerald-400 transition-all"
-                  style={{ width: `${requiredCompletionPercent}%` }}
-                />
-              </div>
-	          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
-              Date
-            </p>
-            <p className="mt-3 text-2xl font-bold">
-              {formatReadableDate(taskModels[0]?.dayDate)}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300">Challenge calendar date</p>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">
-              Reading
-            </p>
-            <p className="mt-3 text-lg font-bold">
-              {typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300">
-              {typedPlanDay.reading_reference ?? "Open the reading page"}
-            </p>
-          </div>
-        </div>
+        <section className="grid gap-4 md:grid-cols-3">
+          <MetricCard
+            label="Day Status"
+            value={`${completedRequiredCount}/${requiredTasks.length}`}
+            detail="Required tasks completed."
+            meterValue={requiredCompletionPercent}
+          />
+          <MetricCard
+            label="Reading"
+            value={typedPlanDay.reading_reference ?? "Daily office"}
+            detail={typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
+          />
+          <MetricCard
+            label="Open Reflection"
+            value={canEditSelectedDay ? "Available" : "Locked"}
+            detail="Capture today’s resistance, graces, and concrete response."
+          />
+        </section>
 
         {uniqueQuotaTasks.length > 0 && (
-          <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">
-              Weekly and Monthly Progress
-            </h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-	              {uniqueQuotaTasks.map((task) => (
-                <div
-                  key={`quota-${task.taskTemplateId}`}
-                  className="rounded-xl border border-zinc-800 bg-black p-4"
-                >
-	                  <p className="text-sm font-semibold text-white">{task.title}</p>
-	                  <p className="mt-2 text-sm text-zinc-300">{task.progressLabel}</p>
-                    <div className="mt-3 h-2 rounded-full bg-zinc-800">
-                      <div
-                        className="h-2 rounded-full bg-blue-400 transition-all"
-                        style={{
-                          width: `${
-                            task.progressCount !== null &&
-                            task.quotaTarget &&
-                            task.quotaTarget > 0
-                              ? Math.min(
-                                  100,
-                                  Math.round((task.progressCount / task.quotaTarget) * 100)
-                                )
-                              : 0
-                          }%`,
-                        }}
-                      />
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Momentum"
+              title="Weekly and Monthly Progress"
+              description="Flexible disciplines stay visible without overwhelming the day."
+            />
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {uniqueQuotaTasks.map((task) => {
+                const meterPercent =
+                  task.progressCount !== null && task.quotaTarget && task.quotaTarget > 0
+                    ? Math.min(100, Math.round((task.progressCount / task.quotaTarget) * 100))
+                    : 0;
+
+                return (
+                  <SurfaceInset key={`quota-${task.taskTemplateId}`}>
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-xl font-semibold text-monastic-0">{task.title}</p>
+                        <p className="mt-2 text-sm leading-6 text-monastic-1">{task.progressLabel}</p>
+                      </div>
+                      <div className="rounded-full border border-monastic px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-monastic-1">
+                        {task.progressCount ?? 0}/{task.quotaTarget ?? 0}
+                      </div>
                     </div>
-	                  {task.note ? (
-                    <p className="mt-2 text-xs leading-5 text-zinc-500">
-                      {task.note}
-                    </p>
-                  ) : null}
-                </div>
-              ))}
+                    <div className="monastic-meter mt-4">
+                      <span style={{ width: `${meterPercent}%` }} />
+                    </div>
+                    {task.note ? (
+                      <p className="mt-3 text-sm leading-6 text-monastic-2">{task.note}</p>
+                    ) : null}
+                  </SurfaceInset>
+                );
+              })}
             </div>
-          </section>
+          </SurfaceCard>
         )}
 
-        <div className="grid gap-6 lg:grid-cols-2">
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">Required Today</h2>
-
-            <div className="mt-4 space-y-3">
+        <div className="grid gap-6 xl:grid-cols-2">
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Daily Core"
+              title="Required Today"
+              description="The non-negotiable rule for the day."
+            />
+            <div className="mt-5 space-y-3">
               {requiredTasks.length > 0 ? (
                 requiredTasks.map((task) => (
                   <TodayTaskCard
@@ -492,15 +484,18 @@ export default async function TodayPage({
                   />
                 ))
               ) : (
-                <p className="text-sm text-zinc-400">No required tasks for this day.</p>
+                <p className="text-base leading-7 text-monastic-1">No required tasks for this day.</p>
               )}
             </div>
-          </section>
+          </SurfaceCard>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">Optional Today</h2>
-
-            <div className="mt-4 space-y-3">
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Optional Disciplines"
+              title="Optional Today"
+              description="Flexible practices that still reinforce the rule of life."
+            />
+            <div className="mt-5 space-y-3">
               {optionalTasks.length > 0 ? (
                 optionalTasks.map((task) => (
                   <TodayTaskCard
@@ -522,12 +517,12 @@ export default async function TodayPage({
                   />
                 ))
               ) : (
-                <p className="text-sm text-zinc-400">No optional tasks for this day.</p>
+                <p className="text-base leading-7 text-monastic-1">No optional tasks for this day.</p>
               )}
             </div>
-          </section>
+          </SurfaceCard>
         </div>
-      </div>
+      </PageFrame>
     </main>
   );
 }

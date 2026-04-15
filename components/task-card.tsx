@@ -42,7 +42,7 @@ export function TaskCard({ className, ...props }: TaskCardProps) {
   return (
     <div
       className={cn(
-        "rounded-2xl border border-[#ad8e63] bg-[#f4e9d2]/95 p-5 shadow-[0_14px_32px_-22px_rgba(68,44,23,0.58)] dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none",
+        "monastic-card p-5",
         className
       )}
       {...props}
@@ -66,13 +66,13 @@ export function TaskCardHeader({
     >
       <div className="min-w-0 space-y-2">
         {eyebrow ? (
-          <div className="text-xs uppercase tracking-[0.2em] text-[#5b462b] dark:text-zinc-400">
+          <div className="section-kicker">
             {eyebrow}
           </div>
         ) : null}
-        <div className="text-xl font-semibold text-[#312111] dark:text-white">{title}</div>
+        <div className="text-xl font-semibold text-monastic-0 sm:text-2xl">{title}</div>
         {description ? (
-          <div className="text-sm text-[#46331d] dark:text-zinc-300">{description}</div>
+          <div className="text-sm leading-6 text-monastic-1">{description}</div>
         ) : null}
       </div>
 
@@ -85,7 +85,7 @@ export function TaskCardMeta({ className, ...props }: TaskCardMetaProps) {
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center gap-2 text-xs text-[#6a5538] dark:text-zinc-400",
+        "flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.18em] text-monastic-2",
         className
       )}
       {...props}

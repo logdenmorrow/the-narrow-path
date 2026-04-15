@@ -22,7 +22,12 @@ type PageActionsProps = {
 
 export function AppActionBar({ actions, className }: PageActionsProps) {
   return (
-    <div className={cn("flex flex-wrap gap-3", className)}>
+    <div
+      className={cn(
+        "flex flex-wrap gap-3 rounded-[1.4rem] border border-monastic bg-monastic-panel p-2 shadow-[0_18px_34px_-30px_rgba(42,25,15,0.8)]",
+        className
+      )}
+    >
       {actions.map((action) => (
         <Button
           key={`${action.href}-${action.label}`}

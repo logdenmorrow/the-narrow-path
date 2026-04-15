@@ -1,5 +1,13 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import {
+  HeroPanel,
+  MetricCard,
+  PageFrame,
+  SectionHeader,
+  SurfaceCard,
+  SurfaceInset,
+} from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 import {
   StatusPill,
@@ -242,49 +250,71 @@ export default async function ThisWeekPage({
 
   return (
     <main className="monastic-page">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+      <PageFrame className="max-w-7xl space-y-6">
         {!challenge.hasStarted && (
-          <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-base font-semibold text-white sm:text-lg">
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               You&apos;re previewing the plan before launch.
             </p>
-          </div>
+          </SurfaceCard>
         )}
 
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400">
-              {activePlan.name}
-            </p>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">This Week</h1>
-            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
-              Days {weekStartDayNumber}-{weekEndDayNumber}
-            </p>
-          </div>
+        <HeroPanel className="py-7 sm:py-8">
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <div className="text-[#f7ebd8]">
+              <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
+              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">This Week</h1>
+              <p className="mt-3 text-lg text-[#ead8bc]">
+                Days {weekStartDayNumber}-{weekEndDayNumber}
+              </p>
+            </div>
 
-          <AppActionBar
-            className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[360px]"
-            actions={[
-              {
-                href: `/today?day=${selectedDay}`,
-                label: "Back to Today",
-                variant: "outline",
-              },
-              {
-                href: `/daily-reading?day=${selectedDay}`,
-                label: "Daily Reading",
-                variant: "primary",
-              },
-            ]}
+            <AppActionBar
+              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
+              actions={[
+                {
+                  href: `/today?day=${selectedDay}`,
+                  label: "Back to Today",
+                  variant: "secondary",
+                },
+                {
+                  href: `/daily-reading?day=${selectedDay}`,
+                  label: "Daily Reading",
+                  variant: "primary",
+                },
+              ]}
+            />
+          </div>
+        </HeroPanel>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          <MetricCard
+            label="Week Span"
+            value={`${weekStartDayNumber}-${weekEndDayNumber}`}
+            detail="Current challenge week window."
+          />
+          <MetricCard
+            label="Days in View"
+            value={`${dayModels.length}`}
+            detail="Each day carries its own reading and discipline set."
+          />
+          <MetricCard
+            label="Reference Day"
+            value={`Day ${selectedDay}`}
+            detail="Today anchors the week summary and reading jump point."
           />
         </div>
 
         {quotaSummaries.length > 0 && (
-          <section className="mb-6 rounded-2xl border border-[#b09166] bg-[#f2e6cd]/95 p-5 shadow-[0_12px_28px_-18px_rgba(68,44,23,0.52)] dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-none sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">Week Progress</h2>
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Momentum"
+              title="Week Progress"
+              description="Quota disciplines remain visible across the whole week."
+            />
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {quotaSummaries.map((task) => {
                 const safeTarget = Math.max(task.quotaTarget ?? 1, 1);
@@ -298,12 +328,9 @@ export default async function ThisWeekPage({
                 const meterClasses = getQuotaMeterClasses(tone);
 
                 return (
-                  <div
-                    key={`quota-${task.taskTemplateId}`}
-                    className="rounded-xl border border-[#aa8a5f] bg-[#f8efdd] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] dark:border-zinc-800 dark:bg-black dark:shadow-none"
-                  >
+                  <SurfaceInset key={`quota-${task.taskTemplateId}`}>
                     <div className="flex items-center justify-between gap-2">
-                      <p className="text-sm font-semibold text-[#342313] dark:text-white">{task.title}</p>
+                      <p className="text-sm font-semibold text-monastic-0">{task.title}</p>
                       <span
                         className={`rounded-full border px-2 py-1 text-[10px] font-semibold tracking-wide ${meterClasses.text}`}
                       >
@@ -323,12 +350,12 @@ export default async function ThisWeekPage({
                         style={{ width: `${meterPercent}%` }}
                       />
                     </div>
-                    <p className="mt-2 text-sm text-[#4f3a22] dark:text-zinc-300">{task.progressLabel}</p>
-                  </div>
+                    <p className="mt-2 text-sm text-monastic-1">{task.progressLabel}</p>
+                  </SurfaceInset>
                 );
               })}
             </div>
-          </section>
+          </SurfaceCard>
         )}
 
         <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
@@ -355,7 +382,7 @@ export default async function ThisWeekPage({
 
               <div className="mt-5 space-y-4">
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-[#5a452b] dark:text-zinc-400">
+                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-monastic-2">
                     Required
                   </h3>
                   <div className="mt-3 space-y-2">
@@ -363,10 +390,10 @@ export default async function ThisWeekPage({
                       required.map((task) => (
                         <div
                           key={task.id}
-                          className="rounded-lg border border-[#aa895e] bg-[#f8efde] p-3 dark:border-zinc-800 dark:bg-black"
+                          className="monastic-subcard p-3"
                         >
                           <div className="flex items-center justify-between gap-3">
-                            <p className="text-sm font-medium text-[#312111] dark:text-white">
+                            <p className="text-sm font-medium text-monastic-0">
                               {task.title}
                             </p>
                             <StatusPill tone={task.isCompleted ? "done" : "required"}>
@@ -374,20 +401,20 @@ export default async function ThisWeekPage({
                             </StatusPill>
                           </div>
                           {task.note ? (
-                            <p className="mt-2 text-xs leading-5 text-[#5f4b31] dark:text-zinc-500">
+                            <p className="mt-2 text-xs leading-5 text-monastic-1">
                               {task.note}
                             </p>
                           ) : null}
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-[#5f4b31] dark:text-zinc-500">No required tasks.</p>
+                      <p className="text-sm text-monastic-1">No required tasks.</p>
                     )}
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-[#5a452b] dark:text-zinc-400">
+                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-monastic-2">
                     Optional
                   </h3>
                   <div className="mt-3 space-y-2">
@@ -395,10 +422,10 @@ export default async function ThisWeekPage({
                       optional.map((task) => (
                         <div
                           key={task.id}
-                          className="rounded-lg border border-[#aa895e] bg-[#f8efde] p-3 dark:border-zinc-800 dark:bg-black"
+                          className="monastic-subcard p-3"
                         >
                           <div className="flex items-center justify-between gap-3">
-                            <p className="text-sm font-medium text-[#312111] dark:text-white">
+                            <p className="text-sm font-medium text-monastic-0">
                               {task.title}
                             </p>
                             <StatusPill tone={task.isCompleted ? "done" : "optional"}>
@@ -407,20 +434,20 @@ export default async function ThisWeekPage({
                           </div>
 
                           {task.progressLabel ? (
-                            <p className="mt-2 text-xs leading-5 text-[#2f4f9f] dark:text-blue-300">
+                            <p className="mt-2 text-xs leading-5 text-monastic-1">
                               {task.progressLabel}
                             </p>
                           ) : null}
 
                           {task.note ? (
-                            <p className="mt-2 text-xs leading-5 text-[#5f4b31] dark:text-zinc-500">
+                            <p className="mt-2 text-xs leading-5 text-monastic-1">
                               {task.note}
                             </p>
                           ) : null}
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-[#5f4b31] dark:text-zinc-500">No optional tasks.</p>
+                      <p className="text-sm text-monastic-1">No optional tasks.</p>
                     )}
                   </div>
                 </div>
@@ -428,7 +455,7 @@ export default async function ThisWeekPage({
             </TaskCard>
           ))}
         </div>
-      </div>
+      </PageFrame>
     </main>
   );
 }

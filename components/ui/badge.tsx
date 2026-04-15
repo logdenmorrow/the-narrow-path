@@ -4,27 +4,27 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors focus:outline-none focus:ring-2 focus:ring-[#d7bf97] focus:ring-offset-2 focus:ring-offset-[#140f0a]",
+  "inline-flex items-center rounded-full border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] transition-colors focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] focus:ring-offset-2 focus:ring-offset-transparent",
   {
     variants: {
       variant: {
         default:
-          "border-[#6b4a2c] bg-[#f0e0c2] text-[#432c19] dark:border-[#7f6544] dark:bg-[#2e2218] dark:text-[#f1ddbc]",
+          "border-[color:var(--line-strong)] bg-[color:var(--surface-3)] text-[color:var(--text-0)]",
         secondary:
-          "border-[#8d7050] bg-[#efe1c7] text-[#4a3520] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300",
+          "border-[color:var(--line-soft)] bg-transparent text-[color:var(--text-1)]",
         destructive:
           "border-[#7f1d1d] bg-[#fee2e2] text-[#7f1d1d] dark:border-[#7f1d1d] dark:bg-[#3a1515] dark:text-[#fecaca]",
         outline:
-          "border-[#8d7050] bg-transparent text-[#4a3520] dark:border-zinc-700 dark:text-zinc-300",
+          "border-[color:var(--line-strong)] bg-transparent text-[color:var(--text-0)]",
         required:
-          "border-[#7f1d1d] bg-[#fee2e2] text-[#7f1d1d] dark:border-[#7f1d1d] dark:bg-[#3a1515] dark:text-[#fecaca]",
+          "border-[rgba(117,65,36,0.4)] bg-[rgba(136,87,49,0.12)] text-[color:var(--surface-strong)]",
         optional:
-          "border-[#8d7050] bg-[#efe1c7] text-[#4a3520] dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300",
-        done: "border-emerald-700 bg-emerald-100/70 text-emerald-900 dark:bg-transparent dark:text-emerald-200",
+          "border-[color:var(--line-soft)] bg-[color:var(--surface-3)] text-[color:var(--text-1)]",
+        done: "border-[rgba(69,116,85,0.45)] bg-[rgba(126,167,145,0.14)] text-[#426855] dark:text-[#a7ccb9]",
         started:
-          "border-[#755236] bg-[#eddcc8] text-[#4a341f] dark:border-[#7c5838] dark:bg-[#271d16] dark:text-[#ddc3a8]",
+          "border-[rgba(125,97,63,0.44)] bg-[rgba(176,142,98,0.14)] text-[color:var(--text-0)]",
         momentum:
-          "border-[#826642] bg-[#eadcc2] text-[#4e3923] dark:border-[#87704a] dark:bg-[#292014] dark:text-[#d8c09b]",
+          "border-[rgba(148,104,47,0.42)] bg-[rgba(201,153,91,0.12)] text-[color:var(--surface-strong)]",
       },
     },
     defaultVariants: {

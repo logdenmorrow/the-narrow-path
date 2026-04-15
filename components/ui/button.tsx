@@ -5,31 +5,31 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-transparent font-semibold uppercase tracking-[0.16em] transition-all duration-150 ease-out active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d7bf97] focus-visible:ring-offset-2 focus-visible:ring-offset-[#140f0a] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[1.05rem] border px-4 text-center font-semibold tracking-[0.14em] transition-all duration-200 ease-out active:translate-y-px active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         primary:
-          "border-[#5e3f25] bg-[#7a5331] text-[#f9efdc] shadow-[0_9px_20px_-16px_rgba(22,14,8,0.7)] hover:bg-[#694727] active:bg-[#5d3f23]",
+          "border-[color:var(--line-strong)] bg-[linear-gradient(180deg,var(--surface-strong-2),var(--surface-strong))] text-[hsl(var(--primary-foreground))] shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_18px_28px_-20px_rgba(27,17,11,0.86)] hover:-translate-y-0.5 hover:brightness-105 active:brightness-95",
         secondary:
-          "border-[#ae906a] bg-[#f4e8d2] text-[#412a18] hover:bg-[#edddc0] active:bg-[#e4d2b1] dark:border-[#69543a] dark:bg-[#2a1f15] dark:text-[#f2dfbf] dark:hover:bg-[#332518]",
+          "border-[color:var(--line-strong)] bg-[linear-gradient(180deg,color-mix(in_srgb,var(--surface-2)_90%,white),var(--surface-3))] text-[color:var(--text-0)] shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] hover:bg-[color:var(--surface-2)] hover:-translate-y-0.5 active:bg-[color:var(--surface-3)]",
         outline:
-          "border-[#ab8b62] bg-[#f6eedf]/72 text-[#4a311d] shadow-[inset_0_1px_0_rgba(255,255,255,0.42)] hover:border-[#98754c] hover:bg-[#eee0c4] active:bg-[#e3d2b1] dark:border-[#7f6342] dark:bg-transparent dark:text-[#e8d3af] dark:shadow-none dark:hover:bg-[#f4e8d2]/12 dark:active:bg-[#f4e8d2]/18",
+          "border-[color:var(--line-strong)] bg-transparent text-[color:var(--text-0)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] hover:bg-[color:var(--surface-3)] hover:-translate-y-0.5 active:bg-[color:var(--surface-2)]",
         ghost:
-          "border-transparent bg-transparent text-[#f3e7d2] hover:bg-[#f4e8d2]/14 active:bg-[#f4e8d2]/20 dark:text-[#e8d3af]",
+          "border-transparent bg-transparent text-[color:var(--text-1)] hover:bg-[color:var(--surface-3)] hover:text-[color:var(--text-0)] active:bg-[color:var(--surface-2)]",
         default:
-          "border-[#5e3f25] bg-[#7a5331] text-[#f9efdc] shadow-[0_9px_20px_-16px_rgba(22,14,8,0.7)] hover:bg-[#694727] active:bg-[#5d3f23]",
+          "border-[color:var(--line-strong)] bg-[linear-gradient(180deg,var(--surface-strong-2),var(--surface-strong))] text-[hsl(var(--primary-foreground))] shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_18px_28px_-20px_rgba(27,17,11,0.86)] hover:-translate-y-0.5 hover:brightness-105 active:brightness-95",
         destructive:
           "border-[#7f1d1d] bg-[#991b1b] text-[#fee2e2] hover:bg-[#7f1d1d] active:bg-[#651717]",
-        link: "border-transparent bg-transparent px-0 text-[#e6cfaa] underline-offset-4 hover:underline",
+        link: "h-auto rounded-none border-transparent bg-transparent px-0 text-[color:var(--surface-strong)] underline-offset-4 hover:underline",
       },
       size: {
-        xs: "h-8 px-3 text-[10px]",
-        sm: "h-9 px-3.5 text-[11px]",
-        default: "h-10 px-5 text-xs",
-        md: "h-10 px-5 text-xs",
-        lg: "h-11 px-6 text-sm",
-        icon: "h-10 w-10 p-0",
+        xs: "h-8 px-3 text-[10px] uppercase",
+        sm: "h-10 px-4 text-[11px] uppercase",
+        default: "h-11 px-5 text-xs uppercase",
+        md: "h-11 px-5 text-xs uppercase",
+        lg: "h-12 px-6 text-sm uppercase",
+        icon: "h-11 w-11 p-0",
       },
     },
     defaultVariants: {

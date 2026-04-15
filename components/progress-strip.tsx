@@ -54,14 +54,14 @@ export default async function ProgressStrip() {
   const totalRequiredCount = requiredTaskIds.length;
 
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
-      <span className="rounded-full border border-[#c8ae83] bg-[#f1e6cf] px-3 py-1 font-semibold text-[#5a3a24]">
+    <div className="flex flex-wrap items-center gap-2 text-xs">
+      <span className="inline-flex items-center rounded-full border border-monastic bg-[color:var(--surface-3)] px-3 py-1.5 font-semibold uppercase tracking-[0.18em] text-monastic-1">
         Day {selectedDay}/{activePlan.total_days}
       </span>
-      <span className="rounded-full border border-[#c8ae83] bg-[#f1e6cf] px-3 py-1 font-semibold text-[#5a3a24]">
+      <span className="inline-flex items-center rounded-full border border-monastic bg-[color:var(--surface-3)] px-3 py-1.5 font-semibold uppercase tracking-[0.18em] text-monastic-1">
         Required {completedRequiredCount}/{totalRequiredCount}
       </span>
-      <span className="rounded-full border border-[#c8ae83] bg-[#f1e6cf] px-3 py-1 font-semibold text-[#5a3a24]">
+      <span className="inline-flex items-center rounded-full border border-monastic bg-[color:var(--surface-3)] px-3 py-1.5 font-semibold uppercase tracking-[0.18em] text-monastic-1">
         Week {challenge.weekNumber}
       </span>
     </div>
