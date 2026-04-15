@@ -21,10 +21,10 @@ export default function MobileTabBar() {
           return (
             <Link
               key={tab.href}
-            href={tab.href}
-            aria-current={active ? "page" : undefined}
-            className={cn(
-                "flex min-h-16 flex-col items-center justify-center gap-1 rounded-[1.1rem] px-2 py-2 text-[11px] font-semibold leading-none tracking-[0.12em] transition",
+              href={tab.href}
+              aria-current={active ? "page" : undefined}
+              className={cn(
+                "flex min-h-[3.85rem] min-w-0 flex-col items-center justify-center gap-1 rounded-[1.1rem] px-1.5 py-2 text-[10px] font-semibold leading-none tracking-[0.08em] transition",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
                 active
                   ? "bg-[linear-gradient(180deg,var(--surface-strong-2),var(--surface-strong))] text-[hsl(var(--primary-foreground))] shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]"
@@ -32,7 +32,9 @@ export default function MobileTabBar() {
               )}
             >
               <Icon className="h-4 w-4" aria-hidden="true" />
-              <span>{tab.label}</span>
+              <span className="mobile-tab-label block max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
+                {tab.label}
+              </span>
             </Link>
           );
         })}

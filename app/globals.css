@@ -26,7 +26,7 @@
     --ring: 31 42% 40%;
     --radius: 1rem;
     --mobile-tab-safe-area: env(safe-area-inset-bottom, 0px);
-    --mobile-tab-bar-height: calc(5rem + max(0.75rem, var(--mobile-tab-safe-area)));
+    --mobile-tab-bar-height: calc(4.75rem + max(0.75rem, var(--mobile-tab-safe-area)));
     --mobile-tab-content-offset: calc(var(--mobile-tab-bar-height) + 1rem);
     --surface-0: #f5efe1;
     --surface-1: rgba(251, 245, 233, 0.86);
@@ -353,6 +353,46 @@
 
   .monastic-prose p + p {
     margin-top: 1rem;
+  }
+
+  @media (max-width: 639px) {
+    .monastic-header {
+      box-shadow: 0 12px 30px -24px rgba(52, 31, 18, 0.55);
+    }
+
+    .monastic-topbar {
+      gap: 0.8rem;
+      padding-block: 0.7rem;
+    }
+
+    .monastic-wordmark {
+      gap: 0.65rem;
+    }
+
+    .monastic-wordmark::before,
+    .monastic-wordmark::after {
+      width: 1.25rem;
+    }
+
+    .monastic-wordmark-mark {
+      top: -0.65rem;
+      font-size: 0.88rem;
+    }
+
+    .monastic-progress-strip {
+      gap: 0.45rem;
+    }
+
+    .monastic-progress-strip > span {
+      padding: 0.35rem 0.7rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+    }
+
+    .mobile-tab-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+    }
   }
 }
 

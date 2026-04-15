@@ -19,7 +19,9 @@ import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import {
   buildTaskViewModels,
+  createReflectionCompletionOverrides,
   formatReadableDate,
+  getReflectionTaskId,
   summarizeRequiredTasks,
   toShortDisplayName,
   type CompletionRecord,
@@ -34,6 +36,10 @@ type ProfileRow = {
 type PlanDayRow = {
   id: number;
   day_number: number;
+};
+
+type ReflectionEntryRow = {
+  user_id: string;
 };
 
 function uniqueTaskIds(tasks: PlanDayTaskRecord[]) {
@@ -180,14 +186,31 @@ export default async function BrotherhoodPage() {
 
   const typedProfiles = (profiles ?? []) as ProfileRow[];
   const typedCompletions = (completions ?? []) as CompletionRecord[];
+  const reflectionTaskId = getReflectionTaskId(typedTodayTasks);
+
+  const { data: reflectionEntriesData } = reflectionTaskId
+    ? await supabase
+        .from("user_reflection_entries")
+        .select("user_id")
+        .eq("plan_day_id", todayPlanDayId)
+    : { data: [] as ReflectionEntryRow[] };
+
+  const reflectionUserIds = new Set(
+    ((reflectionEntriesData ?? []) as ReflectionEntryRow[]).map((entry) => entry.user_id)
+  );
 
   const memberRows = typedProfiles
     .map((profile) => {
+      const completionOverrides = createReflectionCompletionOverrides(
+        reflectionTaskId,
+        reflectionUserIds.has(profile.id)
+      );
       const taskModels = buildTaskViewModels(
         typedTodayTasks,
         scopeTasks,
         typedCompletions,
-        profile.id
+        profile.id,
+        completionOverrides
       );
 
       const requiredSummary = summarizeRequiredTasks(taskModels);

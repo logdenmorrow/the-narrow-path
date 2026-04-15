@@ -3,8 +3,10 @@ import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import {
+  createReflectionCompletionOverrides,
   buildTaskViewModels,
   formatReadableDate,
+  getReflectionTaskId,
   type CompletionRecord,
   type PlanDayTaskRecord,
 } from "@/lib/task-progress";
@@ -28,6 +30,10 @@ type PlanDayRow = {
 type CompletionWithTime = CompletionRecord & {
   completed_at: string | null;
   updated_at: string | null;
+};
+
+type ReflectionEntryRow = {
+  id: number;
 };
 
 function normalizeDayNumber(value: number, totalDays: number) {
@@ -232,12 +238,29 @@ export default async function BrotherhoodMemberPage({
     : { data: [] as CompletionWithTime[] };
 
   const typedCompletions = (completions ?? []) as CompletionWithTime[];
+  const reflectionTaskId = getReflectionTaskId(typedDayTasks);
+
+  const { data: reflectionEntryData } = reflectionTaskId
+    ? await supabase
+        .from("user_reflection_entries")
+        .select("id")
+        .eq("user_id", selectedUserId)
+        .eq("plan_day_id", selectedPlanDayId)
+        .maybeSingle()
+    : { data: null };
+
+  const reflectionEntry = (reflectionEntryData ?? null) as ReflectionEntryRow | null;
+  const completionOverrides = createReflectionCompletionOverrides(
+    reflectionTaskId,
+    Boolean(reflectionEntry?.id)
+  );
 
   const taskModels = buildTaskViewModels(
     typedDayTasks,
     typedScopeTasks,
     typedCompletions,
-    selectedUserId
+    selectedUserId,
+    completionOverrides
   );
 
   const completionByTaskId = new Map(

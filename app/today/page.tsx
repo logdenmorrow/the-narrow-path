@@ -12,8 +12,10 @@ import {
 } from "@/components/monastic-ui";
 import { TodayTaskCard } from "@/components/today-task-card";
 import {
+  createReflectionCompletionOverrides,
   buildTaskViewModels,
   formatReadableDate,
+  getReflectionTaskId,
   type CompletionRecord,
   type PlanDayTaskRecord,
 } from "@/lib/task-progress";
@@ -274,13 +276,9 @@ export default async function TodayPage({
         .in("plan_day_task_id", scopeTaskIds)
     : { data: [] as CompletionRecord[] };
 
-  const reflectionTask = typedDayTasks.find((task) => {
-    const relation = task.task_templates;
-    const template = Array.isArray(relation) ? relation[0] : relation;
-    return template?.slug === "reflection";
-  });
+  const reflectionTaskId = getReflectionTaskId(typedDayTasks);
 
-  const { data: reflectionEntryData } = reflectionTask
+  const { data: reflectionEntryData } = reflectionTaskId
     ? await supabase
         .from("user_reflection_entries")
         .select("id")
@@ -291,10 +289,10 @@ export default async function TodayPage({
 
   const reflectionEntry = (reflectionEntryData ?? null) as ReflectionEntryRow | null;
   const hasSavedReflection = Boolean(reflectionEntry?.id);
-  const completionOverrides = new Map<number, boolean>();
-  if (reflectionTask) {
-    completionOverrides.set(reflectionTask.id, hasSavedReflection);
-  }
+  const completionOverrides = createReflectionCompletionOverrides(
+    reflectionTaskId,
+    hasSavedReflection
+  );
 
   const taskModels = buildTaskViewModels(
     typedDayTasks,
