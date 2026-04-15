@@ -1,12 +1,30 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import {
+  HeroPanel,
+  MetricCard,
+  PageFrame,
+  SectionHeader,
+  SurfaceCard,
+  SurfaceInset,
+} from "@/components/monastic-ui";
+import { AppActionBar } from "@/components/page-actions";
+import {
+  StatusPill,
+  TaskCard,
+  TaskCardHeader,
+  TaskCardMeta,
+} from "@/components/task-card";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import {
-  createReflectionCompletionOverrides,
   buildTaskViewModels,
+  createReflectionCompletionOverrides,
   formatReadableDate,
   getReflectionTaskId,
+  summarizeRequiredTasks,
+  toShortDisplayName,
   type CompletionRecord,
   type PlanDayTaskRecord,
 } from "@/lib/task-progress";
@@ -36,6 +54,8 @@ type ReflectionEntryRow = {
   id: number;
 };
 
+type MeterTone = "neutral" | "accent" | "success";
+
 function normalizeDayNumber(value: number, totalDays: number) {
   if (!Number.isFinite(value)) return 1;
   const rounded = Math.floor(value);
@@ -57,6 +77,47 @@ function toCompletedLabel(timestamp: string | null | undefined) {
     hour: "numeric",
     minute: "2-digit",
   });
+}
+
+function getQuotaMeterTone(completed: number, target: number): MeterTone {
+  if (target <= 0) {
+    return "neutral";
+  }
+
+  const ratio = completed / target;
+  if (ratio >= 1) {
+    return "success";
+  }
+
+  if (ratio >= 0.75) {
+    return "accent";
+  }
+
+  return "neutral";
+}
+
+function getQuotaMeterClasses(tone: MeterTone) {
+  if (tone === "success") {
+    return {
+      track: "bg-emerald-950/60 dark:bg-emerald-950/60",
+      fill: "bg-emerald-400",
+      text: "border-emerald-700 text-emerald-200 dark:border-emerald-700 dark:text-emerald-200",
+    };
+  }
+
+  if (tone === "accent") {
+    return {
+      track: "bg-blue-950/60 dark:bg-blue-950/60",
+      fill: "bg-blue-400",
+      text: "border-blue-700 text-blue-200 dark:border-blue-700 dark:text-blue-200",
+    };
+  }
+
+  return {
+    track: "bg-[color:var(--surface-3)] dark:bg-zinc-800",
+    fill: "bg-[color:var(--surface-strong)] dark:bg-zinc-300",
+    text: "border-monastic text-monastic-1",
+  };
 }
 
 export default async function BrotherhoodMemberPage({
@@ -101,7 +162,7 @@ export default async function BrotherhoodMemberPage({
 
   if (activePlanError || !activePlan) {
     return (
-      <main className="min-h-screen bg-black text-white">
+      <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
             <h1 className="text-3xl font-bold">Brotherhood</h1>
@@ -135,7 +196,7 @@ export default async function BrotherhoodMemberPage({
 
   if (!selectedPlanDayId) {
     return (
-      <main className="min-h-screen bg-black text-white">
+      <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
             <h1 className="text-3xl font-bold">Brotherhood</h1>
@@ -269,176 +330,284 @@ export default async function BrotherhoodMemberPage({
 
   const requiredTasks = taskModels.filter((task) => task.isRequired);
   const optionalTasks = taskModels.filter((task) => !task.isRequired && task.isOptional);
-  const completedRequiredCount = requiredTasks.filter((task) => task.isCompleted).length;
+  const requiredSummary = summarizeRequiredTasks(taskModels);
+  const completedRequiredCount = requiredSummary.done;
+  const requiredPercent =
+    requiredSummary.total > 0
+      ? Math.round((requiredSummary.done / requiredSummary.total) * 100)
+      : 0;
+  const optionalDoneCount = optionalTasks.filter((task) => task.isCompleted).length;
+  const quotaTasks = optionalTasks.filter((task) => task.progressLabel);
+  const uniqueQuotaTasks = quotaTasks.filter(
+    (task, index, arr) =>
+      arr.findIndex((other) => other.taskTemplateId === task.taskTemplateId) === index
+  );
 
   const previousDay = selectedDay > 1 ? selectedDay - 1 : 1;
   const nextDay =
     selectedDay < activePlan.total_days ? selectedDay + 1 : activePlan.total_days;
 
+  const memberFullName = typedProfile.display_name ?? "Member";
+  const memberShortName = toShortDisplayName(typedProfile.display_name);
+  const statusLabel = requiredSummary.completedAll
+    ? "Daily Core Complete"
+    : requiredSummary.started
+      ? "Started"
+      : "Not Started";
+
   return (
-    <main className="min-h-screen bg-black text-white">
-      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-zinc-400">
-              {activePlan.name}
+    <main className="monastic-page">
+      <PageFrame className="space-y-6">
+        {!challenge.hasStarted && (
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
+              The challenge begins on {challenge.startDateLabel}.
             </p>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              {typedProfile.display_name ?? "Member"}
-            </h1>
-            <p className="mt-3 text-sm text-zinc-300 sm:text-base">
-              Day {typedPlanDay.day_number} accountability details.
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
+              Brotherhood accountability pages will go live on launch day. For now,
+              you&apos;re previewing the member record.
             </p>
-          </div>
+          </SurfaceCard>
+        )}
 
-          <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[420px]">
-            <Link
-              href={`/brotherhood/${selectedUserId}?day=${previousDay}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Previous Day
-            </Link>
-            <Link
-              href={`/brotherhood/${selectedUserId}?day=${nextDay}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Next Day
-            </Link>
-            <Link
-              href={`/daily-reading?day=${typedPlanDay.day_number}`}
-              className="rounded-lg border border-zinc-700 px-4 py-3 text-center font-semibold text-white transition hover:bg-zinc-900"
-            >
-              Open Daily Reading
-            </Link>
-            <Link
-              href={`/brotherhood`}
-              className="rounded-lg bg-white px-4 py-3 text-center font-semibold text-black transition hover:bg-zinc-200"
-            >
-              Back to Brotherhood
-            </Link>
+        <HeroPanel className="py-7 sm:py-8">
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <div className="text-[#f7ebd8]">
+              <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
+              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">
+                {memberShortName}
+              </h1>
+              <p className="mt-3 text-lg leading-8 text-[#ead8bc]">{memberFullName}</p>
+              <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
+                Day {typedPlanDay.day_number} accountability details in the same rule
+                of life you see everywhere else in the app.
+              </p>
+            </div>
+
+            <AppActionBar
+              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
+              actions={[
+                {
+                  href: `/brotherhood/${selectedUserId}?day=${previousDay}`,
+                  label: "Previous Day",
+                  variant: "secondary",
+                },
+                {
+                  href: `/brotherhood/${selectedUserId}?day=${nextDay}`,
+                  label: "Next Day",
+                  variant: "secondary",
+                },
+                {
+                  href: `/daily-reading?day=${typedPlanDay.day_number}`,
+                  label: "Open Daily Reading",
+                  variant: "outline",
+                },
+                {
+                  href: "/brotherhood",
+                  label: "Back to Brotherhood",
+                  variant: "primary",
+                },
+              ]}
+            />
           </div>
+        </HeroPanel>
+
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <MetricCard
+            label="Day Status"
+            value={`${completedRequiredCount}/${requiredTasks.length}`}
+            detail={statusLabel}
+            meterValue={requiredPercent}
+          />
+          <MetricCard
+            label="Date"
+            value={formatReadableDate(taskModels[0]?.dayDate) || `Day ${selectedDay}`}
+            detail="Challenge calendar date."
+          />
+          <MetricCard
+            label="Reading"
+            value={typedPlanDay.reading_reference ?? "Daily office"}
+            detail={typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
+          />
+          <MetricCard
+            label="Optional Done"
+            value={`${optionalDoneCount}/${optionalTasks.length}`}
+            detail="Flexible disciplines completed for this member."
+          />
         </div>
 
-        <div className="mb-6 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Day Status</p>
-            <p className="mt-3 text-3xl font-bold">
-              {completedRequiredCount}/{requiredTasks.length}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300">Required tasks completed</p>
-          </div>
+        {uniqueQuotaTasks.length > 0 && (
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Momentum"
+              title="Quota Progress"
+              description="Weekly and monthly disciplines remain visible without crowding the day."
+            />
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Date</p>
-            <p className="mt-3 text-2xl font-bold">
-              {formatReadableDate(taskModels[0]?.dayDate)}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300">Challenge calendar date</p>
-          </div>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {uniqueQuotaTasks.map((task) => {
+                const safeTarget = Math.max(task.quotaTarget ?? 1, 1);
+                const clampedCompleted = Math.max(task.progressCount ?? 0, 0);
+                const meterNow = Math.min(clampedCompleted, safeTarget);
+                const meterPercent = Math.min(
+                  100,
+                  Math.round((clampedCompleted / safeTarget) * 100)
+                );
+                const tone = getQuotaMeterTone(clampedCompleted, safeTarget);
+                const meterClasses = getQuotaMeterClasses(tone);
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Reading</p>
-            <p className="mt-3 text-lg font-bold">
-              {typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
-            </p>
-            <p className="mt-2 text-sm text-zinc-300">
-              {typedPlanDay.reading_reference ?? "Open the reading page"}
-            </p>
-          </div>
-        </div>
+                return (
+                  <SurfaceInset key={`quota-${task.taskTemplateId}`}>
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-xl font-semibold text-monastic-0">
+                          {task.title}
+                        </p>
+                        <p className="mt-2 text-sm leading-6 text-monastic-1">
+                          {task.progressLabel}
+                        </p>
+                      </div>
+                      <div
+                        className={`rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.22em] ${meterClasses.text}`}
+                      >
+                        {meterNow}/{safeTarget}
+                      </div>
+                    </div>
+                    <div
+                      className={`mt-4 h-2 rounded-full ${meterClasses.track}`}
+                      role="progressbar"
+                      aria-label={`${task.title} progress`}
+                      aria-valuenow={meterNow}
+                      aria-valuemin={0}
+                      aria-valuemax={safeTarget}
+                    >
+                      <div
+                        className={`h-2 rounded-full transition-all ${meterClasses.fill}`}
+                        style={{ width: `${meterPercent}%` }}
+                      />
+                    </div>
+                    {task.note ? (
+                      <p className="mt-3 text-sm leading-6 text-monastic-2">{task.note}</p>
+                    ) : null}
+                  </SurfaceInset>
+                );
+              })}
+            </div>
+          </SurfaceCard>
+        )}
 
-        <div className="grid gap-6 lg:grid-cols-2">
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">Required Tasks</h2>
+        <div className="grid gap-6 xl:grid-cols-2">
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Daily Core"
+              title="Required Tasks"
+              description="The non-negotiable disciplines for this member on the selected day."
+            />
 
-            <div className="mt-4 space-y-3">
+            <div className="mt-5 space-y-3">
               {requiredTasks.length > 0 ? (
                 requiredTasks.map((task) => {
                   const completion = completionByTaskId.get(task.id);
+                  const isReflectionTask = task.id === reflectionTaskId;
+                  const completionLabel = completion
+                    ? `Completed: ${toCompletedLabel(
+                        completion.completed_at ?? completion.updated_at
+                      )}`
+                    : isReflectionTask && reflectionEntry?.id && task.isCompleted
+                      ? "Completed via saved reflection entry"
+                      : "Not completed";
 
                   return (
-                    <div
-                      key={task.id}
-                      className="rounded-xl border border-zinc-800 bg-black p-4"
-                    >
-                      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                        <div className="space-y-1">
-                          <p className="text-base font-semibold text-white">{task.title}</p>
-                          {task.note ? (
-                            <p className="text-sm leading-6 text-zinc-400">{task.note}</p>
-                          ) : null}
-                          {completion ? (
-                            <p className="text-xs text-zinc-500">
-                              Completed: {toCompletedLabel(completion.completed_at ?? completion.updated_at)}
-                            </p>
-                          ) : (
-                            <p className="text-xs text-zinc-500">Not completed</p>
-                          )}
-                        </div>
-                        <span className={`rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${task.isCompleted ? "border border-emerald-700 text-emerald-200" : "border border-zinc-700 text-zinc-300"}`}>
-                          {task.isCompleted ? "Completed" : "Open"}
-                        </span>
-                      </div>
-                    </div>
+                    <TaskCard key={task.id}>
+                      <TaskCardHeader
+                        title={task.title}
+                        description={task.note}
+                        action={
+                          <StatusPill tone={task.isCompleted ? "done" : "required"}>
+                            {task.isCompleted ? "Completed" : "Required"}
+                          </StatusPill>
+                        }
+                      />
+
+                      <TaskCardMeta className="mt-4">
+                        <span>{completionLabel}</span>
+                        {task.progressLabel ? <span>{task.progressLabel}</span> : null}
+                      </TaskCardMeta>
+                    </TaskCard>
                   );
                 })
               ) : (
-                <p className="text-sm text-zinc-400">No required tasks for this day.</p>
+                <p className="text-base leading-7 text-monastic-1">
+                  No required tasks for this day.
+                </p>
               )}
             </div>
-          </section>
+          </SurfaceCard>
 
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-            <h2 className="text-xl font-semibold sm:text-2xl">Optional + Quota Tasks</h2>
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Optional Disciplines"
+              title="Optional + Quota Tasks"
+              description="Flexible practices and counted quota work for the selected day."
+            />
 
-            <div className="mt-4 space-y-3">
+            <div className="mt-5 space-y-3">
               {optionalTasks.length > 0 ? (
                 optionalTasks.map((task) => {
                   const completion = completionByTaskId.get(task.id);
+                  const completionLabel = completion
+                    ? `Completed: ${toCompletedLabel(
+                        completion.completed_at ?? completion.updated_at
+                      )}`
+                    : "Not completed";
 
                   return (
-                    <div
-                      key={task.id}
-                      className="rounded-xl border border-zinc-800 bg-black p-4"
-                    >
-                      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                        <div className="space-y-1">
-                          <p className="text-base font-semibold text-white">{task.title}</p>
-                          {task.note ? (
-                            <p className="text-sm leading-6 text-zinc-400">{task.note}</p>
-                          ) : null}
-                          {task.progressLabel ? (
-                            <p className="text-xs text-blue-200">{task.progressLabel}</p>
-                          ) : null}
-                          {completion ? (
-                            <p className="text-xs text-zinc-500">
-                              Completed: {toCompletedLabel(completion.completed_at ?? completion.updated_at)}
-                            </p>
-                          ) : (
-                            <p className="text-xs text-zinc-500">Not completed</p>
-                          )}
-                        </div>
-                        <span className={`rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${task.isCompleted ? "border border-emerald-700 text-emerald-200" : "border border-zinc-700 text-zinc-300"}`}>
-                          {task.isCompleted ? "Completed" : "Open"}
-                        </span>
-                      </div>
-                    </div>
+                    <TaskCard key={task.id}>
+                      <TaskCardHeader
+                        title={task.title}
+                        description={task.note}
+                        action={
+                          <StatusPill tone={task.isCompleted ? "done" : "optional"}>
+                            {task.isCompleted ? "Completed" : "Optional"}
+                          </StatusPill>
+                        }
+                      />
+
+                      <TaskCardMeta className="mt-4">
+                        <span>{completionLabel}</span>
+                        {task.progressLabel ? (
+                          <StatusPill tone="progress">{task.progressLabel}</StatusPill>
+                        ) : null}
+                      </TaskCardMeta>
+                    </TaskCard>
                   );
                 })
               ) : (
-                <p className="text-sm text-zinc-400">No optional tasks for this day.</p>
+                <p className="text-base leading-7 text-monastic-1">
+                  No optional tasks for this day.
+                </p>
               )}
             </div>
-          </section>
+          </SurfaceCard>
         </div>
 
-        <section className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
-          <h2 className="text-xl font-semibold sm:text-2xl">Reflection Prompt</h2>
-          <p className="mt-3 text-sm text-zinc-300 sm:text-base">
+        <SurfaceCard>
+          <SectionHeader
+            kicker="Examen"
+            title="Reflection Prompt"
+            action={
+              <Button asChild size="xs" variant="secondary">
+                <Link href={`/reflection?day=${typedPlanDay.day_number}`}>
+                  Open Reflection
+                </Link>
+              </Button>
+            }
+          />
+          <p className="mt-4 text-base leading-7 text-monastic-1">
             {typedPlanDay.reflection_prompt ?? "No reflection prompt for this day."}
           </p>
-        </section>
-      </div>
+        </SurfaceCard>
+      </PageFrame>
     </main>
   );
 }
