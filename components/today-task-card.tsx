@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
 import { toggleTaskCompletion } from "@/app/today/actions";
 import { StatusPill, TaskCard, TaskCardMeta } from "@/components/task-card";
@@ -35,9 +36,12 @@ export function TodayTaskCard({
   lockedLabel,
   href,
 }: TodayTaskCardProps) {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
+  const [isRefreshing, startRefreshTransition] = useTransition();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [optimisticCompleted, setOptimisticCompleted] = useState(completed);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isSubmitting) {
@@ -45,7 +49,7 @@ export function TodayTaskCard({
     }
   }, [completed, isSubmitting]);
 
-  const isBusy = isSubmitting || locked || Boolean(href);
+  const isBusy = isSubmitting || isRefreshing || locked || Boolean(href);
 
   const submitTask = async (formData: FormData) => {
     if (isBusy) return;
@@ -53,11 +57,18 @@ export function TodayTaskCard({
     const nextCompleted = !optimisticCompleted;
     setIsSubmitting(true);
     setOptimisticCompleted(nextCompleted);
+    setErrorMessage(null);
 
     try {
       await toggleTaskCompletion(formData);
-    } catch {
+      startRefreshTransition(() => {
+        router.refresh();
+      });
+    } catch (error) {
       setOptimisticCompleted((prev) => !prev);
+      setErrorMessage(
+        error instanceof Error ? error.message : "Could not update this task right now."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -123,10 +134,10 @@ export function TodayTaskCard({
 
           <Button
             type="submit"
-            disabled={isSubmitting || locked || Boolean(href)}
+            disabled={isBusy}
             aria-label={`Toggle completion for ${title}`}
             aria-pressed={optimisticCompleted}
-            aria-busy={isSubmitting}
+            aria-busy={isSubmitting || isRefreshing}
             variant="secondary"
             size="icon"
             className="h-12 w-12 shrink-0 rounded-[1.1rem]"
@@ -134,14 +145,14 @@ export function TodayTaskCard({
             <span
               aria-hidden="true"
               className={`flex h-7 w-7 items-center justify-center rounded-[0.7rem] border transition ${
-                isSubmitting
+                isSubmitting || isRefreshing
                   ? "border-[#7d887b] bg-[rgba(154,185,165,0.12)] text-[#7d887b]"
                   : optimisticCompleted
                   ? "border-[#57785e] bg-[#9ab9a5] text-[#223127]"
                   : "border-[color:var(--line-strong)] bg-transparent text-transparent"
               }`}
             >
-              {isSubmitting ? (
+              {isSubmitting || isRefreshing ? (
                 <span className="h-4 w-4 rounded-full border-2 border-current border-t-transparent motion-safe:animate-spin motion-reduce:animate-none" />
               ) : (
                 <Check className="h-4 w-4" />
@@ -152,7 +163,9 @@ export function TodayTaskCard({
 
         <TaskCardMeta className="mt-3 justify-between gap-3">
           <span>
-            {isSubmitting
+            {errorMessage
+              ? errorMessage
+              : isSubmitting || isRefreshing
               ? "Saving..."
               : href
                 ? "Open journal"
