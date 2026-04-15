@@ -1,9 +1,11 @@
+import MonasticLoading from "@/components/monastic-loading";
+
 export default function Loading() {
   return (
-    <main className="min-h-screen bg-black text-white">
-      <div className="mx-auto max-w-6xl px-6 py-12">
-        <p className="text-zinc-400">Loading dashboard...</p>
-      </div>
-    </main>
+    <MonasticLoading
+      label="Dashboard"
+      title="Loading dashboard"
+      description="Preparing today, your progress, and the next faithful step."
+    />
   );
 }

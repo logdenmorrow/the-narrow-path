@@ -1,5 +1,16 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import {
+  HeroPanel,
+  MetricCard,
+  PageFrame,
+  SectionHeader,
+  SurfaceCard,
+  SurfaceInset,
+} from "@/components/monastic-ui";
+import { AppActionBar } from "@/components/page-actions";
+import { StatusPill } from "@/components/task-card";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import { saveReflectionEntry } from "@/app/reflection/actions";
@@ -129,36 +140,102 @@ export default async function ReflectionPage({
   const isLocked = !challenge.hasStarted || selectedDay > challenge.currentDayNumber;
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
-        <div className="mb-6 flex flex-wrap gap-3">
-          <Link
-            href={`/today?day=${selectedDay}`}
-            className="rounded-lg border border-zinc-700 px-4 py-3 font-semibold text-white transition hover:bg-zinc-900"
-          >
-            Back to Today
-          </Link>
-          <Link
-            href="/dashboard"
-            className="rounded-lg border border-zinc-700 px-4 py-3 font-semibold text-white transition hover:bg-zinc-900"
-          >
-            Dashboard
-          </Link>
+    <main className="monastic-page">
+      <PageFrame className="max-w-4xl space-y-6">
+        {!challenge.hasStarted && (
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
+              The challenge begins on {challenge.startDateLabel}.
+            </p>
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
+              Reflection is available in preview mode, but future-day saving stays locked until launch.
+            </p>
+          </SurfaceCard>
+        )}
+
+        <HeroPanel className="py-7 sm:py-8">
+          <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
+            <div className="text-[#f7ebd8]">
+              <p className="section-kicker text-[#ead6b0]">Day {selectedDay}</p>
+              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">Reflection</h1>
+              <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
+                The daily examen keeps resistance, graces, and concrete response in one place.
+              </p>
+            </div>
+
+            <AppActionBar
+              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
+              actions={[
+                {
+                  href: `/today?day=${selectedDay}`,
+                  label: "Back to Today",
+                  variant: "secondary",
+                },
+                {
+                  href: "/dashboard",
+                  label: "Dashboard",
+                  variant: "outline",
+                },
+              ]}
+            />
+          </div>
+        </HeroPanel>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          <MetricCard
+            label="Status"
+            value={hasSavedEntry ? "Saved" : "Open"}
+            detail={
+              hasSavedEntry
+                ? "This reflection currently counts as completed."
+                : "Save an entry to complete the reflection task."
+            }
+          />
+          <MetricCard
+            label="Prompt"
+            value={planDay.title ?? `Day ${selectedDay}`}
+            detail="The examen prompt for the selected challenge day."
+          />
+          <MetricCard
+            label="Editing"
+            value={isLocked ? "Locked" : "Available"}
+            detail={
+              isLocked
+                ? "Future-day reflection editing is disabled."
+                : "You can update and resave this journal entry."
+            }
+          />
         </div>
 
-        <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-          <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Day {selectedDay}</p>
-          <h1 className="mt-2 text-3xl font-bold">Reflection</h1>
-          <p className="mt-4 text-base text-zinc-300">
-            {planDay.reflection_prompt || "No reflection prompt has been assigned for this day yet."}
-          </p>
+        <SurfaceCard>
+          <SectionHeader
+            kicker="Prompt"
+            title="Read the prompt before writing."
+            action={
+              <StatusPill tone={hasSavedEntry ? "done" : isLocked ? "neutral" : "required"}>
+                {hasSavedEntry
+                  ? "Completed"
+                  : isLocked
+                    ? "Locked"
+                    : "Open"}
+              </StatusPill>
+            }
+          />
 
-          <div className="mt-5 rounded-xl border border-zinc-800 bg-black px-4 py-3">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Task Status</p>
-            <p className="mt-2 text-sm font-semibold text-white">
-              {hasSavedEntry ? "Completed (saved entry)" : "Incomplete (save entry to complete)"}
+          <SurfaceInset className="mt-5">
+            <p className="text-base leading-7 text-monastic-1">
+              {planDay.reflection_prompt ||
+                "No reflection prompt has been assigned for this day yet."}
             </p>
-          </div>
+          </SurfaceInset>
+        </SurfaceCard>
+
+        <SurfaceCard>
+          <SectionHeader
+            kicker="Journal"
+            title="Write the day truthfully."
+            description="Your saved reflection marks the task complete and remains available when you return."
+          />
 
           <form action={saveReflectionEntry} className="mt-6 space-y-4">
             <input type="hidden" name="planDayId" value={planDay.id} />
@@ -166,9 +243,10 @@ export default async function ReflectionPage({
             <input type="hidden" name="reflectionTaskId" value={reflectionTask?.id ?? ""} />
             <input type="hidden" name="promptText" value={planDay.reflection_prompt ?? ""} />
 
-            <label htmlFor="entryText" className="block text-sm font-semibold text-zinc-300">
+            <label htmlFor="entryText" className="block text-sm font-medium text-monastic-1">
               Journal Entry
             </label>
+
             <textarea
               id="entryText"
               name="entryText"
@@ -176,20 +254,22 @@ export default async function ReflectionPage({
               required
               rows={14}
               disabled={isLocked}
-              className="w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-sm text-white outline-none ring-zinc-500 placeholder:text-zinc-500 focus:ring-2 disabled:cursor-not-allowed disabled:opacity-70"
+              className="monastic-field min-h-[18rem] text-sm leading-7"
               placeholder="Write your reflection for today."
             />
 
-            <button
-              type="submit"
-              disabled={isLocked}
-              className="rounded-lg bg-white px-4 py-3 text-sm font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-70"
-            >
-              Save Reflection
-            </button>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button type="submit" disabled={isLocked}>
+                Save Reflection
+              </Button>
+
+              <Button asChild variant="secondary">
+                <Link href={`/today?day=${selectedDay}`}>Return to Today</Link>
+              </Button>
+            </div>
           </form>
-        </section>
-      </div>
+        </SurfaceCard>
+      </PageFrame>
     </main>
   );
 }
