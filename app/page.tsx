@@ -94,10 +94,16 @@ export default async function HomePage() {
               />
             </div>
 
-            <SurfaceCard className="border-white/10 bg-[rgba(19,14,11,0.38)] text-[#f2e5d0] backdrop-blur-sm">
-              <div className="section-kicker text-[#d9ba83]">Today&apos;s Office</div>
-              <h2 className="mt-3 text-3xl font-semibold text-white">{overview.readingTitle}</h2>
-              <p className="mt-2 text-base text-[#ead8bc]">{overview.readingReference}</p>
+            <SurfaceCard className="home-office-card text-[#4a3525] dark:border-white/10 dark:bg-[rgba(19,14,11,0.38)] dark:text-[#f2e5d0] dark:backdrop-blur-sm">
+              <div className="section-kicker text-[#8b6037] dark:text-[#d9ba83]">
+                Today&apos;s Office
+              </div>
+              <h2 className="mt-3 text-3xl font-semibold text-[#2f2117] dark:text-white">
+                {overview.readingTitle}
+              </h2>
+              <p className="mt-2 text-base text-[#6b4b2f] dark:text-[#ead8bc]">
+                {overview.readingReference}
+              </p>
 
               <div className="mt-6 space-y-4">
                 <SurfaceInset className="border-white/10 bg-[rgba(255,246,229,0.08)]">
