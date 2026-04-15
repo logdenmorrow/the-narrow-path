@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
 import { toggleTaskCompletion } from "@/app/today/actions";
 import { StatusPill, TaskCard, TaskCardMeta } from "@/components/task-card";
@@ -38,6 +38,12 @@ export function TodayTaskCard({
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [optimisticCompleted, setOptimisticCompleted] = useState(completed);
+
+  useEffect(() => {
+    if (!isSubmitting) {
+      setOptimisticCompleted(completed);
+    }
+  }, [completed, isSubmitting]);
 
   const isBusy = isSubmitting || locked || Boolean(href);
 
@@ -120,19 +126,26 @@ export function TodayTaskCard({
             disabled={isSubmitting || locked || Boolean(href)}
             aria-label={`Toggle completion for ${title}`}
             aria-pressed={optimisticCompleted}
+            aria-busy={isSubmitting}
             variant="secondary"
             size="icon"
             className="h-12 w-12 shrink-0 rounded-[1.1rem]"
           >
             <span
               aria-hidden="true"
-              className={`flex h-7 w-7 items-center justify-center rounded-[0.7rem] border ${
-                optimisticCompleted
+              className={`flex h-7 w-7 items-center justify-center rounded-[0.7rem] border transition ${
+                isSubmitting
+                  ? "border-[#7d887b] bg-[rgba(154,185,165,0.12)] text-[#7d887b]"
+                  : optimisticCompleted
                   ? "border-[#57785e] bg-[#9ab9a5] text-[#223127]"
                   : "border-[color:var(--line-strong)] bg-transparent text-transparent"
               }`}
             >
-              <Check className="h-4 w-4" />
+              {isSubmitting ? (
+                <span className="h-4 w-4 rounded-full border-2 border-current border-t-transparent motion-safe:animate-spin motion-reduce:animate-none" />
+              ) : (
+                <Check className="h-4 w-4" />
+              )}
             </span>
           </Button>
         </div>

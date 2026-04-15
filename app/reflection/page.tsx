@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
   HeroPanel,
@@ -10,10 +9,9 @@ import {
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 import { StatusPill } from "@/components/task-card";
-import { Button } from "@/components/ui/button";
+import { ReflectionEntryForm } from "@/components/reflection-entry-form";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
-import { saveReflectionEntry } from "@/app/reflection/actions";
 import { decryptJournalEntry } from "@/lib/journal-crypto";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -237,37 +235,16 @@ export default async function ReflectionPage({
             description="Your saved reflection marks the task complete and remains available when you return."
           />
 
-          <form action={saveReflectionEntry} className="mt-6 space-y-4">
-            <input type="hidden" name="planDayId" value={planDay.id} />
-            <input type="hidden" name="dayNumber" value={planDay.day_number} />
-            <input type="hidden" name="reflectionTaskId" value={reflectionTask?.id ?? ""} />
-            <input type="hidden" name="promptText" value={planDay.reflection_prompt ?? ""} />
-
-            <label htmlFor="entryText" className="block text-sm font-medium text-monastic-1">
-              Journal Entry
-            </label>
-
-            <textarea
-              id="entryText"
-              name="entryText"
-              defaultValue={entryText}
-              required
-              rows={14}
-              disabled={isLocked}
-              className="monastic-field min-h-[18rem] text-sm leading-7"
-              placeholder="Write your reflection for today."
-            />
-
-            <div className="flex flex-wrap items-center gap-3">
-              <Button type="submit" disabled={isLocked}>
-                Save Reflection
-              </Button>
-
-              <Button asChild variant="secondary">
-                <Link href={`/today?day=${selectedDay}`}>Return to Today</Link>
-              </Button>
-            </div>
-          </form>
+          <ReflectionEntryForm
+            planDayId={planDay.id}
+            dayNumber={planDay.day_number}
+            reflectionTaskId={reflectionTask?.id ?? null}
+            promptText={planDay.reflection_prompt ?? ""}
+            initialEntryText={entryText}
+            initialHasSavedEntry={hasSavedEntry}
+            isLocked={isLocked}
+            selectedDay={selectedDay}
+          />
         </SurfaceCard>
       </PageFrame>
     </main>
