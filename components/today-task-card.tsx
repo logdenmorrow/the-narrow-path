@@ -8,6 +8,7 @@ import { Check } from "lucide-react";
 import { toggleTaskCompletion } from "@/app/today/actions";
 import { StatusPill, TaskCard, TaskCardMeta } from "@/components/task-card";
 import { Button } from "@/components/ui/button";
+import { getTaskStatusPillState } from "@/lib/task-progress";
 
 type TodayTaskCardProps = {
   planDayTaskId: number;
@@ -84,9 +85,14 @@ export function TodayTaskCard({
 
     pendingTargetRef.current = null;
     setOptimisticCompleted(completed);
-  }, [completed]);
+  }, [completed, planDayTaskId]);
 
   const isBusy = isSubmitting || locked || Boolean(href);
+  const statusPill = getTaskStatusPillState({
+    isCompleted: optimisticCompleted,
+    isRequired,
+    isOptional,
+  });
 
   const submitTask = async (formData: FormData) => {
     if (isBusy) return;
@@ -162,9 +168,8 @@ export function TodayTaskCard({
                 {title}
               </h3>
 
-              {isRequired ? <StatusPill tone="required">Required Today</StatusPill> : null}
-              {!isRequired && isOptional ? (
-                <StatusPill tone="optional">Optional Today</StatusPill>
+              {statusPill ? (
+                <StatusPill tone={statusPill.tone}>{statusPill.label}</StatusPill>
               ) : null}
               {progressLabel ? (
                 <StatusPill tone="progress">{progressLabel}</StatusPill>

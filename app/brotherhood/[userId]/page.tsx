@@ -23,6 +23,7 @@ import {
   createReflectionCompletionOverrides,
   formatReadableDate,
   getReflectionTaskId,
+  getTaskStatusPillState,
   summarizeRequiredTasks,
   toShortDisplayName,
   type CompletionRecord,
@@ -509,6 +510,7 @@ export default async function BrotherhoodMemberPage({
                 requiredTasks.map((task) => {
                   const completion = completionByTaskId.get(task.id);
                   const isReflectionTask = task.id === reflectionTaskId;
+                  const statusPill = getTaskStatusPillState(task);
                   const completionLabel = completion
                     ? `Completed: ${toCompletedLabel(
                         completion.completed_at ?? completion.updated_at
@@ -523,9 +525,11 @@ export default async function BrotherhoodMemberPage({
                         title={task.title}
                         description={task.note}
                         action={
-                          <StatusPill tone={task.isCompleted ? "done" : "required"}>
-                            {task.isCompleted ? "Completed" : "Required"}
-                          </StatusPill>
+                          statusPill ? (
+                            <StatusPill tone={statusPill.tone}>
+                              {statusPill.label}
+                            </StatusPill>
+                          ) : null
                         }
                       />
 
@@ -555,6 +559,7 @@ export default async function BrotherhoodMemberPage({
               {optionalTasks.length > 0 ? (
                 optionalTasks.map((task) => {
                   const completion = completionByTaskId.get(task.id);
+                  const statusPill = getTaskStatusPillState(task);
                   const completionLabel = completion
                     ? `Completed: ${toCompletedLabel(
                         completion.completed_at ?? completion.updated_at
@@ -567,9 +572,11 @@ export default async function BrotherhoodMemberPage({
                         title={task.title}
                         description={task.note}
                         action={
-                          <StatusPill tone={task.isCompleted ? "done" : "optional"}>
-                            {task.isCompleted ? "Completed" : "Optional"}
-                          </StatusPill>
+                          statusPill ? (
+                            <StatusPill tone={statusPill.tone}>
+                              {statusPill.label}
+                            </StatusPill>
+                          ) : null
                         }
                       />
 

@@ -21,6 +21,7 @@ import { getChallengeTiming } from "@/lib/challenge";
 import {
   buildTaskViewModels,
   formatReadableDate,
+  getTaskStatusPillState,
   type CompletionRecord,
   type PlanDayTaskRecord,
 } from "@/lib/task-progress";
@@ -387,26 +388,32 @@ export default async function ThisWeekPage({
                   </h3>
                   <div className="mt-3 space-y-2">
                     {required.length > 0 ? (
-                      required.map((task) => (
-                        <div
-                          key={task.id}
-                          className="monastic-subcard p-3"
-                        >
-                          <div className="flex items-center justify-between gap-3">
-                            <p className="text-sm font-medium text-monastic-0">
-                              {task.title}
-                            </p>
-                            <StatusPill tone={task.isCompleted ? "done" : "required"}>
-                              {task.isCompleted ? "Done" : "Required"}
-                            </StatusPill>
+                      required.map((task) => {
+                        const statusPill = getTaskStatusPillState(task);
+
+                        return (
+                          <div
+                            key={task.id}
+                            className="monastic-subcard p-3"
+                          >
+                            <div className="flex items-center justify-between gap-3">
+                              <p className="text-sm font-medium text-monastic-0">
+                                {task.title}
+                              </p>
+                              {statusPill ? (
+                                <StatusPill tone={statusPill.tone}>
+                                  {statusPill.label}
+                                </StatusPill>
+                              ) : null}
+                            </div>
+                            {task.note ? (
+                              <p className="mt-2 text-xs leading-5 text-monastic-1">
+                                {task.note}
+                              </p>
+                            ) : null}
                           </div>
-                          {task.note ? (
-                            <p className="mt-2 text-xs leading-5 text-monastic-1">
-                              {task.note}
-                            </p>
-                          ) : null}
-                        </div>
-                      ))
+                        );
+                      })
                     ) : (
                       <p className="text-sm text-monastic-1">No required tasks.</p>
                     )}
@@ -419,33 +426,39 @@ export default async function ThisWeekPage({
                   </h3>
                   <div className="mt-3 space-y-2">
                     {optional.length > 0 ? (
-                      optional.map((task) => (
-                        <div
-                          key={task.id}
-                          className="monastic-subcard p-3"
-                        >
-                          <div className="flex items-center justify-between gap-3">
-                            <p className="text-sm font-medium text-monastic-0">
-                              {task.title}
-                            </p>
-                            <StatusPill tone={task.isCompleted ? "done" : "optional"}>
-                              {task.isCompleted ? "Done" : "Optional"}
-                            </StatusPill>
+                      optional.map((task) => {
+                        const statusPill = getTaskStatusPillState(task);
+
+                        return (
+                          <div
+                            key={task.id}
+                            className="monastic-subcard p-3"
+                          >
+                            <div className="flex items-center justify-between gap-3">
+                              <p className="text-sm font-medium text-monastic-0">
+                                {task.title}
+                              </p>
+                              {statusPill ? (
+                                <StatusPill tone={statusPill.tone}>
+                                  {statusPill.label}
+                                </StatusPill>
+                              ) : null}
+                            </div>
+
+                            {task.progressLabel ? (
+                              <p className="mt-2 text-xs leading-5 text-monastic-1">
+                                {task.progressLabel}
+                              </p>
+                            ) : null}
+
+                            {task.note ? (
+                              <p className="mt-2 text-xs leading-5 text-monastic-1">
+                                {task.note}
+                              </p>
+                            ) : null}
                           </div>
-
-                          {task.progressLabel ? (
-                            <p className="mt-2 text-xs leading-5 text-monastic-1">
-                              {task.progressLabel}
-                            </p>
-                          ) : null}
-
-                          {task.note ? (
-                            <p className="mt-2 text-xs leading-5 text-monastic-1">
-                              {task.note}
-                            </p>
-                          ) : null}
-                        </div>
-                      ))
+                        );
+                      })
                     ) : (
                       <p className="text-sm text-monastic-1">No optional tasks.</p>
                     )}

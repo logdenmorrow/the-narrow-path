@@ -48,6 +48,11 @@ export type TaskViewModel = {
   displayOrder: number;
 };
 
+export type TaskStatusPillState = {
+  tone: "required" | "optional" | "done";
+  label: "Required" | "Optional" | "Completed";
+};
+
 type ReflectionTaskLike = Pick<PlanDayTaskRecord, "id" | "task_templates">;
 
 function normalizeTaskTemplate(
@@ -96,8 +101,10 @@ export function createReflectionCompletionOverrides(
 ) {
   const overrides = new Map<number, boolean>();
 
-  if (reflectionTaskId !== null) {
-    overrides.set(reflectionTaskId, hasSavedReflection);
+  // Reflection entries can mark the task complete even if the completion row
+  // is missing, but the absence of an entry should not erase a real completion.
+  if (reflectionTaskId !== null && hasSavedReflection) {
+    overrides.set(reflectionTaskId, true);
   }
 
   return overrides;
@@ -108,17 +115,33 @@ export function applyReflectionCompletionOverride(
   reflectionTaskId: number | null,
   hasSavedReflection: boolean
 ) {
-  if (reflectionTaskId === null) {
+  if (reflectionTaskId === null || !hasSavedReflection) {
     return completedTaskIds;
   }
 
-  if (hasSavedReflection) {
-    completedTaskIds.add(reflectionTaskId);
-  } else {
-    completedTaskIds.delete(reflectionTaskId);
-  }
+  completedTaskIds.add(reflectionTaskId);
 
   return completedTaskIds;
+}
+
+export function getTaskStatusPillState(task: {
+  isCompleted: boolean;
+  isRequired: boolean;
+  isOptional: boolean;
+}): TaskStatusPillState | null {
+  if (task.isCompleted) {
+    return { tone: "done", label: "Completed" };
+  }
+
+  if (task.isRequired) {
+    return { tone: "required", label: "Required" };
+  }
+
+  if (task.isOptional) {
+    return { tone: "optional", label: "Optional" };
+  }
+
+  return null;
 }
 
 export function buildTaskViewModels(
