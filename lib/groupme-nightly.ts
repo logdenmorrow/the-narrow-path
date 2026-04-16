@@ -41,6 +41,16 @@ type TomorrowTaskRow = {
   week_start_date: string | null;
   month_start_date: string | null;
   display_order: number | null;
+  plan_days:
+    | {
+        id: number;
+        day_number: number;
+      }
+    | Array<{
+        id: number;
+        day_number: number;
+      }>
+    | null;
   task_templates: TaskTemplateRelation;
 };
 
@@ -117,6 +127,16 @@ function normalizeValue(value: string | null | undefined) {
 }
 
 function normalizeTaskTemplate(relation: TaskTemplateRelation) {
+  if (Array.isArray(relation)) {
+    return relation[0] ?? null;
+  }
+
+  return relation ?? null;
+}
+
+function normalizePlanDay(
+  relation: TomorrowTaskRow["plan_days"]
+): { id: number; day_number: number } | null {
   if (Array.isArray(relation)) {
     return relation[0] ?? null;
   }
@@ -219,12 +239,17 @@ export async function generateNightlyReminderPreview() {
         week_start_date,
         month_start_date,
         display_order,
+        plan_days!inner (
+          id,
+          day_number
+        ),
         task_templates (
           slug,
           title
         )
       `
     )
+    .eq("plan_days.plan_id", typedPlan.id)
     .eq("day_date", tomorrowIso)
     .order("display_order")
     .order("id");
@@ -242,23 +267,15 @@ export async function generateNightlyReminderPreview() {
     );
   }
 
-  const tomorrowPlanDayIds = [...new Set(typedTasks.map((task) => task.plan_day_id))];
+  const typedPlanDays = typedTasks
+    .map((task) => normalizePlanDay(task.plan_days))
+    .filter((planDay): planDay is PlanDayRow => Boolean(planDay));
 
-  const { data: planDays, error: planDaysError } = await supabase
-    .from("plan_days")
-    .select("id, day_number")
-    .eq("plan_id", typedPlan.id)
-    .in("id", tomorrowPlanDayIds);
+  const uniquePlanDayIds = [...new Set(typedPlanDays.map((planDay) => planDay.id))];
 
-  const typedPlanDays = (planDays ?? []) as PlanDayRow[];
-
-  if (planDaysError || typedPlanDays.length === 0) {
-    throw new GroupMeError(`Could not load plan day metadata for ${tomorrowIso}.`, 500);
-  }
-
-  if (typedPlanDays.length > 1) {
+  if (uniquePlanDayIds.length !== 1) {
     throw new GroupMeError(
-      `Expected one plan day for ${tomorrowIso}, but found ${typedPlanDays.length}.`,
+      `Expected one plan day for ${tomorrowIso}, but found ${uniquePlanDayIds.length}.`,
       500
     );
   }
