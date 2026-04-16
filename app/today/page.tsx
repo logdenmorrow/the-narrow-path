@@ -47,6 +47,26 @@ function uniqueTaskIds(tasks: PlanDayTaskRecord[]) {
   return [...new Set(tasks.map((task) => task.id))];
 }
 
+function getTaskSecondaryAction(slug: string, dayNumber: number) {
+  if (slug === "reflection") {
+    return {
+      href: `/reflection?day=${dayNumber}`,
+      label: "Open Reflection",
+      statusText: "Open journal",
+    };
+  }
+
+  if (slug === "reading") {
+    return {
+      href: `/daily-reading?day=${dayNumber}`,
+      label: "Open Reading",
+      statusText: "Open reading",
+    };
+  }
+
+  return undefined;
+}
+
 export default async function TodayPage({
   searchParams,
 }: {
@@ -474,11 +494,10 @@ export default async function TodayPage({
                     completed={task.isCompleted}
                     locked={!canEditSelectedDay}
                     lockedLabel={lockLabel}
-                    href={
-                      task.slug === "reflection"
-                        ? `/reflection?day=${typedPlanDay.day_number}`
-                        : undefined
-                    }
+                    secondaryAction={getTaskSecondaryAction(
+                      task.slug,
+                      typedPlanDay.day_number
+                    )}
                   />
                 ))
               ) : (
@@ -507,11 +526,10 @@ export default async function TodayPage({
                     completed={task.isCompleted}
                     locked={!canEditSelectedDay}
                     lockedLabel={lockLabel}
-                    href={
-                      task.slug === "reflection"
-                        ? `/reflection?day=${typedPlanDay.day_number}`
-                        : undefined
-                    }
+                    secondaryAction={getTaskSecondaryAction(
+                      task.slug,
+                      typedPlanDay.day_number
+                    )}
                   />
                 ))
               ) : (

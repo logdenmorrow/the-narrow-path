@@ -20,7 +20,11 @@ type TodayTaskCardProps = {
   completed: boolean;
   locked: boolean;
   lockedLabel?: string;
-  href?: string;
+  secondaryAction?: {
+    href: string;
+    label: string;
+    statusText?: string;
+  };
 };
 
 const INTERACTIVE_TARGET_SELECTOR =
@@ -46,7 +50,7 @@ export function TodayTaskCard({
   completed,
   locked,
   lockedLabel,
-  href,
+  secondaryAction,
 }: TodayTaskCardProps) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
@@ -87,7 +91,7 @@ export function TodayTaskCard({
     setOptimisticCompleted(completed);
   }, [completed, planDayTaskId]);
 
-  const isBusy = isSubmitting || locked || Boolean(href);
+  const isBusy = isSubmitting || locked;
   const statusPill = getTaskStatusPillState({
     isCompleted: optimisticCompleted,
     isRequired,
@@ -224,8 +228,8 @@ export function TodayTaskCard({
               ? errorMessage
               : isSubmitting
                 ? "Saving..."
-                : href
-                  ? "Open journal"
+                : secondaryAction
+                  ? secondaryAction.statusText ?? "Open related page"
                   : locked
                     ? lockedLabel ?? "Locked"
                     : optimisticCompleted
@@ -233,9 +237,9 @@ export function TodayTaskCard({
                       : "Tap to mark complete"}
           </span>
 
-          {href ? (
+          {secondaryAction ? (
             <Button asChild variant="secondary" size="xs">
-              <Link href={href}>Open Reflection</Link>
+              <Link href={secondaryAction.href}>{secondaryAction.label}</Link>
             </Button>
           ) : null}
         </TaskCardMeta>
