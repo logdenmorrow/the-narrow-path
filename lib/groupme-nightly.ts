@@ -4,7 +4,7 @@ import {
   CHALLENGE_TIME_ZONE,
   getIsoDateInTimeZone,
 } from "@/lib/challenge";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { getAppBaseUrl } from "@/lib/server-config";
 import { GroupMeError } from "@/lib/groupme";
 
@@ -210,7 +210,7 @@ export async function generateNightlyReminderPreview() {
   const todayIso = getIsoDateInTimeZone(new Date(), CHALLENGE_TIME_ZONE);
   const tomorrowIso = addDaysToIsoDate(todayIso, 1);
 
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")

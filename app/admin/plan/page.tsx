@@ -2,7 +2,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import type { ReactNode } from "react";
-import { createClient as createSupabaseAdminClient } from "@supabase/supabase-js";
 import {
   HeroPanel,
   MetricCard,
@@ -14,6 +13,7 @@ import {
 import { AppActionBar } from "@/components/page-actions";
 import { StatusPill } from "@/components/task-card";
 import { Button } from "@/components/ui/button";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 
@@ -92,24 +92,6 @@ function slugify(value: string) {
 
 function getAdminKey() {
   return process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
-}
-
-function createAdminClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = getAdminKey();
-
-  if (!url || !key) {
-    throw new Error(
-      "Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SECRET_KEY / SUPABASE_SERVICE_ROLE_KEY."
-    );
-  }
-
-  return createSupabaseAdminClient(url, key, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-    },
-  });
 }
 
 const fieldClassName = "monastic-field";
