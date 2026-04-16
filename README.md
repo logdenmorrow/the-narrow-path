@@ -114,3 +114,52 @@ Please file feedback and issues over on the [Supabase GitHub org](https://github
 - [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
 - [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
 - [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+
+## GroupMe nightly reminders
+
+Required server env vars:
+
+```env
+GROUPME_BOT_ID_TEST=
+GROUPME_BOT_ID_PROD=
+CRON_SECRET=
+APP_BASE_URL=
+```
+
+`APP_BASE_URL` is optional. If unset, the server uses `NEXT_PUBLIC_APP_URL`, then `VERCEL_URL`, then falls back to `https://thenarrowpath.xyz`.
+
+Available protected routes:
+
+- `GET /api/groupme/test`
+- `POST /api/groupme/send`
+- `GET /api/groupme/nightly-reminder`
+
+Each route requires:
+
+```http
+Authorization: Bearer {CRON_SECRET}
+```
+
+Examples:
+
+```bash
+curl -X GET "http://localhost:3000/api/groupme/test" ^
+  -H "Authorization: Bearer YOUR_CRON_SECRET"
+```
+
+```bash
+curl -X POST "http://localhost:3000/api/groupme/send" ^
+  -H "Authorization: Bearer YOUR_CRON_SECRET" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"text\":\"Manual test from The Narrow Path.\",\"target\":\"test\"}"
+```
+
+```bash
+curl -X GET "http://localhost:3000/api/groupme/nightly-reminder?target=test&dryRun=1" ^
+  -H "Authorization: Bearer YOUR_CRON_SECRET"
+```
+
+```bash
+curl -X GET "http://localhost:3000/api/groupme/nightly-reminder?target=prod" ^
+  -H "Authorization: Bearer YOUR_CRON_SECRET"
+```

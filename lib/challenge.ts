@@ -1,5 +1,5 @@
-const CHALLENGE_START_DATE = "2026-04-06";
-const CHALLENGE_TIME_ZONE = "America/New_York";
+export const CHALLENGE_START_DATE = "2026-04-06";
+export const CHALLENGE_TIME_ZONE = "America/New_York";
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
@@ -16,12 +16,12 @@ export type ChallengeTiming = {
   weekNumber: number;
 };
 
-function toUtcDayValue(isoDate: string) {
+export function toUtcDayValue(isoDate: string) {
   const [year, month, day] = isoDate.split("-").map(Number);
   return Date.UTC(year, month - 1, day);
 }
 
-function getIsoDateInTimeZone(
+export function getIsoDateInTimeZone(
   date = new Date(),
   timeZone = CHALLENGE_TIME_ZONE
 ) {
@@ -46,6 +46,19 @@ function getStartDateLabel() {
     day: "numeric",
     year: "numeric",
   }).format(new Date("2026-04-06T12:00:00Z"));
+}
+
+export function addDaysToIsoDate(isoDate: string, days: number) {
+  const utcValue = toUtcDayValue(isoDate) + days * MS_PER_DAY;
+  return new Date(utcValue).toISOString().slice(0, 10);
+}
+
+export function getChallengeDayNumberForIsoDate(isoDate: string) {
+  const diffDays = Math.floor(
+    (toUtcDayValue(isoDate) - toUtcDayValue(CHALLENGE_START_DATE)) / MS_PER_DAY
+  );
+
+  return diffDays + 1;
 }
 
 export function getChallengeTiming(totalDays: number): ChallengeTiming {
