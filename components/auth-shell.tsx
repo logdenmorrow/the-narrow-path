@@ -22,7 +22,7 @@ export function AuthShell({ children }: AuthShellProps) {
                   Return to the rule of prayer, discipline, and brotherhood.
                 </h1>
                 <p className="max-w-lg text-base leading-8 text-[rgba(255,239,216,0.88)] xl:text-lg">
-                  The same monastic rhythm carries through the whole app. Your
+                  The same quiet rhythm carries through the whole app. Your
                   account pages should feel like the same cloister, not a
                   separate product.
                 </p>
