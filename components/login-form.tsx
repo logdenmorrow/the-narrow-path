@@ -50,6 +50,7 @@ export function LoginForm({
       <AuthCard
         title="Welcome back"
         description="Enter your email and password to continue your rule of life."
+        className="shadow-[0_32px_70px_-40px_rgba(0,0,0,0.95)]"
         footer={
           <p className="text-center">
             Don&apos;t have an account?{" "}
@@ -60,7 +61,7 @@ export function LoginForm({
         <form onSubmit={handleLogin} className="space-y-6">
           <div className="grid gap-5">
             <div className="grid gap-2">
-              <Label htmlFor="email" className="text-sm font-semibold text-monastic-1">
+              <Label htmlFor="email" className="text-sm font-semibold tracking-[0.02em] text-monastic-0">
                 Email
               </Label>
               <Input
@@ -71,7 +72,7 @@ export function LoginForm({
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+                className="monastic-field h-12 rounded-2xl px-4 py-3 text-base shadow-none md:text-base"
               />
             </div>
 
@@ -79,11 +80,11 @@ export function LoginForm({
               <div className="flex items-center justify-between gap-3">
                 <Label
                   htmlFor="password"
-                  className="text-sm font-semibold text-monastic-1"
+                  className="text-sm font-semibold tracking-[0.02em] text-monastic-0"
                 >
                   Password
                 </Label>
-                <AuthPageLink href="/auth/forgot-password" className="text-sm">
+                <AuthPageLink href="/auth/forgot-password" className="text-sm text-[color:var(--surface-strong)]">
                   Forgot password?
                 </AuthPageLink>
               </div>
@@ -94,24 +95,24 @@ export function LoginForm({
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+                className="monastic-field h-12 rounded-2xl px-4 py-3 text-base shadow-none md:text-base"
               />
             </div>
           </div>
 
           {error ? (
-            <div className="rounded-2xl border border-red-500/30 bg-red-950/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+            <div className="rounded-2xl border border-red-400/35 bg-red-950/20 px-4 py-3 text-sm text-red-200">
               {error}
             </div>
           ) : null}
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button type="submit" className="h-12 w-full text-[13px] tracking-[0.18em]" disabled={isLoading}>
             {isLoading ? "Logging in..." : "Login"}
           </Button>
         </form>
       </AuthCard>
 
-      <p className="text-center text-sm text-monastic-2">
+      <p className="mx-auto max-w-md text-center text-sm leading-7 text-monastic-1">
         By continuing, you return to the same shared monastery used across the
         rest of the app.
       </p>

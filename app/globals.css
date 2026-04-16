@@ -72,27 +72,27 @@
     --border: 29 18% 28%;
     --input: 29 18% 28%;
     --ring: 36 44% 56%;
-    --surface-0: #171211;
-    --surface-1: rgba(31, 24, 21, 0.84);
-    --surface-2: rgba(39, 30, 25, 0.88);
-    --surface-3: rgba(48, 37, 31, 0.82);
+    --surface-0: #130f0e;
+    --surface-1: rgba(24, 18, 16, 0.94);
+    --surface-2: rgba(34, 26, 22, 0.96);
+    --surface-3: rgba(49, 38, 31, 0.92);
     --surface-strong: #d3b07a;
-    --surface-strong-2: #a77947;
-    --text-0: #f1e1c4;
-    --text-1: #d0b99a;
-    --text-2: #9e8568;
-    --line-soft: rgba(194, 160, 119, 0.12);
-    --line-strong: rgba(175, 130, 78, 0.34);
-    --glow: rgba(224, 164, 80, 0.22);
-    --hero-overlay: linear-gradient(90deg, rgba(10, 8, 8, 0.72) 0%, rgba(35, 25, 20, 0.58) 34%, rgba(56, 40, 27, 0.2) 68%, rgba(24, 18, 16, 0.48) 100%);
+    --surface-strong-2: #b48755;
+    --text-0: #f4e7cf;
+    --text-1: #ddc8aa;
+    --text-2: #b89c7d;
+    --line-soft: rgba(214, 179, 135, 0.18);
+    --line-strong: rgba(205, 156, 95, 0.42);
+    --glow: rgba(224, 164, 80, 0.16);
+    --hero-overlay: linear-gradient(90deg, rgba(8, 7, 7, 0.9) 0%, rgba(18, 14, 13, 0.82) 34%, rgba(31, 23, 18, 0.66) 68%, rgba(18, 14, 13, 0.78) 100%);
     --paper-texture:
       radial-gradient(circle at 20% 18%, rgba(255, 219, 139, 0.08), transparent 24%),
       radial-gradient(circle at 80% 12%, rgba(160, 101, 42, 0.1), transparent 18%),
       radial-gradient(circle at 50% 120%, rgba(119, 71, 32, 0.12), transparent 34%);
     --page-backdrop:
-      radial-gradient(circle at top left, rgba(171, 118, 53, 0.16), transparent 24%),
-      radial-gradient(circle at top right, rgba(93, 58, 28, 0.24), transparent 22%),
-      linear-gradient(180deg, #171211 0%, #1b1513 44%, #110e0d 100%);
+      radial-gradient(circle at top left, rgba(171, 118, 53, 0.1), transparent 22%),
+      radial-gradient(circle at top right, rgba(93, 58, 28, 0.16), transparent 20%),
+      linear-gradient(180deg, #14100f 0%, #191311 44%, #0e0b0a 100%);
   }
 
   * {
@@ -256,11 +256,11 @@
     border-radius: 1.5rem;
     border: 1px solid var(--line-soft);
     background:
-      linear-gradient(180deg, color-mix(in srgb, var(--surface-1) 82%, transparent), color-mix(in srgb, var(--surface-2) 95%, transparent)),
+      linear-gradient(180deg, color-mix(in srgb, var(--surface-1) 94%, transparent), color-mix(in srgb, var(--surface-2) 98%, transparent)),
       var(--paper-texture);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.22),
-      0 22px 44px -30px rgba(51, 30, 18, 0.7);
+      0 26px 56px -34px rgba(19, 12, 8, 0.88);
   }
 
   .home-office-card {
@@ -329,10 +329,11 @@
 
   .dark .monastic-hero {
     background:
+      linear-gradient(180deg, rgba(10, 8, 8, 0.18), rgba(10, 8, 8, 0.34)),
       var(--hero-overlay),
-      radial-gradient(circle at 18% 30%, rgba(255, 193, 102, 0.22), transparent 18%),
-      radial-gradient(circle at 76% 20%, rgba(255, 225, 174, 0.08), transparent 20%),
-      linear-gradient(115deg, #120f0e 0%, #2a1f1a 24%, #5f4129 52%, #8e683f 74%, #483526 100%);
+      radial-gradient(circle at 18% 30%, rgba(255, 193, 102, 0.12), transparent 18%),
+      radial-gradient(circle at 76% 20%, rgba(255, 225, 174, 0.04), transparent 20%),
+      linear-gradient(115deg, #120f0e 0%, #241a16 24%, #513825 52%, #725133 74%, #3e2e22 100%);
   }
 
   .monastic-hero::before {
@@ -340,8 +341,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 24% 42%, rgba(255, 225, 176, 0.3), transparent 12%),
-      linear-gradient(0deg, rgba(17, 12, 10, 0.14), transparent 28%);
+      radial-gradient(circle at 24% 42%, rgba(255, 225, 176, 0.12), transparent 10%),
+      linear-gradient(0deg, rgba(17, 12, 10, 0.24), transparent 28%);
     pointer-events: none;
   }
 
@@ -404,14 +405,16 @@
     background:
       linear-gradient(
         180deg,
-        color-mix(in srgb, var(--surface-1) 78%, transparent),
-        color-mix(in srgb, var(--surface-2) 96%, transparent)
+        color-mix(in srgb, var(--surface-1) 96%, transparent),
+        color-mix(in srgb, var(--surface-2) 100%, transparent)
       ),
       var(--paper-texture);
     color: var(--text-0);
     padding: 0.85rem 1rem;
     outline: none;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 8px 18px -16px rgba(0, 0, 0, 0.8);
     transition:
       border-color 180ms ease,
       box-shadow 180ms ease,
@@ -419,14 +422,15 @@
   }
 
   .monastic-field::placeholder {
-    color: var(--text-2);
+    color: color-mix(in srgb, var(--text-1) 72%, var(--text-2));
   }
 
   .monastic-field:focus {
     border-color: hsl(var(--ring));
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.18),
-      0 0 0 2px hsl(var(--ring) / 0.28);
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 0 0 2px hsl(var(--ring) / 0.32),
+      0 14px 28px -22px rgba(215, 165, 97, 0.5);
   }
 
   .monastic-field:disabled {
