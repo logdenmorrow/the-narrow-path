@@ -1,18 +1,11 @@
 "use client";
 
+import { AuthCard, AuthPageLink } from "@/components/auth-shell";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
 import { useState } from "react";
 
 export function ForgotPasswordForm({
@@ -47,58 +40,59 @@ export function ForgotPasswordForm({
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       {success ? (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">Check Your Email</CardTitle>
-            <CardDescription>Password reset instructions sent</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">
-              If you registered using your email and password, you will receive
-              a password reset email.
+        <AuthCard
+          title="Check your email"
+          description="If your account uses email and password, a reset link is on its way."
+          footer={
+            <p className="text-center">
+              Remembered it? <AuthPageLink href="/auth/login">Return to login</AuthPageLink>
             </p>
-          </CardContent>
-        </Card>
+          }
+        >
+          <div className="rounded-[1.35rem] border border-monastic bg-[color:var(--surface-2)]/70 p-5">
+            <p className="text-sm leading-7 text-monastic-1">
+              Open the message from The Narrow Path and follow the reset link to
+              choose a new password.
+            </p>
+          </div>
+        </AuthCard>
       ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">Reset Your Password</CardTitle>
-            <CardDescription>
-              Type in your email and we&apos;ll send you a link to reset your
-              password
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleForgotPassword}>
-              <div className="flex flex-col gap-6">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="m@example.com"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                {error && <p className="text-sm text-red-500">{error}</p>}
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Sending..." : "Send reset email"}
-                </Button>
+        <AuthCard
+          title="Reset your password"
+          description="Enter your email and we’ll send you a reset link."
+          footer={
+            <p className="text-center">
+              Already have an account?{" "}
+              <AuthPageLink href="/auth/login">Login</AuthPageLink>
+            </p>
+          }
+        >
+          <form onSubmit={handleForgotPassword} className="space-y-6">
+            <div className="grid gap-2">
+              <Label htmlFor="email" className="text-sm font-semibold text-monastic-1">
+                Email
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="name@example.com"
+                required
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+              />
+            </div>
+            {error ? (
+              <div className="rounded-2xl border border-red-500/30 bg-red-950/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+                {error}
               </div>
-              <div className="mt-4 text-center text-sm">
-                Already have an account?{" "}
-                <Link
-                  href="/auth/login"
-                  className="underline underline-offset-4"
-                >
-                  Login
-                </Link>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+            ) : null}
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? "Sending..." : "Send reset email"}
+            </Button>
+          </form>
+        </AuthCard>
       )}
     </div>
   );

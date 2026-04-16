@@ -1,4 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
+import { AuthCard, AuthPageLink } from "@/components/auth-shell";
+import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 
 async function ErrorContent({
@@ -29,23 +31,26 @@ export default function Page({
   searchParams: Promise<{ error: string }>;
 }) {
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <div className="flex flex-col gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">
-                Sorry, something went wrong.
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Suspense>
-                <ErrorContent searchParams={searchParams} />
-              </Suspense>
-            </CardContent>
-          </Card>
+    <AuthCard
+      title="Something went wrong"
+      description="The auth flow hit an error before it could finish."
+      footer={
+        <p className="text-center">
+          Want to try again? <AuthPageLink href="/auth/login">Return to login</AuthPageLink>
+        </p>
+      }
+    >
+      <div className="space-y-5">
+        <div className="rounded-[1.35rem] border border-monastic bg-[color:var(--surface-2)]/70 p-5">
+          <Suspense>
+            <ErrorContent searchParams={searchParams} />
+          </Suspense>
         </div>
+
+        <Button asChild variant="secondary" className="w-full">
+          <Link href="/">Back to Home</Link>
+        </Button>
       </div>
-    </div>
+    </AuthCard>
   );
 }

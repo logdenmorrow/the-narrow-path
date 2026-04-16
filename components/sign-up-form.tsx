@@ -1,18 +1,11 @@
 "use client";
 
+import { AuthCard, AuthPageLink } from "@/components/auth-shell";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -102,16 +95,26 @@ export function SignUpForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Sign up</CardTitle>
-          <CardDescription>Create a new account</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSignUp}>
-            <div className="flex flex-col gap-6">
+      <AuthCard
+        title="Request your place"
+        description="Create your account with the same monastic design language used across the rest of The Narrow Path."
+        footer={
+          <p className="text-center">
+            Already have an account?{" "}
+            <AuthPageLink href="/auth/login">Login</AuthPageLink>
+          </p>
+        }
+      >
+        <form onSubmit={handleSignUp} className="space-y-6">
+          <div className="grid gap-5">
+            <div className="grid gap-5 sm:grid-cols-2">
               <div className="grid gap-2">
-                <Label htmlFor="first-name">First Name</Label>
+                <Label
+                  htmlFor="first-name"
+                  className="text-sm font-semibold text-monastic-1"
+                >
+                  First Name
+                </Label>
                 <Input
                   id="first-name"
                   type="text"
@@ -119,11 +122,17 @@ export function SignUpForm({
                   required
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
+                  className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
                 />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="last-name">Last Name</Label>
+                <Label
+                  htmlFor="last-name"
+                  className="text-sm font-semibold text-monastic-1"
+                >
+                  Last Name
+                </Label>
                 <Input
                   id="last-name"
                   type="text"
@@ -131,71 +140,95 @@ export function SignUpForm({
                   required
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
+                  className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
                 />
               </div>
+            </div>
 
-              <div className="grid gap-2">
-                <Label htmlFor="invite-code">Invite Code</Label>
-                <Input
-                  id="invite-code"
-                  type="text"
-                  placeholder="Enter your invite code"
-                  required
-                  value={inviteCode}
-                  onChange={(e) => setInviteCode(e.target.value)}
-                />
-              </div>
+            <div className="grid gap-2">
+              <Label
+                htmlFor="invite-code"
+                className="text-sm font-semibold text-monastic-1"
+              >
+                Invite Code
+              </Label>
+              <Input
+                id="invite-code"
+                type="text"
+                placeholder="Enter your invite code"
+                required
+                value={inviteCode}
+                onChange={(e) => setInviteCode(e.target.value)}
+                className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+              />
+            </div>
 
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="name@example.com"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
+            <div className="grid gap-2">
+              <Label htmlFor="email" className="text-sm font-semibold text-monastic-1">
+                Email
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="name@example.com"
+                required
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+              />
+            </div>
 
+            <div className="grid gap-5 sm:grid-cols-2">
               <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
+                <Label
+                  htmlFor="password"
+                  className="text-sm font-semibold text-monastic-1"
+                >
+                  Password
+                </Label>
                 <Input
                   id="password"
                   type="password"
                   required
+                  autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
                 />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="repeat-password">Repeat Password</Label>
+                <Label
+                  htmlFor="repeat-password"
+                  className="text-sm font-semibold text-monastic-1"
+                >
+                  Repeat Password
+                </Label>
                 <Input
                   id="repeat-password"
                   type="password"
                   required
+                  autoComplete="new-password"
                   value={repeatPassword}
                   onChange={(e) => setRepeatPassword(e.target.value)}
+                  className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
                 />
               </div>
-
-              {error && <p className="text-sm text-red-500">{error}</p>}
-
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Creating an account..." : "Sign up"}
-              </Button>
             </div>
+          </div>
 
-            <div className="mt-4 text-center text-sm">
-              Already have an account?{" "}
-              <Link href="/auth/login" className="underline underline-offset-4">
-                Login
-              </Link>
+          {error ? (
+            <div className="rounded-2xl border border-red-500/30 bg-red-950/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+              {error}
             </div>
-          </form>
-        </CardContent>
-      </Card>
+          ) : null}
+
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? "Creating an account..." : "Sign up"}
+          </Button>
+        </form>
+      </AuthCard>
     </div>
   );
 }

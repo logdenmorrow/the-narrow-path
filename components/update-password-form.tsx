@@ -1,15 +1,9 @@
 "use client";
 
+import { AuthCard, AuthPageLink } from "@/components/auth-shell";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
@@ -44,35 +38,44 @@ export function UpdatePasswordForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Reset Your Password</CardTitle>
-          <CardDescription>
-            Please enter your new password below.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleForgotPassword}>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
-                <Label htmlFor="password">New password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="New password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Saving..." : "Save new password"}
-              </Button>
+      <AuthCard
+        title="Choose a new password"
+        description="Set a new password to complete your return."
+        footer={
+          <p className="text-center">
+            Need to start over?{" "}
+            <AuthPageLink href="/auth/forgot-password">
+              Request another reset link
+            </AuthPageLink>
+          </p>
+        }
+      >
+        <form onSubmit={handleForgotPassword} className="space-y-6">
+          <div className="grid gap-2">
+            <Label htmlFor="password" className="text-sm font-semibold text-monastic-1">
+              New password
+            </Label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="New password"
+              required
+              autoComplete="new-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+            />
+          </div>
+          {error ? (
+            <div className="rounded-2xl border border-red-500/30 bg-red-950/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+              {error}
             </div>
-          </form>
-        </CardContent>
-      </Card>
+          ) : null}
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? "Saving..." : "Save new password"}
+          </Button>
+        </form>
+      </AuthCard>
     </div>
   );
 }
