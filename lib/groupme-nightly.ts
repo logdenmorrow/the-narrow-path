@@ -2,7 +2,6 @@ import "server-only";
 import {
   addDaysToIsoDate,
   CHALLENGE_TIME_ZONE,
-  getChallengeDayNumberForIsoDate,
   getIsoDateInTimeZone,
 } from "@/lib/challenge";
 import { createClient } from "@/lib/supabase/server";
@@ -32,6 +31,7 @@ type TaskTemplateRelation =
 
 type TomorrowTaskRow = {
   id: number;
+  plan_day_id: number;
   task_template_id: number;
   is_required: boolean;
   is_optional: boolean;
@@ -152,32 +152,19 @@ function isBaselineTask(task: TomorrowTaskRow) {
 }
 
 function detectVariantLabels(tasks: TomorrowTaskRow[]) {
-  const detected = new Set<string>();
-  const confessionVisible = tasks.some((task) =>
-    matchesVariant(task, VARIANT_CONFIGS.find((variant) => variant.key === "confession")!)
-  );
-
-  for (const task of tasks) {
-    if (isBaselineTask(task)) {
-      continue;
+  return VARIANT_CONFIGS.filter((variant) => {
+    if (variant.key === "confession") {
+      return tasks.some((task) => matchesVariant(task, variant));
     }
 
-    for (const variant of VARIANT_CONFIGS) {
-      if (variant.key === "confession") {
-        continue;
+    return tasks.some((task) => {
+      if (!task.is_required || isBaselineTask(task)) {
+        return false;
       }
 
-      if (matchesVariant(task, variant)) {
-        detected.add(variant.label);
-      }
-    }
-  }
-
-  if (confessionVisible) {
-    detected.add("Confession week is active");
-  }
-
-  return [...detected];
+      return matchesVariant(task, variant);
+    });
+  }).map((variant) => variant.label);
 }
 
 function buildNightlyMessage(variants: string[]) {
@@ -202,7 +189,6 @@ function buildNightlyMessage(variants: string[]) {
 export async function generateNightlyReminderPreview() {
   const todayIso = getIsoDateInTimeZone(new Date(), CHALLENGE_TIME_ZONE);
   const tomorrowIso = addDaysToIsoDate(todayIso, 1);
-  const tomorrowDayNumber = getChallengeDayNumberForIsoDate(tomorrowIso);
 
   const supabase = await createClient();
 
@@ -218,34 +204,12 @@ export async function generateNightlyReminderPreview() {
     throw new GroupMeError("No active challenge plan was found.", 500);
   }
 
-  if (tomorrowDayNumber < 1 || tomorrowDayNumber > typedPlan.total_days) {
-    throw new GroupMeError(
-      `Tomorrow (${tomorrowIso}) does not map to an active challenge day.`,
-      400
-    );
-  }
-
-  const { data: planDay, error: planDayError } = await supabase
-    .from("plan_days")
-    .select("id, day_number")
-    .eq("plan_id", typedPlan.id)
-    .eq("day_number", tomorrowDayNumber)
-    .maybeSingle();
-
-  const typedPlanDay = (planDay ?? null) as PlanDayRow | null;
-
-  if (planDayError || !typedPlanDay) {
-    throw new GroupMeError(
-      `Could not find plan day ${tomorrowDayNumber} for ${tomorrowIso}.`,
-      500
-    );
-  }
-
   const { data: tasks, error: tasksError } = await supabase
     .from("plan_day_tasks")
     .select(
       `
         id,
+        plan_day_id,
         task_template_id,
         is_required,
         is_optional,
@@ -261,7 +225,7 @@ export async function generateNightlyReminderPreview() {
         )
       `
     )
-    .eq("plan_day_id", typedPlanDay.id)
+    .eq("day_date", tomorrowIso)
     .order("display_order")
     .order("id");
 
@@ -271,12 +235,42 @@ export async function generateNightlyReminderPreview() {
     throw new GroupMeError("Could not load tomorrow's tasks.", 500);
   }
 
+  if (typedTasks.length === 0) {
+    throw new GroupMeError(
+      `No generated task rows were found for ${tomorrowIso}.`,
+      400
+    );
+  }
+
+  const tomorrowPlanDayIds = [...new Set(typedTasks.map((task) => task.plan_day_id))];
+
+  const { data: planDays, error: planDaysError } = await supabase
+    .from("plan_days")
+    .select("id, day_number")
+    .eq("plan_id", typedPlan.id)
+    .in("id", tomorrowPlanDayIds);
+
+  const typedPlanDays = (planDays ?? []) as PlanDayRow[];
+
+  if (planDaysError || typedPlanDays.length === 0) {
+    throw new GroupMeError(`Could not load plan day metadata for ${tomorrowIso}.`, 500);
+  }
+
+  if (typedPlanDays.length > 1) {
+    throw new GroupMeError(
+      `Expected one plan day for ${tomorrowIso}, but found ${typedPlanDays.length}.`,
+      500
+    );
+  }
+
+  const typedPlanDay = typedPlanDays[0];
+
   const variants = detectVariantLabels(typedTasks);
   const message = buildNightlyMessage(variants);
 
   return {
     tomorrowDate: tomorrowIso,
-    tomorrowDayNumber,
+    tomorrowDayNumber: typedPlanDay.day_number,
     variants,
     message,
   };
