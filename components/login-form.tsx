@@ -36,8 +36,8 @@ export function LoginForm({
         throw error;
       }
 
+      router.replace("/dashboard");
       router.refresh();
-      window.location.href = "/dashboard";
       return;
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
