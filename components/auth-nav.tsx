@@ -5,9 +5,12 @@ import { Button } from "@/components/ui/button";
 
 export default async function AuthNav({ mobile = false }: { mobile?: boolean }) {
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.getClaims();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
 
-  const isLoggedIn = !error && !!data?.claims;
+  const isLoggedIn = !error && Boolean(user);
 
   if (isLoggedIn) {
     return (
