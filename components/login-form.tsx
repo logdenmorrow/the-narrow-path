@@ -18,53 +18,6 @@ export function LoginForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const confirmServerSession = async () => {
-    const maxAttempts = 32;
-    const pollDelayMs = 250;
-
-    for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
-      const response = await fetch("/auth/session", {
-        method: "GET",
-        cache: "no-store",
-        credentials: "same-origin",
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Could not verify your server session.");
-      }
-
-      const sessionState = (await response.json()) as
-        | { authenticated: false }
-        | { authenticated: true; userId: string };
-
-      logAuthDebug("client", "login.session_poll", {
-        attempt,
-        authenticated: sessionState.authenticated,
-        userId: sessionState.authenticated ? sessionState.userId : null,
-        totalAttemptsUsed: attempt,
-        totalWaitDurationMs: (attempt - 1) * pollDelayMs,
-      });
-
-      if (sessionState.authenticated) {
-        return sessionState;
-      }
-
-      await new Promise((resolve) => window.setTimeout(resolve, pollDelayMs));
-    }
-
-    logAuthDebug("client", "login.session_poll_timeout", {
-      totalAttemptsUsed: maxAttempts,
-      totalWaitDurationMs: (maxAttempts - 1) * pollDelayMs,
-    });
-
-    throw new Error(
-      "Login succeeded on this device, but the server session did not become ready. Please try again."
-    );
-  };
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const supabase = createClient();
@@ -106,10 +59,8 @@ export function LoginForm({
         );
       }
 
-      const serverSession = await confirmServerSession();
-
       logAuthDebug("client", "login.navigate_dashboard", {
-        userId: serverSession.userId,
+        userId: clientUser?.id ?? data.user.id,
       });
 
       window.location.replace("/dashboard");
