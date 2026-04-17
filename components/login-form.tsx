@@ -1,54 +1,41 @@
 "use client";
 
+import { useActionState, useState } from "react";
 import { AuthCard, AuthPageLink } from "@/components/auth-shell";
+import {
+  initialLoginActionState,
+  loginWithPassword,
+} from "@/app/auth/login/actions";
 import { cn } from "@/lib/utils";
-import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useFormStatus } from "react-dom";
+
+function LoginSubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button
+      type="submit"
+      className="h-12 w-full text-[13px] tracking-[0.18em]"
+      disabled={pending}
+    >
+      {pending ? "Logging in..." : "Login"}
+    </Button>
+  );
+}
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const [state, formAction] = useActionState(
+    loginWithPassword,
+    initialLoginActionState
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const supabase = createClient();
-
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password,
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      if (!data.session || !data.user) {
-        throw new Error(
-          "Sign-in completed, but your session could not be confirmed. Please try again."
-        );
-      }
-
-      await supabase.auth.getUser();
-      window.location.replace("/dashboard");
-      return;
-    } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -63,7 +50,7 @@ export function LoginForm({
           </p>
         }
       >
-        <form onSubmit={handleLogin} className="space-y-6">
+        <form action={formAction} className="space-y-6">
           <div className="grid gap-5">
             <div className="grid gap-2">
               <Label htmlFor="email" className="text-sm font-semibold tracking-[0.02em] text-monastic-0">
@@ -71,6 +58,7 @@ export function LoginForm({
               </Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="name@example.com"
                 required
@@ -95,6 +83,7 @@ export function LoginForm({
               </div>
               <Input
                 id="password"
+                name="password"
                 type="password"
                 required
                 autoComplete="current-password"
@@ -105,15 +94,13 @@ export function LoginForm({
             </div>
           </div>
 
-          {error ? (
+          {state.error ? (
             <div className="rounded-2xl border border-red-400/35 bg-red-950/20 px-4 py-3 text-sm text-red-200">
-              {error}
+              {state.error}
             </div>
           ) : null}
 
-          <Button type="submit" className="h-12 w-full text-[13px] tracking-[0.18em]" disabled={isLoading}>
-            {isLoading ? "Logging in..." : "Login"}
-          </Button>
+          <LoginSubmitButton />
         </form>
       </AuthCard>
 
