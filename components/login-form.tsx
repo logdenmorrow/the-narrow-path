@@ -1,7 +1,6 @@
 "use client";
 
 import { AuthCard, AuthPageLink } from "@/components/auth-shell";
-import { logAuthDebug } from "@/lib/auth-debug";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -26,42 +25,14 @@ export function LoginForm({
     setError(null);
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password,
-      });
-
-      const {
-        data: { session: clientSession },
-      } = await supabase.auth.getSession();
-
-      const {
-        data: { user: clientUser },
-        error: clientUserError,
-      } = await supabase.auth.getUser();
-
-      logAuthDebug("client", "login.sign_in_result", {
-        hasReturnedSession: Boolean(data.session),
-        returnedUserId: data.user?.id ?? null,
-        hasStoredSession: Boolean(clientSession),
-        storedUserId: clientUser?.id ?? null,
-        clientUserError: clientUserError?.message ?? null,
-        signInError: error?.message ?? null,
       });
 
       if (error) {
         throw error;
       }
-
-      if (!data.session || !data.user) {
-        throw new Error(
-          "Sign-in completed, but your session could not be confirmed. Please try again."
-        );
-      }
-
-      logAuthDebug("client", "login.navigate_dashboard", {
-        userId: clientUser?.id ?? data.user.id,
-      });
 
       window.location.replace("/dashboard");
       return;
