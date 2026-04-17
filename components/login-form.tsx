@@ -40,6 +40,7 @@ export function LoginForm({
         );
       }
 
+      await supabase.auth.getUser();
       window.location.replace("/dashboard");
       return;
     } catch (error: unknown) {
