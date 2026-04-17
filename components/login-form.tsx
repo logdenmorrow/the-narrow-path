@@ -19,7 +19,8 @@ export function LoginForm({
   const [isLoading, setIsLoading] = useState(false);
 
   const confirmServerSession = async () => {
-    const maxAttempts = 12;
+    const maxAttempts = 32;
+    const pollDelayMs = 250;
 
     for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
       const response = await fetch("/auth/session", {
@@ -43,14 +44,21 @@ export function LoginForm({
         attempt,
         authenticated: sessionState.authenticated,
         userId: sessionState.authenticated ? sessionState.userId : null,
+        totalAttemptsUsed: attempt,
+        totalWaitDurationMs: (attempt - 1) * pollDelayMs,
       });
 
       if (sessionState.authenticated) {
         return sessionState;
       }
 
-      await new Promise((resolve) => window.setTimeout(resolve, 250));
+      await new Promise((resolve) => window.setTimeout(resolve, pollDelayMs));
     }
+
+    logAuthDebug("client", "login.session_poll_timeout", {
+      totalAttemptsUsed: maxAttempts,
+      totalWaitDurationMs: (maxAttempts - 1) * pollDelayMs,
+    });
 
     throw new Error(
       "Login succeeded on this device, but the server session did not become ready. Please try again."
