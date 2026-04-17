@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { logAuthDebug } from "@/lib/auth-debug";
 import { hasEnvVars } from "../utils";
 import { supabaseCookieOptions } from "./config";
 
@@ -56,6 +57,10 @@ export async function updateSession(request: NextRequest) {
     !request.nextUrl.pathname.startsWith("/login") &&
     !request.nextUrl.pathname.startsWith("/auth")
   ) {
+    logAuthDebug("server", "proxy.redirect_to_login", {
+      pathname: request.nextUrl.pathname,
+    });
+
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";

@@ -1,6 +1,7 @@
 "use client";
 
 import { AuthCard, AuthPageLink } from "@/components/auth-shell";
+import { logAuthDebug } from "@/lib/auth-debug";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,45 @@ export function LoginForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const confirmServerSession = async () => {
+    const maxAttempts = 12;
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+      const response = await fetch("/auth/session", {
+        method: "GET",
+        cache: "no-store",
+        credentials: "same-origin",
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Could not verify your server session.");
+      }
+
+      const sessionState = (await response.json()) as
+        | { authenticated: false }
+        | { authenticated: true; userId: string };
+
+      logAuthDebug("client", "login.session_poll", {
+        attempt,
+        authenticated: sessionState.authenticated,
+        userId: sessionState.authenticated ? sessionState.userId : null,
+      });
+
+      if (sessionState.authenticated) {
+        return sessionState;
+      }
+
+      await new Promise((resolve) => window.setTimeout(resolve, 250));
+    }
+
+    throw new Error(
+      "Login succeeded on this device, but the server session did not become ready. Please try again."
+    );
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const supabase = createClient();
@@ -30,6 +70,24 @@ export function LoginForm({
         password,
       });
 
+      const {
+        data: { session: clientSession },
+      } = await supabase.auth.getSession();
+
+      const {
+        data: { user: clientUser },
+        error: clientUserError,
+      } = await supabase.auth.getUser();
+
+      logAuthDebug("client", "login.sign_in_result", {
+        hasReturnedSession: Boolean(data.session),
+        returnedUserId: data.user?.id ?? null,
+        hasStoredSession: Boolean(clientSession),
+        storedUserId: clientUser?.id ?? null,
+        clientUserError: clientUserError?.message ?? null,
+        signInError: error?.message ?? null,
+      });
+
       if (error) {
         throw error;
       }
@@ -40,7 +98,12 @@ export function LoginForm({
         );
       }
 
-      await supabase.auth.getUser();
+      const serverSession = await confirmServerSession();
+
+      logAuthDebug("client", "login.navigate_dashboard", {
+        userId: serverSession.userId,
+      });
+
       window.location.replace("/dashboard");
       return;
     } catch (error: unknown) {
