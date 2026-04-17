@@ -1,13 +1,18 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export default function AuthStateListener() {
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
+    if (pathname.startsWith("/auth")) {
+      return;
+    }
+
     const supabase = createClient();
 
     const {
@@ -25,7 +30,7 @@ export default function AuthStateListener() {
     return () => {
       subscription.unsubscribe();
     };
-  }, [router]);
+  }, [pathname, router]);
 
   return null;
 }

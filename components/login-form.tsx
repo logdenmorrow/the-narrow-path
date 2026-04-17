@@ -6,12 +6,14 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -24,23 +26,19 @@ export function LoginForm({
     setIsLoading(true);
     setError(null);
 
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password,
-      });
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
+    });
 
-      if (error) {
-        throw error;
-      }
-
-      window.location.replace("/dashboard");
-      return;
-    } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
-    } finally {
+    if (error) {
+      setError(error.message);
       setIsLoading(false);
+      return;
     }
+
+    router.replace("/dashboard");
+    router.refresh();
   };
 
   return (
@@ -68,6 +66,9 @@ export function LoginForm({
                 placeholder="name@example.com"
                 required
                 autoComplete="email"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="monastic-field h-12 rounded-2xl px-4 py-3 text-base shadow-none md:text-base"
@@ -91,6 +92,9 @@ export function LoginForm({
                 type="password"
                 required
                 autoComplete="current-password"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="monastic-field h-12 rounded-2xl px-4 py-3 text-base shadow-none md:text-base"
