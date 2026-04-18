@@ -4,8 +4,12 @@ import { AuthCard, AuthPageLink } from "@/components/auth-shell";
 import { cn } from "@/lib/utils";
 import {
   appendAuthLog,
-  fetchAuthServerSnapshot,
+  clearPendingLoginRedirect,
+  createAuthAttemptId,
   isAuthDebugEnabled,
+  readPendingLoginRedirect,
+  setPendingLoginRedirect,
+  submitAuthReport,
 } from "@/lib/auth-log";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -22,6 +26,7 @@ export function LoginForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const loginAttemptRef = useRef(0);
+  const attemptIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     appendAuthLog({
@@ -55,8 +60,19 @@ export function LoginForm({
       // Ignore malformed referrer URLs.
     }
 
-    if (isAuthDebugEnabled()) {
-      void fetchAuthServerSnapshot("login.page_loaded");
+    const pendingRedirect = readPendingLoginRedirect();
+    if (pendingRedirect) {
+      appendAuthLog({
+        scope: "login",
+        event: "login.returned_after_redirect",
+        details: {
+          attemptId: pendingRedirect.attemptId,
+          redirectTs: pendingRedirect.ts,
+        },
+      });
+
+      void submitAuthReport("login.returned_after_redirect", pendingRedirect.attemptId);
+      clearPendingLoginRedirect();
     }
   }, []);
 
@@ -71,21 +87,27 @@ export function LoginForm({
       details: {
         errorMessage: error,
         attemptCount: loginAttemptRef.current,
+        attemptId: attemptIdRef.current,
       },
     });
+
+    void submitAuthReport("login.error_shown", attemptIdRef.current);
   }, [error]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const supabase = createClient();
     const attemptNumber = loginAttemptRef.current + 1;
+    const attemptId = createAuthAttemptId();
     loginAttemptRef.current = attemptNumber;
+    attemptIdRef.current = attemptId;
 
     appendAuthLog({
       scope: "login",
       event: "login.submit_clicked",
       details: {
         attemptCount: attemptNumber,
+        attemptId,
       },
     });
 
@@ -98,6 +120,7 @@ export function LoginForm({
         event: "login.signin_started",
         details: {
           attemptCount: attemptNumber,
+          attemptId,
           emailDomain: email.includes("@") ? email.split("@")[1] : null,
         },
       });
@@ -112,6 +135,7 @@ export function LoginForm({
         event: "login.signin_result",
         details: {
           attemptCount: attemptNumber,
+          attemptId,
           ok: !error,
           errorMessage: error?.message ?? null,
         },
@@ -129,6 +153,7 @@ export function LoginForm({
         event: "login.getSession_result",
         details: {
           attemptCount: attemptNumber,
+          attemptId,
           hasSession: Boolean(sessionData.session),
           errorMessage: sessionError?.message ?? null,
         },
@@ -143,25 +168,24 @@ export function LoginForm({
         event: "login.getUser_result",
         details: {
           attemptCount: attemptNumber,
+          attemptId,
           hasUser: Boolean(user),
           userId: user?.id ?? null,
           errorMessage: userError?.message ?? null,
         },
       });
 
-      if (isAuthDebugEnabled()) {
-        void fetchAuthServerSnapshot("login.signin_result");
-      }
-
       appendAuthLog({
         scope: "login",
         event: "login.redirect_dashboard_attempt",
         details: {
           attemptCount: attemptNumber,
+          attemptId,
           targetPathname: "/dashboard",
         },
       });
 
+      setPendingLoginRedirect(attemptId);
       await new Promise((resolve) => window.setTimeout(resolve, 300));
       window.location.assign("/dashboard");
     } catch (error: unknown) {
@@ -171,6 +195,7 @@ export function LoginForm({
         event: "login.signin_result",
         details: {
           attemptCount: attemptNumber,
+          attemptId,
           ok: false,
           errorMessage,
         },

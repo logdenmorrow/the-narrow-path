@@ -13,6 +13,7 @@ import {
 import { AppActionBar } from "@/components/page-actions";
 import { StatusPill } from "@/components/task-card";
 import { Button } from "@/components/ui/button";
+import { getAdminEmails, isAllowedAdminEmail, requireAdminUser } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
@@ -44,27 +45,6 @@ type PlanDayTaskRow = {
     weekly_target: number | null;
   } | null;
 };
-
-function getAdminEmails() {
-  return (process.env.ADMIN_EMAILS ?? "")
-    .split(",")
-    .map((email) => email.trim().toLowerCase())
-    .filter(Boolean);
-}
-
-function isAllowedAdminEmail(email?: string | null) {
-  const adminEmails = getAdminEmails();
-
-  if (adminEmails.length === 0) {
-    return false;
-  }
-
-  if (!email) {
-    return false;
-  }
-
-  return adminEmails.includes(email.toLowerCase());
-}
 
 function normalizeDayNumber(value: number, totalDays: number) {
   if (!Number.isFinite(value)) return 1;
@@ -157,25 +137,6 @@ function cadenceLabel(template?: {
   }
 
   return "Daily";
-}
-
-async function requireAdminUser() {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
-
-  if (error || !user) {
-    redirect("/auth/login");
-  }
-
-  if (!isAllowedAdminEmail(user.email)) {
-    redirect("/dashboard");
-  }
-
-  return user;
 }
 
 function revalidateAppPaths() {
@@ -705,10 +666,11 @@ export default async function AdminPlanPage({
             </div>
 
             <AppActionBar
-              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-3"
+              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-4"
               actions={[
                 { href: "/dashboard", label: "Back to Dashboard", variant: "secondary" },
                 { href: "/today", label: "View Today", variant: "primary" },
+                { href: "/admin/auth-reports", label: "Auth Reports", variant: "outline" },
                 { href: "/admin/plan/export", label: "Export CSV", variant: "outline" },
               ]}
             />

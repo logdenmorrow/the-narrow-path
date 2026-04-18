@@ -9,6 +9,7 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { DashboardLoginRedirectClear } from "@/components/dashboard-login-redirect-clear";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import { applyReflectionCompletionOverride, getReflectionTaskId } from "@/lib/task-progress";
@@ -515,6 +516,7 @@ export default async function DashboardPage() {
 
   return (
     <main className="monastic-page">
+      <DashboardLoginRedirectClear />
       <PageFrame className="space-y-6">
         {!challenge.hasStarted && (
           <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
@@ -608,6 +610,11 @@ export default async function DashboardPage() {
               {isAdmin && (
                 <Link href="/admin/plan" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                   Admin Plan
+                </Link>
+              )}
+              {isAdmin && (
+                <Link href="/admin/auth-reports" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
+                  Auth Reports
                 </Link>
               )}
             </div>

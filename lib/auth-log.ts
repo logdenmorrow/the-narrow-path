@@ -1,8 +1,10 @@
 "use client";
 
 export const AUTH_LOG_STORAGE_KEY = "auth_debug_log_v1";
+export const PENDING_LOGIN_REDIRECT_KEY = "pending_login_redirect";
 
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+const LOGIN_REDIRECT_MARKER_TTL_MS = 2 * 60 * 1000;
 const NORMAL_ENTRY_CAP = 500;
 const DEBUG_ENTRY_CAP = 1000;
 const NORMAL_SIZE_CAP = 180_000;
@@ -36,6 +38,17 @@ export type AuthLogEntry = {
   pathname: string;
   host: string;
   details: AuthLogDetails;
+};
+
+export type AuthLogExport = {
+  exportedAt: string;
+  debugEnabled: boolean;
+  entries: AuthLogEntry[];
+};
+
+type PendingLoginRedirect = {
+  ts: string;
+  attemptId: string;
 };
 
 type AppendAuthLogInput = {
@@ -81,6 +94,14 @@ function getCurrentHost() {
   }
 
   return window.location.host;
+}
+
+function getCurrentUserAgent() {
+  if (typeof navigator === "undefined") {
+    return "";
+  }
+
+  return navigator.userAgent;
 }
 
 function safeString(value: string) {
@@ -275,15 +296,15 @@ export function clearAuthLog() {
 }
 
 function buildExportPayload() {
-  return JSON.stringify(
-    {
-      exportedAt: new Date().toISOString(),
-      debugEnabled: isAuthDebugEnabled(),
-      entries: getAuthLog(),
-    },
-    null,
-    2,
-  );
+  return JSON.stringify(exportAuthLog(), null, 2);
+}
+
+export function exportAuthLog(): AuthLogExport {
+  return {
+    exportedAt: new Date().toISOString(),
+    debugEnabled: isAuthDebugEnabled(),
+    entries: getAuthLog(),
+  };
 }
 
 export async function copyAuthLogToClipboard() {
@@ -377,5 +398,130 @@ export async function fetchAuthServerSnapshot(trigger: string) {
     });
 
     return null;
+  }
+}
+
+function isIPhoneUserAgent(userAgent: string) {
+  return /iPhone/i.test(userAgent);
+}
+
+function detectMobileBrowser(userAgent: string) {
+  const isIPhone = isIPhoneUserAgent(userAgent);
+  const isCriOS = /CriOS/i.test(userAgent);
+  const isSafari = isIPhone && /Safari/i.test(userAgent) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(userAgent);
+
+  return {
+    isChromeOniPhone: isIPhone && isCriOS,
+    isSafariOniPhone: isSafari,
+  };
+}
+
+export function createAuthAttemptId() {
+  return `login-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+export function setPendingLoginRedirect(attemptId: string) {
+  if (typeof sessionStorage === "undefined") {
+    return;
+  }
+
+  const marker: PendingLoginRedirect = {
+    ts: new Date().toISOString(),
+    attemptId,
+  };
+
+  sessionStorage.setItem(PENDING_LOGIN_REDIRECT_KEY, JSON.stringify(marker));
+}
+
+export function clearPendingLoginRedirect() {
+  if (typeof sessionStorage === "undefined") {
+    return;
+  }
+
+  sessionStorage.removeItem(PENDING_LOGIN_REDIRECT_KEY);
+}
+
+export function readPendingLoginRedirect() {
+  if (typeof sessionStorage === "undefined") {
+    return null;
+  }
+
+  try {
+    const raw = sessionStorage.getItem(PENDING_LOGIN_REDIRECT_KEY);
+    if (!raw) {
+      return null;
+    }
+
+    const parsed = JSON.parse(raw) as Partial<PendingLoginRedirect>;
+    if (typeof parsed.ts !== "string" || typeof parsed.attemptId !== "string") {
+      clearPendingLoginRedirect();
+      return null;
+    }
+
+    const ts = Date.parse(parsed.ts);
+    if (!Number.isFinite(ts) || Date.now() - ts > LOGIN_REDIRECT_MARKER_TTL_MS) {
+      clearPendingLoginRedirect();
+      return null;
+    }
+
+    return parsed as PendingLoginRedirect;
+  } catch {
+    clearPendingLoginRedirect();
+    return null;
+  }
+}
+
+export async function submitAuthReport(reason: string, attemptId: string | null) {
+  if (!canUseBrowserApis()) {
+    return false;
+  }
+
+  try {
+    const userAgent = getCurrentUserAgent();
+    const snapshot = await fetchAuthServerSnapshot(`auth_report:${reason}`);
+    const response = await fetch("/auth/report", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "cache-control": "no-store",
+      },
+      body: JSON.stringify({
+        ts: new Date().toISOString(),
+        reason,
+        attemptId,
+        pathname: getCurrentPathname(),
+        host: getCurrentHost(),
+        userAgent,
+        ...detectMobileBrowser(userAgent),
+        authLog: exportAuthLog(),
+        diagSnapshot: snapshot,
+      }),
+    });
+
+    appendAuthLog({
+      scope: "login",
+      event: "login.report_submitted",
+      details: {
+        reason,
+        attemptId,
+        ok: response.ok,
+        status: response.status,
+      },
+    });
+
+    return response.ok;
+  } catch (error) {
+    appendAuthLog({
+      scope: "login",
+      event: "login.report_submitted",
+      details: {
+        reason,
+        attemptId,
+        ok: false,
+        errorMessage: error instanceof Error ? error.message : "Failed to submit auth report",
+      },
+    });
+
+    return false;
   }
 }
