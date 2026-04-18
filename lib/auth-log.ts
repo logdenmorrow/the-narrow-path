@@ -96,6 +96,24 @@ function getCurrentHost() {
   return window.location.host;
 }
 
+export function getPageContextDetails() {
+  if (!canUseBrowserApis()) {
+    return {
+      href: null,
+      protocol: null,
+      isSecureContext: null,
+      referrer: null,
+    };
+  }
+
+  return {
+    href: window.location.href,
+    protocol: window.location.protocol,
+    isSecureContext: window.isSecureContext,
+    referrer: document.referrer || null,
+  };
+}
+
 function getCurrentUserAgent() {
   if (typeof navigator === "undefined") {
     return "";
@@ -492,6 +510,7 @@ export async function submitAuthReport(reason: string, attemptId: string | null)
         pathname: getCurrentPathname(),
         host: getCurrentHost(),
         userAgent,
+        pageContext: getPageContextDetails(),
         ...detectMobileBrowser(userAgent),
         authLog: exportAuthLog(),
         diagSnapshot: snapshot,

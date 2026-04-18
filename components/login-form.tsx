@@ -6,6 +6,7 @@ import {
   appendAuthLog,
   clearPendingLoginRedirect,
   createAuthAttemptId,
+  getPageContextDetails,
   isAuthDebugEnabled,
   readPendingLoginRedirect,
   setPendingLoginRedirect,
@@ -34,6 +35,7 @@ export function LoginForm({
       event: "login.page_loaded",
       details: {
         isDebugMode: isAuthDebugEnabled(),
+        pageContext: getPageContextDetails(),
       },
     });
 
@@ -108,6 +110,7 @@ export function LoginForm({
       details: {
         attemptCount: attemptNumber,
         attemptId,
+        pageContext: getPageContextDetails(),
       },
     });
 
