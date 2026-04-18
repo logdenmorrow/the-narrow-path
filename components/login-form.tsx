@@ -147,33 +147,66 @@ export function LoginForm({
         return;
       }
 
-      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-      appendAuthLog({
-        scope: "login",
-        event: "login.getSession_result",
-        details: {
-          attemptCount: attemptNumber,
-          attemptId,
-          hasSession: Boolean(sessionData.session),
-          errorMessage: sessionError?.message ?? null,
-        },
-      });
+      await new Promise((resolve) => window.setTimeout(resolve, 500));
 
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-      appendAuthLog({
-        scope: "login",
-        event: "login.getUser_result",
-        details: {
-          attemptCount: attemptNumber,
-          attemptId,
-          hasUser: Boolean(user),
-          userId: user?.id ?? null,
-          errorMessage: userError?.message ?? null,
-        },
-      });
+      let isReadyToRedirect = false;
+
+      for (let readinessAttempt = 1; readinessAttempt <= 5; readinessAttempt += 1) {
+        const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+        appendAuthLog({
+          scope: "login",
+          event: "login.getSession_result",
+          details: {
+            attemptCount: attemptNumber,
+            attemptId,
+            readinessAttempt,
+            hasSession: Boolean(sessionData.session),
+            errorMessage: sessionError?.message ?? null,
+          },
+        });
+
+        const {
+          data: { user },
+          error: userError,
+        } = await supabase.auth.getUser();
+        appendAuthLog({
+          scope: "login",
+          event: "login.getUser_result",
+          details: {
+            attemptCount: attemptNumber,
+            attemptId,
+            readinessAttempt,
+            hasUser: Boolean(user),
+            userId: user?.id ?? null,
+            errorMessage: userError?.message ?? null,
+          },
+        });
+
+        if (sessionData.session || user) {
+          isReadyToRedirect = true;
+          break;
+        }
+
+        if (readinessAttempt < 5) {
+          await new Promise((resolve) => window.setTimeout(resolve, 300));
+        }
+      }
+
+      if (!isReadyToRedirect) {
+        const errorMessage =
+          "Login succeeded, but your session was not ready yet. Please wait a moment and try again.";
+        appendAuthLog({
+          scope: "login",
+          event: "login.session_readiness_failed",
+          details: {
+            attemptCount: attemptNumber,
+            attemptId,
+          },
+        });
+        setError(errorMessage);
+        setIsLoading(false);
+        return;
+      }
 
       appendAuthLog({
         scope: "login",
@@ -186,7 +219,6 @@ export function LoginForm({
       });
 
       setPendingLoginRedirect(attemptId);
-      await new Promise((resolve) => window.setTimeout(resolve, 300));
       window.location.assign("/dashboard");
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : "An error occurred";
