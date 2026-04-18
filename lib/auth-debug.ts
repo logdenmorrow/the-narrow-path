@@ -1,10 +1,6 @@
 type AuthDebugDetails = Record<string, unknown>;
 
-function isClientAuthDebugEnabled() {
-  return process.env.NEXT_PUBLIC_AUTH_DEBUG === "true";
-}
-
-function isServerAuthDebugEnabled() {
+export function isServerAuthDebugEnabled() {
   return (
     process.env.AUTH_DEBUG === "true" ||
     process.env.NEXT_PUBLIC_AUTH_DEBUG === "true"
@@ -18,7 +14,7 @@ export function logAuthDebug(
 ) {
   const enabled =
     scope === "client"
-      ? isClientAuthDebugEnabled()
+      ? process.env.NEXT_PUBLIC_AUTH_DEBUG === "true"
       : isServerAuthDebugEnabled();
 
   if (!enabled) {

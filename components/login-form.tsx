@@ -2,11 +2,16 @@
 
 import { AuthCard, AuthPageLink } from "@/components/auth-shell";
 import { cn } from "@/lib/utils";
+import {
+  appendAuthLog,
+  fetchAuthServerSnapshot,
+  isAuthDebugEnabled,
+} from "@/lib/auth-log";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function LoginForm({
   className,
@@ -16,18 +21,100 @@ export function LoginForm({
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const loginAttemptRef = useRef(0);
+
+  useEffect(() => {
+    appendAuthLog({
+      scope: "login",
+      event: "login.page_loaded",
+      details: {
+        isDebugMode: isAuthDebugEnabled(),
+      },
+    });
+
+    try {
+      if (document.referrer) {
+        const referrerUrl = new URL(document.referrer);
+        const sameHost = referrerUrl.host === window.location.host;
+        const redirectedFromProtectedRoute =
+          sameHost &&
+          !referrerUrl.pathname.startsWith("/auth") &&
+          referrerUrl.pathname !== window.location.pathname;
+
+        if (redirectedFromProtectedRoute) {
+          appendAuthLog({
+            scope: "login",
+            event: "protected_route.redirected_to_login",
+            details: {
+              fromPathname: referrerUrl.pathname,
+            },
+          });
+        }
+      }
+    } catch {
+      // Ignore malformed referrer URLs.
+    }
+
+    if (isAuthDebugEnabled()) {
+      void fetchAuthServerSnapshot("login.page_loaded");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!error) {
+      return;
+    }
+
+    appendAuthLog({
+      scope: "login",
+      event: "login.error_shown",
+      details: {
+        errorMessage: error,
+        attemptCount: loginAttemptRef.current,
+      },
+    });
+  }, [error]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const supabase = createClient();
+    const attemptNumber = loginAttemptRef.current + 1;
+    loginAttemptRef.current = attemptNumber;
+
+    appendAuthLog({
+      scope: "login",
+      event: "login.submit_clicked",
+      details: {
+        attemptCount: attemptNumber,
+      },
+    });
 
     setIsLoading(true);
     setError(null);
 
     try {
+      appendAuthLog({
+        scope: "login",
+        event: "login.signin_started",
+        details: {
+          attemptCount: attemptNumber,
+          emailDomain: email.includes("@") ? email.split("@")[1] : null,
+        },
+      });
+
       const { error } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password,
+      });
+
+      appendAuthLog({
+        scope: "login",
+        event: "login.signin_result",
+        details: {
+          attemptCount: attemptNumber,
+          ok: !error,
+          errorMessage: error?.message ?? null,
+        },
       });
 
       if (error) {
@@ -36,9 +123,58 @@ export function LoginForm({
         return;
       }
 
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      appendAuthLog({
+        scope: "login",
+        event: "login.getSession_result",
+        details: {
+          attemptCount: attemptNumber,
+          hasSession: Boolean(sessionData.session),
+          errorMessage: sessionError?.message ?? null,
+        },
+      });
+
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+      appendAuthLog({
+        scope: "login",
+        event: "login.getUser_result",
+        details: {
+          attemptCount: attemptNumber,
+          hasUser: Boolean(user),
+          userId: user?.id ?? null,
+          errorMessage: userError?.message ?? null,
+        },
+      });
+
+      if (isAuthDebugEnabled()) {
+        void fetchAuthServerSnapshot("login.signin_result");
+      }
+
+      appendAuthLog({
+        scope: "login",
+        event: "login.redirect_dashboard_attempt",
+        details: {
+          attemptCount: attemptNumber,
+          targetPathname: "/dashboard",
+        },
+      });
+
       window.location.assign("/dashboard");
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
+      const errorMessage = error instanceof Error ? error.message : "An error occurred";
+      appendAuthLog({
+        scope: "login",
+        event: "login.signin_result",
+        details: {
+          attemptCount: attemptNumber,
+          ok: false,
+          errorMessage,
+        },
+      });
+      setError(errorMessage);
       setIsLoading(false);
     }
   };

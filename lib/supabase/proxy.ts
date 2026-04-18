@@ -57,8 +57,9 @@ export async function updateSession(request: NextRequest) {
     !request.nextUrl.pathname.startsWith("/login") &&
     !request.nextUrl.pathname.startsWith("/auth")
   ) {
-    logAuthDebug("server", "proxy.redirect_to_login", {
+    logAuthDebug("server", "protected_route.redirected_to_login", {
       pathname: request.nextUrl.pathname,
+      host: request.nextUrl.host,
     });
 
     // no user, potentially respond by redirecting the user to the login page

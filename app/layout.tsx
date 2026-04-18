@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
+import { AuthDebugPanel } from "@/components/auth-debug-panel";
 import AuthNav from "@/components/auth-nav";
 import AuthStateListener from "@/components/auth-state-listener";
 import MainNav from "@/components/main-nav";
@@ -8,6 +9,7 @@ import MobileTabBar from "@/components/mobile-tab-bar";
 import ProgressStrip from "@/components/progress-strip";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { isServerAuthDebugEnabled } from "@/lib/auth-debug";
 import { createClient } from "@/lib/supabase/server";
 import "./globals.css";
 
@@ -29,6 +31,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const authDebugEnabled = isServerAuthDebugEnabled();
   const supabase = await createClient();
   const {
     data: { user },
@@ -37,9 +40,12 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="monastic-shell">
+      <body className="monastic-shell" data-auth-debug-default={authDebugEnabled ? "true" : "false"}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthStateListener />
+          <Suspense fallback={null}>
+            <AuthDebugPanel />
+          </Suspense>
 
           <header className="monastic-header">
             <div className="monastic-frame">

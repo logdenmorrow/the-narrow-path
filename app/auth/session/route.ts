@@ -17,6 +17,7 @@ export async function GET() {
     : { authenticated: true as const, userId: user.id };
 
   logAuthDebug("server", "auth.session", {
+    pathname: "/auth/session",
     authenticated: body.authenticated,
     userId: user?.id ?? null,
     error: error?.message ?? null,
