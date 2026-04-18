@@ -162,6 +162,7 @@ export function LoginForm({
         },
       });
 
+      await new Promise((resolve) => window.setTimeout(resolve, 300));
       window.location.assign("/dashboard");
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : "An error occurred";
