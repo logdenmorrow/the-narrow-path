@@ -17,6 +17,7 @@ import {
 } from "@/components/task-card";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
+import { getCommunityName, normalizeTrack } from "@/lib/track";
 import { getChallengeTiming } from "@/lib/challenge";
 import {
   buildTaskViewModels,
@@ -143,10 +144,20 @@ export default async function BrotherhoodMemberPage({
     redirect("/auth/login");
   }
 
+  const { data: viewerProfileData } = await supabase
+    .from("profiles")
+    .select("track")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  const viewerTrack = normalizeTrack(viewerProfileData?.track);
+  const communityName = getCommunityName(viewerTrack);
+
   const { data: memberProfile } = await supabase
     .from("profiles")
     .select("id, display_name")
     .eq("id", selectedUserId)
+    .eq("track", viewerTrack)
     .maybeSingle();
 
   const typedProfile = (memberProfile ?? null) as ProfileRow | null;
@@ -166,7 +177,7 @@ export default async function BrotherhoodMemberPage({
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <h1 className="text-3xl font-bold">Brotherhood</h1>
+            <h1 className="text-3xl font-bold">{communityName}</h1>
             <p className="mt-3 text-zinc-300">No active challenge plan was found.</p>
           </div>
         </div>
@@ -200,7 +211,7 @@ export default async function BrotherhoodMemberPage({
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <h1 className="text-3xl font-bold">Brotherhood</h1>
+            <h1 className="text-3xl font-bold">{communityName}</h1>
             <p className="mt-3 text-zinc-300">Day {selectedDay} was not found.</p>
           </div>
         </div>
@@ -365,7 +376,7 @@ export default async function BrotherhoodMemberPage({
               The challenge begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
-              Brotherhood accountability pages will go live on launch day. For now,
+              {communityName} accountability pages will go live on launch day. For now,
               you&apos;re previewing the member record.
             </p>
           </SurfaceCard>
@@ -405,7 +416,7 @@ export default async function BrotherhoodMemberPage({
                 },
                 {
                   href: "/brotherhood",
-                  label: "Back to Brotherhood",
+                  label: `Back to ${communityName}`,
                   variant: "primary",
                 },
               ]}
