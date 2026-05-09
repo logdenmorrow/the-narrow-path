@@ -28,6 +28,8 @@ import {
   type PlanDayTaskRecord,
 } from "@/lib/task-progress";
 
+type SearchParams = Promise<Record<string, string | string[] | undefined>>;
+
 type ProfileRow = {
   id: string;
   display_name: string | null;
@@ -36,6 +38,7 @@ type ProfileRow = {
 type PlanDayRow = {
   id: number;
   day_number: number;
+  title?: string | null;
 };
 
 type ReflectionEntryRow = {
@@ -46,7 +49,19 @@ function uniqueTaskIds(tasks: PlanDayTaskRecord[]) {
   return [...new Set(tasks.map((task) => task.id))];
 }
 
-export default async function BrotherhoodPage() {
+function normalizeDayNumber(value: number, maxDayNumber: number) {
+  if (!Number.isFinite(value)) return 1;
+  const rounded = Math.floor(value);
+  if (rounded < 1) return 1;
+  if (rounded > maxDayNumber) return maxDayNumber;
+  return rounded;
+}
+
+export default async function BrotherhoodPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   const supabase = await createClient();
 
   const {
@@ -79,6 +94,15 @@ export default async function BrotherhoodPage() {
 
   const challenge = getChallengeTiming(activePlan.total_days);
   const currentDayNumber = challenge.hasStarted ? challenge.currentDayNumber : 1;
+  const maxSelectableDay = challenge.hasStarted ? challenge.currentDayNumber : 1;
+  const resolvedSearchParams = await searchParams;
+  const rawDay = Array.isArray(resolvedSearchParams.day)
+    ? resolvedSearchParams.day[0]
+    : resolvedSearchParams.day;
+  const selectedDay = normalizeDayNumber(
+    Number(rawDay ?? currentDayNumber),
+    maxSelectableDay
+  );
 
   const { data: allPlanDays } = await supabase
     .from("plan_days")
@@ -87,23 +111,44 @@ export default async function BrotherhoodPage() {
     .order("day_number");
 
   const typedAllPlanDays = (allPlanDays ?? []) as PlanDayRow[];
-  const todayPlanDayId =
-    typedAllPlanDays.find((day) => day.day_number === currentDayNumber)?.id ?? null;
+  const selectedPlanDayId =
+    typedAllPlanDays.find((day) => day.day_number === selectedDay)?.id ?? null;
 
-  if (!todayPlanDayId) {
+  if (!selectedPlanDayId) {
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
             <h1 className="text-3xl font-bold">Brotherhood</h1>
-            <p className="mt-3 text-zinc-300">Could not load the current day.</p>
+            <p className="mt-3 text-zinc-300">Could not load Day {selectedDay}.</p>
           </div>
         </div>
       </main>
     );
   }
 
-  const weekIndex = Math.floor((currentDayNumber - 1) / 7);
+  const { data: selectedPlanDay } = await supabase
+    .from("plan_days")
+    .select("id, day_number, title")
+    .eq("id", selectedPlanDayId)
+    .maybeSingle();
+
+  const typedSelectedPlanDay = (selectedPlanDay ?? null) as PlanDayRow | null;
+
+  if (!typedSelectedPlanDay) {
+    return (
+      <main className="monastic-page">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+            <h1 className="text-3xl font-bold">Brotherhood</h1>
+            <p className="mt-3 text-zinc-300">Day {selectedDay} was not found.</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  const weekIndex = Math.floor((selectedDay - 1) / 7);
   const weekStartDayNumber = weekIndex * 7 + 1;
   const weekEndDayNumber = Math.min(activePlan.total_days, weekStartDayNumber + 6);
 
@@ -135,7 +180,7 @@ export default async function BrotherhoodPage() {
         )
       `
     )
-    .eq("plan_day_id", todayPlanDayId)
+    .eq("plan_day_id", selectedPlanDayId)
     .order("display_order")
     .order("id");
 
@@ -192,7 +237,7 @@ export default async function BrotherhoodPage() {
     ? await supabase
         .from("user_reflection_entries")
         .select("user_id")
-        .eq("plan_day_id", todayPlanDayId)
+        .eq("plan_day_id", selectedPlanDayId)
     : { data: [] as ReflectionEntryRow[] };
 
   const reflectionUserIds = new Set(
@@ -260,6 +305,9 @@ export default async function BrotherhoodPage() {
 
   const startedCount = memberRows.filter((row) => row.startedToday).length;
   const completedCount = memberRows.filter((row) => row.completedToday).length;
+  const previousDay = selectedDay > 1 ? selectedDay - 1 : 1;
+  const nextDay = selectedDay < maxSelectableDay ? selectedDay + 1 : maxSelectableDay;
+  const isCurrentDayView = selectedDay === currentDayNumber;
 
   return (
     <main className="monastic-page">
@@ -281,15 +329,31 @@ export default async function BrotherhoodPage() {
               <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
               <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">Brotherhood</h1>
               <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
-                See today&apos;s required progress and weekly quota momentum across the group.
+                {isCurrentDayView
+                  ? "See the current day's required progress and weekly quota momentum across the group."
+                  : `See Day ${selectedDay} progress and the correct weekly quota momentum across the group.`}
               </p>
             </div>
 
             <AppActionBar
               className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
+                {
+                  href: `/brotherhood?day=${previousDay}`,
+                  label: "Previous Day",
+                  variant: "secondary",
+                },
+                {
+                  href: `/brotherhood?day=${nextDay}`,
+                  label: "Next Day",
+                  variant: "secondary",
+                },
                 { href: "/dashboard", label: "Back to Dashboard", variant: "secondary" },
-                { href: "/today", label: "Go to Today", variant: "primary" },
+                {
+                  href: `/today?day=${selectedDay}`,
+                  label: "Go to Today",
+                  variant: "primary",
+                },
               ]}
             />
           </div>
@@ -297,9 +361,13 @@ export default async function BrotherhoodPage() {
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <MetricCard
-            label="Current Day"
-            value={`Day ${currentDayNumber}`}
-            detail={formatReadableDate(typedTodayTasks[0]?.day_date)}
+            label="Selected Day"
+            value={`Day ${selectedDay}`}
+            detail={
+              formatReadableDate(typedTodayTasks[0]?.day_date) ||
+              typedSelectedPlanDay.title ||
+              "Challenge calendar date."
+            }
           />
           <MetricCard
             label="Members"
@@ -307,20 +375,20 @@ export default async function BrotherhoodPage() {
             detail="Men currently in the brotherhood."
           />
           <MetricCard
-            label="Started Today"
+            label={isCurrentDayView ? "Started Today" : `Started Day ${selectedDay}`}
             value={`${startedCount}`}
-            detail="Members who have begun today’s tasks."
+            detail="Members who have begun the selected day's tasks."
           />
           <MetricCard
             label="Completed Daily Core"
             value={`${completedCount}`}
-            detail="Members who finished all required daily tasks."
+            detail="Members who finished all required tasks for the selected day."
           />
         </div>
 
         <SurfaceCard>
           <SectionHeader
-            kicker="Today&apos;s Member Status"
+            kicker={isCurrentDayView ? "Today's Member Status" : `Day ${selectedDay} Member Status`}
             title="The body of men, seen at a glance."
             description="First name plus last initial for clarity, plus weekly quota progress for flexible disciplines."
           />
@@ -336,7 +404,7 @@ export default async function BrotherhoodPage() {
                   description={member.fullName}
                   action={
                     <Button asChild variant="secondary" size="xs">
-                      <Link href={`/brotherhood/${member.profile.id}?day=${currentDayNumber}`}>
+                      <Link href={`/brotherhood/${member.profile.id}?day=${selectedDay}`}>
                         Open Member
                       </Link>
                     </Button>

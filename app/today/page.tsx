@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppActionBar } from "@/components/page-actions";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import {
@@ -347,6 +349,27 @@ export default async function TodayPage({
   const lockLabel = !challenge.hasStarted
     ? "Locked Until Launch"
     : "Future Day Locked";
+  const reflectionTask = taskModels.find((task) => task.slug === "reflection");
+  const hasReflectionPrompt = Boolean(typedPlanDay.reflection_prompt?.trim());
+  const isReflectionComplete = Boolean(reflectionTask?.isCompleted);
+  const reflectionCardLabel = isReflectionComplete
+    ? "Reflection Complete"
+    : "Open Reflection";
+  const reflectionCardValue = !hasReflectionPrompt
+    ? "Not Assigned"
+    : isReflectionComplete
+      ? "Completed"
+      : canEditSelectedDay
+        ? "Available"
+        : "Locked";
+  const reflectionCardDetail = !hasReflectionPrompt
+    ? "No reflection prompt is assigned for this day."
+    : isReflectionComplete
+      ? "Your reflection for this day has been saved."
+      : "Capture today's resistance, graces, and concrete response.";
+  const reflectionActionLabel = isReflectionComplete
+    ? "Review Reflection"
+    : "Open Reflection";
 
   return (
     <main className="monastic-page">
@@ -427,11 +450,34 @@ export default async function TodayPage({
             value={typedPlanDay.reading_reference ?? "Daily reading"}
             detail={typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
           />
-          <MetricCard
-            label="Open Reflection"
-            value={canEditSelectedDay ? "Available" : "Locked"}
-            detail="Capture today’s resistance, graces, and concrete response."
-          />
+          <SurfaceCard
+            className={
+              isReflectionComplete
+                ? "border-[rgba(86,124,102,0.45)] bg-[rgba(151,186,164,0.09)]"
+                : undefined
+            }
+          >
+            <div className="section-kicker">{reflectionCardLabel}</div>
+            <div
+              className={`mt-3 text-3xl font-semibold sm:text-4xl ${
+                isReflectionComplete ? "text-[#5d725f] dark:text-[#a7ccb9]" : "text-monastic-0"
+              }`}
+            >
+              {reflectionCardValue}
+            </div>
+            <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base">
+              {reflectionCardDetail}
+            </p>
+            {hasReflectionPrompt ? (
+              <div className="mt-5">
+                <Button asChild variant={isReflectionComplete ? "secondary" : "default"}>
+                  <Link href={`/reflection?day=${typedPlanDay.day_number}`}>
+                    {reflectionActionLabel}
+                  </Link>
+                </Button>
+              </div>
+            ) : null}
+          </SurfaceCard>
         </section>
 
         {uniqueQuotaTasks.length > 0 && (
