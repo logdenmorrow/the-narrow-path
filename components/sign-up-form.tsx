@@ -3,6 +3,7 @@
 import { AuthCard, AuthPageLink } from "@/components/auth-shell";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
+import { type Gender, trackFromGender } from "@/lib/track";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,6 +18,7 @@ export function SignUpForm({
 }: React.ComponentPropsWithoutRef<"div">) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [gender, setGender] = useState<Gender | "">("");
   const [inviteCode, setInviteCode] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,6 +55,12 @@ export function SignUpForm({
       return;
     }
 
+    if (!gender) {
+      setError("Please select Male or Female");
+      setIsLoading(false);
+      return;
+    }
+
     if (password !== repeatPassword) {
       setError("Passwords do not match");
       setIsLoading(false);
@@ -60,6 +68,8 @@ export function SignUpForm({
     }
 
     try {
+      const track = trackFromGender(gender);
+
       const { error } = await supabase.auth.signUp({
         email,
         password,
@@ -69,6 +79,8 @@ export function SignUpForm({
             first_name: cleanedFirstName,
             last_name: cleanedLastName,
             full_name: `${cleanedFirstName} ${cleanedLastName}`,
+            gender,
+            track,
             invite_code: cleanedInviteCode,
           },
         },
@@ -142,6 +154,38 @@ export function SignUpForm({
                   onChange={(e) => setLastName(e.target.value)}
                   className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
                 />
+              </div>
+            </div>
+
+            <div className="grid gap-2">
+              <Label className="text-sm font-semibold text-monastic-1">
+                Sex
+              </Label>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <label className="monastic-field flex h-12 cursor-pointer items-center gap-3 rounded-2xl border-0 px-4 py-3 text-base text-monastic-0 shadow-none">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="male"
+                    required
+                    checked={gender === "male"}
+                    onChange={() => setGender("male")}
+                    className="size-4 accent-[hsl(var(--primary))]"
+                  />
+                  Male
+                </label>
+                <label className="monastic-field flex h-12 cursor-pointer items-center gap-3 rounded-2xl border-0 px-4 py-3 text-base text-monastic-0 shadow-none">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="female"
+                    required
+                    checked={gender === "female"}
+                    onChange={() => setGender("female")}
+                    className="size-4 accent-[hsl(var(--primary))]"
+                  />
+                  Female
+                </label>
               </div>
             </div>
 
