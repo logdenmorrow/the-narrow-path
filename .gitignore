@@ -43,3 +43,5 @@ next-env.d.ts
 
 # local docker/image export files
 *.tar
+# Supabase local temp files
+supabase/.temp/
