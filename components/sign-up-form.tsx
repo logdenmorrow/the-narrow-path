@@ -109,7 +109,7 @@ export function SignUpForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <AuthCard
         title="Request your place"
-        description="Create your account for a Catholic rule of prayer, discipline, and shared accountability."
+        description="Create your account and begin the Catholic challenge with your Brotherhood or Sisterhood track."
         footer={
           <p className="text-center">
             Already have an account?{" "}

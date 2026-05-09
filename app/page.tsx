@@ -14,47 +14,48 @@ import { getCommunityName, normalizeTrack } from "@/lib/track";
 const pillars = [
   {
     title: "Daily Discipline",
-    body: "A Catholic pattern of prayer, restraint, Scripture, and concrete obedience.",
+    body: "Prayer, restraint, Scripture, and concrete obedience, laid out clearly.",
   },
   {
     title: "Sacred Reading",
-    body: "Each day opens with Scripture, Catholic teaching, mission, and reflection.",
+    body: "Each day includes Scripture, Catholic teaching, and a short mission.",
   },
   {
     title: "Brotherhood & Sisterhood",
-    body: "Walk with others under the same Catholic standard while keeping accountability serious and humble.",
+    body: "Separate tracks, one Catholic standard, and accountability that stays serious.",
   },
 ];
 
 const liturgy = [
-  "Begin the day with prayer, reading, and a clear mission.",
-  "Mark required disciplines with visible but humble progress.",
-  "Keep weekly practices tied to sacramental and spiritual rhythm.",
-  "Return to Catholic accountability and reflection before the day closes.",
+  "Start the day with prayer, reading, and a clear mission.",
+  "Track the disciplines you actually committed to.",
+  "Keep weekly practices like Mass, Adoration, and Rosary in view.",
+  "End the day with reflection and honest accountability.",
 ];
 
 const publicOfficeMoments = [
-  "A daily reading that brings the mind back to Scripture and Catholic truth.",
-  "A clear structure that keeps prayer, restraint, and obedience in view.",
-  "Separate Brotherhood and Sisterhood tracks for shared Catholic accountability without spectacle.",
+  "Daily Scripture and Catholic teaching to keep the day anchored.",
+  "Simple disciplines that make prayer and restraint concrete.",
+  "Separate Brotherhood and Sisterhood tracks for accountable Catholic community.",
 ];
 
 const publicHighlights = [
   {
     label: "Daily Reading",
     value: "Scripture, mission, and focus",
-    detail: "Each day begins with a prepared reading and a clear direction for the day.",
+    detail: "Each day begins with a prepared reading and a clear direction.",
   },
   {
     label: "Crafted Rhythm",
-    value: "Visible disciplines with calm",
-    detail: "The experience keeps momentum legible without slipping into noisy productivity cues.",
+    value: "Visible disciplines",
+    detail:
+      "Progress is visible enough to keep you honest, but not loud enough to become the point.",
   },
   {
     label: "Shared Standard",
-    value: "Catholic accountability without spectacle.",
+    value: "Catholic accountability",
     detail:
-      "Members move under a clear Catholic standard, with progress meant to steady the soul rather than perform for others.",
+      "Members follow the same standard within their Brotherhood or Sisterhood track.",
   },
 ];
 
@@ -107,12 +108,12 @@ export default async function HomePage() {
               <h1 className="mt-4 text-[2.9rem] font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
                 {isSignedIn
                   ? `Stay on the Narrow Path with order, reverence, and ${communityNameLower}.`
-                  : "Stay on the Narrow Path with order, reverence, and Catholic accountability."}
+                  : "Stay on the Narrow Path with prayer, discipline, and Catholic accountability."}
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-[#f3e5cf] sm:text-xl sm:leading-8">
                 {isSignedIn
                   ? `The Narrow Path helps ordinary ${peoplePlural} pursue God with daily readings, clear disciplines, and shared accountability that stays serious without turning performative.`
-                  : "The Narrow Path helps ordinary Catholics and those discerning the Catholic faith pursue God through daily readings, clear disciplines, sacramental rhythm, and shared accountability rooted in the Church Christ founded."}
+                  : "The Narrow Path is a Catholic challenge for people who want structure, not noise. It gives you daily readings, concrete disciplines, and accountability rooted in the Church Christ founded."}
               </p>
 
               <AppActionBar
@@ -235,11 +236,12 @@ export default async function HomePage() {
                   What You&apos;ll Find Inside
                 </div>
                 <h2 className="mt-3 text-3xl font-semibold text-[#2f2117] dark:text-white">
-                  A serious Catholic rhythm for daily conversion.
+                  A serious rhythm for ordinary Catholics.
                 </h2>
                 <p className="mt-2 text-base leading-7 text-[#6b4b2f] dark:text-[#ead8bc]">
-                  The Narrow Path is built around prayer, Scripture, the sacraments,
-                  and concrete discipline, without turning devotion into performance.
+                  Each day gives you a reading, a few clear tasks, and a way to
+                  stay accountable without turning the whole thing into a
+                  performance.
                 </p>
 
                 <div className="mt-6 grid gap-3">
@@ -273,8 +275,8 @@ export default async function HomePage() {
           <SurfaceCard>
             <SectionHeader
               kicker="A More Intentional Rhythm"
-              title="The experience feels devotional first, productive second."
-              description="Every surface is meant to feel calm, tactile, and deliberate: parchment light mode, ember-and-stone dark mode, clear hierarchy, and actions that feel weighty instead of generic."
+              title="Devotional first. Productive second."
+              description="The point is not to gamify holiness. The point is to make the next faithful step obvious."
             />
 
             <div className="mt-6 grid gap-3">

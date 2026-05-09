@@ -314,8 +314,8 @@ export function LoginForm({
       </AuthCard>
 
       <p className="mx-auto max-w-md text-center text-sm leading-7 text-monastic-1">
-        By continuing, you return to the same Catholic rhythm of prayer,
-        discipline, and accountability used across the rest of the app.
+        Come back to the same Catholic rhythm: pray, do the work, tell the
+        truth, and keep going.
       </p>
     </div>
   );

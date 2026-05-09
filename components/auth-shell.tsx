@@ -19,12 +19,12 @@ export function AuthShell({ children }: AuthShellProps) {
               </p>
               <div className="space-y-5">
                 <h1 className="text-4xl font-semibold tracking-tight text-[rgba(249,236,214,0.94)] [text-wrap:balance] xl:text-5xl xl:leading-[1.06]">
-                  Return to prayer, discipline, and Catholic accountability.
+                  Return to prayer, discipline, and the work in front of you.
                 </h1>
                 <p className="max-w-lg text-base leading-8 text-[rgba(255,239,216,0.88)] xl:text-lg">
-                  Brotherhood and Sisterhood tracks share one serious Catholic
-                  rhythm of Scripture, sacramental life, obedience, and daily
-                  conversion.
+                  The Narrow Path keeps the Catholic rhythm simple: Scripture,
+                  prayer, the sacraments, concrete tasks, and people who know
+                  whether you showed up.
                 </p>
               </div>
             </div>
@@ -34,8 +34,8 @@ export function AuthShell({ children }: AuthShellProps) {
                 Prayer / Sacraments / Accountability
               </p>
               <p className="mt-3 max-w-md text-sm leading-7 text-[rgba(255,239,216,0.9)]">
-                Enter quietly, keep the flow simple, and continue under the
-                discipline of the Church Christ founded.
+                Enter quietly and keep going under the discipline of the Church
+                Christ founded.
               </p>
             </div>
           </section>

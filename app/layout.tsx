@@ -68,9 +68,11 @@ export default async function RootLayout({
                       <span className="monastic-wordmark-mark">+</span>
                       <span className="whitespace-nowrap">The Narrow Path</span>
                     </Link>
-                    <p className="hidden text-sm tracking-[0.18em] text-monastic-2 sm:block">
-                      Prayer • Discipline • {communityName}
-                    </p>
+                    {isSignedIn ? (
+                      <p className="hidden text-sm tracking-[0.18em] text-monastic-2 sm:block">
+                        Prayer • Discipline • {communityName}
+                      </p>
+                    ) : null}
                   </div>
 
                   <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end sm:gap-3">
