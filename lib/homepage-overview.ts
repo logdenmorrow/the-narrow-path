@@ -1,6 +1,7 @@
 import { getChallengeTiming } from "@/lib/challenge";
 import { createClient } from "@/lib/supabase/server";
 import { getReflectionTaskId } from "@/lib/task-progress";
+import { getCommunityName, isVisibleForTrack, type Track } from "@/lib/track";
 
 type QueryResult<T> = {
   data: T | null;
@@ -25,6 +26,7 @@ type PlanDayRow = {
 
 type ProfileRow = {
   id: string;
+  track: string | null;
 };
 
 type UserTaskCompletionRow = {
@@ -42,6 +44,7 @@ type TaskTemplateRow = {
   title: string;
   cadence: TaskTemplateCadence;
   weekly_target: number | null;
+  audience: string | null;
 };
 
 type PlanDayTaskRow = {
@@ -82,6 +85,12 @@ function normalizeTaskTemplate(
   }
 
   return relation ?? null;
+}
+
+function filterTasksForTrack(tasks: PlanDayTaskRow[], track: Track) {
+  return tasks.filter((task) =>
+    isVisibleForTrack(normalizeTaskTemplate(task.task_templates)?.audience, track)
+  );
 }
 
 function toPercent(value: number, total: number) {
@@ -150,8 +159,14 @@ function findFeaturedWeeklyQuota(tasks: PlanDayTaskRow[]) {
 }
 
 export async function getHomepageOverview(
-  supabase: SupabaseServerClient
+  supabase: SupabaseServerClient,
+  track: Track
 ): Promise<HomepageOverview> {
+  const communityName = getCommunityName(track);
+  const memberPlural = track === "sisterhood" ? "sisters" : "brothers";
+  const peoplePlural = track === "sisterhood" ? "women" : "men";
+  const personSingular = track === "sisterhood" ? "woman" : "man";
+
   const fallback: HomepageOverview = {
     readingTitle: "Today's Reading",
     readingReference: "Live reading unavailable",
@@ -163,14 +178,14 @@ export async function getHomepageOverview(
     ),
     dailyCore: unavailableMetric(
       "Daily Core Complete",
-      "Brotherhood completion totals are temporarily unavailable."
+      `${communityName} completion totals are temporarily unavailable.`
     ),
     weeklyFocus: unavailableMetric(
       "Weekly Prayer",
       "Current weekly quota progress could not be loaded."
     ),
     brotherhood: unavailableMetric(
-      "Brotherhood",
+      communityName,
       "Member totals are temporarily unavailable."
     ),
     reflection: unavailableMetric(
@@ -219,7 +234,8 @@ export async function getHomepageOverview(
                 slug,
                 title,
                 cadence,
-                weekly_target
+                weekly_target,
+                audience
               )
             `
           )
@@ -232,7 +248,7 @@ export async function getHomepageOverview(
           .gte("day_number", challenge.weekStartDay)
           .lte("day_number", challenge.weekEndDay)
           .order("day_number", { ascending: true }),
-        supabase.from("profiles").select("id").order("id"),
+        supabase.from("profiles").select("id, track").eq("track", track).order("id"),
         supabase
           .from("user_reflection_entries")
           .select("user_id")
@@ -260,10 +276,14 @@ export async function getHomepageOverview(
     }
 
     const todayTasks = (todayTasksResult.data ?? []) as PlanDayTaskRow[];
+    const visibleTodayTasks = filterTasksForTrack(todayTasks, track);
     const weekDayIds = (weekDaysResult.data ?? []).map((day) => day.id);
     const memberIds = (profilesResult.data ?? []).map((profile) => profile.id);
+    const memberIdSet = new Set(memberIds);
     const reflectionUserIds = new Set(
-      (reflectionEntriesResult.data ?? []).map((entry) => entry.user_id)
+      (reflectionEntriesResult.data ?? [])
+        .filter((entry) => memberIdSet.has(entry.user_id))
+        .map((entry) => entry.user_id)
     );
 
     const { data: weekTasksData, error: weekTasksError } = weekDayIds.length
@@ -280,7 +300,8 @@ export async function getHomepageOverview(
                 slug,
                 title,
                 cadence,
-                weekly_target
+                weekly_target,
+                audience
               )
             `
           )
@@ -297,8 +318,10 @@ export async function getHomepageOverview(
       };
     }
 
-    const weekTasks = (weekTasksData ?? []) as PlanDayTaskRow[];
-    const relevantTaskIds = [...new Set([...todayTasks, ...weekTasks].map((task) => task.id))];
+    const weekTasks = filterTasksForTrack((weekTasksData ?? []) as PlanDayTaskRow[], track);
+    const relevantTaskIds = [
+      ...new Set([...visibleTodayTasks, ...weekTasks].map((task) => task.id)),
+    ];
 
     const { data: completionsData, error: completionsError } = relevantTaskIds.length
       ? ((await supabase
@@ -317,7 +340,9 @@ export async function getHomepageOverview(
       };
     }
 
-    const completions = (completionsData ?? []) as UserTaskCompletionRow[];
+    const completions = ((completionsData ?? []) as UserTaskCompletionRow[]).filter(
+      (completion) => memberIdSet.has(completion.user_id)
+    );
     const completionsByUser = new Map<string, Set<number>>();
 
     for (const completion of completions) {
@@ -326,12 +351,12 @@ export async function getHomepageOverview(
       completionsByUser.set(completion.user_id, existing);
     }
 
-    const requiredTodayTasks = todayTasks.filter((task) => {
+    const requiredTodayTasks = visibleTodayTasks.filter((task) => {
       const template = normalizeTaskTemplate(task.task_templates);
       return task.is_required && template?.cadence !== "weekly_quota";
     });
 
-    const reflectionTaskId = getReflectionTaskId(todayTasks);
+    const reflectionTaskId = getReflectionTaskId(visibleTodayTasks);
     const totalRequiredActs = requiredTodayTasks.length * memberIds.length;
     let completedRequiredActs = 0;
     let completedDailyCoreCount = 0;
@@ -369,8 +394,10 @@ export async function getHomepageOverview(
       : 0;
     const weeklyTargetTotal = featuredQuota ? featuredQuota.target * memberIds.length : 0;
 
-    const brotherhoodLabel =
-      memberIds.length === 1 ? "1 man currently in the group." : "Men currently in the group.";
+    const communityLabel =
+      memberIds.length === 1
+        ? `1 ${personSingular} currently in the group.`
+        : `${peoplePlural[0].toUpperCase()}${peoplePlural.slice(1)} currently in the group.`;
 
     return {
       readingTitle:
@@ -386,7 +413,7 @@ export async function getHomepageOverview(
             : "No required tasks",
         detail:
           requiredTodayTasks.length > 0
-            ? `${completedDailyCoreCount} of ${memberIds.length} brothers have finished the daily core.`
+            ? `${completedDailyCoreCount} of ${memberIds.length} ${memberPlural} have finished the daily core.`
             : "No required daily disciplines are assigned for this day.",
         meterValue:
           totalRequiredActs > 0 ? toPercent(completedRequiredActs, totalRequiredActs) : undefined,
@@ -395,7 +422,7 @@ export async function getHomepageOverview(
       dailyCore: {
         label: "Daily Core Complete",
         value: `${completedDailyCoreCount} / ${memberIds.length}`,
-        detail: "Brothers who have completed every required task for today.",
+        detail: `${memberPlural[0].toUpperCase()}${memberPlural.slice(1)} who have completed every required task for today.`,
         meterValue:
           memberIds.length > 0 ? toPercent(completedDailyCoreCount, memberIds.length) : undefined,
         available: true,
@@ -404,7 +431,7 @@ export async function getHomepageOverview(
         ? {
             label: featuredQuota.label,
             value: `${weeklyCompletionCount} / ${weeklyTargetTotal}`,
-            detail: `${featuredQuota.title} completions against the current brotherhood weekly target.`,
+            detail: `${featuredQuota.title} completions against the current ${communityName.toLowerCase()} weekly target.`,
             meterValue:
               weeklyTargetTotal > 0
                 ? toPercent(weeklyCompletionCount, weeklyTargetTotal)
@@ -416,15 +443,18 @@ export async function getHomepageOverview(
             "No weekly quota task is configured for the current week."
           ),
       brotherhood: {
-        label: "Brotherhood",
-        value: memberIds.length === 1 ? "1 man" : `${memberIds.length} men`,
-        detail: brotherhoodLabel,
+        label: communityName,
+        value:
+          memberIds.length === 1
+            ? `1 ${personSingular}`
+            : `${memberIds.length} ${peoplePlural}`,
+        detail: communityLabel,
         available: true,
       },
       reflection: {
         label: "Reflection Entries",
         value: `${reflectionUserIds.size} / ${memberIds.length}`,
-        detail: "Brothers who have saved today's reflection entry.",
+        detail: `${memberPlural[0].toUpperCase()}${memberPlural.slice(1)} who have saved today's reflection entry.`,
         meterValue:
           memberIds.length > 0 ? toPercent(reflectionUserIds.size, memberIds.length) : undefined,
         available: true,
