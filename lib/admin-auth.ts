@@ -2,28 +2,9 @@ import "server-only";
 
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
+import { isAllowedAdminEmail } from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
-
-export function getAdminEmails() {
-  return (process.env.ADMIN_EMAILS ?? "")
-    .split(",")
-    .map((email) => email.trim().toLowerCase())
-    .filter(Boolean);
-}
-
-export function isAllowedAdminEmail(email?: string | null) {
-  const adminEmails = getAdminEmails();
-
-  if (adminEmails.length === 0) {
-    return false;
-  }
-
-  if (!email) {
-    return false;
-  }
-
-  return adminEmails.includes(email.toLowerCase());
-}
+export { getAdminEmails, isAllowedAdminEmail } from "@/lib/admin";
 
 export async function requireAdminUser() {
   const supabase = await createClient();

@@ -27,6 +27,7 @@ type PlanDayRow = {
 type ProfileRow = {
   id: string;
   track: string | null;
+  is_hidden_from_community: boolean | null;
 };
 
 type UserTaskCompletionRow = {
@@ -248,7 +249,12 @@ export async function getHomepageOverview(
           .gte("day_number", challenge.weekStartDay)
           .lte("day_number", challenge.weekEndDay)
           .order("day_number", { ascending: true }),
-        supabase.from("profiles").select("id, track").eq("track", track).order("id"),
+        supabase
+          .from("profiles")
+          .select("id, track, is_hidden_from_community")
+          .eq("track", track)
+          .eq("is_hidden_from_community", false)
+          .order("id"),
         supabase
           .from("user_reflection_entries")
           .select("user_id")

@@ -15,6 +15,10 @@ type CheckinSummaryRow = {
   status: "completed" | "struggled" | "missed";
 };
 
+type PrayerRequestSummaryRow = {
+  user_id: string;
+};
+
 export async function generateWeeklyRecapPreview() {
   const supabase = createAdminClient();
 
@@ -35,9 +39,12 @@ export async function generateWeeklyRecapPreview() {
   const [
     { data: profileRows, error: profilesError },
     { data: checkinRows, error: checkinsError },
-    { count: prayerRequestCount, error: prayerError },
+    { data: prayerRows, error: prayerError },
   ] = await Promise.all([
-    supabase.from("profiles").select("id", { count: "exact", head: false }),
+    supabase
+      .from("profiles")
+      .select("id", { count: "exact", head: false })
+      .eq("is_hidden_from_community", false),
     supabase
       .from("user_daily_checkins")
       .select("user_id, status")
@@ -45,7 +52,7 @@ export async function generateWeeklyRecapPreview() {
       .lte("day_date", weekWindow.weekEndDate),
     supabase
       .from("user_prayer_requests")
-      .select("id", { count: "exact", head: true })
+      .select("user_id")
       .gte("request_date", weekWindow.weekStartDate)
       .lte("request_date", weekWindow.weekEndDate),
   ]);
@@ -63,7 +70,13 @@ export async function generateWeeklyRecapPreview() {
   }
 
   const totalMen = profileRows?.length ?? 0;
-  const typedCheckins = (checkinRows ?? []) as CheckinSummaryRow[];
+  const visibleMemberIds = new Set((profileRows ?? []).map((profile) => profile.id));
+  const typedCheckins = ((checkinRows ?? []) as CheckinSummaryRow[]).filter((row) =>
+    visibleMemberIds.has(row.user_id)
+  );
+  const prayerRequestCount = ((prayerRows ?? []) as PrayerRequestSummaryRow[]).filter(
+    (row) => visibleMemberIds.has(row.user_id)
+  ).length;
   const checkinsByUserId = new Map<string, Set<CheckinSummaryRow["status"]>>();
   const checkinCountByUserId = new Map<string, number>();
 
@@ -101,7 +114,7 @@ export async function generateWeeklyRecapPreview() {
     `- ${usersWithCompleted} men marked Completed at least once`,
     `- ${usersWithStruggled} men marked Struggled at least once`,
     `- ${usersWithMissed} men marked Missed at least once`,
-    `- ${prayerRequestCount ?? 0} prayer requests were made`,
+    `- ${prayerRequestCount} prayer requests were made`,
     "",
     "Keep praying for each other.",
     "Tomorrow starts a new week. Stay with it.",
@@ -117,7 +130,7 @@ export async function generateWeeklyRecapPreview() {
     usersWithCompleted,
     usersWithStruggled,
     usersWithMissed,
-    prayerRequestCount: prayerRequestCount ?? 0,
+    prayerRequestCount,
     message: lines.join("\n"),
   };
 }

@@ -9,6 +9,7 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { AdminViewTrackSwitcher } from "@/components/admin-view-track-switcher";
 import {
   StatusPill,
   TaskCard,
@@ -16,8 +17,14 @@ import {
   TaskCardMeta,
 } from "@/components/task-card";
 import { Button } from "@/components/ui/button";
+import {
+  getViewTrackFromSearchParams,
+  resolveEffectiveTrack,
+  withViewTrack,
+  type SearchParamRecord,
+} from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
-import { getCommunityName, normalizeTrack } from "@/lib/track";
+import { getCommunityName, isVisibleForTrack, type Track } from "@/lib/track";
 import { getChallengeTiming } from "@/lib/challenge";
 import {
   buildTaskViewModels,
@@ -31,7 +38,7 @@ import {
   type PlanDayTaskRecord,
 } from "@/lib/task-progress";
 
-type SearchParams = Promise<Record<string, string | string[] | undefined>>;
+type SearchParams = Promise<SearchParamRecord>;
 
 type ProfileRow = {
   id: string;
@@ -68,6 +75,15 @@ function normalizeDayNumber(value: number, totalDays: number) {
 
 function uniqueTaskIds(tasks: PlanDayTaskRecord[]) {
   return [...new Set(tasks.map((task) => task.id))];
+}
+
+function getTaskAudience(task: PlanDayTaskRecord) {
+  const relation = task.task_templates;
+  return Array.isArray(relation) ? relation[0]?.audience : relation?.audience;
+}
+
+function filterTasksForTrack(tasks: PlanDayTaskRecord[], track: Track) {
+  return tasks.filter((task) => isVisibleForTrack(getTaskAudience(task), track));
 }
 
 function toCompletedLabel(timestamp: string | null | undefined) {
@@ -150,7 +166,16 @@ export default async function BrotherhoodMemberPage({
     .eq("id", user.id)
     .maybeSingle();
 
-  const viewerTrack = normalizeTrack(viewerProfileData?.track);
+  const requestedViewTrack = getViewTrackFromSearchParams(resolvedSearchParams);
+  const {
+    effectiveTrack: viewerTrack,
+    isAdmin,
+    isUsingViewOverride,
+  } = resolveEffectiveTrack({
+    email: user.email,
+    profileTrack: viewerProfileData?.track,
+    requestedTrack: requestedViewTrack,
+  });
   const communityName = getCommunityName(viewerTrack);
 
   const { data: memberProfile } = await supabase
@@ -158,6 +183,7 @@ export default async function BrotherhoodMemberPage({
     .select("id, display_name")
     .eq("id", selectedUserId)
     .eq("track", viewerTrack)
+    .eq("is_hidden_from_community", false)
     .maybeSingle();
 
   const typedProfile = (memberProfile ?? null) as ProfileRow | null;
@@ -261,7 +287,8 @@ export default async function BrotherhoodMemberPage({
         display_order,
         task_templates (
           title,
-          slug
+          slug,
+          audience
         )
       `
     )
@@ -269,7 +296,10 @@ export default async function BrotherhoodMemberPage({
     .order("display_order")
     .order("id");
 
-  const typedDayTasks = (dayTasks ?? []) as PlanDayTaskRecord[];
+  const typedDayTasks = filterTasksForTrack(
+    (dayTasks ?? []) as PlanDayTaskRecord[],
+    viewerTrack
+  );
 
   const { data: scopeTasks } = weekPlanDayIds.length
     ? await supabase
@@ -289,14 +319,18 @@ export default async function BrotherhoodMemberPage({
             display_order,
             task_templates (
               title,
-              slug
+              slug,
+              audience
             )
           `
         )
         .in("plan_day_id", weekPlanDayIds)
     : { data: [] as PlanDayTaskRecord[] };
 
-  const typedScopeTasks = (scopeTasks ?? []) as PlanDayTaskRecord[];
+  const typedScopeTasks = filterTasksForTrack(
+    (scopeTasks ?? []) as PlanDayTaskRecord[],
+    viewerTrack
+  );
 
   const taskIds = uniqueTaskIds(typedDayTasks);
   const scopedTaskIds = uniqueTaskIds(typedScopeTasks);
@@ -358,6 +392,7 @@ export default async function BrotherhoodMemberPage({
   const previousDay = selectedDay > 1 ? selectedDay - 1 : 1;
   const nextDay =
     selectedDay < activePlan.total_days ? selectedDay + 1 : activePlan.total_days;
+  const preserveViewTrack = isAdmin && isUsingViewOverride;
 
   const memberFullName = typedProfile.display_name ?? "Member";
   const memberShortName = toShortDisplayName(typedProfile.display_name);
@@ -382,6 +417,14 @@ export default async function BrotherhoodMemberPage({
           </SurfaceCard>
         )}
 
+        {isAdmin ? (
+          <AdminViewTrackSwitcher
+            basePath={`/brotherhood/${selectedUserId}`}
+            currentTrack={viewerTrack}
+            params={{ day: selectedDay }}
+          />
+        ) : null}
+
         <HeroPanel className="py-7 sm:py-8">
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div className="text-[#f7ebd8]">
@@ -400,12 +443,20 @@ export default async function BrotherhoodMemberPage({
               className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
                 {
-                  href: `/brotherhood/${selectedUserId}?day=${previousDay}`,
+                  href: withViewTrack(
+                    `/brotherhood/${selectedUserId}?day=${previousDay}`,
+                    viewerTrack,
+                    preserveViewTrack
+                  ),
                   label: "Previous Day",
                   variant: "secondary",
                 },
                 {
-                  href: `/brotherhood/${selectedUserId}?day=${nextDay}`,
+                  href: withViewTrack(
+                    `/brotherhood/${selectedUserId}?day=${nextDay}`,
+                    viewerTrack,
+                    preserveViewTrack
+                  ),
                   label: "Next Day",
                   variant: "secondary",
                 },
@@ -415,7 +466,7 @@ export default async function BrotherhoodMemberPage({
                   variant: "outline",
                 },
                 {
-                  href: "/brotherhood",
+                  href: withViewTrack("/brotherhood", viewerTrack, preserveViewTrack),
                   label: `Back to ${communityName}`,
                   variant: "primary",
                 },

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppActionBar } from "@/components/page-actions";
+import { AdminViewTrackSwitcher } from "@/components/admin-view-track-switcher";
 import { DailyStatusCard } from "@/components/daily-status-card";
 import { PrayerRequestCard } from "@/components/prayer-request-card";
 import { Button } from "@/components/ui/button";
@@ -8,9 +9,14 @@ import { createClient } from "@/lib/supabase/server";
 import {
   getCommunityName,
   isVisibleForTrack,
-  normalizeTrack,
   type Track,
 } from "@/lib/track";
+import {
+  getViewTrackFromSearchParams,
+  resolveEffectiveTrack,
+  withViewTrack,
+  type SearchParamRecord,
+} from "@/lib/admin";
 import {
   DAILY_STATUS_LABELS,
   PRAYER_REQUEST_CATEGORY_LABELS,
@@ -36,7 +42,7 @@ import {
   type PlanDayTaskRecord,
 } from "@/lib/task-progress";
 
-type SearchParams = Promise<Record<string, string | string[] | undefined>>;
+type SearchParams = Promise<SearchParamRecord>;
 
 type PlanDayRow = {
   id: number;
@@ -117,12 +123,23 @@ export default async function TodayPage({
     redirect("/auth/login");
   }
 
+  const resolvedSearchParams = await searchParams;
+
   const { data: profileData } = await supabase
     .from("profiles")
     .select("track")
     .eq("id", user.id)
     .maybeSingle();
-  const track = normalizeTrack(profileData?.track);
+  const requestedViewTrack = getViewTrackFromSearchParams(resolvedSearchParams);
+  const {
+    effectiveTrack: track,
+    isAdmin,
+    isUsingViewOverride,
+  } = resolveEffectiveTrack({
+    email: user.email,
+    profileTrack: profileData?.track,
+    requestedTrack: requestedViewTrack,
+  });
   const communityName = getCommunityName(track);
 
   const { data: activePlan, error: activePlanError } = await supabase
@@ -145,7 +162,6 @@ export default async function TodayPage({
   }
 
   const challenge = getChallengeTiming(activePlan.total_days);
-  const resolvedSearchParams = await searchParams;
 
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]
@@ -421,6 +437,7 @@ export default async function TodayPage({
   const accountabilityEnabled = challenge.hasStarted && selectedDay === challenge.currentDayNumber;
   const isCurrentChallengeDayView =
     challenge.hasStarted && selectedDay === challenge.currentDayNumber;
+  const preserveViewTrack = isAdmin && isUsingViewOverride;
 
   const { data: dailyCheckinData } = accountabilityEnabled
     ? await supabase
@@ -462,6 +479,14 @@ export default async function TodayPage({
           </SurfaceCard>
         )}
 
+        {isAdmin ? (
+          <AdminViewTrackSwitcher
+            basePath="/today"
+            currentTrack={track}
+            params={{ day: selectedDay }}
+          />
+        ) : null}
+
         <HeroPanel className="py-7 sm:py-8">
           <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
             <div className="text-[#f7ebd8]">
@@ -482,12 +507,12 @@ export default async function TodayPage({
               className="grid w-full gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
                 {
-                  href: `/today?day=${previousDay}`,
+                  href: withViewTrack(`/today?day=${previousDay}`, track, preserveViewTrack),
                   label: "Previous Day",
                   variant: "secondary",
                 },
                 {
-                  href: `/today?day=${nextDay}`,
+                  href: withViewTrack(`/today?day=${nextDay}`, track, preserveViewTrack),
                   label: "Next Day",
                   variant: "secondary",
                 },
@@ -497,7 +522,11 @@ export default async function TodayPage({
                   variant: "outline",
                 },
                 {
-                  href: `/this-week?day=${typedPlanDay.day_number}`,
+                  href: withViewTrack(
+                    `/this-week?day=${typedPlanDay.day_number}`,
+                    track,
+                    preserveViewTrack
+                  ),
                   label: "This Week",
                   variant: "primary",
                 },

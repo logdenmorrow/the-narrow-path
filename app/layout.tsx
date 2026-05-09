@@ -9,6 +9,7 @@ import MobileTabBar from "@/components/mobile-tab-bar";
 import ProgressStrip from "@/components/progress-strip";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { syncAdminProfileVisibility } from "@/lib/admin";
 import { isServerAuthDebugEnabled } from "@/lib/auth-debug";
 import { createClient } from "@/lib/supabase/server";
 import { getCommunityName, normalizeTrack } from "@/lib/track";
@@ -38,6 +39,9 @@ export default async function RootLayout({
     data: { user },
   } = await supabase.auth.getUser();
   const isSignedIn = Boolean(user);
+  if (user) {
+    await syncAdminProfileVisibility(user);
+  }
   const { data: profileData } = user
     ? await supabase
         .from("profiles")
