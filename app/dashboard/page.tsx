@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   getCommunityName,
+  getMemberName,
   isVisibleForTrack,
   normalizeTrack,
   type Track,
@@ -96,7 +97,11 @@ function isAllowedAdminEmail(email?: string | null) {
   return adminEmails.includes(email.toLowerCase());
 }
 
-function getDisplayName(profile?: ProfileRow | null, email?: string | null) {
+function getDisplayName(
+  profile?: ProfileRow | null,
+  email?: string | null,
+  fallbackName = "Brother"
+) {
   if (profile?.first_name?.trim() && profile?.last_name?.trim()) {
     return `${profile.first_name.trim()} ${profile.last_name.trim()}`;
   }
@@ -105,7 +110,7 @@ function getDisplayName(profile?: ProfileRow | null, email?: string | null) {
     return profile.display_name.trim();
   }
 
-  return email ?? "Brother";
+  return email ?? fallbackName;
 }
 
 function filterTasksForTrack<
@@ -578,7 +583,7 @@ export default async function DashboardPage() {
             <div className="text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
               <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">
-                Welcome, {getDisplayName(profile, user.email)}
+                Welcome, {getDisplayName(profile, user.email, getMemberName(track))}
               </h1>
               <p className="mt-3 text-lg leading-8 text-[#f0dec1]">
                 Daily disciplines keep the day grounded. Weekly quota tasks give

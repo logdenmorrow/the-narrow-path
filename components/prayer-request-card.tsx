@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 type PrayerRequestCardProps = {
   initialCategory: PrayerRequestCategory | null;
   initialNote: string;
+  communityName?: string;
   disabled?: boolean;
   helperText?: string;
 };
@@ -22,6 +23,7 @@ const NOTE_MAX_LENGTH = 200;
 export function PrayerRequestCard({
   initialCategory,
   initialNote,
+  communityName = "Brotherhood",
   disabled = false,
   helperText,
 }: PrayerRequestCardProps) {
@@ -173,7 +175,8 @@ export function PrayerRequestCard({
 
               <div className="space-y-2">
                 <label htmlFor="prayer-note" className="text-sm font-medium text-monastic-1">
-                  Optional note. Keep it short. This will be visible to the brotherhood.
+                  Optional note. Keep it short. This will be visible to the{" "}
+                  {communityName.toLowerCase()}.
                 </label>
                 <textarea
                   id="prayer-note"

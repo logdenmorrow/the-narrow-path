@@ -5,7 +5,12 @@ import { DailyStatusCard } from "@/components/daily-status-card";
 import { PrayerRequestCard } from "@/components/prayer-request-card";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
-import { isVisibleForTrack, normalizeTrack, type Track } from "@/lib/track";
+import {
+  getCommunityName,
+  isVisibleForTrack,
+  normalizeTrack,
+  type Track,
+} from "@/lib/track";
 import {
   DAILY_STATUS_LABELS,
   PRAYER_REQUEST_CATEGORY_LABELS,
@@ -118,6 +123,7 @@ export default async function TodayPage({
     .eq("id", user.id)
     .maybeSingle();
   const track = normalizeTrack(profileData?.track);
+  const communityName = getCommunityName(track);
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")
@@ -684,12 +690,13 @@ export default async function TodayPage({
             <SectionHeader
               kicker="Prayer"
               title="Need prayer?"
-              description="Let the brotherhood know you need prayer."
+              description={`Let the ${communityName.toLowerCase()} know you need prayer.`}
             />
             {accountabilityEnabled ? (
               <PrayerRequestCard
                 initialCategory={prayerRequest?.category ?? null}
                 initialNote={prayerRequest?.note ?? ""}
+                communityName={communityName}
                 disabled={!accountabilityEnabled}
                 helperText={
                   prayerRequest?.category
