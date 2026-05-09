@@ -20,6 +20,7 @@ import { DashboardLoginRedirectClear } from "@/components/dashboard-login-redire
 import {
   getViewTrackFromSearchParams,
   resolveEffectiveTrack,
+  syncAdminProfileVisibility,
   withViewTrack,
   type SearchParamRecord,
 } from "@/lib/admin";
@@ -219,6 +220,8 @@ export default async function DashboardPage({
   if (userError || !user) {
     redirect("/auth/login");
   }
+
+  await syncAdminProfileVisibility(user);
 
   const { data: profileData } = await supabase
     .from("profiles")
@@ -674,9 +677,6 @@ export default async function DashboardPage({
               <Link href={withViewTrack(`/today?day=${Math.max(selectedDay - 1, 1)}`, track, preserveViewTrack)} className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                 Review Yesterday
               </Link>
-              <Link href="/support" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
-                Support
-              </Link>
               {isAdmin && (
                 <Link href="/admin/plan" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                   Admin Plan
@@ -685,11 +685,6 @@ export default async function DashboardPage({
               {isAdmin && (
                 <Link href="/admin/auth-reports" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                   Auth Reports
-                </Link>
-              )}
-              {isAdmin && (
-                <Link href="/admin/support" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
-                  Support Requests
                 </Link>
               )}
             </div>

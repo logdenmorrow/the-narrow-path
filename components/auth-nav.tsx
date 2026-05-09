@@ -15,11 +15,12 @@ export default async function AuthNav({ mobile = false }: { mobile?: boolean }) 
   if (isLoggedIn) {
     return (
       <div className={`ml-auto flex items-center ${mobile ? "gap-2" : "gap-3"}`}>
-        {mobile ? (
-          <Button asChild variant="ghost" size="xs">
-            <Link href="/support">Support</Link>
-          </Button>
-        ) : null}
+        <Link
+          href="/support"
+          className="text-xs font-medium text-monastic-2 underline-offset-4 transition hover:text-monastic-0 hover:underline"
+        >
+          Support
+        </Link>
         <SignOutButton mobile={mobile} />
       </div>
     );
