@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { getCommunityName, normalizeTrack } from "@/lib/track";
+import {
+  getCommunityName,
+  isVisibleForTrack,
+  normalizeTrack,
+  type Track,
+} from "@/lib/track";
 import { redirect } from "next/navigation";
 import {
   HeroPanel,
@@ -24,6 +29,7 @@ type TaskTemplateRow = {
   description: string | null;
   cadence: TaskTemplateCadence;
   weekly_target: number | null;
+  audience: string | null;
 };
 
 type PlanDayTaskRow = {
@@ -100,6 +106,14 @@ function getDisplayName(profile?: ProfileRow | null, email?: string | null) {
   }
 
   return email ?? "Brother";
+}
+
+function filterTasksForTrack<
+  T extends { task_templates: { audience: string | null } | null },
+>(tasks: T[], track: Track) {
+  return tasks.filter((task) =>
+    isVisibleForTrack(task.task_templates?.audience, track)
+  );
 }
 
 function buildWeeklyQuotaProgress(
@@ -271,7 +285,8 @@ export default async function DashboardPage() {
               title,
               description,
               cadence,
-              weekly_target
+              weekly_target,
+              audience
             )
           `
         )
@@ -279,7 +294,10 @@ export default async function DashboardPage() {
         .order("sort_order", { ascending: true })
     : { data: [] };
 
-  const todayTasks = (todayTasksData ?? []) as unknown as PlanDayTaskRow[];
+  const todayTasks = filterTasksForTrack(
+    (todayTasksData ?? []) as unknown as PlanDayTaskRow[],
+    track
+  );
   const todayTaskIds = todayTasks.map((task) => task.id);
 
   const { data: weekDaysData } = await supabase
@@ -309,14 +327,18 @@ export default async function DashboardPage() {
               title,
               description,
               cadence,
-              weekly_target
+              weekly_target,
+              audience
             )
           `
         )
         .in("plan_day_id", weekDayIds)
     : { data: [] };
 
-  const weekTasks = (weekTasksData ?? []) as unknown as PlanDayTaskRow[];
+  const weekTasks = filterTasksForTrack(
+    (weekTasksData ?? []) as unknown as PlanDayTaskRow[],
+    track
+  );
   const weekTaskIds = weekTasks.map((task) => task.id);
 
   const relevantCompletionIds = Array.from(new Set([...todayTaskIds, ...weekTaskIds]));
@@ -410,14 +432,18 @@ export default async function DashboardPage() {
               title,
               description,
               cadence,
-              weekly_target
+              weekly_target,
+              audience
             )
           `
         )
         .eq("plan_day_id", yesterdayPlanDay.id)
     : { data: [] };
 
-  const yesterdayTasks = (yesterdayTasksData ?? []) as unknown as PlanDayTaskRow[];
+  const yesterdayTasks = filterTasksForTrack(
+    (yesterdayTasksData ?? []) as unknown as PlanDayTaskRow[],
+    track
+  );
   const yesterdayRequiredTasks = yesterdayTasks.filter(
     (task) =>
       task.task_templates?.cadence !== "weekly_quota" && task.is_required
@@ -461,7 +487,8 @@ export default async function DashboardPage() {
             plan_day_id,
             is_required,
             task_templates (
-              cadence
+              cadence,
+              audience
             )
           `
         )
@@ -473,9 +500,13 @@ export default async function DashboardPage() {
     id: number;
     plan_day_id: number;
     is_required: boolean;
-    task_templates: { cadence: TaskTemplateCadence } | null;
+    task_templates: {
+      cadence: TaskTemplateCadence;
+      audience: string | null;
+    } | null;
   }>;
-  const allRequiredTaskIds = allRequiredTasks
+  const visibleAllRequiredTasks = filterTasksForTrack(allRequiredTasks, track);
+  const allRequiredTaskIds = visibleAllRequiredTasks
     .filter((task) => task.task_templates?.cadence !== "weekly_quota")
     .map((task) => task.id);
 
@@ -495,7 +526,7 @@ export default async function DashboardPage() {
 
   const requiredTasksByDay = new Map<number, number[]>();
   const planDayNumberById = new Map(allPlanDays.map((day) => [day.id, day.day_number]));
-  for (const task of allRequiredTasks) {
+  for (const task of visibleAllRequiredTasks) {
     if (task.task_templates?.cadence === "weekly_quota") {
       continue;
     }

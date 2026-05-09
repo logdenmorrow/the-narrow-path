@@ -2,10 +2,12 @@ export type TaskTemplateRelation =
   | {
       title: string | null;
       slug: string | null;
+      audience?: string | null;
     }
   | Array<{
       title: string | null;
       slug: string | null;
+      audience?: string | null;
     }>
   | null;
 

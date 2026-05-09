@@ -18,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
+import { isVisibleForTrack, normalizeTrack, type Track } from "@/lib/track";
 import {
   buildTaskViewModels,
   formatReadableDate,
@@ -48,6 +49,15 @@ function normalizeDayNumber(value: number, totalDays: number) {
 
 function uniqueTaskIds(tasks: PlanDayTaskRecord[]) {
   return [...new Set(tasks.map((task) => task.id))];
+}
+
+function getTaskAudience(task: PlanDayTaskRecord) {
+  const relation = task.task_templates;
+  return Array.isArray(relation) ? relation[0]?.audience : relation?.audience;
+}
+
+function filterTasksForTrack<T extends PlanDayTaskRecord>(tasks: T[], track: Track) {
+  return tasks.filter((task) => isVisibleForTrack(getTaskAudience(task), track));
 }
 
 function getQuotaMeterTone(completed: number, target: number): MeterTone {
@@ -104,6 +114,13 @@ export default async function ThisWeekPage({
   if (userError || !user) {
     redirect("/auth/login");
   }
+
+  const { data: profileData } = await supabase
+    .from("profiles")
+    .select("track")
+    .eq("id", user.id)
+    .maybeSingle();
+  const track = normalizeTrack(profileData?.track);
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")
@@ -184,7 +201,8 @@ export default async function ThisWeekPage({
         display_order,
         task_templates (
           title,
-          slug
+          slug,
+          audience
         )
       `
     )
@@ -193,9 +211,12 @@ export default async function ThisWeekPage({
     .order("display_order")
     .order("id");
 
-  const typedWeekTasks = (weekTasks ?? []) as (PlanDayTaskRecord & {
-    plan_day_id: number;
-  })[];
+  const typedWeekTasks = filterTasksForTrack(
+    (weekTasks ?? []) as (PlanDayTaskRecord & {
+      plan_day_id: number;
+    })[],
+    track
+  );
 
   if (weekTasksError) {
     return (

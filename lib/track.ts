@@ -4,6 +4,8 @@ export type Track = (typeof TRACKS)[number];
 
 export type Gender = "male" | "female";
 
+export type TaskAudience = Track | "shared";
+
 export function normalizeTrack(track: string | null | undefined): Track {
   return track === "sisterhood" ? "sisterhood" : "brotherhood";
 }
@@ -18,4 +20,11 @@ export function getCommunityName(track: Track): "Brotherhood" | "Sisterhood" {
 
 export function getMemberName(track: Track): "Brother" | "Sister" {
   return track === "sisterhood" ? "Sister" : "Brother";
+}
+
+export function isVisibleForTrack(
+  audience: string | null | undefined,
+  track: Track
+) {
+  return audience === "shared" || audience === track;
 }
