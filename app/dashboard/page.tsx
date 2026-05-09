@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getCommunityName, normalizeTrack } from "@/lib/track";
 import { redirect } from "next/navigation";
 import {
   HeroPanel,
@@ -55,6 +56,7 @@ type ProfileRow = {
   display_name: string | null;
   first_name: string | null;
   last_name: string | null;
+  track: string | null;
 };
 
 type WeeklyQuotaProgressRow = {
@@ -209,11 +211,13 @@ export default async function DashboardPage() {
 
   const { data: profileData } = await supabase
     .from("profiles")
-    .select("id, display_name, first_name, last_name")
+    .select("id, display_name, first_name, last_name, track")
     .eq("id", user.id)
     .maybeSingle();
 
   const profile = (profileData ?? null) as ProfileRow | null;
+  const track = normalizeTrack(profile?.track);
+  const communityName = getCommunityName(track);
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")
@@ -511,7 +515,9 @@ export default async function DashboardPage() {
     allRequiredCompletionIds, // Streaks must consider all required-task completions through selectedDay, not only today/week data.
     selectedDay
   );
-  const memberCount = (await supabase.from("profiles").select("id")).data?.length ?? 0;
+  const memberCount =
+    (await supabase.from("profiles").select("id").eq("track", track)).data
+      ?.length ?? 0;
   const isAdmin = isAllowedAdminEmail(user.email);
 
   return (
@@ -581,9 +587,13 @@ export default async function DashboardPage() {
             detail="Flexible weekly goals currently met."
           />
           <MetricCard
-            label="Brotherhood Members"
+            label={`${communityName} Members`}
             value={`${memberCount}`}
-            detail="Men currently on the path."
+            detail={
+              track === "sisterhood"
+                ? "Women currently on the path."
+                : "Men currently on the path."
+            }
           />
         </div>
 
@@ -602,7 +612,7 @@ export default async function DashboardPage() {
                 This Week
               </Link>
               <Link href="/brotherhood" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
-                Brotherhood
+                {communityName}
               </Link>
               <Link href={`/today?day=${Math.max(selectedDay - 1, 1)}`} className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                 Review Yesterday
