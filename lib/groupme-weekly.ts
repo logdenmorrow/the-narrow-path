@@ -103,8 +103,8 @@ export async function generateWeeklyRecapPreview() {
     `- ${usersWithMissed} men marked Missed at least once`,
     `- ${prayerRequestCount ?? 0} prayer requests were made`,
     "",
-    "Pray for the brothers carrying things quietly.",
-    "Tomorrow starts a new week. Do not disappear.",
+    "Keep praying for each other.",
+    "Tomorrow starts a new week. Stay with it.",
     "",
     `${getAppBaseUrl()}/today`,
   ];
