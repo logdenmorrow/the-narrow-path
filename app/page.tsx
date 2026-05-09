@@ -146,7 +146,7 @@ export default async function HomePage() {
                           className: "w-full sm:w-auto",
                         },
                         {
-                          href: "/auth/login",
+                          href: "/about",
                           label: "Learn More",
                           variant: "secondary",
                           size: "lg",
