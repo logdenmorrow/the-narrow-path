@@ -16,6 +16,7 @@ import {
 } from "@/components/task-card";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
+import { getCommunityName, normalizeTrack } from "@/lib/track";
 import {
   DAILY_STATUS_LABELS,
   PRAYER_REQUEST_CATEGORY_LABELS,
@@ -93,6 +94,15 @@ export default async function BrotherhoodPage({
     redirect("/auth/login");
   }
 
+  const { data: viewerProfileData } = await supabase
+    .from("profiles")
+    .select("track")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  const viewerTrack = normalizeTrack(viewerProfileData?.track);
+  const communityName = getCommunityName(viewerTrack);
+
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")
     .select("id, name, total_days")
@@ -104,7 +114,7 @@ export default async function BrotherhoodPage({
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <h1 className="text-3xl font-bold">Brotherhood</h1>
+            <h1 className="text-3xl font-bold">{communityName}</h1>
             <p className="mt-3 text-zinc-300">No active challenge plan was found.</p>
           </div>
         </div>
@@ -139,7 +149,7 @@ export default async function BrotherhoodPage({
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <h1 className="text-3xl font-bold">Brotherhood</h1>
+            <h1 className="text-3xl font-bold">{communityName}</h1>
             <p className="mt-3 text-zinc-300">Could not load Day {selectedDay}.</p>
           </div>
         </div>
@@ -160,7 +170,7 @@ export default async function BrotherhoodPage({
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <h1 className="text-3xl font-bold">Brotherhood</h1>
+            <h1 className="text-3xl font-bold">{communityName}</h1>
             <p className="mt-3 text-zinc-300">Day {selectedDay} was not found.</p>
           </div>
         </div>
@@ -246,6 +256,7 @@ export default async function BrotherhoodPage({
   const { data: profiles } = await supabase
     .from("profiles")
     .select("id, display_name")
+    .eq("track", viewerTrack)
     .order("display_name");
 
   const typedProfiles = (profiles ?? []) as ProfileRow[];
@@ -280,8 +291,11 @@ export default async function BrotherhoodPage({
         .order("created_at", { ascending: true })
     : { data: [] as PrayerRequestRow[] };
 
+  const trackMemberIds = new Set(typedProfiles.map((profile) => profile.id));
   const dailyCheckins = (dailyCheckinsData ?? []) as DailyCheckinRow[];
-  const prayerRequests = (prayerRequestsData ?? []) as PrayerRequestRow[];
+  const prayerRequests = ((prayerRequestsData ?? []) as PrayerRequestRow[]).filter(
+    (request) => trackMemberIds.has(request.user_id)
+  );
   const dailyCheckinByUserId = new Map(
     dailyCheckins.map((row) => [row.user_id, row.status])
   );
@@ -387,7 +401,7 @@ export default async function BrotherhoodPage({
               The challenge begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
-              Brotherhood statuses will go live on launch day. For now, everyone is
+              {communityName} statuses will go live on launch day. For now, everyone is
               shown as pre-start.
             </p>
           </SurfaceCard>
@@ -397,7 +411,7 @@ export default async function BrotherhoodPage({
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div className="text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
-              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">Brotherhood</h1>
+              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">{communityName}</h1>
               <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
                 {isCurrentDayView
                   ? "See the current day's required progress and weekly quota momentum across the group."
@@ -442,7 +456,11 @@ export default async function BrotherhoodPage({
           <MetricCard
             label="Members"
             value={`${memberRows.length}`}
-            detail="Men currently in the brotherhood."
+            detail={
+              viewerTrack === "sisterhood"
+                ? "Women currently in the sisterhood."
+                : "Men currently in the brotherhood."
+            }
           />
           <MetricCard
             label={isCurrentDayView ? "Started Today" : `Started Day ${selectedDay}`}
@@ -459,7 +477,7 @@ export default async function BrotherhoodPage({
         <SurfaceCard>
           <SectionHeader
             kicker="Prayer"
-            title="Pray for the Brotherhood"
+            title={`Pray for the ${communityName}`}
             description="Prayer requests from today and yesterday."
           />
 
@@ -496,7 +514,7 @@ export default async function BrotherhoodPage({
         <SurfaceCard>
           <SectionHeader
             kicker={isCurrentDayView ? "Today's Member Status" : `Day ${selectedDay} Member Status`}
-            title="The body of men, seen at a glance."
+            title={`The ${communityName.toLowerCase()}, seen at a glance.`}
             description="First name plus last initial for clarity, plus weekly quota progress for flexible disciplines."
           />
 
