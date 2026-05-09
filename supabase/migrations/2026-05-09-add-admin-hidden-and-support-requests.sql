@@ -52,6 +52,77 @@ from auth.users as auth_user
 where profile.id = auth_user.id
   and lower(auth_user.email) = 'lrnester1+admin@gmail.com';
 
+create or replace function public.handle_new_user()
+ returns trigger
+ language plpgsql
+ security definer
+ set search_path = ''
+as $function$
+declare
+  normalized_email text := lower(coalesce(new.email, ''));
+  new_user_is_admin boolean;
+begin
+  select exists (
+    select 1
+    from public.app_admins
+    where email = normalized_email
+  )
+  into new_user_is_admin;
+
+  insert into public.profiles (
+    id,
+    first_name,
+    last_name,
+    display_name,
+    gender,
+    track,
+    is_admin,
+    is_hidden_from_community
+  )
+  values (
+    new.id,
+    nullif(new.raw_user_meta_data ->> 'first_name', ''),
+    nullif(new.raw_user_meta_data ->> 'last_name', ''),
+    coalesce(
+      nullif(
+        trim(
+          concat_ws(
+            ' ',
+            new.raw_user_meta_data ->> 'first_name',
+            new.raw_user_meta_data ->> 'last_name'
+          )
+        ),
+        ''
+      ),
+      split_part(new.email, '@', 1)
+    ),
+    case
+      when new.raw_user_meta_data ->> 'gender' in ('male', 'female')
+        then new.raw_user_meta_data ->> 'gender'
+      else null
+    end,
+    case
+      when new.raw_user_meta_data ->> 'track' in ('brotherhood', 'sisterhood')
+        then new.raw_user_meta_data ->> 'track'
+      else 'brotherhood'
+    end,
+    new_user_is_admin,
+    new_user_is_admin
+  )
+  on conflict (id) do update
+  set
+    first_name = excluded.first_name,
+    last_name = excluded.last_name,
+    display_name = excluded.display_name,
+    gender = excluded.gender,
+    track = excluded.track,
+    is_admin = excluded.is_admin,
+    is_hidden_from_community = excluded.is_hidden_from_community;
+
+  return new;
+end;
+$function$;
+
 create or replace function public.prevent_profile_admin_visibility_flag_update()
 returns trigger
 language plpgsql

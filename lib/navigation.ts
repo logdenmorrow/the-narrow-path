@@ -7,7 +7,6 @@ export const desktopNavItems = [
   { href: "/this-week", label: "This Week" },
   { href: "/daily-reading", label: "Daily Reading" },
   { href: "/brotherhood", label: "Brotherhood" },
-  { href: "/support", label: "Support" },
 ] as const;
 
 export const mobileTabItems = [

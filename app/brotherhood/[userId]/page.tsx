@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import {
   getViewTrackFromSearchParams,
   resolveEffectiveTrack,
+  syncAdminProfileVisibility,
   withViewTrack,
   type SearchParamRecord,
 } from "@/lib/admin";
@@ -159,6 +160,8 @@ export default async function BrotherhoodMemberPage({
   if (userError || !user) {
     redirect("/auth/login");
   }
+
+  await syncAdminProfileVisibility(user);
 
   const { data: viewerProfileData } = await supabase
     .from("profiles")

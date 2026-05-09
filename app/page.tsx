@@ -7,6 +7,7 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { syncAdminProfileVisibility } from "@/lib/admin";
 import { getHomepageOverview } from "@/lib/homepage-overview";
 import { createClient } from "@/lib/supabase/server";
 import { getCommunityName, normalizeTrack } from "@/lib/track";
@@ -78,6 +79,9 @@ export default async function HomePage() {
   } = await supabase.auth.getUser();
 
   const isSignedIn = Boolean(user);
+  if (user) {
+    await syncAdminProfileVisibility(user);
+  }
   const { data: profileData } = user
     ? await supabase
         .from("profiles")
