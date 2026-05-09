@@ -3,10 +3,10 @@ import {
   getCommunityName,
   getMemberName,
   isVisibleForTrack,
-  normalizeTrack,
   type Track,
 } from "@/lib/track";
 import { redirect } from "next/navigation";
+import { AdminViewTrackSwitcher } from "@/components/admin-view-track-switcher";
 import {
   HeroPanel,
   MetricCard,
@@ -17,6 +17,12 @@ import {
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 import { DashboardLoginRedirectClear } from "@/components/dashboard-login-redirect-clear";
+import {
+  getViewTrackFromSearchParams,
+  resolveEffectiveTrack,
+  withViewTrack,
+  type SearchParamRecord,
+} from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import { applyReflectionCompletionOverride, getReflectionTaskId } from "@/lib/task-progress";
@@ -76,26 +82,7 @@ type WeeklyQuotaProgressRow = {
 
 type MeterTone = "neutral" | "accent" | "success";
 
-function getAdminEmails() {
-  return (process.env.ADMIN_EMAILS ?? "")
-    .split(",")
-    .map((email) => email.trim().toLowerCase())
-    .filter(Boolean);
-}
-
-function isAllowedAdminEmail(email?: string | null) {
-  const adminEmails = getAdminEmails();
-
-  if (adminEmails.length === 0) {
-    return true;
-  }
-
-  if (!email) {
-    return false;
-  }
-
-  return adminEmails.includes(email.toLowerCase());
-}
+type SearchParams = Promise<SearchParamRecord>;
 
 function getDisplayName(
   profile?: ProfileRow | null,
@@ -216,8 +203,13 @@ function getQuotaMeterClasses(tone: MeterTone) {
   }
 }
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   const supabase = await createClient();
+  const resolvedSearchParams = await searchParams;
 
   const {
     data: { user },
@@ -235,7 +227,16 @@ export default async function DashboardPage() {
     .maybeSingle();
 
   const profile = (profileData ?? null) as ProfileRow | null;
-  const track = normalizeTrack(profile?.track);
+  const requestedViewTrack = getViewTrackFromSearchParams(resolvedSearchParams);
+  const {
+    effectiveTrack: track,
+    isAdmin,
+    isUsingViewOverride,
+  } = resolveEffectiveTrack({
+    email: user.email,
+    profileTrack: profile?.track,
+    requestedTrack: requestedViewTrack,
+  });
   const communityName = getCommunityName(track);
 
   const { data: activePlan, error: activePlanError } = await supabase
@@ -552,9 +553,14 @@ export default async function DashboardPage() {
     selectedDay
   );
   const memberCount =
-    (await supabase.from("profiles").select("id").eq("track", track)).data
-      ?.length ?? 0;
-  const isAdmin = isAllowedAdminEmail(user.email);
+    (
+      await supabase
+        .from("profiles")
+        .select("id")
+        .eq("track", track)
+        .eq("is_hidden_from_community", false)
+    ).data?.length ?? 0;
+  const preserveViewTrack = isAdmin && isUsingViewOverride;
 
   return (
     <main className="monastic-page">
@@ -578,6 +584,13 @@ export default async function DashboardPage() {
           </p>
         </div>
 
+        {isAdmin ? (
+          <AdminViewTrackSwitcher
+            basePath="/dashboard"
+            currentTrack={track}
+          />
+        ) : null}
+
         <HeroPanel className="mb-6 py-7 sm:py-8">
           <div className="grid gap-6 lg:grid-cols-[1.12fr_0.88fr] lg:items-end">
             <div className="text-[#f7ebd8]">
@@ -594,8 +607,16 @@ export default async function DashboardPage() {
             <AppActionBar
               className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
-                { href: "/today", label: "Go to Today", variant: "primary" },
-                { href: "/this-week", label: "View This Week", variant: "secondary" },
+                {
+                  href: withViewTrack("/today", track, preserveViewTrack),
+                  label: "Go to Today",
+                  variant: "primary",
+                },
+                {
+                  href: withViewTrack("/this-week", track, preserveViewTrack),
+                  label: "View This Week",
+                  variant: "secondary",
+                },
               ]}
             />
           </div>
@@ -641,17 +662,20 @@ export default async function DashboardPage() {
               description={`Signed in as ${user.email}`}
             />
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <Link href="/today" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
+              <Link href={withViewTrack("/today", track, preserveViewTrack)} className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                 Today
               </Link>
-              <Link href="/this-week" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
+              <Link href={withViewTrack("/this-week", track, preserveViewTrack)} className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                 This Week
               </Link>
-              <Link href="/brotherhood" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
+              <Link href={withViewTrack("/brotherhood", track, preserveViewTrack)} className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                 {communityName}
               </Link>
-              <Link href={`/today?day=${Math.max(selectedDay - 1, 1)}`} className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
+              <Link href={withViewTrack(`/today?day=${Math.max(selectedDay - 1, 1)}`, track, preserveViewTrack)} className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                 Review Yesterday
+              </Link>
+              <Link href="/support" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
+                Support
               </Link>
               {isAdmin && (
                 <Link href="/admin/plan" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
@@ -661,6 +685,11 @@ export default async function DashboardPage() {
               {isAdmin && (
                 <Link href="/admin/auth-reports" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
                   Auth Reports
+                </Link>
+              )}
+              {isAdmin && (
+                <Link href="/admin/support" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
+                  Support Requests
                 </Link>
               )}
             </div>

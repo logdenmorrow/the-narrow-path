@@ -8,6 +8,7 @@ import {
   SurfaceCard,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { AdminViewTrackSwitcher } from "@/components/admin-view-track-switcher";
 import {
   StatusPill,
   TaskCard,
@@ -15,8 +16,14 @@ import {
   TaskCardMeta,
 } from "@/components/task-card";
 import { Button } from "@/components/ui/button";
+import {
+  getViewTrackFromSearchParams,
+  resolveEffectiveTrack,
+  withViewTrack,
+  type SearchParamRecord,
+} from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
-import { getCommunityName, normalizeTrack } from "@/lib/track";
+import { getCommunityName, isVisibleForTrack, type Track } from "@/lib/track";
 import {
   DAILY_STATUS_LABELS,
   PRAYER_REQUEST_CATEGORY_LABELS,
@@ -37,7 +44,7 @@ import {
   type PlanDayTaskRecord,
 } from "@/lib/task-progress";
 
-type SearchParams = Promise<Record<string, string | string[] | undefined>>;
+type SearchParams = Promise<SearchParamRecord>;
 
 type ProfileRow = {
   id: string;
@@ -78,6 +85,15 @@ function normalizeDayNumber(value: number, maxDayNumber: number) {
   return rounded;
 }
 
+function getTaskAudience(task: PlanDayTaskRecord) {
+  const relation = task.task_templates;
+  return Array.isArray(relation) ? relation[0]?.audience : relation?.audience;
+}
+
+function filterTasksForTrack(tasks: PlanDayTaskRecord[], track: Track) {
+  return tasks.filter((task) => isVisibleForTrack(getTaskAudience(task), track));
+}
+
 export default async function BrotherhoodPage({
   searchParams,
 }: {
@@ -94,13 +110,24 @@ export default async function BrotherhoodPage({
     redirect("/auth/login");
   }
 
+  const resolvedSearchParams = await searchParams;
+
   const { data: viewerProfileData } = await supabase
     .from("profiles")
     .select("track")
     .eq("id", user.id)
     .maybeSingle();
 
-  const viewerTrack = normalizeTrack(viewerProfileData?.track);
+  const requestedViewTrack = getViewTrackFromSearchParams(resolvedSearchParams);
+  const {
+    effectiveTrack: viewerTrack,
+    isAdmin,
+    isUsingViewOverride,
+  } = resolveEffectiveTrack({
+    email: user.email,
+    profileTrack: viewerProfileData?.track,
+    requestedTrack: requestedViewTrack,
+  });
   const communityName = getCommunityName(viewerTrack);
 
   const { data: activePlan, error: activePlanError } = await supabase
@@ -125,7 +152,6 @@ export default async function BrotherhoodPage({
   const challenge = getChallengeTiming(activePlan.total_days);
   const currentDayNumber = challenge.hasStarted ? challenge.currentDayNumber : 1;
   const maxSelectableDay = challenge.hasStarted ? challenge.currentDayNumber : 1;
-  const resolvedSearchParams = await searchParams;
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]
     : resolvedSearchParams.day;
@@ -206,7 +232,8 @@ export default async function BrotherhoodPage({
         display_order,
         task_templates (
           title,
-          slug
+          slug,
+          audience
         )
       `
     )
@@ -214,7 +241,10 @@ export default async function BrotherhoodPage({
     .order("display_order")
     .order("id");
 
-  const typedTodayTasks = (todayTasks ?? []) as PlanDayTaskRecord[];
+  const typedTodayTasks = filterTasksForTrack(
+    (todayTasks ?? []) as PlanDayTaskRecord[],
+    viewerTrack
+  );
   const currentWeekStart = typedTodayTasks[0]?.week_start_date ?? null;
 
   const { data: weekTasks } = currentWeekStart
@@ -235,7 +265,8 @@ export default async function BrotherhoodPage({
             display_order,
             task_templates (
               title,
-              slug
+              slug,
+              audience
             )
           `
         )
@@ -243,7 +274,10 @@ export default async function BrotherhoodPage({
         .eq("week_start_date", currentWeekStart)
     : { data: [] as PlanDayTaskRecord[] };
 
-  const scopeTasks = (weekTasks ?? []) as PlanDayTaskRecord[];
+  const scopeTasks = filterTasksForTrack(
+    (weekTasks ?? []) as PlanDayTaskRecord[],
+    viewerTrack
+  );
   const scopeTaskIds = uniqueTaskIds(scopeTasks);
 
   const { data: completions } = scopeTaskIds.length
@@ -257,6 +291,7 @@ export default async function BrotherhoodPage({
     .from("profiles")
     .select("id, display_name")
     .eq("track", viewerTrack)
+    .eq("is_hidden_from_community", false)
     .order("display_name");
 
   const typedProfiles = (profiles ?? []) as ProfileRow[];
@@ -373,6 +408,7 @@ export default async function BrotherhoodPage({
   const prayerRequestsYesterday = prayerRequests.filter(
     (request) => request.request_date === yesterdayIso
   );
+  const preserveViewTrack = isAdmin && isUsingViewOverride;
 
   const renderPrayerRequestLine = (request: PrayerRequestRow) => {
     const profile = profileById.get(request.user_id);
@@ -407,6 +443,14 @@ export default async function BrotherhoodPage({
           </SurfaceCard>
         )}
 
+        {isAdmin ? (
+          <AdminViewTrackSwitcher
+            basePath="/brotherhood"
+            currentTrack={viewerTrack}
+            params={{ day: selectedDay }}
+          />
+        ) : null}
+
         <HeroPanel className="py-7 sm:py-8">
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div className="text-[#f7ebd8]">
@@ -423,18 +467,34 @@ export default async function BrotherhoodPage({
               className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
                 {
-                  href: `/brotherhood?day=${previousDay}`,
+                  href: withViewTrack(
+                    `/brotherhood?day=${previousDay}`,
+                    viewerTrack,
+                    preserveViewTrack
+                  ),
                   label: "Previous Day",
                   variant: "secondary",
                 },
                 {
-                  href: `/brotherhood?day=${nextDay}`,
+                  href: withViewTrack(
+                    `/brotherhood?day=${nextDay}`,
+                    viewerTrack,
+                    preserveViewTrack
+                  ),
                   label: "Next Day",
                   variant: "secondary",
                 },
-                { href: "/dashboard", label: "Back to Dashboard", variant: "secondary" },
                 {
-                  href: `/today?day=${selectedDay}`,
+                  href: withViewTrack("/dashboard", viewerTrack, preserveViewTrack),
+                  label: "Back to Dashboard",
+                  variant: "secondary",
+                },
+                {
+                  href: withViewTrack(
+                    `/today?day=${selectedDay}`,
+                    viewerTrack,
+                    preserveViewTrack
+                  ),
                   label: "Go to Today",
                   variant: "primary",
                 },
@@ -529,7 +589,13 @@ export default async function BrotherhoodPage({
                   description={member.fullName}
                   action={
                     <Button asChild variant="secondary" size="xs">
-                      <Link href={`/brotherhood/${member.profile.id}?day=${selectedDay}`}>
+                      <Link
+                        href={withViewTrack(
+                          `/brotherhood/${member.profile.id}?day=${selectedDay}`,
+                          viewerTrack,
+                          preserveViewTrack
+                        )}
+                      >
                         Open Member
                       </Link>
                     </Button>

@@ -9,6 +9,7 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { AdminViewTrackSwitcher } from "@/components/admin-view-track-switcher";
 import {
   StatusPill,
   TaskCard,
@@ -18,7 +19,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
-import { isVisibleForTrack, normalizeTrack, type Track } from "@/lib/track";
+import { isVisibleForTrack, type Track } from "@/lib/track";
+import {
+  getViewTrackFromSearchParams,
+  resolveEffectiveTrack,
+  withViewTrack,
+  type SearchParamRecord,
+} from "@/lib/admin";
 import {
   buildTaskViewModels,
   formatReadableDate,
@@ -27,7 +34,7 @@ import {
   type PlanDayTaskRecord,
 } from "@/lib/task-progress";
 
-type SearchParams = Promise<Record<string, string | string[] | undefined>>;
+type SearchParams = Promise<SearchParamRecord>;
 
 type PlanDayRow = {
   id: number;
@@ -115,12 +122,23 @@ export default async function ThisWeekPage({
     redirect("/auth/login");
   }
 
+  const resolvedSearchParams = await searchParams;
+
   const { data: profileData } = await supabase
     .from("profiles")
     .select("track")
     .eq("id", user.id)
     .maybeSingle();
-  const track = normalizeTrack(profileData?.track);
+  const requestedViewTrack = getViewTrackFromSearchParams(resolvedSearchParams);
+  const {
+    effectiveTrack: track,
+    isAdmin,
+    isUsingViewOverride,
+  } = resolveEffectiveTrack({
+    email: user.email,
+    profileTrack: profileData?.track,
+    requestedTrack: requestedViewTrack,
+  });
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")
@@ -142,7 +160,6 @@ export default async function ThisWeekPage({
   }
 
   const challenge = getChallengeTiming(activePlan.total_days);
-  const resolvedSearchParams = await searchParams;
 
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]
@@ -269,6 +286,7 @@ export default async function ThisWeekPage({
       (task, index, arr) =>
         arr.findIndex((other) => other.taskTemplateId === task.taskTemplateId) === index
     );
+  const preserveViewTrack = isAdmin && isUsingViewOverride;
 
   return (
     <main className="monastic-page">
@@ -284,6 +302,14 @@ export default async function ThisWeekPage({
           </SurfaceCard>
         )}
 
+        {isAdmin ? (
+          <AdminViewTrackSwitcher
+            basePath="/this-week"
+            currentTrack={track}
+            params={{ day: selectedDay }}
+          />
+        ) : null}
+
         <HeroPanel className="py-7 sm:py-8">
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div className="text-[#f7ebd8]">
@@ -298,7 +324,7 @@ export default async function ThisWeekPage({
               className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
                 {
-                  href: `/today?day=${selectedDay}`,
+                  href: withViewTrack(`/today?day=${selectedDay}`, track, preserveViewTrack),
                   label: "Back to Today",
                   variant: "secondary",
                 },

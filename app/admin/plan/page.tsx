@@ -666,11 +666,12 @@ export default async function AdminPlanPage({
             </div>
 
             <AppActionBar
-              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-4"
+              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-5"
               actions={[
                 { href: "/dashboard", label: "Back to Dashboard", variant: "secondary" },
                 { href: "/today", label: "View Today", variant: "primary" },
                 { href: "/admin/auth-reports", label: "Auth Reports", variant: "outline" },
+                { href: "/admin/support", label: "Support", variant: "outline" },
                 { href: "/admin/plan/export", label: "Export CSV", variant: "outline" },
               ]}
             />

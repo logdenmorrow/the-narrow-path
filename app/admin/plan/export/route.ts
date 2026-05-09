@@ -1,26 +1,6 @@
 import { NextResponse } from "next/server";
+import { isAllowedAdminEmail } from "@/lib/admin-auth";
 import { createClient } from "@/lib/supabase/server";
-
-function getAdminEmails() {
-  return (process.env.ADMIN_EMAILS ?? "")
-    .split(",")
-    .map((email) => email.trim().toLowerCase())
-    .filter(Boolean);
-}
-
-function isAllowedAdminEmail(email?: string | null) {
-  const adminEmails = getAdminEmails();
-
-  if (adminEmails.length === 0) {
-    return false;
-  }
-
-  if (!email) {
-    return false;
-  }
-
-  return adminEmails.includes(email.toLowerCase());
-}
 
 export async function GET() {
   const supabase = await createClient();
