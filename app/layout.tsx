@@ -11,6 +11,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { isServerAuthDebugEnabled } from "@/lib/auth-debug";
 import { createClient } from "@/lib/supabase/server";
+import { getCommunityName, normalizeTrack } from "@/lib/track";
 import "./globals.css";
 
 
@@ -37,6 +38,14 @@ export default async function RootLayout({
     data: { user },
   } = await supabase.auth.getUser();
   const isSignedIn = Boolean(user);
+  const { data: profileData } = user
+    ? await supabase
+        .from("profiles")
+        .select("track")
+        .eq("id", user.id)
+        .maybeSingle()
+    : { data: null };
+  const communityName = getCommunityName(normalizeTrack(profileData?.track));
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -60,7 +69,7 @@ export default async function RootLayout({
                       <span className="whitespace-nowrap">The Narrow Path</span>
                     </Link>
                     <p className="hidden text-sm tracking-[0.18em] text-monastic-2 sm:block">
-                      Prayer • Discipline • Brotherhood
+                      Prayer • Discipline • {communityName}
                     </p>
                   </div>
 
@@ -82,7 +91,7 @@ export default async function RootLayout({
                 {isSignedIn ? (
                   <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
                     <div className="hidden sm:block">
-                      <MainNav />
+                      <MainNav communityName={communityName} />
                     </div>
 
                     <Suspense fallback={null}>
@@ -95,7 +104,7 @@ export default async function RootLayout({
           </header>
 
           <div className={isSignedIn ? "mobile-page-shell" : undefined}>{children}</div>
-          {isSignedIn ? <MobileTabBar /> : null}
+          {isSignedIn ? <MobileTabBar communityName={communityName} /> : null}
         </ThemeProvider>
       </body>
     </html>

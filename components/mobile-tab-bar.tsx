@@ -5,7 +5,11 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { isActivePath, mobileTabItems } from "@/lib/navigation";
 
-export default function MobileTabBar() {
+export default function MobileTabBar({
+  communityName = "Brotherhood",
+}: {
+  communityName?: string;
+}) {
   const pathname = usePathname();
 
   return (
@@ -17,6 +21,7 @@ export default function MobileTabBar() {
         {mobileTabItems.map((tab) => {
           const active = isActivePath(pathname, tab.href);
           const Icon = tab.icon;
+          const label = tab.href === "/brotherhood" ? communityName : tab.label;
 
           return (
             <Link
@@ -33,7 +38,7 @@ export default function MobileTabBar() {
             >
               <Icon className="h-4 w-4" aria-hidden="true" />
               <span className="mobile-tab-label block max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
-                {tab.label}
+                {label}
               </span>
             </Link>
           );

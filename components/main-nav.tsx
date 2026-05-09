@@ -5,7 +5,13 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { desktopNavItems, isActivePath } from "@/lib/navigation";
 
-export default function MainNav({ mobile = false }: { mobile?: boolean }) {
+export default function MainNav({
+  mobile = false,
+  communityName = "Brotherhood",
+}: {
+  mobile?: boolean;
+  communityName?: string;
+}) {
   const pathname = usePathname();
 
   return (
@@ -20,6 +26,7 @@ export default function MainNav({ mobile = false }: { mobile?: boolean }) {
     >
       {desktopNavItems.map((item) => {
         const active = isActivePath(pathname, item.href);
+        const label = item.href === "/brotherhood" ? communityName : item.label;
 
         return (
           <Link
@@ -34,7 +41,7 @@ export default function MainNav({ mobile = false }: { mobile?: boolean }) {
                 : "text-monastic-1 hover:bg-[color:var(--surface-3)] hover:text-monastic-0 after:bg-transparent"
             )}
           >
-            {item.label}
+            {label}
           </Link>
         );
       })}
