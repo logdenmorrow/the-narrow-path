@@ -18,7 +18,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "The Narrow Path",
   description:
-    "A private brotherhood app for discipline, prayer, and perseverance.",
+    "A Catholic accountability app for prayer, discipline, the sacraments, and perseverance.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_APP_URL ??
       (process.env.VERCEL_URL

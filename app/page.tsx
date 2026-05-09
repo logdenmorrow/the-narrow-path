@@ -9,33 +9,34 @@ import {
 import { AppActionBar } from "@/components/page-actions";
 import { getHomepageOverview } from "@/lib/homepage-overview";
 import { createClient } from "@/lib/supabase/server";
+import { getCommunityName, normalizeTrack } from "@/lib/track";
 
 const pillars = [
   {
-    title: "Daily Challenges",
-    body: "A disciplined Christian pattern of prayer, restraint, Scripture, and concrete obedience.",
+    title: "Daily Discipline",
+    body: "A Catholic pattern of prayer, restraint, Scripture, and concrete obedience.",
   },
   {
     title: "Sacred Reading",
-    body: "Each day opens with a carefully framed reading, mission, and companion note for meditation.",
+    body: "Each day opens with Scripture, Catholic teaching, mission, and reflection.",
   },
   {
-    title: "Brotherhood",
-    body: "Walk with other men under the same standard and see where the body is carrying momentum.",
+    title: "Brotherhood & Sisterhood",
+    body: "Walk with others under the same Catholic standard while keeping accountability serious and humble.",
   },
 ];
 
 const liturgy = [
-  "Begin the day with a reading and a clear mission.",
-  "Mark required disciplines with tactile, visible progress.",
-  "Keep optional weekly practices in view without losing calm.",
-  "Return to the brotherhood and the reflection before the day closes.",
+  "Begin the day with prayer, reading, and a clear mission.",
+  "Mark required disciplines with visible but humble progress.",
+  "Keep weekly practices tied to sacramental and spiritual rhythm.",
+  "Return to Catholic accountability and reflection before the day closes.",
 ];
 
 const publicOfficeMoments = [
-  "A daily reading that calls men back to prayer instead of hurried scrolling.",
+  "A daily reading that brings the mind back to Scripture and Catholic truth.",
   "A clear structure that keeps prayer, restraint, and obedience in view.",
-  "A shared brotherhood standard that strengthens steadiness without spectacle.",
+  "Separate Brotherhood and Sisterhood tracks for shared Catholic accountability without spectacle.",
 ];
 
 const publicHighlights = [
@@ -51,10 +52,22 @@ const publicHighlights = [
   },
   {
     label: "Shared Standard",
-    value: "Brotherhood with accountability",
-    detail: "Men move under the same standard, with progress meant to steady rather than perform.",
+    value: "Catholic accountability without spectacle.",
+    detail:
+      "Members move under a clear Catholic standard, with progress meant to steady the soul rather than perform for others.",
   },
 ];
+
+function getSignedInPillars(communityName: string, peoplePlural: string) {
+  return [
+    pillars[0],
+    pillars[1],
+    {
+      title: communityName,
+      body: `Walk with other ${peoplePlural} under the same standard and see where the group is carrying momentum.`,
+    },
+  ];
+}
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -64,7 +77,25 @@ export default async function HomePage() {
   } = await supabase.auth.getUser();
 
   const isSignedIn = Boolean(user);
-  const overview = isSignedIn ? await getHomepageOverview(supabase) : null;
+  const { data: profileData } = user
+    ? await supabase
+        .from("profiles")
+        .select("track")
+        .eq("id", user.id)
+        .maybeSingle()
+    : { data: null };
+  const track = normalizeTrack(profileData?.track);
+  const communityName = getCommunityName(track);
+  const communityNameLower = communityName.toLowerCase();
+  const peoplePlural = track === "sisterhood" ? "women" : "men";
+  const signedInPillars = getSignedInPillars(communityName, peoplePlural);
+  const signedInLiturgy = [
+    liturgy[0],
+    liturgy[1],
+    liturgy[2],
+    `Return to the ${communityNameLower} and the reflection before the day closes.`,
+  ];
+  const overview = isSignedIn ? await getHomepageOverview(supabase, track) : null;
 
   return (
     <main className="monastic-page">
@@ -72,14 +103,16 @@ export default async function HomePage() {
         <HeroPanel>
           <div className="grid gap-6 lg:grid-cols-[1.2fr_0.78fr] lg:items-end lg:gap-8">
             <div className="max-w-3xl text-[#f7ebd8]">
-              <p className="section-kicker text-[#ead6b0]">Disciplined Christian Living</p>
+              <p className="section-kicker text-[#ead6b0]">Disciplined Catholic Living</p>
               <h1 className="mt-4 text-[2.9rem] font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
-                Stay on the Narrow Path with order, reverence, and brotherhood.
+                {isSignedIn
+                  ? `Stay on the Narrow Path with order, reverence, and ${communityNameLower}.`
+                  : "Stay on the Narrow Path with order, reverence, and Catholic accountability."}
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-[#f3e5cf] sm:text-xl sm:leading-8">
-                The Narrow Path helps ordinary men pursue God with daily readings,
-                clear disciplines, and shared accountability that stays serious
-                without turning performative.
+                {isSignedIn
+                  ? `The Narrow Path helps ordinary ${peoplePlural} pursue God with daily readings, clear disciplines, and shared accountability that stays serious without turning performative.`
+                  : "The Narrow Path helps ordinary Catholics and those discerning the Catholic faith pursue God through daily readings, clear disciplines, sacramental rhythm, and shared accountability rooted in the Church Christ founded."}
               </p>
 
               <AppActionBar
@@ -202,11 +235,11 @@ export default async function HomePage() {
                   What You&apos;ll Find Inside
                 </div>
                 <h2 className="mt-3 text-3xl font-semibold text-[#2f2117] dark:text-white">
-                  A serious rhythm built for ordinary men.
+                  A serious Catholic rhythm for daily conversion.
                 </h2>
                 <p className="mt-2 text-base leading-7 text-[#6b4b2f] dark:text-[#ead8bc]">
-                  The Narrow Path is built around daily Scripture, spiritual discipline,
-                  and brotherhood accountability that keeps devotion grounded and clear.
+                  The Narrow Path is built around prayer, Scripture, the sacraments,
+                  and concrete discipline, without turning devotion into performance.
                 </p>
 
                 <div className="mt-6 grid gap-3">
@@ -227,7 +260,7 @@ export default async function HomePage() {
         </HeroPanel>
 
         <section className="grid gap-4 lg:grid-cols-3">
-          {pillars.map((pillar) => (
+          {(isSignedIn ? signedInPillars : pillars).map((pillar) => (
             <SurfaceCard key={pillar.title} className="text-center">
               <div className="section-kicker">Pillar</div>
               <h2 className="mt-3 text-3xl font-semibold text-monastic-0">{pillar.title}</h2>
@@ -245,7 +278,7 @@ export default async function HomePage() {
             />
 
             <div className="mt-6 grid gap-3">
-              {liturgy.map((item) => (
+              {(isSignedIn ? signedInLiturgy : liturgy).map((item) => (
                 <SurfaceInset key={item} className="flex items-start gap-4">
                   <div className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-[color:var(--surface-strong)]" />
                   <p className="text-base leading-7 text-monastic-1">{item}</p>

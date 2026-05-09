@@ -19,23 +19,23 @@ export function AuthShell({ children }: AuthShellProps) {
               </p>
               <div className="space-y-5">
                 <h1 className="text-4xl font-semibold tracking-tight text-[rgba(249,236,214,0.94)] [text-wrap:balance] xl:text-5xl xl:leading-[1.06]">
-                  Return to the rule of prayer, discipline, and brotherhood.
+                  Return to prayer, discipline, and Catholic accountability.
                 </h1>
                 <p className="max-w-lg text-base leading-8 text-[rgba(255,239,216,0.88)] xl:text-lg">
-                  The same quiet rhythm carries through the whole app. Your
-                  account pages should feel like the same cloister, not a
-                  separate product.
+                  Brotherhood and Sisterhood tracks share one serious Catholic
+                  rhythm of Scripture, sacramental life, obedience, and daily
+                  conversion.
                 </p>
               </div>
             </div>
 
             <div className="relative z-10 rounded-[1.75rem] border border-[rgba(230,197,152,0.14)] bg-[rgba(17,13,12,0.52)] p-6 shadow-[0_24px_40px_-28px_rgba(0,0,0,0.9)] backdrop-blur-md">
               <p className="text-xs uppercase tracking-[0.24em] text-[rgba(255,239,216,0.72)]">
-                Prayer / Discipline / Brotherhood
+                Prayer / Sacraments / Accountability
               </p>
               <p className="mt-3 max-w-md text-sm leading-7 text-[rgba(255,239,216,0.9)]">
-                Enter quietly, keep the flow simple, and continue where you
-                left off.
+                Enter quietly, keep the flow simple, and continue under the
+                discipline of the Church Christ founded.
               </p>
             </div>
           </section>
