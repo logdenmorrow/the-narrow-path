@@ -16,6 +16,14 @@ import {
 } from "@/components/task-card";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
+import {
+  DAILY_STATUS_LABELS,
+  PRAYER_REQUEST_CATEGORY_LABELS,
+  getAccountabilityDates,
+  getDailyStatusTone,
+  type DailyStatus,
+  type PrayerRequestCategory,
+} from "@/lib/accountability";
 import { getChallengeTiming } from "@/lib/challenge";
 import {
   buildTaskViewModels,
@@ -39,6 +47,18 @@ type PlanDayRow = {
   id: number;
   day_number: number;
   title?: string | null;
+};
+
+type DailyCheckinRow = {
+  user_id: string;
+  status: DailyStatus;
+};
+
+type PrayerRequestRow = {
+  user_id: string;
+  request_date: string;
+  category: PrayerRequestCategory;
+  note: string | null;
 };
 
 type ReflectionEntryRow = {
@@ -185,7 +205,6 @@ export default async function BrotherhoodPage({
     .order("id");
 
   const typedTodayTasks = (todayTasks ?? []) as PlanDayTaskRecord[];
-
   const currentWeekStart = typedTodayTasks[0]?.week_start_date ?? null;
 
   const { data: weekTasks } = currentWeekStart
@@ -232,6 +251,7 @@ export default async function BrotherhoodPage({
   const typedProfiles = (profiles ?? []) as ProfileRow[];
   const typedCompletions = (completions ?? []) as CompletionRecord[];
   const reflectionTaskId = getReflectionTaskId(typedTodayTasks);
+  const { todayIso, yesterdayIso } = getAccountabilityDates();
 
   const { data: reflectionEntriesData } = reflectionTaskId
     ? await supabase
@@ -243,6 +263,29 @@ export default async function BrotherhoodPage({
   const reflectionUserIds = new Set(
     ((reflectionEntriesData ?? []) as ReflectionEntryRow[]).map((entry) => entry.user_id)
   );
+
+  const { data: dailyCheckinsData } = challenge.hasStarted
+    ? await supabase
+        .from("user_daily_checkins")
+        .select("user_id, status")
+        .eq("day_date", todayIso)
+    : { data: [] as DailyCheckinRow[] };
+
+  const { data: prayerRequestsData } = challenge.hasStarted
+    ? await supabase
+        .from("user_prayer_requests")
+        .select("user_id, request_date, category, note")
+        .in("request_date", [todayIso, yesterdayIso])
+        .order("request_date", { ascending: false })
+        .order("created_at", { ascending: true })
+    : { data: [] as PrayerRequestRow[] };
+
+  const dailyCheckins = (dailyCheckinsData ?? []) as DailyCheckinRow[];
+  const prayerRequests = (prayerRequestsData ?? []) as PrayerRequestRow[];
+  const dailyCheckinByUserId = new Map(
+    dailyCheckins.map((row) => [row.user_id, row.status])
+  );
+  const profileById = new Map(typedProfiles.map((profile) => [profile.id, profile]));
 
   const memberRows = typedProfiles
     .map((profile) => {
@@ -279,6 +322,7 @@ export default async function BrotherhoodPage({
         );
       const hasWeeklyMomentum = quotaRows.some((row) => (row.progressCount ?? 0) > 0);
       const startedToday = requiredDoneToday > 0 || optionalDoneToday > 0;
+      const dailyStatus = dailyCheckinByUserId.get(profile.id) ?? null;
 
       let statusLabel = "Not Started";
       if (requiredSummary.completedAll) {
@@ -296,6 +340,7 @@ export default async function BrotherhoodPage({
         optionalTotal,
         quotaRows,
         hasWeeklyMomentum,
+        dailyStatus,
         startedToday,
         completedToday: requiredSummary.completedAll,
         statusLabel,
@@ -308,6 +353,30 @@ export default async function BrotherhoodPage({
   const previousDay = selectedDay > 1 ? selectedDay - 1 : 1;
   const nextDay = selectedDay < maxSelectableDay ? selectedDay + 1 : maxSelectableDay;
   const isCurrentDayView = selectedDay === currentDayNumber;
+  const prayerRequestsToday = prayerRequests.filter(
+    (request) => request.request_date === todayIso
+  );
+  const prayerRequestsYesterday = prayerRequests.filter(
+    (request) => request.request_date === yesterdayIso
+  );
+
+  const renderPrayerRequestLine = (request: PrayerRequestRow) => {
+    const profile = profileById.get(request.user_id);
+    const shortName = toShortDisplayName(profile?.display_name);
+    const categoryLabel = PRAYER_REQUEST_CATEGORY_LABELS[request.category];
+
+    return (
+      <p
+        key={`${request.user_id}-${request.request_date}`}
+        className="text-base leading-7 text-monastic-1"
+      >
+        <span className="font-semibold text-monastic-0">{shortName}</span>
+        {" - "}
+        {categoryLabel}
+        {request.note ? `: ${request.note}` : ""}
+      </p>
+    );
+  };
 
   return (
     <main className="monastic-page">
@@ -318,7 +387,8 @@ export default async function BrotherhoodPage({
               The challenge begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
-              Brotherhood statuses will go live on launch day. For now, everyone is shown as pre-start.
+              Brotherhood statuses will go live on launch day. For now, everyone is
+              shown as pre-start.
             </p>
           </SurfaceCard>
         )}
@@ -388,6 +458,43 @@ export default async function BrotherhoodPage({
 
         <SurfaceCard>
           <SectionHeader
+            kicker="Prayer"
+            title="Pray for the Brotherhood"
+            description="Prayer requests from today and yesterday."
+          />
+
+          {challenge.hasStarted &&
+          (prayerRequestsToday.length > 0 || prayerRequestsYesterday.length > 0) ? (
+            <div className="mt-5 space-y-5">
+              <div className="space-y-2">
+                <p className="section-kicker">Today</p>
+                {prayerRequestsToday.length > 0 ? (
+                  prayerRequestsToday.map(renderPrayerRequestLine)
+                ) : (
+                  <p className="text-base leading-7 text-monastic-1">No prayer requests today.</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <p className="section-kicker">Yesterday</p>
+                {prayerRequestsYesterday.length > 0 ? (
+                  prayerRequestsYesterday.map(renderPrayerRequestLine)
+                ) : (
+                  <p className="text-base leading-7 text-monastic-1">
+                    No prayer requests yesterday.
+                  </p>
+                )}
+              </div>
+            </div>
+          ) : (
+            <p className="mt-5 text-base leading-7 text-monastic-1">
+              No prayer requests from today or yesterday.
+            </p>
+          )}
+        </SurfaceCard>
+
+        <SurfaceCard>
+          <SectionHeader
             kicker={isCurrentDayView ? "Today's Member Status" : `Day ${selectedDay} Member Status`}
             title="The body of men, seen at a glance."
             description="First name plus last initial for clarity, plus weekly quota progress for flexible disciplines."
@@ -426,6 +533,14 @@ export default async function BrotherhoodPage({
                   <StatusPill tone="required">
                     Required: {member.requiredSummary.done}/{member.requiredSummary.total}
                   </StatusPill>
+                  {isCurrentDayView ? (
+                    <StatusPill tone={getDailyStatusTone(member.dailyStatus)}>
+                      Daily Status:{" "}
+                      {member.dailyStatus
+                        ? DAILY_STATUS_LABELS[member.dailyStatus]
+                        : "No check-in yet"}
+                    </StatusPill>
+                  ) : null}
                   <StatusPill tone="optional">
                     Optional: {member.optionalDone}/{member.optionalTotal}
                   </StatusPill>

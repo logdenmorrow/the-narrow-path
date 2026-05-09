@@ -16,6 +16,15 @@ export type ChallengeTiming = {
   weekNumber: number;
 };
 
+export type ChallengeWeekWindow = {
+  todayIso: string;
+  weekNumber: number;
+  weekStartDay: number;
+  weekEndDay: number;
+  weekStartDate: string;
+  weekEndDate: string;
+};
+
 export function toUtcDayValue(isoDate: string) {
   const [year, month, day] = isoDate.split("-").map(Number);
   return Date.UTC(year, month - 1, day);
@@ -91,5 +100,29 @@ export function getChallengeTiming(totalDays: number): ChallengeTiming {
     weekStartDay,
     weekEndDay,
     weekNumber,
+  };
+}
+
+export function getCurrentChallengeWeekWindow(
+  totalDays: number,
+  date = new Date()
+): ChallengeWeekWindow {
+  const safeTotalDays = Math.max(totalDays, 1);
+  const todayIso = getIsoDateInTimeZone(date);
+  const diffDays = Math.floor(
+    (toUtcDayValue(todayIso) - toUtcDayValue(CHALLENGE_START_DATE)) / MS_PER_DAY
+  );
+  const effectiveDayNumber =
+    diffDays < 0 ? 1 : Math.min(diffDays + 1, safeTotalDays);
+  const weekStartDay = Math.floor((effectiveDayNumber - 1) / 7) * 7 + 1;
+  const weekEndDay = Math.min(safeTotalDays, weekStartDay + 6);
+
+  return {
+    todayIso,
+    weekNumber: Math.floor((effectiveDayNumber - 1) / 7) + 1,
+    weekStartDay,
+    weekEndDay,
+    weekStartDate: addDaysToIsoDate(CHALLENGE_START_DATE, weekStartDay - 1),
+    weekEndDate: addDaysToIsoDate(CHALLENGE_START_DATE, weekEndDay - 1),
   };
 }

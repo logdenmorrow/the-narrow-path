@@ -39,10 +39,13 @@ export function parseGroupMeTarget(value: string | null | undefined): GroupMeTar
 
 export function getGroupMeBotId(target: GroupMeTarget) {
   const envName = GROUPME_BOT_ENV_BY_TARGET[target];
-  const botId = process.env[envName];
+  const fallbackBotId =
+    target === "prod" ? process.env.GROUPME_BOT_ID : undefined;
+  const botId = process.env[envName] || fallbackBotId;
 
   if (!botId?.trim()) {
-    throw new GroupMeError(`Missing ${envName} environment variable.`, 500);
+    const extraName = target === "prod" ? " or GROUPME_BOT_ID" : "";
+    throw new GroupMeError(`Missing ${envName}${extraName} environment variable.`, 500);
   }
 
   return botId.trim();

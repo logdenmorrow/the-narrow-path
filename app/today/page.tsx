@@ -1,9 +1,17 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppActionBar } from "@/components/page-actions";
+import { DailyStatusCard } from "@/components/daily-status-card";
+import { PrayerRequestCard } from "@/components/prayer-request-card";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming } from "@/lib/challenge";
+import {
+  DAILY_STATUS_LABELS,
+  PRAYER_REQUEST_CATEGORY_LABELS,
+  type DailyStatus,
+  type PrayerRequestCategory,
+} from "@/lib/accountability";
+import { getChallengeTiming, getIsoDateInTimeZone } from "@/lib/challenge";
 import {
   HeroPanel,
   MetricCard,
@@ -35,6 +43,15 @@ type PlanDayRow = {
 
 type ReflectionEntryRow = {
   id: number;
+};
+
+type DailyCheckinRow = {
+  status: DailyStatus;
+};
+
+type PrayerRequestRow = {
+  category: PrayerRequestCategory;
+  note: string | null;
 };
 
 function normalizeDayNumber(value: number, totalDays: number) {
@@ -370,6 +387,36 @@ export default async function TodayPage({
   const reflectionActionLabel = isReflectionComplete
     ? "Review Reflection"
     : "Open Reflection";
+  const currentDateIso = getIsoDateInTimeZone();
+  const accountabilityEnabled = challenge.hasStarted && selectedDay === challenge.currentDayNumber;
+  const isCurrentChallengeDayView =
+    challenge.hasStarted && selectedDay === challenge.currentDayNumber;
+
+  const { data: dailyCheckinData } = accountabilityEnabled
+    ? await supabase
+        .from("user_daily_checkins")
+        .select("status")
+        .eq("user_id", user.id)
+        .eq("day_date", currentDateIso)
+        .maybeSingle()
+    : { data: null };
+
+  const { data: prayerRequestData } = accountabilityEnabled
+    ? await supabase
+        .from("user_prayer_requests")
+        .select("category, note")
+        .eq("user_id", user.id)
+        .eq("request_date", currentDateIso)
+        .maybeSingle()
+    : { data: null };
+
+  const dailyCheckin = (dailyCheckinData ?? null) as DailyCheckinRow | null;
+  const prayerRequest = (prayerRequestData ?? null) as PrayerRequestRow | null;
+  const accountabilityHelperText = !accountabilityEnabled
+    ? challenge.hasStarted
+      ? "Daily Status and Prayer Requests are only available on today's challenge day."
+      : "These fields will open when the challenge begins."
+    : "This is separate from individual task completion.";
 
   return (
     <main className="monastic-page">
@@ -582,6 +629,55 @@ export default async function TodayPage({
                 <p className="text-base leading-7 text-monastic-1">No optional tasks for this day.</p>
               )}
             </div>
+          </SurfaceCard>
+        </div>
+
+        <div className="grid gap-6 xl:grid-cols-2">
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Accountability"
+              title="Daily Status"
+              description="How did today go?"
+            />
+            {accountabilityEnabled ? (
+              <DailyStatusCard
+                initialStatus={dailyCheckin?.status ?? null}
+                disabled={!accountabilityEnabled}
+                helperText={
+                  dailyCheckin?.status
+                    ? `${DAILY_STATUS_LABELS[dailyCheckin.status]} saved for today. ${accountabilityHelperText}`
+                    : accountabilityHelperText
+                }
+              />
+            ) : (
+              <p className="mt-5 text-base leading-7 text-monastic-1">
+                {accountabilityHelperText}
+              </p>
+            )}
+          </SurfaceCard>
+
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Prayer"
+              title="Need prayer?"
+              description="Let the brotherhood know you need prayer."
+            />
+            {accountabilityEnabled ? (
+              <PrayerRequestCard
+                initialCategory={prayerRequest?.category ?? null}
+                initialNote={prayerRequest?.note ?? ""}
+                disabled={!accountabilityEnabled}
+                helperText={
+                  prayerRequest?.category
+                    ? `${PRAYER_REQUEST_CATEGORY_LABELS[prayerRequest.category]} saved for today.`
+                    : accountabilityHelperText
+                }
+              />
+            ) : (
+              <p className="mt-5 text-base leading-7 text-monastic-1">
+                {accountabilityHelperText}
+              </p>
+            )}
           </SurfaceCard>
         </div>
       </PageFrame>

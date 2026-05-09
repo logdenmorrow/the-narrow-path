@@ -1,11 +1,23 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import {
+  isDailyStatus,
+  isPrayerRequestCategory,
+} from "@/lib/accountability";
+import { getIsoDateInTimeZone } from "@/lib/challenge";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 
 export async function toggleTaskCompletion(formData: FormData) {
   await toggleTaskCompletionWithResult(null, formData);
+}
+
+function revalidateAccountabilityPaths() {
+  revalidatePath("/today");
+  revalidatePath("/this-week");
+  revalidatePath("/brotherhood");
+  revalidatePath("/dashboard");
 }
 
 export type ToggleTaskCompletionResult = {
@@ -159,14 +171,168 @@ export async function toggleTaskCompletionWithResult(
     }
   }
 
-  revalidatePath("/today");
-  revalidatePath("/this-week");
-  revalidatePath("/brotherhood");
-  revalidatePath("/dashboard");
+  revalidateAccountabilityPaths();
 
   return {
     status: "success",
     planDayTaskId,
     transitionedToComplete: !existing?.id,
   };
+}
+
+export async function saveDailyStatus(formData: FormData) {
+  const rawStatus = formData.get("status");
+  const status = typeof rawStatus === "string" ? rawStatus : "";
+
+  if (!isDailyStatus(status)) {
+    throw new Error("Choose a valid daily status.");
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError) {
+    throw new Error(`Could not read authenticated user: ${userError.message}`);
+  }
+
+  if (!user) {
+    throw new Error("You must be signed in to save daily status.");
+  }
+
+  const { data: activePlan, error: activePlanError } = await supabase
+    .from("challenge_plans")
+    .select("id, total_days")
+    .eq("is_active", true)
+    .maybeSingle();
+
+  if (activePlanError || !activePlan) {
+    throw new Error("No active challenge plan was found.");
+  }
+
+  const challenge = getChallengeTiming(activePlan.total_days);
+
+  if (!challenge.hasStarted) {
+    throw new Error("Daily status is not available before the challenge begins.");
+  }
+
+  const todayIso = getIsoDateInTimeZone();
+  const nowIso = new Date().toISOString();
+
+  const { error } = await supabase.from("user_daily_checkins").upsert(
+    {
+      user_id: user.id,
+      day_date: todayIso,
+      status,
+      updated_at: nowIso,
+    },
+    {
+      onConflict: "user_id,day_date",
+    }
+  );
+
+  if (error) {
+    throw new Error(`Could not save daily status: ${error.message}`);
+  }
+
+  revalidateAccountabilityPaths();
+}
+
+export async function savePrayerRequest(formData: FormData) {
+  const rawCategory = formData.get("category");
+  const category = typeof rawCategory === "string" ? rawCategory : "";
+  const rawNote = formData.get("note");
+  const note = typeof rawNote === "string" ? rawNote.trim() : "";
+
+  if (!isPrayerRequestCategory(category)) {
+    throw new Error("Choose a valid prayer request category.");
+  }
+
+  if (note.length > 200) {
+    throw new Error("Prayer request notes must stay at 200 characters or less.");
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError) {
+    throw new Error(`Could not read authenticated user: ${userError.message}`);
+  }
+
+  if (!user) {
+    throw new Error("You must be signed in to request prayer.");
+  }
+
+  const { data: activePlan, error: activePlanError } = await supabase
+    .from("challenge_plans")
+    .select("id, total_days")
+    .eq("is_active", true)
+    .maybeSingle();
+
+  if (activePlanError || !activePlan) {
+    throw new Error("No active challenge plan was found.");
+  }
+
+  const challenge = getChallengeTiming(activePlan.total_days);
+
+  if (!challenge.hasStarted) {
+    throw new Error("Prayer requests are not available before the challenge begins.");
+  }
+
+  const todayIso = getIsoDateInTimeZone();
+  const nowIso = new Date().toISOString();
+
+  const { error } = await supabase.from("user_prayer_requests").upsert(
+    {
+      user_id: user.id,
+      request_date: todayIso,
+      category,
+      note: note || null,
+      updated_at: nowIso,
+    },
+    {
+      onConflict: "user_id,request_date",
+    }
+  );
+
+  if (error) {
+    throw new Error(`Could not save prayer request: ${error.message}`);
+  }
+
+  revalidateAccountabilityPaths();
+}
+
+export async function deletePrayerRequest() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError) {
+    throw new Error(`Could not read authenticated user: ${userError.message}`);
+  }
+
+  if (!user) {
+    throw new Error("You must be signed in to remove a prayer request.");
+  }
+
+  const todayIso = getIsoDateInTimeZone();
+
+  const { error } = await supabase
+    .from("user_prayer_requests")
+    .delete()
+    .eq("user_id", user.id)
+    .eq("request_date", todayIso);
+
+  if (error) {
+    throw new Error(`Could not remove prayer request: ${error.message}`);
+  }
+
+  revalidateAccountabilityPaths();
 }
