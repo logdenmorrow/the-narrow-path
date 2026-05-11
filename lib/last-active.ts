@@ -5,6 +5,14 @@ import { createClient } from "@/lib/supabase/server";
 
 type SupabaseServerClient = Awaited<ReturnType<typeof createClient>>;
 
+function formatActivityTime(activityDate: Date) {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: CHALLENGE_TIME_ZONE,
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(activityDate);
+}
+
 export async function updateLastActiveAt(supabase: SupabaseServerClient) {
   const { error } = await supabase.rpc("touch_last_active_at");
 
@@ -46,17 +54,13 @@ export function formatLastActiveAt(lastActiveAt: string | null | undefined) {
   );
 
   if (dayDifference <= 0) {
-    const timeLabel = new Intl.DateTimeFormat("en-US", {
-      timeZone: CHALLENGE_TIME_ZONE,
-      hour: "numeric",
-      minute: "2-digit",
-    }).format(activityDate);
-
+    const timeLabel = formatActivityTime(activityDate);
     return `Last active: Today at ${timeLabel}`;
   }
 
   if (dayDifference === 1) {
-    return "Last active: Yesterday";
+    const timeLabel = formatActivityTime(activityDate);
+    return `Last active: Yesterday at ${timeLabel}`;
   }
 
   return `Last active: ${dayDifference} days ago`;
