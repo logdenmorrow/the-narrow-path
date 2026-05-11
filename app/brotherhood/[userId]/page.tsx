@@ -25,6 +25,7 @@ import {
   type SearchParamRecord,
 } from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
+import { updateLastActiveAt } from "@/lib/last-active";
 import { getCommunityName, isVisibleForTrack, type Track } from "@/lib/track";
 import { getChallengeTiming } from "@/lib/challenge";
 import {
@@ -162,6 +163,7 @@ export default async function BrotherhoodMemberPage({
   }
 
   await syncAdminProfileVisibility(user);
+  await updateLastActiveAt(supabase);
 
   const { data: viewerProfileData } = await supabase
     .from("profiles")

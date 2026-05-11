@@ -23,6 +23,7 @@ import {
   withViewTrack,
   type SearchParamRecord,
 } from "@/lib/admin";
+import { formatLastActiveAt, updateLastActiveAt } from "@/lib/last-active";
 import { createClient } from "@/lib/supabase/server";
 import { getCommunityName, isVisibleForTrack, type Track } from "@/lib/track";
 import {
@@ -50,6 +51,7 @@ type SearchParams = Promise<SearchParamRecord>;
 type ProfileRow = {
   id: string;
   display_name: string | null;
+  last_active_at: string | null;
 };
 
 type PlanDayRow = {
@@ -112,6 +114,7 @@ export default async function BrotherhoodPage({
   }
 
   await syncAdminProfileVisibility(user);
+  await updateLastActiveAt(supabase);
 
   const resolvedSearchParams = await searchParams;
 
@@ -292,7 +295,7 @@ export default async function BrotherhoodPage({
 
   const { data: profiles } = await supabase
     .from("profiles")
-    .select("id, display_name")
+    .select("id, display_name, last_active_at")
     .eq("track", viewerTrack)
     .eq("is_hidden_from_community", false)
     .order("display_name");
@@ -387,6 +390,7 @@ export default async function BrotherhoodPage({
         profile,
         shortName: toShortDisplayName(profile.display_name),
         fullName: profile.display_name ?? "Member",
+        lastActiveLabel: formatLastActiveAt(profile.last_active_at),
         requiredSummary,
         optionalDone,
         optionalTotal,
@@ -589,7 +593,14 @@ export default async function BrotherhoodPage({
               >
                 <TaskCardHeader
                   title={member.shortName}
-                  description={member.fullName}
+                  description={
+                    <span className="space-y-1">
+                      <span className="block">{member.fullName}</span>
+                      <span className="block text-xs uppercase tracking-[0.18em] text-monastic-2">
+                        {member.lastActiveLabel}
+                      </span>
+                    </span>
+                  }
                   action={
                     <Button asChild variant="secondary" size="xs">
                       <Link

@@ -26,6 +26,7 @@ import {
   withViewTrack,
   type SearchParamRecord,
 } from "@/lib/admin";
+import { updateLastActiveAt } from "@/lib/last-active";
 import {
   buildTaskViewModels,
   formatReadableDate,
@@ -121,6 +122,8 @@ export default async function ThisWeekPage({
   if (userError || !user) {
     redirect("/auth/login");
   }
+
+  await updateLastActiveAt(supabase);
 
   const resolvedSearchParams = await searchParams;
 

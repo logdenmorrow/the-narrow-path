@@ -17,6 +17,7 @@ import {
   withViewTrack,
   type SearchParamRecord,
 } from "@/lib/admin";
+import { updateLastActiveAt } from "@/lib/last-active";
 import {
   DAILY_STATUS_LABELS,
   PRAYER_REQUEST_CATEGORY_LABELS,
@@ -122,6 +123,8 @@ export default async function TodayPage({
   if (userError || !user) {
     redirect("/auth/login");
   }
+
+  await updateLastActiveAt(supabase);
 
   const resolvedSearchParams = await searchParams;
 

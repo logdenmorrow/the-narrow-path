@@ -9,6 +9,7 @@ import {
 import { AppActionBar } from "@/components/page-actions";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
+import { updateLastActiveAt } from "@/lib/last-active";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -106,6 +107,8 @@ export default async function DailyReadingPage({
   if (userError || !user) {
     redirect("/auth/login");
   }
+
+  await updateLastActiveAt(supabase);
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")

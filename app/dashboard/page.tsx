@@ -26,6 +26,7 @@ import {
 } from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
+import { updateLastActiveAt } from "@/lib/last-active";
 import { applyReflectionCompletionOverride, getReflectionTaskId } from "@/lib/task-progress";
 
 type TaskTemplateCadence = "daily" | "weekly_quota";
@@ -222,6 +223,7 @@ export default async function DashboardPage({
   }
 
   await syncAdminProfileVisibility(user);
+  await updateLastActiveAt(supabase);
 
   const { data: profileData } = await supabase
     .from("profiles")
