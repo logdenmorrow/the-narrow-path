@@ -78,6 +78,16 @@ const HOLY_SPIRIT_EXAMEN_LINES = [
   "Pause briefly.",
 ];
 
+const HAIL_MARY_LINES = [
+  "Hail Mary, full of grace, the Lord is with thee.",
+  "Blessed art thou among women, and blessed is the fruit of thy womb, Jesus.",
+  "Holy Mary, Mother of God, pray for us sinners,",
+  "now and at the hour of our death. Amen.",
+];
+
+const CLOSING_SIGN_OF_THE_CROSS =
+  "In the name of the Father, and of the Son, and of the Holy Spirit. Amen.";
+
 function normalizeDayNumber(value: number, totalDays: number) {
   if (!Number.isFinite(value)) return 1;
   const rounded = Math.floor(value);
@@ -125,6 +135,12 @@ function isMajorSectionHeading(block: NightPrayerBlock) {
 
 function isSectionHeading(block: NightPrayerBlock, section: string) {
   return block.lines[0]?.trim().toLowerCase() === section.toLowerCase();
+}
+
+function isMarianAntiphonHeading(block: NightPrayerBlock) {
+  return /^Antiphon or song in honor of the Blessed Virgin Mary$/i.test(
+    block.lines[0]?.trim() ?? ""
+  );
 }
 
 function isAntiphonLine(line: string) {
@@ -252,9 +268,59 @@ function renderResponsory(blocks: NightPrayerBlock[], startIndex: number) {
   );
 }
 
+function getSeasonalMarianBlocks(blocks: NightPrayerBlock[]) {
+  const [headingBlock, ...restBlocks] = blocks;
+  const headingRemainder = headingBlock
+    ? {
+        ...headingBlock,
+        lines: headingBlock.lines.slice(1).filter((line) => line.trim()),
+      }
+    : null;
+
+  return [
+    ...(headingRemainder?.lines.length ? [headingRemainder] : []),
+    ...restBlocks,
+  ].filter((block) => block.lines.some((line) => line.trim()));
+}
+
+function renderMarianPrayerEnding(blocks: NightPrayerBlock[], startIndex: number) {
+  const seasonalBlocks = getSeasonalMarianBlocks(blocks);
+
+  return (
+    <div key={`marian-prayer-${startIndex}`} className="mt-8 border-t border-monastic pt-6">
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8a5f32] dark:text-[#d8bd91]">
+        Marian Prayer
+      </p>
+      <div className="mt-4 space-y-2 text-base leading-8 text-monastic-0">
+        {HAIL_MARY_LINES.map((line) => (
+          <p key={line}>{line}</p>
+        ))}
+      </div>
+
+      {seasonalBlocks.length > 0 ? (
+        <details className="mt-5 rounded-xl border border-monastic bg-[rgba(168,129,81,0.05)] px-4 py-4">
+          <summary className="cursor-pointer text-xs font-semibold uppercase tracking-[0.22em] text-monastic-1 transition hover:text-monastic-0">
+            Seasonal Marian Antiphon
+          </summary>
+          <div className="mt-4 space-y-3 border-t border-monastic pt-4">
+            {seasonalBlocks.map((block, index) =>
+              renderSourceDetailBlock(block, startIndex + index)
+            )}
+          </div>
+        </details>
+      ) : null}
+
+      <p className="mt-6 text-base font-medium leading-8 text-monastic-0">
+        {CLOSING_SIGN_OF_THE_CROSS}
+      </p>
+    </div>
+  );
+}
+
 function renderPrayerBlocks(blocks: NightPrayerBlock[]) {
   const rendered = [];
   let index = 0;
+  let renderedMarianEnding = false;
 
   while (index < blocks.length) {
     const block = blocks[index];
@@ -284,6 +350,18 @@ function renderPrayerBlocks(blocks: NightPrayerBlock[]) {
       continue;
     }
 
+    if (isMarianAntiphonHeading(block)) {
+      const endIndex = blocks.findIndex(
+        (candidate, candidateIndex) =>
+          candidateIndex > index && isMajorSectionHeading(candidate)
+      );
+      const marianBlocks = blocks.slice(index, endIndex === -1 ? blocks.length : endIndex);
+      rendered.push(renderMarianPrayerEnding(marianBlocks, index));
+      renderedMarianEnding = true;
+      index = endIndex === -1 ? blocks.length : endIndex;
+      continue;
+    }
+
     rendered.push(renderBlock(block, index));
 
     if (hasExaminationHeading(block)) {
@@ -291,6 +369,10 @@ function renderPrayerBlocks(blocks: NightPrayerBlock[]) {
     }
 
     index += 1;
+  }
+
+  if (!renderedMarianEnding) {
+    rendered.push(renderMarianPrayerEnding([], blocks.length));
   }
 
   return rendered;
