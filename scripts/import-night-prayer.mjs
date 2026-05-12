@@ -1,10 +1,32 @@
 import { createClient } from "@supabase/supabase-js";
+import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 const SOURCE = "divineoffice";
 const ATTRIBUTION_TEXT =
   "Night Prayer text provided with permission from DivineOffice.org. All rights remain with their respective owners.";
 const ATTRIBUTION_HTML =
   '<p>Night Prayer text provided with permission from <a href="https://divineoffice.org/">DivineOffice.org</a>. All rights remain with their respective owners.</p>';
+const DEFAULT_DELAY_MS = 500;
+
+function loadLocalEnv() {
+  const envPath = resolve(process.cwd(), ".env.local");
+  if (!existsSync(envPath)) return;
+
+  const lines = readFileSync(envPath, "utf8").split(/\r?\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+
+    const match = trimmed.match(/^([A-Za-z_][A-Za-z0-9_]*)=(.*)$/);
+    if (!match) continue;
+
+    const [, key, rawValue] = match;
+    if (process.env[key] !== undefined) continue;
+
+    process.env[key] = rawValue.trim().replace(/^(['"])([\s\S]*)\1$/, "$2");
+  }
+}
 
 function readArg(name) {
   const prefix = `--${name}=`;
@@ -21,6 +43,18 @@ function hasFlag(name) {
   return process.argv.includes(`--${name}`);
 }
 
+function readDelayMs() {
+  const rawDelay = readArg("delay-ms");
+  if (!rawDelay) return DEFAULT_DELAY_MS;
+
+  const delay = Number(rawDelay);
+  if (!Number.isFinite(delay) || delay < 0) {
+    throw new Error("--delay-ms must be a non-negative number.");
+  }
+
+  return Math.floor(delay);
+}
+
 function assertIsoDate(date) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     throw new Error("Pass a date as --date YYYY-MM-DD.");
@@ -34,6 +68,11 @@ function assertIsoDate(date) {
 
 function yyyymmdd(date) {
   return date.replaceAll("-", "");
+}
+
+function sleep(ms) {
+  if (ms <= 0) return Promise.resolve();
+  return new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
 }
 
 function decodeHtmlEntities(value) {
@@ -298,7 +337,7 @@ async function buildNightPrayerPayload(date) {
   };
 }
 
-async function upsertPayload(payload) {
+function createSupabaseAdminClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -308,13 +347,16 @@ async function upsertPayload(payload) {
     );
   }
 
-  const supabase = createClient(url, key, {
+  return createClient(url, key, {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
     },
   });
+}
 
+async function upsertPayload(payload) {
+  const supabase = createSupabaseAdminClient();
   const { error } = await supabase
     .from("night_prayers")
     .upsert(payload, { onConflict: "prayer_date" });
@@ -324,14 +366,70 @@ async function upsertPayload(payload) {
   }
 }
 
-async function main() {
-  const date = readArg("date");
-  const dryRun = hasFlag("dry-run");
+function uniqueSortedDates(dates) {
+  return [...new Set(dates.filter(Boolean))].sort();
+}
 
-  if (!date) {
-    throw new Error("Usage: npm run import:night-prayer -- --date YYYY-MM-DD [--dry-run]");
+async function fetchActivePlanNightPrayerDates(supabase) {
+  const { data: activePlan, error: planError } = await supabase
+    .from("challenge_plans")
+    .select("id, name, total_days")
+    .eq("is_active", true)
+    .maybeSingle();
+
+  if (planError) {
+    throw new Error(`Could not read active challenge plan: ${planError.message}`);
   }
 
+  if (!activePlan) {
+    throw new Error("No active challenge plan was found.");
+  }
+
+  const { data: rows, error: taskError } = await supabase
+    .from("plan_day_tasks")
+    .select(
+      `
+        day_date,
+        plan_days!inner (
+          plan_id,
+          day_number
+        ),
+        task_templates!inner (
+          slug
+        )
+      `
+    )
+    .eq("plan_days.plan_id", activePlan.id)
+    .eq("task_templates.slug", "night-prayer")
+    .not("day_date", "is", null)
+    .order("day_date", { ascending: true });
+
+  if (taskError) {
+    throw new Error(`Could not read active plan Night Prayer tasks: ${taskError.message}`);
+  }
+
+  return {
+    activePlan,
+    dates: uniqueSortedDates((rows ?? []).map((row) => row.day_date)),
+  };
+}
+
+async function fetchExistingNightPrayerDates(supabase, dates) {
+  if (dates.length === 0) return new Set();
+
+  const { data, error } = await supabase
+    .from("night_prayers")
+    .select("prayer_date")
+    .in("prayer_date", dates);
+
+  if (error) {
+    throw new Error(`Could not read existing night_prayers rows: ${error.message}`);
+  }
+
+  return new Set((data ?? []).map((row) => row.prayer_date));
+}
+
+async function importOneDate(date, { dryRun }) {
   assertIsoDate(date);
 
   const result = await buildNightPrayerPayload(date);
@@ -352,6 +450,109 @@ async function main() {
       2
     )
   );
+
+  return result;
+}
+
+async function importAllActivePlan({ dryRun, force, delayMs }) {
+  const supabase = createSupabaseAdminClient();
+  const { activePlan, dates } = await fetchActivePlanNightPrayerDates(supabase);
+  const existingDates = await fetchExistingNightPrayerDates(supabase, dates);
+  const targetDates = force ? dates : dates.filter((date) => !existingDates.has(date));
+  const skippedDates = force ? [] : dates.filter((date) => existingDates.has(date));
+  const failures = [];
+  let imported = 0;
+
+  console.log(
+    JSON.stringify(
+      {
+        status: "bulk-start",
+        mode: dryRun ? "dry-run" : "import",
+        activePlan: {
+          id: activePlan.id,
+          name: activePlan.name,
+          totalDays: activePlan.total_days,
+        },
+        totalDates: dates.length,
+        existingDates: existingDates.size,
+        skippedExisting: skippedDates.length,
+        toProcess: targetDates.length,
+        force,
+        delayMs,
+      },
+      null,
+      2
+    )
+  );
+
+  for (const [index, date] of targetDates.entries()) {
+    const position = index + 1;
+    try {
+      console.log(`[${position}/${targetDates.length}] ${dryRun ? "Parsing" : "Importing"} ${date}`);
+      const result = await buildNightPrayerPayload(date);
+
+      if (!dryRun) {
+        await upsertPayload(result.payload);
+      }
+
+      imported += 1;
+      console.log(
+        `[${position}/${targetDates.length}] OK ${date} blocks=${result.parsing.blockCount} fallback=${result.parsing.usedFallback}`
+      );
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      failures.push({ date, message });
+      console.error(`[${position}/${targetDates.length}] FAILED ${date}: ${message}`);
+    }
+
+    if (position < targetDates.length) {
+      await sleep(delayMs);
+    }
+  }
+
+  const summary = {
+    status: failures.length > 0 ? "bulk-completed-with-failures" : "bulk-completed",
+    mode: dryRun ? "dry-run" : "import",
+    totalDates: dates.length,
+    skippedExisting: skippedDates.length,
+    imported,
+    failed: failures.length,
+    failedDates: failures.map((failure) => failure.date),
+  };
+
+  console.log(JSON.stringify(summary, null, 2));
+
+  if (failures.length > 0) {
+    console.error(JSON.stringify({ failures }, null, 2));
+    process.exitCode = 1;
+  }
+}
+
+async function main() {
+  loadLocalEnv();
+
+  const date = readArg("date");
+  const dryRun = hasFlag("dry-run");
+  const force = hasFlag("force");
+  const allActivePlan = hasFlag("all-active-plan");
+  const delayMs = readDelayMs();
+
+  if (date && allActivePlan) {
+    throw new Error("Use either --date or --all-active-plan, not both.");
+  }
+
+  if (allActivePlan) {
+    await importAllActivePlan({ dryRun, force, delayMs });
+    return;
+  }
+
+  if (!date) {
+    throw new Error(
+      "Usage: npm run import:night-prayer -- --date YYYY-MM-DD [--dry-run]\n   or: npm run import:night-prayer -- --all-active-plan [--dry-run] [--force] [--delay-ms 500]"
+    );
+  }
+
+  await importOneDate(date, { dryRun });
 }
 
 main().catch((error) => {
