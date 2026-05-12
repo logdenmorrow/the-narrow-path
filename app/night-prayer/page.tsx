@@ -317,8 +317,29 @@ function renderMarianPrayerEnding(blocks: NightPrayerBlock[], startIndex: number
   );
 }
 
+function hasOpeningSignOfTheCross(blocks: NightPrayerBlock[]) {
+  return blocks
+    .slice(0, 3)
+    .some((block) =>
+      block.lines.some(
+        (line) =>
+          line.trim().toLowerCase() === CLOSING_SIGN_OF_THE_CROSS.toLowerCase()
+      )
+    );
+}
+
+function renderOpeningSignOfTheCross() {
+  return (
+    <p key="opening-sign-of-the-cross" className="text-base font-medium leading-8 text-monastic-0">
+      {CLOSING_SIGN_OF_THE_CROSS}
+    </p>
+  );
+}
+
 function renderPrayerBlocks(blocks: NightPrayerBlock[]) {
-  const rendered = [];
+  const rendered = hasOpeningSignOfTheCross(blocks)
+    ? []
+    : [renderOpeningSignOfTheCross()];
   let index = 0;
   let renderedMarianEnding = false;
 
