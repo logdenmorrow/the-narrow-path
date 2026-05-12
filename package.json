@@ -5,6 +5,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "import:night-prayer": "node scripts/import-night-prayer.mjs",
     "migrate:reflection-encryption": "node scripts/migrate-reflection-encryption.mjs"
   },
   "dependencies": {

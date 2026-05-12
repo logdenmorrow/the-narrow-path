@@ -15,6 +15,7 @@ export async function toggleTaskCompletion(formData: FormData) {
 
 function revalidateAccountabilityPaths() {
   revalidatePath("/today");
+  revalidatePath("/night-prayer");
   revalidatePath("/this-week");
   revalidatePath("/brotherhood");
   revalidatePath("/dashboard");

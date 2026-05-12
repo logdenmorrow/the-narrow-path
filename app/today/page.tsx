@@ -105,6 +105,14 @@ function getTaskSecondaryAction(slug: string, dayNumber: number) {
     };
   }
 
+  if (slug === "night-prayer") {
+    return {
+      href: `/night-prayer?day=${dayNumber}`,
+      label: "Open Night Prayer",
+      statusText: "Pray Compline",
+    };
+  }
+
   return undefined;
 }
 
