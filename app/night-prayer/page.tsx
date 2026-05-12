@@ -2,7 +2,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
   HeroPanel,
-  MetricCard,
   PageFrame,
   SectionHeader,
   SurfaceCard,
@@ -64,6 +63,21 @@ type CompletionRow = {
   id: number;
 };
 
+const PAGE_CARD_CLASS = "mx-auto w-full max-w-4xl";
+
+const HOLY_SPIRIT_EXAMEN_LINES = [
+  "Pause quietly and ask the Holy Spirit to reveal the day truthfully.",
+  "",
+  "Where did I follow God’s grace today?",
+  "Where did I resist Him?",
+  "Where was I proud, impatient, distracted, uncharitable, impure, lazy, or afraid?",
+  "Where did I fail to love God, my neighbor, or my duties?",
+  "",
+  "Ask for sorrow, receive God’s mercy, and resolve to begin again tomorrow.",
+  "",
+  "Pause briefly.",
+];
+
 function normalizeDayNumber(value: number, totalDays: number) {
   if (!Number.isFinite(value)) return 1;
   const rounded = Math.floor(value);
@@ -104,13 +118,26 @@ function splitPrayerBlocks(blocks: NightPrayerBlock[]) {
 function isMajorSectionHeading(block: NightPrayerBlock) {
   const firstLine = block.lines[0]?.trim() ?? "";
 
-  return /^(HYMN|PSALMODY|READING|RESPONSORY|Gospel Canticle|Concluding Prayer|Blessing|Antiphon or song in honor of the Blessed Virgin Mary)$/i.test(
+  return /^(HYMN|PSALMODY|READING|RESPONSORY|Gospel Canticle|Concluding Prayer|Blessing|Antiphon or song in honor of the Blessed Virgin Mary|Antiphon or Song in Honor of the Blessed Virgin Mary)$/i.test(
     firstLine
   );
 }
 
-function isAntiphonBlock(block: NightPrayerBlock) {
-  return block.lines.some((line) => /^Ant\./i.test(line.trim()));
+function isSectionHeading(block: NightPrayerBlock, section: string) {
+  return block.lines[0]?.trim().toLowerCase() === section.toLowerCase();
+}
+
+function isAntiphonLine(line: string) {
+  return /^Ant\.\s*/i.test(line.trim());
+}
+
+function getAntiphonText(line: string) {
+  const antiphon = line.trim().replace(/^Ant\.\s*\d*\s*/i, "").trim();
+  return antiphon || line.trim();
+}
+
+function hasExaminationHeading(block: NightPrayerBlock) {
+  return block.lines.some((line) => /^Examination of conscience:?$/i.test(line.trim()));
 }
 
 function getLineClassName(line: string) {
@@ -120,36 +147,153 @@ function getLineClassName(line: string) {
     return "block pl-6 text-monastic-1";
   }
 
-  if (/^Ant\./i.test(trimmed)) {
+  if (isAntiphonLine(trimmed)) {
     return "font-medium italic text-[#6f4c2a] dark:text-[#dcc39c]";
   }
 
   return "";
 }
 
-function renderBlock(block: NightPrayerBlock, index: number) {
+function renderLine(line: string, index: string) {
+  if (isAntiphonLine(line)) {
+    return (
+      <span key={index} className="block">
+        <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.22em] text-monastic-2">
+          Antiphon
+        </span>
+        <span className="font-medium italic text-[#6f4c2a] dark:text-[#dcc39c]">
+          {getAntiphonText(line)}
+        </span>
+      </span>
+    );
+  }
+
+  return (
+    <span key={index} className={getLineClassName(line)}>
+      {line}
+    </span>
+  );
+}
+
+function renderBlock(block: NightPrayerBlock, index: number, compact = false) {
   const isMajorHeading = isMajorSectionHeading(block);
-  const isAntiphon = isAntiphonBlock(block);
   const className = isMajorHeading
     ? "mt-8 border-t border-monastic pt-6 text-xs font-semibold uppercase tracking-[0.24em] text-[#8a5f32] first:mt-0 first:border-t-0 first:pt-0 dark:text-[#d8bd91]"
     : block.type === "heading"
       ? "mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-[#8a5f32] dark:text-[#d8bd91]"
       : block.type === "note"
         ? "text-sm leading-7 text-monastic-2"
-        : isAntiphon
-          ? "text-base leading-8 text-monastic-0"
+        : compact
+          ? "text-sm leading-7 text-monastic-1"
           : "text-base leading-8 text-monastic-0";
 
   return (
     <p key={`${block.type}-${index}`} className={className}>
       {block.lines.map((line, lineIndex) => (
-        <span key={`${index}-${lineIndex}`} className={getLineClassName(line)}>
-          {line}
+        <span key={`${index}-${lineIndex}`}>
+          {renderLine(line, `${index}-${lineIndex}`)}
           {lineIndex < block.lines.length - 1 ? <br /> : null}
         </span>
       ))}
     </p>
   );
+}
+
+function renderExamenGuide() {
+  return (
+    <SurfaceInset className="my-5 border-[rgba(86,124,102,0.32)] bg-[rgba(151,186,164,0.08)]">
+      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#5d725f] dark:text-[#a7ccb9]">
+        Solo Examination Guide
+      </p>
+      <div className="mt-3 space-y-3 text-sm leading-7 text-monastic-1 sm:text-base">
+        {HOLY_SPIRIT_EXAMEN_LINES.map((line, index) =>
+          line ? <p key={`examen-${index}`}>{line}</p> : null
+        )}
+      </div>
+    </SurfaceInset>
+  );
+}
+
+function renderHymnDetails(blocks: NightPrayerBlock[], startIndex: number) {
+  return (
+    <details
+      key={`hymn-${startIndex}`}
+      className="mt-8 rounded-xl border border-monastic bg-[rgba(168,129,81,0.05)] px-4 py-4"
+    >
+      <summary className="cursor-pointer text-xs font-semibold uppercase tracking-[0.24em] text-[#8a5f32] transition hover:text-monastic-0 dark:text-[#d8bd91]">
+        Hymn
+      </summary>
+      <p className="mt-2 text-sm leading-6 text-monastic-2">
+        Optional when praying this solo.
+      </p>
+      <div className="mt-4 space-y-4 border-t border-monastic pt-4">
+        {blocks.slice(1).map((block, index) => renderBlock(block, startIndex + index, true))}
+      </div>
+    </details>
+  );
+}
+
+function renderResponsory(blocks: NightPrayerBlock[], startIndex: number) {
+  return (
+    <div
+      key={`responsory-${startIndex}`}
+      className="mt-8 rounded-xl border border-monastic bg-[rgba(42,25,15,0.04)] px-4 py-4"
+    >
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8a5f32] dark:text-[#d8bd91]">
+        Responsory
+      </p>
+      <p className="mt-2 text-sm leading-6 text-monastic-2">
+        When praying alone, read both the line and response.
+      </p>
+      <div className="mt-4 space-y-3">
+        {blocks.slice(1).map((block, index) => renderBlock(block, startIndex + index, true))}
+      </div>
+    </div>
+  );
+}
+
+function renderPrayerBlocks(blocks: NightPrayerBlock[]) {
+  const rendered = [];
+  let index = 0;
+
+  while (index < blocks.length) {
+    const block = blocks[index];
+
+    if (isSectionHeading(block, "HYMN")) {
+      const endIndex = blocks.findIndex(
+        (candidate, candidateIndex) =>
+          candidateIndex > index && isMajorSectionHeading(candidate)
+      );
+      const hymnBlocks = blocks.slice(index, endIndex === -1 ? blocks.length : endIndex);
+      rendered.push(renderHymnDetails(hymnBlocks, index));
+      index = endIndex === -1 ? blocks.length : endIndex;
+      continue;
+    }
+
+    if (isSectionHeading(block, "RESPONSORY")) {
+      const endIndex = blocks.findIndex(
+        (candidate, candidateIndex) =>
+          candidateIndex > index && isMajorSectionHeading(candidate)
+      );
+      const responsoryBlocks = blocks.slice(
+        index,
+        endIndex === -1 ? blocks.length : endIndex
+      );
+      rendered.push(renderResponsory(responsoryBlocks, index));
+      index = endIndex === -1 ? blocks.length : endIndex;
+      continue;
+    }
+
+    rendered.push(renderBlock(block, index));
+
+    if (hasExaminationHeading(block)) {
+      rendered.push(<div key="holy-spirit-examen">{renderExamenGuide()}</div>);
+    }
+
+    index += 1;
+  }
+
+  return rendered;
 }
 
 function renderSourceDetailBlock(block: NightPrayerBlock, index: number) {
@@ -163,16 +307,6 @@ function renderSourceDetailBlock(block: NightPrayerBlock, index: number) {
       ))}
     </p>
   );
-}
-
-function formatImportedAt(value: string | null) {
-  if (!value) return "Not imported";
-
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(new Date(value));
 }
 
 export default async function NightPrayerPage({
@@ -315,6 +449,16 @@ export default async function NightPrayerPage({
     `Day ${selectedDay}`;
   const attributionText =
     nightPrayer?.copyright_notice?.trim() || NIGHT_PRAYER_ATTRIBUTION_TEXT;
+  const sourceLabel =
+    nightPrayer?.source === "divineoffice" || !nightPrayer?.source
+      ? "DivineOffice"
+      : nightPrayer.source;
+  const metadataParts = [
+    `Day ${selectedDay}`,
+    selectedDateLabel,
+    subtitle,
+    `Source: ${sourceLabel}`,
+  ].filter(Boolean);
 
   return (
     <main className="monastic-page">
@@ -387,47 +531,29 @@ export default async function NightPrayerPage({
           ]}
         />
 
-        <div className="grid gap-4 md:grid-cols-3">
-          <MetricCard
-            label="Status"
-            value={completion?.id ? "Completed" : isLocked ? "Locked" : "Open"}
-            detail={
-              nightPrayerTask
-                ? "This counts as a normal daily required task."
-                : "Night Prayer is not assigned to this day yet."
-            }
-          />
-          <MetricCard
-            label="Source"
-            value={nightPrayer?.source === "divineoffice" ? "DivineOffice" : "Pending"}
-            detail={hasImportedContent ? "Cached in Supabase." : "No cached text for this date."}
-          />
-          <MetricCard
-            label="Imported"
-            value={formatImportedAt(nightPrayer?.imported_at ?? null)}
-            detail={prayerDate ? `Prayer date ${prayerDate}` : "No task date assigned."}
-          />
-        </div>
+        <p className="mx-auto max-w-4xl text-center text-xs font-medium uppercase tracking-[0.18em] text-monastic-2 sm:text-sm">
+          {metadataParts.join(" • ")}
+        </p>
 
-        <SurfaceCard>
-          <SectionHeader
-            kicker="Compline"
-            title={
-              hasImportedContent
-                ? "Pray with the Church."
-                : "Night Prayer has not been imported for this date yet."
-            }
-            description={
-              hasImportedContent
-                ? nightPrayer?.liturgical_day || "Cached DivineOffice Night Prayer text."
-                : "Run the one-day importer for this prayer date, then refresh this page."
-            }
-          />
+        <SurfaceCard className={PAGE_CARD_CLASS}>
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="section-kicker">Compline</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-monastic-0 sm:text-4xl">
+              {hasImportedContent
+                ? "Pray Night Prayer"
+                : "Night Prayer has not been imported for this date yet."}
+            </h2>
+            <p className="mt-3 text-base leading-7 text-monastic-1 sm:text-lg">
+              {hasImportedContent
+                ? "Pray both the main line and the response when praying alone."
+                : "Run the one-day importer for this prayer date, then refresh this page."}
+            </p>
+          </div>
 
           {hasImportedContent ? (
             <SurfaceInset className="mt-6 px-5 py-6 sm:px-8 sm:py-8">
-              <article className="mx-auto max-w-3xl space-y-4">
-                {prayerBlocks.map(renderBlock)}
+              <article className="mx-auto max-w-2xl space-y-4">
+                {renderPrayerBlocks(prayerBlocks)}
               </article>
             </SurfaceInset>
           ) : (
@@ -450,7 +576,7 @@ export default async function NightPrayerPage({
         </SurfaceCard>
 
         {nightPrayerTask ? (
-          <SurfaceCard className="mx-auto w-full max-w-3xl">
+          <SurfaceCard className={PAGE_CARD_CLASS}>
             <SectionHeader
               kicker="Completion"
               title={completion?.id ? "Night Prayer completed." : "Mark Night Prayer complete."}
@@ -470,7 +596,7 @@ export default async function NightPrayerPage({
             </div>
           </SurfaceCard>
         ) : (
-          <SurfaceCard className="mx-auto w-full max-w-3xl">
+          <SurfaceCard className={PAGE_CARD_CLASS}>
             <SectionHeader
               kicker="Completion"
               title="Night Prayer is not assigned to this day yet."
@@ -480,7 +606,7 @@ export default async function NightPrayerPage({
         )}
 
         {sourceDetailBlocks.length > 0 ? (
-          <SurfaceCard className="mx-auto w-full max-w-3xl py-4 sm:py-5">
+          <SurfaceCard className={`${PAGE_CARD_CLASS} py-4 sm:py-5`}>
             <details>
               <summary className="cursor-pointer text-xs font-semibold uppercase tracking-[0.22em] text-monastic-1 transition hover:text-monastic-0">
                 Source details / book reference
@@ -492,19 +618,23 @@ export default async function NightPrayerPage({
           </SurfaceCard>
         ) : null}
 
-        <SurfaceCard className="mx-auto w-full max-w-3xl py-4 sm:py-5">
-          <SectionHeader
-            kicker="Attribution"
-            title="Source and copyright"
-            description={attributionText}
-            action={
-              <Button asChild variant="secondary" size="sm">
-                <a href={sourceUrl} target="_blank" rel="noreferrer">
-                  View Source
-                </a>
-              </Button>
-            }
-          />
+        <SurfaceCard className={`${PAGE_CARD_CLASS} py-4 sm:py-5`}>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="section-kicker">Attribution</p>
+              <h2 className="mt-2 text-xl font-semibold text-monastic-0">
+                Source and copyright
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-monastic-1">
+                {attributionText}
+              </p>
+            </div>
+            <Button asChild variant="secondary" size="sm">
+              <a href={sourceUrl} target="_blank" rel="noreferrer">
+                View Source
+              </a>
+            </Button>
+          </div>
         </SurfaceCard>
       </PageFrame>
     </main>
