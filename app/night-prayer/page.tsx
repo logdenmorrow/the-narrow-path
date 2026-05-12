@@ -83,18 +83,80 @@ function normalizeTaskTemplate(
   };
 }
 
+function splitPrayerBlocks(blocks: NightPrayerBlock[]) {
+  const firstPrayerIndex = blocks.findIndex((block) =>
+    block.lines.some((line) => /^God,\s+come to my assistance\.?$/i.test(line.trim()))
+  );
+
+  if (firstPrayerIndex <= 0) {
+    return {
+      sourceDetailBlocks: [] as NightPrayerBlock[],
+      prayerBlocks: blocks,
+    };
+  }
+
+  return {
+    sourceDetailBlocks: blocks.slice(0, firstPrayerIndex),
+    prayerBlocks: blocks.slice(firstPrayerIndex),
+  };
+}
+
+function isMajorSectionHeading(block: NightPrayerBlock) {
+  const firstLine = block.lines[0]?.trim() ?? "";
+
+  return /^(HYMN|PSALMODY|READING|RESPONSORY|Gospel Canticle|Concluding Prayer|Blessing|Antiphon or song in honor of the Blessed Virgin Mary)$/i.test(
+    firstLine
+  );
+}
+
+function isAntiphonBlock(block: NightPrayerBlock) {
+  return block.lines.some((line) => /^Ant\./i.test(line.trim()));
+}
+
+function getLineClassName(line: string) {
+  const trimmed = line.trim();
+
+  if (/^[—–-]\s+/.test(trimmed)) {
+    return "block pl-6 text-monastic-1";
+  }
+
+  if (/^Ant\./i.test(trimmed)) {
+    return "font-medium italic text-[#6f4c2a] dark:text-[#dcc39c]";
+  }
+
+  return "";
+}
+
 function renderBlock(block: NightPrayerBlock, index: number) {
-  const className =
-    block.type === "heading"
-      ? "pt-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#8a5f32] dark:text-[#d8bd91]"
+  const isMajorHeading = isMajorSectionHeading(block);
+  const isAntiphon = isAntiphonBlock(block);
+  const className = isMajorHeading
+    ? "mt-8 border-t border-monastic pt-6 text-xs font-semibold uppercase tracking-[0.24em] text-[#8a5f32] first:mt-0 first:border-t-0 first:pt-0 dark:text-[#d8bd91]"
+    : block.type === "heading"
+      ? "mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-[#8a5f32] dark:text-[#d8bd91]"
       : block.type === "note"
         ? "text-sm leading-7 text-monastic-2"
-        : "text-base leading-8 text-monastic-0";
+        : isAntiphon
+          ? "text-base leading-8 text-monastic-0"
+          : "text-base leading-8 text-monastic-0";
 
   return (
     <p key={`${block.type}-${index}`} className={className}>
       {block.lines.map((line, lineIndex) => (
-        <span key={`${index}-${lineIndex}`}>
+        <span key={`${index}-${lineIndex}`} className={getLineClassName(line)}>
+          {line}
+          {lineIndex < block.lines.length - 1 ? <br /> : null}
+        </span>
+      ))}
+    </p>
+  );
+}
+
+function renderSourceDetailBlock(block: NightPrayerBlock, index: number) {
+  return (
+    <p key={`source-${block.type}-${index}`} className="text-sm leading-7 text-monastic-2">
+      {block.lines.map((line, lineIndex) => (
+        <span key={`source-${index}-${lineIndex}`}>
           {line}
           {lineIndex < block.lines.length - 1 ? <br /> : null}
         </span>
@@ -225,6 +287,7 @@ export default async function NightPrayerPage({
 
   const nightPrayer = (nightPrayerData ?? null) as NightPrayerRow | null;
   const blocks = getNightPrayerBlocks(nightPrayer?.content_json);
+  const { sourceDetailBlocks, prayerBlocks } = splitPrayerBlocks(blocks);
   const hasImportedContent = blocks.length > 0;
   const { data: completionData } = nightPrayerTask
     ? await supabase
@@ -267,20 +330,22 @@ export default async function NightPrayerPage({
           </SurfaceCard>
         )}
 
-        <HeroPanel className="py-7 sm:py-8">
+        <HeroPanel className="py-6 sm:py-7">
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div className="text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">
                 Day {selectedDay} {selectedDateLabel ? `- ${selectedDateLabel}` : ""}
               </p>
-              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">Night Prayer</h1>
-              <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
+              <h1 className="mt-2 text-4xl font-semibold sm:text-5xl">Night Prayer</h1>
+              <p className="mt-2 text-base leading-7 text-[#ead8bc] sm:text-lg">
                 Pray Compline with the Church before sleep.
               </p>
-              <h2 className="mt-6 text-3xl font-semibold text-white sm:text-4xl">
+              <h2 className="mt-5 text-2xl font-semibold text-white sm:text-3xl">
                 {title}
               </h2>
-              <p className="mt-2 text-xl text-[#ead8bc]">{subtitle}</p>
+              <p className="mt-2 text-base leading-7 text-[#ead8bc] sm:text-lg">
+                {subtitle}
+              </p>
             </div>
 
             <AppActionBar
@@ -344,40 +409,14 @@ export default async function NightPrayerPage({
           />
         </div>
 
-        {nightPrayerTask ? (
-          <SurfaceCard>
-            <SectionHeader
-              kicker="Completion"
-              title={completion?.id ? "Night Prayer completed." : "Mark Night Prayer complete."}
-              description="This uses the same completion record as the daily task list."
-            />
-            <div className="mt-5">
-              <TodayTaskCard
-                planDayTaskId={nightPrayerTask.id}
-                title={normalizeTaskTemplate(nightPrayerTask.task_templates).title}
-                note={nightPrayerTask.requirement_note}
-                isRequired
-                isOptional={false}
-                completed={Boolean(completion?.id)}
-                locked={isLocked}
-                lockedLabel={!challenge.hasStarted ? "Locked Until Launch" : "Future Day Locked"}
-              />
-            </div>
-          </SurfaceCard>
-        ) : (
-          <SurfaceCard>
-            <SectionHeader
-              kicker="Completion"
-              title="Night Prayer is not assigned to this day yet."
-              description="Apply the Phase 1 migration to backfill the task onto active plan days."
-            />
-          </SurfaceCard>
-        )}
-
         <SurfaceCard>
           <SectionHeader
             kicker="Compline"
-            title={hasImportedContent ? "Pray with the Church." : "Night Prayer has not been imported for this date yet."}
+            title={
+              hasImportedContent
+                ? "Pray with the Church."
+                : "Night Prayer has not been imported for this date yet."
+            }
             description={
               hasImportedContent
                 ? nightPrayer?.liturgical_day || "Cached DivineOffice Night Prayer text."
@@ -386,8 +425,10 @@ export default async function NightPrayerPage({
           />
 
           {hasImportedContent ? (
-            <SurfaceInset className="mt-6 px-5 py-5 sm:px-7 sm:py-7">
-              <article className="space-y-5">{blocks.map(renderBlock)}</article>
+            <SurfaceInset className="mt-6 px-5 py-6 sm:px-8 sm:py-8">
+              <article className="mx-auto max-w-3xl space-y-4">
+                {prayerBlocks.map(renderBlock)}
+              </article>
             </SurfaceInset>
           ) : (
             <SurfaceInset className="mt-6">
@@ -408,7 +449,50 @@ export default async function NightPrayerPage({
           )}
         </SurfaceCard>
 
-        <SurfaceCard>
+        {nightPrayerTask ? (
+          <SurfaceCard className="mx-auto w-full max-w-3xl">
+            <SectionHeader
+              kicker="Completion"
+              title={completion?.id ? "Night Prayer completed." : "Mark Night Prayer complete."}
+              description="Mark this complete after praying Compline."
+            />
+            <div className="mt-5">
+              <TodayTaskCard
+                planDayTaskId={nightPrayerTask.id}
+                title={normalizeTaskTemplate(nightPrayerTask.task_templates).title}
+                note={nightPrayerTask.requirement_note}
+                isRequired
+                isOptional={false}
+                completed={Boolean(completion?.id)}
+                locked={isLocked}
+                lockedLabel={!challenge.hasStarted ? "Locked Until Launch" : "Future Day Locked"}
+              />
+            </div>
+          </SurfaceCard>
+        ) : (
+          <SurfaceCard className="mx-auto w-full max-w-3xl">
+            <SectionHeader
+              kicker="Completion"
+              title="Night Prayer is not assigned to this day yet."
+              description="Apply the Phase 1 migration to backfill the task onto active plan days."
+            />
+          </SurfaceCard>
+        )}
+
+        {sourceDetailBlocks.length > 0 ? (
+          <SurfaceCard className="mx-auto w-full max-w-3xl py-4 sm:py-5">
+            <details>
+              <summary className="cursor-pointer text-xs font-semibold uppercase tracking-[0.22em] text-monastic-1 transition hover:text-monastic-0">
+                Source details / book reference
+              </summary>
+              <div className="mt-4 space-y-3 border-t border-monastic pt-4">
+                {sourceDetailBlocks.map(renderSourceDetailBlock)}
+              </div>
+            </details>
+          </SurfaceCard>
+        ) : null}
+
+        <SurfaceCard className="mx-auto w-full max-w-3xl py-4 sm:py-5">
           <SectionHeader
             kicker="Attribution"
             title="Source and copyright"
