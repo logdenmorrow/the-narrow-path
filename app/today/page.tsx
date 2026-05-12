@@ -354,14 +354,17 @@ export default async function TodayPage({
   ];
   const visibleScopeTasks = filterTasksForTrack(scopeTasks, track);
 
-  const scopeTaskIds = uniqueTaskIds(visibleScopeTasks);
+  const completionTaskIds = uniqueTaskIds([
+    ...typedDayTasks,
+    ...visibleScopeTasks,
+  ]);
 
-  const { data: completions } = scopeTaskIds.length
+  const { data: completions } = completionTaskIds.length
     ? await supabase
         .from("user_task_completions")
         .select("user_id, plan_day_task_id")
         .eq("user_id", user.id)
-        .in("plan_day_task_id", scopeTaskIds)
+        .in("plan_day_task_id", completionTaskIds)
     : { data: [] as CompletionRecord[] };
 
   const reflectionTaskId = getReflectionTaskId(typedDayTasks);

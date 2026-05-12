@@ -16,11 +16,15 @@ import { Button } from "@/components/ui/button";
 import { getAdminEmails, isAllowedAdminEmail, requireAdminUser } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming } from "@/lib/challenge";
+import {
+  addDaysToIsoDate,
+  CHALLENGE_START_DATE,
+  getChallengeTiming,
+} from "@/lib/challenge";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
-type TaskTemplateCadence = "daily" | "weekly_quota";
+type TaskTemplateCadence = string;
 
 type TaskTemplateRow = {
   id: number;
@@ -29,13 +33,21 @@ type TaskTemplateRow = {
   description: string | null;
   cadence: TaskTemplateCadence;
   weekly_target: number | null;
+  monthly_target?: number | null;
+  sort_order?: number | null;
+  show_only_last_week_of_month?: boolean | null;
 };
 
 type PlanDayTaskRow = {
   id: number;
   is_required: boolean;
+  is_optional: boolean | null;
   sort_order: number;
   task_template_id: number;
+  quota_scope: string | null;
+  quota_target: number | null;
+  requirement_note: string | null;
+  display_order: number | null;
   task_templates: {
     id: number;
     slug: string;
@@ -43,8 +55,35 @@ type PlanDayTaskRow = {
     description: string | null;
     cadence: TaskTemplateCadence;
     weekly_target: number | null;
+    monthly_target?: number | null;
+    sort_order?: number | null;
+    show_only_last_week_of_month?: boolean | null;
   } | null;
 };
+
+type AssignmentTemplateRow = Pick<
+  TaskTemplateRow,
+  | "description"
+  | "cadence"
+  | "weekly_target"
+  | "monthly_target"
+  | "sort_order"
+  | "show_only_last_week_of_month"
+>;
+
+type SourceAssignmentRow = {
+  plan_day_id?: number;
+  task_template_id: number;
+  is_required: boolean;
+  is_optional: boolean | null;
+  sort_order: number;
+  quota_scope: string | null;
+  quota_target: number | null;
+  requirement_note: string | null;
+  display_order: number | null;
+};
+
+const EDITABLE_CADENCES = new Set(["daily", "weekly_quota"]);
 
 function normalizeDayNumber(value: number, totalDays: number) {
   if (!Number.isFinite(value)) return 1;
@@ -59,6 +98,82 @@ function normalizeWeekStartDay(value: number, totalDays: number) {
   const weekStart = Math.floor((normalizedDay - 1) / 7) * 7 + 1;
   const maxWeekStart = Math.floor((totalDays - 1) / 7) * 7 + 1;
   return Math.min(weekStart, maxWeekStart);
+}
+
+function isEditableCadence(value: string | null | undefined) {
+  return EDITABLE_CADENCES.has(value ?? "");
+}
+
+function getPlanDayTaskDates(dayNumber: number) {
+  const dayDate = addDaysToIsoDate(CHALLENGE_START_DATE, dayNumber - 1);
+  const weekStartDayNumber = Math.floor((dayNumber - 1) / 7) * 7 + 1;
+
+  return {
+    day_date: dayDate,
+    week_start_date: addDaysToIsoDate(
+      CHALLENGE_START_DATE,
+      weekStartDayNumber - 1
+    ),
+    month_start_date: `${dayDate.slice(0, 7)}-01`,
+  };
+}
+
+function getQuotaFields(template: AssignmentTemplateRow) {
+  if (template.cadence === "weekly_quota") {
+    return {
+      quota_scope: "week",
+      quota_target: template.weekly_target ?? 1,
+    };
+  }
+
+  if (template.show_only_last_week_of_month && template.monthly_target) {
+    return {
+      quota_scope: "last_week_of_month",
+      quota_target: template.monthly_target,
+    };
+  }
+
+  return {
+    quota_scope: null,
+    quota_target: null,
+  };
+}
+
+function buildAssignmentMetadata({
+  dayNumber,
+  isRequired,
+  sortOrder,
+  template,
+}: {
+  dayNumber: number;
+  isRequired: boolean;
+  sortOrder: number;
+  template: AssignmentTemplateRow;
+}) {
+  return {
+    ...getPlanDayTaskDates(dayNumber),
+    is_optional: !isRequired,
+    requirement_note: template.description,
+    display_order: template.sort_order ?? sortOrder,
+    ...getQuotaFields(template),
+  };
+}
+
+function buildCopiedAssignmentMetadata({
+  dayNumber,
+  task,
+}: {
+  dayNumber: number;
+  task: SourceAssignmentRow;
+}) {
+  return {
+    ...getPlanDayTaskDates(dayNumber),
+    is_optional: task.is_optional ?? !task.is_required,
+    quota_scope: task.quota_scope,
+    quota_target: task.quota_target,
+    requirement_note: task.requirement_note,
+    display_order: task.display_order ?? task.sort_order,
+  };
 }
 
 function slugify(value: string) {
@@ -116,7 +231,7 @@ function resolveWeeklyTarget(
   rawValue: FormDataEntryValue | null,
   cadence: TaskTemplateCadence
 ) {
-  if (cadence === "daily") {
+  if (cadence !== "weekly_quota") {
     return null;
   }
 
@@ -136,7 +251,11 @@ function cadenceLabel(template?: {
     return `Weekly quota${template.weekly_target ? ` (${template.weekly_target}x)` : ""}`;
   }
 
-  return "Daily";
+  if (template.cadence === "rotating_weekday") {
+    return "Rotating weekday";
+  }
+
+  return template.cadence === "daily" ? "Daily" : template.cadence;
 }
 
 function revalidateAppPaths() {
@@ -208,12 +327,30 @@ async function addTaskToDay(formData: FormData) {
     throw new Error("Unable to create or load the selected day.");
   }
 
+  const { data: taskTemplate, error: taskTemplateError } = await admin
+    .from("task_templates")
+    .select(
+      "description, cadence, weekly_target, monthly_target, sort_order, show_only_last_week_of_month"
+    )
+    .eq("id", taskTemplateId)
+    .maybeSingle();
+
+  if (taskTemplateError || !taskTemplate) {
+    throw new Error("Unable to load the selected task template.");
+  }
+
   await admin.from("plan_day_tasks").upsert(
     {
       plan_day_id: ensuredDay.id,
       task_template_id: taskTemplateId,
       is_required: isRequired,
       sort_order: sortOrder,
+      ...buildAssignmentMetadata({
+        dayNumber,
+        isRequired,
+        sortOrder,
+        template: taskTemplate as AssignmentTemplateRow,
+      }),
     },
     {
       onConflict: "plan_day_id,task_template_id",
@@ -240,6 +377,7 @@ async function saveAssignedTask(formData: FormData) {
     .from("plan_day_tasks")
     .update({
       is_required: isRequired,
+      is_optional: !isRequired,
       sort_order: sortOrder,
     })
     .eq("id", planDayTaskId);
@@ -318,17 +456,28 @@ async function saveTaskTemplate(formData: FormData) {
   }
 
   const slug = slugInput ? slugify(slugInput) : slugify(title);
-
-  await admin
+  const { data: currentTemplate, error: currentTemplateError } = await admin
     .from("task_templates")
-    .update({
-      title,
-      slug,
-      description: description || null,
-      cadence,
-      weekly_target: weeklyTarget,
-    })
-    .eq("id", templateId);
+    .select("cadence, weekly_target")
+    .eq("id", templateId)
+    .maybeSingle();
+
+  if (currentTemplateError || !currentTemplate) {
+    throw new Error("Unable to load the selected task template.");
+  }
+
+  const updatePayload: Record<string, unknown> = {
+    title,
+    slug,
+    description: description || null,
+  };
+
+  if (isEditableCadence(currentTemplate.cadence)) {
+    updatePayload.cadence = cadence;
+    updatePayload.weekly_target = weeklyTarget;
+  }
+
+  await admin.from("task_templates").update(updatePayload).eq("id", templateId);
 
   revalidateAppPaths();
   redirect(`/admin/plan?day=${dayNumber}`);
@@ -372,7 +521,18 @@ async function copyDayToDay(formData: FormData) {
 
   const { data: sourceTasks, error: sourceTasksError } = await admin
     .from("plan_day_tasks")
-    .select("task_template_id, is_required, sort_order")
+    .select(
+      `
+        task_template_id,
+        is_required,
+        is_optional,
+        sort_order,
+        quota_scope,
+        quota_target,
+        requirement_note,
+        display_order
+      `
+    )
     .eq("plan_day_id", sourceDay.id)
     .order("sort_order", { ascending: true });
 
@@ -403,12 +563,18 @@ async function copyDayToDay(formData: FormData) {
   await admin.from("plan_day_tasks").delete().eq("plan_day_id", targetDay.id);
 
   if ((sourceTasks ?? []).length > 0) {
+    const typedSourceTasks = (sourceTasks ?? []) as SourceAssignmentRow[];
+
     await admin.from("plan_day_tasks").insert(
-      sourceTasks.map((task) => ({
+      typedSourceTasks.map((task) => ({
         plan_day_id: targetDay.id,
         task_template_id: task.task_template_id,
         is_required: task.is_required,
         sort_order: task.sort_order,
+        ...buildCopiedAssignmentMetadata({
+          dayNumber: targetDayNumber,
+          task,
+        }),
       }))
     );
   }
@@ -461,7 +627,19 @@ async function copyWeekToWeek(formData: FormData) {
   const { data: sourceWeekTasks, error: sourceWeekTasksError } = sourceDayIds.length
     ? await admin
         .from("plan_day_tasks")
-        .select("plan_day_id, task_template_id, is_required, sort_order")
+        .select(
+          `
+            plan_day_id,
+            task_template_id,
+            is_required,
+            is_optional,
+            sort_order,
+            quota_scope,
+            quota_target,
+            requirement_note,
+            display_order
+          `
+        )
         .in("plan_day_id", sourceDayIds)
         .order("sort_order", { ascending: true })
     : { data: [], error: null };
@@ -470,9 +648,14 @@ async function copyWeekToWeek(formData: FormData) {
     throw new Error("Unable to load source week tasks.");
   }
 
-  const tasksBySourcePlanDayId = new Map<number, typeof sourceWeekTasks>();
+  const typedSourceWeekTasks = (sourceWeekTasks ?? []) as SourceAssignmentRow[];
+  const tasksBySourcePlanDayId = new Map<number, SourceAssignmentRow[]>();
 
-  for (const task of sourceWeekTasks ?? []) {
+  for (const task of typedSourceWeekTasks) {
+    if (task.plan_day_id === undefined) {
+      continue;
+    }
+
     const existing = tasksBySourcePlanDayId.get(task.plan_day_id) ?? [];
     existing.push(task);
     tasksBySourcePlanDayId.set(task.plan_day_id, existing);
@@ -523,6 +706,10 @@ async function copyWeekToWeek(formData: FormData) {
           task_template_id: task.task_template_id,
           is_required: task.is_required,
           sort_order: task.sort_order,
+          ...buildCopiedAssignmentMetadata({
+            dayNumber: targetDayNumber,
+            task,
+          }),
         }))
       );
     }
@@ -598,7 +785,9 @@ export default async function AdminPlanPage({
 
   const { data: taskTemplatesData } = await supabase
     .from("task_templates")
-    .select("id, slug, title, description, cadence, weekly_target")
+    .select(
+      "id, slug, title, description, cadence, weekly_target, monthly_target, sort_order, show_only_last_week_of_month"
+    )
     .order("title", { ascending: true });
 
   const taskTemplates = (taskTemplatesData ?? []) as TaskTemplateRow[];
@@ -610,15 +799,23 @@ export default async function AdminPlanPage({
           `
             id,
             is_required,
+            is_optional,
             sort_order,
             task_template_id,
+            quota_scope,
+            quota_target,
+            requirement_note,
+            display_order,
             task_templates (
               id,
               slug,
               title,
               description,
               cadence,
-              weekly_target
+              weekly_target,
+              monthly_target,
+              sort_order,
+              show_only_last_week_of_month
             )
           `
         )
@@ -1174,12 +1371,25 @@ export default async function AdminPlanPage({
                           <select
                             id={`template-cadence-${template.id}`}
                             name="cadence"
-                            defaultValue={template.cadence}
+                            defaultValue={
+                              isEditableCadence(template.cadence)
+                                ? template.cadence
+                                : "__advanced__"
+                            }
+                            disabled={!isEditableCadence(template.cadence)}
                             className={fieldClassName}
                           >
+                            {!isEditableCadence(template.cadence) ? (
+                              <option value="__advanced__">
+                                {cadenceLabel(template)}
+                              </option>
+                            ) : null}
                             <option value="daily">Daily</option>
                             <option value="weekly_quota">Weekly quota</option>
                           </select>
+                          {!isEditableCadence(template.cadence) ? (
+                            <input type="hidden" name="cadence" value={template.cadence} />
+                          ) : null}
                         </div>
 
                         <div className="grid gap-2">
@@ -1193,6 +1403,7 @@ export default async function AdminPlanPage({
                             min={1}
                             defaultValue={template.weekly_target ?? ""}
                             placeholder="Leave blank for daily tasks"
+                            disabled={!isEditableCadence(template.cadence)}
                             className={fieldClassName}
                           />
                         </div>
