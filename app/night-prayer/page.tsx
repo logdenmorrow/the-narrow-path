@@ -299,26 +299,37 @@ function getBlocksText(blocks: NightPrayerBlock[]) {
     .join(" ");
 }
 
-function isHailMaryContent(blocks: NightPrayerBlock[]) {
+function isImportedHailMaryOrAveMaria(blocks: NightPrayerBlock[]) {
   const normalized = normalizePrayerText(getBlocksText(blocks));
   if (!normalized) return false;
 
-  const requiredIdeas = [
-    "hail mary",
-    "full of grace",
-    "pray for us sinners",
-    "hour of our death",
-  ];
-  const wombPhrasePresent =
-    normalized.includes("fruit of your womb") ||
-    normalized.includes("fruit of thy womb");
+  const englishHailMary =
+    normalized.includes("hail mary") &&
+    normalized.includes("full of grace") &&
+    (normalized.includes("fruit of your womb") ||
+      normalized.includes("fruit of thy womb"));
 
-  return requiredIdeas.every((idea) => normalized.includes(idea)) && wombPhrasePresent;
+  if (englishHailMary) return true;
+
+  const latinMarkers = [
+    "ave maria",
+    "gratia plena",
+    "dominus tecum",
+    "benedicta tu",
+    "fructus ventris",
+  ];
+  const latinMarkerCount = latinMarkers.filter((marker) =>
+    normalized.includes(marker)
+  ).length;
+  const latinJesusPresent =
+    normalized.includes("iesus") || normalized.includes("jesus");
+
+  return latinMarkerCount >= 3 && latinJesusPresent;
 }
 
 function renderMarianPrayerEnding(blocks: NightPrayerBlock[], startIndex: number) {
   const seasonalBlocks = getSeasonalMarianBlocks(blocks);
-  const importedIsHailMary = isHailMaryContent(seasonalBlocks);
+  const importedIsHailMary = isImportedHailMaryOrAveMaria(seasonalBlocks);
 
   return (
     <div key={`marian-prayer-${startIndex}`} className="mt-8 border-t border-monastic pt-6">
