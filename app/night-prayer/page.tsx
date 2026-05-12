@@ -283,21 +283,61 @@ function getSeasonalMarianBlocks(blocks: NightPrayerBlock[]) {
   ].filter((block) => block.lines.some((line) => line.trim()));
 }
 
+function normalizePrayerText(text: string) {
+  return text
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getBlocksText(blocks: NightPrayerBlock[]) {
+  return blocks
+    .flatMap((block) => block.lines)
+    .join(" ");
+}
+
+function isHailMaryContent(blocks: NightPrayerBlock[]) {
+  const normalized = normalizePrayerText(getBlocksText(blocks));
+  if (!normalized) return false;
+
+  const requiredIdeas = [
+    "hail mary",
+    "full of grace",
+    "pray for us sinners",
+    "hour of our death",
+  ];
+  const wombPhrasePresent =
+    normalized.includes("fruit of your womb") ||
+    normalized.includes("fruit of thy womb");
+
+  return requiredIdeas.every((idea) => normalized.includes(idea)) && wombPhrasePresent;
+}
+
 function renderMarianPrayerEnding(blocks: NightPrayerBlock[], startIndex: number) {
   const seasonalBlocks = getSeasonalMarianBlocks(blocks);
+  const importedIsHailMary = isHailMaryContent(seasonalBlocks);
 
   return (
     <div key={`marian-prayer-${startIndex}`} className="mt-8 border-t border-monastic pt-6">
       <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8a5f32] dark:text-[#d8bd91]">
         Marian Prayer
       </p>
-      <div className="mt-4 space-y-2 text-base leading-8 text-monastic-0">
-        {HAIL_MARY_LINES.map((line) => (
-          <p key={line}>{line}</p>
-        ))}
-      </div>
+      {importedIsHailMary ? (
+        <div className="mt-4 space-y-2">
+          {seasonalBlocks.map((block, index) => renderBlock(block, startIndex + index))}
+        </div>
+      ) : (
+        <div className="mt-4 space-y-2 text-base leading-8 text-monastic-0">
+          {HAIL_MARY_LINES.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </div>
+      )}
 
-      {seasonalBlocks.length > 0 ? (
+      {seasonalBlocks.length > 0 && !importedIsHailMary ? (
         <details className="mt-5 rounded-xl border border-monastic bg-[rgba(168,129,81,0.05)] px-4 py-4">
           <summary className="cursor-pointer text-xs font-semibold uppercase tracking-[0.22em] text-monastic-1 transition hover:text-monastic-0">
             Seasonal Marian Antiphon
