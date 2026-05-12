@@ -92,7 +92,7 @@ function getTaskSecondaryAction(slug: string, dayNumber: number) {
   if (slug === "reflection") {
     return {
       href: `/reflection?day=${dayNumber}`,
-      label: "Open Reflection",
+      label: "Open Scripture Reflection",
       statusText: "Open journal",
     };
   }
@@ -422,8 +422,8 @@ export default async function TodayPage({
   const hasReflectionPrompt = Boolean(typedPlanDay.reflection_prompt?.trim());
   const isReflectionComplete = Boolean(reflectionTask?.isCompleted);
   const reflectionCardLabel = isReflectionComplete
-    ? "Reflection Complete"
-    : "Open Reflection";
+    ? "Scripture Reflection Complete"
+    : "Open Scripture Reflection";
   const reflectionCardValue = !hasReflectionPrompt
     ? "Not Assigned"
     : isReflectionComplete
@@ -432,13 +432,13 @@ export default async function TodayPage({
         ? "Available"
         : "Locked";
   const reflectionCardDetail = !hasReflectionPrompt
-    ? "No reflection prompt is assigned for this day."
+    ? "No Scripture Reflection prompt is assigned for this day."
     : isReflectionComplete
-      ? "Your reflection for this day has been saved."
-      : "Capture today's resistance, graces, and concrete response.";
+      ? "Your Scripture Reflection for this day has been saved."
+      : "Read the assigned text, then write your honest response.";
   const reflectionActionLabel = isReflectionComplete
-    ? "Review Reflection"
-    : "Open Reflection";
+    ? "Review Scripture Reflection"
+    : "Open Scripture Reflection";
   const currentDateIso = getIsoDateInTimeZone();
   const accountabilityEnabled = challenge.hasStarted && selectedDay === challenge.currentDayNumber;
   const isCurrentChallengeDayView =

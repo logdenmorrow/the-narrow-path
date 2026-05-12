@@ -21,6 +21,11 @@ type PlanDayRow = {
   day_number: number;
   title: string | null;
   reflection_prompt: string | null;
+  reading_mission: string | null;
+  reading_focus: string | null;
+  reading_title: string | null;
+  reading_reference: string | null;
+  reading_notes: string | null;
 };
 
 type ReflectionEntryRow = {
@@ -75,7 +80,9 @@ export default async function ReflectionPage({
 
   const { data: planDayData } = await supabase
     .from("plan_days")
-    .select("id, day_number, title, reflection_prompt")
+    .select(
+      "id, day_number, title, reflection_prompt, reading_mission, reading_focus, reading_title, reading_reference, reading_notes"
+    )
     .eq("plan_id", activePlan.id)
     .eq("day_number", selectedDay)
     .maybeSingle();
@@ -136,6 +143,14 @@ export default async function ReflectionPage({
 
   const hasSavedEntry = Boolean(entry?.id);
   const isLocked = !challenge.hasStarted || selectedDay > challenge.currentDayNumber;
+  const promptText =
+    planDay.reflection_prompt?.trim() ||
+    "After today’s reading, what truth is God asking me to take seriously, and what concrete response is He asking from me?";
+  const readingTitle = planDay.reading_title?.trim() || planDay.title || `Day ${selectedDay}`;
+  const readingReference = planDay.reading_reference?.trim() || "Today’s assigned reading";
+  const hasReadingDetails = Boolean(
+    planDay.reading_mission?.trim() || planDay.reading_focus?.trim()
+  );
 
   return (
     <main className="monastic-page">
@@ -146,7 +161,7 @@ export default async function ReflectionPage({
               The challenge begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
-              Reflection is available in preview mode, but future-day saving stays locked until launch.
+              Scripture Reflection is available in preview mode, but future-day saving stays locked until launch.
             </p>
           </SurfaceCard>
         )}
@@ -155,9 +170,12 @@ export default async function ReflectionPage({
           <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
             <div className="text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">Day {selectedDay}</p>
-              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">Reflection</h1>
+              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">
+                Scripture Reflection
+              </h1>
               <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
-                The daily examen keeps resistance, graces, and concrete response in one place.
+                Read the day’s assigned text, then write honestly about what God is asking you
+                to see, repent of, receive, or do.
               </p>
             </div>
 
@@ -185,14 +203,14 @@ export default async function ReflectionPage({
             value={hasSavedEntry ? "Saved" : "Open"}
             detail={
               hasSavedEntry
-                ? "This reflection currently counts as completed."
-                : "Save an entry to complete the reflection task."
+                ? "This Scripture Reflection currently counts as completed."
+                : "Save an entry to complete the Scripture Reflection task."
             }
           />
           <MetricCard
-            label="Prompt"
-            value={planDay.title ?? `Day ${selectedDay}`}
-            detail="The examen prompt for the selected challenge day."
+            label="Reflection Prompt"
+            value={readingReference}
+            detail={readingTitle}
           />
           <MetricCard
             label="Editing"
@@ -207,8 +225,47 @@ export default async function ReflectionPage({
 
         <SurfaceCard>
           <SectionHeader
+            kicker="Today’s Reading"
+            title={readingTitle}
+            description={readingReference}
+          />
+
+          {hasReadingDetails ? (
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              {planDay.reading_mission?.trim() ? (
+                <SurfaceInset>
+                  <p className="section-kicker">Mission</p>
+                  <p className="mt-2 text-base leading-7 text-monastic-1">
+                    {planDay.reading_mission}
+                  </p>
+                </SurfaceInset>
+              ) : null}
+
+              {planDay.reading_focus?.trim() ? (
+                <SurfaceInset>
+                  <p className="section-kicker">Focus</p>
+                  <p className="mt-2 text-base leading-7 text-monastic-1">
+                    {planDay.reading_focus}
+                  </p>
+                </SurfaceInset>
+              ) : null}
+            </div>
+          ) : null}
+
+          {planDay.reading_notes?.trim() ? (
+            <SurfaceInset className="mt-4 border-[rgba(168,129,81,0.34)] bg-[rgba(168,129,81,0.08)]">
+              <p className="section-kicker">Catholic Companion Note</p>
+              <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base">
+                {planDay.reading_notes}
+              </p>
+            </SurfaceInset>
+          ) : null}
+        </SurfaceCard>
+
+        <SurfaceCard>
+          <SectionHeader
             kicker="Prompt"
-            title="Read the prompt before writing."
+            title="Reflect on today’s reading."
             action={
               <StatusPill tone={hasSavedEntry ? "done" : isLocked ? "neutral" : "required"}>
                 {hasSavedEntry
@@ -222,8 +279,7 @@ export default async function ReflectionPage({
 
           <SurfaceInset className="mt-5">
             <p className="text-base leading-7 text-monastic-1">
-              {planDay.reflection_prompt ||
-                "No reflection prompt has been assigned for this day yet."}
+              {promptText}
             </p>
           </SurfaceInset>
         </SurfaceCard>
@@ -239,7 +295,7 @@ export default async function ReflectionPage({
             planDayId={planDay.id}
             dayNumber={planDay.day_number}
             reflectionTaskId={reflectionTask?.id ?? null}
-            promptText={planDay.reflection_prompt ?? ""}
+            promptText={promptText}
             initialEntryText={entryText}
             initialHasSavedEntry={hasSavedEntry}
             isLocked={isLocked}
