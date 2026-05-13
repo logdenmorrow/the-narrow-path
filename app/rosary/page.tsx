@@ -9,6 +9,7 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { RosaryAudioPlayer } from "@/components/rosary-audio-player";
 import { TodayTaskCard } from "@/components/today-task-card";
 import { Button } from "@/components/ui/button";
 import { getChallengeTiming } from "@/lib/challenge";
@@ -362,20 +363,10 @@ export default async function RosaryPage({
           <SurfaceCard className={`${PAGE_CARD_CLASS} py-4 sm:py-5`}>
             <SectionHeader
               kicker="Audio"
-              title="Pray with approved audio."
-              description="Use the player to pray along with this day's Rosary."
+              title="Pray along"
+              description="Use the player to pray this day's Rosary."
             />
-            <audio
-              className="mt-5 w-full"
-              controls
-              preload="metadata"
-              src={signedAudioUrl}
-            >
-              <a href={signedAudioUrl}>Open Rosary audio</a>
-            </audio>
-            <p className="mt-3 text-sm leading-6 text-monastic-1">
-              Audio used with permission from Hallow. Rosary led by Jonathan Roumie.
-            </p>
+            <RosaryAudioPlayer src={signedAudioUrl} />
           </SurfaceCard>
         ) : signedAudioError ? (
           <SurfaceCard className={`${PAGE_CARD_CLASS} py-4 sm:py-5`}>
