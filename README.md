@@ -8,6 +8,7 @@
 </p>
 
 <p align="center">
+  <a href="#project-handoff"><strong>Project Handoff</strong></a> ·
   <a href="#features"><strong>Features</strong></a> ·
   <a href="#demo"><strong>Demo</strong></a> ·
   <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
@@ -16,6 +17,15 @@
   <a href="#more-supabase-examples"><strong>More Examples</strong></a>
 </p>
 <br/>
+
+
+## Project Handoff
+
+The current source-of-truth project handoff is:
+
+- [`docs/master_handoff.md`](docs/master_handoff.md)
+
+Before making major app, database, UI, Supabase, task cadence, auth, or deployment changes, review the handoff first.
 
 ## Features
 
