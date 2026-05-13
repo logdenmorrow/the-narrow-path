@@ -63,11 +63,11 @@ export default async function RootLayout({
           <header className="monastic-header">
             <div className="monastic-frame">
               <div className="monastic-topbar">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between lg:items-center">
-                  <div className="space-y-1 sm:space-y-2">
+                <div className="flex items-center justify-between gap-2 sm:items-start lg:items-center">
+                  <div className="min-w-0 space-y-1 sm:space-y-2">
                     <Link
                       href="/"
-                      className="monastic-wordmark monastic-heading text-[1.15rem] font-semibold sm:text-[2rem]"
+                      className="monastic-wordmark monastic-heading text-[1.05rem] font-semibold sm:text-[2rem]"
                     >
                       <span className="monastic-wordmark-mark">+</span>
                       <span className="whitespace-nowrap">The Narrow Path</span>
@@ -79,9 +79,9 @@ export default async function RootLayout({
                     ) : null}
                   </div>
 
-                  <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end sm:gap-3">
+                  <div className="monastic-header-actions flex shrink-0 items-center justify-end gap-1.5 sm:w-auto sm:gap-3">
                     <ThemeSwitcher />
-                    <div className="min-w-0 flex-1 sm:hidden">
+                    <div className="min-w-0 sm:hidden">
                       <Suspense fallback={<div className="text-sm text-monastic-2">...</div>}>
                         <AuthNav mobile />
                       </Suspense>

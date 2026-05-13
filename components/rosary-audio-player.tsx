@@ -1,6 +1,7 @@
 "use client";
 
 import { Pause, Play, Volume2 } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -179,6 +180,13 @@ export function RosaryAudioPlayer({ src }: RosaryAudioPlayerProps) {
               }}
             />
           </label>
+
+          <Link
+            href="/today"
+            className="inline-flex h-9 shrink-0 items-center justify-center rounded-full border border-[rgba(138,95,50,0.42)] bg-[rgba(255,248,235,0.62)] px-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#6d4729] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] transition hover:bg-[rgba(255,248,235,0.84)] hover:text-[#4d3019] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent dark:bg-[rgba(49,34,23,0.64)] dark:text-[#f0dec1]"
+          >
+            Today
+          </Link>
         </div>
 
         {playbackError ? (
