@@ -11,6 +11,11 @@ export default function MobileTabBar({
   communityName?: string;
 }) {
   const pathname = usePathname();
+  const isRosaryPrayerMode = pathname === "/rosary";
+
+  if (isRosaryPrayerMode) {
+    return null;
+  }
 
   return (
     <div className="mobile-tab-bar inset-x-0 bottom-0 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 sm:hidden">

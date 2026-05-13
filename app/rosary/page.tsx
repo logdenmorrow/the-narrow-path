@@ -284,7 +284,14 @@ export default async function RosaryPage({
 
   return (
     <main className="monastic-page">
-      <PageFrame className="max-w-5xl space-y-6">
+      <PageFrame
+        className="max-w-5xl space-y-6"
+        style={
+          signedAudioUrl
+            ? { paddingBottom: "calc(14rem + env(safe-area-inset-bottom))" }
+            : undefined
+        }
+      >
         {!challenge.hasStarted && (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
@@ -360,14 +367,16 @@ export default async function RosaryPage({
         </p>
 
         {signedAudioUrl ? (
-          <SurfaceCard className={`${PAGE_CARD_CLASS} py-4 sm:py-5`}>
-            <SectionHeader
-              kicker="Audio"
-              title="Pray along"
-              description="Use the player to pray this day's Rosary."
-            />
+          <>
+            <SurfaceCard className={`${PAGE_CARD_CLASS} py-4 sm:py-5`}>
+              <SectionHeader
+                kicker="Audio"
+                title="Pray along"
+                description="Use the floating player to pray this day's Rosary."
+              />
+            </SurfaceCard>
             <RosaryAudioPlayer src={signedAudioUrl} />
-          </SurfaceCard>
+          </>
         ) : signedAudioError ? (
           <SurfaceCard className={`${PAGE_CARD_CLASS} py-4 sm:py-5`}>
             <p className="text-sm leading-6 text-monastic-1">
