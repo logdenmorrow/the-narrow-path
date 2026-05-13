@@ -113,6 +113,14 @@ function getTaskSecondaryAction(slug: string, dayNumber: number) {
     };
   }
 
+  if (slug === "rosary") {
+    return {
+      href: `/rosary?day=${dayNumber}`,
+      label: "Guided Rosary",
+      statusText: "Open prayer guide",
+    };
+  }
+
   return undefined;
 }
 

@@ -43,5 +43,10 @@ next-env.d.ts
 
 # local docker/image export files
 *.tar
+
+# local licensed Rosary audio files
+hallow-rosary-audio/
+*.m4a
+
 # Supabase local temp files
 supabase/.temp/
