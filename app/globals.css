@@ -472,8 +472,27 @@
   }
 
   @media (max-width: 639px) {
+    :root:not(.dark) {
+      --surface-0: #fbf3e6;
+      --surface-1: rgba(255, 250, 240, 0.94);
+      --surface-2: rgba(250, 241, 224, 0.96);
+      --surface-3: rgba(242, 229, 206, 0.86);
+      --line-soft: rgba(148, 116, 77, 0.18);
+      --page-backdrop:
+        radial-gradient(circle at top left, rgba(255, 235, 190, 0.42), transparent 26%),
+        radial-gradient(circle at top right, rgba(181, 122, 57, 0.08), transparent 22%),
+        linear-gradient(180deg, #fbf5ea 0%, #f6ecdc 46%, #efe0c8 100%);
+    }
+
     .monastic-header {
       box-shadow: 0 10px 24px -22px rgba(52, 31, 18, 0.52);
+    }
+
+    :root:not(.dark) .monastic-header {
+      background:
+        linear-gradient(180deg, rgba(255, 250, 240, 0.94), rgba(248, 238, 220, 0.96)),
+        var(--paper-texture);
+      box-shadow: 0 10px 24px -24px rgba(103, 67, 33, 0.36);
     }
 
     .monastic-topbar {
@@ -527,6 +546,20 @@
       font-size: 0.52rem;
       letter-spacing: 0.08em;
       white-space: nowrap;
+    }
+
+    :root:not(.dark) .monastic-progress-strip > span {
+      background: rgba(255, 251, 243, 0.88);
+      border-color: rgba(148, 116, 77, 0.24);
+      color: #6b5138;
+    }
+
+    :root:not(.dark) .mobile-tab-bar nav {
+      background:
+        linear-gradient(180deg, rgba(255, 250, 240, 0.96), rgba(246, 236, 218, 0.98)),
+        var(--paper-texture);
+      border-color: rgba(148, 116, 77, 0.2);
+      box-shadow: 0 -12px 34px -24px rgba(95, 61, 30, 0.48);
     }
 
     .monastic-header .ml-auto {
