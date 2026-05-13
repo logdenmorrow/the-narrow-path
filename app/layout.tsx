@@ -5,8 +5,10 @@ import { AuthDebugPanel } from "@/components/auth-debug-panel";
 import AuthNav from "@/components/auth-nav";
 import AuthStateListener from "@/components/auth-state-listener";
 import MainNav from "@/components/main-nav";
+import MobileAccountMenu from "@/components/mobile-account-menu";
 import MobileTabBar from "@/components/mobile-tab-bar";
 import ProgressStrip from "@/components/progress-strip";
+import SignOutButton from "@/components/sign-out-button";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { syncAdminProfileVisibility } from "@/lib/admin";
@@ -80,12 +82,34 @@ export default async function RootLayout({
                   </div>
 
                   <div className="monastic-header-actions flex shrink-0 items-center justify-end gap-1.5 sm:w-auto sm:gap-3">
-                    <ThemeSwitcher />
-                    <div className="min-w-0 sm:hidden">
-                      <Suspense fallback={<div className="text-sm text-monastic-2">...</div>}>
-                        <AuthNav mobile />
-                      </Suspense>
-                    </div>
+                    {isSignedIn ? (
+                      <div className="hidden sm:block">
+                        <ThemeSwitcher />
+                      </div>
+                    ) : (
+                      <ThemeSwitcher />
+                    )}
+                    {isSignedIn ? (
+                      <div className="sm:hidden">
+                        <MobileAccountMenu
+                          signOutAction={
+                            <SignOutButton
+                              mobile
+                              className="h-10 w-full justify-start rounded-[0.85rem] px-3 text-[11px] tracking-[0.12em]"
+                              label="Logout"
+                              size="sm"
+                              variant="outline"
+                            />
+                          }
+                        />
+                      </div>
+                    ) : (
+                      <div className="min-w-0 sm:hidden">
+                        <Suspense fallback={<div className="text-sm text-monastic-2">...</div>}>
+                          <AuthNav mobile />
+                        </Suspense>
+                      </div>
+                    )}
                     <div className="hidden sm:block">
                       <Suspense fallback={<div className="text-sm text-monastic-2">...</div>}>
                         <AuthNav />
