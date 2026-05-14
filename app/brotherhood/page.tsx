@@ -12,7 +12,6 @@ import { AdminViewTrackSwitcher } from "@/components/admin-view-track-switcher";
 import {
   StatusPill,
   TaskCard,
-  TaskCardHeader,
   TaskCardMeta,
 } from "@/components/task-card";
 import { Button } from "@/components/ui/button";
@@ -437,7 +436,7 @@ export default async function BrotherhoodPage({
 
   return (
     <main className="monastic-page">
-      <PageFrame className="space-y-6">
+      <PageFrame className="space-y-5 sm:space-y-6">
         {!challenge.hasStarted && (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
@@ -463,7 +462,7 @@ export default async function BrotherhoodPage({
             <div className="text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
               <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">{communityName}</h1>
-              <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
+              <p className="mt-3 text-base leading-7 text-[#ead8bc] sm:text-lg sm:leading-8">
                 {isCurrentDayView
                   ? "See the current day's required progress and weekly quota momentum across the group."
                   : `See Day ${selectedDay} progress and the correct weekly quota momentum across the group.`}
@@ -585,82 +584,117 @@ export default async function BrotherhoodPage({
             description="First name plus last initial for clarity, plus weekly quota progress for flexible disciplines."
           />
 
-          <div className="mt-4 space-y-3">
-            {memberRows.map((member) => (
-              <TaskCard
-                key={member.profile.id}
-                className="bg-[#f8efdd] p-4 transition hover:border-[#94724a] hover:bg-[#f3e5ca] dark:bg-black dark:hover:border-zinc-600 dark:hover:bg-black"
-              >
-                <TaskCardHeader
-                  title={member.shortName}
-                  description={
-                    <span className="space-y-1">
-                      <span className="block">{member.fullName}</span>
-                      <span className="block text-xs uppercase tracking-[0.18em] text-monastic-2">
+          <div className="mt-4 space-y-2 sm:space-y-3">
+            {memberRows.map((member) => {
+              const memberHref = withViewTrack(
+                `/brotherhood/${member.profile.id}?day=${selectedDay}`,
+                viewerTrack,
+                preserveViewTrack
+              );
+              const statusTone = member.completedToday
+                ? "done"
+                : member.startedToday
+                  ? "started"
+                  : "optional";
+
+              return (
+                <TaskCard
+                  key={member.profile.id}
+                  className="relative bg-[#f8efdd] p-3 transition hover:border-[#94724a] hover:bg-[#f3e5ca] dark:bg-black dark:hover:border-zinc-600 dark:hover:bg-black sm:p-4"
+                >
+                  <Link
+                    href={memberHref}
+                    aria-label={`Open ${member.shortName}`}
+                    className="absolute inset-0 z-10 rounded-[1.2rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:hidden"
+                  />
+
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="truncate text-lg font-semibold leading-6 text-monastic-0 sm:text-xl sm:leading-7">
+                          {member.shortName}
+                        </h3>
+                        <StatusPill tone={statusTone} className="sm:hidden">
+                          {member.statusLabel}
+                        </StatusPill>
+                      </div>
+                      <p className="mt-1 hidden text-sm leading-6 text-monastic-1 sm:block">
+                        {member.fullName}
+                      </p>
+                      <p className="mt-1 text-[10px] uppercase tracking-[0.1em] text-monastic-2 sm:text-xs sm:tracking-[0.18em]">
                         {member.lastActiveLabel}
-                      </span>
-                    </span>
-                  }
-                  action={
-                    <Button asChild variant="secondary" size="xs">
-                      <Link
-                        href={withViewTrack(
-                          `/brotherhood/${member.profile.id}?day=${selectedDay}`,
-                          viewerTrack,
-                          preserveViewTrack
-                        )}
-                      >
-                        Open Member
-                      </Link>
+                      </p>
+                    </div>
+
+                    <Button
+                      asChild
+                      variant="secondary"
+                      size="xs"
+                      className="relative z-20 hidden sm:inline-flex"
+                    >
+                      <Link href={memberHref}>Open Member</Link>
                     </Button>
-                  }
-                />
-
-                <TaskCardMeta className="mt-3">
-                  <StatusPill
-                    tone={
-                      member.completedToday
-                        ? "done"
-                        : member.startedToday
-                          ? "started"
-                          : "optional"
-                    }
-                  >
-                    {member.statusLabel}
-                  </StatusPill>
-                  <StatusPill tone="required">
-                    Required: {member.requiredSummary.done}/{member.requiredSummary.total}
-                  </StatusPill>
-                  {isCurrentDayView ? (
-                    <StatusPill tone={getDailyStatusTone(member.dailyStatus)}>
-                      Daily Status:{" "}
-                      {member.dailyStatus
-                        ? DAILY_STATUS_LABELS[member.dailyStatus]
-                        : "No check-in yet"}
-                    </StatusPill>
-                  ) : null}
-                  <StatusPill tone="optional">
-                    Optional: {member.optionalDone}/{member.optionalTotal}
-                  </StatusPill>
-                  {member.hasWeeklyMomentum ? (
-                    <StatusPill tone="momentum">Weekly Momentum</StatusPill>
-                  ) : null}
-                </TaskCardMeta>
-
-                {member.quotaRows.length > 0 ? (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {member.quotaRows.map((row) => (
-                      <StatusPill
-                        key={`${member.profile.id}-${row.taskTemplateId}`}
-                        tone="progress"
-                      >
-                        {row.title}: {row.progressCount ?? 0}/{row.quotaTarget ?? 0}
-                      </StatusPill>
-                    ))}
                   </div>
-                ) : null}
-              </TaskCard>
-            ))}
+
+                  <TaskCardMeta className="mt-2 gap-1.5 text-[10px] tracking-[0.08em] sm:mt-3 sm:gap-2 sm:text-xs sm:tracking-[0.18em]">
+                    <StatusPill tone={statusTone} className="hidden sm:inline-flex">
+                      {member.statusLabel}
+                    </StatusPill>
+                    <StatusPill tone="required">
+                      <span className="sm:hidden">
+                        Req {member.requiredSummary.done}/{member.requiredSummary.total}
+                      </span>
+                      <span className="hidden sm:inline">
+                        Required: {member.requiredSummary.done}/{member.requiredSummary.total}
+                      </span>
+                    </StatusPill>
+                    {isCurrentDayView ? (
+                      <StatusPill tone={getDailyStatusTone(member.dailyStatus)}>
+                        <span className="sm:hidden">
+                          Daily:{" "}
+                          {member.dailyStatus
+                            ? DAILY_STATUS_LABELS[member.dailyStatus]
+                            : "None"}
+                        </span>
+                        <span className="hidden sm:inline">
+                          Daily Status:{" "}
+                          {member.dailyStatus
+                            ? DAILY_STATUS_LABELS[member.dailyStatus]
+                            : "No check-in yet"}
+                        </span>
+                      </StatusPill>
+                    ) : null}
+                    <StatusPill tone="optional">
+                      <span className="sm:hidden">
+                        Opt {member.optionalDone}/{member.optionalTotal}
+                      </span>
+                      <span className="hidden sm:inline">
+                        Optional: {member.optionalDone}/{member.optionalTotal}
+                      </span>
+                    </StatusPill>
+                    {member.hasWeeklyMomentum ? (
+                      <StatusPill tone="momentum">
+                        <span className="sm:hidden">Momentum</span>
+                        <span className="hidden sm:inline">Weekly Momentum</span>
+                      </StatusPill>
+                    ) : null}
+                  </TaskCardMeta>
+
+                  {member.quotaRows.length > 0 ? (
+                    <div className="mt-2 flex flex-wrap gap-1.5 sm:mt-3 sm:gap-2">
+                      {member.quotaRows.map((row) => (
+                        <StatusPill
+                          key={`${member.profile.id}-${row.taskTemplateId}`}
+                          tone="progress"
+                        >
+                          {row.title}: {row.progressCount ?? 0}/{row.quotaTarget ?? 0}
+                        </StatusPill>
+                      ))}
+                    </div>
+                  ) : null}
+                </TaskCard>
+              );
+            })}
 
             {memberRows.length === 0 && (
               <p className="text-sm text-monastic-1">No members found yet.</p>
