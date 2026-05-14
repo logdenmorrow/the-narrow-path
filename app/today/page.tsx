@@ -716,7 +716,7 @@ export default async function TodayPage({
             </div>
           </div>
 
-        <aside className="grid gap-6 xl:grid-cols-2 2xl:sticky 2xl:top-28 2xl:grid-cols-1">
+        <aside className="grid gap-6 xl:grid-cols-2 2xl:sticky 2xl:top-[12rem] 2xl:self-start 2xl:grid-cols-1">
           <SurfaceCard className="hidden 2xl:block">
             <SectionHeader
               kicker="Day at a Glance"
