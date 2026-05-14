@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   HeroPanel,
   MetricCard,
@@ -60,17 +61,6 @@ const publicHighlights = [
   },
 ];
 
-function getSignedInPillars(communityName: string, peoplePlural: string) {
-  return [
-    pillars[0],
-    pillars[1],
-    {
-      title: communityName,
-      body: `Walk with other ${peoplePlural} under the same standard and see where the group is carrying momentum.`,
-    },
-  ];
-}
-
 export default async function HomePage() {
   const supabase = await createClient();
 
@@ -92,15 +82,191 @@ export default async function HomePage() {
   const track = normalizeTrack(profileData?.track);
   const communityName = getCommunityName(track);
   const communityNameLower = communityName.toLowerCase();
-  const peoplePlural = track === "sisterhood" ? "women" : "men";
-  const signedInPillars = getSignedInPillars(communityName, peoplePlural);
-  const signedInLiturgy = [
-    liturgy[0],
-    liturgy[1],
-    liturgy[2],
-    `Return to the ${communityNameLower} and the reflection before the day closes.`,
-  ];
   const overview = isSignedIn ? await getHomepageOverview(supabase, track) : null;
+
+  if (isSignedIn && overview) {
+    return (
+      <main className="monastic-page">
+        <PageFrame className="space-y-5 sm:space-y-7">
+          <HeroPanel className="py-5 sm:py-7">
+            <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+              <div className="max-w-3xl text-[#f7ebd8]">
+                <p className="section-kicker text-[#ead6b0]">
+                  {overview.challengeDayLabel} • Daily Portal
+                </p>
+                <h1 className="mt-3 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+                  The next faithful step is close at hand.
+                </h1>
+                <p className="mt-3 max-w-2xl text-base leading-7 text-[#f3e5cf] sm:text-lg">
+                  Begin with today&apos;s reading, finish the required core, and return
+                  to the {communityNameLower} with sober attention.
+                </p>
+
+                <AppActionBar
+                  stackOnMobile
+                  className="mt-5 w-full border-white/10 bg-[rgba(31,20,14,0.24)] sm:w-fit"
+                  actions={[
+                    {
+                      href: "/today",
+                      label: "Go to Today",
+                      variant: "primary",
+                      size: "lg",
+                      className: "w-full sm:w-auto",
+                    },
+                    {
+                      href: "/daily-reading",
+                      label: "Daily Reading",
+                      variant: "secondary",
+                      size: "lg",
+                      className: "w-full sm:w-auto",
+                    },
+                    {
+                      href: "/dashboard",
+                      label: "Dashboard",
+                      variant: "outline",
+                      size: "lg",
+                      className: "w-full sm:w-auto",
+                    },
+                  ]}
+                />
+              </div>
+
+              <SurfaceCard className="home-office-card text-[#4a3525] dark:border-white/10 dark:bg-[rgba(19,14,11,0.38)] dark:text-[#f2e5d0] dark:backdrop-blur-sm">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <div className="section-kicker text-[#8b6037] dark:text-[#d9ba83]">
+                      Today&apos;s Reading
+                    </div>
+                    <h2 className="mt-2 text-2xl font-semibold text-[#2f2117] dark:text-white sm:text-3xl">
+                      {overview.readingTitle}
+                    </h2>
+                    <p className="mt-1 text-sm leading-6 text-[#6b4b2f] dark:text-[#ead8bc] sm:text-base">
+                      {overview.readingReference}
+                    </p>
+                  </div>
+                  <div className="w-fit rounded-full border border-[rgba(139,96,55,0.24)] px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-[#8b6037] dark:border-white/10 dark:text-[#ead6b0] sm:px-3 sm:text-xs sm:tracking-[0.22em]">
+                    {overview.challengeDayLabel}
+                  </div>
+                </div>
+
+                <SurfaceInset className="home-office-inset mt-4 dark:border-white/10 dark:bg-[rgba(255,246,229,0.08)]">
+                  <div className="section-kicker text-[#9b6a3d] dark:text-[#d9ba83]">
+                    {overview.requiredProgress.label}
+                  </div>
+                  <p className="mt-2 text-2xl font-semibold text-[#2f2117] dark:text-white">
+                    {overview.requiredProgress.value}
+                  </p>
+                  <p className="mt-1 text-sm leading-6 text-[#6b4b2f] dark:text-[#ead8bc]">
+                    {overview.requiredProgress.detail}
+                  </p>
+                  {typeof overview.requiredProgress.meterValue === "number" ? (
+                    <div className="monastic-meter mt-3">
+                      <span style={{ width: `${overview.requiredProgress.meterValue}%` }} />
+                    </div>
+                  ) : null}
+                </SurfaceInset>
+              </SurfaceCard>
+            </div>
+          </HeroPanel>
+
+          <section className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+            <SurfaceCard>
+              <SectionHeader
+                kicker="Today"
+                title="Keep the day ordered."
+                description="The home page stays brief; open Today when it is time to act."
+              />
+
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <SurfaceInset>
+                  <div className="section-kicker">Reading</div>
+                  <p className="mt-2 text-xl font-semibold text-monastic-0">
+                    {overview.readingReference}
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-monastic-1">
+                    {overview.readingTitle}
+                  </p>
+                </SurfaceInset>
+                <SurfaceInset>
+                  <div className="section-kicker">{overview.reflection.label}</div>
+                  <p className="mt-2 text-xl font-semibold text-monastic-0">
+                    {overview.reflection.value}
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-monastic-1">
+                    {overview.reflection.detail}
+                  </p>
+                </SurfaceInset>
+                <SurfaceInset>
+                  <div className="section-kicker">{overview.dailyCore.label}</div>
+                  <p className="mt-2 text-xl font-semibold text-monastic-0">
+                    {overview.dailyCore.value}
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-monastic-1">
+                    {overview.dailyCore.detail}
+                  </p>
+                </SurfaceInset>
+              </div>
+            </SurfaceCard>
+
+            <SurfaceCard>
+              <SectionHeader
+                kicker="Week & Community"
+                title="Stay accountable without noise."
+                description={`Return to the ${communityName.toLowerCase()} with sober attention, not performance.`}
+              />
+
+              <div className="mt-4 grid gap-3">
+                <SurfaceInset>
+                  <div className="section-kicker">{overview.weeklyFocus.label}</div>
+                  <p className="mt-2 text-xl font-semibold text-monastic-0">
+                    {overview.weeklyFocus.value}
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-monastic-1">
+                    {overview.weeklyFocus.detail}
+                  </p>
+                  {typeof overview.weeklyFocus.meterValue === "number" ? (
+                    <div className="monastic-meter mt-3">
+                      <span style={{ width: `${overview.weeklyFocus.meterValue}%` }} />
+                    </div>
+                  ) : null}
+                </SurfaceInset>
+                <SurfaceInset>
+                  <div className="section-kicker">{overview.brotherhood.label}</div>
+                  <p className="mt-2 text-xl font-semibold text-monastic-0">
+                    {overview.brotherhood.value}
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-monastic-1">
+                    {overview.brotherhood.detail}
+                  </p>
+                </SurfaceInset>
+              </div>
+            </SurfaceCard>
+          </section>
+
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Quick Access"
+              title="Open only what you need."
+            />
+            <div className="mt-4 grid gap-3 sm:grid-cols-4">
+              <Link href="/today" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                Today
+              </Link>
+              <Link href="/reflection" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                Reflection
+              </Link>
+              <Link href="/this-week" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                This Week
+              </Link>
+              <Link href="/brotherhood" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                {communityName}
+              </Link>
+            </div>
+          </SurfaceCard>
+        </PageFrame>
+      </main>
+    );
+  }
 
   return (
     <main className="monastic-page">
@@ -110,163 +276,65 @@ export default async function HomePage() {
             <div className="max-w-3xl text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">Disciplined Catholic Living</p>
               <h1 className="mt-4 text-[2.9rem] font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
-                {isSignedIn
-                  ? `Stay on the Narrow Path with order, reverence, and ${communityNameLower}.`
-                  : "Stay on the Narrow Path with prayer, discipline, and Catholic accountability."}
+                Stay on the Narrow Path with prayer, discipline, and Catholic accountability.
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-[#f3e5cf] sm:text-xl sm:leading-8">
-                {isSignedIn
-                  ? `The Narrow Path helps ordinary ${peoplePlural} pursue God with daily readings, clear disciplines, and shared accountability that stays serious without turning performative.`
-                  : "The Narrow Path is a Catholic challenge for people who want structure, not noise. It gives you daily readings, concrete disciplines, and accountability rooted in the Church Christ founded."}
+                The Narrow Path is a Catholic challenge for people who want structure, not noise. It gives you daily readings, concrete disciplines, and accountability rooted in the Church Christ founded.
               </p>
 
               <AppActionBar
                 stackOnMobile
                 className="mt-8 w-full border-white/10 bg-[rgba(31,20,14,0.24)] sm:w-fit"
-                actions={
-                  isSignedIn
-                    ? [
-                        {
-                          href: "/today",
-                          label: "Open Today's Reading",
-                          variant: "primary",
-                          size: "lg",
-                          className: "w-full sm:w-auto",
-                        },
-                        {
-                          href: "/dashboard",
-                          label: "Go to Dashboard",
-                          variant: "secondary",
-                          size: "lg",
-                          className: "w-full sm:w-auto",
-                        },
-                      ]
-                    : [
-                        {
-                          href: "/auth/sign-up",
-                          label: "Get Started",
-                          variant: "primary",
-                          size: "lg",
-                          className: "w-full sm:w-auto",
-                        },
-                        {
-                          href: "/about",
-                          label: "Learn More",
-                          variant: "secondary",
-                          size: "lg",
-                          className: "w-full sm:w-auto",
-                        },
-                      ]
-                }
+                actions={[
+                  {
+                    href: "/auth/sign-up",
+                    label: "Get Started",
+                    variant: "primary",
+                    size: "lg",
+                    className: "w-full sm:w-auto",
+                  },
+                  {
+                    href: "/about",
+                    label: "Learn More",
+                    variant: "secondary",
+                    size: "lg",
+                    className: "w-full sm:w-auto",
+                  },
+                ]}
               />
             </div>
 
-            {isSignedIn && overview ? (
-              <SurfaceCard className="home-office-card text-[#4a3525] dark:border-white/10 dark:bg-[rgba(19,14,11,0.38)] dark:text-[#f2e5d0] dark:backdrop-blur-sm">
-                <div className="section-kicker text-[#8b6037] dark:text-[#d9ba83]">
-                  Today&apos;s Reading
-                </div>
-                <h2 className="mt-3 text-3xl font-semibold text-[#2f2117] dark:text-white">
-                  {overview.readingTitle}
-                </h2>
-                <p className="mt-2 text-base text-[#6b4b2f] dark:text-[#ead8bc]">
-                  {overview.readingReference}
-                </p>
+            <SurfaceCard className="home-office-card text-[#4a3525] dark:border-white/10 dark:bg-[rgba(19,14,11,0.38)] dark:text-[#f2e5d0] dark:backdrop-blur-sm">
+              <div className="section-kicker text-[#8b6037] dark:text-[#d9ba83]">
+                What You&apos;ll Find Inside
+              </div>
+              <h2 className="mt-3 text-3xl font-semibold text-[#2f2117] dark:text-white">
+                A serious rhythm for ordinary Catholics.
+              </h2>
+              <p className="mt-2 text-base leading-7 text-[#6b4b2f] dark:text-[#ead8bc]">
+                Each day gives you a reading, a few clear tasks, and a way to
+                stay accountable without turning the whole thing into a
+                performance.
+              </p>
 
-                <div className="mt-6 space-y-4">
-                  <SurfaceInset className="home-office-inset dark:border-white/10 dark:bg-[rgba(255,246,229,0.08)]">
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                      <div>
-                        <p className="section-kicker text-[#9b6a3d] dark:text-[#d9ba83]">
-                          Required Today
-                        </p>
-                        <p className="mt-2 text-2xl font-semibold text-[#2f2117] dark:text-white">
-                          {overview.requiredProgress.value}
-                        </p>
-                        <p className="mt-2 text-sm leading-6 text-[#6b4b2f] dark:text-[#ead8bc]">
-                          {overview.requiredProgress.detail}
-                        </p>
-                      </div>
-                      <div className="w-fit rounded-full border border-[rgba(139,96,55,0.24)] px-3 py-1 text-xs uppercase tracking-[0.22em] text-[#8b6037] dark:border-white/10 dark:text-[#ead6b0]">
-                        {overview.challengeDayLabel}
-                      </div>
-                    </div>
-                    {typeof overview.requiredProgress.meterValue === "number" ? (
-                      <div className="monastic-meter mt-4">
-                        <span style={{ width: `${overview.requiredProgress.meterValue}%` }} />
-                      </div>
-                    ) : null}
+              <div className="mt-6 grid gap-3">
+                {publicOfficeMoments.map((item) => (
+                  <SurfaceInset
+                    key={item}
+                    className="home-office-inset dark:border-white/10 dark:bg-[rgba(255,246,229,0.06)]"
+                  >
+                    <p className="text-base leading-7 text-[#6b4b2f] dark:text-[#ead8bc]">
+                      {item}
+                    </p>
                   </SurfaceInset>
-
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <SurfaceInset className="home-office-inset dark:border-white/10 dark:bg-[rgba(255,246,229,0.06)]">
-                      <div className="section-kicker text-[#9b6a3d] dark:text-[#d9ba83]">
-                        {overview.weeklyFocus.label}
-                      </div>
-                      <p className="mt-2 text-xl font-semibold text-[#2f2117] dark:text-white">
-                        {overview.weeklyFocus.value}
-                      </p>
-                      <p className="mt-2 text-sm leading-6 text-[#6b4b2f] dark:text-[#ead8bc]">
-                        {overview.weeklyFocus.detail}
-                      </p>
-                      {typeof overview.weeklyFocus.meterValue === "number" ? (
-                        <div className="monastic-meter mt-3">
-                          <span style={{ width: `${overview.weeklyFocus.meterValue}%` }} />
-                        </div>
-                      ) : null}
-                    </SurfaceInset>
-                    <SurfaceInset className="home-office-inset dark:border-white/10 dark:bg-[rgba(255,246,229,0.06)]">
-                      <div className="section-kicker text-[#9b6a3d] dark:text-[#d9ba83]">
-                        {overview.reflection.label}
-                      </div>
-                      <p className="mt-2 text-xl font-semibold text-[#2f2117] dark:text-white">
-                        {overview.reflection.value}
-                      </p>
-                      <p className="mt-2 text-sm leading-6 text-[#6b4b2f] dark:text-[#ead8bc]">
-                        {overview.reflection.detail}
-                      </p>
-                      {typeof overview.reflection.meterValue === "number" ? (
-                        <div className="monastic-meter mt-3">
-                          <span style={{ width: `${overview.reflection.meterValue}%` }} />
-                        </div>
-                      ) : null}
-                    </SurfaceInset>
-                  </div>
-                </div>
-              </SurfaceCard>
-            ) : (
-              <SurfaceCard className="home-office-card text-[#4a3525] dark:border-white/10 dark:bg-[rgba(19,14,11,0.38)] dark:text-[#f2e5d0] dark:backdrop-blur-sm">
-                <div className="section-kicker text-[#8b6037] dark:text-[#d9ba83]">
-                  What You&apos;ll Find Inside
-                </div>
-                <h2 className="mt-3 text-3xl font-semibold text-[#2f2117] dark:text-white">
-                  A serious rhythm for ordinary Catholics.
-                </h2>
-                <p className="mt-2 text-base leading-7 text-[#6b4b2f] dark:text-[#ead8bc]">
-                  Each day gives you a reading, a few clear tasks, and a way to
-                  stay accountable without turning the whole thing into a
-                  performance.
-                </p>
-
-                <div className="mt-6 grid gap-3">
-                  {publicOfficeMoments.map((item) => (
-                    <SurfaceInset
-                      key={item}
-                      className="home-office-inset dark:border-white/10 dark:bg-[rgba(255,246,229,0.06)]"
-                    >
-                      <p className="text-base leading-7 text-[#6b4b2f] dark:text-[#ead8bc]">
-                        {item}
-                      </p>
-                    </SurfaceInset>
-                  ))}
-                </div>
-              </SurfaceCard>
-            )}
+                ))}
+              </div>
+            </SurfaceCard>
           </div>
         </HeroPanel>
 
         <section className="grid gap-4 lg:grid-cols-3">
-          {(isSignedIn ? signedInPillars : pillars).map((pillar) => (
+          {pillars.map((pillar) => (
             <SurfaceCard key={pillar.title} className="text-center">
               <div className="section-kicker">Pillar</div>
               <h2 className="mt-3 text-3xl font-semibold text-monastic-0">{pillar.title}</h2>
@@ -284,7 +352,7 @@ export default async function HomePage() {
             />
 
             <div className="mt-6 grid gap-3">
-              {(isSignedIn ? signedInLiturgy : liturgy).map((item) => (
+              {liturgy.map((item) => (
                 <SurfaceInset key={item} className="flex items-start gap-4">
                   <div className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-[color:var(--surface-strong)]" />
                   <p className="text-base leading-7 text-monastic-1">{item}</p>
@@ -294,37 +362,14 @@ export default async function HomePage() {
           </SurfaceCard>
 
           <div className="grid gap-4">
-            {isSignedIn && overview
-              ? [
-                  <MetricCard
-                    key={overview.dailyCore.label}
-                    label={overview.dailyCore.label}
-                    value={overview.dailyCore.value}
-                    detail={overview.dailyCore.detail}
-                    meterValue={overview.dailyCore.meterValue}
-                  />,
-                  <MetricCard
-                    key={overview.weeklyFocus.label}
-                    label={overview.weeklyFocus.label}
-                    value={overview.weeklyFocus.value}
-                    detail={overview.weeklyFocus.detail}
-                    meterValue={overview.weeklyFocus.meterValue}
-                  />,
-                  <MetricCard
-                    key={overview.brotherhood.label}
-                    label={overview.brotherhood.label}
-                    value={overview.brotherhood.value}
-                    detail={overview.brotherhood.detail}
-                  />,
-                ]
-              : publicHighlights.map((item) => (
-                  <MetricCard
-                    key={item.label}
-                    label={item.label}
-                    value={item.value}
-                    detail={item.detail}
-                  />
-                ))}
+            {publicHighlights.map((item) => (
+              <MetricCard
+                key={item.label}
+                label={item.label}
+                value={item.value}
+                detail={item.detail}
+              />
+            ))}
           </div>
         </section>
       </PageFrame>

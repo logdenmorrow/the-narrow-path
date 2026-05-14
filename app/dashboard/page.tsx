@@ -596,16 +596,16 @@ export default async function DashboardPage({
           />
         ) : null}
 
-        <HeroPanel className="mb-6 py-7 sm:py-8">
+        <HeroPanel className="py-5 sm:py-7">
           <div className="grid gap-6 lg:grid-cols-[1.12fr_0.88fr] lg:items-end">
             <div className="text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
-              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">
+              <h1 className="mt-3 text-4xl font-semibold sm:text-5xl">
                 Welcome, {getDisplayName(profile, user.email, getMemberName(track))}
               </h1>
-              <p className="mt-3 text-lg leading-8 text-[#f0dec1]">
-                Daily disciplines keep the day grounded. Weekly quota tasks give
-                you flexibility without lowering the standard.
+              <p className="mt-3 text-base leading-7 text-[#f0dec1] sm:text-lg sm:leading-8">
+                Use this page for quick access, catch-up, and the fuller state of
+                today&apos;s work.
               </p>
             </div>
 
@@ -627,7 +627,97 @@ export default async function DashboardPage({
           </div>
         </HeroPanel>
 
-        <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Quick Access"
+              title="Choose the next action."
+              description="The dashboard keeps the fuller view close, but the next step should still be obvious."
+            />
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <Link href={withViewTrack("/today", track, preserveViewTrack)} className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                Today
+              </Link>
+              <Link href={withViewTrack("/this-week", track, preserveViewTrack)} className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                This Week
+              </Link>
+              <Link href={withViewTrack("/brotherhood", track, preserveViewTrack)} className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                {communityName}
+              </Link>
+              <Link href={withViewTrack(`/today?day=${Math.max(selectedDay - 1, 1)}`, track, preserveViewTrack)} className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                Review Yesterday
+              </Link>
+              {isAdmin && (
+                <Link href="/admin/plan" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                  Admin Plan
+                </Link>
+              )}
+              {isAdmin && (
+                <Link href="/admin/auth-reports" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                  Auth Reports
+                </Link>
+              )}
+            </div>
+          </SurfaceCard>
+
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Today&apos;s Summary"
+              title="Where the day currently stands."
+            />
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <SurfaceInset>
+                <div className="section-kicker">Completed Today</div>
+                <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">
+                  {completedTodayCount}/{todayTasks.length}
+                </p>
+              </SurfaceInset>
+              <SurfaceInset>
+                <div className="section-kicker">Optional Done</div>
+                <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">
+                  {completedOptionalTodayCount}/{optionalToday.length}
+                </p>
+              </SurfaceInset>
+              <SurfaceInset>
+                <div className="section-kicker">Weekly Available</div>
+                <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">{weeklyQuotaToday.length}</p>
+              </SurfaceInset>
+              <SurfaceInset>
+                <div className="section-kicker">Reflection</div>
+                <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">
+                  {hasSavedReflection ? "Saved" : "Open"}
+                </p>
+              </SurfaceInset>
+            </div>
+          </SurfaceCard>
+        </div>
+
+        {yesterdayDay && (
+          <SurfaceCard
+            className={
+              missedYesterdayCount > 0
+                ? "border-[rgba(168,129,81,0.42)] bg-[rgba(168,129,81,0.08)]"
+                : undefined
+            }
+          >
+            <SectionHeader
+              kicker="Look Back"
+              title={missedYesterdayCount > 0 ? "Missed Yesterday?" : "Yesterday is clear."}
+            />
+            <p className="mt-3 text-sm leading-6 text-monastic-1 sm:text-base">
+              Day {yesterdayDay} still has {missedYesterdayCount} required task
+              {missedYesterdayCount === 1 ? "" : "s"} not completed.
+            </p>
+            <Link
+              href={`/today?day=${yesterdayDay}`}
+              className="mt-4 inline-flex rounded-[1rem] border border-monastic px-4 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:tracking-[0.18em]"
+            >
+              Review Day {yesterdayDay}
+            </Link>
+          </SurfaceCard>
+        )}
+
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <MetricCard
             label="Current Day"
             value={`Day ${selectedDay}`}
@@ -658,85 +748,6 @@ export default async function DashboardPage({
             }
           />
         </div>
-
-        <div className="mb-6 grid gap-4 lg:grid-cols-2">
-          <SurfaceCard>
-            <SectionHeader
-              kicker="Quick Access"
-              title="Open the next faithful step."
-              description={`Signed in as ${user.email}`}
-            />
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <Link href={withViewTrack("/today", track, preserveViewTrack)} className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
-                Today
-              </Link>
-              <Link href={withViewTrack("/this-week", track, preserveViewTrack)} className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
-                This Week
-              </Link>
-              <Link href={withViewTrack("/brotherhood", track, preserveViewTrack)} className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
-                {communityName}
-              </Link>
-              <Link href={withViewTrack(`/today?day=${Math.max(selectedDay - 1, 1)}`, track, preserveViewTrack)} className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
-                Review Yesterday
-              </Link>
-              {isAdmin && (
-                <Link href="/admin/plan" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
-                  Admin Plan
-                </Link>
-              )}
-              {isAdmin && (
-                <Link href="/admin/auth-reports" className="monastic-subcard px-4 py-4 text-center text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]">
-                  Auth Reports
-                </Link>
-              )}
-            </div>
-          </SurfaceCard>
-
-          <SurfaceCard>
-            <SectionHeader
-              kicker="Today&apos;s Summary"
-              title="Where the day currently stands."
-            />
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <SurfaceInset>
-                <div className="section-kicker">Completed Today</div>
-                <p className="mt-2 text-3xl font-semibold text-monastic-0">
-                  {completedTodayCount}/{todayTasks.length}
-                </p>
-              </SurfaceInset>
-              <SurfaceInset>
-                <div className="section-kicker">Optional Done</div>
-                <p className="mt-2 text-3xl font-semibold text-monastic-0">
-                  {completedOptionalTodayCount}/{optionalToday.length}
-                </p>
-              </SurfaceInset>
-              <SurfaceInset>
-                <div className="section-kicker">Weekly Available</div>
-                <p className="mt-2 text-3xl font-semibold text-monastic-0">{weeklyQuotaToday.length}</p>
-              </SurfaceInset>
-              <SurfaceInset>
-                <div className="section-kicker">Daily Streak</div>
-                <p className="mt-2 text-3xl font-semibold text-monastic-0">{dailyStreakCount} days</p>
-              </SurfaceInset>
-            </div>
-          </SurfaceCard>
-        </div>
-
-        {yesterdayDay && (
-          <SurfaceCard className="mb-6">
-            <SectionHeader kicker="Look Back" title="Missed Yesterday?" />
-            <p className="mt-3 text-sm text-monastic-1 sm:text-base">
-              Day {yesterdayDay} still has {missedYesterdayCount} required task
-              {missedYesterdayCount === 1 ? "" : "s"} not completed.
-            </p>
-            <Link
-              href={`/today?day=${yesterdayDay}`}
-              className="mt-4 inline-flex rounded-[1rem] border border-monastic px-4 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]"
-            >
-              Review Day {yesterdayDay}
-            </Link>
-          </SurfaceCard>
-        )}
 
         <div className="grid gap-6 lg:grid-cols-2">
           <SurfaceCard>
