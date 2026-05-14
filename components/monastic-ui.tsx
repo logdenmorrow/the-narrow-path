@@ -4,17 +4,17 @@ import { cn } from "@/lib/utils";
 type PageFrameProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function PageFrame({ className, ...props }: PageFrameProps) {
-  return <div className={cn("monastic-frame py-8 sm:py-10 lg:py-12", className)} {...props} />;
+  return <div className={cn("monastic-frame py-6 sm:py-10 lg:py-12", className)} {...props} />;
 }
 
 type SurfaceProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function SurfaceCard({ className, ...props }: SurfaceProps) {
-  return <div className={cn("monastic-card p-5 sm:p-6", className)} {...props} />;
+  return <div className={cn("monastic-card p-4 sm:p-6", className)} {...props} />;
 }
 
 export function SurfaceInset({ className, ...props }: SurfaceProps) {
-  return <div className={cn("monastic-subcard p-4 sm:p-5", className)} {...props} />;
+  return <div className={cn("monastic-subcard p-3.5 sm:p-5", className)} {...props} />;
 }
 
 type SectionHeaderProps = {
@@ -45,12 +45,12 @@ export function SectionHeader({
       <div className="space-y-3">
         {kicker ? <div className="section-kicker">{kicker}</div> : null}
         <div className="section-rule">
-          <h2 className="text-3xl font-semibold tracking-tight text-monastic-0 sm:text-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-monastic-0 sm:text-4xl">
             {title}
           </h2>
         </div>
         {description ? (
-          <p className="max-w-3xl text-base leading-7 text-monastic-1 sm:text-lg">
+          <p className="max-w-3xl text-sm leading-6 text-monastic-1 sm:text-lg sm:leading-7">
             {description}
           </p>
         ) : null}
@@ -79,10 +79,10 @@ export function MetricCard({
   return (
     <SurfaceCard className={cn("h-full", className)}>
       <div className="section-kicker">{label}</div>
-      <div className="mt-3 text-3xl font-semibold text-monastic-0 sm:text-4xl">{value}</div>
+      <div className="mt-2 text-2xl font-semibold text-monastic-0 sm:mt-3 sm:text-4xl">{value}</div>
       {detail ? <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base">{detail}</p> : null}
       {typeof meterValue === "number" ? (
-        <div className="monastic-meter mt-5">
+        <div className="monastic-meter mt-4 sm:mt-5">
           <span style={{ width: `${Math.max(0, Math.min(100, meterValue))}%` }} />
         </div>
       ) : null}
@@ -93,7 +93,7 @@ export function MetricCard({
 type HeroPanelProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function HeroPanel({ className, ...props }: HeroPanelProps) {
-  return <section className={cn("monastic-hero px-6 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12", className)} {...props} />;
+  return <section className={cn("monastic-hero px-5 py-6 sm:px-8 sm:py-10 lg:px-10 lg:py-12", className)} {...props} />;
 }
 
 type ReadingColumnProps = React.HTMLAttributes<HTMLDivElement>;

@@ -489,13 +489,13 @@ export default async function TodayPage({
 
   return (
     <main className="monastic-page">
-      <PageFrame className="space-y-6">
+      <PageFrame className="space-y-5 sm:space-y-6">
         {!challenge.hasStarted && (
           <SurfaceCard className="border-[rgba(168,129,81,0.38)]">
-            <p className="text-lg font-semibold text-monastic-0">
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
             </p>
-            <p className="mt-2 text-base leading-7 text-monastic-1">
+            <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
               You&apos;re previewing the plan before launch.
             </p>
           </SurfaceCard>
@@ -514,7 +514,7 @@ export default async function TodayPage({
             <div className="text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
               <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">Today</h1>
-              <p className="mt-3 text-lg text-[#f0dec1]">
+              <p className="mt-3 text-base text-[#f0dec1] sm:text-lg">
                 Day {typedPlanDay.day_number} • {formatReadableDate(taskModels[0]?.dayDate)}
               </p>
               <h2 className="mt-6 text-3xl font-semibold text-white sm:text-4xl">
@@ -559,8 +559,8 @@ export default async function TodayPage({
 
         {!canEditSelectedDay && (
           <SurfaceCard className="border-[rgba(168,129,81,0.38)]">
-            <p className="text-lg font-semibold text-monastic-0">Future days are view-only.</p>
-            <p className="mt-2 text-base leading-7 text-monastic-1">
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">Future days are view-only.</p>
+            <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
               You can mark tasks complete for today or any earlier challenge day.
             </p>
           </SurfaceCard>
@@ -587,7 +587,7 @@ export default async function TodayPage({
           >
             <div className="section-kicker">{reflectionCardLabel}</div>
             <div
-              className={`mt-3 text-3xl font-semibold sm:text-4xl ${
+              className={`mt-2 text-2xl font-semibold sm:mt-3 sm:text-4xl ${
                 isReflectionComplete ? "text-[#5d725f] dark:text-[#a7ccb9]" : "text-monastic-0"
               }`}
             >
@@ -616,7 +616,7 @@ export default async function TodayPage({
               description="Flexible disciplines stay visible without overwhelming the day."
             />
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-4 grid gap-3 sm:mt-6 sm:grid-cols-2 xl:grid-cols-3">
               {uniqueQuotaTasks.map((task) => {
                 const meterPercent =
                   task.progressCount !== null && task.quotaTarget && task.quotaTarget > 0
@@ -627,10 +627,10 @@ export default async function TodayPage({
                   <SurfaceInset key={`quota-${task.taskTemplateId}`}>
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <p className="text-xl font-semibold text-monastic-0">{task.title}</p>
+                        <p className="text-lg font-semibold text-monastic-0 sm:text-xl">{task.title}</p>
                         <p className="mt-2 text-sm leading-6 text-monastic-1">{task.progressLabel}</p>
                       </div>
-                      <div className="rounded-full border border-monastic px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-monastic-1">
+                      <div className="rounded-full border border-monastic px-2.5 py-1 text-[9px] uppercase tracking-[0.14em] text-monastic-1 sm:px-3 sm:text-[10px] sm:tracking-[0.22em]">
                         {task.progressCount ?? 0}/{task.quotaTarget ?? 0}
                       </div>
                     </div>

@@ -92,7 +92,7 @@ function PrayerText({
   className?: string;
 }) {
   return (
-    <p className={`text-base leading-8 text-monastic-0 ${className}`}>
+    <p className={`text-[0.95rem] leading-7 text-monastic-0 sm:text-base sm:leading-8 ${className}`}>
       {children}
     </p>
   );
@@ -100,7 +100,7 @@ function PrayerText({
 
 function PrayerLabel({ children }: { children: ReactNode }) {
   return (
-    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#8a5f32] dark:text-[#d8bd91]">
+    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8a5f32] dark:text-[#d8bd91] sm:text-xs sm:tracking-[0.22em]">
       {children}
     </p>
   );
@@ -114,7 +114,7 @@ function PrayerBlock({
   children: ReactNode;
 }) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5 sm:space-y-2">
       <PrayerLabel>{label}</PrayerLabel>
       <PrayerText>{children}</PrayerText>
     </div>
@@ -129,7 +129,7 @@ function HailMaryRepetition({
   intentions?: string[];
 }) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 sm:space-y-4">
       {Array.from({ length: count }, (_, index) => (
         <PrayerBlock
           key={`hail-mary-${index}`}
@@ -285,7 +285,7 @@ export default async function RosaryPage({
   return (
     <main className="monastic-page">
       <PageFrame
-        className="max-w-5xl space-y-6"
+        className="max-w-5xl space-y-5 sm:space-y-6"
         style={
           signedAudioUrl
             ? { paddingBottom: "calc(14rem + env(safe-area-inset-bottom))" }
@@ -391,13 +391,13 @@ export default async function RosaryPage({
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-monastic-0 sm:text-4xl">
               Begin in the name of the Father.
             </h2>
-            <p className="mt-3 text-base leading-7 text-monastic-1 sm:text-lg">
+            <p className="mt-3 text-sm leading-6 text-monastic-1 sm:text-lg sm:leading-7">
               Take a quiet breath. Offer this Rosary for the intentions entrusted to you.
             </p>
           </div>
 
-          <SurfaceInset className="mt-6 px-5 py-6 sm:px-8 sm:py-8">
-            <article className="mx-auto max-w-2xl space-y-7">
+          <SurfaceInset className="mt-5 px-4 py-5 sm:mt-6 sm:px-8 sm:py-8">
+            <article className="mx-auto max-w-2xl space-y-5 sm:space-y-7">
               <PrayerBlock label="Sign of the Cross">{SIGN_OF_THE_CROSS}</PrayerBlock>
               <PrayerBlock label="Apostles' Creed">{APOSTLES_CREED}</PrayerBlock>
               <PrayerBlock label="Our Father">{OUR_FATHER}</PrayerBlock>
@@ -415,17 +415,17 @@ export default async function RosaryPage({
               description={mystery.description}
             />
 
-            <SurfaceInset className="mt-6 border-[rgba(86,124,102,0.32)] bg-[rgba(151,186,164,0.08)]">
+            <SurfaceInset className="mt-5 border-[rgba(86,124,102,0.32)] bg-[rgba(151,186,164,0.08)] sm:mt-6">
               <PrayerLabel>Meditation</PrayerLabel>
-              <ul className="mt-3 space-y-2 text-sm leading-7 text-monastic-1 sm:text-base">
+              <ul className="mt-3 space-y-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
                 {mystery.meditations.map((meditation) => (
                   <li key={meditation}>{meditation}</li>
                 ))}
               </ul>
             </SurfaceInset>
 
-            <SurfaceInset className="mt-5 px-5 py-6 sm:px-8 sm:py-8">
-              <article className="mx-auto max-w-2xl space-y-7">
+            <SurfaceInset className="mt-4 px-4 py-5 sm:mt-5 sm:px-8 sm:py-8">
+              <article className="mx-auto max-w-2xl space-y-5 sm:space-y-7">
                 <PrayerBlock label="Our Father">{OUR_FATHER}</PrayerBlock>
                 <HailMaryRepetition count={DECADE_HAIL_MARY_COUNT} />
                 <PrayerBlock label="Glory Be">{GLORY_BE}</PrayerBlock>
@@ -442,8 +442,8 @@ export default async function RosaryPage({
             description="Finish with the Hail Holy Queen, the concluding prayer, and the Sign of the Cross."
           />
 
-          <SurfaceInset className="mt-6 px-5 py-6 sm:px-8 sm:py-8">
-            <article className="mx-auto max-w-2xl space-y-7">
+          <SurfaceInset className="mt-5 px-4 py-5 sm:mt-6 sm:px-8 sm:py-8">
+            <article className="mx-auto max-w-2xl space-y-5 sm:space-y-7">
               <PrayerBlock label="Hail Holy Queen">{HAIL_HOLY_QUEEN}</PrayerBlock>
 
               <div className="space-y-3">

@@ -42,7 +42,7 @@ export function TaskCard({ className, ...props }: TaskCardProps) {
   return (
     <div
       className={cn(
-        "monastic-card p-5",
+        "monastic-card p-4 sm:p-5",
         className
       )}
       {...props}
@@ -85,7 +85,7 @@ export function TaskCardMeta({ className, ...props }: TaskCardMetaProps) {
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.18em] text-monastic-2",
+        "flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.12em] text-monastic-2 sm:tracking-[0.18em]",
         className
       )}
       {...props}
@@ -101,7 +101,7 @@ export function StatusPill({
   return (
     <Badge
       variant={statusPillToneMap[tone]}
-      className={cn("text-[9px] sm:text-[10px]", className)}
+      className={cn("text-[9px] tracking-[0.12em] sm:text-[10px] sm:tracking-[0.22em]", className)}
       {...props}
     />
   );

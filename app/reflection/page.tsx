@@ -154,7 +154,7 @@ export default async function ReflectionPage({
 
   return (
     <main className="monastic-page">
-      <PageFrame className="max-w-4xl space-y-6">
+      <PageFrame className="max-w-4xl space-y-5 sm:space-y-6">
         {!challenge.hasStarted && (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
@@ -173,7 +173,7 @@ export default async function ReflectionPage({
               <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">
                 Scripture Reflection
               </h1>
-              <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
+              <p className="mt-3 text-base leading-7 text-[#ead8bc] sm:text-lg sm:leading-8">
                 Read the day’s assigned text, then write honestly about what God is asking you
                 to see, repent of, receive, or do.
               </p>
@@ -231,11 +231,11 @@ export default async function ReflectionPage({
           />
 
           {hasReadingDetails ? (
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            <div className="mt-4 grid gap-3 sm:mt-5 sm:grid-cols-2 sm:gap-4">
               {planDay.reading_mission?.trim() ? (
                 <SurfaceInset>
                   <p className="section-kicker">Mission</p>
-                  <p className="mt-2 text-base leading-7 text-monastic-1">
+                  <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
                     {planDay.reading_mission}
                   </p>
                 </SurfaceInset>
@@ -244,7 +244,7 @@ export default async function ReflectionPage({
               {planDay.reading_focus?.trim() ? (
                 <SurfaceInset>
                   <p className="section-kicker">Focus</p>
-                  <p className="mt-2 text-base leading-7 text-monastic-1">
+                  <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
                     {planDay.reading_focus}
                   </p>
                 </SurfaceInset>
@@ -255,7 +255,7 @@ export default async function ReflectionPage({
           {planDay.reading_notes?.trim() ? (
             <SurfaceInset className="mt-4 border-[rgba(168,129,81,0.34)] bg-[rgba(168,129,81,0.08)]">
               <p className="section-kicker">Catholic Companion Note</p>
-              <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base">
+              <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
                 {planDay.reading_notes}
               </p>
             </SurfaceInset>
@@ -277,8 +277,8 @@ export default async function ReflectionPage({
             }
           />
 
-          <SurfaceInset className="mt-5">
-            <p className="text-base leading-7 text-monastic-1">
+          <SurfaceInset className="mt-4 sm:mt-5">
+            <p className="text-[0.95rem] leading-7 text-monastic-1 sm:text-base">
               {promptText}
             </p>
           </SurfaceInset>

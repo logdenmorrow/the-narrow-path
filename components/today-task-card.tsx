@@ -159,11 +159,11 @@ export function TodayTaskCard({
             : "hover:border-[color:var(--line-strong)] hover:bg-[color:var(--surface-2)]"
         } active:scale-[0.99]`}
       >
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0 space-y-3">
+        <div className="flex items-start justify-between gap-3 sm:gap-4">
+          <div className="min-w-0 space-y-2.5 sm:space-y-3">
             <div className="flex flex-wrap items-center gap-2">
               <h3
-                className={`text-base font-semibold sm:text-lg ${
+                className={`text-[0.95rem] font-semibold sm:text-lg ${
                   optimisticCompleted
                     ? "text-[#5d725f] dark:text-[#a7ccb9]"
                     : "text-monastic-0"
@@ -222,7 +222,7 @@ export function TodayTaskCard({
           </Button>
         </div>
 
-        <TaskCardMeta className="mt-3 justify-between gap-3">
+        <TaskCardMeta className="mt-2.5 justify-between gap-2.5 sm:mt-3 sm:gap-3">
           <span>
             {errorMessage
               ? errorMessage

@@ -174,7 +174,7 @@ function renderLine(line: string, index: string) {
   if (isAntiphonLine(line)) {
     return (
       <span key={index} className="block">
-        <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.22em] text-monastic-2">
+        <span className="mb-1 block text-[9px] font-semibold uppercase tracking-[0.14em] text-monastic-2 sm:text-[10px] sm:tracking-[0.22em]">
           Antiphon
         </span>
         <span className="font-medium italic text-[#6f4c2a] dark:text-[#dcc39c]">
@@ -194,14 +194,14 @@ function renderLine(line: string, index: string) {
 function renderBlock(block: NightPrayerBlock, index: number, compact = false) {
   const isMajorHeading = isMajorSectionHeading(block);
   const className = isMajorHeading
-    ? "mt-8 border-t border-monastic pt-6 text-xs font-semibold uppercase tracking-[0.24em] text-[#8a5f32] first:mt-0 first:border-t-0 first:pt-0 dark:text-[#d8bd91]"
+    ? "mt-6 border-t border-monastic pt-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a5f32] first:mt-0 first:border-t-0 first:pt-0 dark:text-[#d8bd91] sm:mt-8 sm:pt-6 sm:text-xs sm:tracking-[0.24em]"
     : block.type === "heading"
-      ? "mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-[#8a5f32] dark:text-[#d8bd91]"
+      ? "mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#8a5f32] dark:text-[#d8bd91] sm:mt-5 sm:text-sm sm:tracking-[0.18em]"
       : block.type === "note"
-        ? "text-sm leading-7 text-monastic-2"
+        ? "text-sm leading-6 text-monastic-2 sm:leading-7"
         : compact
-          ? "text-sm leading-7 text-monastic-1"
-          : "text-base leading-8 text-monastic-0";
+          ? "text-sm leading-6 text-monastic-1 sm:leading-7"
+          : "text-[0.95rem] leading-7 text-monastic-0 sm:text-base sm:leading-8";
 
   return (
     <p key={`${block.type}-${index}`} className={className}>
@@ -217,11 +217,11 @@ function renderBlock(block: NightPrayerBlock, index: number, compact = false) {
 
 function renderExamenGuide() {
   return (
-    <SurfaceInset className="my-5 border-[rgba(86,124,102,0.32)] bg-[rgba(151,186,164,0.08)]">
-      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#5d725f] dark:text-[#a7ccb9]">
+    <SurfaceInset className="my-4 border-[rgba(86,124,102,0.32)] bg-[rgba(151,186,164,0.08)] sm:my-5">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#5d725f] dark:text-[#a7ccb9] sm:text-xs sm:tracking-[0.22em]">
         Solo Examination Guide
       </p>
-      <div className="mt-3 space-y-3 text-sm leading-7 text-monastic-1 sm:text-base">
+      <div className="mt-3 space-y-2.5 text-sm leading-6 text-monastic-1 sm:space-y-3 sm:text-base sm:leading-7">
         {HOLY_SPIRIT_EXAMEN_LINES.map((line, index) =>
           line ? <p key={`examen-${index}`}>{line}</p> : null
         )}
@@ -234,9 +234,9 @@ function renderHymnDetails(blocks: NightPrayerBlock[], startIndex: number) {
   return (
     <details
       key={`hymn-${startIndex}`}
-      className="mt-8 rounded-xl border border-monastic bg-[rgba(168,129,81,0.05)] px-4 py-4"
+      className="mt-6 rounded-xl border border-monastic bg-[rgba(168,129,81,0.05)] px-3.5 py-3.5 sm:mt-8 sm:px-4 sm:py-4"
     >
-      <summary className="cursor-pointer text-xs font-semibold uppercase tracking-[0.24em] text-[#8a5f32] transition hover:text-monastic-0 dark:text-[#d8bd91]">
+      <summary className="cursor-pointer text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8a5f32] transition hover:text-monastic-0 dark:text-[#d8bd91] sm:text-xs sm:tracking-[0.24em]">
         Hymn
       </summary>
       <p className="mt-2 text-sm leading-6 text-monastic-2">
@@ -253,9 +253,9 @@ function renderResponsory(blocks: NightPrayerBlock[], startIndex: number) {
   return (
     <div
       key={`responsory-${startIndex}`}
-      className="mt-8 rounded-xl border border-monastic bg-[rgba(42,25,15,0.04)] px-4 py-4"
+      className="mt-6 rounded-xl border border-monastic bg-[rgba(42,25,15,0.04)] px-3.5 py-3.5 sm:mt-8 sm:px-4 sm:py-4"
     >
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8a5f32] dark:text-[#d8bd91]">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8a5f32] dark:text-[#d8bd91] sm:text-xs sm:tracking-[0.24em]">
         Responsory
       </p>
       <p className="mt-2 text-sm leading-6 text-monastic-2">
@@ -332,8 +332,8 @@ function renderMarianPrayerEnding(blocks: NightPrayerBlock[], startIndex: number
   const importedIsHailMary = isImportedHailMaryOrAveMaria(seasonalBlocks);
 
   return (
-    <div key={`marian-prayer-${startIndex}`} className="mt-8 border-t border-monastic pt-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8a5f32] dark:text-[#d8bd91]">
+    <div key={`marian-prayer-${startIndex}`} className="mt-6 border-t border-monastic pt-5 sm:mt-8 sm:pt-6">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8a5f32] dark:text-[#d8bd91] sm:text-xs sm:tracking-[0.24em]">
         Marian Prayer
       </p>
       {importedIsHailMary ? (
@@ -341,7 +341,7 @@ function renderMarianPrayerEnding(blocks: NightPrayerBlock[], startIndex: number
           {seasonalBlocks.map((block, index) => renderBlock(block, startIndex + index))}
         </div>
       ) : (
-        <div className="mt-4 space-y-2 text-base leading-8 text-monastic-0">
+        <div className="mt-4 space-y-2 text-[0.95rem] leading-7 text-monastic-0 sm:text-base sm:leading-8">
           {HAIL_MARY_LINES.map((line) => (
             <p key={line}>{line}</p>
           ))}
@@ -350,7 +350,7 @@ function renderMarianPrayerEnding(blocks: NightPrayerBlock[], startIndex: number
 
       {seasonalBlocks.length > 0 && !importedIsHailMary ? (
         <details className="mt-5 rounded-xl border border-monastic bg-[rgba(168,129,81,0.05)] px-4 py-4">
-          <summary className="cursor-pointer text-xs font-semibold uppercase tracking-[0.22em] text-monastic-1 transition hover:text-monastic-0">
+          <summary className="cursor-pointer text-[10px] font-semibold uppercase tracking-[0.16em] text-monastic-1 transition hover:text-monastic-0 sm:text-xs sm:tracking-[0.22em]">
             Seasonal Marian Antiphon
           </summary>
           <div className="mt-4 space-y-3 border-t border-monastic pt-4">
@@ -361,7 +361,7 @@ function renderMarianPrayerEnding(blocks: NightPrayerBlock[], startIndex: number
         </details>
       ) : null}
 
-      <p className="mt-6 text-base font-medium leading-8 text-monastic-0">
+      <p className="mt-5 text-[0.95rem] font-medium leading-7 text-monastic-0 sm:mt-6 sm:text-base sm:leading-8">
         {CLOSING_SIGN_OF_THE_CROSS}
       </p>
     </div>
@@ -381,7 +381,7 @@ function hasOpeningSignOfTheCross(blocks: NightPrayerBlock[]) {
 
 function renderOpeningSignOfTheCross() {
   return (
-    <p key="opening-sign-of-the-cross" className="text-base font-medium leading-8 text-monastic-0">
+    <p key="opening-sign-of-the-cross" className="text-[0.95rem] font-medium leading-7 text-monastic-0 sm:text-base sm:leading-8">
       {CLOSING_SIGN_OF_THE_CROSS}
     </p>
   );
@@ -616,7 +616,7 @@ export default async function NightPrayerPage({
 
   return (
     <main className="monastic-page">
-      <PageFrame className="max-w-5xl space-y-6">
+      <PageFrame className="max-w-5xl space-y-5 sm:space-y-6">
         {!challenge.hasStarted && (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
@@ -697,7 +697,7 @@ export default async function NightPrayerPage({
                 ? "Pray Night Prayer"
                 : "Night Prayer has not been imported for this date yet."}
             </h2>
-            <p className="mt-3 text-base leading-7 text-monastic-1 sm:text-lg">
+            <p className="mt-3 text-sm leading-6 text-monastic-1 sm:text-lg sm:leading-7">
               {hasImportedContent
                 ? "Pray both the main line and the response when praying alone."
                 : "Run the one-day importer for this prayer date, then refresh this page."}
@@ -705,14 +705,14 @@ export default async function NightPrayerPage({
           </div>
 
           {hasImportedContent ? (
-            <SurfaceInset className="mt-6 px-5 py-6 sm:px-8 sm:py-8">
-              <article className="mx-auto max-w-2xl space-y-4">
+            <SurfaceInset className="mt-5 px-4 py-5 sm:mt-6 sm:px-8 sm:py-8">
+              <article className="mx-auto max-w-2xl space-y-3.5 sm:space-y-4">
                 {renderPrayerBlocks(prayerBlocks)}
               </article>
             </SurfaceInset>
           ) : (
-            <SurfaceInset className="mt-6">
-              <p className="text-base leading-7 text-monastic-1">
+            <SurfaceInset className="mt-5 sm:mt-6">
+              <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
                 Night Prayer has not been imported for this date yet.
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
@@ -762,7 +762,7 @@ export default async function NightPrayerPage({
         {sourceDetailBlocks.length > 0 ? (
           <SurfaceCard className={`${PAGE_CARD_CLASS} py-4 sm:py-5`}>
             <details>
-              <summary className="cursor-pointer text-xs font-semibold uppercase tracking-[0.22em] text-monastic-1 transition hover:text-monastic-0">
+              <summary className="cursor-pointer text-[10px] font-semibold uppercase tracking-[0.16em] text-monastic-1 transition hover:text-monastic-0 sm:text-xs sm:tracking-[0.22em]">
                 Source details / book reference
               </summary>
               <div className="mt-4 space-y-3 border-t border-monastic pt-4">

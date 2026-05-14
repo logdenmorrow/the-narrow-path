@@ -71,7 +71,7 @@ export function ReflectionEntryForm({
   };
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className="mt-6 space-y-4">
+    <form ref={formRef} onSubmit={handleSubmit} className="mt-5 space-y-3.5 sm:mt-6 sm:space-y-4">
       <input type="hidden" name="planDayId" value={planDayId} />
       <input type="hidden" name="dayNumber" value={dayNumber} />
       <input type="hidden" name="reflectionTaskId" value={reflectionTaskId ?? ""} />
@@ -89,7 +89,7 @@ export function ReflectionEntryForm({
         required
         rows={14}
         disabled={isLocked || isSaving}
-        className="monastic-field min-h-[18rem] text-sm leading-7"
+        className="monastic-field min-h-[14rem] text-sm leading-6 sm:min-h-[18rem] sm:leading-7"
         placeholder="Write your reflection for today."
       />
 

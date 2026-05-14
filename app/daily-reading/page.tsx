@@ -196,7 +196,7 @@ export default async function DailyReadingPage({
 
   return (
     <main className="monastic-page">
-      <PageFrame className="max-w-5xl space-y-6">
+      <PageFrame className="max-w-5xl space-y-5 sm:space-y-6">
         {!challenge.hasStarted && (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
@@ -256,7 +256,7 @@ export default async function DailyReadingPage({
         <div className="grid gap-6">
           <SurfaceCard>
             <SectionHeader kicker="Mission" title={planDay.reading_mission || "No mission assigned yet"} />
-            <p className="mt-4 text-sm text-monastic-1 sm:text-base">
+            <p className="mt-3 text-sm leading-6 text-monastic-1 sm:mt-4 sm:text-base sm:leading-7">
               {planDay.reading_focus || "No mission focus has been added yet."}
             </p>
           </SurfaceCard>
@@ -267,7 +267,7 @@ export default async function DailyReadingPage({
               title={planDay.reading_title || "No reading title assigned yet"}
               description={planDay.reading_reference || "No reference assigned yet"}
               action={
-                <span className="rounded-full border border-monastic px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-monastic-1">
+                <span className="rounded-full border border-monastic px-2.5 py-1 text-[9px] uppercase tracking-[0.14em] text-monastic-1 sm:px-3 sm:text-[10px] sm:tracking-[0.22em]">
                   {catechismDay ? "Catechism Day" : "Scripture Day"}
                 </span>
               }
@@ -282,17 +282,17 @@ export default async function DailyReadingPage({
 
             {catechismDay ? (
               <SurfaceInset className="mt-4">
-                <p className="text-sm leading-7 text-monastic-1 sm:text-base">
+                <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
                   Today is a Catechism reading day. The full Catechism text for these
                   paragraphs is included below.
                 </p>
               </SurfaceInset>
             ) : focusParagraphs.length > 0 ? (
-              <div className="mt-4 space-y-4">
+              <div className="mt-4 space-y-3 sm:space-y-4">
                 {focusParagraphs.map((paragraph, index) => (
                   <p
                     key={`focus-${index}`}
-                    className="text-sm leading-7 text-monastic-1 sm:text-base"
+                    className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7"
                   >
                     {paragraph}
                   </p>
@@ -312,11 +312,11 @@ export default async function DailyReadingPage({
                 title={catechismDay ? "Read with the Church." : "A brief guide for meditation."}
               />
 
-              <div className="mt-4 space-y-4">
+              <div className="mt-4 space-y-3 sm:space-y-4">
                 {noteParagraphs.map((paragraph, index) => (
                   <p
                     key={`insight-${index}`}
-                    className="text-sm leading-7 text-monastic-1 sm:text-base"
+                    className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7"
                   >
                     {paragraph}
                   </p>
@@ -331,13 +331,13 @@ export default async function DailyReadingPage({
               title="Read the text itself without hurry."
             />
 
-            <SurfaceInset className="mt-4 px-5 py-5 sm:px-6 sm:py-6">
+            <SurfaceInset className="mt-4 px-4 py-4 sm:px-6 sm:py-6">
               {hasReadingText ? (
-                <article className="space-y-5">
+                <article className="space-y-4 sm:space-y-5">
                   {readingParagraphs.map((paragraph, index) => (
                     <p
                       key={`reading-${index}`}
-                      className="text-base leading-8 text-monastic-0"
+                      className="text-[0.95rem] leading-7 text-monastic-0 sm:text-base sm:leading-8"
                     >
                       {paragraph}
                     </p>
