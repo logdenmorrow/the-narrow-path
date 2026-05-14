@@ -154,7 +154,7 @@ export default async function ReflectionPage({
 
   return (
     <main className="monastic-page">
-      <PageFrame className="max-w-4xl space-y-5 sm:space-y-6">
+      <PageFrame className="max-w-6xl space-y-5 sm:space-y-6">
         {!challenge.hasStarted && (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
@@ -223,6 +223,8 @@ export default async function ReflectionPage({
           />
         </div>
 
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] xl:items-start">
+          <div className="grid gap-6 xl:sticky xl:top-28">
         <SurfaceCard>
           <SectionHeader
             kicker="Today’s Reading"
@@ -231,7 +233,7 @@ export default async function ReflectionPage({
           />
 
           {hasReadingDetails ? (
-            <div className="mt-4 grid gap-3 sm:mt-5 sm:grid-cols-2 sm:gap-4">
+            <div className="mt-4 grid gap-3 sm:mt-5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-1">
               {planDay.reading_mission?.trim() ? (
                 <SurfaceInset>
                   <p className="section-kicker">Mission</p>
@@ -283,6 +285,7 @@ export default async function ReflectionPage({
             </p>
           </SurfaceInset>
         </SurfaceCard>
+          </div>
 
         <SurfaceCard>
           <SectionHeader
@@ -302,6 +305,7 @@ export default async function ReflectionPage({
             selectedDay={selectedDay}
           />
         </SurfaceCard>
+        </div>
       </PageFrame>
     </main>
   );

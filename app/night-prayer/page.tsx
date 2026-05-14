@@ -63,7 +63,7 @@ type CompletionRow = {
   id: number;
 };
 
-const PAGE_CARD_CLASS = "mx-auto w-full max-w-4xl";
+const PAGE_CARD_CLASS = "mx-auto w-full max-w-4xl xl:max-w-5xl";
 
 const HOLY_SPIRIT_EXAMEN_LINES = [
   "Pause quietly and ask the Holy Spirit to reveal the day truthfully.",
@@ -616,7 +616,7 @@ export default async function NightPrayerPage({
 
   return (
     <main className="monastic-page">
-      <PageFrame className="max-w-5xl space-y-5 sm:space-y-6">
+      <PageFrame className="max-w-6xl space-y-5 sm:space-y-6">
         {!challenge.hasStarted && (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">

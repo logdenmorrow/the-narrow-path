@@ -60,7 +60,7 @@ type CompletionRow = {
   id: number;
 };
 
-const PAGE_CARD_CLASS = "mx-auto w-full max-w-4xl";
+const PAGE_CARD_CLASS = "mx-auto w-full max-w-4xl xl:max-w-5xl";
 const DECADE_HAIL_MARY_COUNT = 10;
 const OPENING_HAIL_MARY_INTENTIONS = ["For faith.", "For hope.", "For charity."];
 const MYSTERY_ORDINALS = ["First", "Second", "Third", "Fourth", "Fifth"];
@@ -285,7 +285,7 @@ export default async function RosaryPage({
   return (
     <main className="monastic-page">
       <PageFrame
-        className="max-w-5xl space-y-5 sm:space-y-6"
+        className="max-w-6xl space-y-5 sm:space-y-6"
         style={
           signedAudioUrl
             ? { paddingBottom: "calc(14rem + env(safe-area-inset-bottom))" }

@@ -584,7 +584,7 @@ export default async function BrotherhoodPage({
             description="First name plus last initial for clarity, plus weekly quota progress for flexible disciplines."
           />
 
-          <div className="mt-4 space-y-2 sm:space-y-3">
+          <div className="mt-4 grid gap-2 sm:gap-3 xl:grid-cols-2">
             {memberRows.map((member) => {
               const memberHref = withViewTrack(
                 `/brotherhood/${member.profile.id}?day=${selectedDay}`,
@@ -600,7 +600,7 @@ export default async function BrotherhoodPage({
               return (
                 <TaskCard
                   key={member.profile.id}
-                  className="relative bg-[#f8efdd] p-3 transition hover:border-[#94724a] hover:bg-[#f3e5ca] dark:bg-black dark:hover:border-zinc-600 dark:hover:bg-black sm:p-4"
+                  className="relative h-full bg-[#f8efdd] p-3 transition hover:border-[#94724a] hover:bg-[#f3e5ca] dark:bg-black dark:hover:border-zinc-600 dark:hover:bg-black sm:p-4"
                 >
                   <Link
                     href={memberHref}
