@@ -608,112 +608,176 @@ export default async function TodayPage({
           </SurfaceCard>
         </section>
 
-        {uniqueQuotaTasks.length > 0 && (
-          <SurfaceCard>
+        <div className="grid gap-6 2xl:grid-cols-[minmax(0,1.45fr)_minmax(22rem,0.55fr)] 2xl:items-start">
+          <div className="grid gap-6">
+            {uniqueQuotaTasks.length > 0 && (
+              <SurfaceCard>
+                <SectionHeader
+                  kicker="Momentum"
+                  title="Weekly and Monthly Progress"
+                  description="Flexible disciplines stay visible without overwhelming the day."
+                />
+
+                <div className="mt-4 grid gap-3 sm:mt-6 sm:grid-cols-2 xl:grid-cols-3">
+                  {uniqueQuotaTasks.map((task) => {
+                    const meterPercent =
+                      task.progressCount !== null && task.quotaTarget && task.quotaTarget > 0
+                        ? Math.min(100, Math.round((task.progressCount / task.quotaTarget) * 100))
+                        : 0;
+
+                    return (
+                      <SurfaceInset key={`quota-${task.taskTemplateId}`}>
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <p className="text-lg font-semibold text-monastic-0 sm:text-xl">{task.title}</p>
+                            <p className="mt-2 text-sm leading-6 text-monastic-1">{task.progressLabel}</p>
+                          </div>
+                          <div className="rounded-full border border-monastic px-2.5 py-1 text-[9px] uppercase tracking-[0.14em] text-monastic-1 sm:px-3 sm:text-[10px] sm:tracking-[0.22em]">
+                            {task.progressCount ?? 0}/{task.quotaTarget ?? 0}
+                          </div>
+                        </div>
+                        <div className="monastic-meter mt-4">
+                          <span style={{ width: `${meterPercent}%` }} />
+                        </div>
+                        {task.note ? (
+                          <p className="mt-3 text-sm leading-6 text-monastic-2">{task.note}</p>
+                        ) : null}
+                      </SurfaceInset>
+                    );
+                  })}
+                </div>
+              </SurfaceCard>
+            )}
+
+            <div className="grid gap-6 xl:grid-cols-2">
+              <SurfaceCard>
+                <SectionHeader
+                  kicker="Daily Core"
+                  title="Required Today"
+                  description="The non-negotiable rule for the day."
+                />
+                <div className="mt-5 space-y-3">
+                  {requiredTasks.length > 0 ? (
+                    requiredTasks.map((task) => (
+                      <TodayTaskCard
+                        key={task.id}
+                        planDayTaskId={task.id}
+                        title={task.title}
+                        note={task.note}
+                        isRequired={task.isRequired}
+                        isOptional={task.isOptional}
+                        progressLabel={task.progressLabel}
+                        completed={task.isCompleted}
+                        locked={!canEditSelectedDay}
+                        lockedLabel={lockLabel}
+                        secondaryAction={getTaskSecondaryAction(
+                          task.slug,
+                          typedPlanDay.day_number
+                        )}
+                      />
+                    ))
+                  ) : (
+                    <p className="text-base leading-7 text-monastic-1">No required tasks for this day.</p>
+                  )}
+                </div>
+              </SurfaceCard>
+
+              <SurfaceCard>
+                <SectionHeader
+                  kicker="Optional Disciplines"
+                  title="Optional Today"
+                  description="Flexible practices that still reinforce daily discipline and fidelity."
+                />
+                <div className="mt-5 space-y-3">
+                  {optionalTasks.length > 0 ? (
+                    optionalTasks.map((task) => (
+                      <TodayTaskCard
+                        key={task.id}
+                        planDayTaskId={task.id}
+                        title={task.title}
+                        note={task.note}
+                        isRequired={task.isRequired}
+                        isOptional={task.isOptional}
+                        progressLabel={task.progressLabel}
+                        completed={task.isCompleted}
+                        locked={!canEditSelectedDay}
+                        lockedLabel={lockLabel}
+                        secondaryAction={getTaskSecondaryAction(
+                          task.slug,
+                          typedPlanDay.day_number
+                        )}
+                      />
+                    ))
+                  ) : (
+                    <p className="text-base leading-7 text-monastic-1">No optional tasks for this day.</p>
+                  )}
+                </div>
+              </SurfaceCard>
+            </div>
+          </div>
+
+        <aside className="grid gap-6 xl:grid-cols-2 2xl:sticky 2xl:top-28 2xl:grid-cols-1">
+          <SurfaceCard className="hidden 2xl:block">
             <SectionHeader
-              kicker="Momentum"
-              title="Weekly and Monthly Progress"
-              description="Flexible disciplines stay visible without overwhelming the day."
+              kicker="Day at a Glance"
+              title={`Day ${typedPlanDay.day_number}`}
+              description={formatReadableDate(taskModels[0]?.dayDate) || "Challenge day"}
             />
 
-            <div className="mt-4 grid gap-3 sm:mt-6 sm:grid-cols-2 xl:grid-cols-3">
-              {uniqueQuotaTasks.map((task) => {
-                const meterPercent =
-                  task.progressCount !== null && task.quotaTarget && task.quotaTarget > 0
-                    ? Math.min(100, Math.round((task.progressCount / task.quotaTarget) * 100))
-                    : 0;
+            <div className="mt-5 grid gap-3">
+              <SurfaceInset>
+                <div className="section-kicker">Required</div>
+                <p className="mt-2 text-2xl font-semibold text-monastic-0">
+                  {completedRequiredCount}/{requiredTasks.length}
+                </p>
+                <div className="monastic-meter mt-3">
+                  <span style={{ width: `${requiredCompletionPercent}%` }} />
+                </div>
+              </SurfaceInset>
 
-                return (
-                  <SurfaceInset key={`quota-${task.taskTemplateId}`}>
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <p className="text-lg font-semibold text-monastic-0 sm:text-xl">{task.title}</p>
-                        <p className="mt-2 text-sm leading-6 text-monastic-1">{task.progressLabel}</p>
-                      </div>
-                      <div className="rounded-full border border-monastic px-2.5 py-1 text-[9px] uppercase tracking-[0.14em] text-monastic-1 sm:px-3 sm:text-[10px] sm:tracking-[0.22em]">
-                        {task.progressCount ?? 0}/{task.quotaTarget ?? 0}
-                      </div>
-                    </div>
-                    <div className="monastic-meter mt-4">
-                      <span style={{ width: `${meterPercent}%` }} />
-                    </div>
-                    {task.note ? (
-                      <p className="mt-3 text-sm leading-6 text-monastic-2">{task.note}</p>
-                    ) : null}
-                  </SurfaceInset>
-                );
-              })}
+              <SurfaceInset>
+                <div className="section-kicker">Optional</div>
+                <p className="mt-2 text-2xl font-semibold text-monastic-0">
+                  {optionalTasks.filter((task) => task.isCompleted).length}/{optionalTasks.length}
+                </p>
+              </SurfaceInset>
+
+              {uniqueQuotaTasks.length > 0 ? (
+                <SurfaceInset>
+                  <div className="section-kicker">Quota Context</div>
+                  <p className="mt-2 text-sm leading-6 text-monastic-1">
+                    {uniqueQuotaTasks.length} flexible discipline
+                    {uniqueQuotaTasks.length === 1 ? "" : "s"} visible for this day.
+                  </p>
+                </SurfaceInset>
+              ) : null}
+
+              {!canEditSelectedDay ? (
+                <SurfaceInset className="border-[rgba(168,129,81,0.34)] bg-[rgba(168,129,81,0.08)]">
+                  <div className="section-kicker">Status</div>
+                  <p className="mt-2 text-sm leading-6 text-monastic-1">
+                    {lockLabel}
+                  </p>
+                </SurfaceInset>
+              ) : null}
             </div>
-          </SurfaceCard>
-        )}
 
-        <div className="grid gap-6 xl:grid-cols-2">
-          <SurfaceCard>
-            <SectionHeader
-              kicker="Daily Core"
-              title="Required Today"
-              description="The non-negotiable rule for the day."
-            />
-            <div className="mt-5 space-y-3">
-              {requiredTasks.length > 0 ? (
-                requiredTasks.map((task) => (
-                  <TodayTaskCard
-                    key={task.id}
-                    planDayTaskId={task.id}
-                    title={task.title}
-                    note={task.note}
-                    isRequired={task.isRequired}
-                    isOptional={task.isOptional}
-                    progressLabel={task.progressLabel}
-                    completed={task.isCompleted}
-                    locked={!canEditSelectedDay}
-                    lockedLabel={lockLabel}
-                    secondaryAction={getTaskSecondaryAction(
-                      task.slug,
-                      typedPlanDay.day_number
-                    )}
-                  />
-                ))
-              ) : (
-                <p className="text-base leading-7 text-monastic-1">No required tasks for this day.</p>
-              )}
+            <div className="mt-5 grid gap-3">
+              <Button asChild variant="secondary" className="w-full">
+                <Link href={`/daily-reading?day=${typedPlanDay.day_number}`}>
+                  Open Reading
+                </Link>
+              </Button>
+              {hasReflectionPrompt ? (
+                <Button asChild variant={isReflectionComplete ? "secondary" : "default"} className="w-full">
+                  <Link href={`/reflection?day=${typedPlanDay.day_number}`}>
+                    {reflectionActionLabel}
+                  </Link>
+                </Button>
+              ) : null}
             </div>
           </SurfaceCard>
 
-          <SurfaceCard>
-            <SectionHeader
-              kicker="Optional Disciplines"
-              title="Optional Today"
-              description="Flexible practices that still reinforce daily discipline and fidelity."
-            />
-            <div className="mt-5 space-y-3">
-              {optionalTasks.length > 0 ? (
-                optionalTasks.map((task) => (
-                  <TodayTaskCard
-                    key={task.id}
-                    planDayTaskId={task.id}
-                    title={task.title}
-                    note={task.note}
-                    isRequired={task.isRequired}
-                    isOptional={task.isOptional}
-                    progressLabel={task.progressLabel}
-                    completed={task.isCompleted}
-                    locked={!canEditSelectedDay}
-                    lockedLabel={lockLabel}
-                    secondaryAction={getTaskSecondaryAction(
-                      task.slug,
-                      typedPlanDay.day_number
-                    )}
-                  />
-                ))
-              ) : (
-                <p className="text-base leading-7 text-monastic-1">No optional tasks for this day.</p>
-              )}
-            </div>
-          </SurfaceCard>
-        </div>
-
-        <div className="grid gap-6 xl:grid-cols-2">
           <SurfaceCard>
             <SectionHeader
               kicker="Accountability"
@@ -761,6 +825,7 @@ export default async function TodayPage({
               </p>
             )}
           </SurfaceCard>
+        </aside>
         </div>
       </PageFrame>
     </main>
