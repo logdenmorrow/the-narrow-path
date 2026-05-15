@@ -260,6 +260,7 @@ export default async function DailyReadingPage({
   const catechismDay = isCatechismDay(planDay.reading_reference);
   const hasReadingText = readingParagraphs.length > 0;
   const isLocked = !challenge.hasStarted || selectedDay > challenge.currentDayNumber;
+  const reflectionHref = `/reflection?day=${selectedDay}`;
 
   return (
     <main className="monastic-page">
@@ -446,6 +447,18 @@ export default async function DailyReadingPage({
                 }
               />
             </div>
+            <AppActionBar
+              className="mt-5 justify-start"
+              stackOnMobile
+              actions={[
+                {
+                  href: reflectionHref,
+                  label: "Continue to Scripture Reflection",
+                  variant: "primary",
+                  className: "w-full sm:w-auto",
+                },
+              ]}
+            />
           </SurfaceCard>
         ) : (
           <SurfaceCard>
@@ -453,6 +466,18 @@ export default async function DailyReadingPage({
               kicker="Completion"
               title="Daily Reading is not assigned to this day."
               description="The reading remains available, but there is no Reading task to mark complete for this day."
+            />
+            <AppActionBar
+              className="mt-5 justify-start"
+              stackOnMobile
+              actions={[
+                {
+                  href: reflectionHref,
+                  label: "Continue to Scripture Reflection",
+                  variant: "primary",
+                  className: "w-full sm:w-auto",
+                },
+              ]}
             />
           </SurfaceCard>
         )}
