@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="The Narrow Path">
+  <path
+    d="M25 59c7-10 10-18 9-26-.4-4 1-8 5-12"
+    fill="none"
+    stroke="#8b6037"
+    stroke-linecap="round"
+    stroke-width="6"
+  />
+  <path d="M29 8h6v34h-6z" fill="#2f2117" />
+  <path d="M20 18h24v6H20z" fill="#2f2117" />
+</svg>
