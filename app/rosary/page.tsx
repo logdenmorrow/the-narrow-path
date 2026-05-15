@@ -288,7 +288,7 @@ export default async function RosaryPage({
         className="max-w-6xl space-y-5 sm:space-y-6"
         style={
           signedAudioUrl
-            ? { paddingBottom: "calc(14rem + env(safe-area-inset-bottom))" }
+            ? { paddingBottom: "calc(9rem + env(safe-area-inset-bottom))" }
             : undefined
         }
       >
