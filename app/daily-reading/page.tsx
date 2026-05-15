@@ -7,6 +7,7 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { TodayTaskCard } from "@/components/today-task-card";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
 import { updateLastActiveAt } from "@/lib/last-active";
@@ -26,12 +27,45 @@ type PlanDayRow = {
   reading_text: string | null;
 };
 
+type ReadingTaskRow = {
+  id: number;
+  is_required: boolean;
+  is_optional: boolean;
+  requirement_note: string | null;
+  day_date: string | null;
+  task_templates:
+    | {
+        title: string | null;
+        slug: string | null;
+      }
+    | Array<{
+        title: string | null;
+        slug: string | null;
+      }>
+    | null;
+};
+
+type CompletionRow = {
+  id: number;
+};
+
 function normalizeDayNumber(value: number, totalDays: number) {
   if (!Number.isFinite(value)) return 1;
   const rounded = Math.floor(value);
   if (rounded < 1) return 1;
   if (rounded > totalDays) return totalDays;
   return rounded;
+}
+
+function normalizeTaskTemplate(
+  relation: ReadingTaskRow["task_templates"]
+): { title: string; slug: string } {
+  const template = Array.isArray(relation) ? relation[0] : relation;
+
+  return {
+    title: template?.title ?? "Daily Reading",
+    slug: template?.slug ?? "",
+  };
 }
 
 function normalizeWhitespace(text: string) {
@@ -184,6 +218,38 @@ export default async function DailyReadingPage({
     );
   }
 
+  const { data: taskRows } = await supabase
+    .from("plan_day_tasks")
+    .select(
+      `
+        id,
+        is_required,
+        is_optional,
+        requirement_note,
+        day_date,
+        task_templates (
+          title,
+          slug
+        )
+      `
+    )
+    .eq("plan_day_id", planDay.id);
+
+  const readingTask = ((taskRows ?? []) as ReadingTaskRow[]).find((task) => {
+    const template = normalizeTaskTemplate(task.task_templates);
+    return template.slug === "reading";
+  });
+
+  const { data: completionData } = readingTask
+    ? await supabase
+        .from("user_task_completions")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("plan_day_task_id", readingTask.id)
+        .maybeSingle()
+    : { data: null };
+
+  const completion = (completionData ?? null) as CompletionRow | null;
   const previousDay = selectedDay > 1 ? selectedDay - 1 : 1;
   const nextDay =
     selectedDay < activePlan.total_days ? selectedDay + 1 : activePlan.total_days;
@@ -193,6 +259,7 @@ export default async function DailyReadingPage({
   const readingParagraphs = splitIntoReadableParagraphs(planDay.reading_text ?? "");
   const catechismDay = isCatechismDay(planDay.reading_reference);
   const hasReadingText = readingParagraphs.length > 0;
+  const isLocked = !challenge.hasStarted || selectedDay > challenge.currentDayNumber;
 
   return (
     <main className="monastic-page">
@@ -353,6 +420,42 @@ export default async function DailyReadingPage({
             </SurfaceInset>
           </SurfaceCard>
         </div>
+
+        {readingTask ? (
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Completion"
+              title={
+                completion?.id
+                  ? "Daily Reading completed."
+                  : "Mark Daily Reading complete."
+              }
+              description="Mark this complete after finishing the reading."
+            />
+            <div className="mt-5">
+              <TodayTaskCard
+                planDayTaskId={readingTask.id}
+                title={normalizeTaskTemplate(readingTask.task_templates).title}
+                note={readingTask.requirement_note}
+                isRequired={readingTask.is_required}
+                isOptional={readingTask.is_optional}
+                completed={Boolean(completion?.id)}
+                locked={isLocked}
+                lockedLabel={
+                  !challenge.hasStarted ? "Locked Until Launch" : "Future Day Locked"
+                }
+              />
+            </div>
+          </SurfaceCard>
+        ) : (
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Completion"
+              title="Daily Reading is not assigned to this day."
+              description="The reading remains available, but there is no Reading task to mark complete for this day."
+            />
+          </SurfaceCard>
+        )}
       </PageFrame>
     </main>
   );
