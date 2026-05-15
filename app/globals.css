@@ -40,7 +40,7 @@
     --line-soft: rgba(148, 116, 77, 0.22);
     --line-strong: rgba(132, 97, 58, 0.5);
     --glow: rgba(240, 195, 116, 0.28);
-    --hero-overlay: linear-gradient(90deg, rgba(61, 37, 19, 0.78) 0%, rgba(88, 55, 28, 0.55) 34%, rgba(245, 234, 214, 0.24) 68%, rgba(245, 234, 214, 0.5) 100%);
+    --hero-overlay: linear-gradient(90deg, rgba(30, 19, 13, 0.58) 0%, rgba(46, 29, 18, 0.34) 48%, rgba(26, 18, 13, 0.42) 100%);
     --paper-texture:
       radial-gradient(circle at 20% 18%, rgba(255, 247, 228, 0.7), transparent 24%),
       radial-gradient(circle at 80% 12%, rgba(191, 144, 82, 0.1), transparent 18%),
@@ -84,7 +84,7 @@
     --line-soft: rgba(214, 179, 135, 0.18);
     --line-strong: rgba(205, 156, 95, 0.42);
     --glow: rgba(224, 164, 80, 0.16);
-    --hero-overlay: linear-gradient(90deg, rgba(8, 7, 7, 0.9) 0%, rgba(18, 14, 13, 0.82) 34%, rgba(31, 23, 18, 0.66) 68%, rgba(18, 14, 13, 0.78) 100%);
+    --hero-overlay: linear-gradient(90deg, rgba(8, 7, 7, 0.84) 0%, rgba(18, 14, 13, 0.64) 48%, rgba(12, 9, 8, 0.72) 100%);
     --paper-texture:
       radial-gradient(circle at 20% 18%, rgba(255, 219, 139, 0.08), transparent 24%),
       radial-gradient(circle at 80% 12%, rgba(160, 101, 42, 0.1), transparent 18%),
@@ -268,12 +268,12 @@
     background:
       linear-gradient(
         180deg,
-        color-mix(in srgb, #fff8ec 76%, var(--surface-1)) 0%,
-        color-mix(in srgb, #f1e3c7 22%, var(--surface-2)) 100%
+        color-mix(in srgb, #f4e4c9 58%, var(--surface-1)) 0%,
+        color-mix(in srgb, #dfc59c 28%, var(--surface-2)) 100%
       ),
       var(--paper-texture);
     box-shadow:
-      inset 0 1px 0 rgba(255, 252, 244, 0.72),
+      inset 0 1px 0 rgba(255, 252, 244, 0.38),
       0 14px 28px -22px rgba(118, 81, 43, 0.24),
       0 28px 58px -40px rgba(69, 42, 23, 0.34);
   }
@@ -291,11 +291,11 @@
     background:
       linear-gradient(
         180deg,
-        color-mix(in srgb, #fff9ef 78%, var(--surface-1)) 0%,
-        color-mix(in srgb, #ecdabd 28%, var(--surface-2)) 100%
+        color-mix(in srgb, #f3e4ca 58%, var(--surface-1)) 0%,
+        color-mix(in srgb, #dec39a 26%, var(--surface-2)) 100%
       );
     box-shadow:
-      inset 0 1px 0 rgba(255, 251, 243, 0.7),
+      inset 0 1px 0 rgba(255, 251, 243, 0.34),
       0 10px 24px -22px rgba(98, 66, 33, 0.28);
   }
 
@@ -319,21 +319,19 @@
     border: 1px solid var(--line-soft);
     background:
       var(--hero-overlay),
-      radial-gradient(circle at 18% 30%, rgba(255, 211, 134, 0.52), transparent 18%),
-      radial-gradient(circle at 76% 20%, rgba(255, 243, 216, 0.18), transparent 20%),
-      linear-gradient(115deg, #332217 0%, #6b4326 22%, #a77649 47%, #ead7b4 74%, #f5ecdd 100%);
+      radial-gradient(circle at 16% 26%, rgba(217, 156, 79, 0.16), transparent 22%),
+      linear-gradient(115deg, #26170f 0%, #3b2517 42%, #5d3820 72%, #6f4629 100%);
     box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      inset 0 0 0 1px rgba(255, 239, 211, 0.08),
       0 34px 80px -44px rgba(31, 19, 11, 0.85);
   }
 
   .dark .monastic-hero {
     background:
-      linear-gradient(180deg, rgba(10, 8, 8, 0.18), rgba(10, 8, 8, 0.34)),
+      linear-gradient(180deg, rgba(10, 8, 8, 0.24), rgba(10, 8, 8, 0.38)),
       var(--hero-overlay),
-      radial-gradient(circle at 18% 30%, rgba(255, 193, 102, 0.12), transparent 18%),
-      radial-gradient(circle at 76% 20%, rgba(255, 225, 174, 0.04), transparent 20%),
-      linear-gradient(115deg, #120f0e 0%, #241a16 24%, #513825 52%, #725133 74%, #3e2e22 100%);
+      radial-gradient(circle at 16% 26%, rgba(196, 128, 55, 0.1), transparent 22%),
+      linear-gradient(115deg, #120f0e 0%, #211713 36%, #3f291b 68%, #52361f 100%);
   }
 
   .monastic-hero::before {
@@ -341,9 +339,26 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 24% 42%, rgba(255, 225, 176, 0.12), transparent 10%),
-      linear-gradient(0deg, rgba(17, 12, 10, 0.24), transparent 28%);
+      radial-gradient(circle at 24% 42%, rgba(255, 225, 176, 0.06), transparent 12%),
+      linear-gradient(0deg, rgba(17, 12, 10, 0.24), transparent 34%);
     pointer-events: none;
+  }
+
+  .monastic-hero .bg-monastic-panel {
+    border-color: rgba(239, 214, 177, 0.18);
+    background: rgba(24, 16, 12, 0.54);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 241, 220, 0.08),
+      0 18px 34px -30px rgba(0, 0, 0, 0.86);
+  }
+
+  .monastic-hero .bg-transparent {
+    border-color: rgba(239, 214, 177, 0.42);
+    color: #f8ead2;
+  }
+
+  .monastic-hero .bg-transparent:hover {
+    background: rgba(255, 246, 229, 0.1);
   }
 
   .section-kicker {
