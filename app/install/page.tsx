@@ -28,8 +28,8 @@ const iphoneSteps = [
 
 const androidSteps = [
   "Open The Narrow Path in Chrome.",
-  "Tap the menu or install prompt.",
-  "Tap Install app or Add to Home screen.",
+  "Tap the menu or the install prompt.",
+  "Tap Install app. Some versions of Chrome may say Add to Home screen.",
   "Open Narrow Path from the Home Screen.",
 ];
 
@@ -106,8 +106,8 @@ export default function InstallPage() {
               <SurfaceInset>
                 <p className="text-base leading-7 text-monastic-1">
                   This first phase does not add push notifications or meaningful
-                  offline support. It is only a polished shortcut for opening the
-                  existing app from your phone.
+                  offline support. Android Chrome may offer Install app once it
+                  recognizes the Home Screen app.
                 </p>
               </SurfaceInset>
               <Button asChild variant="secondary" className="w-full sm:w-auto">

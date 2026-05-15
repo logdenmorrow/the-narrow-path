@@ -8,6 +8,7 @@ import MainNav from "@/components/main-nav";
 import MobileAccountMenu from "@/components/mobile-account-menu";
 import MobileTabBar from "@/components/mobile-tab-bar";
 import ProgressStrip from "@/components/progress-strip";
+import ServiceWorkerRegister from "@/components/service-worker-register";
 import SignOutButton from "@/components/sign-out-button";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeSwitcher } from "@/components/theme-switcher";
@@ -81,6 +82,7 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="monastic-shell" data-auth-debug-default={authDebugEnabled ? "true" : "false"}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ServiceWorkerRegister />
           <AuthStateListener />
           <Suspense fallback={null}>
             <AuthDebugPanel />
