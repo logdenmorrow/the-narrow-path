@@ -409,11 +409,30 @@ export function PwaInstallPrompt({
     }
 
     if (deviceInfo?.isAndroid) {
-      return canUseNativePrompt ? title : "Install on Android";
+      return canUseNativePrompt ? "Ready to install" : "Install on Android";
     }
 
-    return title;
-  }, [canUseNativePrompt, deviceInfo?.isAndroid, deviceInfo?.isIos, title]);
+    return mobileOnly ? title : "Install on your phone";
+  }, [canUseNativePrompt, deviceInfo?.isAndroid, deviceInfo?.isIos, mobileOnly, title]);
+
+  const promptBody = useMemo(() => {
+    if (canUseNativePrompt) {
+      return "Chrome can install The Narrow Path on this device.";
+    }
+
+    if (deviceInfo?.isIos) {
+      return "Safari uses the Share menu for Home Screen installs.";
+    }
+
+    if (deviceInfo?.isAndroid) {
+      return "Use Chrome's browser menu if the install prompt is not shown.";
+    }
+
+    return "Open this page on your phone to install The Narrow Path.";
+  }, [canUseNativePrompt, deviceInfo?.isAndroid, deviceInfo?.isIos]);
+
+  const showPromptBody =
+    canUseNativePrompt || Boolean(deviceInfo?.isIos) || Boolean(deviceInfo?.isAndroid);
 
   async function handleInstallClick() {
     if (!deferredPrompt) {
@@ -474,9 +493,11 @@ export function PwaInstallPrompt({
         <div className="min-w-0 flex-1">
           <div className="section-kicker">Home Screen App</div>
           <h2 className="mt-1 text-2xl font-semibold text-monastic-0">{fallbackTitle}</h2>
-          <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
-            Add The Narrow Path to your Home Screen.
-          </p>
+          {showPromptBody ? (
+            <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+              {promptBody}
+            </p>
+          ) : null}
         </div>
       </div>
 
@@ -522,7 +543,7 @@ export function PwaInstallPrompt({
         />
       ) : (
         <InstructionList
-          steps={["Open this page on your phone to add Narrow Path to your Home Screen."]}
+          steps={["Open this page on your phone to install The Narrow Path."]}
           onDismiss={handleDismiss}
         />
       )}
