@@ -10,6 +10,7 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { PwaInstallPrompt } from "@/components/pwa-install-prompt";
 import { Button } from "@/components/ui/button";
 import { StandaloneNote } from "./standalone-note";
 
@@ -93,6 +94,8 @@ export default function InstallPage() {
             />
           </div>
         </HeroPanel>
+
+        <PwaInstallPrompt />
 
         <div className="grid gap-4 lg:grid-cols-[0.85fr_1.15fr]">
           <SurfaceCard>

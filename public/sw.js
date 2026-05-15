@@ -1,8 +1,10 @@
-const CACHE_NAME = "narrow-path-static-v1";
+const CACHE_NAME = "narrow-path-static-v2";
 const SAFE_STATIC_ASSETS = [
   "/app-icon-192.png",
   "/app-icon-512.png",
   "/apple-touch-icon.png",
+  "/maskable-icon-192.png",
+  "/maskable-icon-512.png",
 ];
 
 self.addEventListener("install", (event) => {
