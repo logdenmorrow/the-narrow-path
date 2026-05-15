@@ -475,8 +475,7 @@ export function PwaInstallPrompt({
           <div className="section-kicker">Home Screen App</div>
           <h2 className="mt-1 text-2xl font-semibold text-monastic-0">{fallbackTitle}</h2>
           <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
-            Install The Narrow Path for quicker access to Today, Daily Reading,
-            prayer, and accountability.
+            Add The Narrow Path to your Home Screen.
           </p>
         </div>
       </div>
