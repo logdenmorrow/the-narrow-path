@@ -11,6 +11,20 @@ type BeforeInstallPromptEvent = Event & {
   userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
 };
 
+type GlobalPwaInstallState = {
+  earlyListenerInstalled?: boolean;
+  beforeInstallPromptFired?: boolean;
+  appInstalledFired?: boolean;
+  deferredPromptAvailable?: boolean;
+};
+
+declare global {
+  interface Window {
+    __TNP_DEFERRED_INSTALL_PROMPT?: BeforeInstallPromptEvent;
+    __TNP_PWA_INSTALL?: GlobalPwaInstallState;
+  }
+}
+
 type DeviceInfo = {
   isMobile: boolean;
   isAndroid: boolean;
@@ -24,9 +38,26 @@ type Diagnostics = {
   serviceWorkerSupported: boolean;
   serviceWorkerRegistered: boolean;
   serviceWorkerController: boolean;
+  serviceWorkerRegistrationScope: string;
+  serviceWorkerActiveScriptUrl: string;
+  serviceWorkerControllerScriptUrl: string;
   manifestUrl: string;
   manifestFetchOk: boolean | null;
+  manifestStartUrl: string;
+  manifestScope: string;
+  manifestDisplay: string;
+  manifestIconCount: number | string;
+  manifestHas192Icon: boolean | null;
+  manifestHas512Icon: boolean | null;
+  manifestHasMaskableIcon: boolean | null;
+  startUrlFetchStatus: string;
+  startUrlContentType: string;
+  startUrlSameOrigin: boolean | null;
   serviceWorkerFetchOk: boolean | null;
+  earlyListenerInstalled: boolean;
+  earlyBeforeInstallPromptFired: boolean;
+  reactBeforeInstallPromptFired: boolean;
+  deferredPromptAvailable: boolean;
   displayMode: string;
 };
 
@@ -95,12 +126,20 @@ function getDeviceInfo(): DeviceInfo {
   return { isMobile, isAndroid, isIos, isChromium, browserFamily };
 }
 
+function getGlobalPwaState() {
+  return window.__TNP_PWA_INSTALL ?? {};
+}
+
+function getGlobalDeferredPrompt() {
+  return window.__TNP_DEFERRED_INSTALL_PROMPT ?? null;
+}
+
 function StatusBadge({
   label,
   value,
 }: {
   label: string;
-  value: boolean | string | null;
+  value: boolean | number | string | null;
 }) {
   const isBoolean = typeof value === "boolean";
   const tone = value === true ? "good" : value === false ? "muted" : "neutral";
@@ -110,7 +149,7 @@ function StatusBadge({
       <span className="text-monastic-1">{label}</span>
       <span
         className={cn(
-          "shrink-0 font-semibold text-monastic-0",
+          "min-w-0 text-right font-semibold text-monastic-0 break-all",
           tone === "good" && "text-[#4f7357] dark:text-[#a7ccb9]",
           tone === "muted" && "text-monastic-2"
         )}
@@ -136,15 +175,25 @@ export function PwaInstallPrompt({
   const [installOutcome, setInstallOutcome] = useState<"accepted" | "dismissed" | null>(null);
   const [beforeInstallPromptFired, setBeforeInstallPromptFired] = useState(false);
   const [appInstalledFired, setAppInstalledFired] = useState(false);
+  const [earlyBeforeInstallPromptFired, setEarlyBeforeInstallPromptFired] = useState(false);
+  const [earlyListenerInstalled, setEarlyListenerInstalled] = useState(false);
   const [diagnostics, setDiagnostics] = useState<Diagnostics | null>(null);
 
   const debugEnabled = showDiagnostics || debugFromQuery;
 
   useEffect(() => {
+    const globalState = getGlobalPwaState();
+    const globalPrompt = getGlobalDeferredPrompt();
+
     setDeviceInfo(getDeviceInfo());
     setIsStandalone(getStandaloneMode());
     setIsDismissed(sessionStorage.getItem(INSTALL_DISMISSED_KEY) === "true");
     setDebugFromQuery(new URLSearchParams(window.location.search).get("debug") === "1");
+    setDeferredPrompt(globalPrompt);
+    setEarlyListenerInstalled(Boolean(globalState.earlyListenerInstalled));
+    setEarlyBeforeInstallPromptFired(Boolean(globalState.beforeInstallPromptFired));
+    setBeforeInstallPromptFired(Boolean(globalState.beforeInstallPromptFired));
+    setAppInstalledFired(Boolean(globalState.appInstalledFired));
 
     const standaloneMedia = window.matchMedia("(display-mode: standalone)");
     const handleStandaloneChange = () => setIsStandalone(getStandaloneMode());
@@ -158,7 +207,15 @@ export function PwaInstallPrompt({
     const handleBeforeInstallPrompt = (event: Event) => {
       event.preventDefault();
       setBeforeInstallPromptFired(true);
+      setEarlyBeforeInstallPromptFired(Boolean(getGlobalPwaState().beforeInstallPromptFired));
       setDeferredPrompt(event as BeforeInstallPromptEvent);
+      setIsDismissed(false);
+    };
+
+    const handleGlobalBeforeInstallPrompt = () => {
+      setEarlyBeforeInstallPromptFired(true);
+      setBeforeInstallPromptFired(true);
+      setDeferredPrompt(getGlobalDeferredPrompt());
       setIsDismissed(false);
     };
 
@@ -170,11 +227,15 @@ export function PwaInstallPrompt({
     };
 
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("tnp-beforeinstallprompt", handleGlobalBeforeInstallPrompt);
     window.addEventListener("appinstalled", handleAppInstalled);
+    window.addEventListener("tnp-appinstalled", handleAppInstalled);
 
     return () => {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      window.removeEventListener("tnp-beforeinstallprompt", handleGlobalBeforeInstallPrompt);
       window.removeEventListener("appinstalled", handleAppInstalled);
+      window.removeEventListener("tnp-appinstalled", handleAppInstalled);
     };
   }, []);
 
@@ -183,21 +244,82 @@ export function PwaInstallPrompt({
 
     async function loadDiagnostics() {
       const manifestUrl = `${window.location.origin}/manifest.webmanifest`;
-      const initialDiagnostics: Diagnostics = {
+      const initialDiagnostics = {
         isSecureContext: window.isSecureContext,
         serviceWorkerSupported: "serviceWorker" in navigator,
         serviceWorkerRegistered: false,
         serviceWorkerController: Boolean(navigator.serviceWorker?.controller),
+        serviceWorkerRegistrationScope: "None",
+        serviceWorkerActiveScriptUrl: "None",
+        serviceWorkerControllerScriptUrl: navigator.serviceWorker?.controller?.scriptURL ?? "None",
         manifestUrl,
         manifestFetchOk: null,
+        manifestStartUrl: "Unknown",
+        manifestScope: "Unknown",
+        manifestDisplay: "Unknown",
+        manifestIconCount: "Unknown",
+        manifestHas192Icon: null,
+        manifestHas512Icon: null,
+        manifestHasMaskableIcon: null,
+        startUrlFetchStatus: "Unknown",
+        startUrlContentType: "Unknown",
+        startUrlSameOrigin: null,
         serviceWorkerFetchOk: null,
+        earlyListenerInstalled,
+        earlyBeforeInstallPromptFired,
+        reactBeforeInstallPromptFired: beforeInstallPromptFired,
+        deferredPromptAvailable: Boolean(deferredPrompt ?? getGlobalDeferredPrompt()),
         displayMode: getDisplayMode(),
       };
 
-      const [manifestResult, serviceWorkerResult] = await Promise.allSettled([
-        fetch("/manifest.webmanifest", { cache: "no-store" }),
-        fetch("/sw.js", { cache: "no-store" }),
-      ]);
+      let manifestFetchOk = false;
+      let serviceWorkerFetchOk = false;
+      let manifestStartUrl = "Unknown";
+      let manifestScope = "Unknown";
+      let manifestDisplay = "Unknown";
+      let manifestIconCount: number | string = "Unknown";
+      let manifestHas192Icon: boolean | null = null;
+      let manifestHas512Icon: boolean | null = null;
+      let manifestHasMaskableIcon: boolean | null = null;
+      let startUrlFetchStatus = "Unknown";
+      let startUrlContentType = "Unknown";
+      let startUrlSameOrigin: boolean | null = null;
+
+      try {
+        const manifestResponse = await fetch("/manifest.webmanifest", { cache: "no-store" });
+        manifestFetchOk = manifestResponse.ok;
+        const manifest = await manifestResponse.json();
+        const icons = Array.isArray(manifest.icons) ? manifest.icons : [];
+
+        manifestStartUrl = typeof manifest.start_url === "string" ? manifest.start_url : "Missing";
+        manifestScope = typeof manifest.scope === "string" ? manifest.scope : "Missing";
+        manifestDisplay = typeof manifest.display === "string" ? manifest.display : "Missing";
+        manifestIconCount = icons.length;
+        manifestHas192Icon = icons.some((icon: { sizes?: string }) =>
+          icon.sizes?.split(/\s+/).includes("192x192")
+        );
+        manifestHas512Icon = icons.some((icon: { sizes?: string }) =>
+          icon.sizes?.split(/\s+/).includes("512x512")
+        );
+        manifestHasMaskableIcon = icons.some((icon: { purpose?: string }) =>
+          icon.purpose?.split(/\s+/).includes("maskable")
+        );
+
+        const startUrl = new URL(manifestStartUrl, window.location.origin);
+        startUrlSameOrigin = startUrl.origin === window.location.origin;
+        const startUrlResponse = await fetch(startUrl.href, { cache: "no-store" });
+        startUrlFetchStatus = String(startUrlResponse.status);
+        startUrlContentType = startUrlResponse.headers.get("content-type") ?? "None";
+      } catch {
+        manifestFetchOk = false;
+      }
+
+      try {
+        const serviceWorkerResponse = await fetch("/sw.js", { cache: "no-store" });
+        serviceWorkerFetchOk = serviceWorkerResponse.ok;
+      } catch {
+        serviceWorkerFetchOk = false;
+      }
 
       if (!isMounted) {
         return;
@@ -212,14 +334,31 @@ export function PwaInstallPrompt({
         return;
       }
 
+      const globalState = getGlobalPwaState();
+
       setDiagnostics({
         ...initialDiagnostics,
         serviceWorkerRegistered: Boolean(registration),
         serviceWorkerController: Boolean(navigator.serviceWorker?.controller),
-        manifestFetchOk:
-          manifestResult.status === "fulfilled" ? manifestResult.value.ok : false,
-        serviceWorkerFetchOk:
-          serviceWorkerResult.status === "fulfilled" ? serviceWorkerResult.value.ok : false,
+        serviceWorkerRegistrationScope: registration?.scope ?? "None",
+        serviceWorkerActiveScriptUrl: registration?.active?.scriptURL ?? "None",
+        serviceWorkerControllerScriptUrl: navigator.serviceWorker?.controller?.scriptURL ?? "None",
+        manifestFetchOk,
+        manifestStartUrl,
+        manifestScope,
+        manifestDisplay,
+        manifestIconCount,
+        manifestHas192Icon,
+        manifestHas512Icon,
+        manifestHasMaskableIcon,
+        startUrlFetchStatus,
+        startUrlContentType,
+        startUrlSameOrigin,
+        serviceWorkerFetchOk,
+        earlyListenerInstalled: Boolean(globalState.earlyListenerInstalled),
+        earlyBeforeInstallPromptFired: Boolean(globalState.beforeInstallPromptFired),
+        reactBeforeInstallPromptFired: beforeInstallPromptFired,
+        deferredPromptAvailable: Boolean(deferredPrompt ?? getGlobalDeferredPrompt()),
         displayMode: getDisplayMode(),
       });
     }
@@ -248,7 +387,14 @@ export function PwaInstallPrompt({
       isMounted = false;
       navigator.serviceWorker?.removeEventListener("controllerchange", handleControllerChange);
     };
-  }, [appInstalledFired, beforeInstallPromptFired, debugEnabled]);
+  }, [
+    appInstalledFired,
+    beforeInstallPromptFired,
+    debugEnabled,
+    deferredPrompt,
+    earlyBeforeInstallPromptFired,
+    earlyListenerInstalled,
+  ]);
 
   const canUseNativePrompt =
     Boolean(deferredPrompt) &&
@@ -280,9 +426,15 @@ export function PwaInstallPrompt({
 
     setInstallOutcome(choice.outcome);
     setIsPrompting(false);
+    setDeferredPrompt(null);
+    window.__TNP_DEFERRED_INSTALL_PROMPT = undefined;
+    window.__TNP_PWA_INSTALL = {
+      ...getGlobalPwaState(),
+      deferredPromptAvailable: false,
+    };
 
     if (choice.outcome === "accepted") {
-      setDeferredPrompt(null);
+      setAppInstalledFired(true);
     }
   }
 
@@ -465,8 +617,31 @@ function InstallDiagnostics({
         <StatusBadge label="Service worker registered" value={diagnostics.serviceWorkerRegistered} />
         <StatusBadge label="Service worker controlling page" value={diagnostics.serviceWorkerController} />
         <StatusBadge label="Manifest fetch" value={diagnostics.manifestFetchOk} />
+        <StatusBadge label="Manifest start URL" value={diagnostics.manifestStartUrl} />
+        <StatusBadge label="Manifest scope" value={diagnostics.manifestScope} />
+        <StatusBadge label="Manifest display" value={diagnostics.manifestDisplay} />
+        <StatusBadge label="Manifest icon count" value={diagnostics.manifestIconCount} />
+        <StatusBadge label="Has 192 icon" value={diagnostics.manifestHas192Icon} />
+        <StatusBadge label="Has 512 icon" value={diagnostics.manifestHas512Icon} />
+        <StatusBadge label="Has maskable icon" value={diagnostics.manifestHasMaskableIcon} />
+        <StatusBadge label="Start URL fetch status" value={diagnostics.startUrlFetchStatus} />
+        <StatusBadge label="Start URL content type" value={diagnostics.startUrlContentType} />
+        <StatusBadge label="Start URL same origin" value={diagnostics.startUrlSameOrigin} />
         <StatusBadge label="Service worker fetch" value={diagnostics.serviceWorkerFetchOk} />
+        <StatusBadge label="SW registration scope" value={diagnostics.serviceWorkerRegistrationScope} />
+        <StatusBadge label="SW active script" value={diagnostics.serviceWorkerActiveScriptUrl} />
+        <StatusBadge label="SW controller script" value={diagnostics.serviceWorkerControllerScriptUrl} />
         <StatusBadge label="Standalone mode active" value={isStandalone} />
+        <StatusBadge label="Early listener installed" value={diagnostics.earlyListenerInstalled} />
+        <StatusBadge
+          label="Early beforeinstallprompt caught"
+          value={diagnostics.earlyBeforeInstallPromptFired}
+        />
+        <StatusBadge
+          label="React beforeinstallprompt caught"
+          value={diagnostics.reactBeforeInstallPromptFired}
+        />
+        <StatusBadge label="Deferred prompt available" value={diagnostics.deferredPromptAvailable} />
         <StatusBadge label="beforeinstallprompt fired" value={beforeInstallPromptFired} />
         <StatusBadge label="appinstalled fired" value={appInstalledFired} />
         <StatusBadge label="Install choice" value={installOutcome ?? "None yet"} />

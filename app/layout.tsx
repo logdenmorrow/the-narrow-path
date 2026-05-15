@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { Suspense } from "react";
 import { AuthDebugPanel } from "@/components/auth-debug-panel";
 import AuthNav from "@/components/auth-nav";
@@ -18,6 +19,34 @@ import { createClient } from "@/lib/supabase/server";
 import { getCommunityName, normalizeTrack } from "@/lib/track";
 import "./globals.css";
 
+const pwaInstallListenerScript = `
+(function () {
+  if (typeof window === "undefined") return;
+  var state = window.__TNP_PWA_INSTALL || {};
+  window.__TNP_PWA_INSTALL = state;
+  if (state.earlyListenerInstalled) return;
+
+  state.earlyListenerInstalled = true;
+  state.beforeInstallPromptFired = Boolean(state.beforeInstallPromptFired);
+  state.appInstalledFired = Boolean(state.appInstalledFired);
+  state.deferredPromptAvailable = Boolean(window.__TNP_DEFERRED_INSTALL_PROMPT);
+
+  window.addEventListener("beforeinstallprompt", function (event) {
+    event.preventDefault();
+    window.__TNP_DEFERRED_INSTALL_PROMPT = event;
+    state.beforeInstallPromptFired = true;
+    state.deferredPromptAvailable = true;
+    window.dispatchEvent(new CustomEvent("tnp-beforeinstallprompt"));
+  });
+
+  window.addEventListener("appinstalled", function () {
+    window.__TNP_DEFERRED_INSTALL_PROMPT = undefined;
+    state.appInstalledFired = true;
+    state.deferredPromptAvailable = false;
+    window.dispatchEvent(new CustomEvent("tnp-appinstalled"));
+  });
+})();
+`;
 
 export const metadata: Metadata = {
   title: "The Narrow Path",
@@ -80,6 +109,11 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <Script
+        id="tnp-pwa-install-listener"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: pwaInstallListenerScript }}
+      />
       <body className="monastic-shell" data-auth-debug-default={authDebugEnabled ? "true" : "false"}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ServiceWorkerRegister />

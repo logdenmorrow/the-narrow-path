@@ -7,9 +7,10 @@ export default function manifest(): MetadataRoute.Manifest {
     description:
       "A Catholic accountability app for prayer, discipline, the sacraments, and perseverance.",
     id: "/",
-    start_url: "/today",
+    start_url: "/app",
     scope: "/",
     display: "standalone",
+    display_override: ["standalone", "minimal-ui"],
     orientation: "portrait",
     background_color: "#f5efe1",
     theme_color: "#6d4729",
