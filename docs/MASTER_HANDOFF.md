@@ -1372,6 +1372,22 @@ Daily reminder notifications Phase 2B is complete and verified:
 - Android and iPhone received reminder notifications successfully.
 - Notification taps opened Today successfully.
 
+Phase 2B hardening note:
+
+- The installed PWA hit a stale Next.js Server Action error after deployment when saving reminder settings: "Server Action ... was not found on the server."
+- Restarting the app fixed it, confirming this was a stale PWA/client bundle issue.
+- Daily reminder settings save no longer uses a Server Action.
+- `app/settings/actions.ts` was removed.
+- Stable API route added: `POST /api/settings/daily-reminder`.
+- `components/daily-reminder-settings.tsx` now saves with `fetch("/api/settings/daily-reminder")`.
+- The API route requires the signed-in Supabase user and derives `user_id` server-side from `supabase.auth.getUser()`.
+- The client does not send or control `user_id`.
+- The API route validates `enabled`, `local_time`, and `timezone`; if `enabled = true`, both `local_time` and `timezone` are required.
+- No cron/reminder-send behavior changed.
+- No service worker or push logic changed.
+- Installed Android app testing confirmed changing the reminder time worked, changing it back worked, and the Supabase preference row updated correctly.
+- Operational note: for installed PWA settings forms, prefer stable API routes over Server Actions when stale client/server-action IDs could cause post-deploy save failures.
+
 Important reminder operations notes:
 
 - `CRON_SECRET` is required in both Unraid/runtime container env and GitHub Actions repository secrets.
