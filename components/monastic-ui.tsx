@@ -4,17 +4,17 @@ import { cn } from "@/lib/utils";
 type PageFrameProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function PageFrame({ className, ...props }: PageFrameProps) {
-  return <div className={cn("monastic-frame py-6 sm:py-10 lg:py-12", className)} {...props} />;
+  return <div className={cn("monastic-frame min-w-0 max-w-full py-6 sm:py-10 lg:py-12", className)} {...props} />;
 }
 
 type SurfaceProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function SurfaceCard({ className, ...props }: SurfaceProps) {
-  return <div className={cn("monastic-card p-4 sm:p-6", className)} {...props} />;
+  return <div className={cn("monastic-card min-w-0 max-w-full p-4 sm:p-6", className)} {...props} />;
 }
 
 export function SurfaceInset({ className, ...props }: SurfaceProps) {
-  return <div className={cn("monastic-subcard p-3.5 sm:p-5", className)} {...props} />;
+  return <div className={cn("monastic-subcard min-w-0 max-w-full p-3.5 sm:p-5", className)} {...props} />;
 }
 
 type SectionHeaderProps = {
@@ -42,7 +42,7 @@ export function SectionHeader({
         className
       )}
     >
-      <div className="space-y-3">
+      <div className="min-w-0 max-w-full space-y-3">
         {kicker ? <div className="section-kicker">{kicker}</div> : null}
         <div className="section-rule">
           <h2 className="text-2xl font-semibold tracking-tight text-monastic-0 sm:text-4xl">

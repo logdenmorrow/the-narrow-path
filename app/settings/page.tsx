@@ -50,7 +50,7 @@ export default async function SettingsPage() {
             title="Device notifications"
             description="Enable or disable notifications for this browser or Home Screen app."
           />
-          <div className="mt-4">
+          <div className="mt-4 min-w-0 max-w-full">
             <PushNotificationControl />
           </div>
         </SurfaceCard>
@@ -61,7 +61,7 @@ export default async function SettingsPage() {
             title="Daily reminder"
             description="Choose one daily reminder time for this account. It will send to your enabled devices once reminder sending is turned on."
           />
-          <div className="mt-4">
+          <div className="mt-4 min-w-0 max-w-full">
             <DailyReminderSettings
               initialEnabled={reminderPreference?.enabled ?? false}
               initialLocalTime={reminderPreference?.local_time ?? "09:00"}
@@ -70,7 +70,7 @@ export default async function SettingsPage() {
           </div>
         </SurfaceCard>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid min-w-0 max-w-full gap-4 sm:grid-cols-2">
           <SurfaceInset>
             <div className="section-kicker">Support</div>
             <h2 className="mt-2 text-xl font-semibold text-monastic-0">
@@ -79,7 +79,7 @@ export default async function SettingsPage() {
             <p className="mt-2 text-sm leading-6 text-monastic-1">
               Send a bug report or describe anything confusing.
             </p>
-            <Button asChild variant="outline" size="sm" className="mt-4">
+            <Button asChild variant="outline" size="sm" className="mt-4 w-full sm:w-auto">
               <Link href="/support">
                 <LifeBuoy aria-hidden="true" />
                 Support
@@ -95,7 +95,7 @@ export default async function SettingsPage() {
             <p className="mt-2 text-sm leading-6 text-monastic-1">
               Open install guidance for iPhone, iPad, and Android.
             </p>
-            <Button asChild variant="outline" size="sm" className="mt-4">
+            <Button asChild variant="outline" size="sm" className="mt-4 w-full sm:w-auto">
               <Link href="/install">
                 <Download aria-hidden="true" />
                 Install
