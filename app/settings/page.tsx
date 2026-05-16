@@ -2,9 +2,16 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Download, LifeBuoy } from "lucide-react";
 import { PageFrame, SectionHeader, SurfaceCard, SurfaceInset } from "@/components/monastic-ui";
+import { DailyReminderSettings } from "@/components/daily-reminder-settings";
 import { PushNotificationControl } from "@/components/push-notification-control";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
+
+type ReminderPreferenceRow = {
+  enabled: boolean;
+  local_time: string | null;
+  timezone: string | null;
+};
 
 export default async function SettingsPage() {
   const supabase = await createClient();
@@ -16,6 +23,12 @@ export default async function SettingsPage() {
   if (error || !user) {
     redirect("/auth/login");
   }
+
+  const { data: reminderPreference } = await supabase
+    .from("notification_reminder_preferences")
+    .select("enabled, local_time, timezone")
+    .eq("user_id", user.id)
+    .maybeSingle<ReminderPreferenceRow>();
 
   return (
     <main className="monastic-page">
@@ -39,6 +52,21 @@ export default async function SettingsPage() {
           />
           <div className="mt-4">
             <PushNotificationControl />
+          </div>
+        </SurfaceCard>
+
+        <SurfaceCard>
+          <SectionHeader
+            kicker="Reminders"
+            title="Daily reminder"
+            description="Choose one daily reminder time for this account. It will send to your enabled devices once reminder sending is turned on."
+          />
+          <div className="mt-4">
+            <DailyReminderSettings
+              initialEnabled={reminderPreference?.enabled ?? false}
+              initialLocalTime={reminderPreference?.local_time ?? "09:00"}
+              initialTimezone={reminderPreference?.timezone ?? null}
+            />
           </div>
         </SurfaceCard>
 
