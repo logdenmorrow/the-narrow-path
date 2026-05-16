@@ -6,8 +6,15 @@ import { sendSupportRequestEmail } from "@/lib/support-email";
 import { createClient } from "@/lib/supabase/server";
 import { normalizeTrack } from "@/lib/track";
 
-const ISSUE_TYPES = new Set(["bug", "confusing_behavior", "account_issue", "other"]);
+const ISSUE_TYPES = new Set([
+  "bug",
+  "layout_display_issue",
+  "confusing_behavior",
+  "account_issue",
+  "other",
+]);
 const SEVERITIES = new Set(["low", "medium", "high"]);
+const ALLOWED_PAGE_URL_HOSTNAMES = new Set(["thenarrowpath.xyz", "www.thenarrowpath.xyz"]);
 
 function cleanText(value: FormDataEntryValue | null, maxLength: number) {
   return String(value ?? "").trim().slice(0, maxLength);
@@ -21,6 +28,29 @@ function normalizeIssueType(value: FormDataEntryValue | null) {
 function normalizeSeverity(value: FormDataEntryValue | null) {
   const severity = String(value ?? "medium").trim();
   return SEVERITIES.has(severity) ? severity : "medium";
+}
+
+function normalizePageUrl(value: FormDataEntryValue | null) {
+  const pageUrl = cleanText(value, 500);
+
+  if (!pageUrl) {
+    return null;
+  }
+
+  try {
+    const parsedUrl = new URL(pageUrl);
+
+    if (
+      (parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:") &&
+      ALLOWED_PAGE_URL_HOSTNAMES.has(parsedUrl.hostname)
+    ) {
+      return pageUrl;
+    }
+  } catch {
+    return "";
+  }
+
+  return "";
 }
 
 export async function submitSupportRequest(formData: FormData) {
@@ -38,10 +68,14 @@ export async function submitSupportRequest(formData: FormData) {
   const severity = normalizeSeverity(formData.get("severity"));
   const title = cleanText(formData.get("title"), 160);
   const description = cleanText(formData.get("description"), 5000);
-  const pageUrl = cleanText(formData.get("page_url"), 500) || null;
+  const pageUrl = normalizePageUrl(formData.get("page_url"));
 
   if (!issueType || !title || !description) {
     redirect("/support?error=missing");
+  }
+
+  if (pageUrl === "") {
+    redirect("/support?error=url");
   }
 
   const { data: profileData } = await supabase

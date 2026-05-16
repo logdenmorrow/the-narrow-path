@@ -13,6 +13,14 @@ type SupportEmailPayload = {
   createdAt: string;
 };
 
+const ISSUE_TYPE_LABELS: Record<string, string> = {
+  bug: "Bug",
+  layout_display_issue: "Layout / display issue",
+  confusing_behavior: "Confusing behavior",
+  account_issue: "Account issue",
+  other: "Other",
+};
+
 function getSupportFromEmail() {
   return process.env.SUPPORT_FROM_EMAIL || "The Narrow Path <onboarding@resend.dev>";
 }
@@ -36,7 +44,7 @@ export async function sendSupportRequestEmail(payload: SupportEmailPayload) {
   }
 
   const text = [
-    `Type: ${payload.issueType}`,
+    `Type: ${ISSUE_TYPE_LABELS[payload.issueType] ?? payload.issueType}`,
     `Severity: ${payload.severity}`,
     `From email: ${payload.fromEmail ?? "Unknown"}`,
     `Track: ${payload.track}`,

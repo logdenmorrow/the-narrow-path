@@ -53,6 +53,8 @@ export default async function SupportPage({
             <div className="mt-5 rounded-[1rem] border border-red-700/40 bg-red-950/20 px-4 py-3 text-sm text-red-100">
               {errorCode === "missing"
                 ? "Add a type, title, and description before sending."
+                : errorCode === "url"
+                  ? "Use a thenarrowpath.xyz page URL, or leave the field blank."
                 : "Something went wrong saving that report. Try again in a minute."}
             </div>
           ) : null}
@@ -65,6 +67,7 @@ export default async function SupportPage({
                 </label>
                 <select id="issue_type" name="issue_type" required className="monastic-field">
                   <option value="bug">Bug</option>
+                  <option value="layout_display_issue">Layout / display issue</option>
                   <option value="confusing_behavior">Confusing behavior</option>
                   <option value="account_issue">Account issue</option>
                   <option value="other">Other</option>
@@ -106,16 +109,21 @@ export default async function SupportPage({
 
             <div className="grid gap-2">
               <label htmlFor="page_url" className="text-sm font-medium text-monastic-1">
-                Page URL
+                Page URL from The Narrow Path
               </label>
               <input
                 id="page_url"
                 name="page_url"
                 type="url"
-                placeholder="https://..."
+                inputMode="url"
+                pattern="https?://(www\.)?thenarrowpath\.xyz([/?#].*)?"
+                placeholder="https://thenarrowpath.xyz/today"
                 maxLength={500}
                 className="monastic-field"
               />
+              <p className="text-xs leading-5 text-monastic-3">
+                Optional, but helpful. Use the page where you noticed the issue.
+              </p>
             </div>
 
             <div>
