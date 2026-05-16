@@ -6,6 +6,48 @@ const SAFE_STATIC_ASSETS = [
   "/maskable-icon-192.png",
   "/maskable-icon-512.png",
 ];
+const DEFAULT_NOTIFICATION_TITLE = "The Narrow Path";
+const DEFAULT_NOTIFICATION_BODY = "You have a new notification from The Narrow Path.";
+const DEFAULT_NOTIFICATION_URL = "/today";
+const NOTIFICATION_ICON = "/app-icon-192.png";
+const NOTIFICATION_BADGE = "/app-icon-192.png";
+
+function getStringValue(value) {
+  return typeof value === "string" && value.trim() ? value.trim() : null;
+}
+
+function getSafeNotificationPath(value) {
+  const rawValue = getStringValue(value);
+
+  if (!rawValue || rawValue.startsWith("//")) {
+    return DEFAULT_NOTIFICATION_URL;
+  }
+
+  try {
+    const url = new URL(rawValue, self.location.origin);
+
+    if (url.origin !== self.location.origin) {
+      return DEFAULT_NOTIFICATION_URL;
+    }
+
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return DEFAULT_NOTIFICATION_URL;
+  }
+}
+
+function getPushPayload(event) {
+  if (!event.data) {
+    return {};
+  }
+
+  try {
+    const payload = event.data.json();
+    return payload && typeof payload === "object" ? payload : {};
+  } catch {
+    return {};
+  }
+}
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -24,6 +66,69 @@ self.addEventListener("activate", (event) => {
         Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
       )
       .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener("push", (event) => {
+  const payload = getPushPayload(event);
+  const title = getStringValue(payload.title) || DEFAULT_NOTIFICATION_TITLE;
+  const body = getStringValue(payload.body) || DEFAULT_NOTIFICATION_BODY;
+  const url = getSafeNotificationPath(payload.url);
+
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      body,
+      icon: NOTIFICATION_ICON,
+      badge: NOTIFICATION_BADGE,
+      data: { url },
+    })
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+
+  const targetPath = getSafeNotificationPath(event.notification.data?.url);
+  const targetUrl = new URL(targetPath, self.location.origin).href;
+
+  event.waitUntil(
+    clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then(async (clientList) => {
+        const sameOriginClients = clientList.filter((client) => {
+          try {
+            return new URL(client.url).origin === self.location.origin;
+          } catch {
+            return false;
+          }
+        });
+
+        const exactClient = sameOriginClients.find((client) => {
+          try {
+            const clientUrl = new URL(client.url);
+            return `${clientUrl.pathname}${clientUrl.search}${clientUrl.hash}` === targetPath;
+          } catch {
+            return false;
+          }
+        });
+
+        if (exactClient) {
+          return exactClient.focus();
+        }
+
+        const existingClient = sameOriginClients[0];
+
+        if (existingClient) {
+          if ("navigate" in existingClient) {
+            const navigatedClient = await existingClient.navigate(targetUrl);
+            return (navigatedClient || existingClient).focus();
+          }
+
+          return existingClient.focus();
+        }
+
+        return clients.openWindow(targetUrl);
+      })
   );
 });
 
