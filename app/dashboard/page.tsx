@@ -17,6 +17,7 @@ import {
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 import { DashboardLoginRedirectClear } from "@/components/dashboard-login-redirect-clear";
+import { PushNotificationControl } from "@/components/push-notification-control";
 import {
   getViewTrackFromSearchParams,
   resolveEffectiveTrack,
@@ -691,6 +692,17 @@ export default async function DashboardPage({
             </div>
           </SurfaceCard>
         </div>
+
+        <SurfaceCard>
+          <SectionHeader
+            kicker="Notifications"
+            title="This device can receive gentle prompts."
+            description="Enable or disable push notifications for the browser or Home Screen app you are using now."
+          />
+          <div className="mt-4">
+            <PushNotificationControl />
+          </div>
+        </SurfaceCard>
 
         {yesterdayDay && (
           <SurfaceCard
