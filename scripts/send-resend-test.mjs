@@ -1,7 +1,4 @@
-import { loadEnvConfig } from "@next/env";
 import { Resend } from "resend";
-
-loadEnvConfig(process.cwd());
 
 const PLACEHOLDER_API_KEY = "re_xxxxxxxxx";
 
