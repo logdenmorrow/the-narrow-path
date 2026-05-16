@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Clock, LocateFixed } from "lucide-react";
-import { saveDailyReminderPreference } from "@/app/settings/actions";
 import { Button } from "@/components/ui/button";
 
 type DailyReminderSettingsProps = {
@@ -38,7 +37,7 @@ export function DailyReminderSettings({
   const [detectedTimezone, setDetectedTimezone] = useState("");
   const [message, setMessage] = useState("Reminder sending is not active yet.");
   const [error, setError] = useState<string | null>(null);
-  const [isPending, startTransition] = useTransition();
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     const detected = detectTimezone();
@@ -65,27 +64,42 @@ export function DailyReminderSettings({
     setError("Could not detect this device timezone.");
   };
 
-  const savePreference = () => {
+  const savePreference = async () => {
     setError(null);
     setMessage("Saving reminder preference...");
+    setIsSaving(true);
 
-    startTransition(async () => {
-      try {
-        await saveDailyReminderPreference({
+    try {
+      const response = await fetch("/api/settings/daily-reminder", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
           enabled,
-          localTime,
+          local_time: localTime,
           timezone,
-        });
-        setMessage("Daily reminder preference saved. Reminder sending is not active yet.");
-      } catch (saveError) {
-        setError(
-          saveError instanceof Error
-            ? saveError.message
-            : "Could not save reminder preference."
-        );
-        setMessage("Reminder sending is not active yet.");
+        }),
+      });
+      const result = (await response.json().catch(() => null)) as {
+        error?: string;
+      } | null;
+
+      if (!response.ok) {
+        throw new Error(result?.error || "Could not save reminder preference.");
       }
-    });
+
+      setMessage("Daily reminder preference saved. Reminder sending is not active yet.");
+    } catch (saveError) {
+      setError(
+        saveError instanceof Error
+          ? saveError.message
+          : "Could not save reminder preference."
+      );
+      setMessage("Reminder sending is not active yet.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -116,7 +130,7 @@ export function DailyReminderSettings({
             checked={enabled}
             onChange={(event) => setEnabled(event.target.checked)}
             className="h-4 w-4 accent-[color:var(--surface-strong)]"
-            disabled={isPending}
+            disabled={isSaving}
           />
           Enable daily reminder
         </label>
@@ -131,7 +145,7 @@ export function DailyReminderSettings({
             value={localTime}
             onChange={(event) => setLocalTime(event.target.value)}
             className="monastic-field"
-            disabled={isPending}
+            disabled={isSaving}
           />
         </div>
       </div>
@@ -147,7 +161,7 @@ export function DailyReminderSettings({
             onChange={(event) => setTimezone(event.target.value)}
             className="monastic-field"
             placeholder="America/New_York"
-            disabled={isPending}
+            disabled={isSaving}
           />
           <p className="text-xs leading-5 text-monastic-2">
             Detected: {detectedTimezone || "Unavailable"}
@@ -159,7 +173,7 @@ export function DailyReminderSettings({
           variant="outline"
           size="sm"
           onClick={useDetectedTimezone}
-          disabled={isPending}
+          disabled={isSaving}
         >
           <LocateFixed aria-hidden="true" />
           Use Detected
@@ -167,9 +181,9 @@ export function DailyReminderSettings({
       </div>
 
       <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <Button type="button" size="sm" onClick={savePreference} disabled={isPending}>
+        <Button type="button" size="sm" onClick={savePreference} disabled={isSaving}>
           <Clock aria-hidden="true" />
-          {isPending ? "Saving..." : "Save Reminder"}
+          {isSaving ? "Saving..." : "Save Reminder"}
         </Button>
         <p className="text-sm leading-6 text-monastic-1">{message}</p>
       </div>
