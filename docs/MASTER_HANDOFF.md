@@ -1293,7 +1293,6 @@ Backburner PWA polish:
 - Add manifest screenshots for richer Android/Chrome install UI.
 - Improve generated Android splash/loading screen appearance.
 - Possible later mobile install gate, but not yet.
-- Push notifications are the next major phase.
 
 Current planning decision:
 
@@ -1311,15 +1310,52 @@ iOS bundle ID: com.thenarrowpath.app
 Android package ID: com.thenarrowpath.app
 ```
 
-Push notification tables were discussed only as future ideas:
+### 2026-05-16 PWA Push Notifications Phase 2A completed
 
-```text
-push_devices
-notification_preferences
-notification_log
-```
+PWA push notifications Phase 2A is complete and verified:
 
-No implementation occurred in the planning chats.
+- Uses standards-based Web Push + VAPID, not Firebase.
+- Supabase remains the backend.
+- Migration `20260516_add_push_notification_foundation.sql` was created and applied.
+- Tables: `push_subscriptions`, `notification_broadcasts`, `notification_deliveries`.
+- RLS and explicit grants were added.
+- Users can manage their own push subscriptions.
+- Admin/broadcast/delivery access is admin/service-role controlled.
+- `NEXT_PUBLIC_VAPID_PUBLIC_KEY` must be available at Docker build time.
+- `VAPID_PRIVATE_KEY` and `VAPID_SUBJECT` are runtime-only env vars and must not be exposed to client bundles or Docker build args.
+- GitHub Actions passes `NEXT_PUBLIC_VAPID_PUBLIC_KEY` as a Docker build arg.
+- Unraid/runtime container has `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, and `VAPID_SUBJECT`.
+- `public/sw.js` has minimal push and notification click handlers.
+- The service worker still does not cache protected Supabase/auth/task/community data.
+- Notification click target defaults to `/app`, not `/today`, so clicks route through the public app launch route and then land on Today when signed in.
+- Signed-in users can enable/disable push notifications from Settings.
+- `/settings` exists and is reachable from the mobile top-right account menu.
+- Android and iPhone Home Screen PWA subscriptions were both tested and saved successfully.
+- Admin test notification flow works.
+- Admin can send a test notification to a selected user email without making that participant account an admin.
+- Participant account should remain non-admin.
+- Admin broadcast composer works and sends to all active opted-in device subscriptions.
+- Broadcast UI should say “all opted-in devices,” not “all users.”
+- Test and broadcast notifications were verified on Android and iPhone.
+- Notification taps land correctly on Today through `/app`.
+
+Important push/admin architecture notes:
+
+- Admin route checks currently use `ADMIN_EMAILS` env var through `isAllowedAdminEmail`.
+- Supabase RLS admin policies use `public.is_app_admin()`.
+- These are separate admin sources and should not be confused.
+- Do not make `lrnester1@gmail.com` an admin long-term just for notification testing.
+- `lrnester1+admin@gmail.com` is the intended admin/operator account.
+- `lrnester1@gmail.com` is the intended participant account.
+
+Backburner push notification phases:
+
+- User-configurable reminder slots are not implemented yet.
+- Cron/scheduled notification sends are not implemented yet.
+- Quiet hours/timezone reminder handling is not implemented yet.
+- Group/track-specific broadcast targeting is not implemented yet.
+- Delivery dashboard/history can be improved later.
+- Admin sources of truth may eventually need cleanup/unification.
 
 ---
 
