@@ -7,6 +7,62 @@ import { createClient } from "@/lib/supabase/server";
 const TEST_TITLE = "The Narrow Path";
 const TEST_BODY = "Test notification from The Narrow Path.";
 const TEST_URL = "/today";
+const USERS_PAGE_SIZE = 1000;
+
+function normalizeEmail(value: unknown) {
+  return typeof value === "string" ? value.trim().toLowerCase() : "";
+}
+
+async function readTargetEmail(request: Request, fallbackEmail?: string | null) {
+  let body: unknown = null;
+
+  try {
+    body = await request.json();
+  } catch {
+    body = null;
+  }
+
+  if (body && typeof body === "object" && "targetEmail" in body) {
+    return normalizeEmail((body as { targetEmail?: unknown }).targetEmail);
+  }
+
+  return normalizeEmail(fallbackEmail);
+}
+
+async function findUserByEmail({
+  admin,
+  email,
+}: {
+  admin: ReturnType<typeof createAdminClient>;
+  email: string;
+}) {
+  let page = 1;
+
+  while (true) {
+    const { data, error } = await admin.auth.admin.listUsers({
+      page,
+      perPage: USERS_PAGE_SIZE,
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    const user = data.users.find(
+      (candidate) => candidate.email?.toLowerCase() === email
+    );
+
+    if (user) {
+      return user;
+    }
+
+    if (data.users.length < USERS_PAGE_SIZE) {
+      return null;
+    }
+
+    page += 1;
+  }
+}
 
 export async function POST(request: Request) {
   const unauthorizedResponse = await authorizeAdminRoute(request);
@@ -25,6 +81,31 @@ export async function POST(request: Request) {
   }
 
   const admin = createAdminClient();
+  const targetEmail = await readTargetEmail(request, user.email);
+
+  if (!targetEmail) {
+    return NextResponse.json({ error: "Target email is required." }, { status: 400 });
+  }
+
+  let targetUser;
+
+  try {
+    targetUser = await findUserByEmail({ admin, email: targetEmail });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Unable to look up target user.";
+    return NextResponse.json(
+      { error: `Unable to look up target user: ${message}` },
+      { status: 500 }
+    );
+  }
+
+  if (!targetUser) {
+    return NextResponse.json(
+      { error: `No user found for ${targetEmail}.` },
+      { status: 404 }
+    );
+  }
 
   const { data: broadcast, error: broadcastError } = await admin
     .from("notification_broadcasts")
@@ -49,7 +130,7 @@ export async function POST(request: Request) {
   const { data: subscriptions, error: subscriptionsError } = await admin
     .from("push_subscriptions")
     .select("id, user_id, endpoint, p256dh, auth, failure_count")
-    .eq("user_id", user.id)
+    .eq("user_id", targetUser.id)
     .eq("is_active", true)
     .order("last_seen_at", { ascending: false });
 
@@ -79,17 +160,18 @@ export async function POST(request: Request) {
         success_count: 0,
         failure_count: 0,
         revoked_count: 0,
-        error_message: "No active subscriptions for current admin user.",
+        error_message: `No active subscriptions for ${targetEmail}.`,
       })
       .eq("id", broadcast.id);
 
     return NextResponse.json({
       broadcastId: broadcast.id,
+      targetEmail,
       attempted: 0,
       succeeded: 0,
       failed: 0,
       revoked: 0,
-      message: "No active subscriptions for the current admin user.",
+      message: `No active subscriptions for ${targetEmail}.`,
     });
   }
 
@@ -161,6 +243,7 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     broadcastId: broadcast.id,
+    targetEmail,
     ...summary,
   });
 }

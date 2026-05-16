@@ -31,7 +31,7 @@ export default async function AdminNotificationsPage() {
                 Notifications
               </h1>
               <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
-                Send a safe test push to your own active devices before broadcast tools exist.
+                Send a safe test push to a selected user before broadcast tools exist.
               </p>
             </div>
 
@@ -53,13 +53,13 @@ export default async function AdminNotificationsPage() {
             detail={
               countError
                 ? countError.message
-                : "Current active push subscriptions tied to your admin account."
+                : "Current active push subscriptions tied to your admin account. The test form can target another user by email."
             }
           />
           <MetricCard
             label="Audience"
             value="Admin Test"
-            detail="This phase only sends to your own active devices."
+            detail="This phase sends only to the selected user email."
           />
         </div>
 
@@ -67,10 +67,10 @@ export default async function AdminNotificationsPage() {
           <SectionHeader
             kicker="Test Send"
             title="Send a test notification."
-            description="This creates an admin_test notification record and attempts delivery only to your active device subscriptions."
+            description="This creates an admin_test notification record and attempts delivery only to active subscriptions for the email below."
           />
           <div className="mt-5">
-            <AdminNotificationTestButton />
+            <AdminNotificationTestButton defaultTargetEmail={user.email ?? ""} />
           </div>
         </SurfaceCard>
       </PageFrame>
