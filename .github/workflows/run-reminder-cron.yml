@@ -1,0 +1,40 @@
+name: Run reminder cron
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  run-reminder-cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call daily reminder cron endpoint
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          REMINDER_CRON_URL: https://thenarrowpath.xyz/api/cron/push/reminders
+        run: |
+          set -euo pipefail
+
+          if [ -z "${CRON_SECRET}" ]; then
+            echo "CRON_SECRET is not configured."
+            exit 1
+          fi
+
+          response_file="$(mktemp)"
+          http_code="$(
+            curl --silent --show-error \
+              --request GET \
+              --header "Authorization: Bearer ${CRON_SECRET}" \
+              --output "${response_file}" \
+              --write-out "%{http_code}" \
+              "${REMINDER_CRON_URL}"
+          )"
+
+          echo "Reminder cron HTTP status: ${http_code}"
+          echo "Reminder cron response:"
+          cat "${response_file}"
+
+          if [ "${http_code}" -lt 200 ] || [ "${http_code}" -ge 300 ]; then
+            exit 1
+          fi
