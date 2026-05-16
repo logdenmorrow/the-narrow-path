@@ -1347,6 +1347,7 @@ Important push/admin architecture notes:
 - Do not make `lrnester1@gmail.com` an admin long-term just for notification testing.
 - `lrnester1+admin@gmail.com` is the intended admin/operator account.
 - `lrnester1@gmail.com` is the intended participant account.
+- Backburner: unify admin source of truth later. Either make app route checks use `app_admins`, or make database policies align cleanly with `ADMIN_EMAILS`. Do not accidentally make participant accounts admin.
 
 Backburner push notification phases:
 
