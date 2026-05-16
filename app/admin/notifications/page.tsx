@@ -6,6 +6,7 @@ import {
   SurfaceCard,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { AdminNotificationBroadcastForm } from "@/app/admin/notifications/broadcast-form";
 import { AdminNotificationTestButton } from "@/app/admin/notifications/test-button";
 import { requireAdminUser } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -18,6 +19,10 @@ export default async function AdminNotificationsPage() {
     .from("push_subscriptions")
     .select("id", { count: "exact", head: true })
     .eq("user_id", user.id)
+    .eq("is_active", true);
+  const { count: allActiveSubscriptionCount, error: allCountError } = await admin
+    .from("push_subscriptions")
+    .select("id", { count: "exact", head: true })
     .eq("is_active", true);
 
   return (
@@ -46,7 +51,7 @@ export default async function AdminNotificationsPage() {
           </div>
         </HeroPanel>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-3">
           <MetricCard
             label="Your Active Devices"
             value={countError ? "Error" : `${activeSubscriptionCount ?? 0}`}
@@ -57,9 +62,18 @@ export default async function AdminNotificationsPage() {
             }
           />
           <MetricCard
+            label="All Active Devices"
+            value={allCountError ? "Error" : `${allActiveSubscriptionCount ?? 0}`}
+            detail={
+              allCountError
+                ? allCountError.message
+                : "Every opted-in active device subscription."
+            }
+          />
+          <MetricCard
             label="Audience"
-            value="Admin Test"
-            detail="This phase sends only to the selected user email."
+            value="Test + Broadcast"
+            detail="Test by email, or broadcast to all opted-in devices."
           />
         </div>
 
@@ -71,6 +85,17 @@ export default async function AdminNotificationsPage() {
           />
           <div className="mt-5">
             <AdminNotificationTestButton defaultTargetEmail={user.email ?? ""} />
+          </div>
+        </SurfaceCard>
+
+        <SurfaceCard>
+          <SectionHeader
+            kicker="Broadcast"
+            title="Send to all opted-in devices."
+            description="This creates an all_active notification record and attempts delivery to every active push subscription. Keep the message generic."
+          />
+          <div className="mt-5">
+            <AdminNotificationBroadcastForm />
           </div>
         </SurfaceCard>
       </PageFrame>
