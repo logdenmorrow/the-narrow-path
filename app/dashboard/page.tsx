@@ -658,6 +658,11 @@ export default async function DashboardPage({
                   Auth Reports
                 </Link>
               )}
+              {isAdmin && (
+                <Link href="/admin/support" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                  Support Tickets
+                </Link>
+              )}
             </div>
           </SurfaceCard>
 

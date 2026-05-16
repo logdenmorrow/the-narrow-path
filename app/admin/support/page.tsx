@@ -8,8 +8,12 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { Button } from "@/components/ui/button";
+import { closeSupportRequest } from "@/app/admin/support/actions";
 import { requireAdminUser } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
+
+type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
 type SupportRequestRow = {
   id: string;
@@ -26,6 +30,22 @@ type SupportRequestRow = {
   created_at: string;
 };
 
+const issueTypeLabels: Record<string, string> = {
+  bug: "Bug",
+  layout_display_issue: "Layout / display issue",
+  confusing_behavior: "Confusing behavior",
+  account_issue: "Account issue",
+  other: "Other",
+};
+
+function getSearchParam(
+  searchParams: Record<string, string | string[] | undefined>,
+  key: string
+) {
+  const value = searchParams[key];
+  return Array.isArray(value) ? value[0] : value;
+}
+
 function formatDate(value: string) {
   return new Date(value).toLocaleString("en-US", {
     month: "short",
@@ -35,9 +55,28 @@ function formatDate(value: string) {
   });
 }
 
-export default async function AdminSupportPage() {
+function formatIssueType(value: string) {
+  return issueTypeLabels[value] ?? formatSimpleLabel(value);
+}
+
+function formatSimpleLabel(value: string) {
+  return value
+    .split(/[_\s-]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+export default async function AdminSupportPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   await requireAdminUser();
 
+  const resolvedSearchParams = await searchParams;
+  const closed = getSearchParam(resolvedSearchParams, "closed") === "1";
+  const errorCode = getSearchParam(resolvedSearchParams, "error");
   let requests: SupportRequestRow[] = [];
   let loadError: string | null = null;
 
@@ -84,6 +123,18 @@ export default async function AdminSupportPage() {
           </div>
         </HeroPanel>
 
+        {closed ? (
+          <div className="rounded-[1rem] border border-emerald-700/40 bg-emerald-950/20 px-4 py-3 text-sm text-emerald-100">
+            Ticket closed.
+          </div>
+        ) : null}
+
+        {errorCode === "close" ? (
+          <div className="rounded-[1rem] border border-red-700/40 bg-red-950/20 px-4 py-3 text-sm text-red-100">
+            Could not close that ticket. Try again.
+          </div>
+        ) : null}
+
         <div className="grid gap-4 sm:grid-cols-3">
           <MetricCard label="Total Loaded" value={`${requests.length}`} detail="Latest 100 requests." />
           <MetricCard
@@ -122,7 +173,8 @@ export default async function AdminSupportPage() {
                   <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
                     <div>
                       <p className="section-kicker">
-                        {request.issue_type} / {request.severity} / {request.status}
+                        {formatIssueType(request.issue_type)} / {formatSimpleLabel(request.severity)} /{" "}
+                        {formatSimpleLabel(request.status)}
                       </p>
                       <h2 className="mt-2 text-2xl font-semibold text-monastic-0">
                         {request.title}
@@ -132,13 +184,26 @@ export default async function AdminSupportPage() {
                       </p>
                     </div>
 
-                    {request.page_url ? (
-                      <Link
-                        href={request.page_url}
-                        className="inline-flex h-10 items-center rounded-[1rem] border border-monastic px-4 text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]"
-                      >
-                        Open Page
-                      </Link>
+                    {request.page_url || request.status === "open" ? (
+                      <div className="flex flex-wrap gap-3">
+                        {request.page_url ? (
+                          <Link
+                            href={request.page_url}
+                            className="inline-flex h-10 items-center rounded-[1rem] border border-monastic px-4 text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]"
+                          >
+                            Open Page
+                          </Link>
+                        ) : null}
+
+                        {request.status === "open" ? (
+                          <form action={closeSupportRequest}>
+                            <input type="hidden" name="id" value={request.id} />
+                            <Button type="submit" variant="secondary" size="sm">
+                              Close Ticket
+                            </Button>
+                          </form>
+                        ) : null}
+                      </div>
                     ) : null}
                   </div>
 
