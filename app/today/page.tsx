@@ -4,7 +4,7 @@ import { AppActionBar } from "@/components/page-actions";
 import { AdminViewTrackSwitcher } from "@/components/admin-view-track-switcher";
 import { DailyStatusCard } from "@/components/daily-status-card";
 import { PrayerRequestCard } from "@/components/prayer-request-card";
-import { PwaInstallPrompt } from "@/components/pwa-install-prompt";
+import { SoftMobileInstallPrompt } from "@/components/pwa-install-prompt";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import {
@@ -510,7 +510,7 @@ export default async function TodayPage({
           />
         ) : null}
 
-        <PwaInstallPrompt className="sm:hidden" mobileOnly title="Install Narrow Path" />
+        <SoftMobileInstallPrompt className="sm:hidden" />
 
         <HeroPanel className="py-7 sm:py-8">
           <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">

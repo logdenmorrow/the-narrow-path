@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { CheckCircle2, Download, Info, Smartphone } from "lucide-react";
 
@@ -69,6 +70,7 @@ type PwaInstallPromptProps = {
 };
 
 const INSTALL_DISMISSED_KEY = "narrow-path-install-dismissed-session";
+const SOFT_INSTALL_DISMISSED_KEY = "narrow-path-soft-install-dismissed-session";
 
 function getStandaloneMode() {
   if (typeof window === "undefined") {
@@ -567,6 +569,85 @@ export function PwaInstallPrompt({
           />
         </div>
       ) : null}
+    </section>
+  );
+}
+
+export function SoftMobileInstallPrompt({ className }: { className?: string }) {
+  const [deviceInfo, setDeviceInfo] = useState<DeviceInfo | null>(null);
+  const [isStandalone, setIsStandalone] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(false);
+  const [appInstalledFired, setAppInstalledFired] = useState(false);
+
+  useEffect(() => {
+    const globalState = getGlobalPwaState();
+
+    setDeviceInfo(getDeviceInfo());
+    setIsStandalone(getStandaloneMode());
+    setIsDismissed(sessionStorage.getItem(SOFT_INSTALL_DISMISSED_KEY) === "true");
+    setAppInstalledFired(Boolean(globalState.appInstalledFired));
+
+    const standaloneMedia = window.matchMedia("(display-mode: standalone)");
+    const handleStandaloneChange = () => setIsStandalone(getStandaloneMode());
+    const handleAppInstalled = () => {
+      setAppInstalledFired(true);
+      setIsStandalone(true);
+    };
+
+    standaloneMedia.addEventListener("change", handleStandaloneChange);
+    window.addEventListener("appinstalled", handleAppInstalled);
+    window.addEventListener("tnp-appinstalled", handleAppInstalled);
+
+    return () => {
+      standaloneMedia.removeEventListener("change", handleStandaloneChange);
+      window.removeEventListener("appinstalled", handleAppInstalled);
+      window.removeEventListener("tnp-appinstalled", handleAppInstalled);
+    };
+  }, []);
+
+  function handleDismiss() {
+    sessionStorage.setItem(SOFT_INSTALL_DISMISSED_KEY, "true");
+    setIsDismissed(true);
+  }
+
+  if (!deviceInfo?.isMobile || isStandalone || appInstalledFired || isDismissed) {
+    return null;
+  }
+
+  return (
+    <section
+      className={cn(
+        "rounded-[1.2rem] border border-[color:var(--line-soft)] bg-[color:var(--surface-1)] p-4 shadow-[0_18px_42px_-34px_rgba(19,12,8,0.72)]",
+        className
+      )}
+    >
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[color:var(--line-soft)] bg-[color:var(--surface-2)] text-[color:var(--surface-strong)]">
+          <Smartphone aria-hidden className="h-5 w-5" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h2 className="text-xl font-semibold text-monastic-0">
+            Add The Narrow Path to your Home Screen
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-monastic-1">
+            Open The Narrow Path like an app from your phone.
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <Button asChild className="w-full sm:w-auto">
+          <Link href="/install">Install</Link>
+        </Button>
+        <Button
+          className="w-full sm:w-auto"
+          onClick={handleDismiss}
+          type="button"
+          variant="ghost"
+        >
+          Not now
+        </Button>
+      </div>
     </section>
   );
 }
