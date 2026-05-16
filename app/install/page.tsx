@@ -83,6 +83,21 @@ export default function InstallPage() {
           <InstructionCard title="iPhone" steps={iphoneSteps} />
           <InstructionCard title="Android" steps={androidSteps} />
         </div>
+
+        <SurfaceCard className="border-[color:var(--line-soft)] bg-[color:var(--surface-1)]/70">
+          <div className="section-kicker">Recommended browsers</div>
+          <div className="mt-3 grid gap-2 text-sm leading-6 text-monastic-1 sm:grid-cols-2 sm:text-base">
+            <p>
+              <span className="font-semibold text-monastic-0">iPhone:</span> Safari
+            </p>
+            <p>
+              <span className="font-semibold text-monastic-0">Android:</span> Chrome
+            </p>
+          </div>
+          <p className="mt-3 text-sm leading-6 text-monastic-2">
+            Other browsers may work, but install options can vary.
+          </p>
+        </SurfaceCard>
       </PageFrame>
     </main>
   );
