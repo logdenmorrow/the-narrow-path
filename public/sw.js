@@ -8,7 +8,7 @@ const SAFE_STATIC_ASSETS = [
 ];
 const DEFAULT_NOTIFICATION_TITLE = "The Narrow Path";
 const DEFAULT_NOTIFICATION_BODY = "You have a new notification from The Narrow Path.";
-const DEFAULT_NOTIFICATION_URL = "/today";
+const DEFAULT_NOTIFICATION_URL = "/app";
 const NOTIFICATION_ICON = "/app-icon-192.png";
 const NOTIFICATION_BADGE = "/app-icon-192.png";
 

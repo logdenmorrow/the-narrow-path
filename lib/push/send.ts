@@ -45,7 +45,7 @@ function getSafePayload(payload: PushPayload) {
   return {
     title,
     body,
-    url: url && url.startsWith("/") && !url.startsWith("//") ? url : "/today",
+    url: url && url.startsWith("/") && !url.startsWith("//") ? url : "/app",
   };
 }
 

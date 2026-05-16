@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 
 const TEST_TITLE = "The Narrow Path";
 const TEST_BODY = "Test notification from The Narrow Path.";
-const TEST_URL = "/today";
+const TEST_URL = "/app";
 const USERS_PAGE_SIZE = 1000;
 
 function normalizeEmail(value: unknown) {
