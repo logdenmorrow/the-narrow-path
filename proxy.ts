@@ -16,7 +16,11 @@ const PUBLIC_PWA_PATHS = new Set([
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  if (pathname.startsWith("/api/groupme") || PUBLIC_PWA_PATHS.has(pathname)) {
+  if (
+    pathname.startsWith("/api/groupme") ||
+    pathname.startsWith("/api/cron") ||
+    PUBLIC_PWA_PATHS.has(pathname)
+  ) {
     return NextResponse.next();
   }
 
