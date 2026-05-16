@@ -1269,6 +1269,32 @@ Caution: one implementation added extra Supabase queries instead of reusing page
 
 Mobile app planning favored Capacitor.
 
+### 2026-05-16 PWA/Home Screen Phase 1 completed
+
+PWA/Home Screen Phase 1 is complete as a temporary app path before Capacitor/App Store work:
+
+- Android Chrome install works with the native install prompt.
+- iPhone Safari Add to Home Screen works.
+- Installed Android and iPhone versions open standalone/app-like.
+- `/install` is a public instructional page.
+- `/today` has a soft mobile install prompt for signed-in mobile browser users.
+- The prompt does not show in standalone/PWA mode.
+- `Not now` dismisses the prompt for the current browser session.
+- Recommended browsers on `/install`: iPhone Safari and Android Chrome.
+- Other browsers may work, but install behavior varies.
+- The service worker is intentionally minimal and only supports installability/static icon caching.
+- No protected Supabase/auth/task/community data is cached offline.
+- Docker standalone images must copy `/public` so `/sw.js`, icons, and favicons are served.
+- Browser favicon is separate from PWA/Home Screen icons.
+- Mobile scrolling performance was improved with mobile-only CSS reductions.
+
+Backburner PWA polish:
+
+- Add manifest screenshots for richer Android/Chrome install UI.
+- Improve generated Android splash/loading screen appearance.
+- Possible later mobile install gate, but not yet.
+- Push notifications are the next major phase.
+
 Current planning decision:
 
 - keep Next.js/Supabase web app as core
