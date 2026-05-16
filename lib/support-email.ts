@@ -1,5 +1,7 @@
 import "server-only";
 
+import { getResendClient, isMissingResendApiKey } from "@/lib/resend";
+
 type SupportEmailPayload = {
   issueType: string;
   severity: string;
@@ -17,15 +19,17 @@ function getSupportFromEmail() {
 
 export function getMissingSupportEmailEnvVars() {
   return ["SUPPORT_NOTIFY_EMAIL", "RESEND_API_KEY"].filter(
-    (name) => !process.env[name]
+    (name) =>
+      name === "RESEND_API_KEY"
+        ? isMissingResendApiKey()
+        : !process.env[name]
   );
 }
 
 export async function sendSupportRequestEmail(payload: SupportEmailPayload) {
-  const apiKey = process.env.RESEND_API_KEY;
   const notifyEmail = process.env.SUPPORT_NOTIFY_EMAIL;
 
-  if (!apiKey || !notifyEmail) {
+  if (isMissingResendApiKey() || !notifyEmail) {
     throw new Error(
       `Missing support email environment variable(s): ${getMissingSupportEmailEnvVars().join(", ")}`
     );
@@ -45,22 +49,14 @@ export async function sendSupportRequestEmail(payload: SupportEmailPayload) {
     `Created time: ${payload.createdAt}`,
   ].join("\n");
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: getSupportFromEmail(),
-      to: [notifyEmail],
-      subject: `[The Narrow Path] ${payload.severity}: ${payload.title}`,
-      text,
-    }),
+  const { error } = await getResendClient().emails.send({
+    from: getSupportFromEmail(),
+    to: [notifyEmail],
+    subject: `[The Narrow Path] ${payload.severity}: ${payload.title}`,
+    text,
   });
 
-  if (!response.ok) {
-    const body = await response.text();
-    throw new Error(`Resend email failed with ${response.status}: ${body}`);
+  if (error) {
+    throw new Error(`Resend email failed: ${error.message}`);
   }
 }

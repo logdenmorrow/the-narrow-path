@@ -173,3 +173,20 @@ curl -X GET "http://localhost:3000/api/groupme/nightly-reminder?target=test&dryR
 curl -X GET "http://localhost:3000/api/groupme/nightly-reminder?target=prod" ^
   -H "Authorization: Bearer YOUR_CRON_SECRET"
 ```
+
+## Resend email
+
+Add your Resend API key to `.env.local`:
+
+```env
+RESEND_API_KEY=re_xxxxxxxxx
+SUPPORT_NOTIFY_EMAIL=lrnester1@gmail.com
+```
+
+Replace `re_xxxxxxxxx` with your real Resend API key.
+
+Send a local test email:
+
+```bash
+npm run email:test
+```

@@ -5,6 +5,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "email:test": "node --env-file=.env.local scripts/send-resend-test.mjs",
     "import:night-prayer": "node scripts/import-night-prayer.mjs",
     "migrate:reflection-encryption": "node scripts/migrate-reflection-encryption.mjs"
   },
@@ -22,6 +23,7 @@
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "resend": "^6.12.3",
     "tailwind-merge": "^3.3.0",
     "web-push": "^3.6.7"
   },
