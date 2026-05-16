@@ -1349,11 +1349,49 @@ Important push/admin architecture notes:
 - `lrnester1@gmail.com` is the intended participant account.
 - Backburner: unify admin source of truth later. Either make app route checks use `app_admins`, or make database policies align cleanly with `ADMIN_EMAILS`. Do not accidentally make participant accounts admin.
 
+### 2026-05-16 Daily Reminder Notifications Phase 2B completed
+
+Daily reminder notifications Phase 2B is complete and verified:
+
+- Users can configure one daily reminder from `/settings`.
+- Reminder preference is per-user, not per-device.
+- Settings UI saves `enabled`, `local_time`, and `timezone`.
+- Timezone is detected client-side with `Intl.DateTimeFormat().resolvedOptions().timeZone`.
+- `America/New_York` was tested successfully.
+- Reminder preferences are stored in `notification_reminder_preferences`.
+- Reminder send/dedupe logs are stored in `notification_reminder_sends`.
+- Cron route exists at `/api/cron/push/reminders` and is protected by `CRON_SECRET`.
+- GitHub Actions calls the cron route every 5 minutes and also supports manual `workflow_dispatch`.
+- Dry run works with `?dryRun=1`.
+- Non-dry-run sends due reminders.
+- Dedupe works through unique `(user_id, reminder_date)`.
+- Re-running the cron in the same window skips instead of sending duplicate notifications.
+- Reminder notifications use generic safe copy only.
+- Reminder notifications link through `/app` and land on Today.
+- Android and iPhone received reminder notifications successfully.
+- Notification taps opened Today successfully.
+
+Important reminder operations notes:
+
+- `CRON_SECRET` is required in both Unraid/runtime container env and GitHub Actions repository secrets.
+- If `CRON_SECRET` is rotated, update both places.
+- Because the old secret was pasted during testing, rotate it if that has not already been done.
+- GitHub Actions schedule is every 5 minutes.
+- GitHub Actions cron timing may not be exact to the second, so the app uses a lookback window.
+- Current reminder scope is one daily reminder per user.
+
+Future/backburner reminder expansion:
+
+- Keep current Phase 2B as the stable baseline.
+- Later consider preset reminder types before fully custom task reminders, such as Morning Reading/Reflection or Evening Night Prayer/task check-in.
+- Avoid fully custom per-task reminders until task schedule, completion suppression, dedupe, and notification copy rules are designed.
+- Possible future default: 9 PM evening reminder for end-of-day accountability.
+- Do not add multiple reminder slots, quiet hours, track-specific reminders, or task-specific reminders without a separate design pass.
+
 Backburner push notification phases:
 
-- User-configurable reminder slots are not implemented yet.
-- Cron/scheduled notification sends are not implemented yet.
-- Quiet hours/timezone reminder handling is not implemented yet.
+- Additional reminder slots are not implemented yet.
+- Quiet hours are not implemented yet.
 - Group/track-specific broadcast targeting is not implemented yet.
 - Delivery dashboard/history can be improved later.
 - Admin sources of truth may eventually need cleanup/unification.
