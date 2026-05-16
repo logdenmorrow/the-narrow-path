@@ -125,6 +125,7 @@
   li,
   label,
   input,
+  select,
   textarea,
   button,
   a {
@@ -458,18 +459,6 @@
   .monastic-field:disabled {
     cursor: not-allowed;
     opacity: 0.7;
-  }
-
-  input[type="time"].monastic-field {
-    min-width: 0;
-    max-width: 100%;
-    min-inline-size: 0;
-    max-inline-size: 100%;
-  }
-
-  input[type="time"].monastic-field::-webkit-date-and-time-value {
-    min-width: 0;
-    text-align: left;
   }
 
   .monastic-checkbox {

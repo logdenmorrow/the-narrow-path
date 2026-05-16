@@ -10,12 +10,62 @@ type DailyReminderSettingsProps = {
   initialTimezone: string | null;
 };
 
+type TimePeriod = "AM" | "PM";
+
+type TimeParts = {
+  hour: string;
+  minute: string;
+  period: TimePeriod;
+};
+
+const HOUR_OPTIONS = Array.from({ length: 12 }, (_, index) => String(index + 1));
+const MINUTE_OPTIONS = Array.from({ length: 60 }, (_, index) =>
+  String(index).padStart(2, "0")
+);
+const PERIOD_OPTIONS: TimePeriod[] = ["AM", "PM"];
+
 function formatTimeForInput(value: string | null) {
   if (!value) {
     return "09:00";
   }
 
   return value.slice(0, 5);
+}
+
+function parseTimeToParts(value: string | null): TimeParts {
+  const [hourSegment, minuteSegment] = formatTimeForInput(value).split(":");
+  const parsedHour = Number(hourSegment);
+  const parsedMinute = Number(minuteSegment);
+  const hour24 =
+    Number.isInteger(parsedHour) && parsedHour >= 0 && parsedHour <= 23
+      ? parsedHour
+      : 9;
+  const minute =
+    Number.isInteger(parsedMinute) && parsedMinute >= 0 && parsedMinute <= 59
+      ? parsedMinute
+      : 0;
+
+  return {
+    hour: String(hour24 % 12 || 12),
+    minute: String(minute).padStart(2, "0"),
+    period: hour24 >= 12 ? "PM" : "AM",
+  };
+}
+
+function formatPartsToTime({ hour, minute, period }: TimeParts) {
+  const parsedHour = Number(hour);
+  const parsedMinute = Number(minute);
+  const hour12 =
+    Number.isInteger(parsedHour) && parsedHour >= 1 && parsedHour <= 12
+      ? parsedHour
+      : 9;
+  const safeMinute =
+    Number.isInteger(parsedMinute) && parsedMinute >= 0 && parsedMinute <= 59
+      ? parsedMinute
+      : 0;
+  const hour24 = period === "PM" ? (hour12 % 12) + 12 : hour12 % 12;
+
+  return `${String(hour24).padStart(2, "0")}:${String(safeMinute).padStart(2, "0")}`;
 }
 
 function detectTimezone() {
@@ -49,6 +99,11 @@ export function DailyReminderSettings({
   }, [initialTimezone]);
 
   const statusLabel = useMemo(() => (enabled ? "On" : "Off"), [enabled]);
+  const timeParts = useMemo(() => parseTimeToParts(localTime), [localTime]);
+
+  const updateTimePart = (nextParts: TimeParts) => {
+    setLocalTime(formatPartsToTime(nextParts));
+  };
 
   const useDetectedTimezone = () => {
     const detected = detectTimezone();
@@ -136,17 +191,63 @@ export function DailyReminderSettings({
         </label>
 
         <div className="grid min-w-0 max-w-full gap-2">
-          <label htmlFor="daily-reminder-time" className="text-sm font-medium text-monastic-1">
+          <label id="daily-reminder-time-label" className="text-sm font-medium text-monastic-1">
             Local time
           </label>
-          <input
-            id="daily-reminder-time"
-            type="time"
-            value={localTime}
-            onChange={(event) => setLocalTime(event.target.value)}
-            className="monastic-field min-w-0 max-w-full"
-            disabled={isSaving}
-          />
+          <div
+            className="grid min-w-0 max-w-full grid-cols-2 gap-2 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.8fr)]"
+            role="group"
+            aria-labelledby="daily-reminder-time-label"
+          >
+            <select
+              aria-label="Reminder hour"
+              value={timeParts.hour}
+              onChange={(event) =>
+                updateTimePart({ ...timeParts, hour: event.target.value })
+              }
+              className="monastic-field min-w-0 max-w-full px-3 py-2 text-sm sm:px-4 sm:py-[0.85rem]"
+              disabled={isSaving}
+            >
+              {HOUR_OPTIONS.map((hour) => (
+                <option key={hour} value={hour}>
+                  {hour}
+                </option>
+              ))}
+            </select>
+            <select
+              aria-label="Reminder minute"
+              value={timeParts.minute}
+              onChange={(event) =>
+                updateTimePart({ ...timeParts, minute: event.target.value })
+              }
+              className="monastic-field min-w-0 max-w-full px-3 py-2 text-sm sm:px-4 sm:py-[0.85rem]"
+              disabled={isSaving}
+            >
+              {MINUTE_OPTIONS.map((minute) => (
+                <option key={minute} value={minute}>
+                  {minute}
+                </option>
+              ))}
+            </select>
+            <select
+              aria-label="Reminder period"
+              value={timeParts.period}
+              onChange={(event) =>
+                updateTimePart({
+                  ...timeParts,
+                  period: event.target.value as TimePeriod,
+                })
+              }
+              className="monastic-field col-span-2 min-w-0 max-w-full px-3 py-2 text-sm sm:col-span-1 sm:px-4 sm:py-[0.85rem]"
+              disabled={isSaving}
+            >
+              {PERIOD_OPTIONS.map((period) => (
+                <option key={period} value={period}>
+                  {period}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 
