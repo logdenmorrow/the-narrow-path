@@ -9,6 +9,7 @@ import MainNav from "@/components/main-nav";
 import MobileAccountMenu from "@/components/mobile-account-menu";
 import MobileTabBar from "@/components/mobile-tab-bar";
 import ProgressStrip from "@/components/progress-strip";
+import { ReminderOnboardingCard } from "@/components/reminder-onboarding-card";
 import ServiceWorkerRegister from "@/components/service-worker-register";
 import SignOutButton from "@/components/sign-out-button";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -47,6 +48,11 @@ const pwaInstallListenerScript = `
   });
 })();
 `;
+
+type ReminderSlotSummaryRow = {
+  reminder_type: "morning_scripture" | "night_prayer";
+  enabled: boolean;
+};
 
 export const metadata: Metadata = {
   title: "The Narrow Path",
@@ -114,6 +120,17 @@ export default async function RootLayout({
         .eq("id", user.id)
         .maybeSingle()
     : { data: null };
+  const { data: reminderSlots } = user
+    ? await supabase
+        .from("notification_reminder_slots")
+        .select("reminder_type, enabled")
+        .eq("user_id", user.id)
+        .in("reminder_type", ["morning_scripture", "night_prayer"])
+        .returns<ReminderSlotSummaryRow[]>()
+    : { data: null };
+  const hasEnabledReminder = Boolean(
+    reminderSlots?.some((slot) => slot.enabled)
+  );
   const communityName = getCommunityName(normalizeTrack(profileData?.track));
 
   return (
@@ -203,6 +220,9 @@ export default async function RootLayout({
           </header>
 
           <div className={isSignedIn ? "mobile-page-shell" : undefined}>{children}</div>
+          {isSignedIn ? (
+            <ReminderOnboardingCard hasEnabledReminder={hasEnabledReminder} />
+          ) : null}
           {isSignedIn ? <MobileTabBar communityName={communityName} /> : null}
         </ThemeProvider>
       </body>

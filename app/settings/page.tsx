@@ -46,7 +46,7 @@ export default async function SettingsPage() {
           </p>
         </SurfaceCard>
 
-        <SurfaceCard>
+        <SurfaceCard id="notifications" className="scroll-mt-24">
           <SectionHeader
             kicker="Notifications"
             title="Device notifications"
@@ -57,7 +57,7 @@ export default async function SettingsPage() {
           </div>
         </SurfaceCard>
 
-        <SurfaceCard>
+        <SurfaceCard id="reminders" className="scroll-mt-24">
           <SectionHeader
             kicker="Reminders"
             title="Reminders"
