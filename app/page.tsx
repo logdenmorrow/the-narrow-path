@@ -8,6 +8,7 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { ReminderOnboardingCard } from "@/components/reminder-onboarding-card";
 import { syncAdminProfileVisibility } from "@/lib/admin";
 import { getHomepageOverview } from "@/lib/homepage-overview";
 import { createClient } from "@/lib/supabase/server";
@@ -59,6 +60,11 @@ const publicHighlights = [
   },
 ];
 
+type ReminderSlotSummaryRow = {
+  reminder_type: "morning_scripture" | "night_prayer";
+  enabled: boolean;
+};
+
 export default async function HomePage() {
   const supabase = await createClient();
 
@@ -79,7 +85,21 @@ export default async function HomePage() {
     : { data: null };
   const track = normalizeTrack(profileData?.track);
   const communityName = getCommunityName(track);
-  const overview = isSignedIn ? await getHomepageOverview(supabase, track) : null;
+  const userId = user?.id;
+  const [overview, reminderSlots] = userId
+    ? await Promise.all([
+        getHomepageOverview(supabase, track),
+        supabase
+          .from("notification_reminder_slots")
+          .select("reminder_type, enabled")
+          .eq("user_id", userId)
+          .in("reminder_type", ["morning_scripture", "night_prayer"])
+          .returns<ReminderSlotSummaryRow[]>(),
+      ])
+    : [null, { data: null }];
+  const hasEnabledReminder = Boolean(
+    reminderSlots.data?.some((slot) => slot.enabled)
+  );
 
   if (isSignedIn && overview) {
     return (
@@ -161,6 +181,8 @@ export default async function HomePage() {
               </SurfaceCard>
             </div>
           </HeroPanel>
+
+          <ReminderOnboardingCard hasEnabledReminder={hasEnabledReminder} />
 
           <section className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
             <SurfaceCard>
