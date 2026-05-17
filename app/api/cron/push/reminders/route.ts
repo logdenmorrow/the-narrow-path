@@ -3,8 +3,12 @@ import { authorizeCronRequest } from "@/lib/route-auth";
 import { sendPushNotification, type PushSubscriptionRow } from "@/lib/push/send";
 import { createAdminClient } from "@/lib/supabase/admin";
 
-type ReminderPreferenceRow = {
+type ReminderType = "morning_scripture" | "night_prayer";
+
+type ReminderSlotRow = {
+  id: string;
   user_id: string;
+  reminder_type: ReminderType;
   local_time: string | null;
   timezone: string | null;
 };
@@ -15,6 +19,8 @@ type LocalDateTimeParts = {
 };
 
 type DueReminder = {
+  reminder_slot_id: string;
+  reminder_type: ReminderType;
   user_id: string;
   reminder_date: string;
   local_time: string;
@@ -32,8 +38,11 @@ type ReminderSendSummary = DueReminder & {
 const DEFAULT_LOOKBACK_MINUTES = 90;
 const MAX_LOOKBACK_MINUTES = 90;
 const REMINDER_TITLE = "The Narrow Path";
-const REMINDER_BODY = "Time to return to your daily rhythm.";
 const REMINDER_URL = "/app";
+const REMINDER_BODY_BY_TYPE: Record<ReminderType, string> = {
+  morning_scripture: "Start the day with Scripture.",
+  night_prayer: "End the day in prayer.",
+};
 
 function getLookbackMinutes(value: string | null) {
   const parsed = Number(value);
@@ -260,6 +269,8 @@ async function sendDueReminder({
     .from("notification_reminder_sends")
     .insert({
       user_id: reminder.user_id,
+      reminder_slot_id: reminder.reminder_slot_id,
+      reminder_type: reminder.reminder_type,
       reminder_date: reminder.reminder_date,
       timezone: reminder.timezone,
       local_time: reminder.local_time,
@@ -283,13 +294,15 @@ async function sendDueReminder({
     throw new Error(reminderSendError.message);
   }
 
+  const reminderBody = REMINDER_BODY_BY_TYPE[reminder.reminder_type];
+
   const { data: broadcast, error: broadcastError } = await admin
     .from("notification_broadcasts")
     .insert({
       title: REMINDER_TITLE,
-      body: REMINDER_BODY,
+      body: reminderBody,
       target_url: REMINDER_URL,
-      audience: "daily_reminder",
+      audience: `reminder:${reminder.reminder_type}`,
       status: "sending",
     })
     .select("id")
@@ -365,7 +378,7 @@ async function sendDueReminder({
         subscription,
         payload: {
           title: REMINDER_TITLE,
-          body: REMINDER_BODY,
+          body: reminderBody,
           url: REMINDER_URL,
         },
       });
@@ -378,8 +391,9 @@ async function sendDueReminder({
         summary.failed += 1;
       }
     } catch (error) {
-      console.error("Daily reminder push send failed.", {
+      console.error("Reminder push send failed.", {
         userId: reminder.user_id,
+        reminderType: reminder.reminder_type,
         reminderDate: reminder.reminder_date,
         error,
       });
@@ -436,45 +450,48 @@ export async function GET(request: NextRequest) {
   const admin = createAdminClient();
 
   const { data, error } = await admin
-    .from("notification_reminder_preferences")
-    .select("user_id, local_time, timezone")
+    .from("notification_reminder_slots")
+    .select("id, user_id, reminder_type, local_time, timezone")
     .eq("enabled", true)
     .not("local_time", "is", null)
-    .not("timezone", "is", null);
+    .not("timezone", "is", null)
+    .order("sort_order", { ascending: true });
 
   if (error) {
     return NextResponse.json(
-      { error: `Unable to load reminder preferences: ${error.message}` },
+      { error: `Unable to load reminder slots: ${error.message}` },
       { status: 500 }
     );
   }
 
-  const preferences = (data ?? []) as ReminderPreferenceRow[];
-  const due: DueReminder[] = preferences.flatMap((preference) => {
+  const slots = (data ?? []) as ReminderSlotRow[];
+  const due: DueReminder[] = slots.flatMap((slot) => {
     const reminderDate = findDueReminderDate({
-      localTime: preference.local_time,
-      timezone: preference.timezone,
+      localTime: slot.local_time,
+      timezone: slot.timezone,
       now,
       lookbackMinutes,
     });
 
-    if (!reminderDate || !preference.timezone || !preference.local_time) {
+    if (!reminderDate || !slot.timezone || !slot.local_time) {
       return [];
     }
 
     return [
       {
-        user_id: preference.user_id,
+        reminder_slot_id: slot.id,
+        reminder_type: slot.reminder_type,
+        user_id: slot.user_id,
         reminder_date: reminderDate,
-        local_time: preference.local_time.slice(0, 5),
-        timezone: preference.timezone,
+        local_time: slot.local_time.slice(0, 5),
+        timezone: slot.timezone,
       },
     ];
   });
 
   if (dryRun) {
-    console.log("Daily reminder due detection checked preferences.", {
-      checkedCount: preferences.length,
+    console.log("Reminder due detection checked slots.", {
+      checkedCount: slots.length,
       dueCount: due.length,
       lookbackMinutes,
       dryRun,
@@ -485,7 +502,7 @@ export async function GET(request: NextRequest) {
       detectionOnly: true,
       now: now.toISOString(),
       lookbackMinutes,
-      checkedCount: preferences.length,
+      checkedCount: slots.length,
       dueCount: due.length,
       sentCount: 0,
       skippedCount: 0,
@@ -504,8 +521,9 @@ export async function GET(request: NextRequest) {
     try {
       results.push(await sendDueReminder({ admin, reminder }));
     } catch (error) {
-      console.error("Daily reminder send failed.", {
+      console.error("Reminder send failed.", {
         userId: reminder.user_id,
+        reminderType: reminder.reminder_type,
         reminderDate: reminder.reminder_date,
         error,
       });
@@ -530,8 +548,8 @@ export async function GET(request: NextRequest) {
     { attempted: 0, succeeded: 0, failed: 0, revoked: 0 }
   );
 
-  console.log("Daily reminder cron processed due reminders.", {
-    checkedCount: preferences.length,
+  console.log("Reminder cron processed due reminders.", {
+    checkedCount: slots.length,
     dueCount: due.length,
     sentCount: results.filter((result) => result.status === "sent").length,
     skippedCount: results.filter((result) => result.status === "skipped").length,
@@ -544,7 +562,7 @@ export async function GET(request: NextRequest) {
     detectionOnly: false,
     now: now.toISOString(),
     lookbackMinutes,
-    checkedCount: preferences.length,
+    checkedCount: slots.length,
     dueCount: due.length,
     sentCount: results.filter((result) => result.status === "sent").length,
     skippedCount: results.filter((result) => result.status === "skipped").length,

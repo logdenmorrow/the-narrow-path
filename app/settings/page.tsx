@@ -13,6 +13,13 @@ type ReminderPreferenceRow = {
   timezone: string | null;
 };
 
+type ReminderSlotRow = {
+  reminder_type: "morning_scripture" | "night_prayer";
+  enabled: boolean;
+  local_time: string | null;
+  timezone: string | null;
+};
+
 export default async function SettingsPage() {
   const supabase = await createClient();
   const {
@@ -23,6 +30,13 @@ export default async function SettingsPage() {
   if (error || !user) {
     redirect("/auth/login");
   }
+
+  const { data: reminderSlots } = await supabase
+    .from("notification_reminder_slots")
+    .select("reminder_type, enabled, local_time, timezone")
+    .eq("user_id", user.id)
+    .order("sort_order", { ascending: true })
+    .returns<ReminderSlotRow[]>();
 
   const { data: reminderPreference } = await supabase
     .from("notification_reminder_preferences")
@@ -58,14 +72,13 @@ export default async function SettingsPage() {
         <SurfaceCard>
           <SectionHeader
             kicker="Reminders"
-            title="Daily reminder"
-            description="Choose one daily reminder time for this account. It will send to your enabled devices once reminder sending is turned on."
+            title="Reminders"
+            description="Choose the preset reminder times for this account. Reminders send to enabled devices for this account."
           />
           <div className="mt-4 min-w-0 max-w-full">
             <DailyReminderSettings
-              initialEnabled={reminderPreference?.enabled ?? false}
-              initialLocalTime={reminderPreference?.local_time ?? "09:00"}
-              initialTimezone={reminderPreference?.timezone ?? null}
+              initialSlots={reminderSlots ?? []}
+              legacyPreference={reminderPreference ?? null}
             />
           </div>
         </SurfaceCard>
