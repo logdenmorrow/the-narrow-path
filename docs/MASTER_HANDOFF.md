@@ -1,10 +1,10 @@
 # The Narrow Path — Master Project Handoff
 
-**Replacement handoff version:** 2026-05-13  
+**Replacement handoff version:** 2026-05-17  
 **Project domain:** thenarrowpath.xyz  
 **Repository:** logdenmorrow/the-narrow-path  
 **Preferred source format:** Markdown  
-**Purpose:** This document replaces the older May 9, 2026 PDF handoff and consolidates the original project history, ChatGPT Project audits, Codex Cloud audits, and local repo-history audit into one current source-of-truth document for future ChatGPT Project context.
+**Purpose:** This document replaces the older May 9, 2026 PDF handoff and consolidates the original project history, ChatGPT Project audits, Codex Cloud audits, local repo-history audit, and the May 17 reminder/branding/tone cleanup checkpoint into one current source-of-truth document for future ChatGPT Project context.
 
 ---
 
@@ -47,6 +47,65 @@ This handoff should be read as a product/architecture guide, not as proof that e
 
 ---
 
+## 1A. May 17, 2026 Current Checkpoint
+
+This version incorporates the May 17 production work completed after the May 13 handoff.
+
+### Reminder system checkpoint
+
+The old single daily reminder model was replaced with two preset reminder slots:
+
+| Reminder type | Title | Body | Default idea |
+|---|---|---|---|
+| `morning_scripture` | The Narrow Path | Start the day with Scripture. | 7:00 AM |
+| `night_prayer` | The Narrow Path | End the day in prayer. | 9:30 PM |
+
+Important reminder decisions:
+
+- Active reminder sends are driven by `public.notification_reminder_slots`.
+- `/api/settings/reminder-slots` is the active settings route.
+- `/api/cron/push/reminders` remains the active cron path and remains protected by `CRON_SECRET`.
+- Cron still sends to all active push subscriptions for the user.
+- The legacy `/api/settings/daily-reminder` route remains only as a compatibility shim for stale clients and should save into `morning_scripture`, not resurrect the old preference table.
+- `public.notification_reminder_preferences` is legacy and must not drive reminder sends.
+- Dedupe for new reminder sends should be based on `user_id + reminder_type + reminder_date + local_time`.
+- Normal PostgreSQL unique constraints allow multiple `NULL` values; do not rely on nullable `reminder_type` rows for dedupe.
+- Legacy `reminder_type = null` sends caused repeated notifications in production and were fixed by disabling legacy preferences and retiring the old path.
+- Do not implement completion suppression. Morning Scripture and Night Prayer reminders should still send when enabled even if related tasks were already completed. They are rhythm/app re-entry reminders, not incomplete-task alerts.
+
+### Branding and notification checkpoint
+
+Branding assets were updated:
+
+- Full app/home-screen source logo: `assets/branding/source-full-logo.png`
+- Simplified notification source mark: `assets/branding/source-notification-logo.png`
+- PWA app icon files now use v2 filenames in manifest:
+  - `/app-icon-v2-192.png`
+  - `/app-icon-v2-512.png`
+  - `/maskable-icon-v2-192.png`
+  - `/maskable-icon-v2-512.png`
+- Apple touch icon uses `/apple-touch-icon-v2.png`.
+- Notification icon uses `/notification-icon-192.png`.
+- Notification badge uses `/notification-badge-96.png`.
+- Browser tab favicons use light/dark variants of the simplified arch/cross/path mark:
+  - `/favicon-light.svg`
+  - `/favicon-dark.svg`
+  - `/favicon.svg`
+  - `/favicon.ico`
+- `public/sw.js` cache was bumped through these branding passes.
+
+Caveat: existing iOS home-screen PWA icons may still require removing and re-adding the PWA. Versioned filenames improve cache-busting and should help new installs, but they do not guarantee automatic home-screen icon refresh for every already-installed device.
+
+### Tone/copy cleanup checkpoint
+
+A broad copy cleanup was completed because the app had become too slogan-heavy, corporate, and fake-serious. The permanent direction is now functional, plainspoken, and minimal. See Section 28.
+
+### Repo hygiene checkpoint
+
+Known unused-variable lint issues were cleaned up. After that cleanup, `npm run lint` and `npm run build` passed.
+
+---
+
 ## 2. Quick Non-Negotiables
 
 Paste this into future prompts when needed:
@@ -79,6 +138,14 @@ Task completion is row-existence based:
 - toggle on = insert
 - toggle off = delete
 
+Copy should be functional, plainspoken, and minimal.
+Prefer simple labels over slogans.
+Do not add filler subtitles when the title already explains the section.
+Avoid fake-serious phrases like “sober attention,” “without noise,” “faithful step,” “daily rhythm,” and “not performance.”
+
+Morning Scripture and Night Prayer reminders should send when enabled even if the related task is already complete.
+Do not add completion suppression unless the user explicitly reverses this decision.
+
 Run npm run build after code changes.
 Run git diff at the end.
 Do not commit, push, run migrations, or deploy unless explicitly told.
@@ -100,9 +167,10 @@ The spiritual goal is the same for both tracks: live the Catholic faith more int
 ### Core ethos
 
 - Catholic, not vaguely Christian
-- Spiritually serious
-- Restrained and sober
-- Human and plainspoken
+- Spiritually serious without fake-serious slogans
+- Restrained, useful, and plainspoken
+- Human and functional
+- Simple labels over marketing copy
 - Accountability without pride-driven ranking
 - Encouraging without gamification
 - Useful for Catholics and people discerning Catholicism
@@ -113,6 +181,8 @@ The spiritual goal is the same for both tracks: live the Catholic faith more int
 - An RPG
 - A leaderboard
 - A productivity dashboard with Catholic paint
+- A brand campaign full of slogans
+- A stern monastic persona
 - A social media product
 - A public holiness contest
 - A cheesy masculine motivational product
@@ -1269,31 +1339,6 @@ Caution: one implementation added extra Supabase queries instead of reusing page
 
 Mobile app planning favored Capacitor.
 
-### 2026-05-16 PWA/Home Screen Phase 1 completed
-
-PWA/Home Screen Phase 1 is complete as a temporary app path before Capacitor/App Store work:
-
-- Android Chrome install works with the native install prompt.
-- iPhone Safari Add to Home Screen works.
-- Installed Android and iPhone versions open standalone/app-like.
-- `/install` is a public instructional page.
-- `/today` has a soft mobile install prompt for signed-in mobile browser users.
-- The prompt does not show in standalone/PWA mode.
-- `Not now` dismisses the prompt for the current browser session.
-- Recommended browsers on `/install`: iPhone Safari and Android Chrome.
-- Other browsers may work, but install behavior varies.
-- The service worker is intentionally minimal and only supports installability/static icon caching.
-- No protected Supabase/auth/task/community data is cached offline.
-- Docker standalone images must copy `/public` so `/sw.js`, icons, and favicons are served.
-- Browser favicon is separate from PWA/Home Screen icons.
-- Mobile scrolling performance was improved with mobile-only CSS reductions.
-
-Backburner PWA polish:
-
-- Add manifest screenshots for richer Android/Chrome install UI.
-- Improve generated Android splash/loading screen appearance.
-- Possible later mobile install gate, but not yet.
-
 Current planning decision:
 
 - keep Next.js/Supabase web app as core
@@ -1310,120 +1355,28 @@ iOS bundle ID: com.thenarrowpath.app
 Android package ID: com.thenarrowpath.app
 ```
 
-### 2026-05-16 PWA Push Notifications Phase 2A completed
+PWA/Web Push notifications are now implemented for the web app.
 
-PWA push notifications Phase 2A is complete and verified:
+Current notification-related concepts include:
 
-- Uses standards-based Web Push + VAPID, not Firebase.
-- Supabase remains the backend.
-- Migration `20260516_add_push_notification_foundation.sql` was created and applied.
-- Tables: `push_subscriptions`, `notification_broadcasts`, `notification_deliveries`.
-- RLS and explicit grants were added.
-- Users can manage their own push subscriptions.
-- Admin/broadcast/delivery access is admin/service-role controlled.
-- `NEXT_PUBLIC_VAPID_PUBLIC_KEY` must be available at Docker build time.
-- `VAPID_PRIVATE_KEY` and `VAPID_SUBJECT` are runtime-only env vars and must not be exposed to client bundles or Docker build args.
-- GitHub Actions passes `NEXT_PUBLIC_VAPID_PUBLIC_KEY` as a Docker build arg.
-- Unraid/runtime container has `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, and `VAPID_SUBJECT`.
-- `public/sw.js` has minimal push and notification click handlers.
-- The service worker still does not cache protected Supabase/auth/task/community data.
-- Notification click target defaults to `/app`, not `/today`, so clicks route through the public app launch route and then land on Today when signed in.
-- Signed-in users can enable/disable push notifications from Settings.
-- `/settings` exists and is reachable from the mobile top-right account menu.
-- Android and iPhone Home Screen PWA subscriptions were both tested and saved successfully.
-- Admin test notification flow works.
-- Admin can send a test notification to a selected user email without making that participant account an admin.
-- Participant account should remain non-admin.
-- Admin broadcast composer works and sends to all active opted-in device subscriptions.
-- Broadcast UI should say “all opted-in devices,” not “all users.”
-- Test and broadcast notifications were verified on Android and iPhone.
-- Notification taps land correctly on Today through `/app`.
+```text
+push_subscriptions
+notification_broadcasts
+notification_reminder_slots
+notification_reminder_sends
+/api/cron/push/reminders
+/api/settings/reminder-slots
+public/sw.js
+```
 
-Important push/admin architecture notes:
+Reminder slots currently support only:
 
-- Admin route checks currently use `ADMIN_EMAILS` env var through `isAllowedAdminEmail`.
-- Supabase RLS admin policies use `public.is_app_admin()`.
-- These are separate admin sources and should not be confused.
-- Do not make `lrnester1@gmail.com` an admin long-term just for notification testing.
-- `lrnester1+admin@gmail.com` is the intended admin/operator account.
-- `lrnester1@gmail.com` is the intended participant account.
-- Backburner: unify admin source of truth later. Either make app route checks use `app_admins`, or make database policies align cleanly with `ADMIN_EMAILS`. Do not accidentally make participant accounts admin.
+```text
+morning_scripture
+night_prayer
+```
 
-### 2026-05-16 Daily Reminder Notifications Phase 2B completed
-
-Daily reminder notifications Phase 2B is complete and verified:
-
-- Users can configure one daily reminder from `/settings`.
-- Reminder preference is per-user, not per-device.
-- Settings UI saves `enabled`, `local_time`, and `timezone`.
-- Timezone is detected client-side with `Intl.DateTimeFormat().resolvedOptions().timeZone`.
-- `America/New_York` was tested successfully.
-- Reminder preferences are stored in `notification_reminder_preferences`.
-- Reminder send/dedupe logs are stored in `notification_reminder_sends`.
-- Cron route exists at `/api/cron/push/reminders` and is protected by `CRON_SECRET`.
-- Unraid User Scripts is the production reminder scheduler.
-- GitHub Actions reminder workflow is manual backup/test only via `workflow_dispatch`.
-- Unraid calls the cron route every minute with custom cron `* * * * *`.
-- Unraid script logs to `/mnt/user/appdata/the-narrow-path/reminder-cron.log`.
-- Dry run works with `?dryRun=1`.
-- Non-dry-run sends due reminders.
-- Dedupe works through unique `(user_id, reminder_date, local_time)`.
-- Re-running the cron for the same reminder time skips instead of sending duplicate notifications.
-- Reminder notifications use generic safe copy only.
-- Reminder notifications link through `/app` and land on Today.
-- Android and iPhone received reminder notifications successfully.
-- Notification taps opened Today successfully.
-
-Phase 2B hardening note:
-
-- The installed PWA hit a stale Next.js Server Action error after deployment when saving reminder settings: "Server Action ... was not found on the server."
-- Restarting the app fixed it, confirming this was a stale PWA/client bundle issue.
-- Daily reminder settings save no longer uses a Server Action.
-- `app/settings/actions.ts` was removed.
-- Stable API route added: `POST /api/settings/daily-reminder`.
-- `components/daily-reminder-settings.tsx` now saves with `fetch("/api/settings/daily-reminder")`.
-- The API route requires the signed-in Supabase user and derives `user_id` server-side from `supabase.auth.getUser()`.
-- The client does not send or control `user_id`.
-- The API route validates `enabled`, `local_time`, and `timezone`; if `enabled = true`, both `local_time` and `timezone` are required.
-- No cron/reminder-send behavior changed.
-- No service worker or push logic changed.
-- Installed Android app testing confirmed changing the reminder time worked, changing it back worked, and the Supabase preference row updated correctly.
-- Operational note: for installed PWA settings forms, prefer stable API routes over Server Actions when stale client/server-action IDs could cause post-deploy save failures.
-
-Important reminder operations notes:
-
-- `CRON_SECRET` is required in both the Unraid/runtime app container env and the Unraid User Script.
-- If `CRON_SECRET` is rotated, update both places.
-- Because the old secret was pasted during testing, rotate it if that has not already been done.
-- Production scheduler: Unraid User Scripts custom cron `* * * * *`.
-- Production endpoint: `https://thenarrowpath.xyz/api/cron/push/reminders`.
-- Production auth header: `Authorization: Bearer $CRON_SECRET`.
-- Production log file: `/mnt/user/appdata/the-narrow-path/reminder-cron.log`.
-- GitHub Actions scheduled reminder runs were unreliable because scheduled jobs are best-effort and may be delayed or dropped; GitHub Actions remains manual backup/test only.
-- The cron route intentionally keeps a 90-minute reminder lookback window.
-- Reminder dedupe prevents multiple sends per user/date/local_time.
-- Running every minute is safe because dedupe prevents repeat sends for the same user/date/local_time.
-- Current reminder model is one daily reminder per user.
-- A user changing today's reminder time after a reminder already sent can receive another reminder for the new time that same day.
-- Repeated cron runs for the same reminder time still skip; this intentionally lets users move from a morning reminder to an evening reminder without waiting until the next day.
-- Manual tests confirmed Unraid can reach the cron endpoint, auth works, due reminders send successfully, Android and iOS receive reminders, repeated runs for the same user/date/time skip, and a 3:00 PM reminder was received at 3:00 PM after switching to every-minute Unraid scheduling.
-- If both GitHub schedule and Unraid schedule are enabled, both may hit the endpoint and dedupe prevents duplicate sends, but production should use only one scheduler to reduce noise.
-
-Future/backburner reminder expansion:
-
-- Keep current Phase 2B as the stable baseline.
-- Later consider preset reminder types before fully custom task reminders, such as Morning Reading/Reflection or Evening Night Prayer/task check-in.
-- Avoid fully custom per-task reminders until task schedule, completion suppression, dedupe, and notification copy rules are designed.
-- Possible future default: 9 PM evening reminder for end-of-day accountability.
-- Do not add multiple reminder slots, quiet hours, track-specific reminders, or task-specific reminders without a separate design pass.
-
-Backburner push notification phases:
-
-- Additional reminder slots are not implemented yet.
-- Quiet hours are not implemented yet.
-- Group/track-specific broadcast targeting is not implemented yet.
-- Delivery dashboard/history can be improved later.
-- Admin sources of truth may eventually need cleanup/unification.
+Mobile native app planning still favors Capacitor later, but the current production notification system is web/PWA push, not native iOS/Android push.
 
 ---
 
@@ -1448,6 +1401,57 @@ Rejected visual directions:
 - overly serious heroic tone
 
 This was concepting only; no repo/app changes.
+
+
+### 2026-05-17 app branding assets
+
+Current preferred brand direction:
+
+- Main/full logo: arch or church doorway, cross, winding path, navy/gold palette, refined Catholic look.
+- Notification/tab mark: simplified arch/cross/path, no wordmark, no white square, readable at tiny sizes.
+- Avoid cluttered, heroic, or overly ornate AI-generated Catholic imagery.
+
+Current source assets:
+
+```text
+assets/branding/source-full-logo.png
+assets/branding/source-notification-logo.png
+```
+
+Current public app/PWA icon assets:
+
+```text
+public/app-icon-v2-192.png
+public/app-icon-v2-512.png
+public/apple-touch-icon-v2.png
+public/maskable-icon-v2-192.png
+public/maskable-icon-v2-512.png
+```
+
+Current notification assets:
+
+```text
+public/notification-icon-192.png
+public/notification-badge-96.png
+```
+
+Current favicon assets:
+
+```text
+public/favicon-light.svg
+public/favicon-dark.svg
+public/favicon.svg
+public/favicon.ico
+```
+
+Important branding rules:
+
+- Do not use the full app tile as the notification badge.
+- Keep notification assets transparent and simple.
+- Keep tab favicons as simplified light/dark arch/cross/path marks.
+- Keep PWA launcher icons separate from notification icons.
+- If icon files are updated, bump the service worker cache name in `public/sw.js`.
+- Existing iOS home-screen PWA icons may not refresh automatically even after filename versioning.
 
 ---
 
@@ -1515,6 +1519,22 @@ The following migrations/features were confirmed across audits. Inspect actual r
 20260512_zzz_add_night_prayer_phase1.sql
 ```
 
+
+### Web Push/reminders
+
+```text
+20260517210000_add_notification_reminder_slots.sql
+20260517220000_disable_legacy_daily_reminder_preferences.sql
+```
+
+Reminder migration notes:
+
+- `notification_reminder_slots` is the active reminder preference table.
+- `notification_reminder_preferences` is legacy.
+- Explicit grants and RLS are required for new public tables.
+- Reminder sends should dedupe by `user_id + reminder_type + reminder_date + local_time`.
+- Keep old migrations intact; add new migrations for fixes.
+
 ### Migration rules
 
 - Do not edit old migrations after they may have run.
@@ -1555,6 +1575,14 @@ Historical fixes include:
 - metadataBase warning
 - ESLint scanning `.next`
 - mobile tab bar scroll jitter
+- Morning/Night reminder slots added and production-tested
+- legacy daily reminder spam from `reminder_type = null` fixed/retired
+- `/api/settings/daily-reminder` converted to compatibility shim
+- notification icon/badge changed from app tile to dedicated notification assets
+- PWA app icon filenames versioned for cache-busting
+- browser tab favicon updated to simplified light/dark logo mark
+- broad slogan-heavy copy cleanup completed
+- known unused-variable lint errors fixed
 
 ---
 
@@ -1569,6 +1597,23 @@ Historical fixes include:
 - Keep `ADMIN_EMAILS` configured in production.
 - Keep GroupMe/cron secrets rotated if they were exposed.
 - Preserve same-track access in all community/detail/prayer/status views.
+
+
+### Reminder/notification watch items
+
+- Do not re-enable `notification_reminder_preferences` as an active send source.
+- Be careful with nullable `reminder_type`; `NULL` values do not dedupe under normal PostgreSQL unique constraints.
+- Do not add completion suppression for Morning Scripture or Night Prayer unless explicitly requested.
+- Test notification changes on real Android/iPhone devices, not only desktop.
+- Home-screen PWA icon refresh on iOS may require reinstalling the PWA.
+- Keep notification payloads lock-screen safe: no private task status, Confession status, track, or sensitive state.
+
+### Copy/tone watch items
+
+- Do not reintroduce slogan-heavy UI copy.
+- Avoid filler subtitles on cards and sections.
+- Prefer functional labels and direct explanations only where needed.
+- Keep public copy Catholic and human, but not corporate or fake-profound.
 
 ### Medium priority
 
@@ -1593,20 +1638,83 @@ Historical fixes include:
 
 ## 28. Tone and Copy Guidance
 
-The app should sound:
+### Copy and Tone Rule: Functional, Plainspoken, Minimal
+
+The Narrow Path should not sound corporate, motivational, artificially stern, or fake-profound.
+
+The app should feel:
 
 - Catholic
-- grounded
-- human
-- sober
-- encouraging
 - plainspoken
-- serious without being grim
+- clean
+- useful
+- human
+- calm
 
-Use more:
+The app should not feel:
+
+- like a productivity app with Catholic language
+- like a brand campaign
+- like a motivational challenge site
+- like a stern monastic persona
+- like every card needs a slogan or subtitle
+
+Prefer simple functional labels over spiritualized marketing copy.
+
+Good examples:
+
+- Today
+- Dashboard
+- Daily Reading
+- Scripture Reflection
+- Required Today
+- Optional Today
+- Weekly and Monthly Progress
+- Brotherhood
+- Sisterhood
+- Reading
+- Tasks
+- Reminders
+- Settings
+
+Avoid phrases like:
+
+- “the next faithful step”
+- “sober attention”
+- “without noise”
+- “keep the day ordered”
+- “daily rhythm”
+- “journey”
+- “non-negotiable rule”
+- “not performance”
+- “discipline and fidelity”
+- “stays visible without overwhelming the day”
+- “return to the brotherhood”
+- “concrete obedience”
+- generic mission-statement filler
+
+General rule:
+
+If a title already tells the user what the section is, do not add a subtitle unless the subtitle gives necessary functional guidance.
+
+Examples:
+
+- Use: `Weekly and Monthly Progress`
+- Avoid: `Flexible disciplines stay visible without overwhelming the day.`
+
+- Use: `Required Today`
+- Avoid: `The non-negotiable rule for the day.`
+
+- Use: `Community`
+- Avoid: `Return to the Brotherhood with sober attention, not performance.`
+
+Keep necessary guidance where it helps the user understand behavior, permissions, privacy, future-day locking, reminders, settings, or admin diagnostics. Remove text that exists only to sound serious.
+
+### Catholic tone without overdoing it
+
+The app can and should still use Catholic language where it is meaningful:
 
 - prayer
-- discipline
 - Scripture
 - Catholic teaching
 - Mass
@@ -1615,22 +1723,26 @@ Use more:
 - accountability
 - Church Christ founded
 - fidelity
-- obedience
-- sacrifice
 - repentance
-- courage
-- surrender
+- sacrifice
 
-Avoid:
+But these words should serve clarity, not decorate every card. Do not make ordinary navigation sound like a mission statement.
 
-- corporate SaaS language
-- generic Christian phrasing where Catholic language belongs
-- AI-marketing tone
-- “intentional rhythm” repeated too often
-- cheesy masculine slogans
-- “crush your goals”
-- XP, score, level, leaderboard, ranking, holiness metric
-- celebrating spiritual discipline as points
+### Notification copy
+
+Current reminder notification copy is intentionally simple:
+
+```text
+The Narrow Path
+Start the day with Scripture.
+```
+
+```text
+The Narrow Path
+End the day in prayer.
+```
+
+Do not change this into engagement copy, streak copy, incomplete-task copy, or status-revealing copy.
 
 ---
 
@@ -1647,7 +1759,7 @@ Possible future work discussed:
 - “Why this task?” dropdowns
 - Prepare for Tomorrow card
 - Capacitor Android/iOS app shell
-- Push notification preferences
+- Notification opt-in/onboarding polish
 - Better backup/export routine before major schema changes
 - More hand-authored Companion Notes
 - More refined About page using Logan’s personal voice
@@ -1709,7 +1821,8 @@ The project-history audit generated many tags. Keep these as reference labels wh
 ### UI/design
 
 ```text
-#TNP-UNKNOWN-UI-PROGRESS-NAV-REFRESH
+#TNP-20260517-FUNCTIONAL-COPY-TONE-CLEANUP
+#TNP-20260517-PWA-BRANDING-NOTIFICATION-FAVICON
 #TNP-20260513-NAV-ACTIVE-MOBILE-TABS
 #TNP-UNKNOWN-AUTH-PROGRESS-STRIP
 #TNP-20260513-WEEKLY-QUOTA-METERS
@@ -1738,6 +1851,8 @@ The project-history audit generated many tags. Keep these as reference labels wh
 ### GroupMe/bots
 
 ```text
+#TNP-20260517-MORNING-NIGHT-PUSH-REMINDERS
+#TNP-20260517-LEGACY-DAILY-REMINDER-RETIREMENT
 #TNP-UNKNOWN-GROUPME-BOT-NIGHTLY-REMINDER-SETUP
 #TNP-UNKNOWN-DAILY-STATUS-PRAYER-GROUPME-RECAP
 ```
@@ -1778,6 +1893,8 @@ Rules:
 - Preserve task audience filtering.
 - Preserve completion row-existence semantics.
 - Do not add gamification.
+- Keep copy functional, plainspoken, and minimal. Avoid slogan-heavy/fake-serious UI text.
+- Do not add reminder completion suppression unless explicitly requested.
 - Do not commit, push, run migrations, or deploy unless explicitly told.
 - Run npm run build.
 - Run git diff at the end and summarize exact file changes.
@@ -1793,8 +1910,9 @@ As of this rewritten handoff:
 - The Narrow Path is a Catholic accountability app with Brotherhood and Sisterhood tracks.
 - The route `/brotherhood` remains the internal shared community route for both tracks.
 - The core stack is Next.js + Supabase + GitHub/GHCR + Docker/Unraid.
-- The app includes daily tasks, weekly quotas, rotating Rosary, Confession final-week logic, Daily Reading, Reflection journaling, Night Prayer, Guided Rosary, daily status/prayer requests, GroupMe integrations, admin/support tooling, auth diagnostics, and a developing monastic design system.
+- The app includes daily tasks, weekly quotas, rotating Rosary, Confession final-week logic, Daily Reading, Reflection journaling, Night Prayer, Guided Rosary, Morning Scripture and Night Prayer push reminders, daily status/prayer requests, GroupMe integrations, admin/support tooling, auth diagnostics, and a developing monastic design system.
+- The latest product direction favors simple functional copy over slogan-heavy or fake-serious UI text.
 - The strongest confirmed source of truth for implementation is the committed repo plus production Supabase state.
-- The biggest risks are regressions around track separation, task cadence, completion semantics, Supabase migration state, secrets, and UI changes made without visual/build verification.
+- The biggest risks are regressions around track separation, task cadence, completion semantics, reminder dedupe/source-of-truth, Supabase migration state, secrets, and UI changes made without visual/build verification.
 - Future work should be careful, explicit, and small unless the user asks for a larger redesign or architecture pass.
 
