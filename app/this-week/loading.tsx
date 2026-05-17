@@ -5,7 +5,7 @@ export default function Loading() {
     <MonasticLoading
       label="This Week"
       title="Loading this week"
-      description="Preparing the week’s disciplines, readings, and quota momentum."
+      description="Loading the week's readings, tasks, and progress."
     />
   );
 }

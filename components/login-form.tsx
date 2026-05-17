@@ -244,7 +244,7 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <AuthCard
         title="Welcome back"
-        description="Enter your email and password to continue your rule of life."
+        description="Enter your email and password to continue."
         className="shadow-[0_32px_70px_-40px_rgba(0,0,0,0.95)]"
         footer={
           <p className="text-center">
@@ -313,10 +313,6 @@ export function LoginForm({
         </form>
       </AuthCard>
 
-      <p className="mx-auto max-w-md text-center text-sm leading-7 text-monastic-1">
-        Come back to the same Catholic rhythm: pray, do the work, tell the
-        truth, and keep going.
-      </p>
     </div>
   );
 }

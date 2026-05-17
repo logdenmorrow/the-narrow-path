@@ -39,7 +39,7 @@ export default async function SettingsPage() {
           <SectionHeader
             kicker="Account"
             title="Settings"
-            description="Manage this device and a few account-adjacent tools for The Narrow Path."
+            description="Manage notifications, reminders, support, and install options."
           />
           <p className="mt-5 break-all text-sm text-monastic-1 sm:break-normal">
             Signed in as {user.email}

@@ -313,7 +313,7 @@ export default async function RosaryPage({
                 Guided Rosary
               </h1>
               <p className="mt-2 text-base leading-7 text-[#ead8bc] sm:text-lg">
-                Pray slowly with Mary, meditating on the life of Christ.
+                Rosary prayers and mysteries for the day.
               </p>
               <h2 className="mt-5 text-2xl font-semibold text-white sm:text-3xl">
                 {mysterySet.title}
@@ -389,10 +389,10 @@ export default async function RosaryPage({
           <div className="mx-auto max-w-3xl text-center">
             <p className="section-kicker">Opening Prayers</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-monastic-0 sm:text-4xl">
-              Begin in the name of the Father.
+              Opening Prayers
             </h2>
             <p className="mt-3 text-sm leading-6 text-monastic-1 sm:text-lg sm:leading-7">
-              Take a quiet breath. Offer this Rosary for the intentions entrusted to you.
+              Sign of the Cross, Creed, Our Father, three Hail Marys, and Glory Be.
             </p>
           </div>
 
@@ -438,7 +438,7 @@ export default async function RosaryPage({
         <SurfaceCard className={PAGE_CARD_CLASS}>
           <SectionHeader
             kicker="Closing Prayers"
-            title="Entrust the prayer to Our Lady."
+            title="Closing Prayers"
             description="Finish with the Hail Holy Queen, the concluding prayer, and the Sign of the Cross."
           />
 

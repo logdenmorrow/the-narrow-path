@@ -439,8 +439,7 @@ export default async function BrotherhoodMemberPage({
               </h1>
               <p className="mt-3 text-lg leading-8 text-[#ead8bc]">{memberFullName}</p>
               <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
-                Day {typedPlanDay.day_number} accountability details in the same
-                disciplined rhythm you see everywhere else in the app.
+                Day {typedPlanDay.day_number} accountability details.
               </p>
             </div>
 
@@ -500,16 +499,15 @@ export default async function BrotherhoodMemberPage({
           <MetricCard
             label="Optional Done"
             value={`${optionalDoneCount}/${optionalTasks.length}`}
-            detail="Flexible disciplines completed for this member."
+            detail="Optional tasks completed for this member."
           />
         </div>
 
         {uniqueQuotaTasks.length > 0 && (
           <SurfaceCard>
             <SectionHeader
-              kicker="Momentum"
+              kicker="Progress"
               title="Quota Progress"
-              description="Weekly and monthly disciplines remain visible without crowding the day."
             />
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -567,9 +565,8 @@ export default async function BrotherhoodMemberPage({
         <div className="grid gap-6 xl:grid-cols-2">
           <SurfaceCard>
             <SectionHeader
-              kicker="Daily Core"
+              kicker="Required"
               title="Required Tasks"
-              description="The non-negotiable disciplines for this member on the selected day."
             />
 
             <div className="mt-5 space-y-3">
@@ -617,9 +614,9 @@ export default async function BrotherhoodMemberPage({
 
           <SurfaceCard>
             <SectionHeader
-              kicker="Optional Disciplines"
+              kicker="Optional"
               title="Optional + Quota Tasks"
-              description="Flexible practices and counted quota work for the selected day."
+              description="Optional tasks and counted quota work for the selected day."
             />
 
             <div className="mt-5 space-y-3">

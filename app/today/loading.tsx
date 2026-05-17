@@ -5,7 +5,7 @@ export default function Loading() {
     <MonasticLoading
       label="Today"
       title="Loading today"
-      description="Gathering the day’s disciplines, reading, and current progress."
+      description="Loading the reading, tasks, and current progress."
       maxWidthClassName="max-w-4xl"
     />
   );

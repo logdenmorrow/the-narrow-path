@@ -614,9 +614,8 @@ export default async function TodayPage({
             {uniqueQuotaTasks.length > 0 && (
               <SurfaceCard>
                 <SectionHeader
-                  kicker="Momentum"
+                  kicker="Progress"
                   title="Weekly and Monthly Progress"
-                  description="Flexible disciplines stay visible without overwhelming the day."
                 />
 
                 <div className="mt-4 grid gap-3 sm:mt-6 sm:grid-cols-2 xl:grid-cols-3">
@@ -653,9 +652,8 @@ export default async function TodayPage({
             <div className="grid gap-6 xl:grid-cols-2">
               <SurfaceCard>
                 <SectionHeader
-                  kicker="Daily Core"
+                  kicker="Required"
                   title="Required Today"
-                  description="The non-negotiable rule for the day."
                 />
                 <div className="mt-5 space-y-3">
                   {requiredTasks.length > 0 ? (
@@ -685,9 +683,8 @@ export default async function TodayPage({
 
               <SurfaceCard>
                 <SectionHeader
-                  kicker="Optional Disciplines"
+                  kicker="Optional"
                   title="Optional Today"
-                  description="Flexible practices that still reinforce daily discipline and fidelity."
                 />
                 <div className="mt-5 space-y-3">
                   {optionalTasks.length > 0 ? (
@@ -747,8 +744,8 @@ export default async function TodayPage({
                 <SurfaceInset>
                   <div className="section-kicker">Quota Context</div>
                   <p className="mt-2 text-sm leading-6 text-monastic-1">
-                    {uniqueQuotaTasks.length} flexible discipline
-                    {uniqueQuotaTasks.length === 1 ? "" : "s"} visible for this day.
+                    {uniqueQuotaTasks.length} weekly or monthly task
+                    {uniqueQuotaTasks.length === 1 ? "" : "s"} for this day.
                   </p>
                 </SurfaceInset>
               ) : null}

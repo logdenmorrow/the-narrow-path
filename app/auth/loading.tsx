@@ -4,7 +4,7 @@ export default function AuthLoading() {
   return (
     <AuthCard
       title="Preparing your account"
-      description="Loading the next step in the auth flow."
+      description="Loading account details."
     >
       <div className="space-y-4">
         <div className="monastic-loading-shimmer h-4 w-28 rounded-full" />

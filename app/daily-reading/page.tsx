@@ -345,8 +345,8 @@ export default async function DailyReadingPage({
 
             <SurfaceCard>
               <SectionHeader
-                kicker={catechismDay ? "Today's Focus" : "Reading Focus"}
-                title={catechismDay ? "Read in the key of doctrine and devotion." : "Read slowly and take the text inward."}
+                kicker="Reading Focus"
+                title={catechismDay ? "Catechism Reading" : "Focus"}
               />
 
               {catechismDay ? (
@@ -378,7 +378,7 @@ export default async function DailyReadingPage({
               <SurfaceCard>
                 <SectionHeader
                   kicker={catechismDay ? "Catholic Insight" : "Companion Note"}
-                  title={catechismDay ? "Read with the Church." : "A brief guide for meditation."}
+                  title={catechismDay ? "Catechism Note" : "Reading Note"}
                 />
 
                 <div className="mt-4 space-y-3 sm:space-y-4">
@@ -398,7 +398,7 @@ export default async function DailyReadingPage({
           <SurfaceCard>
             <SectionHeader
               kicker={catechismDay ? "Catechism Text" : "RSV-2CE Text"}
-              title="Read the text itself without hurry."
+              title="Reading Text"
             />
 
             <SurfaceInset className="mt-4 px-4 py-4 sm:px-6 sm:py-6">

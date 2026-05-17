@@ -15,49 +15,47 @@ import { getCommunityName, normalizeTrack } from "@/lib/track";
 
 const pillars = [
   {
-    title: "Daily Discipline",
-    body: "Prayer, restraint, Scripture, and concrete obedience, laid out clearly.",
+    title: "Daily Tasks",
+    body: "Prayer, restraint, Scripture, and clear tasks.",
   },
   {
     title: "Sacred Reading",
-    body: "Each day includes Scripture, Catholic teaching, and a short mission.",
+    body: "Scripture, Catholic teaching, and daily reading notes.",
   },
   {
     title: "Brotherhood & Sisterhood",
-    body: "Separate tracks, one Catholic standard, and accountability that stays serious.",
+    body: "Separate tracks with shared accountability.",
   },
 ];
 
 const liturgy = [
-  "Start the day with prayer, reading, and a clear mission.",
-  "Track the disciplines you actually committed to.",
+  "Start with prayer and reading.",
+  "Track the tasks assigned for the day.",
   "Keep weekly practices like Mass, Adoration, and Rosary in view.",
-  "End the day with reflection and honest accountability.",
+  "End with reflection and Night Prayer.",
 ];
 
 const publicOfficeMoments = [
-  "Daily Scripture and Catholic teaching to keep the day anchored.",
-  "Simple disciplines that make prayer and restraint concrete.",
-  "Separate Brotherhood and Sisterhood tracks for accountable Catholic community.",
+  "Daily Scripture and Catholic teaching.",
+  "Clear tasks for prayer and discipline.",
+  "Brotherhood and Sisterhood tracks for accountability.",
 ];
 
 const publicHighlights = [
   {
     label: "Daily Reading",
-    value: "Scripture, mission, and focus",
-    detail: "Each day begins with a prepared reading and a clear direction.",
+    value: "Scripture and teaching",
+    detail: "Read the assigned text for the day.",
   },
   {
-    label: "Crafted Rhythm",
-    value: "Visible disciplines",
-    detail:
-      "Progress is visible enough to keep you honest, but not loud enough to become the point.",
+    label: "Tasks",
+    value: "Required and optional",
+    detail: "See what is assigned for today.",
   },
   {
-    label: "Shared Standard",
-    value: "Catholic accountability",
-    detail:
-      "Members follow the same standard within their Brotherhood or Sisterhood track.",
+    label: "Community",
+    value: "Brotherhood or Sisterhood",
+    detail: "See group progress and prayer requests.",
   },
 ];
 
@@ -81,7 +79,6 @@ export default async function HomePage() {
     : { data: null };
   const track = normalizeTrack(profileData?.track);
   const communityName = getCommunityName(track);
-  const communityNameLower = communityName.toLowerCase();
   const overview = isSignedIn ? await getHomepageOverview(supabase, track) : null;
 
   if (isSignedIn && overview) {
@@ -92,15 +89,11 @@ export default async function HomePage() {
             <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
               <div className="max-w-3xl text-[#f7ebd8]">
                 <p className="section-kicker text-[#ead6b0]">
-                  {overview.challengeDayLabel} • Daily Portal
+                  {overview.challengeDayLabel}
                 </p>
                 <h1 className="mt-3 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-                  The next faithful step is close at hand.
+                  Today
                 </h1>
-                <p className="mt-3 max-w-2xl text-base leading-7 text-[#f3e5cf] sm:text-lg">
-                  Begin with today&apos;s reading, finish the required core, and return
-                  to the {communityNameLower} with sober attention.
-                </p>
 
                 <AppActionBar
                   stackOnMobile
@@ -172,9 +165,8 @@ export default async function HomePage() {
           <section className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
             <SurfaceCard>
               <SectionHeader
-                kicker="Today"
-                title="Keep the day ordered."
-                description="The home page stays brief; open Today when it is time to act."
+                kicker="Home"
+                title="Today"
               />
 
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
@@ -211,8 +203,7 @@ export default async function HomePage() {
             <SurfaceCard>
               <SectionHeader
                 kicker="Week & Community"
-                title="Stay accountable without noise."
-                description={`Return to the ${communityName.toLowerCase()} with sober attention, not performance.`}
+                title="Community"
               />
 
               <div className="mt-4 grid gap-3">
@@ -246,7 +237,7 @@ export default async function HomePage() {
           <SurfaceCard>
             <SectionHeader
               kicker="Quick Access"
-              title="Open only what you need."
+              title="Quick Access"
             />
             <div className="mt-4 grid gap-3 sm:grid-cols-4">
               <Link href="/today" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
@@ -274,12 +265,12 @@ export default async function HomePage() {
         <HeroPanel>
           <div className="grid gap-6 lg:grid-cols-[1.2fr_0.78fr] lg:items-end lg:gap-8">
             <div className="max-w-3xl text-[#f7ebd8]">
-              <p className="section-kicker text-[#ead6b0]">Disciplined Catholic Living</p>
+              <p className="section-kicker text-[#ead6b0]">Catholic Accountability</p>
               <h1 className="mt-4 text-[2.9rem] font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
-                Stay on the Narrow Path with prayer, discipline, and Catholic accountability.
+                The Narrow Path
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-[#f3e5cf] sm:text-xl sm:leading-8">
-                The Narrow Path is a Catholic challenge for people who want structure, not noise. It gives you daily readings, concrete disciplines, and accountability rooted in the Church Christ founded.
+                A Catholic app for daily readings, tasks, and accountability.
               </p>
 
               <AppActionBar
@@ -309,12 +300,11 @@ export default async function HomePage() {
                 What You&apos;ll Find Inside
               </div>
               <h2 className="mt-3 text-3xl font-semibold text-[#2f2117] dark:text-white">
-                A serious rhythm for ordinary Catholics.
+                Reading, tasks, and community.
               </h2>
               <p className="mt-2 text-base leading-7 text-[#6b4b2f] dark:text-[#ead8bc]">
-                Each day gives you a reading, a few clear tasks, and a way to
-                stay accountable without turning the whole thing into a
-                performance.
+                Each day includes a reading, assigned tasks, and a simple way
+                to check in.
               </p>
 
               <div className="mt-6 grid gap-3">
@@ -346,9 +336,8 @@ export default async function HomePage() {
         <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
           <SurfaceCard>
             <SectionHeader
-              kicker="A More Intentional Rhythm"
-              title="Devotional first. Productive second."
-              description="The point is not to gamify holiness. The point is to make the next faithful step obvious."
+              kicker="Daily Practice"
+              title="How it works"
             />
 
             <div className="mt-6 grid gap-3">

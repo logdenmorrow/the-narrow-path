@@ -19,12 +19,11 @@ export function AuthShell({ children }: AuthShellProps) {
               </p>
               <div className="space-y-5">
                 <h1 className="text-4xl font-semibold tracking-tight text-[rgba(249,236,214,0.94)] [text-wrap:balance] xl:text-5xl xl:leading-[1.06]">
-                  Return to prayer, discipline, and the work in front of you.
+                  Prayer, readings, tasks, and accountability.
                 </h1>
                 <p className="max-w-lg text-base leading-8 text-[rgba(255,239,216,0.88)] xl:text-lg">
-                  The Narrow Path keeps the Catholic rhythm simple: Scripture,
-                  prayer, the sacraments, concrete tasks, and people who know
-                  whether you showed up.
+                  The Narrow Path keeps the daily work simple: Scripture,
+                  prayer, tasks, and community.
                 </p>
               </div>
             </div>
@@ -34,8 +33,7 @@ export function AuthShell({ children }: AuthShellProps) {
                 Prayer / Sacraments / Accountability
               </p>
               <p className="mt-3 max-w-md text-sm leading-7 text-[rgba(255,239,216,0.9)]">
-                Enter quietly and keep going under the discipline of the Church
-                Christ founded.
+                Sign in to continue.
               </p>
             </div>
           </section>

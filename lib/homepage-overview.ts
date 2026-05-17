@@ -420,7 +420,7 @@ export async function getHomepageOverview(
         detail:
           requiredTodayTasks.length > 0
             ? `${completedDailyCoreCount} of ${memberIds.length} ${memberPlural} have finished the daily core.`
-            : "No required daily disciplines are assigned for this day.",
+            : "No required daily tasks are assigned for this day.",
         meterValue:
           totalRequiredActs > 0 ? toPercent(completedRequiredActs, totalRequiredActs) : undefined,
         available: true,

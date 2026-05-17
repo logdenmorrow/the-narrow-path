@@ -267,7 +267,7 @@ export default async function ReflectionPage({
         <SurfaceCard>
           <SectionHeader
             kicker="Prompt"
-            title="Reflect on today’s reading."
+            title="Reflection Prompt"
             action={
               <StatusPill tone={hasSavedEntry ? "done" : isLocked ? "neutral" : "required"}>
                 {hasSavedEntry
@@ -290,7 +290,7 @@ export default async function ReflectionPage({
         <SurfaceCard>
           <SectionHeader
             kicker="Journal"
-            title="Write the day truthfully."
+            title="Journal Entry"
             description="Your saved reflection marks the task complete and remains available when you return."
           />
 

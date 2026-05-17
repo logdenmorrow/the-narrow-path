@@ -5,7 +5,7 @@ export default function Loading() {
     <MonasticLoading
       label="Dashboard"
       title="Loading dashboard"
-      description="Preparing today, your progress, and the next faithful step."
+      description="Preparing today and your progress."
     />
   );
 }

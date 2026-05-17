@@ -503,8 +503,7 @@ export default async function DashboardPage({
                 Welcome, {getDisplayName(profile, user.email, getMemberName(track))}
               </h1>
               <p className="mt-3 text-base leading-7 text-[#f0dec1] sm:text-lg sm:leading-8">
-                Use this page for quick access, catch-up, and the fuller state of
-                today&apos;s work.
+                Quick access, catch-up, and today&apos;s progress.
               </p>
             </div>
 
@@ -530,8 +529,7 @@ export default async function DashboardPage({
           <SurfaceCard>
             <SectionHeader
               kicker="Quick Access"
-              title="Choose the next action."
-              description="The dashboard keeps the fuller view close, but the next step should still be obvious."
+              title="Quick Access"
             />
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               <Link href={withViewTrack("/today", track, preserveViewTrack)} className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
@@ -567,7 +565,7 @@ export default async function DashboardPage({
           <SurfaceCard>
             <SectionHeader
               kicker="Today&apos;s Summary"
-              title="Where the day currently stands."
+              title="Today"
             />
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               <SurfaceInset>
@@ -599,7 +597,7 @@ export default async function DashboardPage({
         <SurfaceCard>
           <SectionHeader
             kicker="Notifications"
-            title="This device can receive gentle prompts."
+            title="Device Notifications"
             description="Enable or disable push notifications for the browser or Home Screen app you are using now."
           />
           <div className="mt-4">
@@ -641,7 +639,7 @@ export default async function DashboardPage({
           <MetricCard
             label="Required Daily"
             value={`${completedRequiredDailyTodayCount}/${requiredDailyToday.length}`}
-            detail="Core daily disciplines completed today."
+            detail="Required tasks completed today."
             meterValue={
               requiredDailyToday.length
                 ? Math.round((completedRequiredDailyTodayCount / requiredDailyToday.length) * 100)
@@ -651,15 +649,15 @@ export default async function DashboardPage({
           <MetricCard
             label="Weekly Quota Goals"
             value={`${weeklyQuotaProgress.filter((quota) => quota.completedCount >= quota.target).length}/${weeklyQuotaProgress.length}`}
-            detail="Flexible weekly goals currently met."
+            detail="Weekly goals currently met."
           />
           <MetricCard
             label={`${communityName} Members`}
             value={`${memberCount}`}
             detail={
               track === "sisterhood"
-                ? "Women currently on the path."
-                : "Men currently on the path."
+                ? "Women in the sisterhood."
+                : "Men in the brotherhood."
             }
           />
         </div>
@@ -706,7 +704,7 @@ export default async function DashboardPage({
           </SurfaceCard>
 
           <SurfaceCard>
-            <SectionHeader kicker="Quota Disciplines" title="Weekly Quota Progress" />
+            <SectionHeader kicker="Weekly Goals" title="Weekly Quota Progress" />
 
             {weeklyQuotaProgress.length === 0 ? (
               <p className="mt-4 text-sm text-monastic-1 sm:text-base">

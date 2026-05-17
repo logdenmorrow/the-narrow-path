@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="The Narrow Path">
-  <rect x="24" y="6" width="16" height="52" fill="#2a211b" />
-  <rect x="10" y="22" width="44" height="16" fill="#2a211b" />
+  <path fill="#102b3f" d="M13 59V29C13 17 21 8 32 4c11 4 19 13 19 25v30H40V29c0-6-3-11-8-14-5 3-8 8-8 14v30H13Z"/>
+  <path fill="#bd965b" d="M30 21a2 2 0 0 1 4 0v27c0 2-2 3-3 4-2 2-2 4-1 6h-9c1-5 3-8 6-11 2-2 3-3 3-5V21Z"/>
+  <path fill="#bd965b" d="M23 29h18a2 2 0 1 1 0 4H23a2 2 0 1 1 0-4Z"/>
 </svg>

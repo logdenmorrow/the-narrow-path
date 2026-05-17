@@ -464,8 +464,8 @@ export default async function BrotherhoodPage({
               <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">{communityName}</h1>
               <p className="mt-3 text-base leading-7 text-[#ead8bc] sm:text-lg sm:leading-8">
                 {isCurrentDayView
-                  ? "See the current day's required progress and weekly quota momentum across the group."
-                  : `See Day ${selectedDay} progress and the correct weekly quota momentum across the group.`}
+                  ? "See today's required progress, weekly goals, and prayer requests."
+                  : `See Day ${selectedDay} progress and weekly goals.`}
               </p>
             </div>
 
@@ -580,8 +580,8 @@ export default async function BrotherhoodPage({
         <SurfaceCard>
           <SectionHeader
             kicker={isCurrentDayView ? "Today's Member Status" : `Day ${selectedDay} Member Status`}
-            title={`The ${communityName.toLowerCase()}, seen at a glance.`}
-            description="First name plus last initial for clarity, plus weekly quota progress for flexible disciplines."
+            title="Member Status"
+            description="First name plus last initial, required tasks, optional tasks, and weekly progress."
           />
 
           <div className="mt-4 grid gap-2 sm:gap-3 xl:grid-cols-2">
@@ -674,8 +674,8 @@ export default async function BrotherhoodPage({
                     </StatusPill>
                     {member.hasWeeklyMomentum ? (
                       <StatusPill tone="momentum">
-                        <span className="sm:hidden">Momentum</span>
-                        <span className="hidden sm:inline">Weekly Momentum</span>
+                        <span className="sm:hidden">Weekly</span>
+                        <span className="hidden sm:inline">Weekly Progress</span>
                       </StatusPill>
                     ) : null}
                   </TaskCardMeta>

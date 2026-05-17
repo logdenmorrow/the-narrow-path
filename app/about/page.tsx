@@ -81,16 +81,15 @@ export default function AboutPage() {
         <SurfaceCard>
           <div className="space-y-5 text-base leading-8 text-monastic-1 sm:text-lg">
             <p>
-              I built it for ordinary Catholics who want structure without
-              turning the faith into a performance. Some days will be strong.
-              Some days will be rough. The point is not to pretend otherwise.
-              The point is to keep choosing the next faithful step.
+              I built it for Catholics who want a little structure. Some days
+              will be strong. Some days will be rough. The point is to keep
+              praying, reading, and doing the assigned work.
             </p>
             <p>
               There are separate Brotherhood and Sisterhood tracks, but the
               heart of the challenge is the same: live the Catholic faith more
-              intentionally, stay accountable, and keep coming back to the
-              Church that Christ founded. God bless!
+              intentionally, stay accountable, and stay close to the Church
+              that Christ founded. God bless!
             </p>
           </div>
         </SurfaceCard>

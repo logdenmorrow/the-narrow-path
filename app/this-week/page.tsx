@@ -345,26 +345,25 @@ export default async function ThisWeekPage({
           <MetricCard
             label="Week Span"
             value={`${weekStartDayNumber}-${weekEndDayNumber}`}
-            detail="Current challenge week window."
+            detail="Current week."
           />
           <MetricCard
             label="Days in View"
             value={`${dayModels.length}`}
-            detail="Each day carries its own reading and discipline set."
+            detail="Days shown."
           />
           <MetricCard
             label="Reference Day"
             value={`Day ${selectedDay}`}
-            detail="Today anchors the week summary and reading jump point."
+            detail="Selected day."
           />
         </div>
 
         {quotaSummaries.length > 0 && (
           <SurfaceCard>
             <SectionHeader
-              kicker="Momentum"
+              kicker="Progress"
               title="Week Progress"
-              description="Quota disciplines remain visible across the whole week."
             />
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {quotaSummaries.map((task) => {

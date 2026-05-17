@@ -5,7 +5,7 @@ export default function Loading() {
     <MonasticLoading
       label="Community"
       title="Loading community"
-      description="Bringing the day’s member progress and shared momentum into view."
+      description="Loading member progress for the day."
     />
   );
 }

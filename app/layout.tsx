@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   title: "The Narrow Path",
   applicationName: "The Narrow Path",
   description:
-    "A Catholic accountability app for prayer, discipline, the sacraments, and perseverance.",
+    "A Catholic app for daily readings, tasks, reminders, and accountability.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_APP_URL ??
       (process.env.VERCEL_URL

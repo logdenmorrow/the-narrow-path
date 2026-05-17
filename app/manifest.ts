@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "The Narrow Path",
     short_name: "Narrow Path",
     description:
-      "A Catholic accountability app for prayer, discipline, the sacraments, and perseverance.",
+      "A Catholic app for daily readings, tasks, reminders, and accountability.",
     id: "/",
     start_url: "/app",
     scope: "/",
