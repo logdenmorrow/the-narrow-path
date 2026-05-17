@@ -13,15 +13,8 @@ type ReminderSlot = {
   timezone: string | null;
 };
 
-type LegacyReminderPreference = {
-  enabled: boolean;
-  local_time: string | null;
-  timezone: string | null;
-};
-
 type DailyReminderSettingsProps = {
   initialSlots: ReminderSlot[];
-  legacyPreference: LegacyReminderPreference | null;
 };
 
 type TimePeriod = "AM" | "PM";
@@ -121,37 +114,28 @@ function detectTimezone() {
 
 function buildInitialSlots({
   initialSlots,
-  legacyPreference,
 }: DailyReminderSettingsProps): EditableReminderSlot[] {
   return REMINDER_DEFINITIONS.map((definition) => {
     const slot = initialSlots.find(
       (candidate) => candidate.reminder_type === definition.reminder_type
     );
-    const legacyMorning =
-      definition.reminder_type === "morning_scripture" && legacyPreference?.enabled
-        ? legacyPreference
-        : null;
 
     return {
       reminder_type: definition.reminder_type,
       title: definition.title,
       body: definition.body,
-      enabled: slot?.enabled ?? legacyMorning?.enabled ?? false,
-      local_time: formatTimeForInput(
-        slot?.local_time ?? legacyMorning?.local_time ?? null,
-        definition.default_time
-      ),
-      timezone: slot?.timezone ?? legacyMorning?.timezone ?? "",
+      enabled: slot?.enabled ?? false,
+      local_time: formatTimeForInput(slot?.local_time ?? null, definition.default_time),
+      timezone: slot?.timezone ?? "",
     };
   });
 }
 
 export function DailyReminderSettings({
   initialSlots,
-  legacyPreference,
 }: DailyReminderSettingsProps) {
   const [slots, setSlots] = useState<EditableReminderSlot[]>(() =>
-    buildInitialSlots({ initialSlots, legacyPreference })
+    buildInitialSlots({ initialSlots })
   );
   const [detectedTimezone, setDetectedTimezone] = useState("");
   const [message, setMessage] = useState(

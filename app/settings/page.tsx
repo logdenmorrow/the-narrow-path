@@ -7,12 +7,6 @@ import { PushNotificationControl } from "@/components/push-notification-control"
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 
-type ReminderPreferenceRow = {
-  enabled: boolean;
-  local_time: string | null;
-  timezone: string | null;
-};
-
 type ReminderSlotRow = {
   reminder_type: "morning_scripture" | "night_prayer";
   enabled: boolean;
@@ -37,12 +31,6 @@ export default async function SettingsPage() {
     .eq("user_id", user.id)
     .order("sort_order", { ascending: true })
     .returns<ReminderSlotRow[]>();
-
-  const { data: reminderPreference } = await supabase
-    .from("notification_reminder_preferences")
-    .select("enabled, local_time, timezone")
-    .eq("user_id", user.id)
-    .maybeSingle<ReminderPreferenceRow>();
 
   return (
     <main className="monastic-page">
@@ -76,10 +64,7 @@ export default async function SettingsPage() {
             description="Choose the preset reminder times for this account. Reminders send to enabled devices for this account."
           />
           <div className="mt-4 min-w-0 max-w-full">
-            <DailyReminderSettings
-              initialSlots={reminderSlots ?? []}
-              legacyPreference={reminderPreference ?? null}
-            />
+            <DailyReminderSettings initialSlots={reminderSlots ?? []} />
           </div>
         </SurfaceCard>
 

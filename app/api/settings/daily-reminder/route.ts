@@ -1,9 +1,18 @@
 import { revalidatePath } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+
+type ReminderSlotRow = {
+  reminder_type: "morning_scripture" | "night_prayer";
+  timezone: string | null;
+};
+
+const DEFAULT_DISABLED_TIMEZONE = "UTC";
+const LEGACY_DEFAULT_LOCAL_TIME = "09:00";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -45,6 +54,18 @@ function normalizeTimezone(value: unknown) {
   return timezone;
 }
 
+function isMissingTableError(error: { code?: string; message?: string }) {
+  const message = error.message?.toLowerCase() ?? "";
+
+  return (
+    error.code === "42P01" ||
+    error.code === "PGRST205" ||
+    message.includes("does not exist") ||
+    message.includes("could not find") ||
+    message.includes("schema cache")
+  );
+}
+
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
   const {
@@ -74,7 +95,9 @@ export async function POST(request: NextRequest) {
 
   try {
     enabled = Boolean(body.enabled);
-    localTime = normalizeLocalTime(body.local_time ?? body.localTime ?? "09:00");
+    localTime = normalizeLocalTime(
+      body.local_time ?? body.localTime ?? LEGACY_DEFAULT_LOCAL_TIME
+    );
     timezone = normalizeTimezone(body.timezone);
 
     if (enabled && !timezone) {
@@ -92,22 +115,98 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { error } = await supabase
+  const admin = createAdminClient();
+  const { data: existingSlots, error: slotsReadError } = await admin
+    .from("notification_reminder_slots")
+    .select("reminder_type, timezone")
+    .eq("user_id", user.id)
+    .returns<ReminderSlotRow[]>();
+
+  if (slotsReadError) {
+    console.error("Could not read reminder slots for legacy daily reminder.", slotsReadError);
+    return NextResponse.json(
+      { error: "Could not save reminder settings." },
+      { status: 500 }
+    );
+  }
+
+  const existingMorningTimezone = existingSlots?.find(
+    (slot) => slot.reminder_type === "morning_scripture"
+  )?.timezone;
+  const existingNightTimezone = existingSlots?.find(
+    (slot) => slot.reminder_type === "night_prayer"
+  )?.timezone;
+  const storageTimezone =
+    timezone ??
+    existingMorningTimezone ??
+    existingNightTimezone ??
+    DEFAULT_DISABLED_TIMEZONE;
+
+  const { error: morningError } = await admin
+    .from("notification_reminder_slots")
+    .upsert(
+      {
+        user_id: user.id,
+        reminder_type: "morning_scripture",
+        enabled,
+        local_time: localTime,
+        timezone: storageTimezone,
+        sort_order: 0,
+      },
+      { onConflict: "user_id,reminder_type" }
+    );
+
+  if (morningError) {
+    console.error("Could not save legacy daily reminder as morning slot.", morningError);
+    return NextResponse.json(
+      { error: "Could not save reminder settings." },
+      { status: 500 }
+    );
+  }
+
+  const nightTimezone =
+    timezone ??
+    existingNightTimezone ??
+    existingMorningTimezone ??
+    DEFAULT_DISABLED_TIMEZONE;
+  const { error: nightError } = await admin
+    .from("notification_reminder_slots")
+    .upsert(
+      {
+        user_id: user.id,
+        reminder_type: "night_prayer",
+        enabled: false,
+        local_time: "21:30",
+        timezone: nightTimezone,
+        sort_order: 1,
+      },
+      { onConflict: "user_id,reminder_type", ignoreDuplicates: true }
+    );
+
+  if (nightError) {
+    console.error("Could not ensure night prayer reminder slot.", nightError);
+    return NextResponse.json(
+      { error: "Could not save reminder settings." },
+      { status: 500 }
+    );
+  }
+
+  const { error: legacyDisableError } = await admin
     .from("notification_reminder_preferences")
     .upsert(
       {
         user_id: user.id,
-        enabled,
+        enabled: false,
         local_time: localTime,
-        timezone,
+        timezone: storageTimezone,
       },
       { onConflict: "user_id" }
     );
 
-  if (error) {
-    console.error("Could not save daily reminder preference.", error);
+  if (legacyDisableError && !isMissingTableError(legacyDisableError)) {
+    console.error("Could not disable legacy daily reminder preference.", legacyDisableError);
     return NextResponse.json(
-      { error: "Could not save reminder preference." },
+      { error: "Could not save reminder settings." },
       { status: 500 }
     );
   }
