@@ -1,17 +1,22 @@
-const CACHE_NAME = "narrow-path-static-v3";
+const CACHE_NAME = "narrow-path-static-v4";
 const SAFE_STATIC_ASSETS = [
   "/app-icon-192.png",
   "/app-icon-512.png",
   "/apple-touch-icon.png",
   "/maskable-icon-192.png",
   "/maskable-icon-512.png",
+  "/app-icon-v2-192.png",
+  "/app-icon-v2-512.png",
+  "/apple-touch-icon-v2.png",
+  "/maskable-icon-v2-192.png",
+  "/maskable-icon-v2-512.png",
   "/notification-icon-192.png",
   "/notification-badge-96.png",
 ];
 const DEFAULT_NOTIFICATION_TITLE = "The Narrow Path";
 const DEFAULT_NOTIFICATION_BODY = "You have a new notification from The Narrow Path.";
 const DEFAULT_NOTIFICATION_URL = "/app";
-// PWA install icons stay tiled; push notifications use transparent, dedicated marks.
+// Launcher icon filenames are versioned; push notification assets stay separate.
 const NOTIFICATION_ICON = "/notification-icon-192.png";
 const NOTIFICATION_BADGE = "/notification-badge-96.png";
 

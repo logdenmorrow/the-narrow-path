@@ -15,27 +15,28 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#f5efe1",
     theme_color: "#6d4729",
     categories: ["lifestyle", "productivity"],
+    // Launcher icon filenames are versioned to reduce PWA/home-screen icon caching issues.
     icons: [
       {
-        src: "/app-icon-192.png",
+        src: "/app-icon-v2-192.png",
         sizes: "192x192",
         type: "image/png",
         purpose: "any",
       },
       {
-        src: "/app-icon-512.png",
+        src: "/app-icon-v2-512.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "any",
       },
       {
-        src: "/maskable-icon-192.png",
+        src: "/maskable-icon-v2-192.png",
         sizes: "192x192",
         type: "image/png",
         purpose: "maskable",
       },
       {
-        src: "/maskable-icon-512.png",
+        src: "/maskable-icon-v2-512.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "maskable",
