@@ -1361,8 +1361,10 @@ Daily reminder notifications Phase 2B is complete and verified:
 - Reminder preferences are stored in `notification_reminder_preferences`.
 - Reminder send/dedupe logs are stored in `notification_reminder_sends`.
 - Cron route exists at `/api/cron/push/reminders` and is protected by `CRON_SECRET`.
-- GitHub Actions calls the cron route every 5 minutes and also supports manual `workflow_dispatch`.
-- GitHub Actions scheduler was manually verified and returned HTTP 200.
+- Unraid User Scripts is the production reminder scheduler.
+- GitHub Actions reminder workflow is manual backup/test only via `workflow_dispatch`.
+- Unraid calls the cron route every minute with custom cron `* * * * *`.
+- Unraid script logs to `/mnt/user/appdata/the-narrow-path/reminder-cron.log`.
 - Dry run works with `?dryRun=1`.
 - Non-dry-run sends due reminders.
 - Dedupe works through unique `(user_id, reminder_date, local_time)`.
@@ -1390,15 +1392,22 @@ Phase 2B hardening note:
 
 Important reminder operations notes:
 
-- `CRON_SECRET` is required in both Unraid/runtime container env and GitHub Actions repository secrets.
+- `CRON_SECRET` is required in both the Unraid/runtime app container env and the Unraid User Script.
 - If `CRON_SECRET` is rotated, update both places.
 - Because the old secret was pasted during testing, rotate it if that has not already been done.
-- GitHub Actions schedule is every 5 minutes.
-- GitHub Actions scheduled jobs are best-effort and may run late, so the app intentionally uses a 90-minute reminder lookback window.
+- Production scheduler: Unraid User Scripts custom cron `* * * * *`.
+- Production endpoint: `https://thenarrowpath.xyz/api/cron/push/reminders`.
+- Production auth header: `Authorization: Bearer $CRON_SECRET`.
+- Production log file: `/mnt/user/appdata/the-narrow-path/reminder-cron.log`.
+- GitHub Actions scheduled reminder runs were unreliable because scheduled jobs are best-effort and may be delayed or dropped; GitHub Actions remains manual backup/test only.
+- The cron route intentionally keeps a 90-minute reminder lookback window.
 - Reminder dedupe prevents multiple sends per user/date/local_time.
+- Running every minute is safe because dedupe prevents repeat sends for the same user/date/local_time.
 - Current reminder model is one daily reminder per user.
 - A user changing today's reminder time after a reminder already sent can receive another reminder for the new time that same day.
 - Repeated cron runs for the same reminder time still skip; this intentionally lets users move from a morning reminder to an evening reminder without waiting until the next day.
+- Manual tests confirmed Unraid can reach the cron endpoint, auth works, due reminders send successfully, Android and iOS receive reminders, repeated runs for the same user/date/time skip, and a 3:00 PM reminder was received at 3:00 PM after switching to every-minute Unraid scheduling.
+- If both GitHub schedule and Unraid schedule are enabled, both may hit the endpoint and dedupe prevents duplicate sends, but production should use only one scheduler to reduce noise.
 
 Future/backburner reminder expansion:
 
