@@ -142,30 +142,6 @@ function buildWeeklyQuotaProgress(
     .sort((a, b) => a.title.localeCompare(b.title));
 }
 
-function buildDailyStreak(
-  requiredTasksByDay: Map<number, number[]>,
-  completionIds: Set<number>,
-  currentDay: number
-) {
-  let streak = 0;
-
-  for (let day = currentDay; day >= 1; day -= 1) {
-    const requiredTaskIds = requiredTasksByDay.get(day) ?? [];
-    if (requiredTaskIds.length === 0) {
-      continue;
-    }
-
-    const completedAll = requiredTaskIds.every((taskId) => completionIds.has(taskId));
-    if (!completedAll) {
-      break;
-    }
-
-    streak += 1;
-  }
-
-  return streak;
-}
-
 function getQuotaMeterTone(completed: number, target: number): MeterTone {
   if (target <= 0) {
     return "neutral";
@@ -480,84 +456,6 @@ export default async function DashboardPage({
     (task) => !yesterdayCompletionIds.has(task.id)
   ).length;
 
-  const { data: allPlanDaysData } = await supabase
-    .from("plan_days")
-    .select("id, day_number")
-    .eq("plan_id", activePlan.id)
-    .lte("day_number", selectedDay)
-    .order("day_number", { ascending: true });
-
-  const allPlanDays = (allPlanDaysData ?? []) as Array<{ id: number; day_number: number }>;
-  const allPlanDayIds = allPlanDays.map((day) => day.id);
-
-  const { data: allRequiredTasksData } = allPlanDayIds.length
-    ? await supabase
-        .from("plan_day_tasks")
-        .select(
-          `
-            id,
-            plan_day_id,
-            is_required,
-            task_templates (
-              cadence,
-              audience
-            )
-          `
-        )
-        .in("plan_day_id", allPlanDayIds)
-        .eq("is_required", true)
-    : { data: [] };
-
-  const allRequiredTasks = (allRequiredTasksData ?? []) as unknown as Array<{
-    id: number;
-    plan_day_id: number;
-    is_required: boolean;
-    task_templates: {
-      cadence: TaskTemplateCadence;
-      audience: string | null;
-    } | null;
-  }>;
-  const visibleAllRequiredTasks = filterTasksForTrack(allRequiredTasks, track);
-  const allRequiredTaskIds = visibleAllRequiredTasks
-    .filter((task) => task.task_templates?.cadence !== "weekly_quota")
-    .map((task) => task.id);
-
-  const { data: allRequiredCompletionsData } = allRequiredTaskIds.length
-    ? await supabase
-        .from("user_task_completions")
-        .select("plan_day_task_id")
-        .eq("user_id", user.id)
-        .in("plan_day_task_id", allRequiredTaskIds)
-    : { data: [] };
-
-  const allRequiredCompletionIds = new Set(
-    ((allRequiredCompletionsData ?? []) as UserTaskCompletionRow[]).map(
-      (completion) => completion.plan_day_task_id
-    )
-  );
-
-  const requiredTasksByDay = new Map<number, number[]>();
-  const planDayNumberById = new Map(allPlanDays.map((day) => [day.id, day.day_number]));
-  for (const task of visibleAllRequiredTasks) {
-    if (task.task_templates?.cadence === "weekly_quota") {
-      continue;
-    }
-
-    const dayNumber = planDayNumberById.get(task.plan_day_id);
-    if (!dayNumber) {
-      continue;
-    }
-
-    const existing = requiredTasksByDay.get(dayNumber) ?? [];
-    existing.push(task.id);
-    requiredTasksByDay.set(dayNumber, existing);
-  }
-
-  const dailyStreakCount = buildDailyStreak(
-    requiredTasksByDay,
-    allRequiredCompletionIds, // Streaks must consider all required-task completions through selectedDay, not only today/week data.
-    selectedDay
-  );
   const memberCount =
     (
       await supabase

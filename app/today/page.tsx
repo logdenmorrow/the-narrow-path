@@ -458,8 +458,6 @@ export default async function TodayPage({
     : "Open Scripture Reflection";
   const currentDateIso = getIsoDateInTimeZone();
   const accountabilityEnabled = challenge.hasStarted && selectedDay === challenge.currentDayNumber;
-  const isCurrentChallengeDayView =
-    challenge.hasStarted && selectedDay === challenge.currentDayNumber;
   const preserveViewTrack = isAdmin && isUsingViewOverride;
 
   const { data: dailyCheckinData } = accountabilityEnabled
