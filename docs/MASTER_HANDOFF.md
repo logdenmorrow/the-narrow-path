@@ -1365,8 +1365,8 @@ Daily reminder notifications Phase 2B is complete and verified:
 - GitHub Actions scheduler was manually verified and returned HTTP 200.
 - Dry run works with `?dryRun=1`.
 - Non-dry-run sends due reminders.
-- Dedupe works through unique `(user_id, reminder_date)`.
-- Re-running the cron in the same reminder window skips instead of sending duplicate notifications.
+- Dedupe works through unique `(user_id, reminder_date, local_time)`.
+- Re-running the cron for the same reminder time skips instead of sending duplicate notifications.
 - Reminder notifications use generic safe copy only.
 - Reminder notifications link through `/app` and land on Today.
 - Android and iPhone received reminder notifications successfully.
@@ -1394,9 +1394,11 @@ Important reminder operations notes:
 - If `CRON_SECRET` is rotated, update both places.
 - Because the old secret was pasted during testing, rotate it if that has not already been done.
 - GitHub Actions schedule is every 5 minutes.
-- GitHub Actions cron timing may not be exact to the second, so the app uses a 10-minute lookback window.
+- GitHub Actions scheduled jobs are best-effort and may run late, so the app intentionally uses a 90-minute reminder lookback window.
+- Reminder dedupe prevents multiple sends per user/date/local_time.
 - Current reminder model is one daily reminder per user.
-- A user changing today's reminder time after a reminder already sent will not resend that day because dedupe is by user/date.
+- A user changing today's reminder time after a reminder already sent can receive another reminder for the new time that same day.
+- Repeated cron runs for the same reminder time still skip; this intentionally lets users move from a morning reminder to an evening reminder without waiting until the next day.
 
 Future/backburner reminder expansion:
 

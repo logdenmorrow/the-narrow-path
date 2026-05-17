@@ -29,8 +29,8 @@ type ReminderSendSummary = DueReminder & {
   revoked: number;
 };
 
-const DEFAULT_LOOKBACK_MINUTES = 10;
-const MAX_LOOKBACK_MINUTES = 60;
+const DEFAULT_LOOKBACK_MINUTES = 90;
+const MAX_LOOKBACK_MINUTES = 90;
 const REMINDER_TITLE = "The Narrow Path";
 const REMINDER_BODY = "Time to return to your daily rhythm.";
 const REMINDER_URL = "/app";
