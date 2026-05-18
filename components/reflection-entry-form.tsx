@@ -5,6 +5,7 @@ import { useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveReflectionEntry } from "@/app/reflection/actions";
 import { Button } from "@/components/ui/button";
+import { buildPlanDayHref } from "@/lib/plan-day-url";
 
 type ReflectionEntryFormProps = {
   planDayId: number;
@@ -15,6 +16,7 @@ type ReflectionEntryFormProps = {
   initialHasSavedEntry: boolean;
   isLocked: boolean;
   selectedDay: number;
+  planSlug: string;
 };
 
 export function ReflectionEntryForm({
@@ -26,6 +28,7 @@ export function ReflectionEntryForm({
   initialHasSavedEntry,
   isLocked,
   selectedDay,
+  planSlug,
 }: ReflectionEntryFormProps) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
@@ -74,6 +77,7 @@ export function ReflectionEntryForm({
     <form ref={formRef} onSubmit={handleSubmit} className="mt-5 space-y-3.5 sm:mt-6 sm:space-y-4">
       <input type="hidden" name="planDayId" value={planDayId} />
       <input type="hidden" name="dayNumber" value={dayNumber} />
+      <input type="hidden" name="planSlug" value={planSlug} />
       <input type="hidden" name="reflectionTaskId" value={reflectionTaskId ?? ""} />
       <input type="hidden" name="promptText" value={promptText} />
 
@@ -99,7 +103,9 @@ export function ReflectionEntryForm({
         </Button>
 
         <Button asChild variant="secondary">
-          <Link href={`/today?day=${selectedDay}`}>Return to Today</Link>
+          <Link href={buildPlanDayHref("/today", planSlug, selectedDay)}>
+            Return to Today
+          </Link>
         </Button>
       </div>
 

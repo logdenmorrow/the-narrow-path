@@ -12,7 +12,11 @@ import {
 } from "@/components/monastic-ui";
 import { createClient } from "@/lib/supabase/server";
 import { getChallengeTiming } from "@/lib/challenge";
-import { isDay90Celebration } from "@/lib/season-plan";
+import {
+  ORIGINAL_CHALLENGE_PLAN_SLUG,
+  isDay90Celebration,
+} from "@/lib/season-plan";
+import { buildPlanDayHref } from "@/lib/plan-day-url";
 import { updateLastActiveAt } from "@/lib/last-active";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -77,7 +81,7 @@ export default async function ChallengeFeedbackPage({
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")
-    .select("id, name, total_days")
+    .select("id, slug, name, total_days")
     .eq("is_active", true)
     .maybeSingle();
 
@@ -98,6 +102,7 @@ export default async function ChallengeFeedbackPage({
   }
 
   const challenge = getChallengeTiming(activePlan.total_days);
+  const originalPlanSlug = activePlan.slug ?? ORIGINAL_CHALLENGE_PLAN_SLUG;
   const resolvedSearchParams = await searchParams;
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]
@@ -132,7 +137,7 @@ export default async function ChallengeFeedbackPage({
             />
             <div className="mt-5">
               <Link
-                href="/today?day=90"
+                href={buildPlanDayHref("/today", originalPlanSlug, 90)}
                 className="inline-flex rounded-[1rem] border border-monastic px-4 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:tracking-[0.18em]"
               >
                 Review Day 90
@@ -191,7 +196,11 @@ export default async function ChallengeFeedbackPage({
               className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
                 {
-                  href: `/today?day=${planDay.day_number}`,
+                  href: buildPlanDayHref(
+                    "/today",
+                    originalPlanSlug,
+                    planDay.day_number
+                  ),
                   label: "Back to Day 90",
                   variant: "secondary",
                 },
@@ -263,6 +272,7 @@ export default async function ChallengeFeedbackPage({
               <ChallengeFeedbackForm
                 planDayId={planDay.id}
                 dayNumber={planDay.day_number}
+                planSlug={originalPlanSlug}
                 challengeFeedbackTaskId={challengeFeedbackTask.id}
                 initialHasSavedFeedback={Boolean(feedback?.id)}
                 isLocked={isLocked}

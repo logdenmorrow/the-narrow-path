@@ -35,6 +35,10 @@ import {
   getPostChallengeDisplay,
   getSeasonTimelineItem,
 } from "@/lib/season-plan";
+import {
+  buildPlanDayHref,
+  getPlanSlugForResolvedSeason,
+} from "@/lib/plan-day-url";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
 import { updateLastActiveAt } from "@/lib/last-active";
 import { applyReflectionCompletionOverride, getReflectionTaskId } from "@/lib/task-progress";
@@ -234,6 +238,11 @@ export default async function DashboardPage({
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
   const preserveViewTrack = isAdmin && isUsingViewOverride;
+  const currentPlanSlug = getPlanSlugForResolvedSeason({
+    phase: seasonResolution.phase,
+    planSlug: activePlan?.slug,
+    planName: activePlan?.name,
+  });
 
   if (seasonResolution.phase === "james" && !activePlan) {
     return (
@@ -339,7 +348,11 @@ export default async function DashboardPage({
                 actions={[
                   {
                     href: withViewTrack(
-                      `/today?day=${activePlan.total_days}`,
+                      buildPlanDayHref(
+                        "/today",
+                        currentPlanSlug,
+                        activePlan.total_days
+                      ),
                       track,
                       preserveViewTrack
                     ),
@@ -367,7 +380,11 @@ export default async function DashboardPage({
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <Link
                   href={withViewTrack(
-                    `/today?day=${activePlan.total_days}`,
+                    buildPlanDayHref(
+                      "/today",
+                      currentPlanSlug,
+                      activePlan.total_days
+                    ),
                     track,
                     preserveViewTrack
                   )}
@@ -752,7 +769,7 @@ export default async function DashboardPage({
               <Link href={withViewTrack("/brotherhood", track, preserveViewTrack)} className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
                 {communityName}
               </Link>
-              <Link href={withViewTrack(`/today?day=${Math.max(selectedDay - 1, 1)}`, track, preserveViewTrack)} className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+              <Link href={withViewTrack(buildPlanDayHref("/today", currentPlanSlug, Math.max(selectedDay - 1, 1)), track, preserveViewTrack)} className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
                 Review Yesterday
               </Link>
               {isAdmin && (
@@ -838,7 +855,7 @@ export default async function DashboardPage({
               {missedYesterdayCount === 1 ? "" : "s"} not completed.
             </p>
             <Link
-              href={`/today?day=${yesterdayDay}`}
+              href={buildPlanDayHref("/today", currentPlanSlug, yesterdayDay)}
               className="mt-4 inline-flex rounded-[1rem] border border-monastic px-4 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:tracking-[0.18em]"
             >
               Review Day {yesterdayDay}
@@ -988,7 +1005,7 @@ export default async function DashboardPage({
               "No reflection prompt has been assigned for this day yet."}
           </p>
           <Link
-            href={`/reflection?day=${selectedDay}`}
+            href={buildPlanDayHref("/reflection", currentPlanSlug, selectedDay)}
             className="mt-4 inline-flex rounded-[1rem] border border-monastic px-4 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]"
           >
             Open Reflection

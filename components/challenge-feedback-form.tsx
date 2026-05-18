@@ -5,6 +5,7 @@ import { useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveChallengeFeedback } from "@/app/challenge-feedback/actions";
 import { Button } from "@/components/ui/button";
+import { buildPlanDayHref } from "@/lib/plan-day-url";
 
 export type ChallengeFeedbackFormValues = {
   likedText: string;
@@ -18,6 +19,7 @@ export type ChallengeFeedbackFormValues = {
 type ChallengeFeedbackFormProps = {
   planDayId: number;
   dayNumber: number;
+  planSlug: string;
   challengeFeedbackTaskId: number;
   initialValues: ChallengeFeedbackFormValues;
   initialHasSavedFeedback: boolean;
@@ -31,6 +33,7 @@ function valuesToKey(values: ChallengeFeedbackFormValues) {
 export function ChallengeFeedbackForm({
   planDayId,
   dayNumber,
+  planSlug,
   challengeFeedbackTaskId,
   initialValues,
   initialHasSavedFeedback,
@@ -154,7 +157,9 @@ export function ChallengeFeedbackForm({
         </Button>
 
         <Button asChild variant="secondary">
-          <Link href={`/today?day=${dayNumber}`}>Return to Today</Link>
+          <Link href={buildPlanDayHref("/today", planSlug, dayNumber)}>
+            Return to Today
+          </Link>
         </Button>
       </div>
 

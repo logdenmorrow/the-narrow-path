@@ -28,6 +28,8 @@ import { createClient } from "@/lib/supabase/server";
 import { updateLastActiveAt } from "@/lib/last-active";
 import { getCommunityName, isVisibleForTrack, type Track } from "@/lib/track";
 import { getChallengeTiming } from "@/lib/challenge";
+import { ORIGINAL_CHALLENGE_PLAN_SLUG } from "@/lib/season-plan";
+import { buildPlanDayHref } from "@/lib/plan-day-url";
 import {
   buildTaskViewModels,
   createReflectionCompletionOverrides,
@@ -199,7 +201,7 @@ export default async function BrotherhoodMemberPage({
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")
-    .select("id, name, total_days")
+    .select("id, slug, name, total_days")
     .eq("is_active", true)
     .maybeSingle();
 
@@ -217,6 +219,7 @@ export default async function BrotherhoodMemberPage({
   }
 
   const challenge = getChallengeTiming(activePlan.total_days);
+  const activePlanSlug = activePlan.slug ?? ORIGINAL_CHALLENGE_PLAN_SLUG;
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]
     : resolvedSearchParams.day;
@@ -465,7 +468,11 @@ export default async function BrotherhoodMemberPage({
                   variant: "secondary",
                 },
                 {
-                  href: `/daily-reading?day=${typedPlanDay.day_number}`,
+                  href: buildPlanDayHref(
+                    "/daily-reading",
+                    activePlanSlug,
+                    typedPlanDay.day_number
+                  ),
                   label: "Open Daily Reading",
                   variant: "outline",
                 },
@@ -668,7 +675,13 @@ export default async function BrotherhoodMemberPage({
             title="Reflection Prompt"
             action={
               <Button asChild size="xs" variant="secondary">
-                <Link href={`/reflection?day=${typedPlanDay.day_number}`}>
+                <Link
+                  href={buildPlanDayHref(
+                    "/reflection",
+                    activePlanSlug,
+                    typedPlanDay.day_number
+                  )}
+                >
                   Open Reflection
                 </Link>
               </Button>

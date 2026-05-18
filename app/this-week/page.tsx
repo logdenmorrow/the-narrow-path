@@ -35,6 +35,10 @@ import {
   type PlanDayTaskRecord,
 } from "@/lib/task-progress";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
+import {
+  buildPlanDayHref,
+  getPlanSlugForResolvedSeason,
+} from "@/lib/plan-day-url";
 
 type SearchParams = Promise<SearchParamRecord>;
 
@@ -147,11 +151,20 @@ export default async function ThisWeekPage({
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]
     : resolvedSearchParams.day;
+  const rawPlan = Array.isArray(resolvedSearchParams.plan)
+    ? resolvedSearchParams.plan[0]
+    : resolvedSearchParams.plan;
   const seasonResolution = await resolveSeasonPlan(supabase, {
     requestedDay: rawDay === undefined ? null : Number(rawDay),
+    requestedPlanSlug: rawPlan,
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
+  const currentPlanSlug = getPlanSlugForResolvedSeason({
+    phase: seasonResolution.phase,
+    planSlug: activePlan?.slug,
+    planName: activePlan?.name,
+  });
 
   if (seasonResolution.phase === "james" && !activePlan) {
     return (
@@ -373,7 +386,7 @@ export default async function ThisWeekPage({
           <AdminViewTrackSwitcher
             basePath="/this-week"
             currentTrack={track}
-            params={{ day: selectedDay }}
+            params={{ plan: currentPlanSlug, day: selectedDay }}
           />
         ) : null}
 
@@ -391,12 +404,20 @@ export default async function ThisWeekPage({
               className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
                 {
-                  href: withViewTrack(`/today?day=${selectedDay}`, track, preserveViewTrack),
+                  href: withViewTrack(
+                    buildPlanDayHref("/today", currentPlanSlug, selectedDay),
+                    track,
+                    preserveViewTrack
+                  ),
                   label: "Back to Today",
                   variant: "secondary",
                 },
                 {
-                  href: `/daily-reading?day=${selectedDay}`,
+                  href: buildPlanDayHref(
+                    "/daily-reading",
+                    currentPlanSlug,
+                    selectedDay
+                  ),
                   label: "Daily Reading",
                   variant: "primary",
                 },
@@ -481,7 +502,15 @@ export default async function ThisWeekPage({
                 description={day.reading_title ?? day.title ?? "Daily Reading"}
                 action={
                   <Button asChild size="xs" variant="secondary">
-                    <Link href={`/today?day=${day.day_number}`}>Open</Link>
+                    <Link
+                      href={buildPlanDayHref(
+                        "/today",
+                        currentPlanSlug,
+                        day.day_number
+                      )}
+                    >
+                      Open
+                    </Link>
                   </Button>
                 }
               />

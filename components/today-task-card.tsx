@@ -20,6 +20,7 @@ type TodayTaskCardProps = {
   completed: boolean;
   locked: boolean;
   lockedLabel?: string;
+  planSlug?: string;
   secondaryAction?: {
     href: string;
     label: string;
@@ -50,6 +51,7 @@ export function TodayTaskCard({
   completed,
   locked,
   lockedLabel,
+  planSlug,
   secondaryAction,
 }: TodayTaskCardProps) {
   const router = useRouter();
@@ -151,6 +153,7 @@ export function TodayTaskCard({
       className="group"
     >
       <input type="hidden" name="planDayTaskId" value={planDayTaskId} />
+      {planSlug ? <input type="hidden" name="planSlug" value={planSlug} /> : null}
 
       <TaskCard
         className={`p-4 transition duration-200 ${

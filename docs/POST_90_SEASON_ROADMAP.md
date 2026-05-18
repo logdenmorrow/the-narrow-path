@@ -64,11 +64,18 @@ Implementation notes:
 
 - Current reading content is stored on `plan_days` using `reading_mission`, `reading_focus`, `reading_title`, `reading_reference`, `reading_notes`, `reading_text`, and `reflection_prompt`.
 - Current task assignments use `task_templates` and `plan_day_tasks`.
-- Current pages still load a single `challenge_plans.is_active = true` plan and use the April 6, 2026 start date in `lib/challenge.ts`.
+- Primary day-review pages now use date/plan-aware resolution; some legacy/community/prayer pages still load the single `challenge_plans.is_active = true` plan and use the April 6, 2026 start date in `lib/challenge.ts`.
 - Do not mark a second plan active without first updating plan/season selection logic; existing `.maybeSingle()` queries expect one active plan.
 - Once final content is provided, the safe data path is a migration or controlled import that creates the August plan days and assigns only the August task set.
 - August task data should include reading/reflection, Sunday Mass, weekly Adoration, monthly Confession, and optional prayer/community tasks. It should not include the original food, drink, cold shower, social media, fasting, or meat-abstinence challenge restrictions.
 - Current task progress code supports `quota_scope = 'month'` for August Confession. Review dashboard summary copy before the plan is made active so the monthly requirement is surfaced clearly.
+
+Routing convention:
+
+- `/today` means the current day in the currently resolved season.
+- `?plan=<slug>&day=<number>` is the preferred stable review and deep-link format for plan days.
+- Bare `?day=<number>` remains a legacy shortcut and should keep working for existing shared links.
+- During August, use `/today?plan=ordinary-time-james&day=10` instead of relying on `/today?day=10`.
 
 Possible loading paths:
 

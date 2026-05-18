@@ -12,6 +12,10 @@ import { TodayTaskCard } from "@/components/today-task-card";
 import { createClient } from "@/lib/supabase/server";
 import { updateLastActiveAt } from "@/lib/last-active";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
+import {
+  buildPlanDayHref,
+  getPlanSlugForResolvedSeason,
+} from "@/lib/plan-day-url";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -149,11 +153,20 @@ export default async function DailyReadingPage({
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]
     : resolvedSearchParams.day;
+  const rawPlan = Array.isArray(resolvedSearchParams.plan)
+    ? resolvedSearchParams.plan[0]
+    : resolvedSearchParams.plan;
   const seasonResolution = await resolveSeasonPlan(supabase, {
     requestedDay: rawDay === undefined ? null : Number(rawDay),
+    requestedPlanSlug: rawPlan,
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
+  const currentPlanSlug = getPlanSlugForResolvedSeason({
+    phase: seasonResolution.phase,
+    planSlug: activePlan?.slug,
+    planName: activePlan?.name,
+  });
 
   if (seasonResolution.phase === "james" && !activePlan) {
     return (
@@ -270,7 +283,13 @@ export default async function DailyReadingPage({
   const catechismDay = isCatechismDay(planDay.reading_reference);
   const hasReadingText = readingParagraphs.length > 0;
   const isLocked = !challenge.hasStarted || selectedDay > challenge.currentDayNumber;
-  const reflectionHref = `/reflection?day=${selectedDay}`;
+  const todayHref = buildPlanDayHref("/today", currentPlanSlug, selectedDay);
+  const thisWeekHref = buildPlanDayHref("/this-week", currentPlanSlug, selectedDay);
+  const reflectionHref = buildPlanDayHref(
+    "/reflection",
+    currentPlanSlug,
+    selectedDay
+  );
 
   return (
     <main className="monastic-page">
@@ -303,8 +322,8 @@ export default async function DailyReadingPage({
             <AppActionBar
               className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
-                { href: "/today", label: "Back to Today", variant: "secondary" },
-                { href: "/this-week", label: "View This Week", variant: "primary" },
+                { href: todayHref, label: "Back to Today", variant: "secondary" },
+                { href: thisWeekHref, label: "View This Week", variant: "primary" },
               ]}
             />
           </div>
@@ -314,17 +333,25 @@ export default async function DailyReadingPage({
           className="flex-col sm:flex-row sm:items-center sm:justify-between"
           actions={[
             {
-              href: `/daily-reading?day=${previousDay}`,
+              href: buildPlanDayHref(
+                "/daily-reading",
+                currentPlanSlug,
+                previousDay
+              ),
               label: "Previous Day",
               variant: "outline",
             },
             {
-              href: `/daily-reading?day=${defaultDay}`,
+              href: buildPlanDayHref(
+                "/daily-reading",
+                currentPlanSlug,
+                defaultDay
+              ),
               label: "Jump to Current Day",
               variant: "secondary",
             },
             {
-              href: `/daily-reading?day=${nextDay}`,
+              href: buildPlanDayHref("/daily-reading", currentPlanSlug, nextDay),
               label: "Next Day",
               variant: "outline",
             },
@@ -455,6 +482,7 @@ export default async function DailyReadingPage({
                 lockedLabel={
                   !challenge.hasStarted ? "Locked Until Launch" : "Future Day Locked"
                 }
+                planSlug={currentPlanSlug}
               />
             </div>
             <AppActionBar

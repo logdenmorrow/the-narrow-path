@@ -35,6 +35,10 @@ import {
   getSeasonTimelineItem,
   isDay90Celebration,
 } from "@/lib/season-plan";
+import {
+  buildPlanDayHref,
+  getPlanSlugForResolvedSeason,
+} from "@/lib/plan-day-url";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
 import {
   HeroPanel,
@@ -109,10 +113,14 @@ function filterTasksForTrack(tasks: PlanDayTaskRecord[], track: Track) {
   return tasks.filter((task) => isVisibleForTrack(getTaskAudience(task), track));
 }
 
-function getTaskSecondaryAction(slug: string, dayNumber: number) {
+function getTaskSecondaryAction(
+  slug: string,
+  dayNumber: number,
+  planSlug: string
+) {
   if (slug === "challenge_feedback") {
     return {
-      href: `/challenge-feedback?day=${dayNumber}`,
+      href: buildPlanDayHref("/challenge-feedback", planSlug, dayNumber),
       label: "Open Challenge Feedback",
       statusText: "Open feedback form",
     };
@@ -120,7 +128,7 @@ function getTaskSecondaryAction(slug: string, dayNumber: number) {
 
   if (slug === "reflection") {
     return {
-      href: `/reflection?day=${dayNumber}`,
+      href: buildPlanDayHref("/reflection", planSlug, dayNumber),
       label: "Open Scripture Reflection",
       statusText: "Open journal",
     };
@@ -128,7 +136,7 @@ function getTaskSecondaryAction(slug: string, dayNumber: number) {
 
   if (slug === "reading" || slug === "scripture_reading") {
     return {
-      href: `/daily-reading?day=${dayNumber}`,
+      href: buildPlanDayHref("/daily-reading", planSlug, dayNumber),
       label: "Open Reading",
       statusText: "Open reading",
     };
@@ -277,14 +285,23 @@ export default async function TodayPage({
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]
     : resolvedSearchParams.day;
+  const rawPlan = Array.isArray(resolvedSearchParams.plan)
+    ? resolvedSearchParams.plan[0]
+    : resolvedSearchParams.plan;
   const hasSelectedDayParam = rawDay !== undefined;
   const seasonResolution = await resolveSeasonPlan(supabase, {
     requestedDay: rawDay === undefined ? null : Number(rawDay),
+    requestedPlanSlug: rawPlan,
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
   const currentDateIso = seasonResolution.todayIso;
   const preserveViewTrack = isAdmin && isUsingViewOverride;
+  const currentPlanSlug = getPlanSlugForResolvedSeason({
+    phase: seasonResolution.phase,
+    planSlug: activePlan?.slug,
+    planName: activePlan?.name,
+  });
 
   if (seasonResolution.phase === "james" && !activePlan) {
     return (
@@ -358,7 +375,11 @@ export default async function TodayPage({
                 actions={[
                   {
                     href: withViewTrack(
-                      `/today?day=${activePlan.total_days}`,
+                      buildPlanDayHref(
+                        "/today",
+                        currentPlanSlug,
+                        activePlan.total_days
+                      ),
                       track,
                       preserveViewTrack
                     ),
@@ -756,7 +777,7 @@ export default async function TodayPage({
           <AdminViewTrackSwitcher
             basePath="/today"
             currentTrack={track}
-            params={{ day: selectedDay }}
+            params={{ plan: currentPlanSlug, day: selectedDay }}
           />
         ) : null}
 
@@ -784,23 +805,39 @@ export default async function TodayPage({
               className="grid w-full gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
                 {
-                  href: withViewTrack(`/today?day=${previousDay}`, track, preserveViewTrack),
+                  href: withViewTrack(
+                    buildPlanDayHref("/today", currentPlanSlug, previousDay),
+                    track,
+                    preserveViewTrack
+                  ),
                   label: "Previous Day",
                   variant: "secondary",
                 },
                 {
-                  href: withViewTrack(`/today?day=${nextDay}`, track, preserveViewTrack),
+                  href: withViewTrack(
+                    buildPlanDayHref("/today", currentPlanSlug, nextDay),
+                    track,
+                    preserveViewTrack
+                  ),
                   label: "Next Day",
                   variant: "secondary",
                 },
                 {
-                  href: `/daily-reading?day=${typedPlanDay.day_number}`,
+                  href: buildPlanDayHref(
+                    "/daily-reading",
+                    currentPlanSlug,
+                    typedPlanDay.day_number
+                  ),
                   label: "Daily Reading",
                   variant: "outline",
                 },
                 {
                   href: withViewTrack(
-                    `/this-week?day=${typedPlanDay.day_number}`,
+                    buildPlanDayHref(
+                      "/this-week",
+                      currentPlanSlug,
+                      typedPlanDay.day_number
+                    ),
                     track,
                     preserveViewTrack
                   ),
@@ -891,7 +928,13 @@ export default async function TodayPage({
             {hasReflectionPrompt ? (
               <div className="mt-5">
                 <Button asChild variant={isReflectionComplete ? "secondary" : "default"}>
-                  <Link href={`/reflection?day=${typedPlanDay.day_number}`}>
+                  <Link
+                    href={buildPlanDayHref(
+                      "/reflection",
+                      currentPlanSlug,
+                      typedPlanDay.day_number
+                    )}
+                  >
                     {reflectionActionLabel}
                   </Link>
                 </Button>
@@ -960,9 +1003,11 @@ export default async function TodayPage({
                         completed={task.isCompleted}
                         locked={!canEditSelectedDay}
                         lockedLabel={lockLabel}
+                        planSlug={currentPlanSlug}
                         secondaryAction={getTaskSecondaryAction(
                           task.slug,
-                          typedPlanDay.day_number
+                          typedPlanDay.day_number,
+                          currentPlanSlug
                         )}
                       />
                     ))
@@ -991,9 +1036,11 @@ export default async function TodayPage({
                         completed={task.isCompleted}
                         locked={!canEditSelectedDay}
                         lockedLabel={lockLabel}
+                        planSlug={currentPlanSlug}
                         secondaryAction={getTaskSecondaryAction(
                           task.slug,
-                          typedPlanDay.day_number
+                          typedPlanDay.day_number,
+                          currentPlanSlug
                         )}
                       />
                     ))
@@ -1053,13 +1100,25 @@ export default async function TodayPage({
 
             <div className="mt-5 grid gap-3">
               <Button asChild variant="secondary" className="w-full">
-                <Link href={`/daily-reading?day=${typedPlanDay.day_number}`}>
+                <Link
+                  href={buildPlanDayHref(
+                    "/daily-reading",
+                    currentPlanSlug,
+                    typedPlanDay.day_number
+                  )}
+                >
                   Open Reading
                 </Link>
               </Button>
               {hasReflectionPrompt ? (
                 <Button asChild variant={isReflectionComplete ? "secondary" : "default"} className="w-full">
-                  <Link href={`/reflection?day=${typedPlanDay.day_number}`}>
+                  <Link
+                    href={buildPlanDayHref(
+                      "/reflection",
+                      currentPlanSlug,
+                      typedPlanDay.day_number
+                    )}
+                  >
                     {reflectionActionLabel}
                   </Link>
                 </Button>

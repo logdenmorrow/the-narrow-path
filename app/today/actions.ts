@@ -34,6 +34,7 @@ export async function toggleTaskCompletionWithResult(
   formData: FormData
 ): Promise<ToggleTaskCompletionResult> {
   const rawPlanDayTaskId = formData.get("planDayTaskId");
+  const planSlug = String(formData.get("planSlug") ?? "").trim() || null;
   const planDayTaskId = Number(rawPlanDayTaskId);
 
   if (!Number.isFinite(planDayTaskId)) {
@@ -85,6 +86,7 @@ export async function toggleTaskCompletionWithResult(
 
   const seasonResolution = await resolveSeasonPlan(supabase, {
     requestedDay: planDay.day_number,
+    requestedPlanSlug: planSlug,
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;

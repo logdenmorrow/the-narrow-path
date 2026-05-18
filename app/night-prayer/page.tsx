@@ -11,6 +11,8 @@ import { AppActionBar } from "@/components/page-actions";
 import { TodayTaskCard } from "@/components/today-task-card";
 import { Button } from "@/components/ui/button";
 import { getChallengeTiming } from "@/lib/challenge";
+import { ORIGINAL_CHALLENGE_PLAN_SLUG } from "@/lib/season-plan";
+import { buildPlanDayHref } from "@/lib/plan-day-url";
 import {
   getDivineOfficeDateUrl,
   getNightPrayerBlocks,
@@ -482,7 +484,7 @@ export default async function NightPrayerPage({
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")
-    .select("id, name, total_days")
+    .select("id, slug, name, total_days")
     .eq("is_active", true)
     .maybeSingle();
 
@@ -503,6 +505,7 @@ export default async function NightPrayerPage({
   }
 
   const challenge = getChallengeTiming(activePlan.total_days);
+  const activePlanSlug = activePlan.slug ?? ORIGINAL_CHALLENGE_PLAN_SLUG;
   const resolvedSearchParams = await searchParams;
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]
@@ -650,7 +653,7 @@ export default async function NightPrayerPage({
               className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
                 {
-                  href: `/today?day=${selectedDay}`,
+                  href: buildPlanDayHref("/today", activePlanSlug, selectedDay),
                   label: "Back to Today",
                   variant: "secondary",
                 },
@@ -722,7 +725,9 @@ export default async function NightPrayerPage({
                   </a>
                 </Button>
                 <Button asChild variant="secondary">
-                  <Link href={`/today?day=${selectedDay}`}>Back to Today</Link>
+                  <Link href={buildPlanDayHref("/today", activePlanSlug, selectedDay)}>
+                    Back to Today
+                  </Link>
                 </Button>
               </div>
             </SurfaceInset>
@@ -746,6 +751,7 @@ export default async function NightPrayerPage({
                 completed={Boolean(completion?.id)}
                 locked={isLocked}
                 lockedLabel={!challenge.hasStarted ? "Locked Until Launch" : "Future Day Locked"}
+                planSlug={activePlanSlug}
               />
             </div>
           </SurfaceCard>

@@ -8,6 +8,10 @@ import {
 
 export const DAY_90_CELEBRATION_DATE = "2026-07-04";
 export const POST_CHALLENGE_START_DATE = "2026-07-05";
+export const ORIGINAL_CHALLENGE_PLAN_SLUG = "the-narrow-path-90";
+export const ORIGINAL_CHALLENGE_PLAN_NAME = "The Narrow Path 90";
+export const ORIGINAL_CHALLENGE_TOTAL_DAYS = 90;
+export const AUGUST_JAMES_PLAN_SLUG = "ordinary-time-james";
 export const AUGUST_JAMES_PLAN_NAME = "Ordinary Time: James";
 export const AUGUST_JAMES_START_DATE = "2026-08-01";
 export const AUGUST_JAMES_END_DATE = "2026-08-31";

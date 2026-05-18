@@ -7,6 +7,7 @@ import { resolveSeasonPlan } from "@/lib/season-plan-server";
 
 export async function saveReflectionEntry(formData: FormData) {
   const planDayId = Number(formData.get("planDayId"));
+  const planSlug = String(formData.get("planSlug") ?? "").trim() || null;
   const promptText = String(formData.get("promptText") ?? "").trim() || null;
   const entryText = String(formData.get("entryText") ?? "").trim();
 
@@ -40,6 +41,7 @@ export async function saveReflectionEntry(formData: FormData) {
 
   const seasonResolution = await resolveSeasonPlan(supabase, {
     requestedDay: planDay.day_number,
+    requestedPlanSlug: planSlug,
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;

@@ -14,6 +14,10 @@ import { ReflectionEntryForm } from "@/components/reflection-entry-form";
 import { createClient } from "@/lib/supabase/server";
 import { decryptJournalEntry } from "@/lib/journal-crypto";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
+import {
+  buildPlanDayHref,
+  getPlanSlugForResolvedSeason,
+} from "@/lib/plan-day-url";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -63,11 +67,20 @@ export default async function ReflectionPage({
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]
     : resolvedSearchParams.day;
+  const rawPlan = Array.isArray(resolvedSearchParams.plan)
+    ? resolvedSearchParams.plan[0]
+    : resolvedSearchParams.plan;
   const seasonResolution = await resolveSeasonPlan(supabase, {
     requestedDay: rawDay === undefined ? null : Number(rawDay),
+    requestedPlanSlug: rawPlan,
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
+  const currentPlanSlug = getPlanSlugForResolvedSeason({
+    phase: seasonResolution.phase,
+    planSlug: activePlan?.slug,
+    planName: activePlan?.name,
+  });
 
   if (seasonResolution.phase === "james" && !activePlan) {
     return (
@@ -194,7 +207,7 @@ export default async function ReflectionPage({
               className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
                 {
-                  href: `/today?day=${selectedDay}`,
+                  href: buildPlanDayHref("/today", currentPlanSlug, selectedDay),
                   label: "Back to Today",
                   variant: "secondary",
                 },
@@ -314,6 +327,7 @@ export default async function ReflectionPage({
             initialHasSavedEntry={hasSavedEntry}
             isLocked={isLocked}
             selectedDay={selectedDay}
+            planSlug={currentPlanSlug}
           />
         </SurfaceCard>
         </div>

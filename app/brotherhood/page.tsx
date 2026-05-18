@@ -34,6 +34,8 @@ import {
   type PrayerRequestCategory,
 } from "@/lib/accountability";
 import { getChallengeTiming } from "@/lib/challenge";
+import { ORIGINAL_CHALLENGE_PLAN_SLUG } from "@/lib/season-plan";
+import { buildPlanDayHref } from "@/lib/plan-day-url";
 import {
   buildTaskViewModels,
   createReflectionCompletionOverrides,
@@ -137,7 +139,7 @@ export default async function BrotherhoodPage({
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")
-    .select("id, name, total_days")
+    .select("id, slug, name, total_days")
     .eq("is_active", true)
     .maybeSingle();
 
@@ -155,6 +157,7 @@ export default async function BrotherhoodPage({
   }
 
   const challenge = getChallengeTiming(activePlan.total_days);
+  const activePlanSlug = activePlan.slug ?? ORIGINAL_CHALLENGE_PLAN_SLUG;
   const currentDayNumber = challenge.hasStarted ? challenge.currentDayNumber : 1;
   const maxSelectableDay = challenge.hasStarted ? challenge.currentDayNumber : 1;
   const rawDay = Array.isArray(resolvedSearchParams.day)
@@ -497,7 +500,7 @@ export default async function BrotherhoodPage({
                 },
                 {
                   href: withViewTrack(
-                    `/today?day=${selectedDay}`,
+                    buildPlanDayHref("/today", activePlanSlug, selectedDay),
                     viewerTrack,
                     preserveViewTrack
                   ),
