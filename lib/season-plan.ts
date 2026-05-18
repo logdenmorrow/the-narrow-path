@@ -22,6 +22,19 @@ export type SeasonTimelineItem = {
   intensity: string;
 };
 
+export type AugustJamesPlan = {
+  title: string;
+  dateLabel: string;
+  startDate: string;
+  endDate: string;
+  purpose: string;
+  dataStatus: string;
+  required: readonly string[];
+  optional: readonly string[];
+  removedOrEased: readonly string[];
+  displayOutline: readonly string[];
+};
+
 export const SEASON_TIMELINE: SeasonTimelineItem[] = [
   {
     phase: "day-90-celebration",
@@ -69,6 +82,39 @@ export const JAMES_SCAFFOLDING = [
   "Aug 19-24: James 4",
   "Aug 25-31: James 5",
 ] as const;
+
+export const AUGUST_JAMES_PLAN: AugustJamesPlan = {
+  title: "Ordinary Time: James",
+  dateLabel: "August 1-31, 2026",
+  startDate: "2026-08-01",
+  endDate: "2026-08-31",
+  purpose: "A lighter month of Scripture and reflection after the 90 days.",
+  dataStatus:
+    "Final James text, daily references, and reflection prompts still need to be supplied before plan data is generated.",
+  required: [
+    "Daily Reading from James",
+    "Required reflection based on that day's James reading",
+    "Sunday Mass expected/required",
+    "Adoration required once per week",
+    "Confession required once in August",
+  ],
+  optional: [
+    "Night Prayer",
+    "Rosary",
+    "Workout",
+    "Anchor Check-In",
+    "Community",
+  ],
+  removedOrEased: [
+    "No Alcohol",
+    "No Sweets / Desserts",
+    "No Soda / Sweet Drinks",
+    "Cold Shower",
+    "No Social Media",
+    "Challenge-wide fasting and meat abstinence",
+  ],
+  displayOutline: JAMES_SCAFFOLDING,
+} as const;
 
 export const GOSPEL_READING_ORDER = ["Mark", "Matthew", "Luke", "John"] as const;
 

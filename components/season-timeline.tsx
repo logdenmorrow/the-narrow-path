@@ -1,6 +1,6 @@
 import {
+  AUGUST_JAMES_PLAN,
   GOSPEL_READING_ORDER,
-  JAMES_SCAFFOLDING,
   SEASON_TIMELINE,
   type SeasonPhase,
 } from "@/lib/season-plan";
@@ -60,8 +60,8 @@ export function JamesScaffoldingCard() {
     <SurfaceCard>
       <SectionHeader
         kicker="August"
-        title="Ordinary Time: James"
-        description="A lighter month of Scripture and reflection after the 90 days."
+        title={AUGUST_JAMES_PLAN.title}
+        description={AUGUST_JAMES_PLAN.purpose}
       />
 
       <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_0.9fr]">
@@ -71,21 +71,16 @@ export function JamesScaffoldingCard() {
             the sacraments, and prepare for The Gospels in September.
           </p>
           <div className="mt-4 grid gap-2 text-sm leading-6 text-monastic-1">
-            <p>
-              Required: daily reading, reflection, Sunday Mass, weekly
-              Adoration, and Confession once in August.
-            </p>
-            <p>
-              Optional: Night Prayer, Rosary, workout, anchor check-in, and
-              community.
-            </p>
+            <p>Required: {AUGUST_JAMES_PLAN.required.join(", ")}.</p>
+            <p>Optional: {AUGUST_JAMES_PLAN.optional.join(", ")}.</p>
+            <p>{AUGUST_JAMES_PLAN.dataStatus}</p>
           </div>
         </SurfaceInset>
 
         <SurfaceInset>
           <div className="section-kicker">Display outline only</div>
           <div className="mt-3 grid gap-2">
-            {JAMES_SCAFFOLDING.map((item) => (
+            {AUGUST_JAMES_PLAN.displayOutline.map((item) => (
               <p key={item} className="text-sm leading-6 text-monastic-1">
                 {item}
               </p>
