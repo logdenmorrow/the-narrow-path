@@ -1,4 +1,13 @@
 begin;
+alter table public.plan_day_tasks
+drop constraint if exists plan_day_tasks_quota_scope_check;
+
+alter table public.plan_day_tasks
+add constraint plan_day_tasks_quota_scope_check
+check (
+  quota_scope is null
+  or quota_scope in ('week', 'last_week_of_month', 'month')
+);
 
 -- Draft-only August James plan data.
 -- This creates an inactive plan for admin/data review. Do not mark it active
@@ -38,30 +47,37 @@ end;
 $$;
 
 insert into public.challenge_plans (
+  slug,
   name,
   total_days,
   is_active
 )
 select
+  'ordinary-time-james',
   'Ordinary Time: James',
   31,
   false
 where not exists (
   select 1
   from public.challenge_plans
-  where name = 'Ordinary Time: James'
+  where slug = 'ordinary-time-james'
+     or name = 'Ordinary Time: James'
 );
 
 update public.challenge_plans
 set
+  slug = 'ordinary-time-james',
+  name = 'Ordinary Time: James',
   total_days = 31,
   is_active = false
-where name = 'Ordinary Time: James';
+where slug = 'ordinary-time-james'
+   or name = 'Ordinary Time: James';
 
 with august_plan as (
   select id as plan_id
   from public.challenge_plans
-  where name = 'Ordinary Time: James'
+  where slug = 'ordinary-time-james'
+     or name = 'Ordinary Time: James'
   order by id
   limit 1
 ),
@@ -152,7 +168,10 @@ with august_plan_days as (
   from public.challenge_plans cp
   join public.plan_days pd
     on pd.plan_id = cp.id
-  where cp.name = 'Ordinary Time: James'
+  where (
+    cp.slug = 'ordinary-time-james'
+    or cp.name = 'Ordinary Time: James'
+  )
 ),
 august_day_metadata as (
   select
@@ -259,7 +278,10 @@ with august_plan_tasks as (
     on pdt.plan_day_id = pd.id
   join public.task_templates tt
     on tt.id = pdt.task_template_id
-  where cp.name = 'Ordinary Time: James'
+  where (
+    cp.slug = 'ordinary-time-james'
+    or cp.name = 'Ordinary Time: James'
+  )
     and tt.slug in (
       'scripture_reading',
       'give_up_alcohol',
@@ -277,4 +299,4 @@ delete from public.plan_day_tasks pdt
 using august_plan_tasks apt
 where pdt.id = apt.id;
 
-commit;
+rollback;
