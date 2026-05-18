@@ -83,6 +83,10 @@ function scopeKey(task: PlanDayTaskRecord): string | null {
     return `confession-week:${task.task_template_id}:${task.week_start_date ?? ""}`;
   }
 
+  if (task.quota_scope === "month") {
+    return `month:${task.task_template_id}:${task.month_start_date ?? ""}`;
+  }
+
   return null;
 }
 
@@ -197,7 +201,9 @@ export function buildTaskViewModels(
         progressLabel =
           task.quota_scope === "week"
             ? `${progressCount}/${task.quota_target} this week`
-            : `${progressCount}/${task.quota_target} this Confession week`;
+            : task.quota_scope === "month"
+              ? `${progressCount}/${task.quota_target} this month`
+              : `${progressCount}/${task.quota_target} this Confession week`;
       }
 
       return {

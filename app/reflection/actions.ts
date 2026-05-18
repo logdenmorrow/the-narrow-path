@@ -2,8 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming } from "@/lib/challenge";
 import { encryptJournalEntry } from "@/lib/journal-crypto";
+import { resolveSeasonPlan } from "@/lib/season-plan-server";
 
 export async function saveReflectionEntry(formData: FormData) {
   const planDayId = Number(formData.get("planDayId"));
@@ -28,16 +28,6 @@ export async function saveReflectionEntry(formData: FormData) {
     throw new Error("You must be signed in.");
   }
 
-  const { data: activePlan, error: activePlanError } = await supabase
-    .from("challenge_plans")
-    .select("id, total_days")
-    .eq("is_active", true)
-    .maybeSingle();
-
-  if (activePlanError || !activePlan) {
-    throw new Error("No active challenge plan was found.");
-  }
-
   const { data: planDay, error: planDayError } = await supabase
     .from("plan_days")
     .select("id, plan_id, day_number")
@@ -48,11 +38,20 @@ export async function saveReflectionEntry(formData: FormData) {
     throw new Error("The selected reflection day could not be found.");
   }
 
-  if (planDay.plan_id !== activePlan.id) {
-    throw new Error("You can only save reflections for the active plan.");
+  const seasonResolution = await resolveSeasonPlan(supabase, {
+    requestedDay: planDay.day_number,
+  });
+  const activePlan = seasonResolution.plan;
+  const challenge = seasonResolution.timing;
+
+  if (!activePlan || !challenge) {
+    throw new Error("No current season plan was found.");
   }
 
-  const challenge = getChallengeTiming(activePlan.total_days);
+  if (planDay.plan_id !== activePlan.id) {
+    throw new Error("You can only save reflections for the current season plan.");
+  }
+
   if (!challenge.hasStarted || planDay.day_number > challenge.currentDayNumber) {
     throw new Error("Future reflections are locked.");
   }

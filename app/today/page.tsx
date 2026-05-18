@@ -30,13 +30,12 @@ import {
   type DailyStatus,
   type PrayerRequestCategory,
 } from "@/lib/accountability";
-import { getChallengeTiming, getIsoDateInTimeZone } from "@/lib/challenge";
 import {
   getPostChallengeDisplay,
-  getPostChallengePhase,
   getSeasonTimelineItem,
   isDay90Celebration,
 } from "@/lib/season-plan";
+import { resolveSeasonPlan } from "@/lib/season-plan-server";
 import {
   HeroPanel,
   MetricCard,
@@ -275,13 +274,35 @@ export default async function TodayPage({
   });
   const communityName = getCommunityName(track);
 
-  const { data: activePlan, error: activePlanError } = await supabase
-    .from("challenge_plans")
-    .select("id, name, total_days")
-    .eq("is_active", true)
-    .maybeSingle();
+  const rawDay = Array.isArray(resolvedSearchParams.day)
+    ? resolvedSearchParams.day[0]
+    : resolvedSearchParams.day;
+  const hasSelectedDayParam = rawDay !== undefined;
+  const seasonResolution = await resolveSeasonPlan(supabase, {
+    requestedDay: rawDay === undefined ? null : Number(rawDay),
+  });
+  const activePlan = seasonResolution.plan;
+  const challenge = seasonResolution.timing;
+  const currentDateIso = seasonResolution.todayIso;
+  const preserveViewTrack = isAdmin && isUsingViewOverride;
 
-  if (activePlanError || !activePlan) {
+  if (seasonResolution.phase === "james" && !activePlan) {
+    return (
+      <main className="monastic-page">
+        <PageFrame className="space-y-5 sm:space-y-6">
+          {isAdmin ? (
+            <AdminViewTrackSwitcher basePath="/today" currentTrack={track} />
+          ) : null}
+
+          <SoftMobileInstallPrompt className="sm:hidden" />
+          <JamesScaffoldingCard />
+          <SeasonTimeline currentPhase="james" />
+        </PageFrame>
+      </main>
+    );
+  }
+
+  if (!activePlan || !challenge) {
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
@@ -294,17 +315,11 @@ export default async function TodayPage({
     );
   }
 
-  const challenge = getChallengeTiming(activePlan.total_days);
-  const currentDateIso = getIsoDateInTimeZone();
-  const preserveViewTrack = isAdmin && isUsingViewOverride;
-
-  const rawDay = Array.isArray(resolvedSearchParams.day)
-    ? resolvedSearchParams.day[0]
-    : resolvedSearchParams.day;
-  const hasSelectedDayParam = rawDay !== undefined;
-
   if (challenge.isComplete && !hasSelectedDayParam) {
-    const postChallengePhase = getPostChallengePhase(currentDateIso);
+    const postChallengePhase =
+      seasonResolution.phase && seasonResolution.phase !== "challenge"
+        ? seasonResolution.phase
+        : null;
     const postChallengeCopy = getPostChallengeDisplay(postChallengePhase);
     const currentSeason = postChallengePhase
       ? getSeasonTimelineItem(postChallengePhase)

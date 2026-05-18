@@ -17,8 +17,8 @@ import {
   TaskCardMeta,
 } from "@/components/task-card";
 import { Button } from "@/components/ui/button";
+import { JamesScaffoldingCard, SeasonTimeline } from "@/components/season-timeline";
 import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming } from "@/lib/challenge";
 import { isVisibleForTrack, type Track } from "@/lib/track";
 import {
   getViewTrackFromSearchParams,
@@ -34,6 +34,7 @@ import {
   type CompletionRecord,
   type PlanDayTaskRecord,
 } from "@/lib/task-progress";
+import { resolveSeasonPlan } from "@/lib/season-plan-server";
 
 type SearchParams = Promise<SearchParamRecord>;
 
@@ -143,13 +144,33 @@ export default async function ThisWeekPage({
     requestedTrack: requestedViewTrack,
   });
 
-  const { data: activePlan, error: activePlanError } = await supabase
-    .from("challenge_plans")
-    .select("id, name, total_days")
-    .eq("is_active", true)
-    .maybeSingle();
+  const rawDay = Array.isArray(resolvedSearchParams.day)
+    ? resolvedSearchParams.day[0]
+    : resolvedSearchParams.day;
+  const seasonResolution = await resolveSeasonPlan(supabase, {
+    requestedDay: rawDay === undefined ? null : Number(rawDay),
+  });
+  const activePlan = seasonResolution.plan;
+  const challenge = seasonResolution.timing;
 
-  if (activePlanError || !activePlan) {
+  if (seasonResolution.phase === "james" && !activePlan) {
+    return (
+      <main className="monastic-page">
+        <PageFrame className="max-w-6xl space-y-5 sm:space-y-6">
+          {isAdmin ? (
+            <AdminViewTrackSwitcher
+              basePath="/this-week"
+              currentTrack={track}
+            />
+          ) : null}
+          <JamesScaffoldingCard />
+          <SeasonTimeline currentPhase="james" />
+        </PageFrame>
+      </main>
+    );
+  }
+
+  if (!activePlan || !challenge) {
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
@@ -161,12 +182,6 @@ export default async function ThisWeekPage({
       </main>
     );
   }
-
-  const challenge = getChallengeTiming(activePlan.total_days);
-
-  const rawDay = Array.isArray(resolvedSearchParams.day)
-    ? resolvedSearchParams.day[0]
-    : resolvedSearchParams.day;
 
   const defaultDay = challenge.hasStarted ? challenge.currentDayNumber : 1;
   const selectedDay = normalizeDayNumber(
@@ -251,14 +266,63 @@ export default async function ThisWeekPage({
     );
   }
 
-  const weekTaskIds = uniqueTaskIds(typedWeekTasks);
+  const currentMonthStart = typedWeekTasks[0]?.month_start_date ?? null;
+  const hasMonthQuotaTasks = typedWeekTasks.some(
+    (task) => task.quota_scope === "month"
+  );
+  const { data: allPlanDaysForMonth } =
+    currentMonthStart && hasMonthQuotaTasks
+      ? await supabase
+          .from("plan_days")
+          .select("id")
+          .eq("plan_id", activePlan.id)
+      : { data: [] as { id: number }[] };
+  const allPlanDayIdsForMonth = ((allPlanDaysForMonth ?? []) as { id: number }[])
+    .map((day) => day.id);
+  const { data: monthTasks } =
+    currentMonthStart && hasMonthQuotaTasks && allPlanDayIdsForMonth.length > 0
+      ? await supabase
+          .from("plan_day_tasks")
+          .select(
+            `
+              id,
+              plan_day_id,
+              task_template_id,
+              is_required,
+              is_optional,
+              quota_scope,
+              quota_target,
+              requirement_note,
+              day_date,
+              week_start_date,
+              month_start_date,
+              display_order,
+              task_templates (
+                title,
+                slug,
+                audience
+              )
+            `
+          )
+          .in("plan_day_id", allPlanDayIdsForMonth)
+          .eq("month_start_date", currentMonthStart)
+      : { data: [] as (PlanDayTaskRecord & { plan_day_id: number })[] };
+  const visibleMonthTasks = filterTasksForTrack(
+    (monthTasks ?? []) as (PlanDayTaskRecord & {
+      plan_day_id: number;
+    })[],
+    track
+  );
+  const visibleScopeTasks = [...typedWeekTasks, ...visibleMonthTasks];
 
-  const { data: completions } = weekTaskIds.length
+  const scopeTaskIds = uniqueTaskIds(visibleScopeTasks);
+
+  const { data: completions } = scopeTaskIds.length
     ? await supabase
         .from("user_task_completions")
         .select("user_id, plan_day_task_id")
         .eq("user_id", user.id)
-        .in("plan_day_task_id", weekTaskIds)
+        .in("plan_day_task_id", scopeTaskIds)
     : { data: [] as CompletionRecord[] };
 
   const typedCompletions = (completions ?? []) as CompletionRecord[];
@@ -272,7 +336,7 @@ export default async function ThisWeekPage({
 
   const dayModels = typedWeekPlanDays.map((day) => {
     const dayTasks = tasksByPlanDayId.get(day.id) ?? [];
-    const models = buildTaskViewModels(dayTasks, typedWeekTasks, typedCompletions, user.id);
+    const models = buildTaskViewModels(dayTasks, visibleScopeTasks, typedCompletions, user.id);
 
     return {
       day,

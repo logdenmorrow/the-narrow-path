@@ -31,12 +31,11 @@ import {
   type SearchParamRecord,
 } from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming, getIsoDateInTimeZone } from "@/lib/challenge";
 import {
   getPostChallengeDisplay,
-  getPostChallengePhase,
   getSeasonTimelineItem,
 } from "@/lib/season-plan";
+import { resolveSeasonPlan } from "@/lib/season-plan-server";
 import { updateLastActiveAt } from "@/lib/last-active";
 import { applyReflectionCompletionOverride, getReflectionTaskId } from "@/lib/task-progress";
 
@@ -231,13 +230,37 @@ export default async function DashboardPage({
   });
   const communityName = getCommunityName(track);
 
-  const { data: activePlan, error: activePlanError } = await supabase
-    .from("challenge_plans")
-    .select("id, name, total_days")
-    .eq("is_active", true)
-    .maybeSingle();
+  const seasonResolution = await resolveSeasonPlan(supabase);
+  const activePlan = seasonResolution.plan;
+  const challenge = seasonResolution.timing;
+  const preserveViewTrack = isAdmin && isUsingViewOverride;
 
-  if (activePlanError || !activePlan) {
+  if (seasonResolution.phase === "james" && !activePlan) {
+    return (
+      <main className="monastic-page">
+        <DashboardLoginRedirectClear />
+        <PageFrame className="space-y-6">
+          <div className="mb-5">
+            <p className="break-all text-sm text-zinc-400 sm:break-normal">
+              Signed in as {user.email}
+            </p>
+          </div>
+
+          {isAdmin ? (
+            <AdminViewTrackSwitcher
+              basePath="/dashboard"
+              currentTrack={track}
+            />
+          ) : null}
+
+          <JamesScaffoldingCard />
+          <SeasonTimeline currentPhase="james" />
+        </PageFrame>
+      </main>
+    );
+  }
+
+  if (!activePlan || !challenge) {
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
@@ -255,13 +278,13 @@ export default async function DashboardPage({
     );
   }
 
-  const challenge = getChallengeTiming(activePlan.total_days);
   const selectedDay = challenge.hasStarted ? challenge.currentDayNumber : 1;
-  const currentDateIso = getIsoDateInTimeZone();
-  const preserveViewTrack = isAdmin && isUsingViewOverride;
 
   if (challenge.isComplete) {
-    const postChallengePhase = getPostChallengePhase(currentDateIso);
+    const postChallengePhase =
+      seasonResolution.phase && seasonResolution.phase !== "challenge"
+        ? seasonResolution.phase
+        : null;
     const postChallengeCopy = getPostChallengeDisplay(postChallengePhase);
     const currentSeason = postChallengePhase
       ? getSeasonTimelineItem(postChallengePhase)

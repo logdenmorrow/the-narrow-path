@@ -1,11 +1,16 @@
 import {
   addDaysToIsoDate,
   CHALLENGE_START_DATE,
+  CHALLENGE_TIME_ZONE,
+  type ChallengeTiming,
   toUtcDayValue,
 } from "@/lib/challenge";
 
 export const DAY_90_CELEBRATION_DATE = "2026-07-04";
 export const POST_CHALLENGE_START_DATE = "2026-07-05";
+export const AUGUST_JAMES_PLAN_NAME = "Ordinary Time: James";
+export const AUGUST_JAMES_START_DATE = "2026-08-01";
+export const AUGUST_JAMES_END_DATE = "2026-08-31";
 
 export type SeasonPhase =
   | "day-90-celebration"
@@ -13,6 +18,8 @@ export type SeasonPhase =
   | "james"
   | "gospels"
   | "lent-2027";
+
+export type ResolvedSeasonPhase = "challenge" | SeasonPhase;
 
 export type SeasonTimelineItem = {
   phase: SeasonPhase;
@@ -84,13 +91,13 @@ export const JAMES_SCAFFOLDING = [
 ] as const;
 
 export const AUGUST_JAMES_PLAN: AugustJamesPlan = {
-  title: "Ordinary Time: James",
+  title: AUGUST_JAMES_PLAN_NAME,
   dateLabel: "August 1-31, 2026",
-  startDate: "2026-08-01",
-  endDate: "2026-08-31",
+  startDate: AUGUST_JAMES_START_DATE,
+  endDate: AUGUST_JAMES_END_DATE,
   purpose: "A lighter month of Scripture and reflection after the 90 days.",
   dataStatus:
-    "Final James text, daily references, and reflection prompts still need to be supplied before plan data is generated.",
+    "Draft James readings and task data are prepared for review, but the plan remains inactive until it is reviewed and intentionally launched.",
   required: [
     "Daily Reading from James",
     "Required reflection based on that day's James reading",
@@ -123,6 +130,50 @@ function isInIsoRange(isoDate: string, startIso: string, endIso: string) {
   return dateValue >= toUtcDayValue(startIso) && dateValue <= toUtcDayValue(endIso);
 }
 
+function formatStartDateLabel(startDate: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: CHALLENGE_TIME_ZONE,
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(`${startDate}T12:00:00Z`));
+}
+
+export function getSeasonTiming({
+  startDate,
+  totalDays,
+  todayIso,
+}: {
+  startDate: string;
+  totalDays: number;
+  todayIso: string;
+}): ChallengeTiming {
+  const safeTotalDays = Math.max(totalDays, 1);
+  const diffDays = Math.floor(
+    (toUtcDayValue(todayIso) - toUtcDayValue(startDate)) / (24 * 60 * 60 * 1000)
+  );
+  const hasStarted = diffDays >= 0;
+  const hasEnded = diffDays >= safeTotalDays;
+  const currentDayNumber = hasStarted
+    ? Math.min(diffDays + 1, safeTotalDays)
+    : 1;
+  const weekStartDay = Math.floor((currentDayNumber - 1) / 7) * 7 + 1;
+  const weekEndDay = Math.min(safeTotalDays, weekStartDay + 6);
+
+  return {
+    startDate,
+    startDateLabel: formatStartDateLabel(startDate),
+    timeZone: CHALLENGE_TIME_ZONE,
+    hasStarted,
+    hasEnded,
+    isComplete: hasEnded,
+    currentDayNumber,
+    weekStartDay,
+    weekEndDay,
+    weekNumber: Math.floor((currentDayNumber - 1) / 7) + 1,
+  };
+}
+
 export function getChallengeDayDate(dayNumber: number) {
   return addDaysToIsoDate(CHALLENGE_START_DATE, dayNumber - 1);
 }
@@ -135,12 +186,26 @@ export function isDay90Celebration(dayNumber: number, totalDays: number) {
   );
 }
 
+export function getResolvedSeasonPhase(todayIso: string): ResolvedSeasonPhase | null {
+  if (toUtcDayValue(todayIso) < toUtcDayValue(POST_CHALLENGE_START_DATE)) {
+    return todayIso === DAY_90_CELEBRATION_DATE
+      ? "day-90-celebration"
+      : "challenge";
+  }
+
+  return getPostChallengePhase(todayIso);
+}
+
+export function isOriginalChallengePhase(phase: ResolvedSeasonPhase | null) {
+  return phase === "challenge" || phase === "day-90-celebration";
+}
+
 export function getPostChallengePhase(todayIso: string): SeasonPhase | null {
   if (isInIsoRange(todayIso, POST_CHALLENGE_START_DATE, "2026-07-31")) {
     return "reset";
   }
 
-  if (isInIsoRange(todayIso, "2026-08-01", "2026-08-31")) {
+  if (isInIsoRange(todayIso, AUGUST_JAMES_START_DATE, AUGUST_JAMES_END_DATE)) {
     return "james";
   }
 
@@ -163,7 +228,7 @@ export function getPostChallengeDisplay(phase: SeasonPhase | null) {
   if (phase === "james") {
     return {
       title: "Ordinary Time: James",
-      body: "A lighter month of Scripture and reflection after the 90 days. The final James readings still need to be added to the plan data.",
+      body: "A lighter month of Scripture and reflection after the 90 days.",
     };
   }
 

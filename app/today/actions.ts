@@ -7,7 +7,7 @@ import {
 } from "@/lib/accountability";
 import { getIsoDateInTimeZone } from "@/lib/challenge";
 import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming } from "@/lib/challenge";
+import { resolveSeasonPlan } from "@/lib/season-plan-server";
 
 export async function toggleTaskCompletion(formData: FormData) {
   await toggleTaskCompletionWithResult(null, formData);
@@ -55,26 +55,6 @@ export async function toggleTaskCompletionWithResult(
     throw new Error("You must be signed in to complete tasks.");
   }
 
-  const { data: activePlan, error: activePlanError } = await supabase
-    .from("challenge_plans")
-    .select("id, total_days")
-    .eq("is_active", true)
-    .maybeSingle();
-
-  if (activePlanError || !activePlan) {
-    throw new Error("No active challenge plan was found.");
-  }
-
-  const challenge = getChallengeTiming(activePlan.total_days);
-
-  if (!challenge.hasStarted) {
-    return {
-      status: "success",
-      planDayTaskId,
-      transitionedToComplete: false,
-    };
-  }
-
   const { data: taskRow, error: taskError } = await supabase
     .from("plan_day_tasks")
     .select(
@@ -103,8 +83,26 @@ export async function toggleTaskCompletionWithResult(
     throw new Error("The selected day could not be found.");
   }
 
+  const seasonResolution = await resolveSeasonPlan(supabase, {
+    requestedDay: planDay.day_number,
+  });
+  const activePlan = seasonResolution.plan;
+  const challenge = seasonResolution.timing;
+
+  if (!activePlan || !challenge) {
+    throw new Error("No current season plan was found.");
+  }
+
+  if (!challenge.hasStarted) {
+    return {
+      status: "success",
+      planDayTaskId,
+      transitionedToComplete: false,
+    };
+  }
+
   if (planDay.plan_id !== activePlan.id) {
-    throw new Error("You can only complete tasks from the active plan.");
+    throw new Error("You can only complete tasks from the current season plan.");
   }
 
   if (planDay.day_number > challenge.currentDayNumber) {
@@ -223,19 +221,10 @@ export async function saveDailyStatus(formData: FormData) {
     throw new Error("You must be signed in to save daily status.");
   }
 
-  const { data: activePlan, error: activePlanError } = await supabase
-    .from("challenge_plans")
-    .select("id, total_days")
-    .eq("is_active", true)
-    .maybeSingle();
+  const seasonResolution = await resolveSeasonPlan(supabase);
+  const challenge = seasonResolution.timing;
 
-  if (activePlanError || !activePlan) {
-    throw new Error("No active challenge plan was found.");
-  }
-
-  const challenge = getChallengeTiming(activePlan.total_days);
-
-  if (!challenge.hasStarted) {
+  if (!challenge?.hasStarted) {
     throw new Error("Daily status is not available before the challenge begins.");
   }
 
@@ -289,19 +278,10 @@ export async function savePrayerRequest(formData: FormData) {
     throw new Error("You must be signed in to request prayer.");
   }
 
-  const { data: activePlan, error: activePlanError } = await supabase
-    .from("challenge_plans")
-    .select("id, total_days")
-    .eq("is_active", true)
-    .maybeSingle();
+  const seasonResolution = await resolveSeasonPlan(supabase);
+  const challenge = seasonResolution.timing;
 
-  if (activePlanError || !activePlan) {
-    throw new Error("No active challenge plan was found.");
-  }
-
-  const challenge = getChallengeTiming(activePlan.total_days);
-
-  if (!challenge.hasStarted) {
+  if (!challenge?.hasStarted) {
     throw new Error("Prayer requests are not available before the challenge begins.");
   }
 

@@ -52,6 +52,14 @@ docs/AUGUST_JAMES_CONTENT_TEMPLATE.md
 
 It now contains a 31-day working draft with daily references, titles, focus text, reading text, and reflection prompts. It is still a draft until reviewed and imported.
 
+Draft import data now lives here:
+
+```text
+supabase/migrations/20260518_zz_add_august_james_draft_plan.sql
+```
+
+This migration creates `Ordinary Time: James` as an inactive 31-day plan for admin/data review. Do not run it against production or make that plan active until date-based season/plan resolution is implemented.
+
 Implementation notes:
 
 - Current reading content is stored on `plan_days` using `reading_mission`, `reading_focus`, `reading_title`, `reading_reference`, `reading_notes`, `reading_text`, and `reflection_prompt`.
@@ -60,6 +68,7 @@ Implementation notes:
 - Do not mark a second plan active without first updating plan/season selection logic; existing `.maybeSingle()` queries expect one active plan.
 - Once final content is provided, the safe data path is a migration or controlled import that creates the August plan days and assigns only the August task set.
 - August task data should include reading/reflection, Sunday Mass, weekly Adoration, monthly Confession, and optional prayer/community tasks. It should not include the original food, drink, cold shower, social media, fasting, or meat-abstinence challenge restrictions.
+- Current task progress code supports `quota_scope = 'month'` for August Confession. Review dashboard summary copy before the plan is made active so the monthly requirement is surfaced clearly.
 
 Possible loading paths:
 

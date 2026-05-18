@@ -8,11 +8,12 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { JamesScaffoldingCard, SeasonTimeline } from "@/components/season-timeline";
 import { StatusPill } from "@/components/task-card";
 import { ReflectionEntryForm } from "@/components/reflection-entry-form";
 import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming } from "@/lib/challenge";
 import { decryptJournalEntry } from "@/lib/journal-crypto";
+import { resolveSeasonPlan } from "@/lib/season-plan-server";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -58,21 +59,31 @@ export default async function ReflectionPage({
     redirect("/auth/login");
   }
 
-  const { data: activePlan } = await supabase
-    .from("challenge_plans")
-    .select("id, total_days")
-    .eq("is_active", true)
-    .maybeSingle();
-
-  if (!activePlan) {
-    return null;
-  }
-
-  const challenge = getChallengeTiming(activePlan.total_days);
   const resolvedSearchParams = await searchParams;
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]
     : resolvedSearchParams.day;
+  const seasonResolution = await resolveSeasonPlan(supabase, {
+    requestedDay: rawDay === undefined ? null : Number(rawDay),
+  });
+  const activePlan = seasonResolution.plan;
+  const challenge = seasonResolution.timing;
+
+  if (seasonResolution.phase === "james" && !activePlan) {
+    return (
+      <main className="monastic-page">
+        <PageFrame className="max-w-6xl space-y-5 sm:space-y-6">
+          <JamesScaffoldingCard />
+          <SeasonTimeline currentPhase="james" />
+        </PageFrame>
+      </main>
+    );
+  }
+
+  if (!activePlan || !challenge) {
+    return null;
+  }
+
   const selectedDay = normalizeDayNumber(
     Number(rawDay ?? (challenge.hasStarted ? challenge.currentDayNumber : 1)),
     activePlan.total_days
