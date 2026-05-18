@@ -44,6 +44,12 @@ Working display-only outline:
 
 Do not treat the outline as final verse splits. Final James reading text, daily references, reading titles, and reflection prompts still need to be supplied before generating plan data.
 
+Use this template for the content pass:
+
+```text
+docs/AUGUST_JAMES_CONTENT_TEMPLATE.md
+```
+
 Implementation notes:
 
 - Current reading content is stored on `plan_days` using `reading_mission`, `reading_focus`, `reading_title`, `reading_reference`, `reading_notes`, `reading_text`, and `reflection_prompt`.
@@ -52,6 +58,14 @@ Implementation notes:
 - Do not mark a second plan active without first updating plan/season selection logic; existing `.maybeSingle()` queries expect one active plan.
 - Once final content is provided, the safe data path is a migration or controlled import that creates the August plan days and assigns only the August task set.
 - August task data should include reading/reflection, Sunday Mass, weekly Adoration, monthly Confession, and optional prayer/community tasks. It should not include the original food, drink, cold shower, social media, fasting, or meat-abstinence challenge restrictions.
+
+Possible loading paths:
+
+- Option A: keep August as a virtual display season using `lib/season-plan.ts` until full season support exists.
+- Option B: add plan/season selection logic so date-based plans can be loaded without relying only on `challenge_plans.is_active = true`.
+- Option C: create August plan data as inactive/draft until the resolver exists.
+
+Recommended next step: use Option A until the James content is final. Then implement Option B before any August plan is made active. Option C is acceptable for private admin/data review only if the draft plan remains inactive.
 
 ## September 1, 2026 - February 9, 2027: The Gospels
 

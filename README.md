@@ -23,7 +23,7 @@
 
 The current source-of-truth project handoff is:
 
-- [`docs/master_handoff.md`](docs/master_handoff.md)
+- [`docs/MASTER_HANDOFF.md`](docs/MASTER_HANDOFF.md)
 - [`docs/POST_90_SEASON_ROADMAP.md`](docs/POST_90_SEASON_ROADMAP.md)
 
 Before making major app, database, UI, Supabase, task cadence, auth, or deployment changes, review the handoff first.
