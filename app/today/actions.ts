@@ -15,6 +15,7 @@ export async function toggleTaskCompletion(formData: FormData) {
 
 function revalidateAccountabilityPaths() {
   revalidatePath("/today");
+  revalidatePath("/challenge-feedback");
   revalidatePath("/daily-reading");
   revalidatePath("/night-prayer");
   revalidatePath("/this-week");
@@ -118,6 +119,7 @@ export async function toggleTaskCompletionWithResult(
     ? (taskTemplateRelation[0] ?? null)
     : taskTemplateRelation;
   const isReflectionTask = taskTemplate?.slug === "reflection";
+  const isChallengeFeedbackTask = taskTemplate?.slug === "challenge_feedback";
 
   if (isReflectionTask) {
     const { data: reflectionEntry, error: reflectionError } = await supabase
@@ -133,6 +135,23 @@ export async function toggleTaskCompletionWithResult(
 
     if (!reflectionEntry?.id) {
       throw new Error("Save a reflection entry before completing this task.");
+    }
+  }
+
+  if (isChallengeFeedbackTask) {
+    const { data: feedbackResponse, error: feedbackError } = await supabase
+      .from("challenge_feedback_responses")
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("plan_day_id", planDay.id)
+      .maybeSingle();
+
+    if (feedbackError) {
+      throw new Error(`Could not verify challenge feedback: ${feedbackError.message}`);
+    }
+
+    if (!feedbackResponse?.id) {
+      throw new Error("Submit Challenge Feedback before completing this task.");
     }
   }
 

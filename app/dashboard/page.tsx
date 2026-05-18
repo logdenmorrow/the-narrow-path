@@ -19,6 +19,11 @@ import { AppActionBar } from "@/components/page-actions";
 import { DashboardLoginRedirectClear } from "@/components/dashboard-login-redirect-clear";
 import { PushNotificationControl } from "@/components/push-notification-control";
 import {
+  GospelScaffoldingCard,
+  JamesScaffoldingCard,
+  SeasonTimeline,
+} from "@/components/season-timeline";
+import {
   getViewTrackFromSearchParams,
   resolveEffectiveTrack,
   syncAdminProfileVisibility,
@@ -26,7 +31,12 @@ import {
   type SearchParamRecord,
 } from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming } from "@/lib/challenge";
+import { getChallengeTiming, getIsoDateInTimeZone } from "@/lib/challenge";
+import {
+  getPostChallengeDisplay,
+  getPostChallengePhase,
+  getSeasonTimelineItem,
+} from "@/lib/season-plan";
 import { updateLastActiveAt } from "@/lib/last-active";
 import { applyReflectionCompletionOverride, getReflectionTaskId } from "@/lib/task-progress";
 
@@ -247,6 +257,185 @@ export default async function DashboardPage({
 
   const challenge = getChallengeTiming(activePlan.total_days);
   const selectedDay = challenge.hasStarted ? challenge.currentDayNumber : 1;
+  const currentDateIso = getIsoDateInTimeZone();
+  const preserveViewTrack = isAdmin && isUsingViewOverride;
+
+  if (challenge.isComplete) {
+    const postChallengePhase = getPostChallengePhase(currentDateIso);
+    const postChallengeCopy = getPostChallengeDisplay(postChallengePhase);
+    const currentSeason = postChallengePhase
+      ? getSeasonTimelineItem(postChallengePhase)
+      : null;
+    const memberCount =
+      (
+        await supabase
+          .from("profiles")
+          .select("id")
+          .eq("track", track)
+          .eq("is_hidden_from_community", false)
+      ).data?.length ?? 0;
+
+    return (
+      <main className="monastic-page">
+        <DashboardLoginRedirectClear />
+        <PageFrame className="space-y-6">
+          <div className="mb-5">
+            <p className="break-all text-sm text-zinc-400 sm:break-normal">
+              Signed in as {user.email}
+            </p>
+          </div>
+
+          {isAdmin ? (
+            <AdminViewTrackSwitcher
+              basePath="/dashboard"
+              currentTrack={track}
+            />
+          ) : null}
+
+          <HeroPanel className="py-5 sm:py-7">
+            <div className="grid gap-6 lg:grid-cols-[1.12fr_0.88fr] lg:items-end">
+              <div className="text-[#f7ebd8]">
+                <p className="section-kicker text-[#ead6b0]">
+                  {activePlan.name}
+                </p>
+                <h1 className="mt-3 text-4xl font-semibold sm:text-5xl">
+                  {postChallengeCopy.title}
+                </h1>
+                <p className="mt-3 text-base leading-7 text-[#f0dec1] sm:text-lg sm:leading-8">
+                  {postChallengeCopy.body}
+                </p>
+                {currentSeason ? (
+                  <p className="mt-4 text-sm uppercase tracking-[0.14em] text-[#ead6b0] sm:tracking-[0.2em]">
+                    Current season: {currentSeason.title}
+                  </p>
+                ) : null}
+              </div>
+
+              <AppActionBar
+                className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
+                actions={[
+                  {
+                    href: withViewTrack(
+                      `/today?day=${activePlan.total_days}`,
+                      track,
+                      preserveViewTrack
+                    ),
+                    label: "Review Day 90",
+                    variant: "primary",
+                  },
+                  {
+                    href: withViewTrack("/brotherhood", track, preserveViewTrack),
+                    label: `Open ${communityName}`,
+                    variant: "secondary",
+                  },
+                  {
+                    href: "#whats-next",
+                    label: "View What's Next",
+                    variant: "outline",
+                  },
+                ]}
+              />
+            </div>
+          </HeroPanel>
+
+          <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+            <SurfaceCard>
+              <SectionHeader kicker="Quick Access" title="Quick Access" />
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <Link
+                  href={withViewTrack(
+                    `/today?day=${activePlan.total_days}`,
+                    track,
+                    preserveViewTrack
+                  )}
+                  className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+                >
+                  Review Day 90
+                </Link>
+                <Link
+                  href={withViewTrack("/brotherhood", track, preserveViewTrack)}
+                  className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+                >
+                  {communityName}
+                </Link>
+                <Link
+                  href="/night-prayer"
+                  className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+                >
+                  Night Prayer
+                </Link>
+                <Link
+                  href="/rosary"
+                  className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+                >
+                  Rosary
+                </Link>
+                <Link
+                  href="/settings"
+                  className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+                >
+                  Settings
+                </Link>
+                {isAdmin && (
+                  <Link
+                    href="/admin/plan"
+                    className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+                  >
+                    Admin Plan
+                  </Link>
+                )}
+                {isAdmin && (
+                  <Link
+                    href="/admin/challenge-feedback"
+                    className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+                  >
+                    Challenge Feedback
+                  </Link>
+                )}
+              </div>
+            </SurfaceCard>
+
+            <SurfaceCard>
+              <SectionHeader
+                kicker="Reset"
+                title="No Daily Challenge Pressure"
+                description="Community, account controls, notifications, and past day review remain available."
+              />
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <SurfaceInset>
+                  <div className="section-kicker">Current Day</div>
+                  <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">
+                    Complete
+                  </p>
+                </SurfaceInset>
+                <SurfaceInset>
+                  <div className="section-kicker">{communityName} Members</div>
+                  <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">
+                    {memberCount}
+                  </p>
+                </SurfaceInset>
+              </div>
+            </SurfaceCard>
+          </div>
+
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Notifications"
+              title="Device Notifications"
+              description="Enable or disable push notifications for the browser or Home Screen app you are using now."
+            />
+            <div className="mt-4">
+              <PushNotificationControl />
+            </div>
+          </SurfaceCard>
+
+          {postChallengePhase === "james" ? <JamesScaffoldingCard /> : null}
+          {postChallengePhase === "gospels" ? <GospelScaffoldingCard /> : null}
+          <SeasonTimeline currentPhase={postChallengePhase} />
+        </PageFrame>
+      </main>
+    );
+  }
 
   const { data: planDayData } = await supabase
     .from("plan_days")
@@ -464,7 +653,6 @@ export default async function DashboardPage({
         .eq("track", track)
         .eq("is_hidden_from_community", false)
     ).data?.length ?? 0;
-  const preserveViewTrack = isAdmin && isUsingViewOverride;
 
   return (
     <main className="monastic-page">
@@ -552,6 +740,11 @@ export default async function DashboardPage({
               {isAdmin && (
                 <Link href="/admin/auth-reports" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
                   Auth Reports
+                </Link>
+              )}
+              {isAdmin && (
+                <Link href="/admin/challenge-feedback" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                  Challenge Feedback
                 </Link>
               )}
               {isAdmin && (
