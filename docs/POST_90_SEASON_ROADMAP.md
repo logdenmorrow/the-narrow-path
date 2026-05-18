@@ -42,13 +42,15 @@ Working display-only outline:
 - Aug 19-24: James 4
 - Aug 25-31: James 5
 
-Do not treat the outline as final verse splits. Final James reading text, daily references, reading titles, and reflection prompts still need to be supplied before generating plan data.
+Do not treat the outline or draft splits as final until reviewed. The content draft should still be checked before generating plan data.
 
-Use this template for the content pass:
+The August James content draft lives here:
 
 ```text
 docs/AUGUST_JAMES_CONTENT_TEMPLATE.md
 ```
+
+It now contains a 31-day working draft with daily references, titles, focus text, reading text, and reflection prompts. It is still a draft until reviewed and imported.
 
 Implementation notes:
 
