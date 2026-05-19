@@ -126,6 +126,14 @@ function getTaskSecondaryAction(
     };
   }
 
+  if (slug === "give_thanks") {
+    return {
+      href: buildPlanDayHref("/give-thanks", planSlug, dayNumber),
+      label: "Open Give Thanks",
+      statusText: "Open reading",
+    };
+  }
+
   if (slug === "reflection") {
     return {
       href: buildPlanDayHref("/reflection", planSlug, dayNumber),

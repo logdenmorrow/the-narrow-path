@@ -7,8 +7,8 @@ This note records the current plan after the first 90-day challenge. Treat the l
 Special Celebration day. Food, drink, and social media restrictions are relaxed for this day only.
 
 - Challenge Feedback is Supabase-backed and exportable from `/admin/challenge-feedback`.
-- Give Thanks is a real Day 90 task with placeholder text based on Vatican II's *Dignitatis Humanae*.
-- Final Give Thanks reading copy still needs to be supplied manually before production use.
+- Give Thanks is a real Day 90 reading-only task at `/give-thanks?plan=the-narrow-path-90&day=90`.
+- Give Thanks uses a curated reading based on selected sections of Vatican II's *Dignitatis Humanae*.
 
 ## July 5-31, 2026: Challenge Complete / Reset
 
