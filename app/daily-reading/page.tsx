@@ -30,6 +30,11 @@ type PlanDayRow = {
   reading_reference: string | null;
   reading_notes: string | null;
   reading_text: string | null;
+  reading_context: string | null;
+  previous_reading_summary: string | null;
+  reading_today_preview: string | null;
+  reading_watch_for: string | null;
+  reading_key_terms: unknown;
 };
 
 type ReadingTaskRow = {
@@ -52,6 +57,11 @@ type ReadingTaskRow = {
 
 type CompletionRow = {
   id: number;
+};
+
+type KeyTerm = {
+  term: string;
+  definition: string | null;
 };
 
 function normalizeDayNumber(value: number, totalDays: number) {
@@ -129,6 +139,74 @@ function splitIntoReadableParagraphs(text: string) {
 
 function isCatechismDay(reference?: string | null) {
   return !!reference && /^CCC\b/i.test(reference.trim());
+}
+
+function hasText(value?: string | null) {
+  return Boolean(value?.trim());
+}
+
+function stringifyKeyTermValue(value: unknown) {
+  if (typeof value === "string" || typeof value === "number") {
+    return String(value).trim();
+  }
+
+  return "";
+}
+
+function normalizeKeyTermItem(item: unknown): KeyTerm | null {
+  if (typeof item === "string") {
+    const term = item.trim();
+    return term ? { term, definition: null } : null;
+  }
+
+  if (!item || typeof item !== "object" || Array.isArray(item)) {
+    return null;
+  }
+
+  const record = item as Record<string, unknown>;
+  const term = stringifyKeyTermValue(
+    record.term ?? record.title ?? record.name ?? record.key
+  );
+  const definition = stringifyKeyTermValue(
+    record.definition ?? record.description ?? record.value
+  );
+
+  if (!term) {
+    return null;
+  }
+
+  return {
+    term,
+    definition: definition || null,
+  };
+}
+
+function normalizeKeyTerms(value: unknown): KeyTerm[] {
+  if (Array.isArray(value)) {
+    return value
+      .map(normalizeKeyTermItem)
+      .filter((term): term is KeyTerm => Boolean(term));
+  }
+
+  if (!value || typeof value !== "object") {
+    return [];
+  }
+
+  return Object.entries(value as Record<string, unknown>)
+    .map(([term, definition]) => {
+      const normalizedTerm = term.trim();
+      const normalizedDefinition = stringifyKeyTermValue(definition);
+
+      if (!normalizedTerm) {
+        return null;
+      }
+
+      return {
+        term: normalizedTerm,
+        definition: normalizedDefinition || null,
+      };
+    })
+    .filter((term): term is KeyTerm => Boolean(term));
 }
 
 export default async function DailyReadingPage({
@@ -215,7 +293,12 @@ export default async function DailyReadingPage({
         reading_title,
         reading_reference,
         reading_notes,
-        reading_text
+        reading_text,
+        reading_context,
+        previous_reading_summary,
+        reading_today_preview,
+        reading_watch_for,
+        reading_key_terms
       `
     )
     .eq("plan_id", activePlan.id)
@@ -280,6 +363,15 @@ export default async function DailyReadingPage({
   const focusParagraphs = splitIntoReadableParagraphs(planDay.reading_focus ?? "");
   const noteParagraphs = splitIntoReadableParagraphs(planDay.reading_notes ?? "");
   const readingParagraphs = splitIntoReadableParagraphs(planDay.reading_text ?? "");
+  const keyTerms = normalizeKeyTerms(planDay.reading_key_terms);
+  const beforeYouReadItems = [
+    { label: "Where We Are", value: planDay.reading_context },
+    { label: "Yesterday", value: planDay.previous_reading_summary },
+    { label: "Today", value: planDay.reading_today_preview },
+    { label: "Watch For", value: planDay.reading_watch_for },
+  ].filter((item) => hasText(item.value));
+  const hasBeforeYouRead =
+    beforeYouReadItems.length > 0 || keyTerms.length > 0;
   const catechismDay = isCatechismDay(planDay.reading_reference);
   const hasReadingText = readingParagraphs.length > 0;
   const isLocked = !challenge.hasStarted || selectedDay > challenge.currentDayNumber;
@@ -357,6 +449,54 @@ export default async function DailyReadingPage({
             },
           ]}
         />
+
+        {hasBeforeYouRead && (
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Before You Read"
+              title="Know what to look for."
+              description="Short context for the assigned reading."
+            />
+
+            <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              {beforeYouReadItems.map((item) => (
+                <section
+                  key={item.label}
+                  className="border-t border-monastic pt-4"
+                >
+                  <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-monastic-2">
+                    {item.label}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+                    {item.value}
+                  </p>
+                </section>
+              ))}
+
+              {keyTerms.length > 0 && (
+                <section className="border-t border-monastic pt-4 md:col-span-2 xl:col-span-4">
+                  <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-monastic-2">
+                    Key Terms
+                  </h3>
+                  <dl className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                    {keyTerms.map((item) => (
+                      <div key={item.term} className="min-w-0">
+                        <dt className="text-sm font-semibold text-monastic-0 sm:text-base">
+                          {item.term}
+                        </dt>
+                        {item.definition ? (
+                          <dd className="mt-1 text-sm leading-6 text-monastic-1">
+                            {item.definition}
+                          </dd>
+                        ) : null}
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              )}
+            </div>
+          </SurfaceCard>
+        )}
 
         <div className="grid gap-6 lg:grid-cols-[minmax(18rem,0.78fr)_minmax(0,1.42fr)] lg:items-start">
           <aside className="grid gap-6 lg:sticky lg:top-28">

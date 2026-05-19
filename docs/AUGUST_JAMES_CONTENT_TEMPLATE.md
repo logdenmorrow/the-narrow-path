@@ -10,8 +10,17 @@ Import target fields:
 - plan_days.reading_title
 - plan_days.reading_focus
 - plan_days.reading_text
+- plan_days.reading_context
+- plan_days.previous_reading_summary
+- plan_days.reading_today_preview
+- plan_days.reading_watch_for
+- plan_days.reading_key_terms
+- plan_days.reading_context_source_hash
 - plan_days.reflection_prompt
 - optional import/admin notes outside user-facing app copy
+
+Before You Read content must be authored or generated before import, reviewed,
+and stored in Supabase. The app displays saved fields only.
 
 ## Day 1
 

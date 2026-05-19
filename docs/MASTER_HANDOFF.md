@@ -772,6 +772,12 @@ reading_title
 reading_reference
 reading_notes
 reading_text
+reading_context
+previous_reading_summary
+reading_today_preview
+reading_watch_for
+reading_key_terms
+reading_context_source_hash
 reflection_prompt
 ```
 
@@ -779,10 +785,15 @@ reflection_prompt
 
 - Supports day navigation.
 - Shows mission/focus/title/reference/notes/text.
+- Shows the Before You Read card when reviewed context fields are stored on
+  `plan_days`.
 - Splits long text into readable paragraphs.
 - Labels Scripture and Catechism days clearly.
 - CCC reading text must render on Catechism days.
 - Do not bring back placeholder text such as “Paste approved text here...”
+- Do not add live AI generation to the user-facing reading page. Context should
+  be authored or generated ahead of time, reviewed, stored, and then read from
+  Supabase.
 
 ### Known reading-content fixes
 
