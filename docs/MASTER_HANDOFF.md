@@ -306,6 +306,7 @@ npm run dev
 npm run build
 npm run start
 npm run lint
+npm run build:reading-context-sql
 npm run import:night-prayer
 npm run migrate:reflection-encryption
 ```
@@ -781,12 +782,63 @@ reading_context_source_hash
 reflection_prompt
 ```
 
+### Stored Before You Read context
+
+A reviewed, stored Before You Read system was added for Daily Reading because users could open a Scripture or Catechism reading and feel lost if they did not remember yesterday's passage or did not know Scripture well.
+
+Product goal:
+
+- Give the user just enough context to read today's passage with confidence.
+- Keep the reading page helpful without turning it into a long commentary.
+
+Important product decision:
+
+- Do **not** generate this live in the app.
+- Reading context may be authored or AI-assisted ahead of time, but it must be reviewed, stored in Supabase, and displayed from saved fields.
+- The production app should not call AI to generate reading context.
+
+Reasons:
+
+- Stable wording for all users.
+- No production AI cost.
+- No page-load delay.
+- No inconsistent theology.
+- Reviewable Catholic content.
+- Reusable workflow for future reading plans.
+
+Schema added to `public.plan_days` by `supabase/migrations/20260519_add_plan_day_reading_context.sql`:
+
+```text
+reading_context text
+previous_reading_summary text
+reading_today_preview text
+reading_watch_for text
+reading_key_terms jsonb
+reading_context_source_hash text
+```
+
+Meaning:
+
+- `reading_context` = Where We Are
+- `previous_reading_summary` = Yesterday
+- `reading_today_preview` = Today
+- `reading_watch_for` = Watch For
+- `reading_key_terms` = Key Terms
+- `reading_context_source_hash` = future stale-content/change detection
+
 ### `/daily-reading` behavior
 
 - Supports day navigation.
 - Shows mission/focus/title/reference/notes/text.
 - Shows the Before You Read card when reviewed context fields are stored on
   `plan_days`.
+- Only shows the Before You Read card when at least one text context section or
+  key term exists.
+- Only shows sections that have content.
+- Day 1 usually has `previous_reading_summary = null`.
+- `reading_key_terms` supports JSONB term/definition objects. The page also
+  tolerates simple strings and object maps for compatibility.
+- Does not show user-facing placeholder copy when context has not been stored.
 - Splits long text into readable paragraphs.
 - Labels Scripture and Catechism days clearly.
 - CCC reading text must render on Catechism days.
@@ -794,6 +846,218 @@ reflection_prompt
 - Do not add live AI generation to the user-facing reading page. Context should
   be authored or generated ahead of time, reviewed, stored, and then read from
   Supabase.
+
+Current Before You Read sections:
+
+```text
+Where We Are
+Yesterday
+Today
+Watch For
+Key Terms
+```
+
+### Reading context SQL workflow
+
+The reusable conversion script is:
+
+```text
+scripts/build-reading-context-sql.mjs
+```
+
+NPM script:
+
+```bash
+npm run build:reading-context-sql
+```
+
+Example command:
+
+```bash
+npm run build:reading-context-sql -- --input content/reading-context/the-narrow-path-90-days-1-14.json --output supabase/generated/the-narrow-path-90-reading-context-days-1-14.sql
+```
+
+The script:
+
+- Reads reviewed JSON.
+- Validates shape.
+- Targets `plan_days` by `challenge_plans.slug` and `plan_days.day_number`.
+- Generates SQL only.
+- Does not connect to Supabase.
+- Does not run SQL.
+- Escapes SQL strings safely.
+- Serializes `reading_key_terms` to JSONB.
+- Does not update `reading_text`, `reading_title`, `reading_reference`, or
+  existing reflection fields.
+
+Reviewed JSON shape:
+
+```json
+{
+  "planSlug": "the-narrow-path-90",
+  "note": "Reviewed Before You Read content...",
+  "days": [
+    {
+      "dayNumber": 1,
+      "readingContext": "...",
+      "previousReadingSummary": null,
+      "readingTodayPreview": "...",
+      "readingWatchFor": "...",
+      "readingKeyTerms": [
+        {
+          "term": "...",
+          "definition": "..."
+        }
+      ],
+      "readingContextSourceHash": "the-narrow-path-90-day-1-v1"
+    }
+  ]
+}
+```
+
+More workflow detail is documented in `docs/reading-context-workflow.md`.
+
+### Completed reviewed reading context
+
+The full `the-narrow-path-90` Acts + Catechism plan has reviewed Before You Read content for all 90 days.
+
+Reviewed JSON:
+
+```text
+content/reading-context/the-narrow-path-90-days-1-14.json
+content/reading-context/the-narrow-path-90-days-15-28.json
+content/reading-context/the-narrow-path-90-days-29-42.json
+content/reading-context/the-narrow-path-90-days-43-56.json
+content/reading-context/the-narrow-path-90-days-57-70.json
+content/reading-context/the-narrow-path-90-days-71-90.json
+```
+
+Generated SQL:
+
+```text
+supabase/generated/the-narrow-path-90-reading-context-days-1-14.sql
+supabase/generated/the-narrow-path-90-reading-context-days-15-28.sql
+supabase/generated/the-narrow-path-90-reading-context-days-29-42.sql
+supabase/generated/the-narrow-path-90-reading-context-days-43-56.sql
+supabase/generated/the-narrow-path-90-reading-context-days-57-70.sql
+supabase/generated/the-narrow-path-90-reading-context-days-71-90.sql
+```
+
+Supabase audit recorded for Acts:
+
+```text
+total_days: 90
+has_context: 90
+has_today_preview: 90
+has_watch_for: 90
+has_key_terms: 90
+has_source_hash: 90
+```
+
+The August James plan uses slug:
+
+```text
+ordinary-time-james
+```
+
+Completed/reviewed James files:
+
+```text
+content/reading-context/ordinary-time-james-days-1-31.json
+supabase/generated/ordinary-time-james-reading-context-days-1-31.sql
+```
+
+James was handled as an epistle/theme flow, not a fake narrative. The content follows themes like trials, wisdom, poverty/wealth, temptation, doing the word, partiality, faith and works, speech, wisdom, worldliness, humility, judgment, wealth/injustice, patience, prayer, confession, and bringing back the wanderer.
+
+Tone notes for reviewed reading context:
+
+- Plainspoken.
+- Catholic.
+- Helpful for beginners.
+- Direct Catholic clarity is allowed.
+- Not academic.
+- Not vague ecumenical mush.
+- Not a comment-section fight.
+- Real faith should be shown as becoming obedience, mercy, and works of charity.
+
+### Future Gospel plan workflow
+
+Reuse the same stored context system. Do not add live AI. Do not create new UI unless necessary.
+
+For a future September-to-Lent four Gospels plan:
+
+1. Create or seed the final Gospel reading plan in `plan_days` first.
+2. Export the exact seeded plan from Supabase with full `reading_text`.
+3. Generate reviewed JSON context batches from that final export.
+4. Convert reviewed JSON to SQL using `scripts/build-reading-context-sql.mjs`.
+5. Review SQL manually.
+6. Run SQL manually in Supabase.
+7. Audit count coverage.
+8. Spot-check with full production URLs.
+9. Commit reviewed JSON and generated SQL.
+
+Suggested export query:
+
+```sql
+select
+  cp.slug as plan_slug,
+  pd.day_number,
+  pd.reading_title,
+  pd.reading_reference,
+  pd.reading_focus,
+  pd.reading_notes,
+  pd.reading_text
+from public.plan_days pd
+join public.challenge_plans cp on cp.id = pd.plan_id
+where cp.slug = '<future-gospels-plan-slug>'
+order by pd.day_number;
+```
+
+Writing formula for future Gospel reading-context content:
+
+- Where We Are: one sentence placing the reader in the Gospel story.
+- Yesterday: 1-3 sentences summarizing the prior reading.
+- Today: 1-2 sentences previewing today's passage.
+- Watch For: one concrete thing to notice spiritually, doctrinally, narratively,
+  or morally.
+- Key Terms: only beginner-helpful terms.
+
+For Gospels, context should help users track:
+
+- Which Gospel they are in.
+- Where Jesus is geographically when relevant.
+- Who is speaking.
+- Who groups like Pharisees, Sadducees, scribes, disciples, crowds, Romans, and
+  Samaritans are.
+- Whether the passage is a miracle, parable, teaching, conflict, Passion event,
+  or Resurrection appearance.
+- How today connects to yesterday.
+- How it fits the movement toward Jerusalem, the Cross, and the Resurrection.
+
+Gospel angle reminders:
+
+- Matthew: fulfillment, kingdom, Church, teaching authority.
+- Mark: urgency, discipleship, suffering Messiah.
+- Luke: mercy, prayer, poor/outcast, Holy Spirit, Jerusalem.
+- John: signs, belief, divine identity, sacraments, glory.
+
+Testing URL preference:
+
+- Use full copy/paste production URLs in docs and future prompts.
+- Use `https://thenarrowpath.xyz/daily-reading?day=1`.
+- Do not use route-only examples like `/daily-reading?day=1` when asking for
+  production spot checks.
+
+Example spot-check links:
+
+```text
+https://thenarrowpath.xyz/daily-reading?day=1
+https://thenarrowpath.xyz/daily-reading?day=7
+https://thenarrowpath.xyz/daily-reading?day=35
+https://thenarrowpath.xyz/daily-reading?day=63
+https://thenarrowpath.xyz/daily-reading?day=84
+https://thenarrowpath.xyz/daily-reading?day=90
+```
 
 ### Known reading-content fixes
 
@@ -1550,6 +1814,19 @@ The following migrations/features were confirmed across audits. Inspect actual r
 20260512_zzz_add_night_prayer_phase1.sql
 ```
 
+### Reading context
+
+```text
+20260519_add_plan_day_reading_context.sql
+```
+
+Reading context migration notes:
+
+- Adds nullable stored Before You Read fields to `public.plan_days`.
+- App reads saved fields only; do not add live AI generation for reading
+  context.
+- Generated content SQL lives in `supabase/generated/` and should be manually
+  reviewed before being applied.
 
 ### Web Push/reminders
 
