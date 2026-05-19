@@ -504,6 +504,12 @@
       background-attachment: scroll;
     }
 
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     body::before,
     body::after {
       content: none;
@@ -582,8 +588,20 @@
       padding-block: 0.28rem;
     }
 
+    .monastic-topbar-row,
+    .monastic-frame {
+      min-width: 0;
+    }
+
+    .monastic-header-actions {
+      min-width: 0;
+      flex-shrink: 1;
+    }
+
     .monastic-wordmark {
       gap: 0.32rem;
+      min-width: 0;
+      max-width: 100%;
     }
 
     .monastic-wordmark::before,
@@ -656,6 +674,21 @@
 
     .monastic-header .ml-auto {
       margin-left: 0;
+    }
+
+    @media (max-width: 359px) {
+      .monastic-topbar-row {
+        flex-wrap: wrap;
+      }
+
+      .monastic-header-actions {
+        width: 100%;
+        justify-content: flex-end;
+      }
+
+      .monastic-wordmark {
+        font-size: 0.95rem;
+      }
     }
 
     .mobile-tab-label {

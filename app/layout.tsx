@@ -151,7 +151,7 @@ export default async function RootLayout({
           <header className="monastic-header">
             <div className="monastic-frame">
               <div className="monastic-topbar">
-                <div className="flex items-center justify-between gap-2 sm:items-start lg:items-center">
+                <div className="monastic-topbar-row flex items-center justify-between gap-2 sm:items-start lg:items-center">
                   <div className="min-w-0 space-y-1 sm:space-y-2">
                     <Link
                       href="/"

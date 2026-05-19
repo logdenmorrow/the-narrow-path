@@ -241,7 +241,7 @@ export function LoginForm({
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn("flex min-w-0 flex-col gap-5 sm:gap-6", className)} {...props}>
       <AuthCard
         title="Welcome back"
         description="Enter your email and password to continue."
@@ -253,8 +253,8 @@ export function LoginForm({
           </p>
         }
       >
-        <form onSubmit={handleLogin} className="space-y-6">
-          <div className="grid gap-5">
+        <form onSubmit={handleLogin} className="space-y-5 sm:space-y-6">
+          <div className="grid gap-4 sm:gap-5">
             <div className="grid gap-2">
               <Label htmlFor="email" className="text-sm font-semibold tracking-[0.02em] text-monastic-0">
                 Email
@@ -270,19 +270,19 @@ export function LoginForm({
                 spellCheck={false}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="monastic-field h-12 rounded-2xl px-4 py-3 text-base shadow-none md:text-base"
+                className="monastic-field h-11 rounded-[1rem] px-3.5 py-3 text-base shadow-none sm:h-12 sm:rounded-2xl sm:px-4 md:text-base"
               />
             </div>
 
             <div className="grid gap-2">
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex min-w-0 flex-col items-start gap-1 min-[360px]:flex-row min-[360px]:items-center min-[360px]:justify-between min-[360px]:gap-3">
                 <Label
                   htmlFor="password"
                   className="text-sm font-semibold tracking-[0.02em] text-monastic-0"
                 >
                   Password
                 </Label>
-                <AuthPageLink href="/auth/forgot-password" className="text-sm text-[color:var(--surface-strong)]">
+                <AuthPageLink href="/auth/forgot-password" className="max-w-full text-sm leading-5 text-[color:var(--surface-strong)]">
                   Forgot password?
                 </AuthPageLink>
               </div>
@@ -296,7 +296,7 @@ export function LoginForm({
                 spellCheck={false}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="monastic-field h-12 rounded-2xl px-4 py-3 text-base shadow-none md:text-base"
+                className="monastic-field h-11 rounded-[1rem] px-3.5 py-3 text-base shadow-none sm:h-12 sm:rounded-2xl sm:px-4 md:text-base"
               />
             </div>
           </div>
