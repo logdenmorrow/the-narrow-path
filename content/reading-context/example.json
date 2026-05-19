@@ -1,0 +1,36 @@
+{
+  "planSlug": "example-plan-slug",
+  "note": "Example content only. Do not import this into a live plan.",
+  "days": [
+    {
+      "dayNumber": 1,
+      "readingContext": "Example only: Acts begins with Luke addressing Theophilus and returning to the work of Jesus after the Resurrection.",
+      "previousReadingSummary": null,
+      "readingTodayPreview": "Example only: Jesus prepares the apostles for the coming of the Holy Spirit and their mission as witnesses.",
+      "readingWatchFor": "Example only: Notice the promise of power from the Holy Spirit before the public mission begins.",
+      "readingKeyTerms": [
+        {
+          "term": "Theophilus",
+          "definition": "The person Luke addresses at the beginning of Acts."
+        },
+        {
+          "term": "Witness",
+          "definition": "One who testifies to what Christ has done."
+        }
+      ],
+      "readingContextSourceHash": "example-only-day-1"
+    },
+    {
+      "dayNumber": 2,
+      "readingContext": "Example only: The apostles are gathered in Jerusalem after the Ascension, waiting in prayer.",
+      "previousReadingSummary": "Example only: Jesus promised the Holy Spirit and sent the apostles to be His witnesses.",
+      "readingTodayPreview": "Example only: The apostles address the empty place left by Judas and choose Matthias.",
+      "readingWatchFor": "Example only: Watch how prayer and apostolic office stay connected.",
+      "readingKeyTerms": {
+        "Apostle": "One sent by Christ with authority to witness and serve the Church.",
+        "Matthias": "The man chosen to take the place of Judas among the Twelve."
+      },
+      "readingContextSourceHash": "example-only-day-2"
+    }
+  ]
+}
