@@ -26,10 +26,13 @@ async function getServiceWorkerRegistration() {
   const existingRegistration = await navigator.serviceWorker.getRegistration("/");
 
   if (existingRegistration) {
+    void existingRegistration.update();
     return existingRegistration;
   }
 
-  return navigator.serviceWorker.register("/sw.js", { scope: "/" });
+  const registration = await navigator.serviceWorker.register("/sw.js", { scope: "/" });
+  void registration.update();
+  return registration;
 }
 
 async function postJson(path: string, body: unknown) {

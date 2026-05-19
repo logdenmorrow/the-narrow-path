@@ -1,4 +1,4 @@
-const CACHE_NAME = "narrow-path-static-v4";
+const CACHE_NAME = "narrow-path-static-v5";
 const SAFE_STATIC_ASSETS = [
   "/app-icon-192.png",
   "/app-icon-512.png",
@@ -103,6 +103,7 @@ self.addEventListener("notificationclick", (event) => {
     clients
       .matchAll({ type: "window", includeUncontrolled: true })
       .then(async (clientList) => {
+        const openTargetWindow = () => clients.openWindow(targetUrl);
         const sameOriginClients = clientList.filter((client) => {
           try {
             return new URL(client.url).origin === self.location.origin;
@@ -121,20 +122,32 @@ self.addEventListener("notificationclick", (event) => {
         });
 
         if (exactClient) {
-          return exactClient.focus();
+          try {
+            return await exactClient.focus();
+          } catch (error) {
+            console.error("Could not focus notification target window.", error);
+          }
         }
 
         const existingClient = sameOriginClients[0];
 
         if (existingClient) {
-          if ("navigate" in existingClient) {
-            const navigatedClient = await existingClient.navigate(targetUrl);
-            return (navigatedClient || existingClient).focus();
-          }
+          try {
+            if ("navigate" in existingClient) {
+              const navigatedClient = await existingClient.navigate(targetUrl);
+              return await (navigatedClient || existingClient).focus();
+            }
 
-          return existingClient.focus();
+            return await existingClient.focus();
+          } catch (error) {
+            console.error("Could not navigate notification target window.", error);
+          }
         }
 
+        return openTargetWindow();
+      })
+      .catch((error) => {
+        console.error("Could not handle notification click.", error);
         return clients.openWindow(targetUrl);
       })
   );
