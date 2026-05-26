@@ -40,7 +40,9 @@ These days should:
 - preserve the same plan-scoped navigation and daily reading behavior
 - avoid assigning Gospel verses to Sundays unless Logan later changes this rule
 
-Exact Sunday Catechism themes and readings are still open.
+Sunday Catechism themes and selected CCC references have been drafted and
+reviewed in `content/gospels/the-gospels-september-lent-reading-plan-draft.json`.
+Use the reviewed schedule unless Logan later manually changes it.
 
 ## Gospel Reading Rule
 
@@ -69,6 +71,89 @@ The content direction for each Gospel:
 The tone should be Catholic, plainspoken, beginner-helpful, not academic, not
 cheesy, and not generic Protestant/evangelical commentary. The season should
 feel like a daily prayerful encounter with Christ, not a seminary course.
+
+## Source Text and Content Standards
+
+These decisions are approved for the future import-ready Gospel season content.
+Do not treat this section as permission to generate that content yet.
+
+### Gospel Source Text
+
+Use Logan's approved RSV2CE Gospel text source, matching the source used for
+the Acts and James readings.
+
+- Do not invent, fetch, paraphrase, or substitute Bible text.
+- Do not add full Gospel text during planning or schedule review passes.
+- Full Gospel text will be supplied later before import-ready content is
+  generated.
+
+### Catechism Source Text
+
+Use the existing Catechism source already available to the project.
+
+- Do not fetch or substitute another Catechism source unless Logan explicitly
+  instructs that change.
+- Do not add full Catechism text during planning or schedule review passes.
+
+### Sunday Catechism Formatting
+
+Sunday Catechism readings should be formatted more carefully than the current
+Narrow Path 90 Catechism readings.
+
+For future import-ready Sunday Catechism reading text:
+
+- Preserve CCC paragraph numbers.
+- Put each CCC numbered paragraph in its own paragraph.
+- Bold paragraph numbers in rendered markdown/text where supported, for
+  example: `**87.** Text...`
+- Convert embedded Catechism section labels/headings into clear subheadings,
+  for example:
+
+```markdown
+### The Dogmas of the Faith
+### The Supernatural Sense of Faith
+### Growth in Understanding the Faith
+```
+
+- Preserve the actual Catechism wording.
+- Preserve useful cross-references, but do not let them create unreadable walls
+  of text.
+- Remove obvious copy/paste artifacts, broken spacing, and mashed-together
+  headings.
+- Do not combine multiple CCC paragraphs into one wall of text.
+- Do not summarize the Catechism in place of the assigned reading text.
+
+### Reflection Prompts
+
+Every Gospel day and every Sunday Catechism day should receive a reflection
+prompt.
+
+Prompts should be:
+
+- Catholic
+- plainspoken
+- practical
+- short
+
+Prompts should not be academic, cheesy, vague, or generic
+Protestant/evangelical commentary.
+
+### Next-Phase Workflow
+
+The next content phase should wait until Logan provides the full RSV2CE Gospel
+text source.
+
+After source text is available:
+
+1. Generate an import-ready reviewed content artifact from the approved
+   schedule.
+2. Insert the supplied RSV2CE Gospel text and existing-source Catechism text.
+3. Apply the Catechism formatting standard above.
+4. Add reviewed reflection prompts for every Gospel and Sunday Catechism day.
+5. Keep the plan inactive/draft until human review is complete.
+
+Before You Read context should still wait until the final reading text, reading
+titles, focuses, and reflection prompts are approved.
 
 ## Season Resolver and Plan-Scoped URLs
 
@@ -122,8 +207,8 @@ James:
 
 ## Proposed Future Content Paths
 
-These files should be created later, after Logan approves the remaining content
-decisions:
+These files should be created later, after Logan supplies the approved RSV2CE
+Gospel source text and the import-ready content has been reviewed:
 
 ```text
 content/gospels/the-gospels-september-lent-reading-plan.json
@@ -132,10 +217,11 @@ content/reading-context/the-gospels-september-lent-days-1-14.json
 ```
 
 The first Gospel reading plan file should eventually contain the reviewed
-162-day plan content, including Sunday Catechism days. The reading-context
-source/export file should preserve the reviewed plan export used to generate
-Before You Read context. The chunked reading-context JSON files should follow
-the existing reviewed JSON shape documented in `docs/reading-context-workflow.md`.
+162-day plan content, including Sunday Catechism days, reading text, and
+reflection prompts. The reading-context source/export file should preserve the
+reviewed plan export used to generate Before You Read context. The chunked
+reading-context JSON files should follow the existing reviewed JSON shape
+documented in `docs/reading-context-workflow.md`.
 
 ## Proposed Future Generated and Migration Paths
 
@@ -151,20 +237,36 @@ draft plan only when the full schedule and launch behavior are ready for review.
 
 ## Open Decisions for Logan
 
-- Exact Sunday Catechism themes/readings
-- Exact Gospel daily split sizes across the 139 non-Sundays
-- Whether each day gets a reflection prompt
-- Whether Sunday Catechism days get their own reflection prompt
-- Whether August/September transition copy should appear on the dashboard
-- Whether the plan remains inactive until a later manual launch
+Decided:
+
+- Gospel text source: Logan's approved RSV2CE source, matching Acts and James.
+- Catechism source: the existing Catechism source already available to the
+  project.
+- Reflection prompts: include prompts for every Gospel day and every Sunday
+  Catechism day.
+- Schedule: keep the existing reviewed draft schedule unless Logan later
+  manually changes it.
+
+Still open:
+
+- Final human approval of exact reading text after source insertion.
+- Final human approval of formatted Catechism reading text.
+- Final human approval of reflection prompts.
+- Whether/when to create the inactive Supabase draft migration.
+- Whether/when to activate the plan.
+- Whether August/September transition copy should appear on the dashboard.
 
 ## Do Not Do Yet
 
-- Do not generate the actual 162-day reading schedule.
+- Do not regenerate or replace the reviewed 162-day draft schedule unless Logan
+  explicitly requests schedule changes.
 - Do not create the Gospel reading plan.
 - Do not create migrations.
 - Do not create generated SQL.
 - Do not generate Gospel readings.
+- Do not add full Gospel reading text.
+- Do not add full Catechism reading text.
+- Do not generate reflection prompts.
 - Do not generate Before You Read context.
 - Do not run migrations.
 - Do not mutate Supabase data.

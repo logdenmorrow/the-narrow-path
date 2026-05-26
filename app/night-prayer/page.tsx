@@ -16,7 +16,6 @@ import { buildPlanDayHref } from "@/lib/plan-day-url";
 import {
   getDivineOfficeDateUrl,
   getNightPrayerBlocks,
-  NIGHT_PRAYER_ATTRIBUTION_TEXT,
   type NightPrayerBlock,
 } from "@/lib/night-prayer";
 import { createClient } from "@/lib/supabase/server";
@@ -604,8 +603,6 @@ export default async function NightPrayerPage({
     nightPrayer?.liturgical_day?.trim() ||
     planDay.title ||
     `Day ${selectedDay}`;
-  const attributionText =
-    nightPrayer?.copyright_notice?.trim() || NIGHT_PRAYER_ATTRIBUTION_TEXT;
   const sourceLabel =
     nightPrayer?.source === "divineoffice" || !nightPrayer?.source
       ? "DivineOffice"
@@ -777,25 +774,6 @@ export default async function NightPrayerPage({
             </details>
           </SurfaceCard>
         ) : null}
-
-        <SurfaceCard className={`${PAGE_CARD_CLASS} py-4 sm:py-5`}>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="section-kicker">Attribution</p>
-              <h2 className="mt-2 text-xl font-semibold text-monastic-0">
-                Source and copyright
-              </h2>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-monastic-1">
-                {attributionText}
-              </p>
-            </div>
-            <Button asChild variant="secondary" size="sm">
-              <a href={sourceUrl} target="_blank" rel="noreferrer">
-                View Source
-              </a>
-            </Button>
-          </div>
-        </SurfaceCard>
       </PageFrame>
     </main>
   );

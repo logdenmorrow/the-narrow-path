@@ -104,6 +104,25 @@ Sunday Catechism references narrowed in this cleanup pass:
 - Gospel readings with 50+ estimated verses: 0
 - Sunday Catechism readings with 40+ estimated paragraphs: 0
 
+## Approved Content Decisions
+
+These decisions affect future import-ready content, not this reference-only
+schedule audit:
+
+- Gospel reading text should use Logan's approved RSV2CE Gospel text source,
+  matching the source used for Acts and James.
+- Sunday Catechism reading text should use the existing Catechism source already
+  available to the project.
+- Sunday Catechism text should preserve CCC paragraph numbers, put each
+  numbered paragraph in its own paragraph, use clear subheadings for embedded
+  Catechism section labels, and avoid mashed-together walls of text.
+- Every Gospel day should receive a short, Catholic, practical reflection
+  prompt.
+- Every Sunday Catechism day should also receive a short, Catholic, practical
+  reflection prompt.
+- Before You Read context should wait until final reading text, titles, focuses,
+  and reflection prompts are approved.
+
 ## Scope Confirmations
 
 - No full Bible text was added.
@@ -119,4 +138,7 @@ Sunday Catechism references narrowed in this cleanup pass:
 - Review the revised Passion/Resurrection boundaries in Matthew, Luke, and John for natural reading flow.
 - Review the selected CCC paragraph ranges to confirm they still carry each Sunday theme.
 - John 7:53-8:11 is now separated from John 8:12-59; review that split before import-ready plan data is prepared.
+- Final human approval is still needed for exact reading text after source insertion.
+- Final human approval is still needed for formatted Catechism reading text.
+- Final human approval is still needed for reflection prompts.
 - Before You Read context is intentionally not generated in this pass.

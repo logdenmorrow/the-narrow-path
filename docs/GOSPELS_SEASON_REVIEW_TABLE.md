@@ -13,6 +13,20 @@ Status: review-formatting only. This document is not import-ready content, SQL, 
 - Gospel order: Mark -> Matthew -> Luke -> John
 - Sundays are Catechism days
 
+## Future Content Standards
+
+- Gospel reading text will come from Logan's approved RSV2CE Gospel text source,
+  matching Acts and James.
+- Sunday Catechism readings will use the existing Catechism source already
+  available to the project.
+- Sunday Catechism text should preserve CCC paragraph numbers, keep each
+  numbered paragraph separate, and use clear subheadings for embedded Catechism
+  section labels.
+- Every Gospel day and every Sunday Catechism day should receive a short,
+  Catholic, practical reflection prompt.
+- Do not generate import-ready reading text, Catechism text, reflection prompts,
+  SQL, migrations, or Before You Read context from this review table.
+
 ## Gospel Block Summaries
 
 | Gospel | Gospel days | Day range | Date range | Reference span | Theme |
@@ -249,4 +263,3 @@ No Gospel reading ranges meet this threshold after the cleanup pass.
 Threshold used for this review table: 40 or more CCC paragraphs in a Sunday reading range.
 
 No Sunday Catechism readings meet this threshold after the cleanup pass.
-
