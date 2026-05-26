@@ -10,7 +10,7 @@ This is source-review material only. It is not import-ready plan data, SQL, a mi
 - Source: Ascension Web App
 - Translation/source decision: RSV2CE Gospel text source approved by Logan for review
 - URL pattern: https://app.ascensionpress.com/bible/books/Mark/<chapter>
-- Fetched at: 2026-05-26T15:29:42.816Z
+- Fetched at: 2026-05-26T16:42:15.960Z
 
 ## Diagnostic Summary
 
@@ -42,8 +42,11 @@ This is source-review material only. It is not import-ready plan data, SQL, a mi
 ## Source Artifacts
 
 - Mark 7: Verse label(s) not present in source HTML: 16.
+- Mark 8: Appended leading duplicate Mark 9:1 source continuation to Mark 8:38.
+- Mark 9: Removed trailing comma punctuation artifact from Mark 9:45 after an omitted verse label boundary.
 - Mark 9: Duplicate verse block found for Mark 9:1; kept the later block.
 - Mark 9: Verse label(s) not present in source HTML: 44, 46.
+- Mark 9: Leading duplicate Mark 9:1 block was a continuation of Mark 8:38; moved it there and kept the later Mark 9:1 block.
 - Mark 11: Verse label(s) not present in source HTML: 26.
 - Mark 15: Verse label(s) not present in source HTML: 28.
 
@@ -805,7 +808,7 @@ Source: https://app.ascensionpress.com/bible/books/Mark/8
 
 **37.** For what can a man give in return for his life?
 
-**38.** For whoever is ashamed of me and of my words in this adulterous and sinful generation, of him will the Son of man also be ashamed, when he comes in the glory of his Father
+**38.** For whoever is ashamed of me and of my words in this adulterous and sinful generation, of him will the Son of man also be ashamed, when he comes in the glory of his Father with the holy angels.”
 
 ## Mark 9
 
@@ -911,7 +914,7 @@ Source: https://app.ascensionpress.com/bible/books/Mark/9
 
 **43.** And if your hand causes you to sin, cut it off; it is better for you to enter life maimed than with two hands to go to hell, to the unquenchable fire.
 
-**45.** And if your foot causes you to sin, cut it off; it is better for you to enter life lame than with two feet to be thrown into hell.,
+**45.** And if your foot causes you to sin, cut it off; it is better for you to enter life lame than with two feet to be thrown into hell.
 
 **47.** And if your eye causes you to sin, pluck it out; it is better for you to enter the kingdom of God with one eye than with two eyes to be thrown into hell,
 

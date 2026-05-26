@@ -41,7 +41,9 @@ Status: Gospel-days import-preparation review artifact only. This is not SQL, no
 
 | Day | Reference | Source artifacts |
 | ---: | --- | --- |
-| 18 | Mark 9:1-29 | Mark 9:1 duplicate source block |
+| 17 | Mark 8:11-38 | Mark 8: Appended leading duplicate Mark 9:1 source continuation to Mark 8:38. |
+| 18 | Mark 9:1-29 | Mark 9:1 duplicate source block; Mark 9: Duplicate verse block found for Mark 9:1; kept the later block.; Mark 9: Leading duplicate Mark 9:1 block was a continuation of Mark 8:38; moved it there and kept the later Mark 9:1 block. |
+| 19 | Mark 9:30-50 | Mark 9: Removed trailing comma punctuation artifact from Mark 9:45 after an omitted verse label boundary. |
 
 ## Source/Schedule Mismatches
 

@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
 const BOOKS = {
@@ -105,6 +105,19 @@ function htmlToText(html) {
     .trim();
 }
 
+function cleanVerseTextArtifacts({ book, chapter, verseNumber, text, artifacts }) {
+  let cleaned = text;
+
+  if (/[.!?]\s*,\s*$/.test(cleaned)) {
+    cleaned = cleaned.replace(/\s*,\s*$/, "");
+    artifacts.push(
+      `Removed trailing comma punctuation artifact from ${book} ${chapter}:${verseNumber} after an omitted verse label boundary.`
+    );
+  }
+
+  return cleaned;
+}
+
 function extractChapterContent(html) {
   const startMatch = html.match(/<section\b[^>]*aria-label="Chapter content"[^>]*>/i);
   if (!startMatch || startMatch.index === undefined) return null;
@@ -179,7 +192,13 @@ function extractChapter({ book, chapter, sourceUrl, html }) {
       );
     }
 
-    const verseText = htmlToText(paragraphMatch[1]);
+    const verseText = cleanVerseTextArtifacts({
+      book,
+      chapter,
+      verseNumber,
+      text: htmlToText(paragraphMatch[1]),
+      artifacts,
+    });
     if (!verseText) {
       warnings.push(`${book} ${chapter}:${verseNumber} had an empty verse text extraction.`);
       continue;
@@ -198,11 +217,19 @@ function extractChapter({ book, chapter, sourceUrl, html }) {
 
   const seenVerseNumbers = new Set();
   const duplicateVerseNumbers = new Set();
+  const duplicateVerseBlocks = [];
   const versesByNumber = new Map();
 
   for (const verse of rawVerses) {
     if (seenVerseNumbers.has(verse.verseNumber)) {
+      const previousVerse = versesByNumber.get(verse.verseNumber);
       duplicateVerseNumbers.add(verse.verseNumber);
+      duplicateVerseBlocks.push({
+        verseNumber: verse.verseNumber,
+        discardedText: previousVerse?.text ?? null,
+        keptText: verse.text,
+        resolution: "kept-later",
+      });
       artifacts.push(
         `Duplicate verse block found for ${book} ${chapter}:${verse.verseNumber}; kept the later block.`
       );
@@ -245,10 +272,46 @@ function extractChapter({ book, chapter, sourceUrl, html }) {
     verses,
     omittedVerseNumbers,
     duplicateVerseNumbers: [...duplicateVerseNumbers].sort((first, second) => first - second),
+    duplicateVerseBlocks,
     artifacts,
     warnings,
     verseNumbersConfident: verses.length > 0 && warnings.length === 0,
   };
+}
+
+function isLikelyPreviousChapterContinuation(text) {
+  return /^[a-z]/.test(String(text ?? "").trim());
+}
+
+function resolveCrossChapterContinuations(chapters) {
+  for (let index = 1; index < chapters.length; index += 1) {
+    const chapter = chapters[index];
+    const previousChapter = chapters[index - 1];
+    const previousLastVerse = previousChapter.verses.at(-1);
+
+    if (!previousLastVerse) continue;
+
+    for (const block of chapter.duplicateVerseBlocks ?? []) {
+      const continuation = String(block.discardedText ?? "").trim();
+      if (block.verseNumber !== 1 || !isLikelyPreviousChapterContinuation(continuation)) {
+        continue;
+      }
+
+      if (!previousLastVerse.text.endsWith(continuation)) {
+        previousLastVerse.text = `${previousLastVerse.text} ${continuation}`
+          .replaceAll(/[ \t\r\n]+/g, " ")
+          .trim();
+      }
+
+      block.resolution = `moved-to-${previousChapter.book}-${previousChapter.chapter}-${previousLastVerse.verseNumber}`;
+      previousChapter.artifacts.push(
+        `Appended leading duplicate ${chapter.book} ${chapter.chapter}:1 source continuation to ${previousChapter.book} ${previousChapter.chapter}:${previousLastVerse.verseNumber}.`
+      );
+      chapter.artifacts.push(
+        `Leading duplicate ${chapter.book} ${chapter.chapter}:1 block was a continuation of ${previousChapter.book} ${previousChapter.chapter}:${previousLastVerse.verseNumber}; moved it there and kept the later ${chapter.book} ${chapter.chapter}:1 block.`
+      );
+    }
+  }
 }
 
 async function fetchChapter({ book, chapter }) {
@@ -502,6 +565,13 @@ function writeMarkdown(path, content) {
   writeFileSync(path, content, "utf8");
 }
 
+function readExistingBookData(book) {
+  const paths = outputPathsFor(book);
+  if (!existsSync(paths.json)) return null;
+
+  return JSON.parse(readFileSync(paths.json, "utf8"));
+}
+
 async function fetchBook(book) {
   const config = BOOKS[book];
   const chapters = [];
@@ -541,6 +611,8 @@ async function fetchBook(book) {
     }
   }
 
+  resolveCrossChapterContinuations(chapters);
+
   const diagnostics = buildDiagnostics({
     book,
     expectedChapters: config.chapters,
@@ -578,11 +650,13 @@ async function fetchBook(book) {
 async function main() {
   const books = selectedBooks();
   const results = [];
+  const resultsByBook = new Map();
 
   for (const [index, book] of books.entries()) {
     console.log(`Fetching ${book}...`);
     const result = await fetchBook(book);
     results.push(result);
+    resultsByBook.set(book, result);
 
     console.log(`Wrote ${result.outputPaths.json}`);
     console.log(`Wrote ${result.outputPaths.markdown}`);
@@ -600,7 +674,17 @@ async function main() {
     }
   }
 
-  writeMarkdown(resolve(DIAGNOSTICS_OUTPUT), buildCombinedDiagnostics(results));
+  const combinedResults = Object.keys(BOOKS).map((book) => {
+    return resultsByBook.get(book) ?? readExistingBookData(book);
+  });
+
+  if (combinedResults.some((result) => result === null)) {
+    throw new Error(
+      "Combined diagnostics could not be rebuilt because one or more Gospel source JSON files are missing."
+    );
+  }
+
+  writeMarkdown(resolve(DIAGNOSTICS_OUTPUT), buildCombinedDiagnostics(combinedResults));
   console.log(`Wrote ${DIAGNOSTICS_OUTPUT}`);
 }
 

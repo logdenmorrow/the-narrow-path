@@ -108,9 +108,23 @@ function sourceArtifactsInRange({ sourceIndex, reference }) {
         artifacts.push(`${reference.book} ${chapterNumber}:${verseNumber} duplicate source block`);
       }
     }
+
+    for (const artifact of chapter.artifacts ?? []) {
+      const artifactRefs = [
+        ...String(artifact).matchAll(new RegExp(`${reference.book} ${chapterNumber}:(\\d+)`, "g")),
+      ].map((match) => Number.parseInt(match[1], 10));
+
+      if (
+        artifactRefs.some((verseNumber) =>
+          verseInRange({ chapter: chapterNumber, verseNumber, reference })
+        )
+      ) {
+        artifacts.push(`${reference.book} ${chapterNumber}: ${artifact}`);
+      }
+    }
   }
 
-  return artifacts;
+  return [...new Set(artifacts)];
 }
 
 function sliceReading({ sourceIndex, reference }) {

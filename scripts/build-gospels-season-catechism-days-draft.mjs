@@ -114,6 +114,20 @@ function formatCatechismText(paragraphs) {
   return lines.join("\n").trim();
 }
 
+function hasTrailingNotesArtifact(text) {
+  return /\s+Notes\s+\d+\b/.test(String(text ?? ""));
+}
+
+function hasStructuralHeadingBleed(text) {
+  return /\s+(?:(?:ARTICLE|SECTION|PART)\s+\d+|CHAPTER\s+(?:\d+|ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE|TEN))\b/.test(
+    String(text ?? "")
+  );
+}
+
+function hasAllCapsCreedTitleBleed(text) {
+  return /["“]AND IN JESUS CHRIST, HIS ONLY SON, OUR LORD["”]/.test(String(text ?? ""));
+}
+
 function buildCatechismReading({ day, paragraphIndex }) {
   const ranges = parseCccRanges(day.readingReference);
   const requestedNumbers = expandRanges(ranges);
@@ -142,6 +156,24 @@ function buildCatechismReading({ day, paragraphIndex }) {
   for (const paragraph of paragraphs) {
     if (!paragraph.text || !String(paragraph.text).trim()) {
       formattingWarnings.push(`Day ${day.dayNumber}: CCC ${paragraph.number} has empty text.`);
+    }
+
+    if (hasTrailingNotesArtifact(paragraph.text)) {
+      formattingWarnings.push(
+        `Day ${day.dayNumber}: CCC ${paragraph.number} still contains a trailing Notes artifact.`
+      );
+    }
+
+    if (hasStructuralHeadingBleed(paragraph.text)) {
+      formattingWarnings.push(
+        `Day ${day.dayNumber}: CCC ${paragraph.number} still contains structural heading bleed.`
+      );
+    }
+
+    if (hasAllCapsCreedTitleBleed(paragraph.text)) {
+      formattingWarnings.push(
+        `Day ${day.dayNumber}: CCC ${paragraph.number} still contains all-caps Creed title bleed.`
+      );
     }
   }
 

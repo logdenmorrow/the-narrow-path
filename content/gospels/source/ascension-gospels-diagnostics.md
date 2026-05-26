@@ -77,8 +77,11 @@ This file intentionally summarizes extraction metadata and artifacts. It is not 
 ### Mark Source Artifacts
 
 - Mark 7: Verse label(s) not present in source HTML: 16.
+- Mark 8: Appended leading duplicate Mark 9:1 source continuation to Mark 8:38.
+- Mark 9: Removed trailing comma punctuation artifact from Mark 9:45 after an omitted verse label boundary.
 - Mark 9: Duplicate verse block found for Mark 9:1; kept the later block.
 - Mark 9: Verse label(s) not present in source HTML: 44, 46.
+- Mark 9: Leading duplicate Mark 9:1 block was a continuation of Mark 8:38; moved it there and kept the later Mark 9:1 block.
 - Mark 11: Verse label(s) not present in source HTML: 26.
 - Mark 15: Verse label(s) not present in source HTML: 28.
 

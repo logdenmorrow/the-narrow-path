@@ -1,6 +1,6 @@
 {
   "book": "Mark",
-  "fetchedAt": "2026-05-26T15:29:42.816Z",
+  "fetchedAt": "2026-05-26T16:42:15.960Z",
   "source": {
     "provider": "Ascension Web App",
     "translation": "RSV2CE Gospel text source approved by Logan for review",
@@ -56,8 +56,11 @@
     "headingsFound": 93,
     "artifacts": [
       "Mark 7: Verse label(s) not present in source HTML: 16.",
+      "Mark 8: Appended leading duplicate Mark 9:1 source continuation to Mark 8:38.",
+      "Mark 9: Removed trailing comma punctuation artifact from Mark 9:45 after an omitted verse label boundary.",
       "Mark 9: Duplicate verse block found for Mark 9:1; kept the later block.",
       "Mark 9: Verse label(s) not present in source HTML: 44, 46.",
+      "Mark 9: Leading duplicate Mark 9:1 block was a continuation of Mark 8:38; moved it there and kept the later Mark 9:1 block.",
       "Mark 11: Verse label(s) not present in source HTML: 26.",
       "Mark 15: Verse label(s) not present in source HTML: 28."
     ],
@@ -337,6 +340,7 @@
       ],
       "omittedVerseNumbers": [],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [],
       "warnings": [],
       "verseNumbersConfident": true
@@ -507,6 +511,7 @@
       ],
       "omittedVerseNumbers": [],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [],
       "warnings": [],
       "verseNumbersConfident": true
@@ -716,6 +721,7 @@
       ],
       "omittedVerseNumbers": [],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [],
       "warnings": [],
       "verseNumbersConfident": true
@@ -959,6 +965,7 @@
       ],
       "omittedVerseNumbers": [],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [],
       "warnings": [],
       "verseNumbersConfident": true
@@ -1196,6 +1203,7 @@
       ],
       "omittedVerseNumbers": [],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [],
       "warnings": [],
       "verseNumbersConfident": true
@@ -1514,6 +1522,7 @@
       ],
       "omittedVerseNumbers": [],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [],
       "warnings": [],
       "verseNumbersConfident": true
@@ -1722,6 +1731,7 @@
         16
       ],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [
         "Verse label(s) not present in source HTML: 16."
       ],
@@ -1946,13 +1956,16 @@
         },
         {
           "verseNumber": 38,
-          "text": "For whoever is ashamed of me and of my words in this adulterous and sinful generation, of him will the Son of man also be ashamed, when he comes in the glory of his Father",
+          "text": "For whoever is ashamed of me and of my words in this adulterous and sinful generation, of him will the Son of man also be ashamed, when he comes in the glory of his Father with the holy angels.”",
           "heading": "Jesus Foretells His Death and Resurrection"
         }
       ],
       "omittedVerseNumbers": [],
       "duplicateVerseNumbers": [],
-      "artifacts": [],
+      "duplicateVerseBlocks": [],
+      "artifacts": [
+        "Appended leading duplicate Mark 9:1 source continuation to Mark 8:38."
+      ],
       "warnings": [],
       "verseNumbersConfident": true
     },
@@ -2208,7 +2221,7 @@
         },
         {
           "verseNumber": 45,
-          "text": "And if your foot causes you to sin, cut it off; it is better for you to enter life lame than with two feet to be thrown into hell.,",
+          "text": "And if your foot causes you to sin, cut it off; it is better for you to enter life lame than with two feet to be thrown into hell.",
           "heading": "Temptations to Sin"
         },
         {
@@ -2239,9 +2252,19 @@
       "duplicateVerseNumbers": [
         1
       ],
+      "duplicateVerseBlocks": [
+        {
+          "verseNumber": 1,
+          "discardedText": "with the holy angels.”",
+          "keptText": "And he said to them, “Truly, I say to you, there are some standing here who will not taste death before they see the kingdom of God come with power.”",
+          "resolution": "moved-to-Mark-8-38"
+        }
+      ],
       "artifacts": [
+        "Removed trailing comma punctuation artifact from Mark 9:45 after an omitted verse label boundary.",
         "Duplicate verse block found for Mark 9:1; kept the later block.",
-        "Verse label(s) not present in source HTML: 44, 46."
+        "Verse label(s) not present in source HTML: 44, 46.",
+        "Leading duplicate Mark 9:1 block was a continuation of Mark 8:38; moved it there and kept the later Mark 9:1 block."
       ],
       "warnings": [],
       "verseNumbersConfident": true
@@ -2540,6 +2563,7 @@
       ],
       "omittedVerseNumbers": [],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [],
       "warnings": [],
       "verseNumbersConfident": true
@@ -2736,6 +2760,7 @@
         26
       ],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [
         "Verse label(s) not present in source HTML: 26."
       ],
@@ -3000,6 +3025,7 @@
       ],
       "omittedVerseNumbers": [],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [],
       "warnings": [],
       "verseNumbersConfident": true
@@ -3223,6 +3249,7 @@
       ],
       "omittedVerseNumbers": [],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [],
       "warnings": [],
       "verseNumbersConfident": true
@@ -3637,6 +3664,7 @@
       ],
       "omittedVerseNumbers": [],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [],
       "warnings": [],
       "verseNumbersConfident": true
@@ -3907,6 +3935,7 @@
         28
       ],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [
         "Verse label(s) not present in source HTML: 28."
       ],
@@ -4043,6 +4072,7 @@
       ],
       "omittedVerseNumbers": [],
       "duplicateVerseNumbers": [],
+      "duplicateVerseBlocks": [],
       "artifacts": [],
       "warnings": [],
       "verseNumbersConfident": true
