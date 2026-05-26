@@ -1,4 +1,4 @@
-const CACHE_NAME = "narrow-path-static-v5";
+const CACHE_NAME = "narrow-path-static-v6";
 const SAFE_STATIC_ASSETS = [
   "/app-icon-192.png",
   "/app-icon-512.png",
@@ -141,6 +141,7 @@ self.addEventListener("notificationclick", (event) => {
             return await existingClient.focus();
           } catch (error) {
             console.error("Could not navigate notification target window.", error);
+            return openTargetWindow();
           }
         }
 
