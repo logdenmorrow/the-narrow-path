@@ -1,0 +1,1750 @@
+# Gospel Season CCC Source Subset
+
+Source: Catechism of the Catholic Church, Second Edition, uploaded PDF provided by Logan.
+
+Status: Local source subset for Sunday Catechism content review. Not SQL, not migration, not live data.
+
+Requested unique CCC paragraphs: 437. Extracted: 437.
+
+
+---
+
+
+### I. Christ—The Unique Word of Sacred Scripture
+
+
+**101.** In order to reveal himself to men, in the condescension of his goodness God speaks to them in human words: “Indeed the words of God, expressed in the words of men, are in every way like human language, just as the Word of the eternal Father, when he took on himself the flesh of human weakness, became like men.”63
+
+
+**102.** Through all the words of Sacred Scripture, God speaks only one single Word, his one Utterance in whom he expresses himself completely:64 (65, 2763, 426-429) You recall that one and the same Word of God extends throughout Scripture, that it is one and the same Utterance that resounds in the mouths of all the sacred writers, since he who was in the beginning God with God has no need of separate syllables; for he is not subject to time.65
+
+
+**103.** For this reason, the Church has always venerated the Scriptures as she venerates the Lord’s Body. She never ceases to present to the faithful the bread of life, taken from the one table of God’s Word and Christ’s Body.66 (1100, 1184, 1378)
+
+
+**104.** In Sacred Scripture, the Church constantly finds her nourishment and her strength, for she welcomes it not as a human word, “but as what it really is, the word of God.”67 “In the sacred books, the Father who is in heaven comes lovingly to meet his children, and talks with them.”68
+
+
+### The New Testament
+
+
+**125.** The Gospels are the heart of all the Scriptures “because they are our principal source for the life and teaching of the Incarnate Word, our Savior.”98 (515)
+
+
+**126.** We can distinguish three stages in the formation of the Gospels: (76) 1. The life and teaching of Jesus. The Church holds firmly that the four Gospels, “whose historicity she unhesitatingly affirms, faithfully hand on what Jesus, the Son of God, while he lived among men, really did and taught for their eternal salvation, until the day when he was taken up.”99 2. The oral tradition. “For, after the ascension of the Lord, the apostles handed on to their hearers what he had said and done, but with that fuller understanding which they, instructed by the glorious events of Christ and enlightened by the Spirit of truth, now enjoyed.”100 3. The written Gospels. “The sacred authors, in writing the four Gospels, selected certain of the many elements which had been handed on, either orally or already in written form; others they synthesized or explained with an eye to the situation of the churches, while sustaining the form of preaching, but always in such a fashion that they have told us the honest truth about Jesus.”101
+
+
+**127.** The fourfold Gospel holds a unique place in the Church, as is evident both in the veneration which the liturgy accords it and in the surpassing attraction it has exercised on the saints at all times: (1154, 2705) There is no doctrine which could be better, more precious and more splendid than the text of the Gospel. Behold and retain what our Lord and Master, Christ, has taught by his words and accomplished by his deeds.102 But above all it’s the Gospels that occupy my mind when I’m at prayer; my poor soul has so many needs, and yet this is the one thing needful. I’m always finding fresh lights there, hidden and enthralling meanings.103
+
+
+### V. Sacred Scripture in the Life of the Church
+
+
+**131.** “And such is the force and power of the Word of God that it can serve the Church as her support and vigor and the children of the Church as strength for their faith, food for the soul, and a pure and lasting font of spiritual life.”109 Hence “access to Sacred Scripture ought to be open wide to the Christian faithful.”110
+
+
+**132.** “Therefore, the ‘study of the sacred page’ should be the very soul of sacred theology. The ministry of the Word, too—pastoral preaching, catechetics, and all forms of Christian instruction, among which the liturgical homily should hold pride of place—is healthily nourished and thrives in holiness through the Word of Scripture.”111 (94)
+
+
+**133.** The Church “forcefully and specifically exhorts all the Christian faithful... to learn ‘the surpassing knowledge of Jesus Christ,’ by frequent reading of the divine Scriptures. ‘Ignorance of the Scriptures is ignorance of Christ.’”112 (2653, 1792)
+
+
+### The Good News: God has sent his Son
+
+
+**422.** “But when the time had fully come, God sent forth his Son, born of a woman, born under the law, to redeem those who were under the law, so that we might receive adoption as sons.”1 This is “the gospel of Jesus Christ, the Son of God”:2 God has visited his people. He has fulfilled the promise he made to Abraham and his descendants. He acted far beyond all expectation—he has sent his own “beloved Son.”3 (389, 2763)
+
+
+**423.** We believe and confess that Jesus of Nazareth, born a Jew of a daughter of Israel at Bethlehem at the time of King Herod the Great and the emperor Caesar Augustus, a carpenter by trade, who died crucified in Jerusalem under the procurator Pontius Pilate during the reign of the emperor Tiberius, is the eternal Son of God made man. He “came from God,”4 “descended from heaven,”5 and “came in the flesh.”6 For “the Word became flesh and dwelt among us, full of grace and truth; we have beheld his glory, glory as of the only Son from the Father.... And from his fullness have we all received, grace upon grace.”7
+
+
+**424.** Moved by the grace of the Holy Spirit and drawn by the Father, we believe in Jesus and confess: “You are the Christ, the Son of the living God.”8 On the rock of this faith confessed by St. Peter, Christ built his Church.9 (683, 552) “To preach... the unsearchable riches of Christ”10
+
+
+**425.** The transmission of the Christian faith consists primarily in proclaiming Jesus Christ in order to lead others to faith in him. From the beginning, the first disciples burned with the desire to proclaim Christ: “We cannot but speak of what we have seen and heard.”11 And they invite people of every era to enter into the joy of their communion with Christ: (850, 858) That which was from the beginning, which we have heard, which we have seen with our eyes, which we have looked upon and touched with our hands, concerning the word of life—the life was made manifest, and we saw it, and testify to it, and proclaim to you the eternal life which was with the Father and was made manifest to us—that which we have seen and heard we proclaim also to you, so that you may have fellowship with us; and our fellowship is with the Father and with his Son Jesus Christ. And we are writing this that our joy may be complete.12
+
+
+### At the heart of catechesis: Christ
+
+
+**426.** “At the heart of catechesis we find, in essence, a Person, the Person of Jesus of Nazareth, the only Son from the Father... who suffered and died for us and who now, after rising, is living with us forever.”13 To catechize is “to reveal in the Person of Christ the whole of God’s eternal design reaching fulfillment in that Person. It is to seek to understand the meaning of Christ’s actions and words and of the signs worked by him.”14 Catechesis aims at putting “people... in communion... with Jesus Christ: only he can lead us to the love of the Father in the Spirit and make us share in the life of the Holy Trinity.”15 (1698, 513, 260)
+
+
+**427.** In catechesis “Christ, the Incarnate Word and Son of God,... is taught—everything else is taught with reference to him—and it is Christ alone who teaches—anyone else teaches to the extent that he is Christ’s spokesman, enabling Christ to teach with his lips.... Every catechist should be able to apply to himself the mysterious words of Jesus: ‘My teaching is not mine, but his who sent me.’”16 (2145, 876)
+
+
+**428.** Whoever is called “to teach Christ” must first seek “the surpassing worth of knowing Christ Jesus”; he must suffer “the loss of all things...” in order to “gain Christ and be found in him,” and “to know him and the power of his resurrection, and [to] share his sufferings, becoming like him in his death, that if possible [he] may attain the resurrection from the dead.”17
+
+
+**429.** From this loving knowledge of Christ springs the desire to proclaim him, to “evangelize,” and to lead others to the “yes” of faith in Jesus Christ. But at the same time the need to know this faith better makes itself felt. To this end, following the order of the Creed, Jesus’ principal titles — “Christ,” “Son of God,” and “Lord” (article 2)—will be presented. The Creed next confesses the chief mysteries of his life—those of his Incarnation (article 3), Paschal mystery (articles 4 and 5), and glorification (articles 6 and 7). (851) “AND IN JESUS CHRIST, HIS ONLY SON, OUR LORD”
+
+
+### I. Jesus
+
+
+**430.** Jesus means in Hebrew: “God saves.” At the annunciation, the angel Gabriel gave him the name Jesus as his proper name, which expresses both his identity and his mission.18 Since God alone can forgive sins, it is God who, in Jesus his eternal Son made man, “will save his people from their sins.”19 In Jesus, God recapitulates all of his history of salvation on behalf of men. (210, 402)
+
+
+**431.** In the history of salvation God was not content to deliver Israel “out of the house of bondage”20 by bringing them out of Egypt. He also saves them from their sin. Because sin is always an offense against God, only he can forgive it.21 For this reason Israel, becoming more and more aware of the universality of sin, will no longer be able to seek salvation except by invoking the name of the Redeemer God.22 (1441, 1850, 388)
+
+
+**432.** The name “Jesus” signifies that the very name of God is present in the person of his Son, made man for the universal and definitive redemption from sins. It is the divine name that alone brings salvation, and henceforth all can invoke his name, for Jesus united himself to all men through his Incarnation,23 so that “there is no other name under heaven given among men by which we must be saved.”24 (589, 2666, 389, 161)
+
+
+**433.** The name of the Savior God was invoked only once in the year by the high priest in atonement for the sins of Israel, after he had sprinkled the mercy seat in the Holy of Holies with the sacrificial blood. The mercy seat was the place of God’s presence.25 When St. Paul speaks of Jesus whom “God put forward as an expiation by his blood,” he means that in Christ’s humanity “God was in Christ reconciling the world to himself.”26 (615)
+
+
+**434.** Jesus’ Resurrection glorifies the name of the Savior God, for from that time on it is the name of Jesus that fully manifests the supreme power of the “name which is above every name.”27 The evil spirits fear his name; in his name his disciples perform miracles, for the Father grants all they ask in this name.28 (2812, 2614)
+
+
+**435.** The name of Jesus is at the heart of Christian prayer. All liturgical prayers conclude with the words “through our Lord Jesus Christ.” The Hail Mary reaches its high point in the words “blessed is the fruit of thy womb, Jesus.” The Eastern prayer of the heart, the Jesus Prayer, says: “Lord Jesus Christ, Son of God, have mercy on me, a sinner.” Many Christians, such as St. Joan of Arc, have died with the one word “Jesus” on their lips. (2667-2668, 2676)
+
+
+### II. Christ
+
+
+**436.** The word “Christ” comes from the Greek translation of the Hebrew Messiah, which means “anointed.” It became the name proper to Jesus only because he accomplished perfectly the divine mission that “Christ” signifies. In effect, in Israel those consecrated to God for a mission that he gave were anointed in his name. This was the case for kings, for priests and, in rare instances, for prophets.29 This had to be the case all the more so for the Messiah whom God would send to inaugurate his kingdom definitively.30 It was necessary that the Messiah be anointed by the Spirit of the Lord at once as king and priest, and also as prophet.31 Jesus fulfilled the messianic hope of Israel in his threefold office of priest, prophet, and king. (690, 695, 711-716, 783)
+
+
+**437.** To the shepherds, the angel announced the birth of Jesus as the Messiah promised to Israel: “To you is born this day in the city of David a Savior, who is Christ the Lord.”32 From the beginning he was “the one whom the Father consecrated and sent into the world,” conceived as “holy” in Mary’s virginal womb.33 God called Joseph to “take Mary as your wife, for that which is conceived in her is of the Holy Spirit,” so that Jesus, “who is called Christ,” should be born of Joseph’s spouse into the messianic lineage of David.34 (525, 486)
+
+
+**438.** Jesus’ messianic consecration reveals his divine mission, “for the name ‘Christ’ implies ‘he who anointed,’ ‘he who was anointed’ and ‘the very anointing with which he was anointed.’ The one who anointed is the Father, the one who was anointed is the Son, and he was anointed with the Spirit who is the anointing.”35 His eternal messianic consecration was revealed during the time of his earthly life at the moment of his baptism by John, when “God anointed Jesus of Nazareth with the Holy Spirit and with power,” “that he might be revealed to Israel”36 as its Messiah. His works and words will manifest him as “the Holy One of God.”37 (727, 535)
+
+
+**439.** Many Jews and even certain Gentiles who shared their hope recognized in Jesus the fundamental attributes of the messianic “Son of David,” promised by God to Israel.38 Jesus accepted his rightful title of Messiah, though with some reserve because it was understood by some of his contemporaries in too human a sense, as essentially political.39 (528-529, 547)
+
+
+**440.** Jesus accepted Peter’s profession of faith, which acknowledged him to be the Messiah, by announcing the imminent Passion of the Son of Man.40 He unveiled the authentic content of his messianic kingship both in the transcendent identity of the Son of Man “who came down from heaven,” and in his redemptive mission as the suffering Servant: “The Son of Man came not to be served but to serve, and to give his life as a ransom for many.”41 Hence the true meaning of his kingship is revealed only when he is raised high on the cross.42 Only after his Resurrection will Peter be able to proclaim Jesus’ messianic kingship to the People of God: “Let all the house of Israel therefore know assuredly that God has made him both Lord and Christ, this Jesus whom you crucified.”43 (552, 550, 445)
+
+
+### III. The Only Son of God
+
+
+**441.** In the Old Testament, “son of God” is a title given to the angels, the Chosen People, the children of Israel, and their kings.44 It signifies an adoptive sonship that establishes a relationship of particular intimacy between God and his creature. When the promised Messiah–King is called “son of God,” it does not necessarily imply that he was more than human, according to the literal meaning of these texts. Those who called Jesus “son of God,” as the Messiah of Israel, perhaps meant nothing more than this.45
+
+
+**442.** Such is not the case for Simon Peter when he confesses Jesus as “the Christ, the Son of the living God,” for Jesus responds solemnly: “Flesh and blood has not revealed this to you, but my Father who is in heaven.”46 Similarly Paul will write, regarding his conversion on the road to Damascus, “When he who had set me apart before I was born, and had called me through his grace, was pleased to reveal his Son to me, in order that I might preach him among the Gentiles....”47 “And in the synagogues immediately [Paul] proclaimed Jesus, saying, ‘He is the Son of God.’”48 From the beginning this acknowledgment of Christ’s divine sonship will be the center of the apostolic faith, first professed by Peter as the Church’s foundation.49 (552, 424)
+
+
+**443.** Peter could recognize the transcendent character of the Messiah’s divine sonship because Jesus had clearly allowed it to be so understood. To his accusers’ question before the Sanhedrin, “Are you the Son of God, then?” Jesus answered, “You say that I am.”50 Well before this, Jesus referred to himself as “the Son” who knows the Father, as distinct from the “servants” God had earlier sent to his people; he is superior even to the angels.51 He distinguished his sonship from that of his disciples by never saying “our Father,” except to command them: “You, then, pray like this: ‘Our Father,’” and he emphasized this distinction, saying “my Father and your Father.”52 (2786)
+
+
+**444.** The Gospels report that at two solemn moments, the Baptism and the Transfiguration of Christ, the voice of the Father designates Jesus his “beloved Son.”53 Jesus calls himself the “only Son of God,” and by this title affirms his eternal preexistence.54 He asks for faith in “the name of the only Son of God.”55 In the centurion’s exclamation before the crucified Christ, “Truly this man was the Son of God,”56 that Christian confession is already heard. Only in the Paschal mystery can the believer give the title “Son of God” its full meaning. (536, 554)
+
+
+**445.** After his Resurrection, Jesus’ divine sonship becomes manifest in the power of his glorified humanity. He was “designated Son of God in power according to the Spirit of holiness by his Resurrection from the dead.”57 The apostles can confess: “We have beheld his glory, glory as of the only Son from the Father, full of grace and truth.”58 (653)
+
+
+### IV. Lord
+
+
+**446.** In the Greek translation of the Old Testament, the ineffable Hebrew name YHWH, by which God revealed himself to Moses,59 is rendered as Kyrios, “Lord.” From then on, “Lord” becomes the more usual name by which to indicate the divinity of Israel’s God. The New Testament uses this full sense of the title “Lord” both for the Father and—what is new—for Jesus, who is thereby recognized as God Himself.60 (209)
+
+
+**447.** Jesus ascribes this title to himself in a veiled way when he disputes with the Pharisees about the meaning of Psalm 110, but also in an explicit way when he addresses his apostles.61 Throughout his public life, he demonstrated his divine sovereignty by works of power over nature, illnesses, demons, death, and sin. (548)
+
+
+**448.** Very often in the Gospels people address Jesus as “Lord.” This title testifies to the respect and trust of those who approach him for help and healing.62 At the prompting of the Holy Spirit, “Lord” expresses the recognition of the divine mystery of Jesus.63 In the encounter with the risen Jesus, this title becomes adoration: “My Lord and my God!” It thus takes on a connotation of love and affection that remains proper to the Christian tradition: “It is the Lord!”64 (208, 683, 641)
+
+
+**449.** By attributing to Jesus the divine title “Lord,” the first confessions of the Church’s faith affirm from the beginning that the power, honor, and glory due to God the Father are due also to Jesus, because “he was in the form of God,”65 and the Father manifested the sovereignty of Jesus by raising him from the dead and exalting him into his glory.66 (461, 653)
+
+
+**450.** From the beginning of Christian history, the assertion of Christ’s lordship over the world and over history has implicitly recognized that man should not submit his personal freedom in an absolute manner to any earthly power, but only to God the Father and the Lord Jesus Christ: Caesar is not “the Lord.”67 “The Church... believes that the key, the center, and the purpose of the whole of man’s history is to be found in its Lord and Master.”68 (668-672, 2242)
+
+
+**451.** Christian prayer is characterized by the title “Lord,” whether in the invitation to prayer (“The Lord be with you.”), its conclusion (“through Christ our Lord”), or the exclamation full of trust and hope: Maran atha (“Our Lord, come!”), or Marana tha (“Come, Lord!”) — “Amen. Come, Lord Jesus!”69 (2664-2665, 2817)
+
+
+### IN BRIEF
+
+
+**452.** The name Jesus means “God saves.” The child born of the Virgin Mary is called Jesus, “for he will save his people from their sins” (Mt 1:21): “there is no other name under heaven given among men by which we must be saved” (Acts 4:12).
+
+
+**453.** The title “Christ” means “Anointed One” (Messiah). Jesus is the Christ, for “God anointed Jesus of Nazareth with the Holy Spirit and with power” (Acts 10:38). He was the one “who is to come” (Lk 7:19), the object of “the hope of Israel” (Acts 28:20).
+
+
+**454.** The title “Son of God” signifies the unique and eternal relationship of Jesus Christ to God his Father: he is the only Son of the Father (cf. Jn 1:14,18; 3:16,18); he is God himself (cf. Jn 1:1). To be a Christian, one must believe that Jesus Christ is the Son of God (cf. Acts 8:37; 1 Jn 2:23).
+
+
+**455.** The title “Lord” indicates divine sovereignty. To confess or invoke Jesus as Lord is to believe in his divinity. “No one can say ‘Jesus is Lord’ except by the Holy Spirit” (1 Cor 12:3). ARTICLE 3 “HE WAS CONCEIVED BY THE POWER OF THE HOLY SPIRIT, AND WAS BORN OF
+
+
+### I. Why Did the Word Become Flesh?
+
+
+**456.** With the Nicene Creed, we answer by confessing: “For us men and for our salvation he came down from heaven; by the power of the Holy Spirit, he became incarnate of the Virgin Mary, and was made man.”
+
+
+**457.** The Word became flesh for us in order to save us by reconciling us with God, who “loved us and sent his Son to be the expiation for our sins”: “the Father has sent his Son as the Savior of the world,” and “he was revealed to take away sins”:70 (607, 385) Sick, our nature demanded to be healed; fallen, to be raised up; dead, to rise again. We had lost the possession of the good; it was necessary for it to be given back to us. Closed in the darkness, it was necessary to bring us the light; captives, we awaited a Savior; prisoners, help; slaves, a liberator. Are these things minor or insignificant? Did they not move God to descend to human nature and visit it, since humanity was in so miserable and unhappy a state?71
+
+
+**458.** The Word became flesh so that thus we might know God’s love: “In this the love of God was made manifest among us, that God sent his only Son into the world, so that we might live through him.”72 “For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have eternal life.”73 (219)
+
+
+**459.** The Word became flesh to be our model of holiness: “Take my yoke upon you, and learn from me.” “I am the way, and the truth, and the life; no one comes to the Father, but by me.”74 On the mountain of the Transfiguration, the Father commands: “Listen to him!”75 Jesus is the model for the Beatitudes and the norm of the new law: “Love one another as I have loved you.”76 This love implies an effective offering of oneself, after his example.77 (520, 823, 2012, 1717, 1965)
+
+
+**460.** The Word became flesh to make us “partakers of the divine nature”:78 “For this is why the Word became man, and the Son of God became the Son of man: so that man, by entering into communion with the Word and thus receiving divine sonship, might become a son of God.”79 “For the Son of God became man so that we might become God.”80 “The only–begotten Son of God, wanting to make us sharers in his divinity, assumed our nature, so that he, made man, might make men gods.”81 (1265, 1391, 1988)
+
+
+### II. The Incarnation
+
+
+**461.** Taking up St. John’s expression, “The Word became flesh,”82 the Church calls “Incarnation” the fact that the Son of God assumed a human nature in order to accomplish our salvation in it. In a hymn cited by St. Paul, the Church sings the mystery of the Incarnation: (653, 661, 449) Have this mind among yourselves, which is yours in Christ Jesus, who, though he was in the form of God, did not count equality with God a thing to be grasped, but emptied himself, taking the form of a servant, being born in the likeness of men. And being found in human form he humbled himself and became obedient unto death, even death on a cross.83
+
+
+**462.** The Letter to the Hebrews refers to the same mystery: Consequently, when Christ came into the world, he said, “Sacrifices and offerings you have not desired, but a body have you prepared for me; in burnt offerings and sin offerings you have taken no pleasure. Then I said, ‘Lo, I have come to do your will, O God.’”84
+
+
+**463.** Belief in the true Incarnation of the Son of God is the distinctive sign of Christian faith: “By this you know the Spirit of God: every spirit which confesses that Jesus Christ has come in the flesh is of God.”85 Such is the joyous conviction of the Church from her beginning whenever she sings “the mystery of our religion”: “He was manifested in the flesh.”86 (90)
+
+
+### III. True God and True Man
+
+
+**464.** The unique and altogether singular event of the Incarnation of the Son of God does not mean that Jesus Christ is part God and part man, nor does it imply that he is the result of a confused mixture of the divine and the human. He became truly man while remaining truly God. Jesus Christ is true God and true man. During the first centuries, the Church had to defend and clarify this truth of faith against the heresies that falsified it. (88)
+
+
+**465.** The first heresies denied not so much Christ’s divinity as his true humanity (Gnostic Docetism). From apostolic times the Christian faith has insisted on the true incarnation of God’s Son “come in the flesh.”87 But already in the third century, the Church in a council at Antioch had to affirm against Paul of Samosata that Jesus Christ is Son of God by nature and not by adoption. The first ecumenical council of Nicaea in 325 confessed in its Creed that the Son of God is “begotten, not made, of the same substance (homoousios) as the Father,” and condemned Arius, who had affirmed that the Son of God “came to be from things that were not” and that he was “from another substance” than that of the Father.88 (242)
+
+
+**466.** The Nestorian heresy regarded Christ as a human person joined to the divine person of God’s Son. Opposing this heresy, St. Cyril of Alexandria and the third ecumenical council at Ephesus in 431 confessed “that the Word, uniting to himself in his person the flesh animated by a rational soul, became man.”89 Christ’s humanity has no other subject than the divine person of the Son of God, who assumed it and made it his own, from his conception. For this reason the Council of Ephesus proclaimed in 431 that Mary truly became the Mother of God by the human conception of the Son of God in her womb: “Mother of God, not that the nature of the Word or his divinity received the beginning of its existence from the holy Virgin, but that, since the holy body, animated by a rational soul, which the Word of God united to himself according to the hypostasis, was born from her, the Word is said to be born according to the flesh.”90 (495)
+
+
+**467.** The Monophysites affirmed that the human nature had ceased to exist as such in Christ when the divine person of God’s Son assumed it. Faced with this heresy, the fourth ecumenical council, at Chalcedon in 451, confessed: Following the holy Fathers, we unanimously teach and confess one and the same Son, our Lord Jesus Christ: the same perfect in divinity and perfect in humanity, the same truly God and truly man, composed of rational soul and body; consubstantial with the Father as to his divinity and consubstantial with us as to his humanity; “like us in all things but sin.” He was begotten from the Father before all ages as to his divinity and in these last days, for us and for our salvation, was born as to his humanity of the virgin Mary, the Mother of God.91 We confess that one and the same Christ, Lord, and only–begotten Son, is to be acknowledged in two natures without confusion, change, division, or separation. The distinction between the natures was never abolished by their union, but rather the character proper to each of the two natures was preserved as they came together in one person (prosopon) and one hypostasis.92
+
+
+**468.** After the Council of Chalcedon, some made of Christ’s human nature a kind of personal subject. Against them, the fifth ecumenical council at Constantinople in 553 confessed that “there is but one hypostasis [or person], which is our Lord Jesus Christ, one of the Trinity.”93 Thus everything in Christ’s human nature is to be attributed to his divine person as its proper subject, not only his miracles but also his sufferings and even his death: “He who was crucified in the flesh, our Lord Jesus Christ, is true God, Lord of glory, and one of the Holy Trinity.”94 (254, 616)
+
+
+**469.** The Church thus confesses that Jesus is inseparably true God and true man. He is truly the Son of God who, without ceasing to be God and Lord, became a man and our brother: (212) “What he was, he remained and what he was not, he assumed,” sings the Roman Liturgy.95 And the liturgy of St. John Chrysostom proclaims and sings: “O only–begotten Son and Word of God, immortal being, you who deigned for our salvation to become incarnate of the holy Mother of God and ever–virgin Mary, you who without change became man and were crucified, O Christ our God, you who by your death have crushed death, you who are one of the Holy Trinity, glorified with the Father and the Holy Spirit, save us!”96
+
+
+### IV. How Is the Son of God Man?
+
+
+**470.** Because “human nature was assumed, not absorbed,”97 in the mysterious union of the Incarnation, the Church was led over the course of centuries to confess the full reality of Christ’s human soul, with its operations of intellect and will, and of his human body. In parallel fashion, she had to recall on each occasion that Christ’s human nature belongs, as his own, to the divine person of the Son of God, who assumed it. Everything that Christ is and does in this nature derives from “one of the Trinity.” The Son of God therefore communicates to his humanity his own personal mode of existence in the Trinity. In his soul as in his body, Christ thus expresses humanly the divine ways of the Trinity:98 (516, 626, 2599) The Son of God... worked with human hands; he thought with a human mind. He acted with a human will, and with a human heart he loved. Born of the Virgin Mary, he has truly been made one of us, like to us in all things except sin.99
+
+
+### Christ’s soul and his human knowledge
+
+
+**471.** Apollinarius of Laodicaea asserted that in Christ the divine Word had replaced the soul or spirit. Against this error the Church confessed that the eternal Son also assumed a rational, human soul.100 (363)
+
+
+**472.** This human soul that the Son of God assumed is endowed with a true human knowledge. As such, this knowledge could not in itself be unlimited: it was exercised in the historical conditions of his existence in space and time. This is why the Son of God could, when he became man, “increase in wisdom and in stature, and in favor with God and man,”101 and would even have to inquire for himself about what one in the human condition can learn only from experience.102 This corresponded to the reality of his voluntary emptying of himself, taking “the form of a slave.”103
+
+
+**473.** But at the same time, this truly human knowledge of God’s Son expressed the divine life of his person.104 “The human nature of God’s Son, not by itself but by its union with the Word, knew and showed forth in itself everything that pertains to God.”105 Such is first of all the case with the intimate and immediate knowledge that the Son of God made man has of his Father.106 The Son in his human knowledge also showed the divine penetration he had into the secret thoughts of human hearts.107 (240)
+
+
+**474.** By its union to the divine wisdom in the person of the Word incarnate, Christ enjoyed in his human knowledge the fullness of understanding of the eternal plans he had come to reveal.108 What he admitted to not knowing in this area, he elsewhere declared himself not sent to reveal.109
+
+
+### Christ’s human will
+
+
+**475.** Similarly, at the sixth ecumenical council, Constantinople III in 681, the Church confessed that Christ possesses two wills and two natural operations, divine and human. They are not opposed to each other, but cooperate in such a way that the Word made flesh willed humanly in obedience to his Father all that he had decided divinely with the Father and the Holy Spirit for our salvation.110 Christ’s human will “does not resist or oppose but rather submits to his divine and almighty will.”111 (2008, 2824)
+
+
+### Christ’s true body
+
+
+**476.** Since the Word became flesh in assuming a true humanity, Christ’s body was finite.112 Therefore the human face of Jesus can be portrayed; at the seventh ecumenical council (Nicaea II in 787) the Church recognized its representation in holy images to be legitimate.113 (1159-1162, 2129-2132)
+
+
+**477.** At the same time the Church has always acknowledged that in the body of Jesus “we see our God made visible and so are caught up in love of the God we cannot see.”114 The individual characteristics of Christ’s body express the divine person of God’s Son. He has made the features of his human body his own, to the point that they can be venerated when portrayed in a holy image, for the believer “who venerates the icon is venerating in it the person of the one depicted.”115
+
+
+### The heart of the Incarnate Word
+
+
+**478.** Jesus knew and loved us each and all during his life, his agony, and his Passion and gave himself up for each one of us: “The Son of God... loved me and gave himself for me.”116 He has loved us all with a human heart. For this reason, the Sacred Heart of Jesus, pierced by our sins and for our salvation,117 “is quite rightly considered the chief sign and symbol of that... love with which the divine Redeemer continually loves the eternal Father and all human beings” without exception.118 (487, 368, 2669, 766)
+
+
+### IN BRIEF
+
+
+**479.** At the time appointed by God, the only Son of the Father, the eternal Word, that is, the Word and substantial Image of the Father, became incarnate; without losing his divine nature he has assumed human nature.
+
+
+**480.** Jesus Christ is true God and true man, in the unity of his divine person; for this reason he is the one and only mediator between God and men.
+
+
+**481.** Jesus Christ possesses two natures, one divine and the other human, not confused, but united in the one person of God’s Son.
+
+
+**482.** Christ, being true God and true man, has a human intellect and will, perfectly attuned and subject to his divine intellect and divine will, which he has in common with the Father and the Holy Spirit.
+
+
+**483.** The Incarnation is therefore the mystery of the wonderful union of the divine and human natures in the one person of the Word. Notes 1 Gal 4:4–5. 2 Mk 1:1. 3 Mk 1:11; cf. Lk 1:55, 68. 4 Jn 13:3. 5 Jn 3:13; 6:33. 6 1 Jn 4:2. 7 Jn 1:14, 16. 8 Mt 16:16. 9 Cf. Mt 16:18; St. Leo the Great, Sermo 4, 3: PL 54, 150–152; 51, 1: PL 54, 308–309; 62, 2: PL 54, 350–351; 83, 3: PL 54, 431–432. 10 Eph 3:8. 11 Acts 4:20. 12 1 Jn 1:1–4. 13 CT 5. 14 CT 5. 15 CT 5. 16 CT 6; cf. Jn 7:16. 17 Phil 3:8–11. 18 Cf. Lk 1:31. 19 Mt 1:21; cf. 2:7. 20 Deut 5:6. 21 Cf. Ps 51:4, 12. 22 Cf. Ps 79:9. 23 Cf. Jn 3:18; Acts 2:21; 5:41; 3 Jn 7; Rom 10:6–13. 24 Acts 4:12; cf. 9:14; Jas 2:7. 25 Cf. Ex 25:22; Lev 16:2,15–16; Num 7:89; Sir 50:20; Heb 9:5, 7. 26 Rom 3:25; 2 Cor 5:19. 27 Phil 2:9–10; cf. Jn 12:28. 28 Cf. Acts 16:16–18; 19:13–16; Mk 16:17: Jn 15:16. 29 Cf. Ex 29:7; Lev 8:12; 1 Sam 9:16; 10:1; 16:1,12–13; 1 Kings 1:39; 19:16. 30 Cf. Ps 2:2; Acts 4:26–27. 31 Cf. Isa 11:2; 61:1; Zech 4:14; 6:13: Lk 4:16–21. 32 Lk 2:11. 33 Jn 10:36: cf. Lk 1:35. 34 Mt 1:20; cf. Mt 1:16; Rom 1:1; 2 Tim 2:8; Rev 22:16. 35 St. Irenaeus, Adv. haeres., 3, 18, 3: PG 7/1, 934. 36 Acts 10:38; Jn 1:31. 37 Mk 1:24; Jn 6:69; Acts 3:14. 38 Cf. Mt 2:2; 9:27; 12:23; 15:22; 20:30; 21:9, 15. 39 Cf. Jn 4:25–26; 6:15; 11:27; Mt 22:41–46; Lk 24:21. 40 Cf. Mt 16:16–23. 41 Jn 3:13: Mt 20:28; cf. Jn 6:62; Dan 7:13; Isa 53:10–12. 42 Cf. Jn 19:19–22; Lk 23:39–43. 43 Acts 2:36. 44 Cf. Deut 14:1; (LXX) 32:8; Job 1:6; Ex 4:22; Hos 2:1; 11:1; Jer 3:19; Sir 36:11; Wis 18:13; 2 Sam 7:14; Ps 82:6. 45 Cf. 1 Chr 17:13; Ps 2:7; Mt 27:54; Lk 23:47. 46 Mt 16:16–17. 47 Gal 1:15–16. 48 Acts 9:20. 49 Cf. 1 Thess 1:10; Jn 20:31; Mt 16:18 50 Lk 22:70; cf. Mt 26:64; Mk 14:61–62. 51 Cf. Mt 11:27; 21:34–38; 24:36. 52 Mt 5:48; 6:8–9; 7:21; Lk 11:13; Jn 20:17. 53 Cf. Mt 3:17; cf. Mt 17:5. 54 Jn 3:16; cf. 10:36. 55 Jn 3:18. 56 Mk 15:39. 57 Rom 1:3; cf. Acts 13:33. 58 Jn 1:14. 59 Cf. Ex 3:14. 60 Cf. 1 Cor 2:8. 61 Cf. Mt 22:41–46; cf. Acts 2:34–36; Heb 1:13; Jn 13:13. 62 Cf. Mt 8:2; 14:30; 15:22; et al. 63 Cf. Lk 1:43; 2:11. 64 Jn 20:28; Jn 21:7. 65 Cf. Acts 2:34–36; Rom 9:5; Titus 2:13; Rev 5:13; Phil 2:6. 66 Cf. Rom 10:9; 1 Cor 12:3; Phil 2:9–11. 67 Cf. Rev 11:15; Mk 12:17; Acts 5:29. 68 GS 10 § 3; cf. 45 § 2. 69 1 Cor 16:22; Rev 22:20. 70 1 Jn 4:10; 4:14; 3:5. 71 St. Gregory of Nyssa, Orat. catech. 15: PG 45, 48B. 72 1 Jn 4:9. 73 Jn 3:16. 74 Mt 11:29; Jn 14:6. 75 Mk 9:7; cf. Deut 6:4–5. 76 Jn 15:12. 77 Cf. Mk 8:34. 78 2 Pet 1:4. 79 St. Irenaeus, Adv. haeres. 3, 19, 1: PG 7/1, 939. 80 St. Athanasius, De inc., 54, 3: PG 25, 192B. 81 St. Thomas Aquinas, Opusc. 57: 1–4. 82 Jn 1:14. 83 Phil 2:5–8; cf. LH, Saturday, Canticle at Evening Prayer. 84 Heb 10:5–7, citing Ps 40:6–8 ([7–9] LXX). 85 1 Jn 4:2. 86 1 Tim 3:16. 87 Cf. 1 Jn 4:2–3; 2 Jn 7. 88 Council of Nicaea I (325): DS 130, 126. 89 Council of Ephesus (431): DS 250. 90 Council of Ephesus: DS 251. 91 Council of Chalcedon (451): DS 301; cf. Heb 4:15. 92 Council of Chalcedon: DS 302. 93 Council of Constantinople II (553): DS 424. 94 Council of Constantinople II (553): DS 432; cf. DS 424; Council of Ephesus, DS 255. 95 LH, January 1, Antiphon for Morning Prayer; cf. St. Leo the Great, Sermo in nat. Dom. 1, 2; PL 54, 191–192. 96 Liturgy of St. John Chrysostom, Troparion “O monogenes.” 97 GS 22 § 2. 98 Cf. Jn 14:9–10. 99 GS 22 § 2. 100 Cf. Damasus I: DS 149. 101 Lk 2:52 102 Cf. Mk 6:38; 8:27; Jn 11:34; etc. 103 Phil 2:7. 104 Cf. St. Gregory the Great, “Sicut aqua” ad Eulogium, Epist. Lib. 10, 39: PL 77, 1097A ff.; DS 475. 105 St. Maximus the Confessor, Qu. et dub. 66: PG 90, 840A. 106 Cf. Mk 14:36; Mt 11:27; Jn 1:18; 8:55; etc. 107 Cf. Mk 2:8; Jn 2:25; 6:61; etc. 108 Cf. Mk 8:31; 9:31; 10:33–34; 14:18–20, 26–30. 109 Cf. Mk 13:32; Acts 1:7. 110 Cf. Council of Constantinople III (681): DS 556–559. 111 Council of Constantinople III: DS 556. 112 Cf. Council of the Lateran (649): DS 504. 113 Cf. Gal 3:1; cf. Council of Nicaea II (787): DS 600–603. 114 Roman Missal, Preface of Christmas I. 115 Council of Nicaea II: DS 601. 116 Gal 2:20. 117 Cf. Jn 19:34. 118 Pius XII, encyclical, Haurietis aquas (1956): DS 3924; cf. DS 3812.
+
+
+### I. Conceived by the Power of the Holy Spirit...
+
+
+**484.** The Annunciation to Mary inaugurates “the fullness of time,”119 the time of the fulfillment of God’s promises and preparations. Mary was invited to conceive him in whom the “whole fullness of deity” would dwell “bodily.”120 The divine response to her question, “How can this be, since I know not man?” was given by the power of the Spirit: “The Holy Spirit will come upon you.”121 (461, 721)
+
+
+**485.** The mission of the Holy Spirit is always conjoined and ordered to that of the Son.122 The Holy Spirit, “the Lord, the giver of Life,” is sent to sanctify the womb of the Virgin Mary and divinely fecundate it, causing her to conceive the eternal Son of the Father in a humanity drawn from her own. (689, 723)
+
+
+**486.** The Father’s only Son, conceived as man in the womb of the Virgin Mary, is “Christ,” that is to say, anointed by the Holy Spirit, from the beginning of his human existence, though the manifestation of this fact takes place only progressively: to the shepherds, to the magi, to John the Baptist, to the disciples.123 Thus the whole life of Jesus Christ will make manifest “how God anointed Jesus of Nazareth with the Holy Spirit and with power.”124 (437)
+
+
+### II. ...Born of the Virgin Mary
+
+
+**487.** What the Catholic faith believes about Mary is based on what it believes about Christ, and what it teaches about Mary illumines in turn its faith in Christ. (963)
+
+
+### Mary’s predestination
+
+
+**488.** “God sent forth his Son,” but to prepare a body for him,125 he wanted the free cooperation of a creature. For this, from all eternity God chose for the mother of his Son a daughter of Israel, a young Jewish woman of Nazareth in Galilee, “a virgin betrothed to a man whose name was Joseph, of the house of David; and the virgin’s name was Mary”:126 The Father of mercies willed that the Incarnation should be preceded by assent on the part of the predestined mother, so that just as a woman had a share in the coming of death, so also should a woman contribute to the coming of life.127
+
+
+**489.** Throughout the Old Covenant the mission of many holy women prepared for that of Mary. At the very beginning there was Eve; despite her disobedience, she receives the promise of a posterity that will be victorious over the evil one, as well as the promise that she will be the mother of all the living.128 By virtue of this promise, Sarah conceives a son in spite of her old age.129 Against all human expectation God chooses those who were considered powerless and weak to show forth his faithfulness to his promises: Hannah, the mother of Samuel; Deborah; Ruth; Judith and Esther; and many other women.130 Mary “stands out among the poor and humble of the Lord, who confidently hope for and receive salvation from him. After a long period of waiting the times are fulfilled in her, the exalted Daughter of Sion, and the new plan of salvation is established.”131 (722, 410, 145, 64)
+
+
+### The Immaculate Conception
+
+
+**490.** To become the mother of the Savior, Mary “was enriched by God with gifts appropriate to such a role.”132 The angel Gabriel at the moment of the annunciation salutes her as “full of grace.”133 In fact, in order for Mary to be able to give the free assent of her faith to the announcement of her vocation, it was necessary that she be wholly borne by God’s grace. (2676, 2853, 2001)
+
+
+**491.** Through the centuries the Church has become ever more aware that Mary, “full of grace” through God,134 was redeemed from the moment of her conception. That is what the dogma of the Immaculate Conception confesses, as Pope Pius IX proclaimed in 1854: (411) The most Blessed Virgin Mary was, from the first moment of her conception, by a singular grace and privilege of almighty God and by virtue of the merits of Jesus Christ, Savior of the human race, preserved immune from all stain of original sin.135
+
+
+**492.** The “splendor of an entirely unique holiness” by which Mary is “enriched from the first instant of her conception” comes wholly from Christ: she is “redeemed, in a more exalted fashion, by reason of the merits of her Son.”136 The Father blessed Mary more than any other created person “in Christ with every spiritual blessing in the heavenly places” and chose her “in Christ before the foundation of the world, to be holy and blameless before him in love.”137 (2011, 1077)
+
+
+**493.** The Fathers of the Eastern tradition call the Mother of God “the All–Holy” (Panagia) and celebrate her as “free from any stain of sin, as though fashioned by the Holy Spirit and formed as a new creature.”138 By the grace of God Mary remained free of every personal sin her whole life long.
+
+
+### “Let it be done to me according to your word...”
+
+
+**494.** At the announcement that she would give birth to “the Son of the Most High” without knowing man, by the power of the Holy Spirit, Mary responded with the obedience of faith, certain that “with God nothing will be impossible”: “Behold, I am the handmaid of the Lord; let it be [done] to me according to your word.”139 Thus, giving her consent to God’s word, Mary becomes the mother of Jesus. Espousing the divine will for salvation wholeheartedly, without a single sin to restrain her, she gave herself entirely to the person and to the work of her Son; she did so in order to serve the mystery of redemption with him and dependent on him, by God’s grace:140 (2617, 148, 968, 726) As St. Irenaeus says, “Being obedient she became the cause of salvation for herself and for the whole human race.”141 Hence not a few of the early Fathers gladly assert...: “The knot of Eve’s disobedience was untied by Mary’s obedience: what the virgin Eve bound through her disbelief, Mary loosened by her faith.”142 Comparing her with Eve, they call Mary “the Mother of the living” and frequently claim: “Death through Eve, life through Mary.”143
+
+
+### Mary’s divine motherhood
+
+
+**495.** Called in the Gospels “the mother of Jesus,” Mary is acclaimed by Elizabeth, at the prompting of the Spirit and even before the birth of her son, as “the mother of my Lord.”144 In fact, the One whom she conceived as man by the Holy Spirit, who truly became her Son according to the flesh, was none other than the Father’s eternal Son, the second person of the Holy Trinity. Hence the Church confesses that Mary is truly “Mother of God” (Theotokos).145 (466, 2677)
+
+
+### Mary’s virginity
+
+
+**496.** From the first formulations of her faith, the Church has confessed that Jesus was conceived solely by the power of the Holy Spirit in the womb of the Virgin Mary, affirming also the corporeal aspect of this event: Jesus was conceived “by the Holy Spirit without human seed.”146 The Fathers see in the virginal conception the sign that it truly was the Son of God who came in a humanity like our own. Thus St. Ignatius of Antioch at the beginning of the second century says: You are firmly convinced about our Lord, who is truly of the race of David according to the flesh, Son of God according to the will and power of God, truly born of a virgin,... he was truly nailed to a tree for us in his flesh under Pontius Pilate... he truly suffered, as he is also truly risen.147
+
+
+**497.** The gospel accounts understand the virginal conception of Jesus as a divine work that surpasses all human understanding and possibility:148 “That which is conceived in her is of the Holy Spirit,” said the angel to Joseph about Mary his fiancée.149 The Church sees here the fulfillment of the divine promise given through the prophet Isaiah: “Behold, a virgin shall conceive and bear a son.”150
+
+
+**498.** People are sometimes troubled by the silence of St. Mark’s Gospel and the New Testament Epistles about Jesus’ virginal conception. Some might wonder if we were merely dealing with legends or theological constructs not claiming to be history. To this we must respond: Faith in the virginal conception of Jesus met with the lively opposition, mockery, or incomprehension of non– believers, Jews and pagans alike;151 so it could hardly have been motivated by pagan mythology or by some adaptation to the ideas of the age. The meaning of this event is accessible only to faith, which understands in it the “connection of these mysteries with one another”152 in the totality of Christ’s mysteries, from his Incarnation to his Passover. St. Ignatius of Antioch already bears witness to this connection: “Mary’s virginity and giving birth, and even the Lord’s death escaped the notice of the prince of this world: these three mysteries worthy of proclamation were accomplished in God’s silence.”153 (90, 2717)
+
+
+### Mary — “ever–virgin”
+
+
+**499.** The deepening of faith in the virginal motherhood led the Church to confess Mary’s real and perpetual virginity even in the act of giving birth to the Son of God made man.154 In fact, Christ’s birth “did not diminish his mother’s virginal integrity but sanctified it.”155 And so the liturgy of the Church celebrates Mary as Aeiparthenos, the “Ever–virgin.”156
+
+
+**500.** Against this doctrine the objection is sometimes raised that the Bible mentions brothers and sisters of Jesus.157 The Church has always understood these passages as not referring to other children of the Virgin Mary. In fact James and Joseph, “brothers of Jesus,” are the sons of another Mary, a disciple of Christ, whom St. Matthew significantly calls “the other Mary.”158 They are close relations of Jesus, according to an Old Testament expression.159
+
+
+**501.** Jesus is Mary’s only son, but her spiritual motherhood extends to all men whom indeed he came to save: “The Son whom she brought forth is he whom God placed as the first–born among many brethren, that is, the faithful in whose generation and formulation she cooperates with a mother’s love.”160 (969, 970)
+
+
+### Mary’s virginal motherhood in God’s plan
+
+
+**502.** The eyes of faith can discover in the context of the whole of Revelation the mysterious reasons why God in his saving plan wanted his Son to be born of a virgin. These reasons touch both on the person of Christ and his redemptive mission, and on the welcome Mary gave that mission on behalf of all men. (90)
+
+
+**503.** Mary’s virginity manifests God’s absolute initiative in the Incarnation. Jesus has only God as Father. “He was never estranged from the Father because of the human nature which he assumed.... He is naturally Son of the Father as to his divinity and naturally son of his mother as to his humanity, but properly Son of the Father in both natures.”161 (422)
+
+
+**504.** Jesus is conceived by the Holy Spirit in the Virgin Mary’s womb because he is the New Adam, who inaugurates the new creation: “The first man was from the earth, a man of dust; the second man is from heaven.”162 From his conception, Christ’s humanity is filled with the Holy Spirit, for God “gives him the Spirit without measure.”163 From “his fullness” as the head of redeemed humanity “we have all received, grace upon grace.”164 (359)
+
+
+**505.** By his virginal conception, Jesus, the New Adam, ushers in the new birth of children adopted in the Holy Spirit through faith. “How can this be?”165 Participation in the divine life arises “not of blood nor of the will of the flesh nor of the will of man, but of God.”166 The acceptance of this life is virginal because it is entirely the Spirit’s gift to man. The spousal character of the human vocation in relation to God167 is fulfilled perfectly in Mary’s virginal motherhood. (1265)
+
+
+**506.** Mary is a virgin because her virginity is the sign of her faith “unadulterated by any doubt,” and of her undivided gift of herself to God’s will.168 It is her faith that enables her to become the mother of the Savior: “Mary is more blessed because she embraces faith in Christ than because she conceives the flesh of Christ.”169 (148, 1814)
+
+
+**507.** At once virgin and mother, Mary is the symbol and the most perfect realization of the Church: “the Church indeed... by receiving the word of God in faith becomes herself a mother. By preaching and Baptism she brings forth sons, who are conceived by the Holy Spirit and born of God, to a new and immortal life. She herself is a virgin, who keeps in its entirety and purity the faith she pledged to her spouse.”170 (967, 149)
+
+
+### IN BRIEF
+
+
+**508.** From among the descendants of Eve, God chose the Virgin Mary to be the mother of his Son. “Full of grace,” Mary is “the most excellent fruit of redemption” (SC 103): from the first instant of her conception, she was totally preserved from the stain of original sin and she remained pure from all personal sin throughout her life.
+
+
+**509.** Mary is truly “Mother of God” since she is the mother of the eternal Son of God made man, who is God himself.
+
+
+**510.** Mary “remained a virgin in conceiving her Son, a virgin in giving birth to him, a virgin in carrying him, a virgin in nursing him at her breast, always a virgin” (St. Augustine, Serm. 186, 1: PL 38, 999): with her whole being she is “the handmaid of the Lord” (Lk 1:38).
+
+
+**511.** The Virgin Mary “cooperated through free faith and obedience in human salvation” (LG 56). She uttered her yes “in the name of all human nature” (St. Thomas Aquinas, STh III, 30, 1). By her obedience she became the new Eve, mother of the living. Notes 119 Gal 4:4. 120 Col 2:9. 121 Lk 1:34–35 (Gk.). 122 Cf. Jn 16:14–15. 123 Cf. Mt 1:20; 2:1–12; Lk 1:35; 2:8–20; Jn 1:31–34; 2:11. 124 Acts 10:38. 125 Gal 4:4; Heb 10:5. 126 Lk 1:26–27. 127 LG 56; cf. LG 61. 128 Cf. Gen 3:15, 20. 129 Cf. Gen 18:10–14; 21:1–2. 130 Cf. 1 Cor 1:17; 1 Sam 1. 131 LG 55. 132 LG 56. 133 Lk 1:28. 134 Lk 1:28. 135 Pius IX, Ineffabilis Deus, 1854: DS 2803. 136 LG 53, 56. 137 Cf. Eph 1:3–4. 138 LG 56. 139 Lk 1:28–38; cf. Rom 1:5. 140 Cf. LG 56. 141 St. Irenaeus, Adv. haeres. 3, 22, 4: PG 7/1, 959A. 142 St. Irenaeus, Adv. haeres. 3, 22, 4: PG 7/1, 959A. 143 LG 56; Epiphanius, Haer. 78, 18: PG 42, 728CD–729AB; St. Jerome, Ep. 22, 21: PL 22, 408. 144 Lk 1:43; Jn 2:1; 19:25; cf. Mt 13:55; et al. 145 Council of Ephesus (431): DS 251. 146 Council of the Lateran (649): DS 503; cf. DS 10–64. 147 St. Ignatius of Antioch, Ad Smyrn. 1–2: Apostolic Fathers, ed. J. B. Lightfoot (London: Macmillan, 1889) II/2, 289–293; SCh 10, 154–156; cf. Rom 1:3; Jn 1:13. 148 Cf. Mt 1:18–25; Lk 1:26–38. 149 Mt 1:20. 150 Isa 7:14 in the LXX, quoted in Mt 1:23 (Gk.). 151 Cf. St. Justin, Dial., 99, 7: PG 6, 708–709; Origen, Contra Celsum 1, 32, 69: PG 11, 720–721; et al. 152 Dei Filius 4: DS 3016. 153 St. Ignatius of Antioch, Ad Eph. 19, 1: AF II/2, 76–80; SCh 10, 88; cf. 1 Cor 2:8. 154 Cf. DS 291; 294; 427; 442; 503; 571; 1880. 155 LG 57. 156 Cf. LG 52. 157 Cf. Mk 3:31–35; 6:3; 1 Cor 9:5; Gal 1:19. 158 Mt 13:55; 28:1; cf. Mt 27:56. 159 Cf. Gen 13:8; 14:16; 29:15; etc. 160 LG 63; cf. Jn 19:26–27; Rom 8:29; Rev 12:17. 161 Council of Friuli (796): DS 619; cf. Lk 2:48–49. 162 1 Cor 15:45, 47. 163 Jn 3:34. 164 Jn 1:16; cf. Col 1:18. 165 Lk 1:34; cf. Jn 3:9. 166 Jn 1:13. 167 Cf. 2 Cor 11:2. 168 LG 63; cf. 1 Cor 7:34–35. 169 St. Augustine, De virg., 3: PL 40, 398. 170 LG 64; cf. 63.
+
+
+### The baptism of Jesus
+
+
+**535.** Jesus’ public life begins with his baptism by John in the Jordan.228 John preaches “a baptism of repentance for the forgiveness of sins.”229 A crowd of sinners230—tax collectors and soldiers, Pharisees and Sadducees, and prostitutes—come to be baptized by him. “Then Jesus appears.” The Baptist hesitates, but Jesus insists and receives baptism. Then the Holy Spirit, in the form of a dove, comes upon Jesus and a voice from heaven proclaims, “This is my beloved Son.”231 This is the manifestation (“Epiphany”) of Jesus as Messiah of Israel and Son of God. (719-720, 701, 438)
+
+
+**536.** The baptism of Jesus is on his part the acceptance and inauguration of his mission as God’s suffering Servant. He allows himself to be numbered among sinners; he is already “the Lamb of God, who takes away the sin of the world.”232 Already he is anticipating the “baptism” of his bloody death.233 Already he is coming to “fulfill all righteousness,” that is, he is submitting himself entirely to his Father’s will: out of love he consents to this baptism of death for the remission of our sins.234 The Father’s voice responds to the Son’s acceptance, proclaiming his entire delight in his Son.235 The Spirit whom Jesus possessed in fullness from his conception comes to “rest on him.”236 Jesus will be the source of the Spirit for all mankind. At his baptism “the heavens were opened”237—the heavens that Adam’s sin had closed—and the waters were sanctified by the descent of Jesus and the Spirit, a prelude to the new creation. (606, 1224, 444, 727, 739)
+
+
+**537.** Through Baptism the Christian is sacramentally assimilated to Jesus, who in his own baptism anticipates his death and resurrection. The Christian must enter into this mystery of humble self– abasement and repentance, go down into the water with Jesus in order to rise with him, be reborn of water and the Spirit so as to become the Father’s beloved son in the Son and “walk in newness of life”:238 (1262, 628) Let us be buried with Christ by Baptism to rise with him; let us go down with him to be raised with him; and let us rise with him to be glorified with him.239 Everything that happened to Christ lets us know that, after the bath of water, the Holy Spirit swoops down upon us from high heaven and that, adopted by the Father’s voice, we become sons of God.240
+
+
+### Jesus’ temptations
+
+
+**538.** The Gospels speak of a time of solitude for Jesus in the desert immediately after his baptism by John. Driven by the Spirit into the desert, Jesus remains there for forty days without eating; he lives among wild beasts, and angels minister to him.241 At the end of this time Satan tempts him three times, seeking to compromise his filial attitude toward God. Jesus rebuffs these attacks, which recapitulate the temptations of Adam in Paradise and of Israel in the desert, and the devil leaves him “until an opportune time.”242 (394, 518)
+
+
+**539.** The evangelists indicate the salvific meaning of this mysterious event: Jesus is the new Adam who remained faithful just where the first Adam had given in to temptation. Jesus fulfills Israel’s vocation perfectly: in contrast to those who had once provoked God during forty years in the desert, Christ reveals himself as God’s Servant, totally obedient to the divine will. In this, Jesus is the devil’s conqueror: he “binds the strong man” to take back his plunder.243 Jesus’ victory over the tempter in the desert anticipates victory at the Passion, the supreme act of obedience of his filial love for the Father. (397, 385, 609)
+
+
+**540.** Jesus’ temptation reveals the way in which the Son of God is Messiah, contrary to the way Satan proposes to him and the way men wish to attribute to him.244 This is why Christ vanquished the Tempter for us: “For we have not a high priest who is unable to sympathize with our weaknesses, but one who in every respect has been tested as we are, yet without sinning.”245 By the solemn forty days of Lent the Church unites herself each year to the mystery of Jesus in the desert. (2119, 519, 2849, 1438)
+
+
+### “The Kingdom of God is at hand”
+
+
+**541.** “Now after John was arrested, Jesus came into Galilee, preaching the gospel of God, and saying: ‘The time is fulfilled, and the kingdom of God is at hand: repent, and believe in the gospel.’”246 “To carry out the will of the Father Christ inaugurated the kingdom of heaven on earth.”247 Now the Father’s will is “to raise up men to share in his own divine life.”248 He does this by gathering men around his Son Jesus Christ. This gathering is the Church, “on earth the seed and beginning of that kingdom.”249 (2816, 763, 669, 768, 865)
+
+
+**542.** Christ stands at the heart of this gathering of men into the “family of God.” By his word, through signs that manifest the reign of God, and by sending out his disciples, Jesus calls all people to come together around him. But above all in the great Paschal mystery—his death on the cross and his Resurrection—he would accomplish the coming of his kingdom. “And I, when I am lifted up from the earth, will draw all men to myself.” Into this union with Christ all men are called.250 (2233, 789) Notes 228 Cf. Lk 3:23; Acts 1:22. 229 Lk 3:3. 230 Cf. Lk 3:10–14; Mt 3:7; 21:32. 231 Mt 3:13–17. 232 Jn 1:29; cf. Isa 53:12. 233 Cf. Mk 10:38; Lk 12:50. 234 Mt 3:15; cf. 26:39. 235 Cf. Lk 3:22; Isa 42:1. 236 Jn 1:32–33; cf. Isa 11:2. 237 Mt 3:16. 238 Rom 6:4. 239 St. Gregory of Nazianzus, Oratio. 40, 9: PG 36, 369. 240 St. Hilary of Poitiers, In Matth. 2, 5: PL 9, 927. 241 Cf. Mk 1:12–13. 242 Lk 4:13. 243 Cf. Ps 95:10; Mk 3:27. 244 Cf. Mt 16:21–23. 245 Heb 4:15. 246 Mk 1:14–15. 247 LG 3. 248 LG 2. 250 Jn 12:32; cf. LG 3.
+
+
+### The proclamation of the Kingdom of God
+
+
+**543.** Everyone is called to enter the kingdom. First announced to the children of Israel, this messianic kingdom is intended to accept men of all nations.251 To enter it, one must first accept Jesus’ word: (764) The word of the Lord is compared to a seed which is sown in a field; those who hear it with faith and are numbered among the little flock of Christ have truly received the kingdom. Then, by its own power, the seed sprouts and grows until the harvest.252
+
+
+**544.** The kingdom belongs to the poor and lowly, which means those who have accepted it with humble hearts. Jesus is sent to “preach good news to the poor”;253 he declares them blessed, for “theirs is the kingdom of heaven.”254 To them—the “little ones” — the Father is pleased to reveal what remains hidden from the wise and the learned.255 Jesus shares the life of the poor, from the cradle to the cross; he experiences hunger, thirst, and privation.256 Jesus identifies himself with the poor of every kind and makes active love toward them the condition for entering his kingdom.257 (709, 2443, 2546)
+
+
+**545.** Jesus invites sinners to the table of the kingdom: “I came not to call the righteous, but sinners.”258 He invites them to that conversion without which one cannot enter the kingdom, but shows them in word and deed his Father’s boundless mercy for them and the vast “joy in heaven over one sinner who repents.”259 The supreme proof of his love will be the sacrifice of his own life “for the forgiveness of sins.”260 (1443, 588, 1846, 1439)
+
+
+**546.** Jesus’ invitation to enter his kingdom comes in the form of parables, a characteristic feature of his teaching.261 Through his parables he invites people to the feast of the kingdom, but he also asks for a radical choice: to gain the kingdom, one must give everything.262 Words are not enough; deeds are required.263 The parables are like mirrors for man: will he be hard soil or good earth for the word?264 What use has he made of the talents he has received?265 Jesus and the presence of the kingdom in this world are secretly at the heart of the parables. One must enter the kingdom, that is, become a disciple of Christ, in order to “know the secrets of the kingdom of heaven.”266 For those who stay “outside,” everything remains enigmatic.267 (2613, 542) The signs of the Kingdom of God
+
+
+**547.** Jesus accompanies his words with many “mighty works and wonders and signs,” which manifest that the kingdom is present in him and attest that he was the promised Messiah.268 (670, 439)
+
+
+**548.** The signs worked by Jesus attest that the Father has sent him. They invite belief in him.269 To those who turn to him in faith, he grants what they ask.270 So miracles strengthen faith in the One who does his Father’s works; they bear witness that he is the Son of God.271 But his miracles can also be occasions for “offense”;272 they are not intended to satisfy people’s curiosity or desire for magic. Despite his evident miracles some people reject Jesus; he is even accused of acting by the power of demons.273 (156, 2616, 574, 447)
+
+
+**549.** By freeing some individuals from the earthly evils of hunger, injustice, illness, and death,274 Jesus performed messianic signs. Nevertheless he did not come to abolish all evils here below,275 but to free men from the gravest slavery, sin, which thwarts them in their vocation as God’s sons and causes all forms of human bondage.276 (1503, 440)
+
+
+**550.** The coming of God’s kingdom means the defeat of Satan’s: “If it is by the Spirit of God that I cast out demons, then the kingdom of God has come upon you.”277 Jesus’ exorcisms free some individuals from the domination of demons. They anticipate Jesus’ great victory over “the ruler of this world.”278 The kingdom of God will be definitively established through Christ’s cross: “God reigned from the wood.”279 (394, 1673, 440, 2816)
+
+
+### “The keys of the kingdom”
+
+
+**551.** From the beginning of his public life Jesus chose certain men, twelve in number, to be with him and to participate in his mission.280 He gives the Twelve a share in his authority and “sent them out to preach the kingdom of God and to heal.”281 They remain associated for ever with Christ’s kingdom, for through them he directs the Church: (858, 765) As my Father appointed a kingdom for me, so do I appoint for you that you may eat and drink at my table in my kingdom, and sit on thrones judging the twelve tribes of Israel.282
+
+
+**552.** Simon Peter holds the first place in the college of the Twelve;283 Jesus entrusted a unique mission to him. Through a revelation from the Father, Peter had confessed: “You are the Christ, the Son of the living God.” Our Lord then declared to him: “You are Peter, and on this rock I will build my Church, and the gates of Hades will not prevail against it.”284 Christ, the “living stone,”285 thus assures his Church, built on Peter, of victory over the powers of death. Because of the faith he confessed Peter will remain the unshakeable rock of the Church. His mission will be to keep this faith from every lapse and to strengthen his brothers in it.286 (880, 153, 442, 424)
+
+
+**553.** Jesus entrusted a specific authority to Peter: “I will give you the keys of the kingdom of heaven, and whatever you bind on earth shall be bound in heaven, and whatever you loose on earth shall be loosed in heaven.”287 The “power of the keys” designates authority to govern the house of God, which is the Church. Jesus, the Good Shepherd, confirmed this mandate after his Resurrection: “Feed my sheep.”288 The power to “bind and loose” connotes the authority to absolve sins, to pronounce doctrinal judgments, and to make disciplinary decisions in the Church. Jesus entrusted this authority to the Church through the ministry of the apostles289 and in particular through the ministry of Peter, the only one to whom he specifically entrusted the keys of the kingdom. (881, 1445, 641, 881)
+
+
+### A foretaste of the Kingdom: the Transfiguration
+
+
+**554.** From the day Peter confessed that Jesus is the Christ, the Son of the living God, the Master “began to show his disciples that he must go to Jerusalem and suffer many things... and be killed, and on the third day be raised.”290 Peter scorns this prediction, nor do the others understand it any better than he.291 In this context the mysterious episode of Jesus’ Transfiguration takes place on a high mountain,292 before three witnesses chosen by himself: Peter, James, and John. Jesus’ face and clothes become dazzling with light, and Moses and Elijah appear, speaking “of his departure, which he was to accomplish at Jerusalem.”293 A cloud covers him and a voice from heaven says: “This is my Son, my Chosen; listen to him!”294 (697, 2600, 440)
+
+
+**555.** For a moment Jesus discloses his divine glory, confirming Peter’s confession. He also reveals that he will have to go by the way of the cross at Jerusalem in order to “enter into his glory.”295 Moses and Elijah had seen God’s glory on the Mountain; the Law and the Prophets had announced the Messiah’s sufferings.296 Christ’s Passion is the will of the Father: the Son acts as God’s servant;297 the cloud indicates the presence of the Holy Spirit. “The whole Trinity appeared: the Father in the voice; the Son in the man; the Spirit in the shining cloud.”298 (2576, 2583, 257) You were transfigured on the mountain, and your disciples, as much as they were capable of it, beheld your glory, O Christ our God, so that when they should see you crucified they would understand that your Passion was voluntary, and proclaim to the world that you truly are the splendor of the Father.299
+
+
+**556.** On the threshold of the public life: the baptism; on the threshold of the Passover: the Transfiguration. Jesus’ baptism proclaimed “the mystery of the first regeneration,” namely, our Baptism; the Transfiguration “is the sacrament of the second regeneration”: our own Resurrection.300 From now on we share in the Lord’s Resurrection through the Spirit who acts in the sacraments of the Body of Christ. The Transfiguration gives us a foretaste of Christ’s glorious coming, when he “will change our lowly body to be like his glorious body.”301 But it also recalls that “it is through many persecutions that we must enter the kingdom of God”:302 (1003) Peter did not yet understand this when he wanted to remain with Christ on the mountain. It has been reserved for you, Peter, but for after death. For now, Jesus says: “Go down to toil on earth, to serve on earth, to be scorned and crucified on earth. Life goes down to be killed; Bread goes down to suffer hunger; the Way goes down to be exhausted on his journey; the Spring goes down to suffer thirst; and you refuse to suffer?”303 Notes 251 Cf. Mt 8:11; 10:5–7; 28:19. 252 LG 5; cf. Mk 4:14, 26–29; Lk 12:32. 253 Lk 4:18; cf. 7:22. 254 Mt 5:3. 255 Cf. Mt 11:25. 256 Cf. Mt 21:18; Mk 2:23–26; Jn 4:6–7; 19:28; Lk 9:58. 257 Cf. Mt 25:31–46. 258 Mk 2:17; cf. 1 Tim 1:15. 259 Lk 15:7; cf. 7:11–32. 260 Mt 26:28. 261 Cf. Mk 4:33–34. 262 Cf. Mt 13:44–45; 22:1–14. 263 Cf. Mt 21:28–32. 264 Cf. Mt 13:3–9. 265 Cf. Mt 25:14–30. 266 Mt 13:11. 267 Mk 4:11; cf. Mt 13:10–15. 268 Acts 2:22; cf. Lk 7:18–23. 269 Cf. Jn 5:36; 10:25, 38. 270 Cf. Mk 5:25–34; 10:52; etc. 271 Cf. Jn 10:31–38. 272 Mt 11:6. 273 Cf. Jn 11:47–48; Mk 3:22. 274 Cf. Jn 6:5–15; Lk 19:8; Mt 11:5. 275 Cf. Lk 12:13–14; Jn 18:36. 276 Cf. Jn 8:34–36. 277 Mt 12:26, 28. 278 Jn 12:31; cf. Lk 8:26–39. 279 LH, Lent, Holy Week, Evening Prayer, Hymn Vexilla Regis: “Regnavit a ligno Deus.” 280 Cf. Mk 3:13–19. 281 Lk 9:2. 282 Lk 22:29–30. 283 Cf. Mk 3:16; 9:2; Lk 24:34; 1 Cor 15:5. 284 Mt 16:18. 285 1 Pet 2:4. 286 Cf. Lk 22:32. 287 Mt 16:19. 288 Jn 21:15–17; cf. 10:11. 289 Cf. Mt 18:18. 290 Mt 16:21. 291 Cf. Mt 16:22–23; Mt 17:23; Lk 9:45. 292 Cf. Mt 17:1–8 and parallels; 2 Pet 1:16–18. 293 Lk 9:31. 294 Lk 9:35. 295 Lk 24:26. 296 Cf. Lk 24:27. 297 Cf. Isa 42:1. 298 St. Thomas Aquinas, STh III, 45, 4, ad 2. 299 Byzantine Liturgy, Feast of the Transfiguration, Kontakion. 300 St. Thomas Aquinas, STh III, 45, 4, ad 2. 301 Phil 3:21. 302 Acts 14:22. 303 St. Augustine, Sermo 78, 6: PL 38, 492–493; cf. Lk 9:33.
+
+
+### Paragraph 1. Jesus and Israel
+
+
+**574.** From the beginning of Jesus’ public ministry, certain Pharisees and partisans of Herod together with priests and scribes agreed together to destroy him.317 Because of certain of his acts—expelling demons, forgiving sins, healing on the sabbath day, his novel interpretation of the precepts of the Law regarding purity, and his familiarity with tax collectors and public sinners318—some ill– intentioned persons suspected Jesus of demonic possession.319 He is accused of blasphemy and false prophecy, religious crimes which the Law punished with death by stoning.320 (530, 591)
+
+
+**575.** Many of Jesus’ deeds and words constituted a “sign of contradiction,”321 but more so for the religious authorities in Jerusalem, whom the Gospel according to John often calls simply “the Jews,”322 than for the ordinary People of God.323 To be sure, Christ’s relations with the Pharisees were not exclusively polemical. Some Pharisees warned him of the danger he was courting;324 Jesus praises some of them, like the scribe of Mark 12:34, and dines several times at their homes.325 Jesus endorses some of the teachings imparted by this religious elite of God’s people: the resurrection of the dead,326 certain forms of piety (almsgiving, fasting, and prayer),327 the custom of addressing God as Father, and the centrality of the commandment to love God and neighbor.328 (993)
+
+
+**576.** In the eyes of many in Israel, Jesus seems to be acting against essential institutions of the Chosen People: —submission to the whole of the Law in its written commandments and, for the Pharisees, in the interpretation of oral tradition; —the centrality of the Temple at Jerusalem as the holy place where God’s presence dwells in a special way; —faith in the one God whose glory no man can share.
+
+
+### I. Jesus and the Law
+
+
+**577.** At the beginning of the Sermon on the Mount Jesus issued a solemn warning in which he presented God’s law, given on Sinai during the first covenant, in light of the grace of the New Covenant: (1965, 1967) Do not think that I have come to abolish the law or the prophets: I have come not to abolish but to fulfill. For truly I tell you, until heaven and earth pass away, not one letter, not one stroke of a letter, will pass from the law, until all is accomplished. Therefore, whoever breaks one of the least of these commandments, and teaches others to do the same, will be called least in the kingdom of heaven; but whoever does them and teaches them will be called great in the kingdom of heaven.329
+
+
+**578.** Jesus, Israel’s Messiah and therefore the greatest in the kingdom of heaven, was to fulfill the Law by keeping it in its all–embracing detail—according to his own words, down to “the least of these commandments.”330 He is in fact the only one who could keep it perfectly.331 On their own admission the Jews were never able to observe the Law in its entirety without violating the least of its precepts.332 This is why every year on the Day of Atonement the children of Israel ask God’s forgiveness for their transgressions of the Law. The Law indeed makes up one inseparable whole, and St. James recalls, “Whoever keeps the whole law but fails in one point has become guilty of all of it.”333 (1953)
+
+
+**579.** This principle of integral observance of the Law not only in letter but in spirit was dear to the Pharisees. By giving Israel this principle they had led many Jews of Jesus’ time to an extreme religious zeal.334 This zeal, were it not to lapse into “hypocritical” casuistry,335 could only prepare the People for the unprecedented intervention of God through the perfect fulfillment of the Law by the only Righteous One in place of all sinners.336
+
+
+**580.** The perfect fulfillment of the Law could be the work of none but the divine legislator, born subject to the Law in the person of the Son.337 In Jesus, the Law no longer appears engraved on tables of stone but “upon the heart” of the Servant who becomes “a covenant to the people,” because he will “faithfully bring forth justice.”338 Jesus fulfills the Law to the point of taking upon himself “the curse of the Law” incurred by those who do not “abide by the things written in the book of the Law, and do them,” for his death took place to redeem them “from the transgressions under the first covenant.”339 (527)
+
+
+**581.** The Jewish people and their spiritual leaders viewed Jesus as a rabbi.340 He often argued within the framework of rabbinical interpretation of the Law.341 Yet Jesus could not help but offend the teachers of the Law, for he was not content to propose his interpretation alongside theirs but taught the people “as one who had authority, and not as their scribes.”342 In Jesus, the same Word of God, that had resounded on Mount Sinai to give the written Law to Moses, made itself heard anew on the Mount of the Beatitudes.343 Jesus did not abolish the Law but fulfilled it by giving its ultimate interpretation in a divine way: “You have heard that it was said to the men of old.... But I say to you....”344 With this same divine authority, he disavowed certain human traditions of the Pharisees that were “making void the word of God.”345 (2054)
+
+
+**582.** Going even further, Jesus perfects the dietary law, so important in Jewish daily life, by revealing its pedagogical meaning through a divine interpretation: “Whatever goes into a man from outside cannot defile him... (Thus he declared all foods clean.). What comes out of a man is what defiles a man. For from within, out of the heart of man, come evil thoughts....”346 In presenting with divine authority the definitive interpretation of the Law, Jesus found himself confronted by certain teachers of the Law who did not accept his interpretation of the Law, guaranteed though it was by the divine signs that accompanied it.347 This was the case especially with the sabbath laws, for he recalls often with rabbinical arguments, that the sabbath rest is not violated by serving God and neighbor,348 which his own healings did. (368, 548, 2173)
+
+
+### II. Jesus and the Temple
+
+
+**583.** Like the prophets before him Jesus expressed the deepest respect for the Temple in Jerusalem. It was in the Temple that Joseph and Mary presented him forty days after his birth.349 At the age of twelve he decided to remain in the Temple to remind his parents that he must be about his Father’s business.350 He went there each year during his hidden life at least for Passover.351 His public ministry itself was patterned by his pilgrimages to Jerusalem for the great Jewish feasts.352 (529, 534)
+
+
+**584.** Jesus went up to the Temple as the privileged place of encounter with God. For him, the Temple was the dwelling of his Father, a house of prayer, and he was angered that its outer court had become a place of commerce.353 He drove merchants out of it because of jealous love for his Father: “You shall not make my Father’s house a house of trade. His disciples remembered that it was written, ‘Zeal for your house will consume me.’”354 After his Resurrection his apostles retained their reverence for the Temple.355 (2599)
+
+
+**585.** On the threshold of his Passion Jesus announced the coming destruction of this splendid building, of which there would not remain “one stone upon another.”356 By doing so, he announced a sign of the last days, which were to begin with his own Passover.357 But this prophecy would be distorted in its telling by false witnesses during his interrogation at the high priest’s house and would be thrown back at him as an insult when he was nailed to the cross.358
+
+
+**586.** Far from having been hostile to the Temple, where he gave the essential part of his teaching, Jesus was willing to pay the temple–tax, associating with him Peter, whom he had just made the foundation of his future Church.359 He even identified himself with the Temple by presenting himself as God’s definitive dwelling–place among men.360 Therefore his being put to bodily death361 presaged the destruction of the Temple, which would manifest the dawning of a new age in the history of salvation: “The hour is coming when neither on this mountain nor in Jerusalem will you worship the Father.”362 (797, 1179)
+
+
+### III. Jesus and Israel’s Faith in the One God and Savior
+
+
+**587.** If the Law and the Jerusalem Temple could be occasions of opposition to Jesus by Israel’s religious authorities, his role in the redemption of sins, the divine work par excellence, was the true stumbling–block for them.363
+
+
+**588.** Jesus scandalized the Pharisees by eating with tax collectors and sinners as familiarly as with themselves.364 Against those among them “who trusted in themselves that they were righteous and despised others,” Jesus affirmed: “I have not come to call the righteous, but sinners to repentance.”365 He went further by proclaiming before the Pharisees that, since sin is universal, those who pretend not to need salvation are blind to themselves.366 (545)
+
+
+**589.** Jesus gave scandal above all when he identified his merciful conduct toward sinners with God’s own attitude toward them.367 He went so far as to hint that by sharing the table of sinners he was admitting them to the messianic banquet.368 But it was most especially by forgiving sins that Jesus placed the religious authorities of Israel on the horns of a dilemma. Were they not entitled to demand in consternation, “Who can forgive sins but God alone?”369 By forgiving sins Jesus either is blaspheming as a man who made himself God’s equal or is speaking the truth, and his person really does make present and reveal God’s name.370 (431, 1441, 432)
+
+
+**590.** Only the divine identity of Jesus’ person can justify so absolute a claim as “He who is not with me is against me”; and his saying that there was in him “something greater than Jonah,... greater than Solomon,” something “greater than the Temple”; his reminder that David had called the Messiah his Lord,371 and his affirmations, “Before Abraham was, I AM”; and even “I and the Father are one.”372 (253)
+
+
+**591.** Jesus asked the religious authorities of Jerusalem to believe in him because of the Father’s works which he accomplished.373 But such an act of faith must go through a mysterious death to self, for a new “birth from above” under the influence of divine grace.374 Such a demand for conversion in the face of so surprising a fulfillment of the promises375 allows one to understand the Sanhedrin’s tragic misunderstanding of Jesus: they judged that he deserved the death sentence as a blasphemer.376 The members of the Sanhedrin were thus acting at the same time out of “ignorance” and the “hardness” of their “unbelief.”377 (526, 574)
+
+
+### IN BRIEF
+
+
+**592.** Jesus did not abolish the Law of Sinai, but rather fulfilled it (cf. Mt 5:17–19) with such perfection (cf. Jn 8:46) that he revealed its ultimate meaning (cf. Mt 5:33) and redeemed the transgressions against it (cf. Heb 9:15).
+
+
+**593.** Jesus venerated the Temple by going up to it for the Jewish feasts of pilgrimage, and with a jealous love he loved this dwelling of God among men. The Temple prefigures his own mystery. When he announces its destruction, it is as a manifestation of his own execution and of the entry into a new age in the history of salvation, when his Body would be the definitive Temple.
+
+
+**594.** Jesus performed acts, such as pardoning sins, that manifested him to be the Savior God himself (cf. Jn 5:16–18). Certain Jews, who did not recognize God made man (cf. Jn 1:14), saw in him only a man who made himself God (Jn 10:33), and judged him as a blasphemer. Notes 304 Lk 9:51; cf. Jn 13:1. 305 Lk 13:33; cf. Mk 8:31–33; 9:31–32; 10:32–34. 306 Mt 23:37. 307 Lk 19:41–42. 308 Lk 1:32; cf. Mt 21:1–11; Jn 6:15. 309 Ps 24:7–10; Zech 9:9. 310 Cf. Jn 18:37. 311 Cf. Mt 21:15–16; cf. Ps 8:3; Lk 19:38; 2:14. 312 Cf. Ps 118:26. 313 Heb 9:26. 314 Lk 24:26–27, 44–45. 315 Mk 8:31; Mt 20:19. 316 Cf. DV 19. 317 Cf. Mk 3:6; 14:1. 318 Cf. Mt 12:24: Mk 2:7, 14–17; 3:1–6; 7:14–23. 319 Cf. Mk 3:22; Jn 8:48; 10:20. 320 Cf. Mk 2:7; Jn 5:18; Jn 7:12; 7:52; 8:59; 10:31, 33. 321 Lk 2:34. 322 Cf. Jn 1:19; 2:18; 5:10; 7:13; 9:22; 18:12; 19:38; 20:19. 323 Jn 7:48–49. 324 Cf. Lk 13:31. 325 Cf. Lk 7:36; 14:1. 326 Cf. Mt 22:23–34; Lk 20:39. 327 Cf. Mt 6:18. 328 Cf. Mk 12:28–34. 329 Mt 5:17–19. 330 Mt 5:19. 331 Cf. Jn 8:46. 332 Cf. Jn 7:19; Acts 13:38–41; 15:10. 333 Jas 2:10; cf. Gal 3:10; 5:3. 334 Cf. Rom 10:2. 335 Cf. Mt 15:3–7, Lk 11:39–54. 336 Cf. Isa 53:11; Heb 9:15. 337 Cf. Gal 4:4. 338 Jer 31:33; Isa 42:3, 6. 339 Gal 3:13; 3:10; Heb 9:15. 340 Cf. Jn 11:28; 3:2; Mt 22:23–24, 34–36. 341 Cf. Mt 12:5; 9:12; Mk 2:23–27; Lk 6:6–9; Jn 7:22–23. 342 Mt 7:28–29. 343 Cf. Mt 5:1. 344 Mt 5:33–34. 345 Mk 7:13; cf. 3:8. 346 Mk 7:18– 21; cf. Gal 3:24. 347 Cf. Jn 5:36; 10:25, 37–38; 12:37. 348 Cf. Num 28:9; Mt 12:5; Mk 2:25–27; Lk 13:15–16; 14:3–4; Jn 7:22–24. 349 Lk 2:22–39. 350 Cf. Lk 2:46–49. 351 Cf. Lk 2:41. 352 Cf. Jn 2:13–14; 5:1, 14; 7:1, 10, 14; 8:2; 10:22–23. 353 Cf. Mt 21:13 354 Jn 2:16–17; cf. Ps 69:10. 355 Cf. Acts 2:46; 3:1; 5:20, 21; etc. 356 Cf. Mt 24:1–2. 357 Cf. Mt 24:3; Lk 13:35. 358 Cf. Mk 14:57–58: Mt 27:39–40. 359 Cf. Mt 8:4; 16:18; 17:24–27; Lk 17:14; Jn 4:22; 18:20. 360 Cf. Jn 2:21; Mt 12:6. 361 Cf. Jn 2:18–22. 362 Jn 4:21; cf. Jn 4:23–24; Mt 27:51; Heb 9:11; Rev 21:22. 363 Cf. Lk 2:34; 20:17–18; Ps 118:22. 364 Cf. Lk 5:30; 7:36; 11:37; 14:1. 365 Lk 18:9; 5:32; cf. Jn 7:49; 9:34. 366 Cf. Jn 8:33–36; 9:40–41. 367 Cf. Mt 9:13; Hos 6:6. 368 Cf. Lk 15:1–2, 22–32. 369 Mk 2:7. 370 Cf. Jn 5:18; 10:33; 17:6, 26. 371 Cf. Mt 12:6, 30, 36, 37, 41–42. 372 Jn 8:58; 10:30. 373 Jn 10:36–38. 374 Cf. Jn 3:7; 6:44. 375 Cf. Isa 53:1. 376 Cf. Mk 3:6; Mt 26:64–66. 377 Cf. Lk 23:34; Acts 3:17–18; Mk 3:5; Rom 11:25, 20.
+
+
+### Divisions among the Jewish authorities concerning Jesus
+
+
+**595.** Among the religious authorities of Jerusalem, not only were the Pharisee Nicodemus and the prominent Joseph of Arimathea both secret disciples of Jesus, but there was also long-standing dissension about him, so much so that St. John says of these authorities on the very eve of Christ’s Passion, “many... believed in him,” though very imperfectly.378 This is not surprising, if one recalls that on the day after Pentecost “a great many of the priests were obedient to the faith” and “some believers... belonged to the party of the Pharisees,” to the point that St. James could tell St. Paul, “How many thousands there are among the Jews of those who have believed; and they are all zealous for the Law.”379
+
+
+**596.** The religious authorities in Jerusalem were not unanimous about what stance to take toward Jesus.380 The Pharisees threatened to excommunicate his followers.381 To those who feared that “everyone will believe in him, and the Romans will come and destroy both our holy place and our nation,” the high priest Caiaphas replied by prophesying: “It is expedient for you that one man should die for the people, and that the whole nation should not perish.”382 The Sanhedrin, having declared Jesus deserving of death as a blasphemer but having lost the right to put anyone to death, hands him over to the Romans, accusing him of political revolt, a charge that puts him in the same category as Barabbas who had been accused of sedition.383 The high priests also threatened Pilate politically so that he would condemn Jesus to death.384 (1753)
+
+
+### Jews are not collectively responsible for Jesus’ death
+
+
+**597.** The historical complexity of Jesus’ trial is apparent in the Gospel accounts. The personal sin of the participants (Judas, the Sanhedrin, Pilate) is known to God alone. Hence we cannot lay responsibility for the trial on the Jews in Jerusalem as a whole, despite the outcry of a manipulated crowd and the global reproaches contained in the apostles’ calls to conversion after Pentecost.385 Jesus himself, in forgiving them on the cross, and Peter in following suit, both accept “the ignorance” of the Jews of Jerusalem and even of their leaders.386 Still less can we extend responsibility to other Jews of different times and places, based merely on the crowd’s cry: “His blood be on us and on our children!” a formula for ratifying a judicial sentence.387 As the Church declared at the Second Vatican Council: (1735, 839)...[N]either all Jews indiscriminately at that time, nor Jews today, can be charged with the crimes committed during his Passion.... [T]he Jews should not be spoken of as rejected or accursed as if this followed from holy Scripture.388
+
+
+### All sinners were the authors of Christ’s Passion
+
+
+**598.** In her Magisterial teaching of the faith and in the witness of her saints, the Church has never forgotten that “sinners were the authors and the ministers of all the sufferings that the divine Redeemer endured.”389 Taking into account the fact that our sins affect Christ himself,390 the Church does not hesitate to impute to Christians the gravest responsibility for the torments inflicted upon Jesus, a responsibility with which they have all too often burdened the Jews alone: (1851) We must regard as guilty all those who continue to relapse into their sins. Since our sins made the Lord Christ suffer the torment of the cross, those who plunge themselves into disorders and crimes crucify the Son of God anew in their hearts (for he is in them) and hold him up to contempt. And it can be seen that our crime in this case is greater in us than in the Jews. As for them, according to the witness of the Apostle, “None of the rulers of this age understood this; for if they had, they would not have crucified the Lord of glory.” We, however, profess to know him. And when we deny him by our deeds, we in some way seem to lay violent hands on him.391 Nor did demons crucify him; it is you who have crucified him and crucify him still, when you delight in your vices and sins.392
+
+
+### “Jesus handed over according to the definite plan of God”
+
+
+**599.** Jesus’ violent death was not the result of chance in an unfortunate coincidence of circumstances, but is part of the mystery of God’s plan, as St. Peter explains to the Jews of Jerusalem in his first sermon on Pentecost: “This Jesus [was] delivered up according to the definite plan and foreknowledge of God.”393 This Biblical language does not mean that those who handed him over were merely passive players in a scenario written in advance by God.394 (517)
+
+
+**600.** To God, all moments of time are present in their immediacy. When therefore he establishes his eternal plan of “predestination,” he includes in it each person’s free response to his grace: “In this city, in fact, both Herod and Pontius Pilate, with the Gentiles and the peoples of Israel, gathered together against your holy servant Jesus, whom you anointed, to do whatever your hand and your plan had predestined to take place.”395 For the sake of accomplishing his plan of salvation, God permitted the acts that flowed from their blindness.396 (312)
+
+
+### “He died for our sins in accordance with the Scriptures”
+
+
+**601.** The Scriptures had foretold this divine plan of salvation through the putting to death of “the righteous one, my Servant” as a mystery of universal redemption, that is, as the ransom that would free men from the slavery of sin.397 Citing a confession of faith that he himself had “received,” St. Paul professes that “Christ died for our sins in accordance with the scriptures.”398 In particular Jesus’ redemptive death fulfills Isaiah’s prophecy of the suffering Servant.399 Indeed Jesus himself explained the meaning of his life and death in the light of God’s suffering Servant.400 After his Resurrection he gave this interpretation of the Scriptures to the disciples at Emmaus, and then to the apostles.401 (652, 713)
+
+
+### “For our sake God made him to be sin”
+
+
+**602.** Consequently, St. Peter can formulate the apostolic faith in the divine plan of salvation in this way: “You were ransomed from the futile ways inherited from your fathers... with the precious blood of Christ, like that of a lamb without blemish or spot. He was destined before the foundation of the world but was made manifest at the end of the times for your sake.”402 Man’s sins, following on original sin, are punishable by death.403 By sending his own Son in the form of a slave, in the form of a fallen humanity, on account of sin, God “made him to be sin who knew no sin, so that in him we might become the righteousness of God.”404 (400, 519)
+
+
+**603.** Jesus did not experience reprobation as if he himself had sinned.405 But in the redeeming love that always united him to the Father, he assumed us in the state of our waywardness of sin, to the point that he could say in our name from the cross: “My God, my God, why have you forsaken me?”406 Having thus established him in solidarity with us sinners, God “did not spare his own Son but gave him up for us all,” so that we might be “reconciled to God by the death of his Son.”407 (2572)
+
+
+### God takes the initiative of universal redeeming love
+
+
+**604.** By giving up his own Son for our sins, God manifests that his plan for us is one of benevolent love, prior to any merit on our part: “In this is love, not that we loved God but that he loved us and sent his Son to be the expiation for our sins.”408 God “shows his love for us in that while we were yet sinners Christ died for us.”409 (211, 2009, 1825)
+
+
+**605.** At the end of the parable of the lost sheep Jesus recalled that God’s love excludes no one: “So it is not the will of your Father who is in heaven that one of these little ones should perish.”410 He affirms that he came “to give his life as a ransom for many”; this last term is not restrictive, but contrasts the whole of humanity with the unique person of the redeemer who hands himself over to save us.411 The Church, following the apostles, teaches that Christ died for all men without exception: “There is not, never has been, and never will be a single human being for whom Christ did not suffer.”412 (402, 634, 2793)
+
+
+### Christ’s whole life is an offering to the Father
+
+
+**606.** The Son of God, who came down “from heaven, not to do [his] own will, but the will of him who sent [him],”413 said on coming into the world, “Lo, I have come to do your will, O God.” “And by that will we have been sanctified through the offering of the body of Jesus Christ once for all.”414 From the first moment of his Incarnation the Son embraces the Father’s plan of divine salvation in his redemptive mission: “My food is to do the will of him who sent me, and to accomplish his work.”415 The sacrifice of Jesus “for the sins of the whole world”416 expresses his loving communion with the Father. “The Father loves me, because I lay down my life,” said the Lord, “[for] I do as the Father has commanded me, so that the world may know that I love the Father.”417 (517, 536)
+
+
+**607.** The desire to embrace his Father’s plan of redeeming love inspired Jesus’ whole life,418 for his redemptive passion was the very reason for his Incarnation. And so he asked, “And what shall I say? ‘Father, save me from this hour’? No, for this purpose I have come to this hour.”419 And again, “Shall I not drink the cup which the Father has given me?”420 From the cross, just before “It is finished,” he said, “I thirst.”421 (457) “The Lamb who takes away the sin of the world”
+
+
+**608.** After agreeing to baptize him along with the sinners, John the Baptist looked at Jesus and pointed him out as the “Lamb of God, who takes away the sin of the world.”422 By doing so, he reveals that Jesus is at the same time the suffering Servant who silently allows himself to be led to the slaughter and who bears the sin of the multitudes, and also the Paschal Lamb, the symbol of Israel’s redemption at the first Passover.423 Christ’s whole life expresses his mission: “to serve and to give his life as a ransom for many.”424 (523, 517)
+
+
+### Jesus freely embraced the Father’s redeeming love
+
+
+**609.** By embracing in his human heart the Father’s love for men, Jesus “loved them to the end,” for “greater love has no man than this, that a man lay down his life for his friends.”425 In suffering and death his humanity became the free and perfect instrument of his divine love which desires the salvation of men.426 Indeed, out of love for his Father and for men, whom the Father wants to save, Jesus freely accepted his Passion and death: “No one takes [my life] from me, but I lay it down of my own accord.”427 Hence the sovereign freedom of God’s Son as he went out to his death.428 (478, 515, 272, 539)
+
+
+### At the Last Supper Jesus anticipated the free offering of his life
+
+
+**610.** Jesus gave the supreme expression of his free offering of himself at the meal shared with the twelve Apostles “on the night he was betrayed.”429 On the eve of his Passion, while still free, Jesus transformed this Last Supper with the apostles into the memorial of his voluntary offering to the Father for the salvation of men: “This is my body which is given for you.” “This is my blood of the covenant, which is poured out for many for the forgiveness of sins.”430 (766, 1337)
+
+
+**611.** The Eucharist that Christ institutes at that moment will be the memorial of his sacrifice.431 Jesus includes the apostles in his own offering and bids them perpetuate it.432 By doing so, the Lord institutes his apostles as priests of the New Covenant: “For their sakes I sanctify myself, so that they also may be sanctified in truth.”433 (1364, 1341, 1566)
+
+
+### The agony at Gethsemani
+
+
+**612.** The cup of the New Covenant, which Jesus anticipated when he offered himself at the Last Supper, is afterwards accepted by him from his Father’s hands in his agony in the garden at Gethsemani,434 making himself “obedient unto death.” Jesus prays: “My Father, if it be possible, let this cup pass from me....”435 Thus he expresses the horror that death represented for his human nature. Like ours, his human nature is destined for eternal life; but unlike ours, it is perfectly exempt from sin, the cause of death.436 Above all, his human nature has been assumed by the divine person of the “Author of life,” the “Living One.”437 By accepting in his human will that the Father’s will be done, he accepts his death as redemptive, for “he himself bore our sins in his body on the tree.”438 (532, 2600, 1009)
+
+
+### Christ’s death is the unique and definitive sacrifice
+
+
+**613.** Christ’s death is both the Paschal sacrifice that accomplishes the definitive redemption of men, through “the Lamb of God, who takes away the sin of the world,”439 and the sacrifice of the New Covenant, which restores man to communion with God by reconciling him to God through the “blood of the covenant, which was poured out for many for the forgiveness of sins.”440 (1366, 2009)
+
+
+**614.** This sacrifice of Christ is unique; it completes and surpasses all other sacrifices.441 First, it is a gift from God the Father himself, for the Father handed his Son over to sinners in order to reconcile us with himself. At the same time it is the offering of the Son of God made man, who in freedom and love offered his life to his Father through the Holy Spirit in reparation for our disobedience.442 (529, 1330, 2100)
+
+
+### Jesus substitutes his obedience for our disobedience
+
+
+**615.** “For as by one man’s disobedience many were made sinners, so by one man’s obedience many will be made righteous.”443 By his obedience unto death, Jesus accomplished the substitution of the suffering Servant, who “makes himself an offering for sin,” when “he bore the sin of many,” and who “shall make many to be accounted righteous,” for “he shall bear their iniquities.”444 Jesus atoned for our faults and made satisfaction for our sins to the Father.445 (1850, 433, 411)
+
+
+### Jesus consummates his sacrifice on the Cross
+
+
+**616.** It is love “to the end”446 that confers on Christ’s sacrifice its value as redemption and reparation, as atonement and satisfaction. He knew and loved us all when he offered his life.447 Now “the love of Christ controls us, because we are convinced that one has died for all; therefore all have died.”448 No man, not even the holiest, was ever able to take on himself the sins of all men and offer himself as a sacrifice for all. The existence in Christ of the divine person of the Son, who at once surpasses and embraces all human persons and constitutes himself as the Head of all mankind, makes possible his redemptive sacrifice for all. (478, 468, 519)
+
+
+**617.** The Council of Trent emphasizes the unique character of Christ’s sacrifice as “the source of eternal salvation”449 and teaches that “his most holy Passion on the wood of the cross merited justification for us.”450 And the Church venerates his cross as it sings: “Hail, O Cross, our only hope.”451 (1992, 1235, 1368, 1460, 307, 2100, 964)
+
+
+### Our participation in Christ’s sacrifice
+
+
+**618.** The cross is the unique sacrifice of Christ, the “one mediator between God and men.”452 But because in his incarnate divine person he has in some way united himself to every man, “the possibility of being made partners, in a way known to God, in the paschal mystery” is offered to all men.453 He calls his disciples to “take up [their] cross and follow [him],”454 for “Christ also suffered for [us], leaving [us] an example so that [we] should follow in his steps.”455 In fact Jesus desires to associate with his redeeming sacrifice those who were to be its first beneficiaries.456 This is achieved supremely in the case of his mother, who was associated more intimately than any other person in the mystery of his redemptive suffering.457 Apart from the cross there is no other ladder by which we may get to heaven.458
+
+
+### Paragraph 3. Jesus Christ Was Buried
+
+
+**624.** “By the grace of God” Jesus tasted death “for every one.”459 In his plan of salvation, God ordained that his Son should not only “die for our sins”460 but should also “taste death,” experience the condition of death, the separation of his soul from his body, between the time he expired on the cross and the time he was raised from the dead. The state of the dead Christ is the mystery of the tomb and the descent into hell. It is the mystery of Holy Saturday, when Christ, lying in the tomb,461 reveals God’s great sabbath rest462 after the fulfillment463 of man’s salvation, which brings peace to the whole universe.464 (1005, 362, 349)
+
+
+### Christ in the tomb in his body
+
+
+**625.** Christ’s stay in the tomb constitutes the real link between his passible state before Easter and his glorious and risen state today. The same person of the “Living One” can say, “I died, and behold I am alive for evermore”:465 God [the Son] did not impede death from separating his soul from his body according to the necessary order of nature, but has reunited them to one another in the Resurrection, so that he himself might be, in his person, the meeting point for death and life, by arresting in himself the decomposition of nature produced by death and so becoming the source of reunion for the separated parts.466
+
+
+**626.** Since the “Author of life” who was killed467 is the same “living one [who has] risen,”468 the divine person of the Son of God necessarily continued to possess his human soul and body, separated from each other by death: (470, 650) By the fact that at Christ’s death his soul was separated from his flesh, his one person is not itself divided into two persons; for the human body and soul of Christ have existed in the same way from the beginning of his earthly existence, in the divine person of the Word; and in death, although separated from each other, both remained with one and the same person of the Word.469
+
+
+### “You will not let your Holy One see corruption”
+
+
+**627.** Christ’s death was a real death in that it put an end to his earthly human existence. But because of the union which the person of the Son retained with his body, his was not a mortal corpse like others, for “it was not possible for death to hold him”470 and therefore “divine power preserved Christ’s body from corruption.”471 Both of these statements can be said of Christ: “He was cut off out of the land of the living,”472 and “My flesh will dwell in hope. For you will not abandon my soul to Hades, nor let your Holy One see corruption.”473 Jesus’ Resurrection “on the third day” was the sign of this also, because bodily decay was held to begin on the fourth day after death.474 (1009, 1683)
+
+
+### “Buried with Christ...”
+
+
+**628.** Baptism, the original and full sign of which is immersion, efficaciously signifies the descent into the tomb by the Christian who dies to sin with Christ in order to live a new life. “We were buried therefore with him by baptism into death, so that as Christ was raised from the dead by the glory of the Father, we too might walk in newness of life.”475 (537, 1214)
+
+
+### IN BRIEF
+
+
+**629.** To the benefit of every man, Jesus Christ tasted death (cf. Heb 2:9). It is truly the Son of God made man who died and was buried.
+
+
+**630.** During Christ’s period in the tomb, his divine person continued to assume both his soul and his body, although they were separated from each other by death. For this reason the dead Christ’s body “saw no corruption” (Acts 13:37). Notes 378 Jn 12:42; cf. 7:50; 9:16-17; 10:19-21; 19:38-39. 379 Acts 6:7; 15:5; 21:20. 380 Cf. Jn 9:16; Jn 10:19. 381 Cf. Jn 9:22. 382 Jn 11:48-50. 383 Cf. Mt 26:66; Jn 18:31; Lk 23:2, 19. 384 Cf. Jn 19:12, 15, 21. 385 Cf. Mk 15:11; Acts 2:23, 36; 3:13-14; 4:10; 5:30; 7:52; 10:39; 13:27-28; 1 Thess 2:14-15. 386 Cf. Lk 23:34; Acts 3:17. 387 Mt 27:25; cf. Acts 5:28; 18:6. 388 NA 4. 389 Roman Catechism I, 5, 11; cf. Heb 12:3. 390 Cf. Mt 25:45; Acts 9:4-5. 391 Roman Catechism I, 5, 11; cf. Heb 6:6; 1 Cor 2:8. 392 St. Francis of Assisi, Admonitio 5, 3. 393 Acts 2:23. 394 Cf. Acts 3:13. 395 Acts 4:27-28; cf. Ps 2:1-2. 396 Cf. Mt 26:54; Jn 18:36; 19:11; Acts 3:17-18. 397 Isa 53:11; cf. 53:12; Jn 8:34-36; Acts 3:14. 398 1 Cor 15:3; cf. also Acts 3:18; 7:52; 13:29; 26:22-23. 399 Cf. Isa 53:7-8 and Acts 8:32-35. 400 Cf. Mt 20:28. 401 Cf. Lk 24:25-27, 44-45. 402 1 Pet 1:18-20. 403 Cf. Rom 5:12; 1 Cor 15:56. 404 2 Cor 5:21; cf. Phil 2:7; Rom 8:3. 405 Cf. Jn 8:46. 406 Mk 15:34; Ps 22:2; cf. Jn 8:29. 407 Rom 8:32, 5:10. 408 1 Jn 4:10; 4:19. 409 Rom 5:8. 410 Mt 18:14. 411 Mt 20:28; cf. Rom 5:18-19. 412 Council of Quiercy (853): DS 624; cf. 2 Cor 5:15; 1 Jn 2:2. 413 Jn 6:38. 414 Heb 10:5-10. 415 Jn 4:34. 416 1 Jn 2:2. 417 Jn 10:17; 14:31. 418 Cf. Lk 12:50; 22:15; Mt 16:21-23. 419 Jn 12:27. 420 Jn 18:11. 421 Jn 19:30; 19:28. 422 Jn 1:29; cf. Lk 3:21; Mt 3:14-15; Jn 1:36. 423 Isa 53:7, 12; cf. Jer 11:19; Ex 12:3-14; Jn 19:36; 1 Cor 5:7. 424 Mk 10:45. 425 Jn 13:1; 15:13. 426 Cf. Heb 2:10, 17-18; 4:15; 5:7-9. 427 Jn 10:18. 428 Cf. Jn 18:4-6; Mt 26:53. 429 Roman Missal, EP 111; cf. Mt 26:20; 1 Cor 11:23. 430 Lk 22:19; Mt 26:28; cf. 1 Cor 5:7. 431 1 Cor 11:25. 432 Cf. Lk 22:19. 433 Jn 17:19; cf. Council of Trent: DS 1752; 1764. 434 Cf. Mt 26:42; Lk 22:20. 435 Phil 2:8; Mt 26:39; cf. Heb 5:7-8. 436 Cf. Rom 5:12; Heb 4:15. 437 Cf. Acts 3:15; Rev 1:17; Jn 1:4; 5:26. 438 1 Pet 2:24; cf. Mt 26:42. 439 Jn 1:29; cf. 8:34-36; 1 Cor 5:7; 1 Pet 1:19. 440 Mt 26:28; cf. Ex 24:8; Lev 16:15-16; 1 Cor 11:25. 441 Cf. Heb 10:10. 442 Cf. Jn 10:17-18; 15:13; Heb 9:14; 1 Jn 4:10. 443 Rom 5:19. 444 Isa 53:10-12. 445 Cf. Council of Trent (1547): DS 1529. 446 Jn 13:1. 447 Cf. Gal 2:20; Eph 5:2, 25. 448 2 Cor 5:14. 449 Heb 5:9. 450 Council of Trent: DS 1529. 451 LH, Lent, Holy Week, Evening Prayer, Hymn Vexilla regis. 452 1 Tim 2:5. 453 GS 22 § 5; cf. § 2. 454 Mt 16:24. 455 1 Pet 2:21. 456 Cf. Mk 10:39; Jn 21:18-19; Col 1:24. 457 Cf. Lk 2:35. 458 St. Rose of Lima, cf. P. Hansen, Vita mirabilis (Louvain, 1668). 459 Heb 2:9. 460 1 Cor 15:3. 461 Cf. Jn 19:42. 462 Cf. Heb 4:7-9. 463 Cf. Jn 19:30. 464 Cf. Col 1:18-20. 465 Rev 1:18. 466 St. Gregory of Nyssa, Orat. catech., 16: PG 45, 52D. 467 Acts 3:15. 468 Lk 24:5-6. 469 St. John Damascene, De fide orth., 3, 27: PG 94, 1098A. 470 Acts 2:24. 471 St. Thomas Aquinas, STh III, 51, 3. 472 Isa 53:8. 473 Acts 2:26-27; cf. Ps 16:9-10. 474 Cf. 1 Cor 15:4; Lk 24:46; Mt 12:40; Jon 2:1; Hos 6:2; cf. Jn 11:39. 475 Rom 6:4; cf. Col 2:12; Eph 5:26. “HE DESCENDED INTO HELL ON THE THIRD DAY HE ROSE AGAIN”
+
+
+### Paragraph 2. On the Third Day He Rose from the Dead
+
+
+**638.** “We bring you the good news that what God promised to the fathers, this day he has fulfilled to us their children by raising Jesus.”489 The Resurrection of Jesus is the crowning truth of our faith in Christ, a faith believed and lived as the central truth by the first Christian community; handed on as fundamental by Tradition; established by the documents of the New Testament; and preached as an essential part of the Paschal mystery along with the cross: (90, 651, 991) Christ is risen from the dead! Dying, he conquered death; To the dead, he has given life.490
+
+
+### I. The Historical and Transcendent Event
+
+
+**639.** The mystery of Christ’s resurrection is a real event, with manifestations that were historically verified, as the New Testament bears witness. In about A.D. 56, St. Paul could already write to the Corinthians: “I delivered to you as of first importance what I also received, that Christ died for our sins in accordance with the scriptures, and that he was buried, that he was raised on the third day in accordance with the scriptures, and that he appeared to Cephas, then to the Twelve...”491 Apostle speaks here of the living tradition of the Resurrection which he had learned after his conversion at the gates of Damascus.492 The empty tomb
+
+
+**640.** “Why do you seek the living among the dead? He is not here, but has risen.”493 The first element we encounter in the framework of the Easter events is the empty tomb. In itself it is not a direct proof of Resurrection; the absence of Christ’s body from the tomb could be explained otherwise.494 Nonetheless the empty tomb was still an essential sign for all. Its discovery by the disciples was the first step toward recognizing the very fact of the Resurrection. This was the case, first with the holy women, and then with Peter.495 The disciple “whom Jesus loved” affirmed that when he entered the empty tomb and discovered “the linen cloths lying there,” “he saw and believed.”496 This suggests that he realized from the empty tomb’s condition that the absence of Jesus’ body could not have been of human doing and that Jesus had not simply returned to earthly life as had been the case with Lazarus.497 (999)
+
+
+### The appearances of the Risen One
+
+
+**641.** Mary Magdalene and the holy women who came to finish anointing the body of Jesus, which had been buried in haste because the Sabbath began on the evening of Good Friday, were the first to encounter the Risen One.498 Thus the women were the first messengers of Christ’s Resurrection for the apostles themselves.499 They were the next to whom Jesus appears: first Peter, then the Twelve. Peter had been called to strengthen the faith of his brothers,500 and so sees the Risen One before them; it is on the basis of his testimony that the community exclaims: “The Lord has risen indeed, and has appeared to Simon!”501 (553, 448)
+
+
+**642.** Everything that happened during those Paschal days involves each of the apostles—and Peter in particular—in the building of the new era begun on Easter morning. As witnesses of the Risen One, they remain the foundation stones of his Church. The faith of the first community of believers is based on the witness of concrete men known to the Christians and for the most part still living among them. Peter and the Twelve are the primary “witnesses to his Resurrection,” but they are not the only ones—Paul speaks clearly of more than five hundred persons to whom Jesus appeared on a single occasion and also of James and of all the apostles.502 (659, 881, 860)
+
+
+**643.** Given all these testimonies, Christ’s Resurrection cannot be interpreted as something outside the physical order, and it is impossible not to acknowledge it as an historical fact. It is clear from the facts that the disciples’ faith was drastically put to the test by their master’s Passion and death on the cross, which he had foretold.503 The shock provoked by the Passion was so great that at least some of the disciples did not at once believe in the news of the Resurrection. Far from showing us a community seized by a mystical exaltation, the Gospels present us with disciples demoralized (“looking sad”504) and frightened. For they had not believed the holy women returning from the tomb and had regarded their words as an “idle tale.”505 When Jesus reveals himself to the Eleven on Easter evening, “he upbraided them for their unbelief and hardness of heart, because they had not believed those who saw him after he had risen.”506
+
+
+**644.** Even when faced with the reality of the risen Jesus the disciples are still doubtful, so impossible did the thing seem: they thought they were seeing a ghost. “In their joy they were still disbelieving and still wondering.”507 Thomas will also experience the test of doubt and St. Matthew relates that during the risen Lord’s last appearance in Galilee “some doubted.”508 Therefore the hypothesis that the Resurrection was produced by the apostles’ faith (or credulity) will not hold up. On the contrary their faith in the Resurrection was born, under the action of divine grace, from their direct experience of the reality of the risen Jesus.
+
+
+### The condition of Christ’s risen humanity
+
+
+**645.** By means of touch and the sharing of a meal, the risen Jesus establishes direct contact with his disciples. He invites them in this way to recognize that he is not a ghost and above all to verify that the risen body in which he appears to them is the same body that had been tortured and crucified, for it still bears the traces of his passion.509 Yet at the same time this authentic, real body possesses the new properties of a glorious body: not limited by space and time but able to be present how and when he wills; for Christ’s humanity can no longer be confined to earth and belongs henceforth only to the Father’s divine realm.510 For this reason too the risen Jesus enjoys the sovereign freedom of appearing as he wishes: in the guise of a gardener or in other forms familiar to his disciples, precisely to awaken their faith.511 (999)
+
+
+**646.** Christ’s Resurrection was not a return to earthly life, as was the case with the raisings from the dead that he had performed before Easter: Jairus’ daughter, the young man of Naim, Lazarus. These actions were miraculous events, but the persons miraculously raised returned by Jesus’ power to ordinary earthly life. At some particular moment they would die again. Christ’s Resurrection is essentially different. In his risen body he passes from the state of death to another life beyond time and space. At Jesus’ Resurrection his body is filled with the power of the Holy Spirit: he shares the divine life in his glorious state, so that St. Paul can say that Christ is “the man of heaven.”512 (934, 549)
+
+
+### The Resurrection as transcendent event
+
+
+**647.** O truly blessed Night, sings the Exsultet of the Easter Vigil, which alone deserved to know the time and the hour when Christ rose from the realm of the dead!513 But no one was an eyewitness to Christ’s Resurrection and no evangelist describes it. No one can say how it came about physically. Still less was its innermost essence, his passing over to another life, perceptible to the senses. Although the Resurrection was an historical event that could be verified by the sign of the empty tomb and by the reality of the apostles’ encounters with the risen Christ, still it remains at the very heart of the mystery of faith as something that transcends and surpasses history. This is why the risen Christ does not reveal himself to the world, but to his disciples, “to those who came up with him from Galilee to Jerusalem, who are now his witnesses to the people.”514 (1000)
+
+
+### II. The Resurrection—A Work of the Holy Trinity
+
+
+**648.** Christ’s Resurrection is an object of faith in that it is a transcendent intervention of God himself in creation and history. In it the three divine persons act together as one, and manifest their own proper characteristics. The Father’s power “raised up” Christ his Son and by doing so perfectly introduced his Son’s humanity, including his body, into the Trinity. Jesus is conclusively revealed as “Son of God in power according to the Spirit of holiness by his Resurrection from the dead.”515 St. Paul insists on the manifestation of God’s power516 through the working of the Spirit who gave life to Jesus’ dead humanity and called it to the glorious state of Lordship. (258, 989, 663, 445, 272)
+
+
+**649.** As for the Son, he effects his own Resurrection by virtue of his divine power. Jesus announces that the Son of man will have to suffer much, die, and then rise.517 Elsewhere he affirms explicitly: “I lay down my life, that I may take it again.... I have power to lay it down, and I have power to take it again.”518 “We believe that Jesus died and rose again.”519
+
+
+**650.** The Fathers contemplate the Resurrection from the perspective of the divine person of Christ who remained united to his soul and body, even when these were separated from each other by death: “By the unity of the divine nature, which remains present in each of the two components of man, these are reunited. For as death is produced by the separation of the human components, so Resurrection is achieved by the union of the two.”520 (626, 1005)
+
+
+### III. The Meaning and Saving Significance of the Resurrection
+
+
+**651.** “If Christ has not been raised, then our preaching is in vain and your faith is in vain.”521 The Resurrection above all constitutes the confirmation of all Christ’s works and teachings. All truths, even those most inaccessible to human reason, find their justification if Christ by his Resurrection has given the definitive proof of his divine authority, which he had promised. (129, 274)
+
+
+**652.** Christ’s Resurrection is the fulfillment of the promises both of the Old Testament and of Jesus himself during his earthly life.522 The phrase “in accordance with the Scriptures”523 indicates that Christ’s Resurrection fulfilled these predictions. (994, 601)
+
+
+**653.** The truth of Jesus’ divinity is confirmed by his Resurrection. He had said: “When you have lifted up the Son of man, then you will know that I am he.”524 The Resurrection of the crucified one shows that he was truly “I Am,” the Son of God and God himself. So St. Paul could declare to the Jews: “What God promised to the fathers, this he has fulfilled to us their children by raising Jesus; as also it is written in the second psalm, ‘You are my Son, today I have begotten you.’”525 Christ’s Resurrection is closely linked to the Incarnation of God’s Son and is its fulfillment in accordance with God’s eternal plan. (445, 461, 422)
+
+
+**654.** The Paschal mystery has two aspects: by his death, Christ liberates us from sin; by his Resurrection, he opens for us the way to a new life. This new life is above all justification that reinstates us in God’s grace, “so that as Christ was raised from the dead by the glory of the Father, we too might walk in newness of life.”526 Justification consists in both victory over the death caused by sin and a new participation in grace.527 It brings about filial adoption so that men become Christ’s brethren, as Jesus himself called his disciples after his Resurrection: “Go and tell my brethren.”528 We are brethren not by nature, but by the gift of grace, because that adoptive filiation gains us a real share in the life of the only Son, which was fully revealed in his Resurrection. (1987, 1996)
+
+
+**655.** Finally, Christ’s Resurrection—and the risen Christ himself—is the principle and source of our future resurrection: “Christ has been raised from the dead, the first fruits of those who have fallen asleep.... For as in Adam all die, so also in Christ shall all be made alive.”529 The risen Christ lives in the hearts of his faithful while they await that fulfillment. In Christ, Christians “have tasted... the powers of the age to come”530 and their lives are swept up by Christ into the heart of divine life, so that they may “live no longer for themselves but for him who for their sake died and was raised.”531 (989, 1002)
+
+
+### IN BRIEF
+
+
+**656.** Faith in the Resurrection has as its object an event which is historically attested to by the disciples, who really encountered the Risen One. At the same time, this event is mysteriously transcendent insofar as it is the entry of Christ’s humanity into the glory of God.
+
+
+**657.** The empty tomb and the linen cloths lying there signify in themselves that by God’s power Christ’s body had escaped the bonds of death and corruption. They prepared the disciples to encounter the Risen Lord.
+
+
+**658.** Christ, “the first-born from the dead” (Col 1:18), is the principle of our own resurrection, even now by the justification of our souls (cf. Rom 6:4), and one day by the new life he will impart to our bodies (cf. Rom 8:11). Notes 476 Eph 4:9-10. 477 Roman Missal, Easter Vigil 18, Exsultet. 478 Acts 3:15; Rom 8:11; 1 Cor 15:20; cf. Heb 13:20. 479 Cf. 1 Pet 3:18-19. 480 Cf. Phil 2:10; Acts 2:24; Rev 1:18; Eph 4:9; Pss 6:6; 88:11-13. 481 Cf. Ps 89:49; 1 Sam 28:19; Ezek 32:17-32; Lk 16:22-26. 482 Roman Catechism I, 6, 3. 483 Cf. Council of Rome (745): DS 587; Benedict XII, Cum dudum (1341): DS. 1011; Clement VI, Super quibusdam (1351): DS 1077; Council of Toledo IV (625): DS 485; Mt 27:52-53. 484 1 Pet 4:6. 485 Jn 5:25; cf. Mt 12:40; Rom 10:7; Eph 4:9. 486 Heb 2:14-15; cf. Acts 3:15. 487 Rev 1:18; Phil 2:10. 488 Ancient Homily for Holy Saturday: PG 43, 440A, 452C: LH, Holy Saturday, OR. 489 Acts 13:32-33. 490 Byzantine Liturgy, Troparion of Easter. 491 1 Cor 15:3-4. 492 Cf. Acts 9:3-18. 493 Lk 24:5-6. 494 Cf. Jn 20:13; Mt 28:11-15. 495 Cf. Lk 24:3, 12, 22-23. 496 Jn 20:2, 6, 8. 497 Cf. Jn 11:44; 20:5-7. 498 Mk 16:1; Lk 24:1; Jn 19:31, 42. 499 Cf. Lk 24:9-10; Mt 28:9-10; Jn 20:11-18. 500 Cf. 1 Cor 15:5; Lk 22:31-32. 501 Lk 24:34, 36. 502 1 Cor 15:4-8; cf. Acts 1:22. 503 Cf. Lk 22:31-32. 504 Lk 24:17; cf. Jn 20:19. 505 Lk 24:11; cf. Mk 16:11, 13. 506 Mk 16:14. 507 Lk 24:38-41. 508 Cf. Jn 20:24-27; Mt 28:17. 509 Cf. Lk 24:30, 39-40, 41-43; Jn 20:20, 27; 21:9, 13-15. 510 Cf. Mt 28:9, 16-17; Lk 24:15, 36; Jn 20:14, 17, 19, 26; 21:4. 511 Cf. Mk 16:12; Jn 20:14-16; 21:4, 7. 512 Cf. 1 Cor 15:35-50. 513 “O vere beata nox, quae sola meruit scire tempus et horam, in qua Christus ab inferis resurrexit!” 514 Acts 13:31; cf. Jn 14:22. 515 Rom 1:3-4; cf. Acts 2:24. 516 Cf. Rom 6:4; 2 Cor 13:4; Phil 3:10; Eph 1:19-22; Heb 7:16. 517 Cf. Mk 8:31; 9:9-31; 10:34. 518 Jn 10:17-18. 519 1 Thess 4:14. 520 St. Gregory of Nyssa, In Christi res. orat. 1: PG 46:617B; cf. also DS 325; 359; 369. 521 1 Cor 15:14. 522 Cf. Mt 28:6; Mk 16:7; Lk 24:6-7, 26-27, 44-48. 523 Cf. 1 Cor 15:3-4; cf. the Nicene Creed. 524 Jn 8:28. 525 Acts 13:32-34; cf. Ps 2:7. 526 Rom 6:4; cf. 4:25. 527 Cf. Eph 2:4-5; 1 Pet 1:3. 528 Mt 28:10; Jn 20:17. 529 1 Cor 15:20-22. 530 Heb 6:5. 531 2 Cor 5:15; cf. Col 3:1-3. “HE ASCENDED INTO HEAVEN AND IS SEATED AT THE RIGHT HAND OF THE
+
+
+### FATHER”
+
+
+**659.** “So then the Lord Jesus, after he had spoken to them, was taken up into heaven, and sat down at the right hand of God.”532 Christ’s body was glorified at the moment of his Resurrection, as proved by the new and supernatural properties it subsequently and permanently enjoys.533 But during the forty days when he eats and drinks familiarly with his disciples and teaches them about the kingdom, his glory remains veiled under the appearance of ordinary humanity.534 Jesus’ final apparition ends with the irreversible entry of his humanity into divine glory, symbolized by the cloud and by heaven, where he is seated from that time forward at God’s right hand.535 Only in a wholly exceptional and unique way would Jesus show himself to Paul “as to one untimely born,” in a last apparition that established him as an apostle.536 (645, 66, 697, 642)
+
+
+**660.** The veiled character of the glory of the Risen One during this time is intimated in his mysterious words to Mary Magdalene: “I have not yet ascended to the Father; but go to my brethren and say to them, I am ascending to my Father and your Father, to my God and your God.”537 This indicates a difference in manifestation between the glory of the risen Christ and that of the Christ exalted to the Father’s right hand, a transition marked by the historical and transcendent event of the Ascension.
+
+
+**661.** This final stage stays closely linked to the first, that is, to his descent from heaven in the Incarnation. Only the one who “came from the Father” can return to the Father: Christ Jesus.538 “No one has ascended into heaven but he who descended from heaven, the Son of man.”539 Left to its own natural powers humanity does not have access to the “Father’s house,” to God’s life and happiness.540 Only Christ can open to man such access that we, his members, might have confidence that we too shall go where he, our Head and our Source, has preceded us.541 (461, 792)
+
+
+**662.** “And I, when I am lifted up from the earth, will draw all men to myself.”542 The lifting up of Jesus on the cross signifies and announces his lifting up by his Ascension into heaven, and indeed begins it. Jesus Christ, the one priest of the new and eternal Covenant, “entered, not into a sanctuary made by human hands... but into heaven itself, now to appear in the presence of God on our behalf.”543 There Christ permanently exercises his priesthood, for he “always lives to make intercession” for “those who draw near to God through him.”544 As “high priest of the good things to come” he is the center and the principal actor of the liturgy that honors the Father in heaven.545 (1545, 1137)
+
+
+**663.** Henceforth Christ is seated at the right hand of the Father: “By ‘the Father’s right hand’ we understand the glory and honor of divinity, where he who exists as Son of God before all ages, indeed as God, of one being with the Father, is seated bodily after he became incarnate and his flesh was glorified.”546 (648)
+
+
+**664.** Being seated at the Father’s right hand signifies the inauguration of the Messiah’s kingdom, the fulfillment of the prophet Daniel’s vision concerning the Son of man: “To him was given dominion and glory and kingdom, that all peoples, nations, and languages should serve him; his dominion is an everlasting dominion, which shall not pass away, and his kingdom one that shall not be destroyed.”547 After this event the apostles became witnesses of the “kingdom [that] will have no end.”548 (541)
+
+
+### IN BRIEF
+
+
+**665.** Christ’s ascension marks the definitive entrance of Jesus’ humanity into God’s heavenly domain, whence he will come again (cf. Acts 1:11); this humanity in the meantime hides him from the eyes of men (cf. Col 3:3).
+
+
+**666.** Jesus Christ, the head of the Church, precedes us into the Father’s glorious kingdom so that we, the members of his Body, may live in the hope of one day being with him for ever.
+
+
+**667.** Jesus Christ, having entered the sanctuary of heaven once and for all, intercedes constantly for us as the mediator who assures us of the permanent outpouring of the Holy Spirit. ARTICLE 7 “FROM THENCE HE WILL COME AGAIN TO JUDGE THE LIVING AND THE DEAD” Christ already reigns through the Church...
+
+
+### I. Names and Images of the Church
+
+
+**751.** The word “Church” (Latin ecclesia, from the Greek ek–kalein, to “call out of”) means a convocation or an assembly. It designates the assemblies of the people, usually for a religious purpose.139 Ekklesia is used frequently in the Greek Old Testament for the assembly of the Chosen People before God, above all for their assembly on Mount Sinai where Israel received the Law and was established by God as his holy people.140 By calling itself “Church,” the first community of Christian believers recognized itself as heir to that assembly. In the Church, God is “calling together” his people from all the ends of the earth. The equivalent Greek term Kyriak, from which the English word Church and the German Kirche are derived, means “what belongs to the Lord.”
+
+
+**752.** In Christian usage, the word “church” designates the liturgical assembly,141 but also the local community142 or the whole universal community of believers.143 These three meanings are inseparable. “The Church” is the People that God gathers in the whole world. She exists in local communities and is made real as a liturgical, above all a Eucharistic, assembly. She draws her life from the word and the Body of Christ and so herself becomes Christ’s Body. (1140, 832, 830)
+
+
+### Symbols of the Church
+
+
+**753.** In Scripture, we find a host of interrelated images and figures through which Revelation speaks of the inexhaustible mystery of the Church. The images taken from the Old Testament are variations on a profound theme: the People of God. In the New Testament, all these images find a new center because Christ has become the head of this people, which henceforth is his Body.144 Around this center are grouped images taken “from the life of the shepherd or from cultivation of the land, from the art of building or from family life and marriage.”145 (781, 789)
+
+
+**754.** “The Church is, accordingly, a sheepfold, the sole and necessary gateway to which is Christ. It is also the flock of which God himself foretold that he would be the shepherd, and whose sheep, even though governed by human shepherds, are unfailingly nourished and led by Christ himself, the Good Shepherd and Prince of Shepherds, who gave his life for his sheep.146 (857)
+
+
+**755.** “The Church is a cultivated field, the tillage of God. On that land the ancient olive tree grows whose holy roots were the prophets and in which the reconciliation of Jews and Gentiles has been brought about and will be brought about again. That land, like a choice vineyard, has been planted by the heavenly cultivator. Yet the true vine is Christ who gives life and fruitfulness to the branches, that is, to us, who through the Church remain in Christ, without whom we can do nothing.147 (795)
+
+
+**756.** “Often, too, the Church is called the building of God. The Lord compared himself to the stone which the builders rejected, but which was made into the corner–stone. On this foundation the Church is built by the apostles and from it the Church receives solidity and unity. This edifice has many names to describe it: the house of God in which his family dwells; the household of God in the Spirit; the dwelling–place of God among men; and, especially, the holy temple. This temple, symbolized in places of worship built out of stone, is praised by the Fathers and, not without reason, is compared in the liturgy to the Holy City, the New Jerusalem. As living stones we here on earth are built into it. It is this holy city that is seen by John as it comes down out of heaven from God when the world is made anew, prepared like a bride adorned for her husband.148 (797, 857, 1045)
+
+
+**757.** “The Church, further, which is called ‘that Jerusalem which is above’ and ‘our mother,’ is described as the spotless spouse of the spotless lamb. It is she whom Christ ‘loved and for whom he delivered himself up that he might sanctify her.’ It is she whom he unites to himself by an unbreakable alliance, and whom he constantly ‘nourishes and cherishes.’”149 (507, 796, 1616)
+
+
+### II. The Church’s Origin, Foundation, and Mission
+
+
+**758.** We begin our investigation of the Church’s mystery by meditating on her origin in the Holy Trinity’s plan and her progressive realization in history. (257)
+
+
+### A plan born in the Father’s heart
+
+
+**759.** “The eternal Father, in accordance with the utterly gratuitous and mysterious design of his wisdom and goodness, created the whole universe and chose to raise up men to share in his own divine life,”150 to which he calls all men in his Son. “The Father... determined to call together in a holy Church those who should believe in Christ.”151 This “family of God” is gradually formed and takes shape during the stages of human history, in keeping with the Father’s plan. In fact, “already present in figure at the beginning of the world, this Church was prepared in marvellous fashion in the history of the people of Israel and the old Alliance. Established in this last age of the world and made manifest in the outpouring of the Spirit, it will be brought to glorious completion at the end of time.”152 (293, 1655)
+
+
+### The Church—foreshadowed from the world’s beginning
+
+
+**760.** Christians of the first centuries said, “The world was created for the sake of the Church.”153 God created the world for the sake of communion with his divine life, a communion brought about by the “convocation” of men in Christ, and this “convocation” is the Church. The Church is the goal of all things,154 and God permitted such painful upheavals as the angels’ fall and man’s sin only as occasions and means for displaying all the power of his arm and the whole measure of the love he wanted to give the world: (294, 309) Just as God’s will is creation and is called “the world,” so his intention is the salvation of men, and it is called “the Church.”155
+
+
+### The Church—prepared for in the Old Covenant
+
+
+**761.** The gathering together of the People of God began at the moment when sin destroyed the communion of men with God, and that of men among themselves. The gathering together of the Church is, as it were, God’s reaction to the chaos provoked by sin. This reunification is achieved secretly in the heart of all peoples: “In every nation anyone who fears him and does what is right is acceptable” to God.156 (55)
+
+
+**762.** The remote preparation for this gathering together of the People of God begins when he calls Abraham and promises that he will become the father of a great people.157 Its immediate preparation begins with Israel’s election as the People of God. By this election, Israel is to be the sign of the future gathering of all nations.158 But the prophets accuse Israel of breaking the covenant and behaving like a prostitute. They announce a new and eternal covenant. “Christ instituted this New Covenant.”159 (122, 522, 60, 64) Notes 135 LG 1; cf. Mk 16:15. 136 Roman Catechism I, 10, 1. 137 St. Hippolytus, Trad. Ap. 35: SCh 11, 118. 138 Roman Catechism I, 10, 22. 139 Cf. Acts 19:39. 140 Cf. Ex 19. 141 Cf. 1 Cor 11:18; 14:19, 28, 34, 35. 142 Cf. 1 Cor 1:2; 16:1. 143 Cf. 1 Cor 15:9; Gal 1:13; Phil 3:6. 144 Cf. Eph 1:22; Col 1:18; LG 9. 145 LG 6. 146 LG 6; cf. Jn 10:1–10; Isa 40:11; Ezek 34:11–31; Jn 10:11; 1 Pet 5:4; Jn 10:11–16. 147 LG 6; cf. 1 Cor 3:9; Rom 11:13–26; Mt 21:33–43 and parallels; Isa 5:1–7; Jn 15:1–5. 148 LG 6; cf. 1 Cor 3:9; Mt 21:42 and parallels; Acts 4:11; 1 Pet 2:7; Ps 118:22; 1 Cor 3:11; 1 Tim 3:15; Eph 2:19–22; Rev 21:3; 1 Pet 2:5; Rev 21:1–2. 149 LG 6; cf. Gal 4:26; Rev 12:17; 19:7; 21:2, 9; 22:17; Eph 5:25–26, 29. 150 LG 2. 151 LG 2. 152 LG 2. 153 Pastor Hermæ, Vision 2, 4, 1: PG 2, 899; cf. Aristides, Apol. 16, 6; St. Justin, Apol. 2, 7: PG 6, 456; Tertullian, Apol. 31, 3; 32, 1: PL 1, 508–509. 154 Cf. St. Epiphanius, Panarion 1, 1, 5: PG 41, 181C. 155 Clement of Alex., Pæd. 1, 6, 27: PG 8, 281. 156 Acts 10:35; cf. LG 9; 13; 16. 157 Cf. Gen 12:2; 15:5–6. 158 Cf. Ex 19:5–6; Deut 7:6; Isa 2:2–5; Mic 4:1–4. 159 LG 9; cf. Hos 1; Isa 1:2–4; Jer 2; 31:31–34; Isa 55:3.
+
+
+### The Church—instituted by Christ Jesus
+
+
+**763.** It was the Son’s task to accomplish the Father’s plan of salvation in the fullness of time. Its accomplishment was the reason for his being sent.160 “The Lord Jesus inaugurated his Church by preaching the Good News, that is, the coming of the Reign of God, promised over the ages in the scriptures.”161 To fulfill the Father’s will, Christ ushered in the Kingdom of heaven on earth. The Church “is the Reign of Christ already present in mystery.”162 (541)
+
+
+**764.** “This Kingdom shines out before men in the word, in the works and in the presence of Christ.”163 To welcome Jesus’ word is to welcome “the Kingdom itself.”164 The seed and beginning of the Kingdom are the “little flock” of those whom Jesus came to gather around him, the flock whose shepherd he is.165 They form Jesus’ true family.166 To those whom he thus gathered around him, he taught a new “way of acting” and a prayer of their own.167 (543, 1691, 2558)
+
+
+**765.** The Lord Jesus endowed his community with a structure that will remain until the Kingdom is fully achieved. Before all else there is the choice of the Twelve with Peter as their head.168 Representing the twelve tribes of Israel, they are the foundation stones of the new Jerusalem.169 The Twelve and the other disciples share in Christ’s mission and his power, but also in his lot.170 By all his actions, Christ prepares and builds his Church. (610, 551)
+
+
+**766.** The Church is born primarily of Christ’s total self–giving for our salvation, anticipated in the institution of the Eucharist and fulfilled on the cross. “The origin and growth of the Church are symbolized by the blood and water which flowed from the open side of the crucified Jesus.”171 “For it was from the side of Christ as he slept the sleep of death upon the cross that there came forth the ‘wondrous sacrament of the whole Church.’”172 As Eve was formed from the sleeping Adam’s side, so the Church was born from the pierced heart of Christ hanging dead on the cross.173 (813, 860, 1340, 617, 478)
+
+
+### The Church—revealed by the Holy Spirit
+
+
+**767.** “When the work which the Father gave the Son to do on earth was accomplished, the Holy Spirit was sent on the day of Pentecost in order that he might continually sanctify the Church.”174 Then “the Church was openly displayed to the crowds and the spread of the Gospel among the nations, through preaching, was begun.”175 As the “convocation” of all men for salvation, the Church in her very nature is missionary, sent by Christ to all the nations to make disciples of them.176 (731, 849)
+
+
+**768.** So that she can fulfill her mission, the Holy Spirit “bestows upon [the Church] varied hierarchic and charismatic gifts, and in this way directs her.”177 “Henceforward the Church, endowed with the gifts of her founder and faithfully observing his precepts of charity, humility and self–denial, receives the mission of proclaiming and establishing among all peoples the Kingdom of Christ and of God, and she is on earth the seed and the beginning of that kingdom.”178 (541)
+
+
+### The Church—perfected in glory
+
+
+**769.** “The Church... will receive its perfection only in the glory of heaven,”179 at the time of Christ’s glorious return. Until that day, “the Church progresses on her pilgrimage amidst this world’s persecutions and God’s consolations.”180 Here below she knows that she is in exile far from the Lord, and longs for the full coming of the Kingdom, when she will “be united in glory with her king.”181 The Church, and through her the world, will not be perfected in glory without great trials. Only then will “all the just from the time of Adam, ‘from Abel, the just one, to the last of the elect,’... be gathered together in the universal Church in the Father’s presence.”182 (671, 2818, 675, 1045) Notes 160 Cf. LG 3; AG 3. 161 LG 5. 162 LG 3. 163 LG 5. 164 LG 5. 165 Lk 12:32; cf. Mt 10:16; 26:31; Jn 10:1–21. 166 Cf. Mt 12:49. 167 Cf. Mt 5–6. 168 Cf. Mk 3:14–15. 169 Cf. Mt 19:28; Lk 22:30; Rev 21:12–14. 170 Cf. Mk 6:7; Lk 10:1–2; Mt 10:25; Jn 15:20. 171 LG 3; cf. Jn 19:34. 172 SC 5. 173 Cf. St. Ambrose, In Luc. 2, 85–89: PL 15, 1666–1668. 174 LG 4; cf. Jn 17:4. 175 AG 4. 176 Cf. Mt 28:19–20; AG 2; 5–6. 177 LG 4. 178 LG 5. 179 LG 48. 180 St. Augustine, De civ. Dei, 18, 51: PL 41, 614; cf. LG 8. 181 LG 5; cf. 6; 2 Cor 5:6.
+
+
+### III. The Mystery of the Church
+
+
+**770.** The Church is in history, but at the same time she transcends it. It is only “with the eyes of faith”183 that one can see her in her visible reality and at the same time in her spiritual reality as bearer of divine life. (812)
+
+
+### The Church—both visible and spiritual
+
+
+**771.** “The one mediator, Christ, established and ever sustains here on earth his holy Church, the community of faith, hope, and charity, as a visible organization through which he communicates truth and grace to all men.”184 The Church is at the same time: (827, 1880, 954) —a “society structured with hierarchical organs and the mystical body of Christ; —the visible society and the spiritual community; —the earthly Church and the Church endowed with heavenly riches.”185 These dimensions together constitute “one complex reality which comes together from a human and a divine element”:186 The Church is essentially both human and divine, visible but endowed with invisible realities, zealous in action and dedicated to contemplation, present in the world, but as a pilgrim, so constituted that in her the human is directed toward and subordinated to the divine, the visible to the invisible, action to contemplation, and this present world to that city yet to come, the object of our quest.187 O humility! O sublimity! Both tabernacle of cedar and sanctuary of God; earthly dwelling and celestial palace; house of clay and royal hall; body of death and temple of light; and at last both object of scorn to the proud and bride of Christ! She is black but beautiful, O daughters of Jerusalem, for even if the labor and pain of her long exile may have discolored her, yet heaven’s beauty has adorned her.188
+
+
+### The Church—mystery of man’s union with God
+
+
+**772.** It is in the Church that Christ fulfills and reveals his own mystery as the purpose of God’s plan: “to unite all things in him.”189 St. Paul calls the nuptial union of Christ and the Church “a great mystery.” Because she is united to Christ as to her bridegroom, she becomes a mystery in her turn.190 Contemplating this mystery in her, Paul exclaims: “Christ in you, the hope of glory.”191 (518, 796)
+
+
+**773.** In the Church this communion of men with God, in the “love [that] never ends,” is the purpose which governs everything in her that is a sacramental means, tied to this passing world.192 “[The Church’s] structure is totally ordered to the holiness of Christ’s members. And holiness is measured according to the ‘great mystery’ in which the Bride responds with the gift of love to the gift of the Bridegroom.”193 Mary goes before us all in the holiness that is the Church’s mystery as “the bride without spot or wrinkle.”194 This is why the “Marian” dimension of the Church precedes the “Petrine.”195 (671, 972)
+
+
+### The universal Sacrament of Salvation
+
+
+**774.** The Greek word mysterion was translated into Latin by two terms: mysterium and sacramentum. In later usage the term sacramentum emphasizes the visible sign of the hidden reality of salvation which was indicated by the term mysterium. In this sense, Christ himself is the mystery of salvation: “For there is no other mystery of God, except Christ.”196 The saving work of his holy and sanctifying humanity is the sacrament of salvation, which is revealed and active in the Church’s sacraments (which the Eastern Churches also call “the holy mysteries”). The seven sacraments are the signs and instruments by which the Holy Spirit spreads the grace of Christ the head throughout the Church which is his Body. The Church, then, both contains and communicates the invisible grace she signifies. It is in this analogical sense, that the Church is called a “sacrament.” (1075, 515, 2014, 1116)
+
+
+**775.** “The Church, in Christ, is like a sacrament—a sign and instrument, that is, of communion with God and of unity among all men.”197 The Church’s first purpose is to be the sacrament of (360) the inner union of men with God. Because men’s communion with one another is rooted in that union with God, the Church is also the sacrament of the unity of the human race. In her, this unity is already begun, since she gathers men “from every nation, from all tribes and peoples and tongues”;198 at the same time, the Church is the “sign and instrument” of the full realization of the unity yet to come.
+
+
+**776.** As sacrament, the Church is Christ’s instrument. “She is taken up by him also as the instrument for the salvation of all,” “the universal sacrament of salvation,” by which Christ is “at once manifesting and actualizing the mystery of God’s love for men.”199 The Church “is the visible plan of God’s love for humanity,” because God desires “that the whole human race may become one People of God, form one Body of Christ, and be built up into one temple of the Holy Spirit.”200 (1088)
+
+
+### IN BRIEF
+
+
+**777.** The word “Church” means “convocation.” It designates the assembly of those whom God’s Word “convokes,” i.e., gathers together to form the People of God, and who themselves, nourished with the Body of Christ, become the Body of Christ.
+
+
+**778.** The Church is both the means and the goal of God’s plan: prefigured in creation, prepared for in the Old Covenant, founded by the words and actions of Jesus Christ, fulfilled by his redeeming cross and his Resurrection, the Church has been manifested as the mystery of salvation by the outpouring of the Holy Spirit. She will be perfected in the glory of heaven as the assembly of all the redeemed of the earth (cf. Rev 14:4).
+
+
+**779.** The Church is both visible and spiritual, a hierarchical society and the Mystical Body of Christ. She is one, yet formed of two components, human and divine. That is her mystery, which only faith can accept.
+
+
+**780.** The Church in this world is the sacrament of salvation, the sign and the instrument of the communion of God and men. Notes 183 Roman Catechism I, 10, 20. 184 LG 8 § 1. 185 LG 8. 186 LG 8. 187 SC 2; cf. Heb 13:14. 188 St. Bernard of Clairvaux, In Cant. Sermo 27:14: PL 183:920D. 189 Eph 1:10. 190 Eph 5:32; 3:9–11; 5:25–27. 191 Col 1:27. 192 1 Cor 13:8; cf. LG 48. 193 John Paul II, MD 27. 194 Eph 5:27. 195 Cf. John Paul II, MD 27. 196 St. Augustine, Ep. 187, 11, 34: PL 33, 846. 197 LG 1. 198 Rev 7:9. 199 LG 9 § 2, 48 § 2; GS 45 § 1. 200 Paul VI, June 22, 1973; AG 7 § 2; cf. LG 17.
+
+
+### The Church is communion with Jesus
+
+
+**787.** From the beginning, Jesus associated his disciples with his own life, revealed the mystery of the Kingdom to them, and gave them a share in his mission, joy, and sufferings.215 Jesus spoke of a still more intimate communion between him and those who would follow him: “Abide in me, and I in you.... I am the vine, you are the branches.”216 And he proclaimed a mysterious and real communion between his own body and ours: “He who eats my flesh and drinks my blood abides in me, and I in him.”217 (755)
+
+
+**788.** When his visible presence was taken from them, Jesus did not leave his disciples orphans. He promised to remain with them until the end of time; he sent them his Spirit.218 As a result communion with Jesus has become, in a way, more intense: “By communicating his Spirit, Christ mystically constitutes as his body those brothers of his who are called together from every nation.”219 (690)
+
+
+**789.** The comparison of the Church with the body casts light on the intimate bond between Christ and his Church. Not only is she gathered around him; she is united in him, in his body. Three aspects of the Church as the Body of Christ are to be more specifically noted: the unity of all her members with each other as a result of their union with Christ; Christ as head of the Body; and the Church as bride of Christ. (521)
+
+
+### “One Body”
+
+
+**790.** Believers who respond to God’s word and become members of Christ’s Body, become intimately united with him: “In that body the life of Christ is communicated to those who believe, and who, through the sacraments, are united in a hidden and real way to Christ in his Passion and glorification.”220 This is especially true of Baptism, which unites us to Christ’s death and Resurrection, and the Eucharist, by which “really sharing in the body of the Lord,... we are taken up into communion with him and with one another.”221 (947, 1227, 1329)
+
+
+**791.** The body’s unity does not do away with the diversity of its members: “In the building up of Christ’s Body there is engaged a diversity of members and functions. There is only one Spirit who, according to his own richness and the needs of the ministries, gives his different gifts for the welfare of the Church.”222 The unity of the Mystical Body produces and stimulates charity among the faithful: “From this it follows that if one member suffers anything, all the members suffer with him, and if one member is honored, all the members together rejoice.”223 Finally, the unity of the Mystical Body triumphs over all human divisions: “For as many of you as were baptized into Christ have put on Christ. There is neither Jew nor Greek, there is neither slave nor free, there is neither male nor female; for you are all one in Christ Jesus.”224 (814, 1937)
+
+
+### “Christ is the Head of this Body”
+
+
+**792.** Christ “is the head of the body, the Church.”225 He is the principle of creation and redemption. Raised to the Father’s glory, “in everything he [is] preeminent,”226 especially in the Church, through whom he extends his reign over all things. (669, 1119)
+
+
+**793.** Christ unites us with his Passover: all his members must strive to resemble him, “until Christ be formed” in them.227 “For this reason we... are taken up into the mysteries of his life,... associated with his sufferings as the body with its head, suffering with him, that with him we may be glorified.”228 (661, 519)
+
+
+**794.** Christ provides for our growth: to make us grow toward him, our head,229 he provides in his Body, the Church, the gifts and assistance by which we help one another along the way of salvation. (872)
+
+
+**795.** Christ and his Church thus together make up the “whole Christ” (Christus totus). The Church is one with Christ. The saints are acutely aware of this unity: (695, 1474) Let us rejoice then and give thanks that we have become not only Christians, but Christ himself. Do you understand and grasp, brethren, God’s grace toward us? Marvel and rejoice: we have become Christ. For if he is the head, we are the members; he and we together are the whole man.... The fullness of Christ then is the head and the members. But what does “head and members” mean? Christ and the Church.230 Our redeemer has shown himself to be one person with the holy Church whom he has taken to himself.231 Head and members form as it were one and the same mystical person.232 A reply of St. Joan of Arc to her judges sums up the faith of the holy doctors and the good sense of the believer: “About Jesus Christ and the Church, I simply know they’re just one thing, and we shouldn’t complicate the matter.”233
+
+
+### The Church is the Bride of Christ
+
+
+**796.** The unity of Christ and the Church, head and members of one Body, also implies the distinction of the two within a personal relationship. This aspect is often expressed by the image of bridegroom and bride. The theme of Christ as Bridegroom of the Church was prepared for by the prophets and announced by John the Baptist.234 The Lord referred to himself as the “bridegroom.”235 The Apostle speaks of the whole Church and of each of the faithful, members of his Body, as a bride “betrothed” to Christ the Lord so as to become but one spirit with him.236 The Church is the spotless bride of the spotless Lamb.237 “Christ loved the Church and gave himself up for her, that he might sanctify her.”238 He has joined her with himself in an everlasting covenant and never stops caring for her as for his own body:239 (757, 219, 772, 1602, 1616) This is the whole Christ, head and body, one formed from many... whether the head or members speak, it is Christ who speaks. He speaks in his role as the head (ex persona capitis) and in his role as body (ex persona corporis). What does this mean? “The two will become one flesh. This is a great mystery, and I am applying it to Christ and the Church.”240 And the Lord himself says in the Gospel: “So they are no longer two, but one flesh.”241 They are, in fact, two different persons, yet they are one in the conjugal union,... as head, he calls himself the bridegroom, as body, he calls himself “bride.”242
+
+
+### Paragraph 3. The Church Is One, Holy, Catholic, and Apostolic
+
+
+**811.** “This is the sole Church of Christ, which in the Creed we profess to be one, holy, catholic and apostolic.”256 These four characteristics, inseparably linked with each other,257 indicate essential features of the Church and her mission. The Church does not possess them of herself; it is Christ who, through the Holy Spirit, makes his Church one, holy, catholic, and apostolic, and it is he who calls her to realize each of these qualities. (750, 832, 865)
+
+
+**812.** Only faith can recognize that the Church possesses these properties from her divine source. But their historical manifestations are signs that also speak clearly to human reason. As the First Vatican Council noted, the “Church herself, with her marvellous propagation, eminent holiness, and inexhaustible fruitfulness in everything good, her catholic unity and invincible stability, is a great and perpetual motive of credibility and an irrefutable witness of her divine mission.”258 (156, 770)
+
+
+### “The sacred mystery of the Church’s unity” (UR 2)
+
+
+**813.** The Church is one because of her source: “the highest exemplar and source of this mystery is the unity, in the Trinity of Persons, of one God, the Father and the Son in the Holy Spirit.”259 The Church is one because of her founder: for “the Word made flesh, the prince of peace, reconciled all men to God by the cross,... restoring the unity of all in one people and one body.”260 The Church is one because of her “soul”: “It is the Holy Spirit, dwelling in those who believe and pervading and ruling over the entire Church, who brings about that wonderful communion of the faithful and joins them together so intimately in Christ that he is the principle of the Church’s unity.”261 Unity is of the essence of the Church: (172, 766, 797) What an astonishing mystery! There is one Father of the universe, one Logos of the universe, and also one Holy Spirit, everywhere one and the same; there is also one virgin become mother, and I should like to call her “Church.”262
+
+
+**814.** From the beginning, this one Church has been marked by a great diversity which comes from both the variety of God’s gifts and the diversity of those who receive them. Within the unity of the People of God, a multiplicity of peoples and cultures is gathered together. Among the Church’s members, there are different gifts, offices, conditions, and ways of life. “Holding a rightful place in the communion of the Church there are also particular Churches that retain their own traditions.”263 The great richness of such diversity is not opposed to the Church’s unity. Yet sin and the burden of its consequences constantly threaten the gift of unity. And so the Apostle has to exhort Christians to “maintain the unity of the Spirit in the bond of peace.”264 (791, 873, 1202, 832)
+
+
+**815.** What are these bonds of unity? Above all, charity “binds everything together in perfect harmony.”265 But the unity of the pilgrim Church is also assured by visible bonds of communion: (1827, 830, 837, 173) —profession of one faith received from the Apostles —common celebration of divine worship, especially of the sacraments; —apostolic succession through the sacrament of Holy Orders, maintaining the fraternal concord of God’s family.266
+
+
+**816.** “The sole Church of Christ [is that] which our Savior, after his Resurrection, entrusted to Peter’s pastoral care, commissioning him and the other apostles to extend and rule it.... This Church, constituted and organized as a society in the present world, subsists in (subsistit in) the Catholic Church, which is governed by the successor of Peter and by the bishops in communion with him.”267 (830) The Second Vatican Council’s Decree on Ecumenism explains: “For it is through Christ’s Catholic Church alone, which is the universal help toward salvation, that the fullness of the means of salvation can be obtained. It was to the apostolic college alone, of which Peter is the head, that we believe that our Lord entrusted all the blessings of the New Covenant, in order to establish on earth the one Body of Christ into which all those should be fully incorporated who belong in any way to the People of God.”268
+
+
+### II. The Church Is Holy
+
+
+**823.** “The Church... is held, as a matter of faith, to be unfailingly holy. This is because Christ, the Son of God, who with the Father and the Spirit is hailed as ‘alone holy,’ loved the Church as his Bride, giving himself up for her so as to sanctify her; he joined her to himself as his body and endowed her with the gift of the Holy Spirit for the glory of God.”289 The Church, then, is “the holy People of God,”290 and her members are called “saints.”291 (459, 796, 946)
+
+
+**824.** United with Christ, the Church is sanctified by him; through him and with him she becomes sanctifying. “All the activities of the Church are directed, as toward their end, to the sanctification of men in Christ and the glorification of God.”292 It is in the Church that “the fullness of the means of salvation”293 has been deposited. It is in her that “by the grace of God we acquire holiness.”294 (816)
+
+
+**825.** “The Church on earth is endowed already with a sanctity that is real though imperfect.”295 In her members perfect holiness is something yet to be acquired: “Strengthened by so many and such great means of salvation, all the faithful, whatever their condition or state—though each in his own way—are called by the Lord to that perfection of sanctity by which the Father himself is perfect.”296 (670, 2013)
+
+
+**826.** Charity is the soul of the holiness to which all are called: it “governs, shapes, and perfects all the means of sanctification.”297 (1827, 2658, 864) If the Church was a body composed of different members, it couldn’t lack the noblest of all; it must have a Heart, and a Heart BURNING WITH LOVE. And I realized that this love alone was the true motive force which enabled the other members of the Church to act; if it ceased to function, the Apostles would forget to preach the gospel, the Martyrs would refuse to shed their blood. LOVE, IN FACT, IS THE VOCATION WHICH INCLUDES ALL OTHERS; IT’S A UNIVERSE OF ITS OWN, COMPRISING ALL TIME AND SPACE—IT’S
+
+
+### ETERNAL!298
+
+
+**827.** “Christ, ‘holy, innocent, and undefiled,’ knew nothing of sin, but came only to expiate the sins of the people. The Church, however, clasping sinners to her bosom, at once holy and always in need of purification, follows constantly the path of penance and renewal.”299 All members of the Church, including her ministers, must acknowledge that they are sinners.300 In everyone, the weeds of sin will still be mixed with the good wheat of the Gospel until the end of time.301 Hence the Church gathers sinners already caught up in Christ’s salvation but still on the way to holiness: (1425-1429, 821) The Church is therefore holy, though having sinners in her midst, because she herself has no other life but the life of grace. If they live her life, her members are sanctified; if they move away from her life, they fall into sins and disorders that prevent the radiation of her sanctity. This is why she suffers and does penance for those offenses, of which she has the power to free her children through the blood of Christ and the gift of the Holy Spirit.302
+
+
+**828.** By canonizing some of the faithful, i.e., by solemnly proclaiming that they practiced heroic virtue and lived in fidelity to God’s grace, the Church recognizes the power of the Spirit of holiness within her and sustains the hope of believers by proposing the saints to them as models and intercessors.303 “The saints have always been the source and origin of renewal in the most difficult moments in the Church’s history.”304 Indeed, “holiness is the hidden source and infallible measure of her apostolic activity and missionary zeal.”305 (1173, 2045)
+
+
+**829.** “But while in the most Blessed Virgin the Church has already reached that perfection whereby she exists without spot or wrinkle, the faithful still strive to conquer sin and increase in holiness. And so they turn their eyes to Mary”:306 in her, the Church is already the “all-holy.” (1172, 972)
+
+
+### What does “catholic” mean?
+
+
+**830.** The word “catholic” means “universal,” in the sense of “according to the totality” or “in keeping with the whole.” The Church is catholic in a double sense: (795, 815-816) First, the Church is catholic because Christ is present in her. “Where there is Christ Jesus, there is the Catholic Church.”307 In her subsists the fullness of Christ’s body united with its head; this implies that she receives from him “the fullness of the means of salvation”308 which he has willed: correct and complete confession of faith, full sacramental life, and ordained ministry in apostolic succession. The Church was, in this fundamental sense, catholic on the day of Pentecost309 and will always be so until the day of the Parousia.
+
+
+**831.** Secondly, the Church is catholic because she has been sent out by Christ on a mission to the whole of the human race:310 (849, 360, 518) All men are called to belong to the new People of God. This People, therefore, while remaining one and only one, is to be spread throughout the whole world and to all ages in order that the design of God’s will may be fulfilled: he made human nature one in the beginning and has decreed that all his children who were scattered should be finally gathered together as one.... The character of universality which adorns the People of God is a gift from the Lord himself whereby the Catholic Church ceaselessly and efficaciously seeks for the return of all humanity and all its goods, under Christ the Head in the unity of his Spirit.311
+
+
+### Each particular Church is “catholic”
+
+
+**832.** “The Church of Christ is really present in all legitimately organized local groups of the faithful, which, in so far as they are united to their pastors, are also quite appropriately called Churches in the New Testament.... In them the faithful are gathered together through the preaching of the Gospel of Christ, and the mystery of the Lord’s Supper is celebrated.... In these communities, though they may often be small and poor, or existing in the diaspora, Christ is present, through whose power and influence the One, Holy, Catholic, and Apostolic Church is constituted.”312 (814, 811)
+
+
+**833.** The phrase “particular church,” which is first of all the diocese (or eparchy), refers to a community of the Christian faithful in communion of faith and sacraments with their bishop ordained in apostolic succession.313 These particular Churches “are constituted after the model of the universal Church; it is in these and formed out of them that the one and unique Catholic Church exists.”314 (886)
+
+
+**834.** Particular Churches are fully catholic through their communion with one of them, the Church of Rome “which presides in charity.”315 “For with this church, by reason of its pre-eminence, the whole Church, that is the faithful everywhere, must necessarily be in accord.”316 Indeed, “from the incarnate Word’s descent to us, all Christian churches everywhere have held and hold the great Church that is here [at Rome] to be their only basis and foundation since, according to the Savior’s promise, the gates of hell have never prevailed against her.”317 (882, 1369)
+
+
+**835.** “Let us be very careful not to conceive of the universal Church as the simple sum, or... the more or less anomalous federation of essentially different particular churches. In the mind of the Lord the Church is universal by vocation and mission, but when she puts down her roots in a variety of cultural, social, and human terrains, she takes on different external expressions and appearances in each part of the world.”318 The rich variety of ecclesiastical disciplines, liturgical rites, and theological and spiritual heritages proper to the local churches “unified in a common effort, shows all the more resplendently the catholicity of the undivided Church.”319 (1202) Who belongs to the Catholic Church?
+
+
+### IV. The Church Is Apostolic
+
+
+**857.** The Church is apostolic because she is founded on the apostles, in three ways: (75, 171, 880, 1575) —she was and remains built on “the foundation of the Apostles,”362 the witnesses chosen and sent on mission by Christ himself;363 —with the help of the Spirit dwelling in her, the Church keeps and hands on the teaching,364 the “good deposit,” the salutary words she has heard from the apostles;365 —she continues to be taught, sanctified, and guided by the apostles until Christ’s return, through their successors in pastoral office: the college of bishops, “assisted by priests, in union with the successor of Peter, the Church’s supreme pastor”:366 You are the eternal Shepherd who never leaves his flock untended. Through the apostles you watch over us and protect us always. You made them shepherds of the flock to share in the work of your Son.... 367
+
+
+### The Apostles’ mission
+
+
+**858.** Jesus is the Father’s Emissary. From the beginning of his ministry, he “called to him those whom he desired;.... And he appointed twelve, whom also he named apostles, to be with him, and to be sent out to preach.”368 From then on, they would also be his “emissaries” (Greek apostoloi). In them, Christ continues his own mission: “As the Father has sent me, even so I send you.”369 The apostles’ ministry is the continuation of his mission; Jesus said to the Twelve: “he who receives you receives me.”370 (551, 425, 1086)
+
+
+**859.** Jesus unites them to the mission he received from the Father. As “the Son can do nothing of his own accord,” but receives everything from the Father who sent him, so those whom Jesus sends can do nothing apart from him,371 from whom they received both the mandate for their mission and the power to carry it out. Christ’s apostles knew that they were called by God as “ministers of a new covenant,” “servants of God,” “ambassadors for Christ,” “servants of Christ and stewards of the mysteries of God.”372 (876)
+
+
+**860.** In the office of the apostles there is one aspect that cannot be transmitted: to be the chosen witnesses of the Lord’s Resurrection and so the foundation stones of the Church. But their office also has a permanent aspect. Christ promised to remain with them always. The divine mission entrusted by Jesus to them “will continue to the end of time, since the Gospel they handed on is the lasting source of all life for the Church. Therefore,... the apostles took care to appoint successors.”373 (642, 765, 1087)
+
+
+### The bishops—successors of the apostles
+
+
+**861.** “In order that the mission entrusted to them might be continued after their death, [the apostles] consigned, by will and testament, as it were, to their immediate collaborators the duty of completing and consolidating the work they had begun, urging them to tend to the whole flock, in which the Holy Spirit had appointed them to shepherd the Church of God. They accordingly designated such men and then made the ruling that likewise on their death other proven men should take over their ministry.”374 (77, 1087)
+
+
+**862.** “Just as the office which the Lord confided to Peter alone, as first of the apostles, destined to be transmitted to his successors, is a permanent one, so also endures the office, which the apostles received, of shepherding the Church, a charge destined to be exercised without interruption by the sacred order of bishops.”375 Hence the Church teaches that “the bishops have by divine institution taken the place of the apostles as pastors of the Church, in such wise that whoever listens to them is listening to Christ and whoever despises them despises Christ and him who sent Christ.”376 (880, 1556)
+
+
+### The apostolate
+
+
+**863.** The whole Church is apostolic, in that she remains, through the successors of St. Peter and the other apostles, in communion of faith and life with her origin: and in that she is “sent out” into the whole world. All members of the Church share in this mission, though in various ways. “The Christian vocation is, of its nature, a vocation to the apostolate as well.” Indeed, we call an apostolate “every activity of the Mystical Body” that aims “to spread the Kingdom of Christ over all the earth.”377 (900, 2472)
+
+
+**864.** “Christ, sent by the Father, is the source of the Church’s whole apostolate”; thus the fruitfulness of apostolate for ordained ministers as well as for lay people clearly depends on their vital union with Christ.378 In keeping with their vocations, the demands of the times and the various gifts of the Holy Spirit, the apostolate assumes the most varied forms. But charity, drawn from the Eucharist above all, is always “as it were, the soul of the whole apostolate.”379 (828, 824, 1324)
+
+
+**865.** The Church is ultimately one, holy, catholic, and apostolic in her deepest and ultimate identity, because it is in her that “the Kingdom of heaven,” the “Reign of God,”380 already exists and will be fulfilled at the end of time. The kingdom has come in the person of Christ and grows mysteriously in the hearts of those incorporated into him, until its full eschatological manifestation. Then all those he has redeemed and made “holy and blameless before him in love,”381 will be gathered together as the one People of God, the “Bride of the Lamb,”382 “the holy city Jerusalem coming down out of heaven from God, having the glory of God.”383 For “the wall of the city had twelve foundations, and on them the twelve names of the twelve apostles of the Lamb.”384 (811, 541)
+
+
+### The episcopal college and its head, the Pope
+
+
+**880.** When Christ instituted the Twelve, “he constituted [them] in the form of a college or permanent assembly, at the head of which he placed Peter, chosen from among them.”398 Just as “by the Lord’s institution, St. Peter and the rest of the apostles constitute a single apostolic college, so in like fashion the Roman Pontiff, Peter’s successor, and the bishops, the successors of the apostles, are related with and united to one another.”399 (552, 862)
+
+
+**881.** The Lord made Simon alone, whom he named Peter, the “rock” of his Church. He gave him the keys of his Church and instituted him shepherd of the whole flock.400 “The office of binding and loosing which was given to Peter was also assigned to the college of apostles united to its head.”401 This pastoral office of Peter and the other apostles belongs to the Church’s very foundation and is continued by the bishops under the primacy of the Pope. (553, 642)
+
+
+**882.** The Pope, Bishop of Rome and Peter’s successor, “is the perpetual and visible source and foundation of the unity both of the bishops and of the whole company of the faithful.”402 “For the Roman Pontiff, by reason of his office as Vicar of Christ, and as pastor of the entire Church has full, supreme, and universal power over the whole Church, a power which he can always exercise unhindered.”403 (834, 1369, 837)
+
+
+**883.** “The college or body of bishops has no authority unless united with the Roman Pontiff, Peter’s successor, as its head.” As such, this college has “supreme and full authority over the universal Church; but this power cannot be exercised without the agreement of the Roman Pontiff.”404
+
+
+**884.** “The college of bishops exercises power over the universal Church in a solemn manner in an ecumenical council.”405 But “there never is an ecumenical council which is not confirmed or at least recognized as such by Peter’s successor.”406
+
+
+**885.** “This college, in so far as it is composed of many members, is the expression of the variety and universality of the People of God; and of the unity of the flock of Christ, in so far as it is assembled under one head.”407
+
+
+**886.** “The individual bishops are the visible source and foundation of unity in their own particular Churches.”408 As such, they “exercise their pastoral office over the portion of the People of God assigned to them,”409 assisted by priests and deacons. But, as a member of the episcopal college, each bishop shares in the concern for all the Churches.410 The bishops exercise this care first “by ruling well their own Churches as portions of the universal Church,” and so contributing “to the welfare of the whole Mystical Body, which, from another point of view, is a corporate body of Churches.”411 They extend it especially to the poor,412 to those persecuted for the faith, as well as to missionaries who are working throughout the world. (1560, 833, 2448)
+
+
+**887.** Neighboring particular Churches who share the same culture form ecclesiastical provinces or larger groupings called patriarchates or regions.413 The bishops of these groupings can meet in synods or provincial councils. “In a like fashion, the episcopal conferences at the present time are in a position to contribute in many and fruitful ways to the concrete realization of the collegiate spirit.”414
+
+
+### Paragraph 6. Mary—Mother of Christ, Mother of the Church
+
+
+**963.** Since the Virgin Mary’s role in the mystery of Christ and the Spirit has been treated, it is fitting now to consider her place in the mystery of the Church. “The Virgin Mary... is acknowledged and honored as being truly the Mother of God and of the redeemer.... She is ‘clearly the mother of the members of Christ’... since she has by her charity joined in bringing about the birth of believers in the Church, who are members of its head.”502 “Mary, Mother of Christ, Mother of the Church.”503 (484-507, 721-726) Wholly united with her Son...
+
+
+### I. Mary’s Motherhood with Regard to the Church
+
+
+**964.** Mary’s role in the Church is inseparable from her union with Christ and flows directly from it. “This union of the mother with the Son in the work of salvation is made manifest from the time of Christ’s virginal conception up to his death”;504 it is made manifest above all at the hour of his Passion: (534, 618) Thus the Blessed Virgin advanced in her pilgrimage of faith, and faithfully persevered in her union with her Son unto the cross. There she stood, in keeping with the divine plan, enduring with her only begotten Son the intensity of his suffering, joining herself with his sacrifice in her mother’s heart, and lovingly consenting to the immolation of this victim, born of her: to be given, by the same Christ Jesus dying on the cross, as a mother to his disciple, with these words: “Woman, behold your son.”505
+
+
+**965.** After her Son’s Ascension, Mary “aided the beginnings of the Church by her prayers.”506 In her association with the apostles and several women, “we also see Mary by her prayers imploring the gift of the Spirit, who had already overshadowed her in the Annunciation.”507
+
+
+### ...also in her Assumption
+
+
+**966.** “Finally the Immaculate Virgin, preserved free from all stain of original sin, when the course of her earthly life was finished, was taken up body and soul into heavenly glory, and exalted by the Lord as Queen over all things, so that she might be the more fully conformed to her Son, the Lord of lords and conqueror of sin and death.”508 The Assumption of the Blessed Virgin is a singular participation in her Son’s Resurrection and an anticipation of the resurrection of other Christians: (491) In giving birth you kept your virginity; in your Dormition you did not leave the world, O Mother of God, but were joined to the source of Life. You conceived the living God and, by your prayers, will deliver our souls from death.509
+
+
+### ...she is our Mother in the order of grace
+
+
+**967.** By her complete adherence to the Father’s will, to his Son’s redemptive work, and to every prompting of the Holy Spirit, the Virgin Mary is the Church’s model of faith and charity. Thus she is a “preeminent and... wholly unique member of the Church”; indeed, she is the “exemplary realization” (typus)510 of the Church. (2679, 507)
+
+
+**968.** Her role in relation to the Church and to all humanity goes still further. “In a wholly singular way she cooperated by her obedience, faith, hope, and burning charity in the Savior’s work of restoring supernatural life to souls. For this reason she is a mother to us in the order of grace.”511 (494)
+
+
+**969.** “This motherhood of Mary in the order of grace continues uninterruptedly from the consent which she loyally gave at the Annunciation and which she sustained without wavering beneath the cross, until the eternal fulfilment of all the elect. Taken up to heaven she did not lay aside this saving office but by her manifold intercession continues to bring us the gifts of eternal salvation.... Therefore the Blessed Virgin is invoked in the Church under the titles of Advocate, Helper, Benefactress, and Mediatrix.”512 (149, 501, 1370)
+
+
+**970.** “Mary’s function as mother of men in no way obscures or diminishes this unique mediation of Christ, but rather shows its power. But the Blessed Virgin’s salutary influence on men... flows forth from the superabundance of the merits of Christ, rests on his mediation, depends entirely on it, and draws all its power from it.”513 “No creature could ever be counted along with the Incarnate Word and Redeemer; but just as the priesthood of Christ is shared in various ways both by his ministers and the faithful, and as the one goodness of God is radiated in different ways among his creatures, so also the unique mediation of the Redeemer does not exclude but rather gives rise to a manifold cooperation which is but a sharing in this one source.”514 (2008, 1545, 308)
+
+
+### II. Devotion to the Blessed Virgin 2673-2679
+
+
+**971.** “All generations will call me blessed”: “The Church’s devotion to the Blessed Virgin is intrinsic to Christian worship.”515 The Church rightly honors “the Blessed Virgin with special devotion. From the most ancient times the Blessed Virgin has been honored with the title of ‘Mother of God,’ to whose protection the faithful fly in all their dangers and needs.... This very special devotion... differs essentially from the adoration which is given to the incarnate Word and equally to the Father and the Holy Spirit, and greatly fosters this adoration.”516 The liturgical feasts dedicated to the Mother of God and Marian prayer, such as the rosary, an “epitome of the whole Gospel,” express this devotion to the Virgin Mary.517 (1172, 2678)
+
+
+### III. Mary—Eschatological Icon of the Church
+
+
+**972.** After speaking of the Church, her origin, mission, and destiny, we can find no better way to conclude than by looking to Mary. In her we contemplate what the Church already is in her mystery on her own “pilgrimage of faith,” and what she will be in the homeland at the end of her journey. There, “in the glory of the Most Holy and Undivided Trinity,” “in the communion of all the saints,”518 the Church is awaited by the one she venerates as Mother of her Lord and as her own mother. (773, 829, 2853) In the meantime the Mother of Jesus, in the glory which she possesses in body and soul in heaven, is the image and beginning of the Church as it is to be perfected in the world to come. Likewise she shines forth on earth, until the day of the Lord shall come, a sign of certain hope and comfort to the pilgrim People of God.519
+
+
+### IN BRIEF
+
+
+**973.** By pronouncing her “fiat” at the Annunciation and giving her consent to the Incarnation, Mary was already collaborating with the whole work her Son was to accomplish. She is mother wherever he is Savior and head of the Mystical Body.
+
+
+**974.** The Most Blessed Virgin Mary, when the course of her earthly life was completed, was taken up body and soul into the glory of heaven, where she already shares in the glory of her Son’s Resurrection, anticipating the resurrection of all members of his Body.
+
+
+**975.** “We believe that the Holy Mother of God, the new Eve, Mother of the Church, continues in heaven to exercise her maternal role on behalf of the members of Christ” (Paul VI, CPG § 15).
+
+
+### THE SACRAMENT OF BAPTISM
+
+
+**1213.** Holy Baptism is the basis of the whole Christian life, the gateway to life in the Spirit (vitae spiritualis ianua),4 and the door which gives access to the other sacraments. Through Baptism we are freed from sin and reborn as sons of God; we become members of Christ, are incorporated into the Church and made sharers in her mission: “Baptism is the sacrament of regeneration through water and in the word.”5
+
+
+### I. What Is this Sacrament Called?
+
+
+**1214.** This sacrament is called Baptism, after the central rite by which it is carried out: to baptize (Greek baptizein) means to “plunge” or “immerse”; the “plunge” into the water symbolizes the catechumen’s burial into Christ’s death, from which he rises up by resurrection with him, as “a new creature.”6 (628)
+
+
+**1215.** This sacrament is also called “the washing of regeneration and renewal by the Holy Spirit,” for it signifies and actually brings about the birth of water and the Spirit without which no one “can enter the kingdom of God.”7 (1257)
+
+
+**1216.** “This bath is called enlightenment, because those who receive this [catechetical] instruction are enlightened in their understanding....”8 Having received in Baptism the Word, “the true light that enlightens every man,” the person baptized has been “enlightened,” he becomes a “son of light,” indeed, he becomes “light” himself:9 (1243) Baptism is God’s most beautiful and magnificent gift.... We call it gift, grace, anointing, enlightenment, garment of immortality, bath of rebirth, seal, and most precious gift. It is called gift because it is conferred on those who bring nothing of their own; grace since it is given even to the guilty; Baptism because sin is buried in the water; anointing for it is priestly and royal as are those who are anointed; enlightenment because it radiates light; clothing since it veils our shame; bath because it washes; and seal as it is our guard and the sign of God’s Lordship.10
+
+
+### Prefigurations of Baptism in the Old Covenant
+
+
+**1217.** In the liturgy of the Easter Vigil, during the blessing of the baptismal water, the Church solemnly commemorates the great events in salvation history that already prefigured the mystery of Baptism: Father, you give us grace through sacramental signs, which tell us of the wonders of your unseen power. In Baptism we use your gift of water, which you have made a rich symbol of the grace you give us in this sacrament.11
+
+
+**1218.** Since the beginning of the world, water, so humble and wonderful a creature, has been the source of life and fruitfulness. Sacred Scripture sees it as “overshadowed” by the Spirit of God:12 (344, 694) At the very dawn of creation your Spirit breathed on the waters, making them the wellspring of all holiness.13
+
+
+**1219.** The Church has seen in Noah’s ark a prefiguring of salvation by Baptism, for by it “a few, that is, eight persons, were saved through water”:14 (701, 845) The waters of the great flood you made a sign of the waters of Baptism, that make an end of sin and a new beginning of goodness.15
+
+
+**1220.** If water springing up from the earth symbolizes life, the water of the sea is a symbol of death and so can represent the mystery of the cross. By this symbolism Baptism signifies communion with Christ’s death. (1010)
+
+
+**1221.** But above all, the crossing of the Red Sea, literally the liberation of Israel from the slavery of Egypt, announces the liberation wrought by Baptism: You freed the children of Abraham from the slavery of Pharaoh, bringing them dry-shod through the waters of the Red Sea, to be an image of the people set free in Baptism.16
+
+
+**1222.** Finally, Baptism is prefigured in the crossing of the Jordan River by which the People of God received the gift of the land promised to Abraham’s descendants, an image of eternal life. The promise of this blessed inheritance is fulfilled in the New Covenant.
+
+
+### Christ’s Baptism
+
+
+**1223.** All the Old Covenant prefigurations find their fulfillment in Christ Jesus. He begins his public life after having himself baptized by St. John the Baptist in the Jordan.17 After his resurrection Christ gives this mission to his apostles: “Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all that I have commanded you.”18 (232)
+
+
+**1224.** Our Lord voluntarily submitted himself to the baptism of St. John, intended for sinners, in order to “fulfill all righteousness.”19 Jesus’ gesture is a manifestation of his self-emptying.20 The Spirit who had hovered over the waters of the first creation descended then on the Christ as a prelude of the new creation, and the Father revealed Jesus as his “beloved Son.”21 (536)
+
+
+**1225.** In his Passover Christ opened to all men the fountain of Baptism. He had already spoken of his Passion, which he was about to suffer in Jerusalem, as a “Baptism” with which he had to be baptized.22 The blood and water that flowed from the pierced side of the crucified Jesus are types of Baptism and the Eucharist, the sacraments of new life.23 From then on, it is possible “to be born of water and the Spirit”24 in order to enter the Kingdom of God. (766) See where you are baptized, see where Baptism comes from, if not from the cross of Christ, from his death. There is the whole mystery: he died for you. In him you are redeemed, in him you are saved.25
+
+
+### Baptism in the Church
+
+
+**1226.** From the very day of Pentecost the Church has celebrated and administered holy Baptism. Indeed St. Peter declares to the crowd astounded by his preaching: “Repent, and be baptized every one of you in the name of Jesus Christ for the forgiveness of your sins; and you shall receive the gift of the Holy Spirit.”26 The apostles and their collaborators offer Baptism to anyone who believed in Jesus: Jews, the God-fearing, pagans.27 Always, Baptism is seen as connected with faith: “Believe in the Lord Jesus, and you will be saved, you and your household,” St. Paul declared to his jailer in Philippi. And the narrative continues, the jailer “was baptized at once, with all his family.”28 (849)
+
+
+**1227.** According to the Apostle Paul, the believer enters through Baptism into communion with Christ’s death, is buried with him, and rises with him: (790) Do you not know that all of us who have been baptized into Christ Jesus were baptized into his death? We were buried therefore with him by baptism into death, so that as Christ was raised from the dead by the glory of the Father, we too might walk in newness of life.29 The baptized have “put on Christ.”30 Through the Holy Spirit, Baptism is a bath that purifies, justifies, and sanctifies.31
+
+
+**1228.** Hence Baptism is a bath of water in which the “imperishable seed” of the Word of God produces its life-giving effect.32 St. Augustine says of Baptism: “The word is brought to the material element, and it becomes a sacrament.”33
+
+
+### VII. The Grace of Baptism
+
+
+**1262.** The different effects of Baptism are signified by the perceptible elements of the sacramental rite. Immersion in water symbolizes not only death and purification, but also regeneration and renewal. Thus the two principal effects are purification from sins and new birth in the Holy Spirit.65 (1234) For the forgiveness of sins...
+
+
+**1263.** By Baptism all sins are forgiven, original sin and all personal sins, as well as all punishment for sin.66 In those who have been reborn nothing remains that would impede their entry into the Kingdom of God, neither Adam’s sin, nor personal sin, nor the consequences of sin, the gravest of which is separation from God. (977, 1425)
+
+
+**1264.** Yet certain temporal consequences of sin remain in the baptized, such as suffering, illness, death, and such frailties inherent in life as weaknesses of character, and so on, as well as an inclination to sin that Tradition calls concupiscence, or metaphorically, “the tinder for sin” (fomes peccati); since concupiscence “is left for us to wrestle with, it cannot harm those who do not consent but manfully resist it by the grace of Jesus Christ.”67 Indeed, “an athlete is not crowned unless he competes according to the rules.”68 (975, 2514, 1426, 405)
+
+
+### “A new creature”
+
+
+**1265.** Baptism not only purifies from all sins, but also makes the neophyte “a new creature,” an adopted son of God, who has become a “partaker of the divine nature,”69 member of Christ and co- heir with him,70 and a temple of the Holy Spirit.71 (505, 460)
+
+
+**1266.** The Most Holy Trinity gives the baptized sanctifying grace, the grace of justification: (1992, 1812, 1831, 1810) —enabling them to believe in God, to hope in him, and to love him through the theological virtues; —giving them the power to live and act under the prompting of the Holy Spirit through the gifts of the Holy Spirit; —allowing them to grow in goodness through the moral virtues. Thus the whole organism of the Christian’s supernatural life has its roots in Baptism.
+
+
+### Incorporated into the Church, the Body of Christ
+
+
+**1267.** Baptism makes us members of the Body of Christ: “Therefore... we are members one of another.”72 Baptism incorporates us into the Church. From the baptismal fonts is born the one People of God of the New Covenant, which transcends all the natural or human limits of nations, cultures, races, and sexes: “For by one Spirit we were all baptized into one body.”73 (782)
+
+
+**1268.** The baptized have become “living stones” to be “built into a spiritual house, to be a holy priesthood.”74 By Baptism they share in the priesthood of Christ, in his prophetic and royal mission. They are “a chosen race, a royal priesthood, a holy nation, God’s own people, that [they] may declare the wonderful deeds of him who called [them] out of darkness into his marvelous light.”75 Baptism gives a share in the common priesthood of all believers. (1141, 784)
+
+
+**1269.** Having become a member of the Church, the person baptized belongs no longer to himself, but to him who died and rose for us.76 From now on, he is called to be subject to others, to serve them in the communion of the Church, and to “obey and submit” to the Church’s leaders,77 holding them in respect and affection.78 Just as Baptism is the source of responsibilities and duties, the baptized person also enjoys rights within the Church: to receive the sacraments, to be nourished with the Word of God and to be sustained by the other spiritual helps of the Church.79 (871)
+
+
+**1270.** “Reborn as sons of God, [the baptized] must profess before men the faith they have received from God through the Church” and participate in the apostolic and missionary activity of the People of God.80
+
+
+### The sacramental bond of the unity of Christians
+
+
+**1271.** Baptism constitutes the foundation of communion among all Christians, including those who are not yet in full communion with the Catholic Church: “For men who believe in Christ and have been properly baptized are put in some, though imperfect, communion with the Catholic Church. Justified by faith in Baptism, [they] are incorporated into Christ; they therefore have a right to be called Christians, and with good reason are accepted as brothers by the children of the Catholic Church.”81 “Baptism therefore constitutes the sacramental bond of unity existing among all who through it are reborn.”82 An indelible spiritual mark...
+
+
+**1272.** Incorporated into Christ by Baptism, the person baptized is configured to Christ. Baptism seals the Christian with the indelible spiritual mark (character) of his belonging to Christ. No sin can erase this mark, even if sin prevents Baptism from bearing the fruits of salvation.83 Given once for all, Baptism cannot be repeated.
+
+
+**1273.** Incorporated into the Church by Baptism, the faithful have received the sacramental character that consecrates them for Christian religious worship.84 The baptismal seal enables and commits Christians to serve God by a vital participation in the holy liturgy of the Church and to exercise their baptismal priesthood by the witness of holy lives and practical charity.85
+
+
+**1274.** The Holy Spirit has marked us with the seal of the Lord (“Dominicus character”) “for the day of redemption.”86 “Baptism indeed is the seal of eternal life.”87 The faithful Christian who has “kept the seal” until the end, remaining faithful to the demands of his Baptism, will be able to depart this life “marked with the sign of faith,”88 with his baptismal faith, in expectation of the blessed vision of God—the consummation of faith—and in the hope of resurrection. (197, 2016)
+
+
+### IN BRIEF
+
+
+**1275.** Christian initiation is accomplished by three sacraments together: Baptism which is the beginning of new life; Confirmation which is its strengthening; and the Eucharist which nourishes the disciple with Christ’s Body and Blood for his transformation in Christ.
+
+
+**1276.** “Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all that I have commanded you” (Mt 28:19-20).
+
+
+**1277.** Baptism is birth into the new life in Christ. In accordance with the Lord’s will, it is necessary for salvation, as is the Church herself, which we enter by Baptism.
+
+
+**1278.** The essential rite of Baptism consists in immersing the candidate in water or pouring water on his head, while pronouncing the invocation of the Most Holy Trinity: the Father, the Son, and the Holy Spirit.
+
+
+**1279.** The fruit of Baptism, or baptismal grace, is a rich reality that includes forgiveness of original sin and all personal sins, birth into the new life by which man becomes an adoptive son of the Father, a member of Christ and a temple of the Holy Spirit. By this very fact the person baptized is incorporated into the Church, the Body of Christ, and made a sharer in the priesthood of Christ.
+
+
+**1280.** Baptism imprints on the soul an indelible spiritual sign, the character, which consecrates the baptized person for Christian worship. Because of the character Baptism cannot be repeated (cf. DS 1609 and DS 1624).
+
+
+**1281.** Those who die for the faith, those who are catechumens, and all those who, without knowing of the Church but acting under the inspiration of grace, seek God sincerely and strive to fulfill his will, can be saved even if they have not been baptized (cf. LG 16).
+
+
+**1282.** Since the earliest times, Baptism has been administered to children, for it is a grace and a gift of God that does not presuppose any human merit; children are baptized in the faith of the Church. Entry into Christian life gives access to true freedom.
+
+
+**1283.** With respect to children who have died without Baptism, the liturgy of the Church invites us to trust in God’s mercy and to pray for their salvation.
+
+
+**1284.** In case of necessity, any person can baptize provided that he have the intention of doing that which the Church does and provided that he pours water on the candidate’s head while saying: “I baptize you in the name of the Father, and of the Son, and of the Holy Spirit.”
+
+
+### THE SACRAMENT OF THE EUCHARIST
+
+
+**1322.** The holy Eucharist completes Christian initiation. Those who have been raised to the dignity of the royal priesthood by Baptism and configured more deeply to Christ by Confirmation participate with the whole community in the Lord’s own sacrifice by means of the Eucharist. (1212)
+
+
+**1323.** “At the Last Supper, on the night he was betrayed, our Savior instituted the Eucharistic sacrifice of his Body and Blood. This he did in order to perpetuate the sacrifice of the cross throughout the ages until he should come again, and so to entrust to his beloved Spouse, the Church, a memorial of his death and resurrection: a sacrament of love, a sign of unity, a bond of charity, a Paschal banquet ‘in which Christ is consumed, the mind is filled with grace, and a pledge of future glory is given to us.’”135 (1402)
+
+
+### I. The Eucharist—Source and Summit of Ecclesial Life
+
+
+**1324.** The Eucharist is “the source and summit of the Christian life.”136 “The other sacraments, and indeed all ecclesiastical ministries and works of the apostolate, are bound up with the Eucharist and are oriented toward it. For in the blessed Eucharist is contained the whole spiritual good of the Church, namely Christ himself, our Pasch.”137 (864)
+
+
+**1325.** “The Eucharist is the efficacious sign and sublime cause of that communion in the divine life and that unity of the People of God by which the Church is kept in being. It is the culmination both of God’s action sanctifying the world in Christ and of the worship men offer to Christ and through him to the Father in the Holy Spirit.”138 (775)
+
+
+**1326.** Finally, by the Eucharistic celebration we already unite ourselves with the heavenly liturgy and anticipate eternal life, when God will be all in all.139 (1090)
+
+
+**1327.** In brief, the Eucharist is the sum and summary of our faith: “Our way of thinking is attuned to the Eucharist, and the Eucharist in turn confirms our way of thinking.”140 (1124)
+
+
+### The institution of the Eucharist
+
+
+**1337.** The Lord, having loved those who were his own, loved them to the end. Knowing that the hour had come to leave this world and return to the Father, in the course of a meal he washed their feet and gave them the commandment of love.163 In order to leave them a pledge of this love, in order never to depart from his own and to make them sharers in his Passover, he instituted the Eucharist as the memorial of his death and Resurrection, and commanded his apostles to celebrate it until his return; “thereby he constituted them priests of the New Testament.”164 (610, 611)
+
+
+**1338.** The three synoptic Gospels and St. Paul have handed on to us the account of the institution of the Eucharist; St. John, for his part, reports the words of Jesus in the synagogue of Capernaum that prepare for the institution of the Eucharist: Christ calls himself the bread of life, come down from heaven.165
+
+
+**1339.** Jesus chose the time of Passover to fulfill what he had announced at Capernaum: giving his disciples his Body and his Blood: (1169) Then came the day of Unleavened Bread, on which the passover lamb had to be sacrificed. So Jesus sent Peter and John, saying, “Go and prepare the passover meal for us, that we may eat it....” They went... and prepared the passover. And when the hour came, he sat at table, and the apostles with him. And he said to them, “I have earnestly desired to eat this passover with you before I suffer; for I tell you I shall not eat it again until it is fulfilled in the kingdom of God..”... And he took bread, and when he had given thanks he broke it and gave it to them, saying, “This is my body which is given for you. Do this in remembrance of me.” And likewise the cup after supper, saying, “This cup which is poured out for you is the New Covenant in my blood.”166
+
+
+**1340.** By celebrating the Last Supper with his apostles in the course of the Passover meal, Jesus gave the Jewish Passover its definitive meaning. Jesus’ passing over to his father by his death and Resurrection, the new Passover, is anticipated in the Supper and celebrated in the Eucharist, which fulfills the Jewish Passover and anticipates the final Passover of the Church in the glory of the kingdom. (1151, 677)
+
+
+### “Do this in memory of me”
+
+
+**1341.** The command of Jesus to repeat his actions and words “until he comes” does not only ask us to remember Jesus and what he did. It is directed at the liturgical celebration, by the apostles and their successors, of the memorial of Christ, of his life, of his death, of his Resurrection, and of his intercession in the presence of the Father.167 (611, 1363)
+
+
+**1342.** From the beginning the Church has been faithful to the Lord’s command. Of the Church of Jerusalem it is written: (2624) They devoted themselves to the apostles’ teaching and fellowship, to the breaking of bread and the prayers.... Day by day, attending the temple together and breaking bread in their homes, they partook of food with glad and generous hearts.168
+
+
+**1343.** It was above all on “the first day of the week,” Sunday, the day of Jesus’ resurrection, that the Christians met “to break bread.”169 From that time on down to our own day the celebration of the Eucharist has been continued so that today we encounter it everywhere in the Church with the same fundamental structure. It remains the center of the Church’s life. (1166, 2177)
+
+
+**1344.** Thus from celebration to celebration, as they proclaim the Paschal mystery of Jesus “until he comes,” the pilgrim People of God advances, “following the narrow way of the cross,”170 toward the heavenly banquet, when all the elect will be seated at the table of the kingdom. (1404)
+
+
+### The sacrificial memorial of Christ and of his Body, the Church
+
+
+**1362.** The Eucharist is the memorial of Christ’s Passover, the making present and the sacramental offering of his unique sacrifice, in the liturgy of the Church which is his Body. In all the Eucharistic Prayers we find after the words of institution a prayer called the anamnesis or memorial. (1103)
+
+
+**1363.** In the sense of Sacred Scripture the memorial is not merely the recollection of past events but the proclamation of the mighty works wrought by God for men.184 In the liturgical celebration of these events, they become in a certain way present and real. This is how Israel understands its liberation from Egypt: every time Passover is celebrated, the Exodus events are made present to the memory of believers so that they may conform their lives to them. (1099)
+
+
+**1364.** In the New Testament, the memorial takes on new meaning. When the Church celebrates the Eucharist, she commemorates Christ’s Passover, and it is made present: the sacrifice Christ offered once for all on the cross remains ever present.185 “As often as the sacrifice of the Cross by which ‘Christ our Pasch has been sacrificed’ is celebrated on the altar, the work of our redemption is carried out.”186 (611, 1085)
+
+
+**1365.** Because it is the memorial of Christ’s Passover, the Eucharist is also a sacrifice. The sacrificial character of the Eucharist is manifested in the very words of institution: “This is my body which is given for you” and “This cup which is poured out for you is the New Covenant in my blood.”187 In the Eucharist Christ gives us the very body which he gave up for us on the cross, the very blood which he “poured out for many for the forgiveness of sins.”188 (2100, 1846)
+
+
+**1366.** The Eucharist is thus a sacrifice because it re-presents (makes present) the sacrifice of the cross, because it is its memorial and because it applies its fruit: (613) [Christ], our Lord and God, was once and for all to offer himself to God the Father by his death on the altar of the cross, to accomplish there an everlasting redemption. But because his priesthood was not to end with his death, at the Last Supper “on the night when he was betrayed,” [he wanted] to leave to his beloved spouse the Church a visible sacrifice (as the nature of man demands) by which the bloody sacrifice which he was to accomplish once for all on the cross would be re-presented, its memory perpetuated until the end of the world, and its salutary power be applied to the forgiveness of the sins we daily commit.189
+
+
+**1367.** The sacrifice of Christ and the sacrifice of the Eucharist are one single sacrifice: “The victim is one and the same: the same now offers through the ministry of priests, who then offered himself on the cross; only the manner of offering is different.” “And since in this divine sacrifice which is celebrated in the Mass, the same Christ who offered himself once in a bloody manner on the altar of the cross is contained and offered in an unbloody manner... this sacrifice is truly propitiatory.”190 (1545)
+
+
+**1368.** The Eucharist is also the sacrifice of the Church. The Church which is the Body of Christ participates in the offering of her Head. With him, she herself is offered whole and entire. She unites herself to his intercession with the Father for all men. In the Eucharist the sacrifice of Christ becomes also the sacrifice of the members of his Body. The lives of the faithful, their praise, sufferings, prayer, and work, are united with those of Christ and with his total offering, and so acquire a new value. Christ’s sacrifice present on the altar makes it possible for all generations of Christians to be united with his offering. (618, 2031, 1109) In the catacombs the Church is often represented as a woman in prayer, arms outstretched in the praying position. Like Christ who stretched out his arms on the cross, through him, with him, and in him, she offers herself and intercedes for all men.
+
+
+**1369.** The whole Church is united with the offering and intercession of Christ. Since he has the ministry of Peter in the Church, the Pope is associated with every celebration of the Eucharist, wherein he is named as the sign and servant of the unity of the universal Church. The bishop of the place is always responsible for the Eucharist, even when a priest presides; the bishop’s name is mentioned to signify his presidency over the particular Church, in the midst of his presbyterium and with the assistance of deacons. The community intercedes also for all ministers who, for it and with it, offer the Eucharistic sacrifice: (834, 882, 1561, 1566) Let only that Eucharist be regarded as legitimate, which is celebrated under [the presidency of] the bishop or him to whom he has entrusted it.191 Through the ministry of priests the spiritual sacrifice of the faithful is completed in union with the sacrifice of Christ the only Mediator, which in the Eucharist is offered through the priests’ hands in the name of the whole Church in an unbloody and sacramental manner until the Lord himself comes.192
+
+
+**1370.** To the offering of Christ are united not only the members still here on earth, but also those already in the glory of heaven. In communion with and commemorating the Blessed Virgin Mary and all the saints, the Church offers the Eucharistic sacrifice. In the Eucharist the Church is as it were at the foot of the cross with Mary, united with the offering and intercession of Christ. (956, 969)
+
+
+**1371.** The Eucharistic sacrifice is also offered for the faithful departed who “have died in Christ but are not yet wholly purified,”193 so that they may be able to enter into the light and peace of Christ: (958, 1689, 1032) Put this body anywhere! Don’t trouble yourselves about it! I simply ask you to remember me at the Lord’s altar wherever you are.194 Then, we pray [in the anaphora] for the holy fathers and bishops who have fallen asleep, and in general for all who have fallen asleep before us, in the belief that it is a great benefit to the souls on whose behalf the supplication is offered, while the holy and tremendous Victim is present.... By offering to God our supplications for those who have fallen asleep, if they have sinned, we... offer Christ sacrificed for the sins of all, and so render favorable, for them and for us, the God who loves man.195
+
+
+**1372.** St. Augustine admirably summed up this doctrine that moves us to an ever more complete participation in our Redeemer’s sacrifice which we celebrate in the Eucharist: (1140) This wholly redeemed city, the assembly and society of the saints, is offered to God as a universal sacrifice by the high priest who in the form of a slave went so far as to offer himself for us in his Passion, to make us the Body of so great a head.... Such is the sacrifice of Christians: “we who are many are one Body in Christ.’‘ The Church continues to reproduce this sacrifice in the sacrament of the altar so well-known to believers wherein it is evident to them that in what she offers she herself is offered.196
+
+
+### The presence of Christ by the power of his word and the Holy Spirit
+
+
+**1373.** “Christ Jesus, who died, yes, who was raised from the dead, who is at the right hand of God, who indeed intercedes for us,” is present in many ways to his Church:197 in his word, in his Church’s prayer, “where two or three are gathered in my name,”198 in the poor, the sick, and the imprisoned,199 in the sacraments of which he is the author, in the sacrifice of the Mass, and in the person of the minister. But “he is present... most especially in the Eucharistic species.”200 (1088)
+
+
+**1374.** The mode of Christ’s presence under the Eucharistic species is unique. It raises the Eucharist above all the sacraments as “the perfection of the spiritual life and the end to which all the sacraments tend.”201 In the most blessed sacrament of the Eucharist “the body and blood, together with the soul and divinity, of our Lord Jesus Christ and, therefore, the whole Christ is truly, really, and substantially contained.”202 “This presence is called ‘real’—by which is not intended to exclude the other types of presence as if they could not be ‘real’ too, but because it is presence in the fullest sense: that is to say, it is a substantial presence by which Christ, God and man, makes himself wholly and entirely present.”203 (1211)
+
+
+**1375.** It is by the conversion of the bread and wine into Christ’s body and blood that Christ becomes present in this sacrament. The Church Fathers strongly affirmed the faith of the Church in the efficacy of the Word of Christ and of the action of the Holy Spirit to bring about this conversion. Thus St. John Chrysostom declares: (1105, 1128, 298) It is not man that causes the things offered to become the Body and Blood of Christ, but he who was crucified for us, Christ himself. The priest, in the role of Christ, pronounces these words, but their power and grace are God’s. This is my body, he says. This word transforms the things offered.204 And St. Ambrose says about this conversion: Be convinced that this is not what nature has formed, but what the blessing has consecrated. The power of the blessing prevails over that of nature, because by the blessing nature itself is changed.... Could not Christ’s word, which can make from nothing what did not exist, change existing things into what they were not before? It is no less a feat to give things their original nature than to change their nature.205
+
+
+**1376.** The Council of Trent summarizes the Catholic faith by declaring: “Because Christ our Redeemer said that it was truly his body that he was offering under the species of bread, it has always been the conviction of the Church of God, and this holy Council now declares again, that by the consecration of the bread and wine there takes place a change of the whole substance of the bread into the substance of the body of Christ our Lord and of the whole substance of the wine into the substance of his blood. This change the holy Catholic Church has fittingly and properly called transubstantiation.”206
+
+
+**1377.** The Eucharistic presence of Christ begins at the moment of the consecration and endures as long as the Eucharistic species subsist. Christ is present whole and entire in each of the species and whole and entire in each of their parts, in such a way that the breaking of the bread does not divide Christ.207
+
+
+**1378.** Worship of the Eucharist. In the liturgy of the Mass we express our faith in the real presence of Christ under the species of bread and wine by, among other ways, genuflecting or bowing deeply as a sign of adoration of the Lord. “The Catholic Church has always offered and still offers to the sacrament of the Eucharist the cult of adoration, not only during Mass, but also outside of it, reserving the consecrated hosts with the utmost care, exposing them to the solemn veneration of the faithful, and carrying them in procession.”208 (1178, 103, 2628)
+
+
+**1379.** The tabernacle was first intended for the reservation of the Eucharist in a worthy place so that it could be brought to the sick and those absent, outside of Mass. As faith in the real presence of Christ in his Eucharist deepened, the Church became conscious of the meaning of silent adoration of the Lord present under the Eucharistic species. It is for this reason that the tabernacle should be located in an especially worthy place in the church and should be constructed in such a way that it emphasizes and manifests the truth of the real presence of Christ in the Blessed Sacrament. (1183, 2691)
+
+
+**1380.** It is highly fitting that Christ should have wanted to remain present to his Church in this unique way. Since Christ was about to take his departure from his own in his visible form, he wanted to give us his sacramental presence; since he was about to offer himself on the cross to save us, he wanted us to have the memorial of the love with which he loved us “to the end,”209 even to the giving of his life. In his Eucharistic presence he remains mysteriously in our midst as the one who loved us and gave himself up for us,210 and he remains under signs that express and communicate this love: (669, 478, 2715) The Church and the world have a great need for Eucharistic worship. Jesus awaits us in this sacrament of love. Let us not refuse the time to go to meet him in adoration, in contemplation full of faith, and open to making amends for the serious offenses and crimes of the world. Let our adoration never cease.211
+
+
+**1381.** “That in this sacrament are the true Body of Christ and his true Blood is something that ‘cannot be apprehended by the senses,’ says St. Thomas, ‘but only by faith, which relies on divine authority.’ For this reason, in a commentary on Luke 22:19 (‘This is my body which is given for you.’), St. Cyril says: ‘Do not doubt whether this is true, but rather receive the words of the Savior in faith, for since he is the truth, he cannot lie.’”212 (156, 215) Godhead here in hiding, whom I do adore Masked by these bare shadows, shape and nothing more, See, Lord, at thy service low lies here a heart Lost, all lost in wonder at the God thou art. Seeing, touching, tasting are in thee deceived; How says trusty hearing? that shall be believed; What God’s Son has told me, take for truth I do; Truth himself speaks truly or there’s nothing true.213 Notes 123 Cf. CIC, can. 889 § 1. 124 CIC, can. 890. 125 Cf. CIC, cann. 891; 883, 3°. 126 St. Thomas Aquinas, STh III, 72, 8, ad 2; cf. Wis 4:8. 127 Cf. OC Introduction 3. 128 Cf. Acts 1:14. 129 Cf. OC Introduction 5; 6; CIC, can. 893 §§ 1- 2. 130 Cf. LG 26. 131 Cf. CIC, can. 883 § 2. 132 Cf. CIC, can. 882. 133 Cf. CIC, can. 884 § 2. 134 Cf. CIC, can. 883 § 3. 135 SC 47. 136 LG 11. 137 PO 5. 138 Congregation of Rites, instruction, Eucharisticum mysterium, 6. 139 1 Cor 15:28. 140 St. Irenaeus, Adv. haeres. 4, 18, 5: PG 7/1, 1028. 141 Cf. Lk 22:19; 1 Cor 11:24. 142 Cf. Mt 26:26; Mk 14:22. 143 Cf. 1 Cor 11:20; Rev 19:9. 144 Cf. Mt 14:19; 15:36; Mk 8:6, 19. 145 Cf. Mt 26:26; 1 Cor 11:24. 146 Cf. Lk 24:13-35. 147 Cf. Acts 2:42, 46; 20:7, 11. 148 Cf. 1 Cor 10:16-17. 149 Cf. 1 Cor 11:17-34. 150 Heb 13:15; cf. 1 Pet 2:5; Ps 116:13, 17; Mal 1:11. 151 Cf. 1 Cor 10:16-17. 152 Apostolic Constitutions 8, 13, 12: PG 1, 1108; Didache 9, 5; 10:6: SCh248, 176-178. 153 St. Ignatius of Antioch, Ad Eph. 20, 2: SCh 10, 76. 154 Cf. Ps 104:13-15. 155 Gen 14:18; cf. Roman Missal, EP I (Roman Canon) 95. 156 Cf. Deut 8:3. 157 1 Cor 10:16. 158 Cf. Mt 14:13-21; 15:32-39. 159 Cf. Jn 2:11; Mk 14:25. 160 Jn 6:60. 161 Jn 6:67. 162 Jn 6:68. 163 Cf. Jn 13:1-17; 34-35. 164 Council of Trent (1562): DS 1740. 165 Cf. Jn 6. 166 Lk 22:7-20; cf. Mt 26:17-29; Mk 14:12-25; 1 Cor 11:23-26. 167 Cf. 1 Cor 11:26. 168 Acts 2:42, 46. 169 Acts 20:7. 170 AG 1; cf. 1 Cor 11:26. 171 St. Justin, Apol. 1, 65-67: PG 6, 428-429; the text before the asterisk (*) is from chap. 67. 172 SC 56. 173 Cf. DV 21. 174 Cf. Lk 24:13-35. 175 Cf. 1 Thess 2:13. 176 1 Tim 2:1-2. 177 St. Irenaeus, Adv. haeres. 4, 18, 4: PG 7/1, 1027; cf. Mal 1:11. 178 Cf. 1 Cor 16:1; 2 Cor 8:9. 179 St. Justin, Apol. 1, 67: PG 6, 429. 180 Cf. Roman Missal, EP I (Roman Canon) 90. 181 Jn 6:51. 182 St. Justin, Apol. 1, 66, 1-2: PG 6, 428. 183 1 Cor 11:24-25. 184 Cf. Ex 13:3. 185 Cf. Heb 7:25-27. 186 LG 3; cf. 1 Cor 5:7. 187 Lk 22:19-20. 188 Mt 26:28. 189 Council of Trent (1562): DS 1740; cf. 1 Cor 11:23; Heb 7:24, 27. 190 Council of Trent (1562): Doctrina de ss. Missae sacrificio, c. 2: DS 1743; cf. Heb 9:14, 27. 191 St. Ignatius of Antioch, Ad Smyrn. 8:1; SCh 10, 138. 192 PO 2 § 4. 193 Council of Trent (1562): DS 1743. 194 St. Monica, before her death, to her sons, St. Augustine and his brother; Conf. 9, 11, 27: PL 32, 775. 195 St. Cyril of Jerusalem, Catech. myst. 5, 9. 10: PG 33, 1116-1117. 196 St. Augustine, De civ. Dei, 10, 6: PL 41, 283; cf. Rom 12:5. 197 Rom 8:34; cf. LG 48. 198 Mt 18:20. 199 Cf. Mt 25:31-46. 200 SC 7. 201 St. Thomas Aquinas, STh III, 73, 3c. 202 Council of Trent (1551): DS 1651. 203 Paul VI, MF 39. 204 St. John Chrysostom, prod. Jud. 1:6: PG 49, 380. 205 St. Ambrose, De myst. 9, 50; 52: PL 16, 405-407. 206 Council of Trent (1551): DS 1642; cf. Mt 26:26 ff.; Mk 14:22 ff.; Lk 22:19 ff.;1 Cor 11:24 ff. 207 Cf. Council of Trent: DS 1641. 208 Paul VI, MF 56. 209 Jn 13:1. 210 Cf. Gal 2:20. 211 John Paul II, Dominicae cenae, 3. 212 St. Thomas Aquinas, STh III, 75, 1; cf. Paul VI, MF 18; St. Cyril of Alexandria, In Luc. 22, 19: PG 72, 912; cf. Paul VI, MF 18. 213 St. Thomas Aquinas (attr.), Adoro te devote; tr. Gerard Manley Hopkins.
+
+
+### THE SACRAMENT OF PENANCE AND RECONCILIATION
+
+
+**1422.** “Those who approach the sacrament of Penance obtain pardon from God’s mercy for the offense committed against him, and are, at the same time, reconciled with the Church which they have wounded by their sins and which by charity, by example, and by prayer labors for their conversion.”4 (980)
+
+
+### I. What Is This Sacrament Called?
+
+
+**1423.** It is called the sacrament of conversion because it makes sacramentally present Jesus’ call to conversion, the first step in returning to the Father5 from whom one has strayed by sin. (1989, 1440) It is called the sacrament of Penance, since it consecrates the Christian sinner’s personal and ecclesial steps of conversion, penance, and satisfaction.
+
+
+**1424.** It is called the sacrament of confession, since the disclosure or confession of sins to a priest is an essential element of this sacrament. In a profound sense it is also a “confession” — acknowledgment and praise—of the holiness of God and of his mercy toward sinful man. (1456, 1449, 1442) It is called the sacrament of forgiveness, since by the priest’s sacramental absolution God grants the penitent “pardon and peace.”6 It is called the sacrament of Reconciliation, because it imparts to the sinner the love of God who reconciles: “Be reconciled to God.”7 He who lives by God’s merciful love is ready to respond to the Lord’s call: “Go; first be reconciled to your brother.”8
+
+
+### II. Why a Sacrament of Reconciliation after Baptism?
+
+
+**1425.** “You were washed, you were sanctified, you were justified in the name of the Lord Jesus Christ and in the Spirit of our God.”9 One must appreciate the magnitude of the gift God has given us in the sacraments of Christian initiation in order to grasp the degree to which sin is excluded for him who has “put on Christ.”10 But the apostle John also says: “If we say we have no sin, we deceive ourselves, and the truth is not in us.”11 And the Lord himself taught us to pray: “Forgive us our trespasses,”12 linking our forgiveness of one another’s offenses to the forgiveness of our sins that God will grant us. (1263, 2838)
+
+
+**1426.** Conversion to Christ, the new birth of Baptism, the gift of the Holy Spirit and the Body and Blood of Christ received as food have made us “holy and without blemish,” just as the Church herself, the Bride of Christ, is “holy and without blemish.”13 Nevertheless the new life received in Christian initiation has not abolished the frailty and weakness of human nature, nor the inclination to sin that tradition calls concupiscence, which remains in the baptized such that with the help of the grace of Christ they may prove themselves in the struggle of Christian life.14 This is the struggle of conversion directed toward holiness and eternal life to which the Lord never ceases to call us.15 (405, 978, 1264)
+
+
+### III. The Conversion of the Baptized
+
+
+**1427.** Jesus calls to conversion. This call is an essential part of the proclamation of the kingdom: “The time is fulfilled, and the kingdom of God is at hand; repent, and believe in the gospel.”16 In the Church’s preaching this call is addressed first to those who do not yet know Christ and his Gospel. Also, Baptism is the principal place for the first and fundamental conversion. It is by faith in the Gospel and by Baptism17 that one renounces evil and gains salvation, that is, the forgiveness of all sins and the gift of new life. (541, 1226)
+
+
+**1428.** Christ’s call to conversion continues to resound in the lives of Christians. This second conversion is an uninterrupted task for the whole Church who, “clasping sinners to her bosom, [is] at once holy and always in need of purification, [and] follows constantly the path of penance and renewal.”18 This endeavor of conversion is not just a human work. It is the movement of a “contrite heart,” drawn and moved by grace to respond to the merciful love of God who loved us first.19 (1036, 853, 1996)
+
+
+**1429.** St. Peter’s conversion after he had denied his master three times bears witness to this. Jesus’ look of infinite mercy drew tears of repentance from Peter and, after the Lord’s resurrection, a threefold affirmation of love for him.20 The second conversion also has a communitarian dimension, as is clear in the Lord’s call to a whole Church: “Repent!”21 St. Ambrose says of the two conversions that, in the Church, “there are water and tears: the water of Baptism and the tears of repentance.”22
+
+
+### IV. Interior Penance
+
+
+**1430.** Jesus’ call to conversion and penance, like that of the prophets before him, does not aim first at outward works, “sackcloth and ashes,” fasting and mortification, but at the conversion of the heart, interior conversion. Without this, such penances remain sterile and false; however, interior conversion urges expression in visible signs, gestures and works of penance.23 (1098)
+
+
+**1431.** Interior repentance is a radical reorientation of our whole life, a return, a conversion to God with all our heart, an end of sin, a turning away from evil, with repugnance toward the evil actions we have committed. At the same time it entails the desire and resolution to change one’s life, with hope in God’s mercy and trust in the help of his grace. This conversion of heart is accompanied by a salutary pain and sadness which the Fathers called animi cruciatus (affliction of spirit) and compunctio cordis (repentance of heart).24 (1451, 368)
+
+
+**1432.** The human heart is heavy and hardened. God must give man a new heart.25 Conversion is first of all a work of the grace of God who makes our hearts return to him: “Restore us to thyself, O LORD, that we may be restored!”26 God gives us the strength to begin anew. It is in discovering the greatness of God’s love that our heart is shaken by the horror and weight of sin and begins to fear offending God by sin and being separated from him. The human heart is converted by looking upon him whom our sins have pierced:27 (1989) Let us fix our eyes on Christ’s blood and understand how precious it is to his Father, for, poured out for our salvation, it has brought to the whole world the grace of repentance.28
+
+
+**1433.** Since Easter, the Holy Spirit has proved “the world wrong about sin,”29 i.e., proved that the world has not believed in him whom the Father has sent. But this same Spirit who brings sin to light is also the Consoler who gives the human heart grace for repentance and conversion.30 (729, 692, 1848)
+
+
+### VI. The Sacrament of Penance and Reconciliation
+
+
+**1440.** Sin is before all else an offense against God, a rupture of communion with him. At the same time it damages communion with the Church. For this reason conversion entails both God’s forgiveness and reconciliation with the Church, which are expressed and accomplished liturgically by the sacrament of Penance and Reconciliation.38 (1850)
+
+
+### Only God forgives sin
+
+
+**1441.** Only God forgives sins.39 Since he is the Son of God, Jesus says of himself, “The Son of man has authority on earth to forgive sins” and exercises this divine power: “Your sins are forgiven.”40 Further, by virtue of his divine authority he gives this power to men to exercise in his name.41 (270, 431, 589)
+
+
+**1442.** Christ has willed that in her prayer and life and action his whole Church should be the sign and instrument of the forgiveness and reconciliation that he acquired for us at the price of his blood. But he entrusted the exercise of the power of absolution to the apostolic ministry which he charged with the “ministry of reconciliation.”42 The apostle is sent out “on behalf of Christ” with “God making his appeal” through him and pleading: “Be reconciled to God.”43 (983)
+
+
+### Reconciliation with the Church
+
+
+**1443.** During his public life Jesus not only forgave sins, but also made plain the effect of this forgiveness: he reintegrated forgiven sinners into the community of the People of God from which sin had alienated or even excluded them. A remarkable sign of this is the fact that Jesus receives sinners at his table, a gesture that expresses in an astonishing way both God’s forgiveness and the return to the bosom of the People of God.44 (545)
+
+
+**1444.** In imparting to his apostles his own power to forgive sins the Lord also gives them the authority to reconcile sinners with the Church. This ecclesial dimension of their task is expressed most notably in Christ’s solemn words to Simon Peter: “I will give you the keys of the kingdom of heaven, and whatever you bind on earth shall be bound in heaven, and whatever you loose on earth shall be loosed in heaven.”45 “The office of binding and loosing which was given to Peter was also assigned to the college of the apostles united to its head.”46 (981)
+
+
+**1445.** The words bind and loose mean: whomever you exclude from your communion, will be excluded from communion with God; whomever you receive anew into your communion, God will welcome back into his. Reconciliation with the Church is inseparable from reconciliation with God. (553)
+
+
+### The sacrament of forgiveness
+
+
+**1446.** Christ instituted the sacrament of Penance for all sinful members of his Church: above all for those who, since Baptism, have fallen into grave sin, and have thus lost their baptismal grace and wounded ecclesial communion. It is to them that the sacrament of Penance offers a new possibility to convert and to recover the grace of justification. The Fathers of the Church present this sacrament as “the second plank [of salvation] after the shipwreck which is the loss of grace.”47 (979, 1856, 1990)
+
+
+**1447.** Over the centuries the concrete form in which the Church has exercised this power received from the Lord has varied considerably. During the first centuries the reconciliation of Christians who had committed particularly grave sins after their Baptism (for example, idolatry, murder, or adultery) was tied to a very rigorous discipline, according to which penitents had to do public penance for their sins, often for years, before receiving reconciliation. To this “order of penitents” (which concerned only certain grave sins), one was only rarely admitted and in certain regions only once in a lifetime. During the seventh century Irish missionaries, inspired by the Eastern monastic tradition, took to continental Europe the “private” practice of penance, which does not require public and prolonged completion of penitential works before reconciliation with the Church. From that time on, the sacrament has been performed in secret between penitent and priest. This new practice envisioned the possibility of repetition and so opened the way to a regular frequenting of this sacrament. It allowed the forgiveness of grave sins and venial sins to be integrated into one sacramental celebration. In its main lines this is the form of penance that the Church has practiced down to our day.
+
+
+**1448.** Beneath the changes in discipline and celebration that this sacrament has undergone over the centuries, the same fundamental structure is to be discerned. It comprises two equally essential elements: on the one hand, the acts of the man who undergoes conversion through the action of the Holy Spirit: namely, contrition, confession, and satisfaction; on the other, God’s action through the intervention of the Church. The Church, who through the bishop and his priests forgives sins in the name of Jesus Christ and determines the manner of satisfaction, also prays for the sinner and does penance with him. Thus the sinner is healed and re-established in ecclesial communion.
+
+
+**1449.** The formula of absolution used in the Latin Church expresses the essential elements of this sacrament: the Father of mercies is the source of all forgiveness. He effects the reconciliation of sinners through the Passover of his Son and the gift of his Spirit, through the prayer and ministry of the Church: (1481, 234) God, the Father of mercies, through the death and the resurrection of his Son has reconciled the world to himself and sent the Holy Spirit among us for the forgiveness of sins; through the ministry of the Church may God give you pardon and peace, and I absolve you from your sins in the name of the Father, and of the Son, and of the Holy Spirit.48
+
+
+### VII. The Acts of the Penitent
+
+
+**1450.** “Penance requires... the sinner to endure all things willingly, be contrite of heart, confess with the lips, and practice complete humility and fruitful satisfaction.”49
+
+
+### Contrition
+
+
+**1451.** Among the penitent’s acts contrition occupies first place. Contrition is “sorrow of the soul and detestation for the sin committed, together with the resolution not to sin again.”50 (431)
+
+
+**1452.** When it arises from a love by which God is loved above all else, contrition is called “perfect” (contrition of charity). Such contrition remits venial sins; it also obtains forgiveness of mortal sins if it includes the firm resolution to have recourse to sacramental confession as soon as possible.51 (1822)
+
+
+**1453.** The contrition called “imperfect” (or “attrition”) is also a gift of God, a prompting of the Holy Spirit. It is born of the consideration of sin’s ugliness or the fear of eternal damnation and the other penalties threatening the sinner (contrition of fear). Such a stirring of conscience can initiate an interior process which, under the prompting of grace, will be brought to completion by sacramental absolution. By itself however, imperfect contrition cannot obtain the forgiveness of grave sins, but it disposes one to obtain forgiveness in the sacrament of Penance.52
+
+
+**1454.** The reception of this sacrament ought to be prepared for by an examination of conscience made in the light of the Word of God. The passages best suited to this can be found in the Ten Commandments, the moral catechesis of the Gospels and the apostolic Letters, such as the Sermon on the Mount and the apostolic teachings.53
+
+
+### The confession of sins
+
+
+**1455.** The confession (or disclosure) of sins, even from a simply human point of view, frees us and facilitates our reconciliation with others. Through such an admission man looks squarely at the sins he is guilty of, takes responsibility for them, and thereby opens himself again to God and to the communion of the Church in order to make a new future possible. (1424, 1734)
+
+
+**1456.** Confession to a priest is an essential part of the sacrament of Penance: “All mortal sins of which penitents after a diligent self-examination are conscious must be recounted by them in confession, even if they are most secret and have been committed against the last two precepts of the Decalogue; for these sins sometimes wound the soul more grievously and are more dangerous than those which are committed openly.”54 (1855, 1505) When Christ’s faithful strive to confess all the sins that they can remember, they undoubtedly place all of them before the divine mercy for pardon. But those who fail to do so and knowingly withhold some, place nothing before the divine goodness for remission through the mediation of the priest, “for if the sick person is too ashamed to show his wound to the doctor, the medicine cannot heal what it does not know.”55
+
+
+**1457.** According to the Church’s command, “after having attained the age of discretion, each of the faithful is bound by an obligation faithfully to confess serious sins at least once a year.”56 Anyone who is aware of having committed a mortal sin must not receive Holy Communion, even if he experiences deep contrition, without having first received sacramental absolution, unless he has a grave reason for receiving Communion and there is no possibility of going to confession.57 Children must go to the sacrament of Penance before receiving Holy Communion for the first time.58 (2042, 1385)
+
+
+**1458.** Without being strictly necessary, confession of everyday faults (venial sins) is nevertheless strongly recommended by the Church.59 Indeed the regular confession of our venial sins helps us form our conscience, fight against evil tendencies, let ourselves be healed by Christ and progress in the life of the Spirit. By receiving more frequently through this sacrament the gift of the Father’s mercy, we are spurred to be merciful as he is merciful:60 (1783, 2468) Whoever confesses his sins... is already working with God. God indicts your sins; if you also indict them, you are joined with God. Man and sinner are, so to speak, two realities: when you hear “man” — this is what God has made; when you hear “sinner” — this is what man himself has made. Destroy what you have made, so that God may save what he has made.... When you begin to abhor what you have made, it is then that your good works are beginning, since you are accusing yourself of your evil works. The beginning of good works is the confession of evil works. You do the truth and come to the light.61 Satisfaction
+
+
+**1459.** Many sins wrong our neighbor. One must do what is possible in order to repair the harm (e.g., return stolen goods, restore the reputation of someone slandered, pay compensation for injuries). Simple justice requires as much. But sin also injures and weakens the sinner himself, as well as his relationships with God and neighbor. Absolution takes away sin, but it does not remedy all the disorders sin has caused.62 Raised up from sin, the sinner must still recover his full spiritual health by doing something more to make amends for the sin: he must “make satisfaction for” or “expiate” his sins. This satisfaction is also called “penance.” (2412, 2487, 1473)
+
+
+**1460.** The penance the confessor imposes must take into account the penitent’s personal situation and must seek his spiritual good. It must correspond as far as possible with the gravity and nature of the sins committed. It can consist of prayer, an offering, works of mercy, service of neighbor, voluntary self-denial, sacrifices, and above all the patient acceptance of the cross we must bear. Such penances help configure us to Christ, who alone expiated our sins once for all. They allow us to become co-heirs with the risen Christ, “provided we suffer with him.”63 (2447, 618, 2011) The satisfaction that we make for our sins, however, is not so much ours as though it were not done through Jesus Christ. We who can do nothing ourselves, as if just by ourselves, can do all things with the cooperation of “him who strengthens” us. Thus man has nothing of which to boast, but all our boasting is in Christ... in whom we make satisfaction by bringing forth “fruits that befit repentance.” These fruits have their efficacy from him, by him they are offered to the Father, and through him they are accepted by the Father.64
+
+
+### XI. The Celebration of the Sacrament of Penance
+
+
+**1480.** Like all the sacraments, Penance is a liturgical action. The elements of the celebration are ordinarily these: a greeting and blessing from the priest, reading the word of God to illuminate the conscience and elicit contrition, and an exhortation to repentance; the confession, which acknowledges sins and makes them known to the priest; the imposition and acceptance of a penance; the priest’s absolution; a prayer of thanksgiving and praise and dismissal with the blessing of the priest.
+
+
+**1481.** The Byzantine Liturgy recognizes several formulas of absolution, in the form of invocation, which admirably express the mystery of forgiveness: “May the same God, who through the Prophet Nathan forgave David when he confessed his sins, who forgave Peter when he wept bitterly, the prostitute when she washed his feet with her tears, the publican, and the prodigal son, through me, a sinner, forgive you both in this life and in the next and enable you to appear before his awe- inspiring tribunal without condemnation, he who is blessed for ever and ever. Amen.” (1449)
+
+
+**1482.** The sacrament of Penance can also take place in the framework of a communal celebration in which we prepare ourselves together for confession and give thanks together for the forgiveness received. Here, the personal confession of sins and individual absolution are inserted into a liturgy of the word of God with readings and a homily, an examination of conscience conducted in common, a communal request for forgiveness, the Our Father and a thanksgiving in common. This communal celebration expresses more clearly the ecclesial character of penance. However, regardless of its manner of celebration the sacrament of Penance is always, by its very nature, a liturgical action, and therefore an ecclesial and public action.91 (1140)
+
+
+**1483.** In case of grave necessity recourse may be had to a communal celebration of reconciliation with general confession and general absolution. Grave necessity of this sort can arise when there is imminent danger of death without sufficient time for the priest or priests to hear each penitent’s confession. Grave necessity can also exist when, given the number of penitents, there are not enough confessors to hear individual confessions properly in a reasonable time, so that the penitents through no fault of their own would be deprived of sacramental grace or Holy Communion for a long time. In this case, for the absolution to be valid the faithful must have the intention of individually confessing their grave sins in the time required.92 The diocesan bishop is the judge of whether or not the conditions required for general absolution exist.93 A large gathering of the faithful on the occasion of major feasts or pilgrimages does not constitute a case of grave necessity.94 (1401)
+
+
+**1484.** “Individual, integral confession and absolution remain the only ordinary way for the faithful to reconcile themselves with God and the Church, unless physical or moral impossibility excuses from this kind of confession.”95 There are profound reasons for this. Christ is at work in each of the sacraments. He personally addresses every sinner: “My son, your sins are forgiven.”96 He is the physician tending each one of the sick who need him to cure them.97 He raises them up and reintegrates them into fraternal communion. Personal confession is thus the form most expressive of reconciliation with God and with the Church. (878)
+
+
+### Jesus prays
+
+
+**2599.** The Son of God who became Son of the Virgin also learned to pray according to his human heart. He learns the formulas of prayer from his mother, who kept in her heart and meditated upon all the “great things” done by the Almighty.41 He learns to pray in the words and rhythms of the prayer of his people, in the synagogue at Nazareth and the Temple at Jerusalem. But his prayer springs from an otherwise secret source, as he intimates at the age of twelve: “I must be in my Father’s house.”42 Here the newness of prayer in the fullness of time begins to be revealed: his filial prayer, which the Father awaits from his children, is finally going to be lived out by the only Son in his humanity, with and for men. (470-473, 584, 534)
+
+
+**2600.** The Gospel according to St. Luke emphasizes the action of the Holy Spirit and the meaning of prayer in Christ’s ministry. Jesus prays before the decisive moments of his mission: before his Father’s witness to him during his baptism and Transfiguration, and before his own fulfillment of the Father’s plan of love by his Passion.43 He also prays before the decisive moments involving the mission of his apostles: at his election and call of the Twelve, before Peter’s confession of him as “the Christ of God,” and again that the faith of the chief of the Apostles may not fail when tempted.44 Jesus’ prayer before the events of salvation that the Father has asked him to fulfill is a humble and trusting commitment of his human will to the loving will of the Father. (535, 554, 612, 858, 443)
+
+
+**2601.** “He was praying in a certain place and when he had ceased, one of his disciples said to him, ‘Lord, teach us to pray.’”45 In seeing the Master at prayer the disciple of Christ also wants to pray. By contemplating and hearing the Son, the master of prayer, the children learn to pray to the Father. (2765)
+
+
+**2602.** Jesus often draws apart to pray in solitude, on a mountain, preferably at night.46 He includes all men in his prayer, for he has taken on humanity in his incarnation, and he offers them to the Father when he offers himself. Jesus, the Word who has become flesh, shares by his human prayer in all that “his brethren” experience; he sympathizes with their weaknesses in order to free them.47 It was for this that the Father sent him. His words and works are the visible manifestation of his prayer in secret. (616)
+
+
+**2603.** The evangelists have preserved two more explicit prayers offered by Christ during his public ministry. Each begins with thanksgiving. In the first, Jesus confesses the Father, acknowledges, and blesses him because he has hidden the mysteries of the Kingdom from those who think themselves learned and has revealed them to infants, the poor of the Beatitudes.48 His exclamation, “Yes, Father!” expresses the depth of his heart, his adherence to the Father’s “good pleasure,” echoing his mother’s Fiat at the time of his conception and prefiguring what he will say to the Father in his agony. The whole prayer of Jesus is contained in this loving adherence of his human heart to the mystery of the will of the Father.49 (2673, 2546, 494)
+
+
+**2604.** The second prayer, before the raising of Lazarus, is recorded by St. John.50 Thanksgiving precedes the event: “Father, I thank you for having heard me,” which implies that the Father always hears his petitions. Jesus immediately adds: “I know that you always hear me,” which implies that Jesus, on his part, constantly made such petitions. Jesus’ prayer, characterized by thanksgiving, reveals to us how to ask: before the gift is given, Jesus commits himself to the One who in giving gives himself. The Giver is more precious than the gift; he is the “treasure”; in him abides his Son’s heart; the gift is given “as well.”51 (478, 2746) The priestly prayer of Jesus holds a unique place in the economy of salvation.52 A meditation on it will conclude Section One. It reveals the ever present prayer of our High Priest and, at the same time, contains what he teaches us about our prayer to our Father, which will be developed in Section Two.
+
+
+**2605.** When the hour had come for him to fulfill the Father’s plan of love, Jesus allows a glimpse of the boundless depth of his filial prayer, not only before he freely delivered himself up (“Abba... not my will, but yours.”),53 but even in his last words on the Cross, where prayer and the gift of self are but one: “Father, forgive them, for they know not what they do”;54 “Truly, I say to you, today you will be with me in Paradise”;55 “Woman, behold your son” — “Behold your mother”;56 “I thirst”;57 “My God, My God, why have you forsaken me?”;58 “It is finished”;59 “Father, into your hands I commit my spirit!”60 until the “loud cry” as he expires, giving up his spirit.61 (614)
+
+
+**2606.** All the troubles, for all time, of humanity enslaved by sin and death, all the petitions and intercessions of salvation history are summed up in this cry of the incarnate Word. Here the Father accepts them and, beyond all hope, answers them by raising his Son. Thus is fulfilled and brought to completion the drama of prayer in the economy of creation and salvation. The Psalter gives us the key to prayer in Christ. In the “today” of the Resurrection the Father says: “You are my Son, today I have begotten you. Ask of me, and I will make the nations your heritage, and the ends of the earth your possession.”62 (403, 653, 2587) The Letter to the Hebrews expresses in dramatic terms how the prayer of Jesus accomplished the victory of salvation: “In the days of his flesh, Jesus offered up prayers and supplications, with loud cries and tears, to him who was able to save him from death, and he was heard for his godly fear. Although he was a Son, he learned obedience through what he suffered, and being made perfect, he became the source of eternal salvation to all who obey him.”63
+
+
+### Jesus teaches us how to pray
+
+
+**2607.** When Jesus prays he is already teaching us how to pray. His prayer to his Father is the theologal path (the path of faith, hope, and charity) of our prayer to God. But the Gospel also gives us Jesus’ explicit teaching on prayer. Like a wise teacher he takes hold of us where we are and leads us progressively toward the Father. Addressing the crowds following him, Jesus builds on what they already know of prayer from the Old Covenant and opens to them the newness of the coming Kingdom. Then he reveals this newness to them in parables. Finally, he will speak openly of the Father and the Holy Spirit to his disciples who will be the teachers of prayer in his Church. (520)
+
+
+**2608.** From the Sermon on the Mount onwards, Jesus insists on conversion of heart: reconciliation with one’s brother before presenting an offering on the altar, love of enemies, and prayer for persecutors, prayer to the Father in secret, not heaping up empty phrases, prayerful forgiveness from the depths of the heart, purity of heart, and seeking the Kingdom before all else.64 This filial conversion is entirely directed to the Father. (541, 1430)
+
+
+**2609.** Once committed to conversion, the heart learns to pray in faith. Faith is a filial adherence to God beyond what we feel and understand. It is possible because the beloved Son gives us access to the Father. He can ask us to “seek” and to “knock,” since he himself is the door and the way.65 (153, 1814)
+
+
+**2610.** Just as Jesus prays to the Father and gives thanks before receiving his gifts, so he teaches us filial boldness: “Whatever you ask in prayer, believe that you receive it, and you will.”66 Such is the power of prayer and of faith that does not doubt: “all things are possible to him who believes.”67 Jesus is as saddened by the “lack of faith” of his own neighbors and the “little faith” of his own disciples68 as he is struck with admiration at the great faith of the Roman centurion and the Canaanite woman.69 (165)
+
+
+**2611.** The prayer of faith consists not only in saying “Lord, Lord,” but in disposing the heart to do the will of the Father.70 Jesus calls his disciples to bring into their prayer this concern for cooperating with the divine plan.71 (2827)
+
+
+**2612.** In Jesus “the Kingdom of God is at hand.”72 He calls his hearers to conversion and faith, but also to watchfulness. In prayer the disciple keeps watch, attentive to Him Who Is and Him Who Comes, in memory of his first coming in the lowliness of the flesh, and in the hope of his second coming in glory.73 In communion with their Master, the disciples’ prayer is a battle; only by keeping watch in prayer can one avoid falling into temptation.74 (672, 2725)
+
+
+**2613.** Three principal parables on prayer are transmitted to us by St. Luke: (546, 2559) —The first, “the importunate friend,”75 —The second, “the importunate widow,”76 is centered on one of the qualities of prayer: it is necessary to pray always without ceasing and with the patience —The third parable, “the Pharisee and the tax collector,”77 concerns the humility of the heart that prays. “God, be merciful to me a sinner!” The Church continues to make this prayer its own: Kyrie eleison!
+
+
+**2614.** When Jesus openly entrusts to his disciples the mystery of prayer to the Father, he reveals to them what their prayer and ours must be, once he has returned to the Father in his glorified humanity. What is new is to “ask in his name.”78 Faith in the Son introduces the disciples into the knowledge of the Father, because Jesus is “the way, and the truth, and the life.”79 Faith bears its fruit in love: it means keeping the word and the commandments of Jesus, it means abiding with him in the Father who, in him, so loves us that he abides with us. In this new covenant the certitude that our petitions will be heard is founded on the prayer of Jesus.80 (434)
+
+
+**2615.** Even more, what the Father gives us when our prayer is united with that of Jesus is “another Counselor, to be with you for ever, even the Spirit of truth.”81 This new dimension of prayer and of its circumstances is displayed throughout the farewell discourse.82 In the Holy Spirit, Christian prayer is a communion of love with the Father, not only through Christ but also in him: “Hitherto you have asked nothing in my name; ask, and you will receive, that your joy may be full.”83 (728)
+
+
+### Jesus hears our prayer
+
+
+**2616.** Prayer to Jesus is answered by him already during his ministry, through signs that anticipate the power of his death and Resurrection: Jesus hears the prayer of faith, expressed in words (the leper, Jairus, the Canaanite woman, the good thief)84 or in silence (the bearers of the paralytic, the woman with a hemorrhage who touches his clothes, the tears and ointment of the sinful woman).85 The urgent request of the blind men, “Have mercy on us, Son of David” or “Jesus, Son of David, have mercy on me!” has been renewed in the traditional prayer to Jesus known as the Jesus Prayer: “Lord Jesus Christ, Son of God, have mercy on me, a sinner!”86 Healing infirmities or forgiving sins, Jesus always responds to a prayer offered in faith: “Your faith has made you well; go in peace.” (548, 2667) St. Augustine wonderfully summarizes the three dimensions of Jesus’ prayer: “He prays for us as our priest, prays in us as our Head, and is prayed to by us as our God. Therefore let us acknowledge our voice in him and his in us.”87
+
+
+### “OUR FATHER!”
+
+
+**2759.** Jesus “was praying at a certain place, and when he ceased, one of his disciples said to him, ‘Lord, teach us to pray, as John taught his disciples.’”1 In response to this request the Lord entrusts to his disciples and to his Church the fundamental Christian prayer. St. Luke presents a brief text of five petitions,2 while St. Matthew gives a more developed version of seven petitions.3 The liturgical tradition of the Church has retained St. Matthew’s text: Our Father who art in heaven, hallowed be thy name. Thy kingdom come. Thy will be done on earth, as it is in heaven. Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us, and lead us not into temptation, but deliver us from evil.
+
+
+**2760.** Very early on, liturgical usage concluded the Lord’s Prayer with a doxology. In the Didache, we find, “For yours are the power and the glory for ever.”4 The Apostolic Constitutions add to the beginning: “the kingdom,” and this is the formula retained to our day in ecumenical prayer.5 The Byzantine tradition adds after “the glory” the words “Father, Son, and Holy Spirit.” The Roman Missal develops the last petition in the explicit perspective of “awaiting our blessed hope” and of the Second Coming of our Lord Jesus Christ.6 Then comes the assembly’s acclamation or the repetition of the doxology from the Apostolic Constitutions. (2855, 2854)
+
+
+### “THE SUMMARY OF THE WHOLE GOSPEL”
+
+
+**2761.** The Lord’s Prayer “is truly the summary of the whole gospel.”7 “Since the Lord... after handing over the practice of prayer, said elsewhere, ‘Ask and you will receive,’ and since everyone has petitions which are peculiar to his circumstances, the regular and appropriate prayer [the Lord’s Prayer] is said first, as the foundation of further desires.”8
+
+
+### I. At the Center of the Scriptures
+
+
+**2762.** After showing how the psalms are the principal food of Christian prayer and flow together in the petitions of the Our Father, St. Augustine concludes: Run through all the words of the holy prayers [in Scripture], and I do not think that you will find anything in them that is not contained and included in the Lord’s Prayer.9
+
+
+**2763.** All the Scriptures—the Law, the Prophets, and the Psalms—are fulfilled in Christ.10 The Gospel is this “Good News.” Its first proclamation is summarized by St. Matthew in the Sermon on the Mount;11 the prayer to our Father is at the center of this proclamation. It is in this context that each petition bequeathed to us by the Lord is illuminated: (102, 2541) The Lord’s Prayer is the most perfect of prayers.... In it we ask, not only for all the things we can rightly desire, but also in the sequence that they should be desired. This prayer not only teaches us to ask for things, but also in what order we should desire them.12
+
+
+**2764.** The Sermon on the Mount is teaching for life, the Our Father is a prayer; but in both the one and the other the Spirit of the Lord gives new form to our desires, those inner movements that animate our lives. Jesus teaches us this new life by his words; he teaches us to ask for it by our prayer. The rightness of our life in him will depend on the rightness of our prayer. (1965, 1969)
+
+
+### I. “We Dare to Say”
+
+
+**2777.** In the Roman liturgy, the Eucharistic assembly is invited to pray to our heavenly Father with filial boldness; the Eastern liturgies develop and use similar expressions: “dare in all confidence,” “make us worthy of....” From the burning bush Moses heard a voice saying to him, “Do not come near; put off your shoes from your feet, for the place on which you are standing is holy ground.”26 Only Jesus could cross that threshold of the divine holiness, for “when he had made purification for sins,” he brought us into the Father’s presence: “Here am I, and the children God has given me.”27 (270) Our awareness of our status as slaves would make us sink into the ground and our earthly condition would dissolve into dust, if the authority of our Father himself and the Spirit of his Son had not impelled us to this cry... ‘Abba, Father!’... When would a mortal dare call God ‘Father,’ if man’s innermost being were not animated by power from on high?”28
+
+
+**2778.** This power of the Spirit who introduces us to the Lord’s Prayer is expressed in the liturgies of East and of West by the beautiful, characteristically Christian expression: parrhesia, straightforward simplicity, filial trust, joyous assurance, humble boldness, the certainty of being loved.29 (2828)
+
+
+### II. “Father!”
+
+
+**2779.** Before we make our own this first exclamation of the Lord’s Prayer, we must humbly cleanse our hearts of certain false images drawn “from this world.” Humility makes us recognize that “no one knows the Son except the Father, and no one knows the Father except the Son and anyone to whom the Son chooses to reveal him,” that is, “to little children.”30 The purification of our hearts has to do with paternal or maternal images, stemming from our personal and cultural history, and influencing our relationship with God. God our Father transcends the categories of the created world. To impose our own ideas in this area “upon him” would be to fabricate idols to adore or pull down. To pray to the Father is to enter into his mystery as he is and as the Son has revealed him to us. (239) The expression God the Father had never been revealed to anyone. When Moses himself asked God who he was, he heard another name. The Father’s name has been revealed to us in the Son, for the name “Son” implies the new name “Father.”31
+
+
+**2780.** We can invoke God as “Father” because he is revealed to us by his Son become man and because his Spirit makes him known to us. The personal relation of the Son to the Father is something that man cannot conceive of nor the angelic powers even dimly see: and yet, the Spirit of the Son grants a participation in that very relation to us who believe that Jesus is the Christ and that we are born of God.32 (240)
+
+
+**2781.** When we pray to the Father, we are in communion with him and with his Son, Jesus Christ.33 Then we know and recognize him with an ever new sense of wonder. The first phrase of the Our Father is a blessing of adoration before it is a supplication. For it is the glory of God that we should recognize him as “Father,” the true God. We give him thanks for having revealed his name to us, for the gift of believing in it, and for the indwelling of his Presence in us. (2665)
+
+
+**2782.** We can adore the Father because he has caused us to be reborn to his life by adopting us as his children in his only Son: by Baptism, he incorporates us into the Body of his Christ; through the anointing of his Spirit who flows from the head to the members, he makes us other “Christs.” (1267) God, indeed, who has predestined us to adoption as his sons, has conformed us to the glorious Body of Christ. So then you who have become sharers in Christ are appropriately called “Christs.”34 The new man, reborn and restored to his God by grace, says first of all, “Father!” because he has now begun to be a son.35
+
+
+**2783.** Thus the Lord’s Prayer reveals us to ourselves at the same time that it reveals the Father to us.36 (1701) O man, you did not dare to raise your face to heaven, you lowered your eyes to the earth, and suddenly you have received the grace of Christ: all your sins have been forgiven. From being a wicked servant you have become a good son.... Then raise your eyes to the Father who has begotten you through Baptism, to the Father who has redeemed you through his Son, and say: “Our Father....” But do not claim any privilege. He is the Father in a special way only of Christ, but he is the common Father of us all, because while he has begotten only Christ, he has created us. Then also say by his grace, “Our Father,” so that you may merit being his son.37
+
+
+**2784.** The free gift of adoption requires on our part continual conversion and new life. Praying to our Father should develop in us two fundamental dispositions: (1428, 1997) First, the desire to become like him: though created in his image, we are restored to his likeness by grace; and we must respond to this grace. We must remember... and know that when we call God “our Father” we ought to behave as sons of God.38 You cannot call the God of all kindness your Father if you preserve a cruel and inhuman heart; for in this case you no longer have in you the marks of the heavenly Father’s kindness.39 We must contemplate the beauty of the Father without ceasing and adorn our own souls accordingly.40
+
+
+**2785.** Second, a humble and trusting heart that enables us “to turn and become like children”:41 for it is to “little children” that the Father is revealed.42 (2562) [The prayer is accomplished] by the contemplation of God alone, and by the warmth of love, through which the soul, molded and directed to love him, speaks very familiarly to God as to its own Father with special devotion.43 Our Father: at this name love is aroused in us... and the confidence of obtaining what we are about to ask.... What would he not give to his children who ask, since he has already granted them the gift of being his children?44
