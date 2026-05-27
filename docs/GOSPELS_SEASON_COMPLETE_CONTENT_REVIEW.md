@@ -306,7 +306,7 @@ Notes: Read with Mark's urgency: Christ acts with authority and calls for trust.
 
 #### Reflection Prompt
 
-Ask Jesus for the trust this passage calls for, then choose one concrete act of obedience today.
+Ask Christ to make repentance concrete today; name one wilderness where you need to prepare His way.
 
 #### Source Metadata
 
@@ -351,7 +351,7 @@ Notes: Stay close to Jesus as He reveals both mercy and the way of the cross.
 
 #### Reflection Prompt
 
-Ask Jesus for the trust this passage calls for, then choose one concrete act of obedience today.
+Where is Jesus saying 'Follow me' today, and what net needs to be left behind?
 
 #### Source Metadata
 
@@ -436,7 +436,7 @@ Notes: Let the passage ask for a concrete response of repentance, faith, or cour
 
 #### Reflection Prompt
 
-Pray with Authority and Mercy, and ask for courage to stay near Jesus when discipleship costs something.
+Bring one wounded place to Jesus' authority, then make one act of mercy toward someone nearby.
 
 #### Source Metadata
 
@@ -501,7 +501,7 @@ Notes: Read with Mark's urgency: Christ acts with authority and calls for trust.
 
 #### Reflection Prompt
 
-Ask Jesus for the trust this passage calls for, then choose one concrete act of obedience today.
+Where do you need Christ's forgiveness more than outward fixing? Take one honest step toward Him.
 
 #### Source Metadata
 
@@ -572,7 +572,7 @@ Notes: Stay close to Jesus as He reveals both mercy and the way of the cross.
 
 #### Reflection Prompt
 
-Ask Jesus for the trust this passage calls for, then choose one concrete act of obedience today.
+Let Jesus reorder your Sabbath: choose one act of worship, mercy, or rest without legalism.
 
 #### Source Metadata
 
@@ -625,7 +625,7 @@ Notes: This Sunday anchors the season in the Church's love for the word of God.
 
 #### Reflection Prompt
 
-Ask the Holy Spirit to make the Gospels a real encounter with Christ this week.
+Before reading this week, ask the Holy Spirit to make Scripture an encounter with the living Christ.
 
 #### Source Metadata
 
@@ -717,7 +717,7 @@ Notes: Let the passage ask for a concrete response of repentance, faith, or cour
 
 #### Reflection Prompt
 
-Ask Jesus for the trust this passage calls for, then choose one concrete act of obedience today.
+Ask Jesus to call you closer to Himself before any work He asks you to do.
 
 #### Source Metadata
 
@@ -788,7 +788,7 @@ Notes: Read with Mark's urgency: Christ acts with authority and calls for trust.
 
 #### Reflection Prompt
 
-Pray with The Sower and the Word, and ask for courage to stay near Jesus when discipleship costs something.
+What soil is your heart today? Remove one thorn that keeps the Word from bearing fruit.
 
 #### Source Metadata
 
@@ -849,7 +849,7 @@ Notes: Stay close to Jesus as He reveals both mercy and the way of the cross.
 
 #### Reflection Prompt
 
-Notice Christ's authority here. Name one place where you need to follow Him without delay.
+Choose one hidden act of faithfulness, trusting the Kingdom to grow quietly under Christ's care.
 
 #### Source Metadata
 
@@ -938,7 +938,7 @@ Notes: Let the passage ask for a concrete response of repentance, faith, or cour
 
 #### Reflection Prompt
 
-Ask Jesus for the trust this passage calls for, then choose one concrete act of obedience today.
+Name one storm or darkness to Jesus, then tell one person what His mercy has done.
 
 #### Source Metadata
 
@@ -1013,7 +1013,7 @@ Notes: Read with Mark's urgency: Christ acts with authority and calls for trust.
 
 #### Reflection Prompt
 
-Ask Jesus for the trust this passage calls for, then choose one concrete act of obedience today.
+Pray with the words 'Do not fear'; entrust one impossible need to Jesus today.
 
 #### Source Metadata
 
@@ -1104,7 +1104,7 @@ Notes: Stay close to Jesus as He reveals both mercy and the way of the cross.
 
 #### Reflection Prompt
 
-Notice Christ's authority here. Name one place where you need to follow Him without delay.
+Where does fear of rejection silence you? Ask for courage to witness without needing approval.
 
 #### Source Metadata
 
@@ -1213,7 +1213,7 @@ Notes: Let the titles of Jesus become prayer, not vocabulary only.
 
 #### Reflection Prompt
 
-Pray the name of Jesus slowly, and ask for deeper faith in Him as Lord and Son.
+Pray the holy name of Jesus, and make one act that confesses Him as Lord.
 
 #### Source Metadata
 
@@ -1299,7 +1299,7 @@ Notes: Let the passage ask for a concrete response of repentance, faith, or cour
 
 #### Reflection Prompt
 
-Let this reading expose one fear or attachment, then bring it honestly to Christ in prayer.
+Offer Jesus what seems too small, and serve someone from the compassion He shows the crowd.
 
 #### Source Metadata
 
@@ -1388,7 +1388,7 @@ Notes: Read with Mark's urgency: Christ acts with authority and calls for trust.
 
 #### Reflection Prompt
 
-Let this reading expose one fear or attachment, then bring it honestly to Christ in prayer.
+Ask Christ to purify your heart, then practice humble persistence in one difficult prayer.
 
 #### Source Metadata
 
@@ -1458,7 +1458,7 @@ Notes: Stay close to Jesus as He reveals both mercy and the way of the cross.
 
 #### Reflection Prompt
 
-Ask Jesus for the trust this passage calls for, then choose one concrete act of obedience today.
+Where do you need to be opened by Jesus? Listen, receive, and share one gift today.
 
 #### Source Metadata
 
@@ -1551,7 +1551,7 @@ Notes: Let the passage ask for a concrete response of repentance, faith, or cour
 
 #### Reflection Prompt
 
-Pray with Who Do You Say That I Am?, and ask for courage to stay near Jesus when discipleship costs something.
+Answer Jesus plainly: who is He to you? Let that confession shape one sacrifice today.
 
 #### Source Metadata
 
@@ -1643,7 +1643,7 @@ Notes: Read with Mark's urgency: Christ acts with authority and calls for trust.
 
 #### Reflection Prompt
 
-Notice Christ's authority here. Name one place where you need to follow Him without delay.
+Ask for faith that says, 'Help my unbelief,' especially where prayer has felt powerless.
 
 #### Source Metadata
 
@@ -1717,7 +1717,7 @@ Notes: Stay close to Jesus as He reveals both mercy and the way of the cross.
 
 #### Reflection Prompt
 
-Pray with The Way of Humility, and ask for courage to stay near Jesus when discipleship costs something.
+Choose the lower place today, and cut off one habit that leads you away from Christ.
 
 #### Source Metadata
 
@@ -1820,7 +1820,7 @@ Notes: In the Gospels, we meet God in a real human life.
 
 #### Reflection Prompt
 
-Thank Christ for taking on our humanity, then honor Him in one ordinary duty today.
+Thank the Word made flesh by honoring Christ in one ordinary duty of your body and time.
 
 #### Source Metadata
 
@@ -1914,7 +1914,7 @@ Notes: Let the passage ask for a concrete response of repentance, faith, or cour
 
 #### Reflection Prompt
 
-Pray with Receiving the Kingdom, and ask for courage to stay near Jesus when discipleship costs something.
+Where are riches, comfort, or control competing with the Kingdom? Make one act of detachment.
 
 #### Source Metadata
 
@@ -1989,7 +1989,7 @@ Notes: Read with Mark's urgency: Christ acts with authority and calls for trust.
 
 #### Reflection Prompt
 
-Let this reading expose one fear or attachment, then bring it honestly to Christ in prayer.
+Ask Jesus, 'Master, let me see,' then serve someone without seeking the place of honor.
 
 #### Source Metadata
 
@@ -2090,7 +2090,7 @@ Notes: Stay close to Jesus as He reveals both mercy and the way of the cross.
 
 #### Reflection Prompt
 
-Ask Jesus for the trust this passage calls for, then choose one concrete act of obedience today.
+Let Christ cleanse one corner of your worship; forgive someone before asking for more.
 
 #### Source Metadata
 
@@ -2220,7 +2220,7 @@ Notes: Let the passage ask for a concrete response of repentance, faith, or cour
 
 #### Reflection Prompt
 
-Pray with Teaching in the Temple, and ask for courage to stay near Jesus when discipleship costs something.
+Give God what bears His image: your heart, your attention, and one hidden sacrifice.
 
 #### Source Metadata
 
@@ -2333,7 +2333,7 @@ Notes: Read with Mark's urgency: Christ acts with authority and calls for trust.
 
 #### Reflection Prompt
 
-Pray with Watch and Be Faithful, and ask for courage to stay near Jesus when discipleship costs something.
+Practice watchfulness today: resist one distraction that dulls your readiness for Christ.
 
 #### Source Metadata
 
@@ -2474,7 +2474,7 @@ Notes: Stay close to Jesus as He reveals both mercy and the way of the cross.
 
 #### Reflection Prompt
 
-Ask Jesus for the trust this passage calls for, then choose one concrete act of obedience today.
+Stay with Jesus in Gethsemane for ten minutes, and surrender one hard thing to the Father.
 
 #### Source Metadata
 
@@ -2577,7 +2577,7 @@ Notes: Mary's fiat teaches the posture of a disciple.
 
 #### Reflection Prompt
 
-Ask Mary to teach you a freer yes to God in the place where you hesitate.
+Ask Mary for her obedient faith, and say yes to God in one concrete place.
 
 #### Source Metadata
 
@@ -2705,7 +2705,7 @@ Notes: Let the passage ask for a concrete response of repentance, faith, or cour
 
 #### Reflection Prompt
 
-Ask Jesus for the trust this passage calls for, then choose one concrete act of obedience today.
+Stand near the condemned Christ; repent of one denial, compromise, or fear of being known as His.
 
 #### Source Metadata
 
@@ -2844,7 +2844,7 @@ Notes: Read with Mark's urgency: Christ acts with authority and calls for trust.
 
 #### Reflection Prompt
 
-Notice Christ's authority here. Name one place where you need to follow Him without delay.
+Thank Jesus for His Cross and Resurrection, then speak one word of hope to someone.
 
 #### Source Metadata
 
@@ -2908,7 +2908,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Let this reading show you how Christ forms His Church, then choose one act of faithful service.
+Thank God for the real history of salvation, and entrust your family story to Christ.
 
 #### Source Metadata
 
@@ -2955,7 +2955,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Let this reading show you how Christ forms His Church, then choose one act of faithful service.
+Imitate Joseph's obedience: do the next right thing God has made clear.
 
 #### Source Metadata
 
@@ -3034,7 +3034,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Let this reading show you how Christ forms His Church, then choose one act of faithful service.
+Offer Christ your best gift today, and turn away from any path that protects comfort over obedience.
 
 #### Source Metadata
 
@@ -3099,7 +3099,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Ask Christ the King to teach you one concrete way to live His Kingdom today.
+Renew your baptismal repentance; ask the beloved Son to make one crooked path straight.
 
 #### Source Metadata
 
@@ -3142,7 +3142,7 @@ Notes: The Church reads these mysteries as part of Christ's saving work.
 
 #### Reflection Prompt
 
-Renew your baptismal identity, and resist one temptation with Christ today.
+Renew your baptismal identity, then resist one temptation as a beloved child of the Father.
 
 #### Source Metadata
 
@@ -3226,7 +3226,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Let this reading show you how Christ forms His Church, then choose one act of faithful service.
+Meet temptation with obedience: choose one Scripture, prayer, or fast against a real temptation today.
 
 #### Source Metadata
 
@@ -3299,7 +3299,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Ask Christ the King to teach you one concrete way to live His Kingdom today.
+Pick one Beatitude to practice concretely, asking Jesus to form His poverty or mercy in you.
 
 #### Source Metadata
 
@@ -3394,7 +3394,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Ask Jesus to make mercy and obedience real in one decision you make today.
+Seek reconciliation where you can, and let Christ convert one resentment, look, or word.
 
 #### Source Metadata
 
@@ -3463,7 +3463,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Let this reading show you how Christ forms His Church, then choose one act of faithful service.
+Pray the Our Father slowly, then give alms, pray, or fast without seeking notice.
 
 #### Source Metadata
 
@@ -3530,7 +3530,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Let this reading show you how Christ forms His Church, then choose one act of faithful service.
+Move one worry into the Father's hands, and make one choice for treasure in heaven.
 
 #### Source Metadata
 
@@ -3629,7 +3629,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Pray with Build on the Rock, and name one place where Jesus is asking for deeper righteousness.
+Build on the rock today by obeying one command of Jesus you already know.
 
 #### Source Metadata
 
@@ -3672,7 +3672,7 @@ Notes: Listen for the Kingdom in parables, healings, forgiveness, and conversion
 
 #### Reflection Prompt
 
-Ask Christ to reign more fully in one concrete part of your life this week.
+Let Christ reign in one practical area: money, speech, schedule, resentment, or fear.
 
 #### Source Metadata
 
@@ -3738,7 +3738,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Pray with He Took Our Infirmities, and name one place where Jesus is asking for deeper righteousness.
+Bring Jesus one infirmity, yours or another's, and ask how mercy should move your hands.
 
 #### Source Metadata
 
@@ -3827,7 +3827,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Let this reading show you how Christ forms His Church, then choose one act of faithful service.
+Follow Christ without bargaining; receive His forgiveness and forgive one debt owed to you.
 
 #### Source Metadata
 
@@ -3926,7 +3926,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Pray with Mercy and the Harvest, and name one place where Jesus is asking for deeper righteousness.
+Let Jesus look on the crowd through your eyes; serve one person who seems spiritually tired.
 
 #### Source Metadata
 
@@ -4005,7 +4005,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Ask Christ the King to teach you one concrete way to live His Kingdom today.
+Ask Christ to send you simply; speak peace and truth without overpacking your own security.
 
 #### Source Metadata
 
@@ -4078,7 +4078,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Ask Christ the King to teach you one concrete way to live His Kingdom today.
+Do not fear those who oppose the Gospel; make one quiet act of loyalty to Christ.
 
 #### Source Metadata
 
@@ -4173,7 +4173,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Pray with Come to Me, and name one place where Jesus is asking for deeper righteousness.
+Bring your burden to Jesus, then lay down one false expectation He is not asking you to carry.
 
 #### Source Metadata
 
@@ -4210,7 +4210,7 @@ Notes: Miracles reveal who Jesus is and what His mercy restores.
 
 #### Reflection Prompt
 
-Bring one need to Jesus with trust, and look for the mercy His signs reveal.
+Bring one need to Jesus, and ask to see His signs as invitations to faith.
 
 #### Source Metadata
 
@@ -4284,7 +4284,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Pray with Mercy on the Sabbath, and name one place where Jesus is asking for deeper righteousness.
+Choose mercy over self-justification, especially in one place where rules are easier than love.
 
 #### Source Metadata
 
@@ -4377,7 +4377,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Pray with The Sign and the Family, and name one place where Jesus is asking for deeper righteousness.
+Ask the Holy Spirit to guard your speech, your repentance, and your belonging to Christ's family.
 
 #### Source Metadata
 
@@ -4457,7 +4457,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Ask Christ the King to teach you one concrete way to live His Kingdom today.
+Protect the Word sown in you today by removing one distraction before it takes root.
 
 #### Source Metadata
 
@@ -4556,7 +4556,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Ask Jesus to make mercy and obedience real in one decision you make today.
+Seek the Kingdom like treasure; give up one lesser thing gladly for Christ.
 
 #### Source Metadata
 
@@ -4647,7 +4647,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Pray with Rejected, Then Moved With Compassion, and name one place where Jesus is asking for deeper righteousness.
+Let rejection make you compassionate, not hard; feed someone with patience, prayer, or practical help.
 
 #### Source Metadata
 
@@ -4756,7 +4756,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Ask Christ the King to teach you one concrete way to live His Kingdom today.
+When fear rises, look at Jesus on the water and take one obedient step toward Him.
 
 #### Source Metadata
 
@@ -4791,7 +4791,7 @@ Notes: Jesus forms a people, not isolated admirers.
 
 #### Reflection Prompt
 
-Ask Jesus to make you a disciple who stays close and is ready to be sent.
+Ask to be a disciple who stays with Jesus before being sent in His name.
 
 #### Source Metadata
 
@@ -4861,7 +4861,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Pray with Mercy for the Nations, and name one place where Jesus is asking for deeper righteousness.
+Pray with the Canaanite woman's humility; ask boldly for mercy without demanding control.
 
 #### Source Metadata
 
@@ -4954,7 +4954,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Let this reading show you how Christ forms His Church, then choose one act of faithful service.
+Renew your confession that Jesus is the Christ, and pray for Peter's successor and the Church.
 
 #### Source Metadata
 
@@ -5041,7 +5041,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Ask Jesus to make mercy and obedience real in one decision you make today.
+Listen to the beloved Son before reacting today; let His voice correct one fear.
 
 #### Source Metadata
 
@@ -5115,7 +5115,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Pray with Life in the Church, and name one place where Jesus is asking for deeper righteousness.
+Practice Church life concretely: humility, correction, forgiveness, or prayer with another person.
 
 #### Source Metadata
 
@@ -5215,7 +5215,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Ask Christ the King to teach you one concrete way to live His Kingdom today.
+Forgive from the heart in one specific case, and honor faithfulness in your closest duties.
 
 #### Source Metadata
 
@@ -5312,7 +5312,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Ask Jesus to make mercy and obedience real in one decision you make today.
+Ask what you must loosen your grip on so heavenly treasure can matter more.
 
 #### Source Metadata
 
@@ -5365,7 +5365,7 @@ Notes: Read Peter's role through Christ's promise and mercy.
 
 #### Reflection Prompt
 
-Pray for the Church, the Pope, and the grace to receive Christ's authority with faith.
+Pray for the Pope, bishops, and the unity of the Church; receive Christ's authority with humility.
 
 #### Source Metadata
 
@@ -5433,7 +5433,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Let this reading show you how Christ forms His Church, then choose one act of faithful service.
+Drink the chalice of service today by accepting one costly act of love.
 
 #### Source Metadata
 
@@ -5510,7 +5510,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Ask Christ the King to teach you one concrete way to live His Kingdom today.
+Welcome Christ the King into your habits; let Him purify one place of prayer.
 
 #### Source Metadata
 
@@ -5627,7 +5627,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Pray with The Rejected Son, and name one place where Jesus is asking for deeper righteousness.
+Do not dodge Jesus' authority; answer Him with obedience in one decision.
 
 #### Source Metadata
 
@@ -5726,7 +5726,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Ask Christ the King to teach you one concrete way to live His Kingdom today.
+Love God and neighbor in a concrete pair: one act of worship, one act of charity.
 
 #### Source Metadata
 
@@ -5833,7 +5833,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Pray with Woe and Lament, and name one place where Jesus is asking for deeper righteousness.
+Ask Jesus to expose hypocrisy gently; choose one hidden act that matches your words.
 
 #### Source Metadata
 
@@ -5933,7 +5933,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Ask Christ the King to teach you one concrete way to live His Kingdom today.
+Persevere without panic; entrust one trial to Christ who will come in glory.
 
 #### Source Metadata
 
@@ -5968,7 +5968,7 @@ Notes: The Father's command is simple: listen to Him.
 
 #### Reflection Prompt
 
-Listen to the beloved Son today, especially where His words challenge your comfort.
+Listen to the beloved Son, especially where the Cross makes His glory hard to recognize.
 
 #### Source Metadata
 
@@ -6072,7 +6072,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Ask Christ the King to teach you one concrete way to live His Kingdom today.
+Keep oil in your lamp today through prayer, confession of sin, and readiness to serve.
 
 #### Source Metadata
 
@@ -6211,7 +6211,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Ask Jesus to make mercy and obedience real in one decision you make today.
+Use one talent for Christ and recognize Him in one hungry, lonely, or overlooked person.
 
 #### Source Metadata
 
@@ -6348,7 +6348,7 @@ Notes: Matthew keeps showing Jesus as fulfillment and King; listen for the Churc
 
 #### Reflection Prompt
 
-Pray with The Supper, the Garden, and the Trial, and name one place where Jesus is asking for deeper righteousness.
+Stay awake with Jesus; receive His gift with gratitude and surrender one fear in prayer.
 
 #### Source Metadata
 
@@ -6491,7 +6491,7 @@ Notes: Let Christ teach the shape of righteousness, mercy, authority, and discip
 
 #### Reflection Prompt
 
-Pray with Denied, Condemned, and Crucified, and name one place where Jesus is asking for deeper righteousness.
+Look at Peter and Pilate honestly; repent of one cowardice and stand nearer to Christ.
 
 #### Source Metadata
 
@@ -6634,7 +6634,7 @@ Notes: Read as a Catholic disciple: the Kingdom is personal, communal, and order
 
 #### Reflection Prompt
 
-Pray with Crucified and Risen, and name one place where Jesus is asking for deeper righteousness.
+Go and make disciples begins with you: believe the Resurrection and witness to one person.
 
 #### Source Metadata
 
@@ -6715,7 +6715,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Let this passage teach you to pray with trust, especially where you feel poor or dependent.
+Wait with Zechariah; let silence, prayer, or patience make room for God's promise.
 
 #### Source Metadata
 
@@ -6794,7 +6794,7 @@ Notes: Read the conflicts carefully, with attention to fulfillment and mercy.
 
 #### Reflection Prompt
 
-Ask Jesus to purify how you read conflict, authority, and fulfillment in the Gospels.
+Ask Jesus to purify your love for Israel, the law, the temple, and His fulfillment.
 
 #### Source Metadata
 
@@ -6886,7 +6886,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Ask Jesus to show you where you need His mercy, then extend mercy to someone else today.
+Say Mary's yes in one concrete duty, then carry Christ's charity to someone else.
 
 #### Source Metadata
 
@@ -6965,7 +6965,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Let this passage teach you to pray with trust, especially where you feel poor or dependent.
+Bless God for His mercy, and name one way He is preparing you to serve.
 
 #### Source Metadata
 
@@ -7036,7 +7036,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Pray with The Savior Is Born, and bring one weakness or need to the Father without pretending.
+Receive the Savior in humility; make room for Him in one ordinary, poor place.
 
 #### Source Metadata
 
@@ -7135,7 +7135,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Pray with Presented to the Lord, and bring one weakness or need to the Father without pretending.
+Present yourself to the Father today, and ponder one word of Christ like Mary.
 
 #### Source Metadata
 
@@ -7210,7 +7210,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Ask Jesus to show you where you need His mercy, then extend mercy to someone else today.
+Bear fruit worthy of repentance: repair one wrong, share with someone, or pray honestly.
 
 #### Source Metadata
 
@@ -7303,7 +7303,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Notice who receives mercy in this reading, then choose one humble act of love today.
+When tempted to prove yourself, answer as a beloved child and choose obedience.
 
 #### Source Metadata
 
@@ -7408,7 +7408,7 @@ Notes: The Passion is the self-offering of the Son in obedience and love.
 
 #### Reflection Prompt
 
-Place one sin or burden before the crucified Lord, and receive His mercy with honesty.
+Place one sin beneath the Cross, and receive the Passion as Christ's mercy for you.
 
 #### Source Metadata
 
@@ -7506,7 +7506,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Notice who receives mercy in this reading, then choose one humble act of love today.
+Let Jesus announce good news to your poverty; bring Him one captive or blind place.
 
 #### Source Metadata
 
@@ -7569,7 +7569,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Notice who receives mercy in this reading, then choose one humble act of love today.
+Put out into the deep by obeying one invitation from Jesus that feels inconvenient.
 
 #### Source Metadata
 
@@ -7648,7 +7648,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Notice who receives mercy in this reading, then choose one humble act of love today.
+Receive forgiveness like the paralytic, then make room for the new wine of grace.
 
 #### Source Metadata
 
@@ -7713,7 +7713,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Notice who receives mercy in this reading, then choose one humble act of love today.
+Let Jesus be Lord of your time; choose mercy over scrutiny in one encounter.
 
 #### Source Metadata
 
@@ -7818,7 +7818,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Pray with The Plain Teaching of the Kingdom, and bring one weakness or need to the Father without pretending.
+Practice one hard teaching from the plain: bless, forgive, give, or build on rock.
 
 #### Source Metadata
 
@@ -7883,7 +7883,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Pray with Faith and Compassion, and bring one weakness or need to the Father without pretending.
+Approach Jesus with the centurion's trust; intercede for someone who cannot ask.
 
 #### Source Metadata
 
@@ -7934,7 +7934,7 @@ Notes: Holy Saturday teaches us to wait with faith.
 
 #### Reflection Prompt
 
-Stay with Christ in His burial, and ask for patient faith where God seems hidden.
+Keep silence with Christ in the tomb, trusting the Father where grace feels hidden.
 
 #### Source Metadata
 
@@ -7998,7 +7998,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Let this passage teach you to pray with trust, especially where you feel poor or dependent.
+Look for the works of the Messiah today: mercy, healing, good news, and humble faith.
 
 #### Source Metadata
 
@@ -8071,7 +8071,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Let this passage teach you to pray with trust, especially where you feel poor or dependent.
+Love much because you have been forgiven; make one act of gratitude without self-defense.
 
 #### Source Metadata
 
@@ -8142,7 +8142,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Pray with Hearing the Word, and bring one weakness or need to the Father without pretending.
+Hear the Word and keep it: let one sentence from Jesus govern your day.
 
 #### Source Metadata
 
@@ -8245,7 +8245,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Pray with Fear Meets the Lord, and bring one weakness or need to the Father without pretending.
+Place fear before Jesus' feet, and let His authority restore your peace.
 
 #### Source Metadata
 
@@ -8312,7 +8312,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Let this passage teach you to pray with trust, especially where you feel poor or dependent.
+Let Christ send and feed you; share what little you have after prayer.
 
 #### Source Metadata
 
@@ -8383,7 +8383,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Ask Jesus to show you where you need His mercy, then extend mercy to someone else today.
+Confess Christ, take up today's cross, and listen to Him in prayer.
 
 #### Source Metadata
 
@@ -8468,7 +8468,7 @@ Notes: The empty tomb and appearances call for worship and faith.
 
 #### Reflection Prompt
 
-Ask the risen Lord to strengthen your hope and make your faith more visible in charity.
+Make one act of Easter hope today: forgive, serve, or speak of the risen Lord.
 
 #### Source Metadata
 
@@ -8530,7 +8530,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Notice who receives mercy in this reading, then choose one humble act of love today.
+Choose the childlike place when rivalry appears; welcome someone who cannot repay you.
 
 #### Source Metadata
 
@@ -8645,7 +8645,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Let this passage teach you to pray with trust, especially where you feel poor or dependent.
+Set your face with Jesus toward the Father's will, and bless one household with peace.
 
 #### Source Metadata
 
@@ -8712,7 +8712,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Pray with Neighbor and Disciple, and bring one weakness or need to the Father without pretending.
+Be neighbor before being busy; choose the better part and one concrete mercy.
 
 #### Source Metadata
 
@@ -8805,7 +8805,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Pray with Teach Us to Pray, and bring one weakness or need to the Father without pretending.
+Ask, seek, knock with perseverance, then forgive someone as you pray Our Father.
 
 #### Source Metadata
 
@@ -8890,7 +8890,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Let this passage teach you to pray with trust, especially where you feel poor or dependent.
+Let Christ's light judge your motives; repent of one hidden hypocrisy.
 
 #### Source Metadata
 
@@ -8993,7 +8993,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Pray with Fear the Father, Not the World, and bring one weakness or need to the Father without pretending.
+Store treasure with God today by refusing greed, fear, or anxious control.
 
 #### Source Metadata
 
@@ -9042,7 +9042,7 @@ Notes: The Ascension means Christ reigns and intercedes for His Church.
 
 #### Reflection Prompt
 
-Entrust this week to Christ who reigns and intercedes for His Church.
+Entrust your week to Christ ascended, who reigns and intercedes for His Church.
 
 #### Source Metadata
 
@@ -9128,7 +9128,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Pray with Ready for the Master, and bring one weakness or need to the Father without pretending.
+Be ready for the Master: reconcile, pray, or settle one unfinished duty today.
 
 #### Source Metadata
 
@@ -9207,7 +9207,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Pray with Repentance and Small Beginnings, and bring one weakness or need to the Father without pretending.
+Repent without delay, and trust one small mustard-seed obedience to grow.
 
 #### Source Metadata
 
@@ -9266,7 +9266,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Notice who receives mercy in this reading, then choose one humble act of love today.
+Enter by the narrow door through one concrete act of humility and conversion.
 
 #### Source Metadata
 
@@ -9373,7 +9373,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Ask Jesus to show you where you need His mercy, then extend mercy to someone else today.
+Take the humble place; count the cost of discipleship in one real attachment.
 
 #### Source Metadata
 
@@ -9470,7 +9470,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Ask Jesus to show you where you need His mercy, then extend mercy to someone else today.
+Return to the Father like the lost son, or seek the lost like the shepherd.
 
 #### Source Metadata
 
@@ -9565,7 +9565,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Pray with Faithful With What Is Given, and bring one weakness or need to the Father without pretending.
+Use money, time, and attention as a steward who will answer to God.
 
 #### Source Metadata
 
@@ -9680,7 +9680,7 @@ Notes: The Gospels lead naturally into the Church Jesus gathers and sends.
 
 #### Reflection Prompt
 
-Ask for love for the Church Christ gathers, teaches, and sends into the world.
+Love the Church as Christ's gathered people; serve one member of His household.
 
 #### Source Metadata
 
@@ -9748,7 +9748,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Notice who receives mercy in this reading, then choose one humble act of love today.
+Ask for faith enough to forgive; then thank Christ for one undeserved mercy.
 
 #### Source Metadata
 
@@ -9847,7 +9847,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Notice who receives mercy in this reading, then choose one humble act of love today.
+Pray like the widow and the tax collector: persistent, humble, and honest before God.
 
 #### Source Metadata
 
@@ -9941,7 +9941,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Notice who receives mercy in this reading, then choose one humble act of love today.
+Receive the Kingdom like a child, and ask what possession or pride blocks you.
 
 #### Source Metadata
 
@@ -10026,7 +10026,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Ask Jesus to show you where you need His mercy, then extend mercy to someone else today.
+Welcome Jesus into your house; make one concrete restitution, generosity, or faithful use of gifts.
 
 #### Source Metadata
 
@@ -10101,7 +10101,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Let this passage teach you to pray with trust, especially where you feel poor or dependent.
+Let Christ weep over what is unconverted in you, then cleanse one habit of prayer.
 
 #### Source Metadata
 
@@ -10186,7 +10186,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Pray with The Beloved Son Rejected, and bring one weakness or need to the Father without pretending.
+Give to Caesar what is Caesar's, but give God your obedience without reservation.
 
 #### Source Metadata
 
@@ -10241,7 +10241,7 @@ Notes: Union with Christ is personal and ecclesial.
 
 #### Reflection Prompt
 
-Name one way you can serve Christ's Body with humility and real charity.
+Honor Christ's Body by carrying one burden, forgiving one member, or serving quietly.
 
 #### Source Metadata
 
@@ -10329,7 +10329,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Notice who receives mercy in this reading, then choose one humble act of love today.
+Trust the God of the living, and offer one small gift from real poverty.
 
 #### Source Metadata
 
@@ -10436,7 +10436,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Let this passage teach you to pray with trust, especially where you feel poor or dependent.
+Stand before the Son of Man by watching your heart and praying through fear.
 
 #### Source Metadata
 
@@ -10575,7 +10575,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Ask Jesus to show you where you need His mercy, then extend mercy to someone else today.
+Receive the chalice and the table with reverence; stay awake with Jesus in temptation.
 
 #### Source Metadata
 
@@ -10714,7 +10714,7 @@ Notes: Notice who receives mercy and how Jesus teaches the heart to return to th
 
 #### Reflection Prompt
 
-Ask Jesus to show you where you need His mercy, then extend mercy to someone else today.
+When accused or afraid, remain close to Jesus and refuse one denial.
 
 #### Source Metadata
 
@@ -10842,7 +10842,7 @@ Notes: Let the passage form prayerful trust in Christ, especially where weakness
 
 #### Reflection Prompt
 
-Let this passage teach you to pray with trust, especially where you feel poor or dependent.
+At the Cross, forgive, hope, and entrust yourself to the Father with Jesus.
 
 #### Source Metadata
 
@@ -10957,7 +10957,7 @@ Notes: Luke draws attention to mercy, prayer, the poor, and the road to Jerusale
 
 #### Reflection Prompt
 
-Ask Jesus to show you where you need His mercy, then extend mercy to someone else today.
+Ask Jesus to open the Scriptures, then share the joy of the risen Lord.
 
 #### Source Metadata
 
@@ -11060,7 +11060,7 @@ Notes: These marks help us read the Gospel mission with Catholic clarity.
 
 #### Reflection Prompt
 
-Ask for deeper trust in the one, holy, catholic, and apostolic Church Christ gives us.
+Ask for fidelity to the one, holy, catholic, and apostolic Church in one concrete choice.
 
 #### Source Metadata
 
@@ -11124,7 +11124,7 @@ Notes: John invites slow attention to Christ's identity, signs, glory, and gift 
 
 #### Reflection Prompt
 
-Ask Christ to bring His light into one hidden or divided place in your heart.
+Adore the Word made flesh, and receive one person today with His grace and truth.
 
 #### Source Metadata
 
@@ -11225,7 +11225,7 @@ Notes: Read contemplatively: Jesus reveals the Father and draws disciples into b
 
 #### Reflection Prompt
 
-Ask Christ to bring His light into one hidden or divided place in your heart.
+Come and see, then invite one person toward Christ by witness rather than pressure.
 
 #### Source Metadata
 
@@ -11306,7 +11306,7 @@ Notes: Let the words of Jesus lead to worship, trust, and sacramental attention.
 
 #### Reflection Prompt
 
-Let this reading lead you to worship, then make one concrete act of trust in Jesus.
+Let Jesus purify your worship and bless ordinary life with His hidden glory.
 
 #### Source Metadata
 
@@ -11377,7 +11377,7 @@ Notes: John invites slow attention to Christ's identity, signs, glory, and gift 
 
 #### Reflection Prompt
 
-Ask Jesus to deepen your belief in who He reveals Himself to be here.
+Ask to be born from above; bring one dark habit into Christ's light.
 
 #### Source Metadata
 
@@ -11438,7 +11438,7 @@ Notes: Read contemplatively: Jesus reveals the Father and draws disciples into b
 
 #### Reflection Prompt
 
-Let this reading lead you to worship, then make one concrete act of trust in Jesus.
+Say with John, 'He must increase'; decrease one demand for attention or control.
 
 #### Source Metadata
 
@@ -11551,7 +11551,7 @@ Notes: Let the words of Jesus lead to worship, trust, and sacramental attention.
 
 #### Reflection Prompt
 
-Ask Christ to bring His light into one hidden or divided place in your heart.
+Ask Jesus for living water where you are ashamed, thirsty, or divided.
 
 #### Source Metadata
 
@@ -11618,7 +11618,7 @@ Notes: Mary belongs to the Gospel mystery as mother and model disciple.
 
 #### Reflection Prompt
 
-Ask Mary to help you receive Jesus faithfully and follow Him as a disciple.
+Ask Mary to mother your discipleship and lead you to receive Christ more faithfully.
 
 #### Source Metadata
 
@@ -11672,7 +11672,7 @@ Notes: John invites slow attention to Christ's identity, signs, glory, and gift 
 
 #### Reflection Prompt
 
-Ask Christ to bring His light into one hidden or divided place in your heart.
+Trust Christ's word before seeing results; pray for one person who needs healing.
 
 #### Source Metadata
 
@@ -11735,7 +11735,7 @@ Notes: Read contemplatively: Jesus reveals the Father and draws disciples into b
 
 #### Reflection Prompt
 
-Ask Jesus to deepen your belief in who He reveals Himself to be here.
+Rise at Jesus' command; leave behind one excuse that keeps you spiritually stuck.
 
 #### Source Metadata
 
@@ -11825,7 +11825,7 @@ Notes: Let the words of Jesus lead to worship, trust, and sacramental attention.
 
 #### Reflection Prompt
 
-Pray slowly with The Son and the Father, and choose one way to abide with Christ today.
+Listen to the Son's voice, and honor the Father through one act of obedience.
 
 #### Source Metadata
 
@@ -11898,7 +11898,7 @@ Notes: John invites slow attention to Christ's identity, signs, glory, and gift 
 
 #### Reflection Prompt
 
-Pray slowly with Bread and the Sea, and choose one way to abide with Christ today.
+Give Jesus your few loaves; let Him meet fear on the waters today.
 
 #### Source Metadata
 
@@ -12003,7 +12003,7 @@ Notes: Read contemplatively: Jesus reveals the Father and draws disciples into b
 
 #### Reflection Prompt
 
-Let this reading lead you to worship, then make one concrete act of trust in Jesus.
+Receive the Bread of Life with faith; ask for deeper hunger for the Eucharist.
 
 #### Source Metadata
 
@@ -12056,7 +12056,7 @@ Notes: Let the words of Jesus lead to worship, trust, and sacramental attention.
 
 #### Reflection Prompt
 
-Let this reading lead you to worship, then make one concrete act of trust in Jesus.
+When discipleship feels hard, tell Jesus, 'You have the words of eternal life.'
 
 #### Source Metadata
 
@@ -12181,7 +12181,7 @@ Notes: As Lent approaches, Baptism returns us to conversion and belonging.
 
 #### Reflection Prompt
 
-Renew your baptismal promises in one practical choice against sin today.
+Remember your Baptism; renounce one sin and live today as a child of God.
 
 #### Source Metadata
 
@@ -12259,7 +12259,7 @@ Notes: John invites slow attention to Christ's identity, signs, glory, and gift 
 
 #### Reflection Prompt
 
-Ask Jesus to deepen your belief in who He reveals Himself to be here.
+Seek the Father's glory, not your own timing, in one hidden choice today.
 
 #### Source Metadata
 
@@ -12352,7 +12352,7 @@ Notes: Read contemplatively: Jesus reveals the Father and draws disciples into b
 
 #### Reflection Prompt
 
-Ask Christ to bring His light into one hidden or divided place in your heart.
+Ask for the Spirit's living water, and refuse the crowd's pressure to judge by appearances.
 
 #### Source Metadata
 
@@ -12409,7 +12409,7 @@ Notes: Let the words of Jesus lead to worship, trust, and sacramental attention.
 
 #### Reflection Prompt
 
-Pray slowly with Mercy for the Accused Woman, and choose one way to abide with Christ today.
+Receive mercy and leave sin; show the same merciful truth to someone else.
 
 #### Source Metadata
 
@@ -12540,7 +12540,7 @@ Notes: John invites slow attention to Christ's identity, signs, glory, and gift 
 
 #### Reflection Prompt
 
-Ask Christ to bring His light into one hidden or divided place in your heart.
+Walk in Christ's light by rejecting one lie that keeps you from freedom.
 
 #### Source Metadata
 
@@ -12655,7 +12655,7 @@ Notes: Read contemplatively: Jesus reveals the Father and draws disciples into b
 
 #### Reflection Prompt
 
-Let this reading lead you to worship, then make one concrete act of trust in Jesus.
+Ask Jesus to heal spiritual blindness; defend the truth even when it costs approval.
 
 #### Source Metadata
 
@@ -12726,7 +12726,7 @@ Notes: Let the words of Jesus lead to worship, trust, and sacramental attention.
 
 #### Reflection Prompt
 
-Let this reading lead you to worship, then make one concrete act of trust in Jesus.
+Listen for the Shepherd's voice, and lay down one self-protective habit.
 
 #### Source Metadata
 
@@ -12833,7 +12833,7 @@ Notes: The Gospel meals, feedings, and Last Supper point toward Christ Himself.
 
 #### Reflection Prompt
 
-Ask Jesus to deepen your hunger for the Eucharist and your reverence for His gift.
+Prepare for the Eucharist with hunger, reverence, and one act of thanksgiving.
 
 #### Source Metadata
 
@@ -12903,7 +12903,7 @@ Notes: John invites slow attention to Christ's identity, signs, glory, and gift 
 
 #### Reflection Prompt
 
-Let this reading lead you to worship, then make one concrete act of trust in Jesus.
+Trust the Son who is one with the Father; cling to His works when faith is tested.
 
 #### Source Metadata
 
@@ -13026,7 +13026,7 @@ Notes: Read contemplatively: Jesus reveals the Father and draws disciples into b
 
 #### Reflection Prompt
 
-Pray slowly with The Resurrection and the Life, and choose one way to abide with Christ today.
+Bring Jesus the tomb you fear opening; believe He is Resurrection and Life.
 
 #### Source Metadata
 
@@ -13111,7 +13111,7 @@ Notes: Let the words of Jesus lead to worship, trust, and sacramental attention.
 
 #### Reflection Prompt
 
-Ask Jesus to deepen your belief in who He reveals Himself to be here.
+Offer costly love like Mary, and let Christ's approaching hour reorder your priorities.
 
 #### Source Metadata
 
@@ -13226,7 +13226,7 @@ Notes: John invites slow attention to Christ's identity, signs, glory, and gift 
 
 #### Reflection Prompt
 
-Pray slowly with Lifted Up for the World, and choose one way to abide with Christ today.
+Let yourself be drawn to the lifted-up Christ; die to one grain-of-wheat attachment.
 
 #### Source Metadata
 
@@ -13317,7 +13317,7 @@ Notes: Read contemplatively: Jesus reveals the Father and draws disciples into b
 
 #### Reflection Prompt
 
-Ask Christ to bring His light into one hidden or divided place in your heart.
+Let Jesus wash your feet; serve someone lowly without announcing it.
 
 #### Source Metadata
 
@@ -13398,7 +13398,7 @@ Notes: Let the words of Jesus lead to worship, trust, and sacramental attention.
 
 #### Reflection Prompt
 
-Pray slowly with The Way to the Father, and choose one way to abide with Christ today.
+Follow the Way today through love, trust, and one obedient work in Christ's name.
 
 #### Source Metadata
 
@@ -13507,7 +13507,7 @@ Notes: The Our Father is the prayer of sons and daughters in the Son.
 
 #### Reflection Prompt
 
-Pray the Our Father slowly, and choose one way to live as a child of the Father.
+Pray the Our Father slowly, then live one petition before the day ends.
 
 #### Source Metadata
 
@@ -13571,7 +13571,7 @@ Notes: John invites slow attention to Christ's identity, signs, glory, and gift 
 
 #### Reflection Prompt
 
-Let this reading lead you to worship, then make one concrete act of trust in Jesus.
+Ask the Advocate to teach you obedience, and receive Christ's peace where you are troubled.
 
 #### Source Metadata
 
@@ -13656,7 +13656,7 @@ Notes: Read contemplatively: Jesus reveals the Father and draws disciples into b
 
 #### Reflection Prompt
 
-Let this reading lead you to worship, then make one concrete act of trust in Jesus.
+Abide in the vine by keeping one commandment of love when it costs you.
 
 #### Source Metadata
 
@@ -13755,7 +13755,7 @@ Notes: Let the words of Jesus lead to worship, trust, and sacramental attention.
 
 #### Reflection Prompt
 
-Ask Jesus to deepen your belief in who He reveals Himself to be here.
+Bring sorrow to Jesus and pray in His name with confidence in His victory.
 
 #### Source Metadata
 
@@ -13836,7 +13836,7 @@ Notes: John invites slow attention to Christ's identity, signs, glory, and gift 
 
 #### Reflection Prompt
 
-Ask Jesus to deepen your belief in who He reveals Himself to be here.
+Rest inside Jesus' prayer to the Father, and pray for unity with one difficult person.
 
 #### Source Metadata
 
@@ -13927,7 +13927,7 @@ Notes: Read contemplatively: Jesus reveals the Father and draws disciples into b
 
 #### Reflection Prompt
 
-Pray slowly with Arrested and Denied, and choose one way to abide with Christ today.
+Stand with Jesus when He is bound; repent of one quiet denial.
 
 #### Source Metadata
 
@@ -14020,7 +14020,7 @@ Notes: Let the words of Jesus lead to worship, trust, and sacramental attention.
 
 #### Reflection Prompt
 
-Pray slowly with Behold the Man, and choose one way to abide with Christ today.
+Behold the suffering King, and surrender one fear of earthly power or approval.
 
 #### Source Metadata
 
@@ -14149,7 +14149,7 @@ Notes: This final Sunday turns the Gospel season toward Lent with honesty and ho
 
 #### Reflection Prompt
 
-Ask for true contrition and take one honest step toward Confession and Lent.
+Begin preparing for Lent: make an examination, practice contrition, and plan one step toward Confession.
 
 #### Source Metadata
 
@@ -14277,7 +14277,7 @@ Notes: John invites slow attention to Christ's identity, signs, glory, and gift 
 
 #### Reflection Prompt
 
-Ask Christ to bring His light into one hidden or divided place in your heart.
+Stay at the Cross and run to the tomb; announce hope where grief has been heavy.
 
 #### Source Metadata
 
@@ -14396,7 +14396,7 @@ Notes: Read contemplatively: Jesus reveals the Father and draws disciples into b
 
 #### Reflection Prompt
 
-Let this reading lead you to worship, then make one concrete act of trust in Jesus.
+Receive Christ's peace, bring Him your doubts, and let love restore your mission.
 
 #### Source Metadata
 
