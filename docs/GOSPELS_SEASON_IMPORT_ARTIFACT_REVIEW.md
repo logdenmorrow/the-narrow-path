@@ -19,7 +19,9 @@ Review-only human preview for the future inactive Gospel season import artifact.
 
 ## Task Strategy
 
-This review artifact proposes the strongest existing post-90-day season task pattern: reading/reflection every day, Sunday Mass on Catechism Sundays, weekly Adoration, monthly Confession, and optional prayer/community/support tasks. This remains review-only and requires explicit confirmation before SQL generation.
+This review artifact keeps the August James-style base task set: reading/reflection every day, Sunday Mass on Catechism Sundays, weekly Adoration, monthly Confession, and optional prayer/community/support tasks.
+
+Logan has now decided the Gospel season should be more intense than James but less intense than Lent / Narrow Path 90. The strategy therefore proposes a medium-intensity Gospel discipline layer: weekly fast or penance, plus the recommended Gospel Season Temperance Rule.
 
 | Task slug | Records |
 | --- | --- |
@@ -32,6 +34,25 @@ This review artifact proposes the strongest existing post-90-day season task pat
 | workout | 162 |
 | check_in_anchor | 162 |
 | attend_mass | 23 |
+
+## Proposed Add-ons
+
+| Add-on | Why | Existing matching slug(s) | Records generated now |
+| --- | --- | --- | --- |
+| Weekly fast or penance | Makes the Gospel season more serious than James without using the full Lent/Narrow Path 90 rule set. | fast | no |
+| Alcohol discipline / temperance | Adds temperance without making the season as strict as Lent or Narrow Path 90. | give_up_alcohol | no |
+
+## Recommended Gospel Season Temperance Rule
+
+- Alcohol allowed only on weekends.
+- Maximum 2 drinks in one day.
+- Never drink more than 2 days in a row.
+- No alcohol on fasting or penance days.
+- No drunkenness ever.
+
+This is more serious than James but less strict than full alcohol abstinence in Lent / Narrow Path 90.
+
+Status: Recommended review-only rule; do not generate SQL until task template and implementation strategy are approved.
 
 ## First Day Sample
 
@@ -79,7 +100,10 @@ This review artifact proposes the strongest existing post-90-day season task pat
 
 ## Open Decisions
 
-- Confirm before SQL generation whether the Gospel season should inherit the full August James task set or use only reading/reflection tasks at first.
+- Confirm before SQL generation that the Gospel season uses the full August James-style base task set plus the approved Gospel discipline add-ons.
+- Confirm whether weekly fast or penance should use the existing fast task template or a new weekly_fast_or_penance template.
+- Confirm the recommended Gospel Season Temperance Rule before SQL: alcohol only on weekends, maximum 2 drinks in one day, never more than 2 days in a row, no alcohol on fasting/penance days, and no drunkenness ever.
+- Confirm whether alcohol discipline can reuse give_up_alcohol or needs a new temperance or alcohol_discipline task template.
 - Confirm the target database still has the expected task template slugs before writing a migration.
 - Confirm monthly Confession copy for a September-February season, especially around the final Lent-prep week.
 - Confirm whether plan_days.title should continue to match reading_title, as in the August James draft migration.

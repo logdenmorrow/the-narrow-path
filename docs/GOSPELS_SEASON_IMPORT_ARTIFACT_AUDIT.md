@@ -19,8 +19,8 @@ Review-only import artifact audit.
 
 - Source draft: content/gospels/the-gospels-september-lent-content-draft.json
 - Source SHA-256: `f614fa5133bf6fa608c183d0e647047860a970a51b9b10d33438200443fb68c8`
-- Artifact SHA-256: `1cacee31e154812bbdb631f575ac97a1886f397b46474e6b1e002697496fe1a7`
-- Generated at: 2026-05-27T13:15:30.249Z
+- Artifact SHA-256: `01131e919ccd6179d334f518b7d5320d533ea2b3cd87b3c9e6fd38e3d3a3dafb`
+- Generated at: 2026-05-27T13:28:12.547Z
 
 ## Plan Metadata
 
@@ -39,6 +39,7 @@ Review-only import artifact audit.
 - Reading texts populated: 162
 - Reflection prompts populated: 162
 - Proposed task records generated: 1319
+- Future task template candidates: 3
 
 ## Task Counts
 
@@ -76,14 +77,47 @@ Review-only import artifact audit.
 - No Before You Read work done: yes
 - Extraction/source review metadata intentionally excluded from DB-facing import records: yes
 - SQL generation must explicitly confirm task strategy later: yes
+- Task strategy reflects more intense than James and less intense than Lent/Narrow Path 90: yes
+- New fasting/alcohol task candidates are not final SQL instructions: yes
 
 ## Task Record Strategy
 
-Proposed task rows are review-only and follow the strongest existing post-90-day season pattern: daily reading and reflection, required Sunday Mass, weekly Adoration quota, monthly Confession quota, and optional Night Prayer, Rosary, workout, and check-in anchor rows. The strategy remains an open decision, and any future SQL generation must explicitly confirm it.
+Base proposed task rows are review-only and intentionally keep the full August James-style baseline of daily reading and reflection, required Sunday Mass, weekly Adoration quota, monthly Confession quota, and optional Night Prayer, Rosary, workout, and check-in anchor rows.
+
+Logan has decided the Gospel season should be more intense than the James season, less intense than Lent / Narrow Path 90, and not merely a reading plan. The review-only strategy now adds a medium-intensity Gospel discipline layer in prayer, sacraments, penance, and temperance. Any future SQL generation must explicitly confirm the final strategy.
+
+## Proposed Gospel Discipline Add-ons
+
+| Add-on | Existing matching slug(s) | Records generated now | Status |
+| --- | --- | --- | --- |
+| Weekly fast or penance | fast | no | Proposed candidate only; do not generate SQL until the task template and rule are confirmed. |
+| Alcohol discipline / temperance | give_up_alcohol | no | Proposed candidate only; do not generate SQL until the exact alcohol rule and task template are confirmed. |
+
+## Recommended Gospel Season Temperance Rule
+
+- Alcohol allowed only on weekends.
+- Maximum 2 drinks in one day.
+- Never drink more than 2 days in a row.
+- No alcohol on fasting or penance days.
+- No drunkenness ever.
+
+This is more serious than James but less strict than full alcohol abstinence in Lent / Narrow Path 90.
+
+Status: Recommended review-only rule; do not generate SQL until task template and implementation strategy are approved.
+
+## Task Template Findings
+
+- Existing fasting/penance matching slugs found: fast
+- Existing alcohol/temperance matching slugs found: give_up_alcohol
+- Missing preferred fasting/penance slugs: fasting, penance, weekly_fast, friday_penance, weekly_fast_or_penance
+- Missing preferred alcohol/temperance slugs: alcohol, no_alcohol, temperance, sobriety, drinking, alcohol_discipline
 
 ## Open Decisions
 
-- Confirm before SQL generation whether the Gospel season should inherit the full August James task set or use only reading/reflection tasks at first.
+- Confirm before SQL generation that the Gospel season uses the full August James-style base task set plus the approved Gospel discipline add-ons.
+- Confirm whether weekly fast or penance should use the existing fast task template or a new weekly_fast_or_penance template.
+- Confirm the recommended Gospel Season Temperance Rule before SQL: alcohol only on weekends, maximum 2 drinks in one day, never more than 2 days in a row, no alcohol on fasting/penance days, and no drunkenness ever.
+- Confirm whether alcohol discipline can reuse give_up_alcohol or needs a new temperance or alcohol_discipline task template.
 - Confirm the target database still has the expected task template slugs before writing a migration.
 - Confirm monthly Confession copy for a September-February season, especially around the final Lent-prep week.
 - Confirm whether plan_days.title should continue to match reading_title, as in the August James draft migration.

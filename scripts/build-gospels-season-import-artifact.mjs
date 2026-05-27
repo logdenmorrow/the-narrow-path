@@ -117,13 +117,115 @@ const TASK_RULES = [
   },
 ];
 
+const TASK_TEMPLATE_FINDINGS = {
+  fastingOrPenance: {
+    searchedSlugs: [
+      "fasting",
+      "fast",
+      "penance",
+      "weekly_fast",
+      "friday_penance",
+    ],
+    existingMatchingSlugs: ["fast"],
+    missingPreferredSlugs: [
+      "fasting",
+      "penance",
+      "weekly_fast",
+      "friday_penance",
+      "weekly_fast_or_penance",
+    ],
+    addRecordsNow: false,
+    reason:
+      "The existing fast slug appears to support a stricter challenge discipline, while the Gospel season decision is a broader weekly fast or concrete penance. Confirm semantics or create a new template before SQL.",
+  },
+  alcoholDiscipline: {
+    searchedSlugs: [
+      "alcohol",
+      "no_alcohol",
+      "temperance",
+      "sobriety",
+      "drinking",
+      "give_up_alcohol",
+    ],
+    existingMatchingSlugs: ["give_up_alcohol"],
+    missingPreferredSlugs: [
+      "alcohol",
+      "no_alcohol",
+      "temperance",
+      "sobriety",
+      "drinking",
+      "alcohol_discipline",
+    ],
+    addRecordsNow: false,
+    reason:
+      "The existing give_up_alcohol slug supports abstinence, but the recommended Gospel Season Temperance Rule is more nuanced and may need a new template.",
+  },
+};
+
+const GOSPEL_SEASON_TEMPERANCE_RULE = {
+  name: "Gospel Season Temperance Rule",
+  status:
+    "Recommended review-only rule; do not generate SQL until task template and implementation strategy are approved.",
+  requirements: [
+    "Alcohol allowed only on weekends.",
+    "Maximum 2 drinks in one day.",
+    "Never drink more than 2 days in a row.",
+    "No alcohol on fasting or penance days.",
+    "No drunkenness ever.",
+  ],
+  implementationNote:
+    "This is more serious than James but less strict than full alcohol abstinence in Lent / Narrow Path 90.",
+};
+
+const GOSPEL_DISCIPLINE_ADD_ONS = [
+  {
+    key: "weeklyFastOrPenance",
+    label: "Weekly fast or penance",
+    intensityRole: "Makes the Gospel season more serious than James without using the full Lent/Narrow Path 90 rule set.",
+    intendedCadence: "Required once per Monday-Sunday week.",
+    intendedFulfillment:
+      "A real fast, Friday penance, abstinence, or another concrete penitential act.",
+    existingMatchingTaskTemplateSlugs:
+      TASK_TEMPLATE_FINDINGS.fastingOrPenance.existingMatchingSlugs,
+    proposedNewTaskTemplateSlug: "weekly_fast_or_penance",
+    addRecordsNow: TASK_TEMPLATE_FINDINGS.fastingOrPenance.addRecordsNow,
+    status:
+      "Proposed candidate only; do not generate SQL until the task template and rule are confirmed.",
+    note: TASK_TEMPLATE_FINDINGS.fastingOrPenance.reason,
+  },
+  {
+    key: "alcoholDiscipline",
+    label: "Alcohol discipline / temperance",
+    intensityRole: "Adds temperance without making the season as strict as Lent or Narrow Path 90.",
+    preferredRule: GOSPEL_SEASON_TEMPERANCE_RULE,
+    existingMatchingTaskTemplateSlugs:
+      TASK_TEMPLATE_FINDINGS.alcoholDiscipline.existingMatchingSlugs,
+    proposedNewTaskTemplateSlugs: ["temperance", "alcohol_discipline"],
+    addRecordsNow: TASK_TEMPLATE_FINDINGS.alcoholDiscipline.addRecordsNow,
+    status:
+      "Proposed candidate only; do not generate SQL until the exact alcohol rule and task template are confirmed.",
+    note: TASK_TEMPLATE_FINDINGS.alcoholDiscipline.reason,
+  },
+];
+
 const OPEN_DECISIONS = [
-  "Confirm before SQL generation whether the Gospel season should inherit the full August James task set or use only reading/reflection tasks at first.",
+  "Confirm before SQL generation that the Gospel season uses the full August James-style base task set plus the approved Gospel discipline add-ons.",
+  "Confirm whether weekly fast or penance should use the existing fast task template or a new weekly_fast_or_penance template.",
+  "Confirm the recommended Gospel Season Temperance Rule before SQL: alcohol only on weekends, maximum 2 drinks in one day, never more than 2 days in a row, no alcohol on fasting/penance days, and no drunkenness ever.",
+  "Confirm whether alcohol discipline can reuse give_up_alcohol or needs a new temperance or alcohol_discipline task template.",
   "Confirm the target database still has the expected task template slugs before writing a migration.",
   "Confirm monthly Confession copy for a September-February season, especially around the final Lent-prep week.",
   "Confirm whether plan_days.title should continue to match reading_title, as in the August James draft migration.",
   "Before You Read context remains intentionally deferred and should be generated in a separate pass.",
 ];
+
+function listText(values) {
+  return values.length ? values.join(", ") : "none";
+}
+
+function markdownList(values) {
+  return values.map((value) => `- ${value}`).join("\n");
+}
 
 function writeText(path, text) {
   mkdirSync(dirname(resolve(path)), { recursive: true });
@@ -370,6 +472,12 @@ function buildAudit({ artifact, sourceHash, validation, outputHash }) {
   const taskCountRows = Object.entries(validation.countsByTaskSlug).map(
     ([slug, count]) => [slug, count]
   );
+  const addOnRows = artifact.taskStrategy.proposedAddOns.map((addOn) => [
+    addOn.label,
+    listText(addOn.existingMatchingTaskTemplateSlugs ?? []),
+    addOn.addRecordsNow ? "yes" : "no",
+    addOn.status,
+  ]);
 
   return `# Gospels Season Import Artifact Audit
 
@@ -412,6 +520,7 @@ Review-only import artifact audit.
 - Reading texts populated: ${validation.readingTextPopulatedCount}
 - Reflection prompts populated: ${validation.reflectionPromptPopulatedCount}
 - Proposed task records generated: ${artifact.proposedTaskRecords.length}
+- Future task template candidates: ${artifact.taskStrategy.futureTaskTemplateCandidates.length}
 
 ## Task Counts
 
@@ -439,10 +548,48 @@ ${markdownTable(["Task slug", "Records"], taskCountRows)}
 - No Before You Read work done: yes
 - Extraction/source review metadata intentionally excluded from DB-facing import records: yes
 - SQL generation must explicitly confirm task strategy later: yes
+- Task strategy reflects more intense than James and less intense than Lent/Narrow Path 90: yes
+- New fasting/alcohol task candidates are not final SQL instructions: yes
 
 ## Task Record Strategy
 
-Proposed task rows are review-only and follow the strongest existing post-90-day season pattern: daily reading and reflection, required Sunday Mass, weekly Adoration quota, monthly Confession quota, and optional Night Prayer, Rosary, workout, and check-in anchor rows. The strategy remains an open decision, and any future SQL generation must explicitly confirm it.
+Base proposed task rows are review-only and intentionally keep the full August James-style baseline of daily reading and reflection, required Sunday Mass, weekly Adoration quota, monthly Confession quota, and optional Night Prayer, Rosary, workout, and check-in anchor rows.
+
+Logan has decided the Gospel season should be more intense than the James season, less intense than Lent / Narrow Path 90, and not merely a reading plan. The review-only strategy now adds a medium-intensity Gospel discipline layer in prayer, sacraments, penance, and temperance. Any future SQL generation must explicitly confirm the final strategy.
+
+## Proposed Gospel Discipline Add-ons
+
+${markdownTable(
+  ["Add-on", "Existing matching slug(s)", "Records generated now", "Status"],
+  addOnRows
+)}
+
+## Recommended Gospel Season Temperance Rule
+
+${markdownList(artifact.taskStrategy.recommendedAlcoholRule.requirements)}
+
+${artifact.taskStrategy.recommendedAlcoholRule.implementationNote}
+
+Status: ${artifact.taskStrategy.recommendedAlcoholRule.status}
+
+## Task Template Findings
+
+- Existing fasting/penance matching slugs found: ${listText(
+    artifact.taskStrategy.taskTemplateFindings.fastingOrPenance
+      .existingMatchingSlugs
+  )}
+- Existing alcohol/temperance matching slugs found: ${listText(
+    artifact.taskStrategy.taskTemplateFindings.alcoholDiscipline
+      .existingMatchingSlugs
+  )}
+- Missing preferred fasting/penance slugs: ${listText(
+    artifact.taskStrategy.taskTemplateFindings.fastingOrPenance
+      .missingPreferredSlugs
+  )}
+- Missing preferred alcohol/temperance slugs: ${listText(
+    artifact.taskStrategy.taskTemplateFindings.alcoholDiscipline
+      .missingPreferredSlugs
+  )}
 
 ## Open Decisions
 
@@ -479,6 +626,12 @@ function buildReview({ artifact }) {
   const taskRows = Object.entries(artifact.validation.countsByTaskSlug).map(
     ([slug, count]) => [slug, count]
   );
+  const addOnRows = artifact.taskStrategy.proposedAddOns.map((addOn) => [
+    addOn.label,
+    addOn.intensityRole,
+    listText(addOn.existingMatchingTaskTemplateSlugs ?? []),
+    addOn.addRecordsNow ? "yes" : "no",
+  ]);
 
   return `# Gospels Season Import Artifact Review
 
@@ -501,9 +654,26 @@ Review-only human preview for the future inactive Gospel season import artifact.
 
 ## Task Strategy
 
-This review artifact proposes the strongest existing post-90-day season task pattern: reading/reflection every day, Sunday Mass on Catechism Sundays, weekly Adoration, monthly Confession, and optional prayer/community/support tasks. This remains review-only and requires explicit confirmation before SQL generation.
+This review artifact keeps the August James-style base task set: reading/reflection every day, Sunday Mass on Catechism Sundays, weekly Adoration, monthly Confession, and optional prayer/community/support tasks.
+
+Logan has now decided the Gospel season should be more intense than James but less intense than Lent / Narrow Path 90. The strategy therefore proposes a medium-intensity Gospel discipline layer: weekly fast or penance, plus the recommended Gospel Season Temperance Rule.
 
 ${markdownTable(["Task slug", "Records"], taskRows)}
+
+## Proposed Add-ons
+
+${markdownTable(
+  ["Add-on", "Why", "Existing matching slug(s)", "Records generated now"],
+  addOnRows
+)}
+
+## Recommended Gospel Season Temperance Rule
+
+${markdownList(artifact.taskStrategy.recommendedAlcoholRule.requirements)}
+
+${artifact.taskStrategy.recommendedAlcoholRule.implementationNote}
+
+Status: ${artifact.taskStrategy.recommendedAlcoholRule.status}
 
 ## First Day Sample
 
@@ -581,15 +751,45 @@ function main() {
     },
     planDays,
     taskStrategy: {
-      recommendedDefault: "fullAugustJamesPattern",
+      recommendedDefault: "fullAugustJamesPatternPlusGospelDiscipline",
       openDecision: true,
       summary:
-        "Review-only proposed task records follow the strongest existing post-90-day season pattern.",
+        "Review-only proposed task records keep the August James-style base pattern and add proposed medium-intensity Gospel discipline candidates.",
+      intensityFrame: {
+        jamesSeason: "basic Catholic baseline / maintenance rhythm",
+        gospelSeason:
+          "stronger discipleship and Gospel conversion rhythm with prayer, sacraments, penance, and temperance",
+        lentNarrowPath90: "intense ascetical challenge",
+      },
       notes: [
         "These task records are not final SQL instructions.",
         "SQL generation must explicitly confirm the task strategy in a later pass.",
-        "The content-only strategy remains available if broader season task inheritance is not approved.",
+        "The current proposedTaskRecords include only the base task set. New fasting/penance and alcohol discipline rows are not generated until task templates and rules are confirmed.",
       ],
+      baseTaskSet: TASK_RULES,
+      proposedAddOns: GOSPEL_DISCIPLINE_ADD_ONS,
+      taskTemplateFindings: TASK_TEMPLATE_FINDINGS,
+      futureTaskTemplateCandidates: [
+        {
+          slug: "weekly_fast_or_penance",
+          label: "Weekly Fast or Penance",
+          neededIf:
+            "The existing fast template is too narrow or too tied to the Lent/Narrow Path 90 challenge discipline.",
+        },
+        {
+          slug: "temperance",
+          label: "Temperance",
+          neededIf:
+            "The recommended Gospel Season Temperance Rule is approved and the existing give_up_alcohol template is too strict.",
+        },
+        {
+          slug: "alcohol_discipline",
+          label: "Alcohol Discipline",
+          neededIf:
+            "The recommended Gospel Season Temperance Rule is approved and the team wants wording broader than temperance.",
+        },
+      ],
+      recommendedAlcoholRule: GOSPEL_SEASON_TEMPERANCE_RULE,
       taskRules: TASK_RULES,
       openDecisions: OPEN_DECISIONS,
     },
