@@ -17,6 +17,7 @@ import {
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 import { DashboardLoginRedirectClear } from "@/components/dashboard-login-redirect-clear";
+import { GospelTemperanceRuleCard } from "@/components/gospel-temperance-rule-card";
 import { PushNotificationControl } from "@/components/push-notification-control";
 import {
   GospelScaffoldingCard,
@@ -373,6 +374,10 @@ export default async function DashboardPage({
               />
             </div>
           </HeroPanel>
+
+          {postChallengePhase === "gospels" ? (
+            <GospelTemperanceRuleCard />
+          ) : null}
 
           <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
             <SurfaceCard>
@@ -752,6 +757,10 @@ export default async function DashboardPage({
             />
           </div>
         </HeroPanel>
+
+        {seasonResolution.phase === "gospels" ? (
+          <GospelTemperanceRuleCard />
+        ) : null}
 
         <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
           <SurfaceCard>
