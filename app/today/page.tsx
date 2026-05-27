@@ -166,6 +166,14 @@ function getTaskSecondaryAction(
     };
   }
 
+  if (slug === "weekly_fast_or_penance") {
+    return {
+      href: "/guides/fasting-and-penance",
+      label: "What's a fast or penance?",
+      statusText: "Open guide",
+    };
+  }
+
   return undefined;
 }
 
