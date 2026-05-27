@@ -119,6 +119,7 @@ const TASK_RULES = [
 
 const TASK_TEMPLATE_FINDINGS = {
   fastingOrPenance: {
+    preferredFutureTaskConcept: "weekly_fast_or_penance",
     searchedSlugs: [
       "fasting",
       "fast",
@@ -126,7 +127,7 @@ const TASK_TEMPLATE_FINDINGS = {
       "weekly_fast",
       "friday_penance",
     ],
-    existingMatchingSlugs: ["fast"],
+    existingRelatedSlugs: ["fast"],
     missingPreferredSlugs: [
       "fasting",
       "penance",
@@ -136,9 +137,10 @@ const TASK_TEMPLATE_FINDINGS = {
     ],
     addRecordsNow: false,
     reason:
-      "The existing fast slug appears to support a stricter challenge discipline, while the Gospel season decision is a broader weekly fast or concrete penance. Confirm semantics or create a new template before SQL.",
+      "The existing fast slug appears to support a stricter challenge discipline. The preferred Gospel season concept is weekly_fast_or_penance because it includes either a Catholic fast or another concrete penitential act.",
   },
   alcoholDiscipline: {
+    preferredFutureTaskConcept: "temperance",
     searchedSlugs: [
       "alcohol",
       "no_alcohol",
@@ -147,23 +149,79 @@ const TASK_TEMPLATE_FINDINGS = {
       "drinking",
       "give_up_alcohol",
     ],
-    existingMatchingSlugs: ["give_up_alcohol"],
+    existingRelatedSlugs: ["give_up_alcohol"],
     missingPreferredSlugs: [
       "alcohol",
       "no_alcohol",
       "temperance",
       "sobriety",
       "drinking",
-      "alcohol_discipline",
     ],
     addRecordsNow: false,
     reason:
-      "The existing give_up_alcohol slug supports abstinence, but the recommended Gospel Season Temperance Rule is more nuanced and may need a new template.",
+      "The existing give_up_alcohol slug implies full abstinence and is not the preferred implementation for the weekend/2-drink Gospel Season Temperance Rule.",
   },
+};
+
+const FASTING_AND_PENANCE_GUIDE_REQUIREMENT = {
+  route: "/guides/fasting-and-penance",
+  status:
+    "Required before launch; planning-only here. Do not create the app route in this artifact pass.",
+  linkFromTaskSlug: "weekly_fast_or_penance",
+  buttonLabel: "What's a fast or penance?",
+  requiredContent: {
+    topics: [
+      "What penance is.",
+      "What fasting is.",
+      "What abstinence is.",
+      "Catholic fasting is not starvation.",
+      "Catholic fast: one full meal, plus up to two smaller meals that together do not equal another full meal.",
+      "Health and common-sense note: users should not fast in a way that harms health or required duties.",
+    ],
+    penanceExamples: [
+      "meatless meal",
+      "skip dessert",
+      "skip alcohol",
+      "no social media",
+      "no video games",
+      "cold shower",
+      "extra Rosary",
+      "Adoration",
+      "almsgiving",
+      "hidden chore or act of service",
+    ],
+    discernmentCriteria: [
+      "concrete",
+      "doable",
+      "sacrificial",
+      "connected to prayer",
+      "does not become prideful or performative",
+      "does not harm health, work, school, or family duties",
+    ],
+  },
+};
+
+const WEEKLY_FAST_OR_PENANCE_RULE = {
+  name: "Weekly Fast or Penance",
+  preferredFutureTaskConcept: "weekly_fast_or_penance",
+  status:
+    "Preferred future task concept; review-only until task template and implementation strategy are approved.",
+  cadence: "Required once per Monday-Sunday week.",
+  naturalDefaultDay: "Friday",
+  schedulingNote:
+    "Friday should be suggested as the natural/default day, but completion can happen any day of the week.",
+  fulfillment:
+    "Can be fulfilled by a Catholic fast or another concrete penitential act.",
+  fastingExplanation:
+    "Catholic fasting is not starvation: one full meal, plus up to two smaller meals that together do not equal another full meal.",
+  healthNote:
+    "Users should not fast in a way that harms health or required duties.",
+  guideRequirement: FASTING_AND_PENANCE_GUIDE_REQUIREMENT,
 };
 
 const GOSPEL_SEASON_TEMPERANCE_RULE = {
   name: "Gospel Season Temperance Rule",
+  preferredFutureTaskConcept: "temperance",
   status:
     "Recommended review-only rule; do not generate SQL until task template and implementation strategy are approved.",
   requirements: [
@@ -181,13 +239,12 @@ const GOSPEL_DISCIPLINE_ADD_ONS = [
   {
     key: "weeklyFastOrPenance",
     label: "Weekly fast or penance",
+    preferredFutureTaskConcept: "weekly_fast_or_penance",
     intensityRole: "Makes the Gospel season more serious than James without using the full Lent/Narrow Path 90 rule set.",
-    intendedCadence: "Required once per Monday-Sunday week.",
-    intendedFulfillment:
-      "A real fast, Friday penance, abstinence, or another concrete penitential act.",
-    existingMatchingTaskTemplateSlugs:
-      TASK_TEMPLATE_FINDINGS.fastingOrPenance.existingMatchingSlugs,
-    proposedNewTaskTemplateSlug: "weekly_fast_or_penance",
+    rule: WEEKLY_FAST_OR_PENANCE_RULE,
+    existingRelatedTaskTemplateSlugs:
+      TASK_TEMPLATE_FINDINGS.fastingOrPenance.existingRelatedSlugs,
+    preferredTaskTemplateSlug: "weekly_fast_or_penance",
     addRecordsNow: TASK_TEMPLATE_FINDINGS.fastingOrPenance.addRecordsNow,
     status:
       "Proposed candidate only; do not generate SQL until the task template and rule are confirmed.",
@@ -196,11 +253,12 @@ const GOSPEL_DISCIPLINE_ADD_ONS = [
   {
     key: "alcoholDiscipline",
     label: "Alcohol discipline / temperance",
+    preferredFutureTaskConcept: "temperance",
     intensityRole: "Adds temperance without making the season as strict as Lent or Narrow Path 90.",
     preferredRule: GOSPEL_SEASON_TEMPERANCE_RULE,
-    existingMatchingTaskTemplateSlugs:
-      TASK_TEMPLATE_FINDINGS.alcoholDiscipline.existingMatchingSlugs,
-    proposedNewTaskTemplateSlugs: ["temperance", "alcohol_discipline"],
+    existingRelatedTaskTemplateSlugs:
+      TASK_TEMPLATE_FINDINGS.alcoholDiscipline.existingRelatedSlugs,
+    preferredTaskTemplateSlug: "temperance",
     addRecordsNow: TASK_TEMPLATE_FINDINGS.alcoholDiscipline.addRecordsNow,
     status:
       "Proposed candidate only; do not generate SQL until the exact alcohol rule and task template are confirmed.",
@@ -210,9 +268,10 @@ const GOSPEL_DISCIPLINE_ADD_ONS = [
 
 const OPEN_DECISIONS = [
   "Confirm before SQL generation that the Gospel season uses the full August James-style base task set plus the approved Gospel discipline add-ons.",
-  "Confirm whether weekly fast or penance should use the existing fast task template or a new weekly_fast_or_penance template.",
+  "Confirm weekly_fast_or_penance as the future task template instead of reusing fast.",
   "Confirm the recommended Gospel Season Temperance Rule before SQL: alcohol only on weekends, maximum 2 drinks in one day, never more than 2 days in a row, no alcohol on fasting/penance days, and no drunkenness ever.",
-  "Confirm whether alcohol discipline can reuse give_up_alcohol or needs a new temperance or alcohol_discipline task template.",
+  "Confirm temperance as the future task template instead of reusing give_up_alcohol.",
+  "Create the future guide page at /guides/fasting-and-penance and link it from the weekly_fast_or_penance task card before launch.",
   "Confirm the target database still has the expected task template slugs before writing a migration.",
   "Confirm monthly Confession copy for a September-February season, especially around the final Lent-prep week.",
   "Confirm whether plan_days.title should continue to match reading_title, as in the August James draft migration.",
@@ -474,10 +533,12 @@ function buildAudit({ artifact, sourceHash, validation, outputHash }) {
   );
   const addOnRows = artifact.taskStrategy.proposedAddOns.map((addOn) => [
     addOn.label,
-    listText(addOn.existingMatchingTaskTemplateSlugs ?? []),
+    addOn.preferredFutureTaskConcept,
+    listText(addOn.existingRelatedTaskTemplateSlugs ?? []),
     addOn.addRecordsNow ? "yes" : "no",
     addOn.status,
   ]);
+  const guide = artifact.taskStrategy.futureGuidePageRequirement;
 
   return `# Gospels Season Import Artifact Audit
 
@@ -520,7 +581,7 @@ Review-only import artifact audit.
 - Reading texts populated: ${validation.readingTextPopulatedCount}
 - Reflection prompts populated: ${validation.reflectionPromptPopulatedCount}
 - Proposed task records generated: ${artifact.proposedTaskRecords.length}
-- Future task template candidates: ${artifact.taskStrategy.futureTaskTemplateCandidates.length}
+- Preferred future task concepts: ${artifact.taskStrategy.futureTaskTemplateCandidates.length}
 
 ## Task Counts
 
@@ -550,6 +611,8 @@ ${markdownTable(["Task slug", "Records"], taskCountRows)}
 - SQL generation must explicitly confirm task strategy later: yes
 - Task strategy reflects more intense than James and less intense than Lent/Narrow Path 90: yes
 - New fasting/alcohol task candidates are not final SQL instructions: yes
+- Preferred future task concepts are weekly_fast_or_penance and temperance: yes
+- Future guide page ${guide.route} documented as required before launch: yes
 
 ## Task Record Strategy
 
@@ -560,11 +623,29 @@ Logan has decided the Gospel season should be more intense than the James season
 ## Proposed Gospel Discipline Add-ons
 
 ${markdownTable(
-  ["Add-on", "Existing matching slug(s)", "Records generated now", "Status"],
+  [
+    "Add-on",
+    "Preferred future concept",
+    "Existing related slug(s)",
+    "Records generated now",
+    "Status",
+  ],
   addOnRows
 )}
 
+## Weekly Fast or Penance
+
+- Preferred future task concept: ${artifact.taskStrategy.weeklyFastOrPenanceRule.preferredFutureTaskConcept}
+- Cadence: ${artifact.taskStrategy.weeklyFastOrPenanceRule.cadence}
+- Natural/default day: ${artifact.taskStrategy.weeklyFastOrPenanceRule.naturalDefaultDay}
+- Scheduling note: ${artifact.taskStrategy.weeklyFastOrPenanceRule.schedulingNote}
+- Fulfillment: ${artifact.taskStrategy.weeklyFastOrPenanceRule.fulfillment}
+- Fasting note: ${artifact.taskStrategy.weeklyFastOrPenanceRule.fastingExplanation}
+- Health/common-sense note: ${artifact.taskStrategy.weeklyFastOrPenanceRule.healthNote}
+
 ## Recommended Gospel Season Temperance Rule
+
+- Preferred future task concept: ${artifact.taskStrategy.recommendedAlcoholRule.preferredFutureTaskConcept}
 
 ${markdownList(artifact.taskStrategy.recommendedAlcoholRule.requirements)}
 
@@ -572,15 +653,42 @@ ${artifact.taskStrategy.recommendedAlcoholRule.implementationNote}
 
 Status: ${artifact.taskStrategy.recommendedAlcoholRule.status}
 
+## Future Guide Page Requirement
+
+- Route: ${guide.route}
+- Link from task: ${guide.linkFromTaskSlug}
+- Button label: ${guide.buttonLabel}
+- Status: ${guide.status}
+
+Required topics:
+
+${markdownList(guide.requiredContent.topics)}
+
+Penance examples:
+
+${markdownList(guide.requiredContent.penanceExamples)}
+
+Discernment criteria:
+
+${markdownList(guide.requiredContent.discernmentCriteria)}
+
 ## Task Template Findings
 
-- Existing fasting/penance matching slugs found: ${listText(
+- Preferred fasting/penance future concept: ${
     artifact.taskStrategy.taskTemplateFindings.fastingOrPenance
-      .existingMatchingSlugs
+      .preferredFutureTaskConcept
+  }
+- Existing fasting/penance related slugs found: ${listText(
+    artifact.taskStrategy.taskTemplateFindings.fastingOrPenance
+      .existingRelatedSlugs
   )}
-- Existing alcohol/temperance matching slugs found: ${listText(
+- Preferred alcohol/temperance future concept: ${
     artifact.taskStrategy.taskTemplateFindings.alcoholDiscipline
-      .existingMatchingSlugs
+      .preferredFutureTaskConcept
+  }
+- Existing alcohol/temperance related slugs found: ${listText(
+    artifact.taskStrategy.taskTemplateFindings.alcoholDiscipline
+      .existingRelatedSlugs
   )}
 - Missing preferred fasting/penance slugs: ${listText(
     artifact.taskStrategy.taskTemplateFindings.fastingOrPenance
@@ -628,10 +736,12 @@ function buildReview({ artifact }) {
   );
   const addOnRows = artifact.taskStrategy.proposedAddOns.map((addOn) => [
     addOn.label,
+    addOn.preferredFutureTaskConcept,
     addOn.intensityRole,
-    listText(addOn.existingMatchingTaskTemplateSlugs ?? []),
+    listText(addOn.existingRelatedTaskTemplateSlugs ?? []),
     addOn.addRecordsNow ? "yes" : "no",
   ]);
+  const guide = artifact.taskStrategy.futureGuidePageRequirement;
 
   return `# Gospels Season Import Artifact Review
 
@@ -663,17 +773,43 @@ ${markdownTable(["Task slug", "Records"], taskRows)}
 ## Proposed Add-ons
 
 ${markdownTable(
-  ["Add-on", "Why", "Existing matching slug(s)", "Records generated now"],
+  [
+    "Add-on",
+    "Preferred future concept",
+    "Why",
+    "Existing related slug(s)",
+    "Records generated now",
+  ],
   addOnRows
 )}
 
+## Weekly Fast or Penance
+
+- Preferred future task concept: ${artifact.taskStrategy.weeklyFastOrPenanceRule.preferredFutureTaskConcept}
+- Required once per Monday-Sunday week.
+- Friday is the natural/default suggested day, but it can be completed any day of the week.
+- Fulfilled by a Catholic fast or another concrete penitential act.
+- Catholic fasting is not starvation: one full meal, plus up to two smaller meals that together do not equal another full meal.
+- Users should not fast in a way that harms health or required duties.
+
 ## Recommended Gospel Season Temperance Rule
+
+- Preferred future task concept: ${artifact.taskStrategy.recommendedAlcoholRule.preferredFutureTaskConcept}
 
 ${markdownList(artifact.taskStrategy.recommendedAlcoholRule.requirements)}
 
 ${artifact.taskStrategy.recommendedAlcoholRule.implementationNote}
 
 Status: ${artifact.taskStrategy.recommendedAlcoholRule.status}
+
+## Future Guide Page Requirement
+
+- Route: ${guide.route}
+- Link from task: ${guide.linkFromTaskSlug}
+- Button label: ${guide.buttonLabel}
+- Status: ${guide.status}
+
+The future guide must explain penance, fasting, abstinence, why Catholic fasting is not starvation, the one-full-meal-plus-two-smaller-meals fasting pattern, health/common-sense limits, examples of penances, and how to choose a concrete, doable, sacrificial, prayer-connected penance that does not become performative or harm duties.
 
 ## First Day Sample
 
@@ -773,23 +909,21 @@ function main() {
         {
           slug: "weekly_fast_or_penance",
           label: "Weekly Fast or Penance",
+          preferred: true,
           neededIf:
-            "The existing fast template is too narrow or too tied to the Lent/Narrow Path 90 challenge discipline.",
+            "The Gospel season weekly discipline is implemented as its own task concept instead of reusing the stricter fast slug.",
         },
         {
           slug: "temperance",
           label: "Temperance",
+          preferred: true,
           neededIf:
             "The recommended Gospel Season Temperance Rule is approved and the existing give_up_alcohol template is too strict.",
         },
-        {
-          slug: "alcohol_discipline",
-          label: "Alcohol Discipline",
-          neededIf:
-            "The recommended Gospel Season Temperance Rule is approved and the team wants wording broader than temperance.",
-        },
       ],
+      weeklyFastOrPenanceRule: WEEKLY_FAST_OR_PENANCE_RULE,
       recommendedAlcoholRule: GOSPEL_SEASON_TEMPERANCE_RULE,
+      futureGuidePageRequirement: FASTING_AND_PENANCE_GUIDE_REQUIREMENT,
       taskRules: TASK_RULES,
       openDecisions: OPEN_DECISIONS,
     },

@@ -2,7 +2,7 @@
   "artifactType": "gospels-season-import-review-artifact",
   "note": "Review-only artifact for a future inactive draft migration. Not SQL and not live app content.",
   "sourceDraftPath": "content/gospels/the-gospels-september-lent-content-draft.json",
-  "generatedAt": "2026-05-27T13:28:12.547Z",
+  "generatedAt": "2026-05-27T13:42:37.498Z",
   "plan": {
     "table": "challenge_plans",
     "name": "The Gospels: From September to Lent",
@@ -5868,23 +5868,71 @@
       {
         "key": "weeklyFastOrPenance",
         "label": "Weekly fast or penance",
+        "preferredFutureTaskConcept": "weekly_fast_or_penance",
         "intensityRole": "Makes the Gospel season more serious than James without using the full Lent/Narrow Path 90 rule set.",
-        "intendedCadence": "Required once per Monday-Sunday week.",
-        "intendedFulfillment": "A real fast, Friday penance, abstinence, or another concrete penitential act.",
-        "existingMatchingTaskTemplateSlugs": [
+        "rule": {
+          "name": "Weekly Fast or Penance",
+          "preferredFutureTaskConcept": "weekly_fast_or_penance",
+          "status": "Preferred future task concept; review-only until task template and implementation strategy are approved.",
+          "cadence": "Required once per Monday-Sunday week.",
+          "naturalDefaultDay": "Friday",
+          "schedulingNote": "Friday should be suggested as the natural/default day, but completion can happen any day of the week.",
+          "fulfillment": "Can be fulfilled by a Catholic fast or another concrete penitential act.",
+          "fastingExplanation": "Catholic fasting is not starvation: one full meal, plus up to two smaller meals that together do not equal another full meal.",
+          "healthNote": "Users should not fast in a way that harms health or required duties.",
+          "guideRequirement": {
+            "route": "/guides/fasting-and-penance",
+            "status": "Required before launch; planning-only here. Do not create the app route in this artifact pass.",
+            "linkFromTaskSlug": "weekly_fast_or_penance",
+            "buttonLabel": "What's a fast or penance?",
+            "requiredContent": {
+              "topics": [
+                "What penance is.",
+                "What fasting is.",
+                "What abstinence is.",
+                "Catholic fasting is not starvation.",
+                "Catholic fast: one full meal, plus up to two smaller meals that together do not equal another full meal.",
+                "Health and common-sense note: users should not fast in a way that harms health or required duties."
+              ],
+              "penanceExamples": [
+                "meatless meal",
+                "skip dessert",
+                "skip alcohol",
+                "no social media",
+                "no video games",
+                "cold shower",
+                "extra Rosary",
+                "Adoration",
+                "almsgiving",
+                "hidden chore or act of service"
+              ],
+              "discernmentCriteria": [
+                "concrete",
+                "doable",
+                "sacrificial",
+                "connected to prayer",
+                "does not become prideful or performative",
+                "does not harm health, work, school, or family duties"
+              ]
+            }
+          }
+        },
+        "existingRelatedTaskTemplateSlugs": [
           "fast"
         ],
-        "proposedNewTaskTemplateSlug": "weekly_fast_or_penance",
+        "preferredTaskTemplateSlug": "weekly_fast_or_penance",
         "addRecordsNow": false,
         "status": "Proposed candidate only; do not generate SQL until the task template and rule are confirmed.",
-        "note": "The existing fast slug appears to support a stricter challenge discipline, while the Gospel season decision is a broader weekly fast or concrete penance. Confirm semantics or create a new template before SQL."
+        "note": "The existing fast slug appears to support a stricter challenge discipline. The preferred Gospel season concept is weekly_fast_or_penance because it includes either a Catholic fast or another concrete penitential act."
       },
       {
         "key": "alcoholDiscipline",
         "label": "Alcohol discipline / temperance",
+        "preferredFutureTaskConcept": "temperance",
         "intensityRole": "Adds temperance without making the season as strict as Lent or Narrow Path 90.",
         "preferredRule": {
           "name": "Gospel Season Temperance Rule",
+          "preferredFutureTaskConcept": "temperance",
           "status": "Recommended review-only rule; do not generate SQL until task template and implementation strategy are approved.",
           "requirements": [
             "Alcohol allowed only on weekends.",
@@ -5895,20 +5943,18 @@
           ],
           "implementationNote": "This is more serious than James but less strict than full alcohol abstinence in Lent / Narrow Path 90."
         },
-        "existingMatchingTaskTemplateSlugs": [
+        "existingRelatedTaskTemplateSlugs": [
           "give_up_alcohol"
         ],
-        "proposedNewTaskTemplateSlugs": [
-          "temperance",
-          "alcohol_discipline"
-        ],
+        "preferredTaskTemplateSlug": "temperance",
         "addRecordsNow": false,
         "status": "Proposed candidate only; do not generate SQL until the exact alcohol rule and task template are confirmed.",
-        "note": "The existing give_up_alcohol slug supports abstinence, but the recommended Gospel Season Temperance Rule is more nuanced and may need a new template."
+        "note": "The existing give_up_alcohol slug implies full abstinence and is not the preferred implementation for the weekend/2-drink Gospel Season Temperance Rule."
       }
     ],
     "taskTemplateFindings": {
       "fastingOrPenance": {
+        "preferredFutureTaskConcept": "weekly_fast_or_penance",
         "searchedSlugs": [
           "fasting",
           "fast",
@@ -5916,7 +5962,7 @@
           "weekly_fast",
           "friday_penance"
         ],
-        "existingMatchingSlugs": [
+        "existingRelatedSlugs": [
           "fast"
         ],
         "missingPreferredSlugs": [
@@ -5927,9 +5973,10 @@
           "weekly_fast_or_penance"
         ],
         "addRecordsNow": false,
-        "reason": "The existing fast slug appears to support a stricter challenge discipline, while the Gospel season decision is a broader weekly fast or concrete penance. Confirm semantics or create a new template before SQL."
+        "reason": "The existing fast slug appears to support a stricter challenge discipline. The preferred Gospel season concept is weekly_fast_or_penance because it includes either a Catholic fast or another concrete penitential act."
       },
       "alcoholDiscipline": {
+        "preferredFutureTaskConcept": "temperance",
         "searchedSlugs": [
           "alcohol",
           "no_alcohol",
@@ -5938,7 +5985,7 @@
           "drinking",
           "give_up_alcohol"
         ],
-        "existingMatchingSlugs": [
+        "existingRelatedSlugs": [
           "give_up_alcohol"
         ],
         "missingPreferredSlugs": [
@@ -5946,32 +5993,76 @@
           "no_alcohol",
           "temperance",
           "sobriety",
-          "drinking",
-          "alcohol_discipline"
+          "drinking"
         ],
         "addRecordsNow": false,
-        "reason": "The existing give_up_alcohol slug supports abstinence, but the recommended Gospel Season Temperance Rule is more nuanced and may need a new template."
+        "reason": "The existing give_up_alcohol slug implies full abstinence and is not the preferred implementation for the weekend/2-drink Gospel Season Temperance Rule."
       }
     },
     "futureTaskTemplateCandidates": [
       {
         "slug": "weekly_fast_or_penance",
         "label": "Weekly Fast or Penance",
-        "neededIf": "The existing fast template is too narrow or too tied to the Lent/Narrow Path 90 challenge discipline."
+        "preferred": true,
+        "neededIf": "The Gospel season weekly discipline is implemented as its own task concept instead of reusing the stricter fast slug."
       },
       {
         "slug": "temperance",
         "label": "Temperance",
+        "preferred": true,
         "neededIf": "The recommended Gospel Season Temperance Rule is approved and the existing give_up_alcohol template is too strict."
-      },
-      {
-        "slug": "alcohol_discipline",
-        "label": "Alcohol Discipline",
-        "neededIf": "The recommended Gospel Season Temperance Rule is approved and the team wants wording broader than temperance."
       }
     ],
+    "weeklyFastOrPenanceRule": {
+      "name": "Weekly Fast or Penance",
+      "preferredFutureTaskConcept": "weekly_fast_or_penance",
+      "status": "Preferred future task concept; review-only until task template and implementation strategy are approved.",
+      "cadence": "Required once per Monday-Sunday week.",
+      "naturalDefaultDay": "Friday",
+      "schedulingNote": "Friday should be suggested as the natural/default day, but completion can happen any day of the week.",
+      "fulfillment": "Can be fulfilled by a Catholic fast or another concrete penitential act.",
+      "fastingExplanation": "Catholic fasting is not starvation: one full meal, plus up to two smaller meals that together do not equal another full meal.",
+      "healthNote": "Users should not fast in a way that harms health or required duties.",
+      "guideRequirement": {
+        "route": "/guides/fasting-and-penance",
+        "status": "Required before launch; planning-only here. Do not create the app route in this artifact pass.",
+        "linkFromTaskSlug": "weekly_fast_or_penance",
+        "buttonLabel": "What's a fast or penance?",
+        "requiredContent": {
+          "topics": [
+            "What penance is.",
+            "What fasting is.",
+            "What abstinence is.",
+            "Catholic fasting is not starvation.",
+            "Catholic fast: one full meal, plus up to two smaller meals that together do not equal another full meal.",
+            "Health and common-sense note: users should not fast in a way that harms health or required duties."
+          ],
+          "penanceExamples": [
+            "meatless meal",
+            "skip dessert",
+            "skip alcohol",
+            "no social media",
+            "no video games",
+            "cold shower",
+            "extra Rosary",
+            "Adoration",
+            "almsgiving",
+            "hidden chore or act of service"
+          ],
+          "discernmentCriteria": [
+            "concrete",
+            "doable",
+            "sacrificial",
+            "connected to prayer",
+            "does not become prideful or performative",
+            "does not harm health, work, school, or family duties"
+          ]
+        }
+      }
+    },
     "recommendedAlcoholRule": {
       "name": "Gospel Season Temperance Rule",
+      "preferredFutureTaskConcept": "temperance",
       "status": "Recommended review-only rule; do not generate SQL until task template and implementation strategy are approved.",
       "requirements": [
         "Alcohol allowed only on weekends.",
@@ -5981,6 +6072,42 @@
         "No drunkenness ever."
       ],
       "implementationNote": "This is more serious than James but less strict than full alcohol abstinence in Lent / Narrow Path 90."
+    },
+    "futureGuidePageRequirement": {
+      "route": "/guides/fasting-and-penance",
+      "status": "Required before launch; planning-only here. Do not create the app route in this artifact pass.",
+      "linkFromTaskSlug": "weekly_fast_or_penance",
+      "buttonLabel": "What's a fast or penance?",
+      "requiredContent": {
+        "topics": [
+          "What penance is.",
+          "What fasting is.",
+          "What abstinence is.",
+          "Catholic fasting is not starvation.",
+          "Catholic fast: one full meal, plus up to two smaller meals that together do not equal another full meal.",
+          "Health and common-sense note: users should not fast in a way that harms health or required duties."
+        ],
+        "penanceExamples": [
+          "meatless meal",
+          "skip dessert",
+          "skip alcohol",
+          "no social media",
+          "no video games",
+          "cold shower",
+          "extra Rosary",
+          "Adoration",
+          "almsgiving",
+          "hidden chore or act of service"
+        ],
+        "discernmentCriteria": [
+          "concrete",
+          "doable",
+          "sacrificial",
+          "connected to prayer",
+          "does not become prideful or performative",
+          "does not harm health, work, school, or family duties"
+        ]
+      }
     },
     "taskRules": [
       {
@@ -6076,9 +6203,10 @@
     ],
     "openDecisions": [
       "Confirm before SQL generation that the Gospel season uses the full August James-style base task set plus the approved Gospel discipline add-ons.",
-      "Confirm whether weekly fast or penance should use the existing fast task template or a new weekly_fast_or_penance template.",
+      "Confirm weekly_fast_or_penance as the future task template instead of reusing fast.",
       "Confirm the recommended Gospel Season Temperance Rule before SQL: alcohol only on weekends, maximum 2 drinks in one day, never more than 2 days in a row, no alcohol on fasting/penance days, and no drunkenness ever.",
-      "Confirm whether alcohol discipline can reuse give_up_alcohol or needs a new temperance or alcohol_discipline task template.",
+      "Confirm temperance as the future task template instead of reusing give_up_alcohol.",
+      "Create the future guide page at /guides/fasting-and-penance and link it from the weekly_fast_or_penance task card before launch.",
       "Confirm the target database still has the expected task template slugs before writing a migration.",
       "Confirm monthly Confession copy for a September-February season, especially around the final Lent-prep week.",
       "Confirm whether plan_days.title should continue to match reading_title, as in the August James draft migration.",
@@ -35107,7 +35235,7 @@
   ],
   "validation": {
     "sourceDraftPath": "content/gospels/the-gospels-september-lent-content-draft.json",
-    "generatedAt": "2026-05-27T13:28:12.547Z",
+    "generatedAt": "2026-05-27T13:42:37.498Z",
     "countsByDayType": {
       "gospel": 139,
       "catechism": 23
@@ -35140,9 +35268,10 @@
     "warnings": [],
     "openDecisions": [
       "Confirm before SQL generation that the Gospel season uses the full August James-style base task set plus the approved Gospel discipline add-ons.",
-      "Confirm whether weekly fast or penance should use the existing fast task template or a new weekly_fast_or_penance template.",
+      "Confirm weekly_fast_or_penance as the future task template instead of reusing fast.",
       "Confirm the recommended Gospel Season Temperance Rule before SQL: alcohol only on weekends, maximum 2 drinks in one day, never more than 2 days in a row, no alcohol on fasting/penance days, and no drunkenness ever.",
-      "Confirm whether alcohol discipline can reuse give_up_alcohol or needs a new temperance or alcohol_discipline task template.",
+      "Confirm temperance as the future task template instead of reusing give_up_alcohol.",
+      "Create the future guide page at /guides/fasting-and-penance and link it from the weekly_fast_or_penance task card before launch.",
       "Confirm the target database still has the expected task template slugs before writing a migration.",
       "Confirm monthly Confession copy for a September-February season, especially around the final Lent-prep week.",
       "Confirm whether plan_days.title should continue to match reading_title, as in the August James draft migration.",

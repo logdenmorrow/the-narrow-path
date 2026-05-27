@@ -19,8 +19,8 @@ Review-only import artifact audit.
 
 - Source draft: content/gospels/the-gospels-september-lent-content-draft.json
 - Source SHA-256: `f614fa5133bf6fa608c183d0e647047860a970a51b9b10d33438200443fb68c8`
-- Artifact SHA-256: `01131e919ccd6179d334f518b7d5320d533ea2b3cd87b3c9e6fd38e3d3a3dafb`
-- Generated at: 2026-05-27T13:28:12.547Z
+- Artifact SHA-256: `df1311d0b62ce7048a4ab1c4696402537d602126d02d31062a77c95be80c3e10`
+- Generated at: 2026-05-27T13:42:37.498Z
 
 ## Plan Metadata
 
@@ -39,7 +39,7 @@ Review-only import artifact audit.
 - Reading texts populated: 162
 - Reflection prompts populated: 162
 - Proposed task records generated: 1319
-- Future task template candidates: 3
+- Preferred future task concepts: 2
 
 ## Task Counts
 
@@ -79,6 +79,8 @@ Review-only import artifact audit.
 - SQL generation must explicitly confirm task strategy later: yes
 - Task strategy reflects more intense than James and less intense than Lent/Narrow Path 90: yes
 - New fasting/alcohol task candidates are not final SQL instructions: yes
+- Preferred future task concepts are weekly_fast_or_penance and temperance: yes
+- Future guide page /guides/fasting-and-penance documented as required before launch: yes
 
 ## Task Record Strategy
 
@@ -88,12 +90,24 @@ Logan has decided the Gospel season should be more intense than the James season
 
 ## Proposed Gospel Discipline Add-ons
 
-| Add-on | Existing matching slug(s) | Records generated now | Status |
-| --- | --- | --- | --- |
-| Weekly fast or penance | fast | no | Proposed candidate only; do not generate SQL until the task template and rule are confirmed. |
-| Alcohol discipline / temperance | give_up_alcohol | no | Proposed candidate only; do not generate SQL until the exact alcohol rule and task template are confirmed. |
+| Add-on | Preferred future concept | Existing related slug(s) | Records generated now | Status |
+| --- | --- | --- | --- | --- |
+| Weekly fast or penance | weekly_fast_or_penance | fast | no | Proposed candidate only; do not generate SQL until the task template and rule are confirmed. |
+| Alcohol discipline / temperance | temperance | give_up_alcohol | no | Proposed candidate only; do not generate SQL until the exact alcohol rule and task template are confirmed. |
+
+## Weekly Fast or Penance
+
+- Preferred future task concept: weekly_fast_or_penance
+- Cadence: Required once per Monday-Sunday week.
+- Natural/default day: Friday
+- Scheduling note: Friday should be suggested as the natural/default day, but completion can happen any day of the week.
+- Fulfillment: Can be fulfilled by a Catholic fast or another concrete penitential act.
+- Fasting note: Catholic fasting is not starvation: one full meal, plus up to two smaller meals that together do not equal another full meal.
+- Health/common-sense note: Users should not fast in a way that harms health or required duties.
 
 ## Recommended Gospel Season Temperance Rule
+
+- Preferred future task concept: temperance
 
 - Alcohol allowed only on weekends.
 - Maximum 2 drinks in one day.
@@ -105,19 +119,60 @@ This is more serious than James but less strict than full alcohol abstinence in 
 
 Status: Recommended review-only rule; do not generate SQL until task template and implementation strategy are approved.
 
+## Future Guide Page Requirement
+
+- Route: /guides/fasting-and-penance
+- Link from task: weekly_fast_or_penance
+- Button label: What's a fast or penance?
+- Status: Required before launch; planning-only here. Do not create the app route in this artifact pass.
+
+Required topics:
+
+- What penance is.
+- What fasting is.
+- What abstinence is.
+- Catholic fasting is not starvation.
+- Catholic fast: one full meal, plus up to two smaller meals that together do not equal another full meal.
+- Health and common-sense note: users should not fast in a way that harms health or required duties.
+
+Penance examples:
+
+- meatless meal
+- skip dessert
+- skip alcohol
+- no social media
+- no video games
+- cold shower
+- extra Rosary
+- Adoration
+- almsgiving
+- hidden chore or act of service
+
+Discernment criteria:
+
+- concrete
+- doable
+- sacrificial
+- connected to prayer
+- does not become prideful or performative
+- does not harm health, work, school, or family duties
+
 ## Task Template Findings
 
-- Existing fasting/penance matching slugs found: fast
-- Existing alcohol/temperance matching slugs found: give_up_alcohol
+- Preferred fasting/penance future concept: weekly_fast_or_penance
+- Existing fasting/penance related slugs found: fast
+- Preferred alcohol/temperance future concept: temperance
+- Existing alcohol/temperance related slugs found: give_up_alcohol
 - Missing preferred fasting/penance slugs: fasting, penance, weekly_fast, friday_penance, weekly_fast_or_penance
-- Missing preferred alcohol/temperance slugs: alcohol, no_alcohol, temperance, sobriety, drinking, alcohol_discipline
+- Missing preferred alcohol/temperance slugs: alcohol, no_alcohol, temperance, sobriety, drinking
 
 ## Open Decisions
 
 - Confirm before SQL generation that the Gospel season uses the full August James-style base task set plus the approved Gospel discipline add-ons.
-- Confirm whether weekly fast or penance should use the existing fast task template or a new weekly_fast_or_penance template.
+- Confirm weekly_fast_or_penance as the future task template instead of reusing fast.
 - Confirm the recommended Gospel Season Temperance Rule before SQL: alcohol only on weekends, maximum 2 drinks in one day, never more than 2 days in a row, no alcohol on fasting/penance days, and no drunkenness ever.
-- Confirm whether alcohol discipline can reuse give_up_alcohol or needs a new temperance or alcohol_discipline task template.
+- Confirm temperance as the future task template instead of reusing give_up_alcohol.
+- Create the future guide page at /guides/fasting-and-penance and link it from the weekly_fast_or_penance task card before launch.
 - Confirm the target database still has the expected task template slugs before writing a migration.
 - Confirm monthly Confession copy for a September-February season, especially around the final Lent-prep week.
 - Confirm whether plan_days.title should continue to match reading_title, as in the August James draft migration.

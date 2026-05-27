@@ -174,6 +174,36 @@ Current architecture notes:
 Do not add a new UI unless a later review shows the existing Daily Reading UI
 cannot support the Gospel season.
 
+## Future Fasting and Penance Guide
+
+Before launch, the Gospel season should include a user-facing guide page at:
+
+```text
+/guides/fasting-and-penance
+```
+
+The `weekly_fast_or_penance` task card should link to this guide with a button
+or link labeled "What's a fast or penance?"
+
+The guide should explain:
+
+- what penance is
+- what fasting is
+- what abstinence is
+- that Catholic fasting is not starvation
+- the Catholic fast pattern: one full meal, plus up to two smaller meals that
+  together do not equal another full meal
+- that users should not fast in a way that harms health or required duties
+- examples of penances, including a meatless meal, skipping dessert, skipping
+  alcohol, no social media, no video games, a cold shower, an extra Rosary,
+  Adoration, almsgiving, and a hidden chore or act of service
+- how to discern a good penance: concrete, doable, sacrificial, connected to
+  prayer, not prideful or performative, and not harmful to health, work, school,
+  or family duties
+
+This is a future UX requirement only. Do not create the route or app page until
+the Gospel season task strategy and implementation plan are approved.
+
 ## Before You Read Context
 
 The Gospel season should reuse the existing reusable Before You Read reading
