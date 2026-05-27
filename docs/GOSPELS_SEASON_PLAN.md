@@ -204,6 +204,9 @@ The guide should explain:
 This is a future UX requirement only. Do not create the route or app page until
 the Gospel season task strategy and implementation plan are approved.
 
+See `docs/GOSPELS_SEASON_TASK_IMPLEMENTATION_PLAN.md` for the future
+task-template, quota, task-card link, and temperance-rule implementation plan.
+
 ## Before You Read Context
 
 The Gospel season should reuse the existing reusable Before You Read reading
