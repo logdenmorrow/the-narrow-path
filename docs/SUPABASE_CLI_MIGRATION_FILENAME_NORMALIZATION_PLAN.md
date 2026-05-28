@@ -1,6 +1,6 @@
 # Supabase CLI Migration Filename Normalization Plan
 
-This is a docs-only plan. It does not rename files, run Supabase commands, execute SQL, or mutate production data.
+This plan records the filename normalization strategy and the follow-up remote-history repair needed before `db push` can be safe.
 
 The current `npx supabase migration list` output was referenced in the request but not pasted into this prompt. This plan uses the local `supabase/migrations` filenames plus the reported CLI behavior: duplicate local versions still show blank Remote values after the first repair pass.
 
@@ -77,9 +77,9 @@ Pending Gospel version:
 
 - `20260527150103`
 
-## Proposed Rename Map
+## Rename Map
 
-This is the proposed future rename map. Do not run it yet.
+This is the approved local rename map for the filename-only normalization pass.
 
 The timestamps are spaced by ten minutes within each historical day so ordering is explicit and future insertions remain possible.
 
@@ -125,7 +125,7 @@ The final target should be: every valid historical migration has a unique 14-dig
 
 ## Remote History Rows To Revert Later
 
-The first repair pass likely inserted these remote history versions. They should be candidates for `reverted` repair during the future normalization pass:
+The first repair pass likely inserted these short remote history versions. They should be candidates for `reverted` repair during the future normalization pass:
 
 - `20260413`
 - `20260509`
@@ -133,12 +133,15 @@ The first repair pass likely inserted these remote history versions. They should
 - `20260512`
 - `20260516`
 - `20260517`
-- `20260517210000`
-- `20260517220000`
 - `20260518`
 - `20260519`
 
-The two already-unique 14-digit versions, `20260517210000` and `20260517220000`, do not require filename changes. They are included here only because a clean reset sequence may revert all first-pass repair entries and then re-mark the final approved version set as applied. Human review can decide whether to leave those two as-is if `migration list` already shows them correctly aligned.
+Human decision: do not revert the already-good 14-digit remote history rows unless a later check proves it is necessary:
+
+- `20260517210000`
+- `20260517220000`
+
+Those files are already unique 14-digit filenames and already aligned remotely, so leave them untouched.
 
 ## New Final Historical Versions To Mark Applied
 
@@ -163,8 +166,6 @@ After renaming and after production verification passes, these final historical 
 - `20260516091000`
 - `20260516092000`
 - `20260517090000`
-- `20260517210000`
-- `20260517220000`
 - `20260518090000`
 - `20260518091000`
 - `20260519090000`
@@ -182,7 +183,7 @@ After human approval, the sequence should be:
 
 1. Verify production schema/data using the read-only verification script.
 2. Confirm the working tree is clean.
-3. Rename files with `git mv`, preserving contents exactly.
+3. Confirm files were renamed with `git mv`, preserving contents exactly.
 4. Confirm no SQL content changed.
 5. Revert old remote history rows from the first repair pass.
 6. Mark the new final historical versions as applied.
@@ -226,8 +227,6 @@ npx supabase migration repair --status reverted 20260511
 npx supabase migration repair --status reverted 20260512
 npx supabase migration repair --status reverted 20260516
 npx supabase migration repair --status reverted 20260517
-npx supabase migration repair --status reverted 20260517210000
-npx supabase migration repair --status reverted 20260517220000
 npx supabase migration repair --status reverted 20260518
 npx supabase migration repair --status reverted 20260519
 ```
@@ -253,8 +252,6 @@ npx supabase migration repair --status applied 20260516090000
 npx supabase migration repair --status applied 20260516091000
 npx supabase migration repair --status applied 20260516092000
 npx supabase migration repair --status applied 20260517090000
-npx supabase migration repair --status applied 20260517210000
-npx supabase migration repair --status applied 20260517220000
 npx supabase migration repair --status applied 20260518090000
 npx supabase migration repair --status applied 20260518091000
 npx supabase migration repair --status applied 20260519090000
@@ -273,6 +270,7 @@ Do not mark `20260527150103` as applied in this repair pass.
 - File changes are renames only.
 - No Gospel content changes.
 - Gospel migration remains pending.
+- Existing aligned remote rows `20260517210000` and `20260517220000` remain untouched.
 - `npx supabase migration list` is reviewed after repair.
 - No `db push` until a dry run shows only the Gospel migration pending.
 - The Gospel migration is still reviewed separately before any real push.
