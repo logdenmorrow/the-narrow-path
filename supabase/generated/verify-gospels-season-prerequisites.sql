@@ -263,28 +263,40 @@ left join public.task_templates task_templates
 group by coalesce(task_templates.slug, 'no_existing_task_rows')
 order by task_slug;
 
-select '09 Supabase migration table availability' as check_section;
+select '09 visible migration history tables' as check_section;
 
 select
-  'Supabase migration table availability' as check_section,
-  case
-    when count(*) = 1 then 'present'
-    else 'missing_or_not_visible'
-  end as status
+  'visible migration history tables' as check_section,
+  tables.table_schema,
+  tables.table_name,
+  tables.table_type
 from information_schema.tables tables
-where tables.table_schema = 'supabase_migrations'
-  and tables.table_name = 'schema_migrations';
+where lower(tables.table_schema) like '%migration%'
+   or lower(tables.table_name) like '%migration%'
+order by tables.table_schema, tables.table_name;
 
-select '10 recent Supabase migration versions around Gospel prerequisites' as check_section;
+select '10 visible migration history relations from pg_catalog' as check_section;
 
 select
-  'recent Supabase migration versions around Gospel prerequisites' as check_section,
-  schema_migrations.version
-from supabase_migrations.schema_migrations schema_migrations
-where schema_migrations.version::text like '20260512%'
-   or schema_migrations.version::text like '20260518%'
-   or schema_migrations.version::text like '20260519%'
-order by schema_migrations.version;
+  'visible migration history relations from pg_catalog' as check_section,
+  namespaces.nspname as schema_name,
+  classes.relname as relation_name,
+  case classes.relkind
+    when 'r' then 'table'
+    when 'v' then 'view'
+    when 'm' then 'materialized_view'
+    when 'p' then 'partitioned_table'
+    else classes.relkind::text
+  end as relation_type
+from pg_catalog.pg_class classes
+join pg_catalog.pg_namespace namespaces
+  on namespaces.oid = classes.relnamespace
+where (
+    lower(namespaces.nspname) like '%migration%'
+    or lower(classes.relname) like '%migration%'
+  )
+  and classes.relkind in ('r', 'v', 'm', 'p')
+order by namespaces.nspname, classes.relname;
 
 select '11 local prerequisite migration names to compare manually' as check_section;
 

@@ -21,7 +21,7 @@ It checks:
 - whether `weekly_fast_or_penance` already exists
 - whether the Gospel plan already exists
 - existing Gospel plan `plan_days` and `plan_day_tasks` counts, if any
-- recent Supabase migration versions around the prerequisite schema changes
+- visible migration-history-looking catalog tables, if the SQL Editor exposes any
 
 ## Good Results
 
@@ -64,22 +64,20 @@ If the Gospel plan already exists with rows, stop and review the target database
 - The migration keeps the Gospel plan inactive with `is_active = false`.
 - The migration should not activate the Gospel season.
 
-## Migration Version Review
+## Migration History Visibility
 
-The script lists recent rows from `supabase_migrations.schema_migrations` around these prerequisite dates:
+Some Supabase projects do not expose `supabase_migrations.schema_migrations` in SQL Editor. That is not automatically a blocker if the required columns, constraints, and base task templates are present.
 
-- `20260512`
-- `20260518`
-- `20260519`
+The script avoids querying that relation directly. Instead, it lists visible migration-history-looking tables and relations through `information_schema` and `pg_catalog`, when any are visible to the SQL Editor session.
 
-Compare those results with the local prerequisite migration names shown by the script:
+Compare any visible migration-history results with the local prerequisite migration names shown by the script:
 
 - `20260512_ensure_task_metadata_schema`
 - `20260512_zz_fix_confession_final_week_windows`
 - `20260518_zz_add_august_james_draft_plan`
 - `20260519_add_plan_day_reading_context`
 
-Supabase may store migration versions differently from local filenames, so review the recent version list rather than relying only on exact filename matching.
+If migration history is not visible in SQL Editor, verify these prerequisites through repo history, the Supabase CLI, or the Supabase dashboard migration history. The actual schema checks in this script are the source of truth for this preflight.
 
 ## Final Reminder
 
