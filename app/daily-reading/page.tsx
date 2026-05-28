@@ -7,6 +7,7 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { ReadingTextRenderer } from "@/components/reading-text-renderer";
 import { JamesScaffoldingCard, SeasonTimeline } from "@/components/season-timeline";
 import { TodayTaskCard } from "@/components/today-task-card";
 import { isAllowedAdminEmail } from "@/lib/admin";
@@ -366,7 +367,6 @@ export default async function DailyReadingPage({
 
   const focusParagraphs = splitIntoReadableParagraphs(planDay.reading_focus ?? "");
   const noteParagraphs = splitIntoReadableParagraphs(planDay.reading_notes ?? "");
-  const readingParagraphs = splitIntoReadableParagraphs(planDay.reading_text ?? "");
   const keyTerms = normalizeKeyTerms(planDay.reading_key_terms);
   const beforeYouReadItems = [
     { label: "Where We Are", value: planDay.reading_context },
@@ -377,7 +377,7 @@ export default async function DailyReadingPage({
   const hasBeforeYouRead =
     beforeYouReadItems.length > 0 || keyTerms.length > 0;
   const catechismDay = isCatechismDay(planDay.reading_reference);
-  const hasReadingText = readingParagraphs.length > 0;
+  const hasReadingText = Boolean(planDay.reading_text?.trim());
   const isLocked =
     activePlan.is_active !== true ||
     !challenge.hasStarted ||
@@ -596,16 +596,7 @@ export default async function DailyReadingPage({
 
             <SurfaceInset className="mt-4 px-4 py-4 sm:px-6 sm:py-6">
               {hasReadingText ? (
-                <article className="mx-auto max-w-3xl space-y-4 sm:space-y-5">
-                  {readingParagraphs.map((paragraph, index) => (
-                    <p
-                      key={`reading-${index}`}
-                      className="text-[0.95rem] leading-7 text-monastic-0 sm:text-base sm:leading-8"
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </article>
+                <ReadingTextRenderer text={planDay.reading_text ?? ""} />
               ) : (
                 <p className="text-sm text-monastic-1 sm:text-base">
                   No reading text has been added yet for this day.
