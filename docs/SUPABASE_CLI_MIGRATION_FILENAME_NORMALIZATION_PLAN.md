@@ -1,8 +1,14 @@
 # Supabase CLI Migration Filename Normalization Plan
 
-This plan records the filename normalization strategy and the follow-up remote-history repair needed before `db push` can be safe.
+This plan records the filename normalization strategy and the remote-history repair used to make future `db push` workflow safe.
 
-The current `npx supabase migration list` output was referenced in the request but not pasted into this prompt. This plan uses the local `supabase/migrations` filenames plus the reported CLI behavior: duplicate local versions still show blank Remote values after the first repair pass.
+## Completion Status
+
+Completed. Historical migration filenames have been normalized to unique 14-digit prefixes, remote migration history has been repaired, and Logan confirmed `npx supabase migration list` now shows all local migrations aligned with remote.
+
+Future Supabase database changes should use the normalized migration filename pattern and the Supabase CLI workflow. Run and review `npx supabase db push --dry-run` before any real push.
+
+Logan later confirmed `npx supabase migration list` shows all local migrations aligned with remote after the normalization and repair work.
 
 ## Why The First Repair Pass Was Not Enough
 
@@ -12,24 +18,16 @@ That helps only when a local migration version is unique. It does not solve dupl
 
 Only one local file can line up cleanly with the one remote `20260413` history row. The remaining local files with that same prefix still appear unmatched, so the CLI can still treat them as pending.
 
-## Why `db push` Is Still Unsafe
+## Why `db push` Was Unsafe Before Normalization
 
-`npx supabase db push` is still unsafe because the local migration set is not normalized:
+`npx supabase db push` was unsafe before normalization because the local migration set was not normalized:
 
 - duplicate version groups remain
 - three historical files are skipped by the CLI
 - the first repair pass inserted short remote history rows that do not correspond one-to-one with all local files
 - the Gospel migration `20260527150103` must remain pending until separately approved
 
-Until `migration list` shows a clean local/remote alignment, `db push` could attempt to replay historical migrations or apply the Gospel migration early.
-
-Do not run:
-
-```powershell
-npx supabase db push
-npx supabase migration up
-npx supabase migration repair
-```
+Until `migration list` showed clean local/remote alignment, `db push` could have attempted to replay historical migrations or apply the Gospel migration early.
 
 ## Long-Term Fix
 
@@ -123,9 +121,9 @@ Yes. `20260511` and `20260517` are currently unique, but they should still be re
 
 The final target should be: every valid historical migration has a unique 14-digit prefix.
 
-## Remote History Rows To Revert Later
+## Remote History Rows Reverted
 
-The first repair pass likely inserted these short remote history versions. They should be candidates for `reverted` repair during the future normalization pass:
+The first repair pass inserted these short remote history versions. These were the short rows targeted for `reverted` repair during normalization:
 
 - `20260413`
 - `20260509`
@@ -143,9 +141,9 @@ Human decision: do not revert the already-good 14-digit remote history rows unle
 
 Those files are already unique 14-digit filenames and already aligned remotely, so leave them untouched.
 
-## New Final Historical Versions To Mark Applied
+## New Final Historical Versions Marked Applied
 
-After renaming and after production verification passes, these final historical versions should be marked applied:
+After renaming and production verification, these final historical versions were the normalized rows targeted for `applied` repair:
 
 - `20260413090000`
 - `20260413091000`
@@ -171,15 +169,13 @@ After renaming and after production verification passes, these final historical 
 - `20260519090000`
 - `20260519091000`
 
-Leave pending:
+Left pending during history repair:
 
 - `20260527150103`
 
-## Future Command Sequence
+## Completed Repair Sequence
 
-DO NOT RUN YET.
-
-After human approval, the sequence should be:
+The completed sequence was:
 
 1. Verify production schema/data using the read-only verification script.
 2. Confirm the working tree is clean.
@@ -188,12 +184,12 @@ After human approval, the sequence should be:
 5. Revert old remote history rows from the first repair pass.
 6. Mark the new final historical versions as applied.
 7. Review `npx supabase migration list`.
-8. Only after the list is clean, consider a dry run.
+8. Run and review `npx supabase db push --dry-run`.
+9. Apply the Gospel migration with `npx supabase db push`.
 
-Possible future commands:
+Historical rename commands:
 
 ```powershell
-# DO NOT RUN YET
 git mv supabase/migrations/20260413_add_reflection_journaling_flow.sql supabase/migrations/20260413090000_add_reflection_journaling_flow.sql
 git mv supabase/migrations/20260413_backfill_missing_reflection_prompts.sql supabase/migrations/20260413091000_backfill_missing_reflection_prompts.sql
 git mv supabase/migrations/20260413_differentiate_duplicate_focus_notes.sql supabase/migrations/20260413092000_differentiate_duplicate_focus_notes.sql
@@ -220,7 +216,6 @@ git mv supabase/migrations/20260519_update_day90_give_thanks_reading_copy.sql su
 ```
 
 ```powershell
-# DO NOT RUN YET
 npx supabase migration repair --status reverted 20260413
 npx supabase migration repair --status reverted 20260509
 npx supabase migration repair --status reverted 20260511
@@ -232,7 +227,6 @@ npx supabase migration repair --status reverted 20260519
 ```
 
 ```powershell
-# DO NOT RUN YET
 npx supabase migration repair --status applied 20260413090000
 npx supabase migration repair --status applied 20260413091000
 npx supabase migration repair --status applied 20260413092000
@@ -260,20 +254,20 @@ npx supabase migration list
 npx supabase db push --dry-run
 ```
 
-Do not mark `20260527150103` as applied in this repair pass.
+The Gospel migration `20260527150103` was not marked applied during the history repair pass. It was later applied by the real `npx supabase db push` after `db push --dry-run` showed only that migration.
 
-## Safety Checklist Before Any Future Repair
+## Safety Checklist Used
 
 - Production verification passed.
 - The full current `npx supabase migration list` output has been pasted into the work item and reviewed.
 - All historical migration SQL contents are preserved exactly.
 - File changes are renames only.
 - No Gospel content changes.
-- Gospel migration remains pending.
+- Gospel migration remained pending until the approved real push.
 - Existing aligned remote rows `20260517210000` and `20260517220000` remain untouched.
-- `npx supabase migration list` is reviewed after repair.
-- No `db push` until a dry run shows only the Gospel migration pending.
-- The Gospel migration is still reviewed separately before any real push.
+- `npx supabase migration list` was reviewed after repair.
+- No real `db push` was run until a dry run showed only the Gospel migration pending.
+- The Gospel migration was reviewed separately before the real push.
 
 ## Final Target State
 
@@ -281,9 +275,9 @@ Do not mark `20260527150103` as applied in this repair pass.
 - No duplicate local versions.
 - No remote-only old short versions.
 - All verified historical migrations appear applied remotely under unique 14-digit versions.
-- `20260527150103` is the only pending local migration.
-- A future `npx supabase db push --dry-run` should show only the Gospel migration.
+- `20260527150103` is aligned local/remote after the approved Gospel migration push.
+- Future `npx supabase db push --dry-run` should be reviewed before any real push.
 
-## Blocker / Review Input
+## Follow-Up
 
-The current `npx supabase migration list` output was not included in this prompt. Before executing any future repair, paste the exact list output into the review so remote-only rows, local-only rows, and ordering can be checked against this plan.
+The normalization and remote-history repair are complete. Future database work should keep using unique 14-digit migration prefixes and should always review `npx supabase db push --dry-run` before applying changes.
