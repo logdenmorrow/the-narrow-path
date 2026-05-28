@@ -9,6 +9,7 @@ import {
 import { AppActionBar } from "@/components/page-actions";
 import { JamesScaffoldingCard, SeasonTimeline } from "@/components/season-timeline";
 import { TodayTaskCard } from "@/components/today-task-card";
+import { isAllowedAdminEmail } from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
 import { updateLastActiveAt } from "@/lib/last-active";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
@@ -234,12 +235,15 @@ export default async function DailyReadingPage({
   const rawPlan = Array.isArray(resolvedSearchParams.plan)
     ? resolvedSearchParams.plan[0]
     : resolvedSearchParams.plan;
+  const isAdmin = isAllowedAdminEmail(user.email);
   const seasonResolution = await resolveSeasonPlan(supabase, {
     requestedDay: rawDay === undefined ? null : Number(rawDay),
     requestedPlanSlug: rawPlan,
+    allowInactiveRequestedPlanPreview: isAdmin,
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
+  const isInactivePreview = activePlan?.is_active !== true;
   const currentPlanSlug = getPlanSlugForResolvedSeason({
     phase: seasonResolution.phase,
     planSlug: activePlan?.slug,
@@ -374,7 +378,10 @@ export default async function DailyReadingPage({
     beforeYouReadItems.length > 0 || keyTerms.length > 0;
   const catechismDay = isCatechismDay(planDay.reading_reference);
   const hasReadingText = readingParagraphs.length > 0;
-  const isLocked = !challenge.hasStarted || selectedDay > challenge.currentDayNumber;
+  const isLocked =
+    activePlan.is_active !== true ||
+    !challenge.hasStarted ||
+    selectedDay > challenge.currentDayNumber;
   const todayHref = buildPlanDayHref("/today", currentPlanSlug, selectedDay);
   const thisWeekHref = buildPlanDayHref("/this-week", currentPlanSlug, selectedDay);
   const reflectionHref = buildPlanDayHref(
@@ -386,7 +393,16 @@ export default async function DailyReadingPage({
   return (
     <main className="monastic-page">
       <PageFrame className="max-w-6xl space-y-5 sm:space-y-6">
-        {!challenge.hasStarted && (
+        {isInactivePreview ? (
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
+              Admin preview only.
+            </p>
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
+              This plan is inactive. Completion is locked.
+            </p>
+          </SurfaceCard>
+        ) : !challenge.hasStarted ? (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
@@ -395,7 +411,7 @@ export default async function DailyReadingPage({
               You&apos;re previewing the reading plan before launch.
             </p>
           </SurfaceCard>
-        )}
+        ) : null}
 
         <HeroPanel className="py-7 sm:py-8">
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
@@ -620,7 +636,11 @@ export default async function DailyReadingPage({
                 completed={Boolean(completion?.id)}
                 locked={isLocked}
                 lockedLabel={
-                  !challenge.hasStarted ? "Locked Until Launch" : "Future Day Locked"
+                  activePlan.is_active !== true
+                    ? "Preview Locked"
+                    : !challenge.hasStarted
+                      ? "Locked Until Launch"
+                      : "Future Day Locked"
                 }
                 planSlug={currentPlanSlug}
               />

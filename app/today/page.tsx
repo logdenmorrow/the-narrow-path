@@ -308,9 +308,11 @@ export default async function TodayPage({
   const seasonResolution = await resolveSeasonPlan(supabase, {
     requestedDay: rawDay === undefined ? null : Number(rawDay),
     requestedPlanSlug: rawPlan,
+    allowInactiveRequestedPlanPreview: isAdmin,
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
+  const isInactivePreview = activePlan?.is_active !== true;
   const currentDateIso = seasonResolution.todayIso;
   const preserveViewTrack = isAdmin && isUsingViewOverride;
   const currentPlanSlug = getPlanSlugForResolvedSeason({
@@ -722,10 +724,16 @@ export default async function TodayPage({
   const previousDay = selectedDay > 1 ? selectedDay - 1 : 1;
   const nextDay =
     selectedDay < activePlan.total_days ? selectedDay + 1 : activePlan.total_days;
-  const canEditSelectedDay = challenge.hasStarted && selectedDay <= challenge.currentDayNumber;
-  const lockLabel = !challenge.hasStarted
-    ? "Locked Until Launch"
-    : "Future Day Locked";
+  const canEditSelectedDay =
+    activePlan.is_active === true &&
+    challenge.hasStarted &&
+    selectedDay <= challenge.currentDayNumber;
+  const lockLabel =
+    activePlan.is_active !== true
+      ? "Preview Locked"
+      : !challenge.hasStarted
+        ? "Locked Until Launch"
+        : "Future Day Locked";
   const reflectionTask = taskModels.find((task) => task.slug === "reflection");
   const hasReflectionPrompt = Boolean(typedPlanDay.reflection_prompt?.trim());
   const isReflectionComplete = Boolean(reflectionTask?.isCompleted);
@@ -747,7 +755,10 @@ export default async function TodayPage({
   const reflectionActionLabel = isReflectionComplete
     ? "Review Scripture Reflection"
     : "Open Scripture Reflection";
-  const accountabilityEnabled = challenge.hasStarted && selectedDay === challenge.currentDayNumber;
+  const accountabilityEnabled =
+    activePlan.is_active === true &&
+    challenge.hasStarted &&
+    selectedDay === challenge.currentDayNumber;
 
   const { data: dailyCheckinData } = accountabilityEnabled
     ? await supabase
@@ -778,7 +789,16 @@ export default async function TodayPage({
   return (
     <main className="monastic-page">
       <PageFrame className="space-y-5 sm:space-y-6">
-        {!challenge.hasStarted && (
+        {isInactivePreview ? (
+          <SurfaceCard className="border-[rgba(168,129,81,0.38)]">
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
+              Admin preview only.
+            </p>
+            <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+              This plan is inactive. Task completion is locked.
+            </p>
+          </SurfaceCard>
+        ) : !challenge.hasStarted ? (
           <SurfaceCard className="border-[rgba(168,129,81,0.38)]">
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
@@ -787,7 +807,7 @@ export default async function TodayPage({
               You&apos;re previewing the plan before launch.
             </p>
           </SurfaceCard>
-        )}
+        ) : null}
 
         {isAdmin ? (
           <AdminViewTrackSwitcher

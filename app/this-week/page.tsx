@@ -157,9 +157,11 @@ export default async function ThisWeekPage({
   const seasonResolution = await resolveSeasonPlan(supabase, {
     requestedDay: rawDay === undefined ? null : Number(rawDay),
     requestedPlanSlug: rawPlan,
+    allowInactiveRequestedPlanPreview: isAdmin,
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
+  const isInactivePreview = activePlan?.is_active !== true;
   const currentPlanSlug = getPlanSlugForResolvedSeason({
     phase: seasonResolution.phase,
     planSlug: activePlan?.slug,
@@ -371,7 +373,16 @@ export default async function ThisWeekPage({
   return (
     <main className="monastic-page">
       <PageFrame className="max-w-7xl space-y-6">
-        {!challenge.hasStarted && (
+        {isInactivePreview ? (
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
+              Admin preview only.
+            </p>
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
+              This plan is inactive. Progress is read-only.
+            </p>
+          </SurfaceCard>
+        ) : !challenge.hasStarted ? (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
@@ -380,7 +391,7 @@ export default async function ThisWeekPage({
               You&apos;re previewing the plan before launch.
             </p>
           </SurfaceCard>
-        )}
+        ) : null}
 
         {isAdmin ? (
           <AdminViewTrackSwitcher

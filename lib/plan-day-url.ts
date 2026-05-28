@@ -1,6 +1,8 @@
 import {
   AUGUST_JAMES_PLAN_NAME,
   AUGUST_JAMES_PLAN_SLUG,
+  GOSPELS_SEPTEMBER_LENT_PLAN_NAME,
+  GOSPELS_SEPTEMBER_LENT_PLAN_SLUG,
   ORIGINAL_CHALLENGE_PLAN_NAME,
   ORIGINAL_CHALLENGE_PLAN_SLUG,
   type ResolvedSeasonPhase,
@@ -9,6 +11,7 @@ import {
 export const SUPPORTED_PLAN_SLUGS = [
   ORIGINAL_CHALLENGE_PLAN_SLUG,
   AUGUST_JAMES_PLAN_SLUG,
+  GOSPELS_SEPTEMBER_LENT_PLAN_SLUG,
 ] as const;
 
 export type SupportedPlanSlug = (typeof SUPPORTED_PLAN_SLUGS)[number];
@@ -31,6 +34,10 @@ export function getExpectedPlanNameForSlug(planSlug?: string | null) {
     return AUGUST_JAMES_PLAN_NAME;
   }
 
+  if (planSlug === GOSPELS_SEPTEMBER_LENT_PLAN_SLUG) {
+    return GOSPELS_SEPTEMBER_LENT_PLAN_NAME;
+  }
+
   return null;
 }
 
@@ -49,6 +56,13 @@ export function getPlanSlugForResolvedSeason({
 
   if (phase === "james" || planName === AUGUST_JAMES_PLAN_NAME) {
     return AUGUST_JAMES_PLAN_SLUG;
+  }
+
+  if (
+    phase === "gospels" ||
+    planName === GOSPELS_SEPTEMBER_LENT_PLAN_NAME
+  ) {
+    return GOSPELS_SEPTEMBER_LENT_PLAN_SLUG;
   }
 
   return ORIGINAL_CHALLENGE_PLAN_SLUG;

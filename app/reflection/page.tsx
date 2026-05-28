@@ -11,6 +11,7 @@ import { AppActionBar } from "@/components/page-actions";
 import { JamesScaffoldingCard, SeasonTimeline } from "@/components/season-timeline";
 import { StatusPill } from "@/components/task-card";
 import { ReflectionEntryForm } from "@/components/reflection-entry-form";
+import { isAllowedAdminEmail } from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
 import { decryptJournalEntry } from "@/lib/journal-crypto";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
@@ -70,12 +71,15 @@ export default async function ReflectionPage({
   const rawPlan = Array.isArray(resolvedSearchParams.plan)
     ? resolvedSearchParams.plan[0]
     : resolvedSearchParams.plan;
+  const isAdmin = isAllowedAdminEmail(user.email);
   const seasonResolution = await resolveSeasonPlan(supabase, {
     requestedDay: rawDay === undefined ? null : Number(rawDay),
     requestedPlanSlug: rawPlan,
+    allowInactiveRequestedPlanPreview: isAdmin,
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
+  const isInactivePreview = activePlan?.is_active !== true;
   const currentPlanSlug = getPlanSlugForResolvedSeason({
     phase: seasonResolution.phase,
     planSlug: activePlan?.slug,
@@ -166,7 +170,10 @@ export default async function ReflectionPage({
   }
 
   const hasSavedEntry = Boolean(entry?.id);
-  const isLocked = !challenge.hasStarted || selectedDay > challenge.currentDayNumber;
+  const isLocked =
+    activePlan.is_active !== true ||
+    !challenge.hasStarted ||
+    selectedDay > challenge.currentDayNumber;
   const promptText =
     planDay.reflection_prompt?.trim() ||
     "After today’s reading, what truth is God asking me to take seriously, and what concrete response is He asking from me?";
@@ -179,7 +186,16 @@ export default async function ReflectionPage({
   return (
     <main className="monastic-page">
       <PageFrame className="max-w-6xl space-y-5 sm:space-y-6">
-        {!challenge.hasStarted && (
+        {isInactivePreview ? (
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
+              Admin preview only.
+            </p>
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
+              This plan is inactive. Reflection saving is locked.
+            </p>
+          </SurfaceCard>
+        ) : !challenge.hasStarted ? (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
@@ -188,7 +204,7 @@ export default async function ReflectionPage({
               Scripture Reflection is available in preview mode, but future-day saving stays locked until launch.
             </p>
           </SurfaceCard>
-        )}
+        ) : null}
 
         <HeroPanel className="py-7 sm:py-8">
           <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
@@ -240,7 +256,9 @@ export default async function ReflectionPage({
             label="Editing"
             value={isLocked ? "Locked" : "Available"}
             detail={
-              isLocked
+              activePlan.is_active !== true
+                ? "This inactive plan is read-only in preview."
+                : isLocked
                 ? "Future-day reflection editing is disabled."
                 : "You can update and resave this journal entry."
             }

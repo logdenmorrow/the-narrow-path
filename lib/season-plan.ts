@@ -15,6 +15,12 @@ export const AUGUST_JAMES_PLAN_SLUG = "ordinary-time-james";
 export const AUGUST_JAMES_PLAN_NAME = "Ordinary Time: James";
 export const AUGUST_JAMES_START_DATE = "2026-08-01";
 export const AUGUST_JAMES_END_DATE = "2026-08-31";
+export const GOSPELS_SEPTEMBER_LENT_PLAN_SLUG =
+  "the-gospels-september-lent";
+export const GOSPELS_SEPTEMBER_LENT_PLAN_NAME =
+  "The Gospels: From September to Lent";
+export const GOSPELS_SEPTEMBER_LENT_START_DATE = "2026-09-01";
+export const GOSPELS_SEPTEMBER_LENT_END_DATE = "2027-02-09";
 
 export type SeasonPhase =
   | "day-90-celebration"
@@ -213,7 +219,13 @@ export function getPostChallengePhase(todayIso: string): SeasonPhase | null {
     return "james";
   }
 
-  if (isInIsoRange(todayIso, "2026-09-01", "2027-02-09")) {
+  if (
+    isInIsoRange(
+      todayIso,
+      GOSPELS_SEPTEMBER_LENT_START_DATE,
+      GOSPELS_SEPTEMBER_LENT_END_DATE
+    )
+  ) {
     return "gospels";
   }
 
@@ -239,7 +251,7 @@ export function getPostChallengeDisplay(phase: SeasonPhase | null) {
   if (phase === "gospels") {
     return {
       title: "The Gospels",
-      body: "Read Mark, Matthew, Luke, and John from September to Lent. Daily Gospel splits have not been generated yet.",
+      body: "Read Mark, Matthew, Luke, and John from September to Lent.",
     };
   }
 
