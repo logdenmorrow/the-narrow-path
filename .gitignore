@@ -50,3 +50,7 @@ hallow-rosary-audio/
 
 # Supabase local temp files
 supabase/.temp/
+
+playwright-auth.json
+gospel-preview-scan-log.json
+gospel-preview-page-dump.txt
