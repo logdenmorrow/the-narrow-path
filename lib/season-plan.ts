@@ -2,6 +2,7 @@ import {
   addDaysToIsoDate,
   CHALLENGE_START_DATE,
   CHALLENGE_TIME_ZONE,
+  getIsoDateInTimeZone,
   type ChallengeTiming,
   toUtcDayValue,
 } from "@/lib/challenge";
@@ -50,6 +51,12 @@ export type AugustJamesPlan = {
   optional: readonly string[];
   removedOrEased: readonly string[];
   displayOutline: readonly string[];
+};
+
+export type PlanTimingSource = {
+  slug?: string | null;
+  name?: string | null;
+  total_days: number;
 };
 
 export const SEASON_TIMELINE: SeasonTimelineItem[] = [
@@ -182,6 +189,38 @@ export function getSeasonTiming({
     weekEndDay,
     weekNumber: Math.floor((currentDayNumber - 1) / 7) + 1,
   };
+}
+
+export function getSeasonStartDateForPlan(plan: {
+  slug?: string | null;
+  name?: string | null;
+}) {
+  if (
+    plan.slug === GOSPELS_SEPTEMBER_LENT_PLAN_SLUG ||
+    plan.name === GOSPELS_SEPTEMBER_LENT_PLAN_NAME
+  ) {
+    return GOSPELS_SEPTEMBER_LENT_START_DATE;
+  }
+
+  if (
+    plan.slug === AUGUST_JAMES_PLAN_SLUG ||
+    plan.name === AUGUST_JAMES_PLAN_NAME
+  ) {
+    return AUGUST_JAMES_START_DATE;
+  }
+
+  return CHALLENGE_START_DATE;
+}
+
+export function getSeasonTimingForPlan(
+  plan: PlanTimingSource,
+  todayIso = getIsoDateInTimeZone()
+) {
+  return getSeasonTiming({
+    startDate: getSeasonStartDateForPlan(plan),
+    totalDays: plan.total_days,
+    todayIso,
+  });
 }
 
 export function getChallengeDayDate(dayNumber: number) {

@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming } from "@/lib/challenge";
+import { getSeasonTimingForPlan } from "@/lib/season-plan";
 import { applyReflectionCompletionOverride, getReflectionTaskId } from "@/lib/task-progress";
 
 type PlanDayTaskRow = {
@@ -27,13 +27,13 @@ export default async function ProgressStrip() {
 
   const { data: activePlan } = await supabase
     .from("challenge_plans")
-    .select("id, total_days")
+    .select("id, slug, name, total_days")
     .eq("is_active", true)
     .maybeSingle();
 
   if (!activePlan) return null;
 
-  const challenge = getChallengeTiming(activePlan.total_days);
+  const challenge = getSeasonTimingForPlan(activePlan);
   const selectedDay = challenge.hasStarted ? challenge.currentDayNumber : 1;
 
   const { data: planDay } = await supabase

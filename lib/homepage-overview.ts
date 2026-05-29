@@ -1,4 +1,4 @@
-import { getChallengeTiming } from "@/lib/challenge";
+import { getSeasonTimingForPlan } from "@/lib/season-plan";
 import { createClient } from "@/lib/supabase/server";
 import { getReflectionTaskId } from "@/lib/task-progress";
 import { getCommunityName, isVisibleForTrack, type Track } from "@/lib/track";
@@ -12,6 +12,7 @@ type TaskTemplateCadence = "daily" | "weekly_quota";
 
 type ActivePlanRow = {
   id: number;
+  slug: string | null;
   name: string;
   total_days: number;
 };
@@ -198,7 +199,7 @@ export async function getHomepageOverview(
   try {
     const { data: activePlanData, error: activePlanError } = (await supabase
       .from("challenge_plans")
-      .select("id, name, total_days")
+      .select("id, slug, name, total_days")
       .eq("is_active", true)
       .maybeSingle()) as QueryResult<ActivePlanRow>;
 
@@ -206,7 +207,7 @@ export async function getHomepageOverview(
       return fallback;
     }
 
-    const challenge = getChallengeTiming(activePlanData.total_days);
+    const challenge = getSeasonTimingForPlan(activePlanData);
     const selectedDay = challenge.hasStarted ? challenge.currentDayNumber : 1;
 
     const { data: currentPlanDayData, error: currentPlanDayError } = (await supabase
