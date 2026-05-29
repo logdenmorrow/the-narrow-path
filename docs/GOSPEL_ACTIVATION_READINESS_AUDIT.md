@@ -8,18 +8,53 @@ write was performed during this audit.
 
 ## Overall Verdict
 
-Not activation-ready yet.
+Core season timing refactors are mostly complete, but Gospel activation is still
+not ready until remaining cleanup, production scanner expansion, and activation
+planning are done.
 
 The Gospel plan content, admin-only inactive preview path, and Before You Read
-fields are in good shape. The main activation blocker is that several
-active-plan-only pages still call `getChallengeTiming(activePlan.total_days)`.
-That helper is anchored to `2026-04-06`, so if the 162-day Gospel plan becomes
-active, those pages would calculate Gospel Day 1 from the original Narrow Path
-90 start date instead of `2026-09-01`.
+fields are in good shape. The first round of season-aware timing work has
+removed the original April 6 timing assumption from the main visible active-plan
+surfaces listed below.
 
 The current preview-safe routes use `resolveSeasonPlan`, which already assigns
 the Gospel start date correctly and blocks inactive requested plans unless an
 admin preview option is explicitly passed.
+
+## Refactor Progress
+
+Completed:
+
+- Shared season-aware timing helper:
+  `getSeasonStartDateForPlan` and `getSeasonTimingForPlan`.
+- `components/progress-strip.tsx`
+- `lib/homepage-overview.ts`
+- `app/brotherhood/page.tsx`
+- `app/brotherhood/[userId]/page.tsx`
+- `app/night-prayer/page.tsx`
+- `app/rosary/page.tsx`
+- `app/admin/plan/page.tsx` display timing
+- `app/admin/plan/page.tsx` task-date generation
+
+Deferred:
+
+- `lib/groupme-weekly.ts`
+- `lib/groupme-nightly.ts`
+
+GroupMe may be retired before Gospel activation in favor of in-app
+announcements/notifications. If GroupMe remains active during the Gospel
+season, weekly recap timing must be refactored or disabled before activation.
+
+Remaining open items:
+
+- Post-complete `Review Day 90` copy cleanup.
+- Production scanner expansion for Brotherhood, Night Prayer, Rosary, and the
+  progress strip after deployment.
+- Final activation plan.
+
+## Initial Audit Findings
+
+The sections below preserve the original activation-readiness audit findings.
 
 ## Files Inspected
 
