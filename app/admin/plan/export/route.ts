@@ -36,9 +36,6 @@ export async function GET() {
         plan_days (
           day_number
         )
-      ),
-      profiles:user_id (
-        display_name
       )
     `
     )
@@ -46,6 +43,30 @@ export async function GET() {
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  const userIds = [
+    ...new Set(
+      (rows ?? [])
+        .map((row) => row.user_id)
+        .filter((userId): userId is string => Boolean(userId))
+    ),
+  ];
+  const displayNameByUserId = new Map<string, string>();
+
+  if (userIds.length > 0) {
+    const { data: profiles, error: profilesError } = await supabase
+      .from("profiles")
+      .select("id, display_name")
+      .in("id", userIds);
+
+    if (profilesError) {
+      console.error("Unable to load profile names for completions export.", profilesError);
+    } else {
+      for (const profile of profiles ?? []) {
+        displayNameByUserId.set(profile.id, profile.display_name ?? "");
+      }
+    }
   }
 
   const header = [
@@ -66,7 +87,6 @@ export async function GET() {
       ? row.plan_day_tasks[0]
       : row.plan_day_tasks;
 
-    const profile = Array.isArray(row.profiles) ? row.profiles[0] : row.profiles;
     const taskTemplate = Array.isArray(planDayTask?.task_templates)
       ? planDayTask?.task_templates[0]
       : planDayTask?.task_templates;
@@ -76,7 +96,7 @@ export async function GET() {
 
     const values = [
       row.user_id ?? "",
-      profile?.display_name ?? "",
+      row.user_id ? (displayNameByUserId.get(row.user_id) ?? "") : "",
       planDay?.day_number?.toString() ?? "",
       taskTemplate?.title ?? "",
       taskTemplate?.slug ?? "",
