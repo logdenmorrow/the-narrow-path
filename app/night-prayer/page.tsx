@@ -10,8 +10,10 @@ import {
 import { AppActionBar } from "@/components/page-actions";
 import { TodayTaskCard } from "@/components/today-task-card";
 import { Button } from "@/components/ui/button";
-import { getChallengeTiming } from "@/lib/challenge";
-import { ORIGINAL_CHALLENGE_PLAN_SLUG } from "@/lib/season-plan";
+import {
+  getSeasonTimingForPlan,
+  ORIGINAL_CHALLENGE_PLAN_SLUG,
+} from "@/lib/season-plan";
 import { buildPlanDayHref } from "@/lib/plan-day-url";
 import {
   getDivineOfficeDateUrl,
@@ -503,7 +505,7 @@ export default async function NightPrayerPage({
     );
   }
 
-  const challenge = getChallengeTiming(activePlan.total_days);
+  const challenge = getSeasonTimingForPlan(activePlan);
   const activePlanSlug = activePlan.slug ?? ORIGINAL_CHALLENGE_PLAN_SLUG;
   const resolvedSearchParams = await searchParams;
   const rawDay = Array.isArray(resolvedSearchParams.day)

@@ -12,8 +12,10 @@ import { AppActionBar } from "@/components/page-actions";
 import { RosaryAudioPlayer } from "@/components/rosary-audio-player";
 import { TodayTaskCard } from "@/components/today-task-card";
 import { Button } from "@/components/ui/button";
-import { getChallengeTiming } from "@/lib/challenge";
-import { ORIGINAL_CHALLENGE_PLAN_SLUG } from "@/lib/season-plan";
+import {
+  getSeasonTimingForPlan,
+  ORIGINAL_CHALLENGE_PLAN_SLUG,
+} from "@/lib/season-plan";
 import { buildPlanDayHref } from "@/lib/plan-day-url";
 import { updateLastActiveAt } from "@/lib/last-active";
 import {
@@ -187,7 +189,7 @@ export default async function RosaryPage({
     );
   }
 
-  const challenge = getChallengeTiming(activePlan.total_days);
+  const challenge = getSeasonTimingForPlan(activePlan);
   const activePlanSlug = activePlan.slug ?? ORIGINAL_CHALLENGE_PLAN_SLUG;
   const resolvedSearchParams = await searchParams;
   const rawDay = Array.isArray(resolvedSearchParams.day)
