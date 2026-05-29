@@ -27,8 +27,10 @@ import {
 import { createClient } from "@/lib/supabase/server";
 import { updateLastActiveAt } from "@/lib/last-active";
 import { getCommunityName, isVisibleForTrack, type Track } from "@/lib/track";
-import { getChallengeTiming } from "@/lib/challenge";
-import { ORIGINAL_CHALLENGE_PLAN_SLUG } from "@/lib/season-plan";
+import {
+  getSeasonTimingForPlan,
+  ORIGINAL_CHALLENGE_PLAN_SLUG,
+} from "@/lib/season-plan";
 import { buildPlanDayHref } from "@/lib/plan-day-url";
 import {
   buildTaskViewModels,
@@ -218,7 +220,7 @@ export default async function BrotherhoodMemberPage({
     );
   }
 
-  const challenge = getChallengeTiming(activePlan.total_days);
+  const challenge = getSeasonTimingForPlan(activePlan);
   const activePlanSlug = activePlan.slug ?? ORIGINAL_CHALLENGE_PLAN_SLUG;
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]

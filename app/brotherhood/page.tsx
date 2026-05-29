@@ -33,8 +33,10 @@ import {
   type DailyStatus,
   type PrayerRequestCategory,
 } from "@/lib/accountability";
-import { getChallengeTiming } from "@/lib/challenge";
-import { ORIGINAL_CHALLENGE_PLAN_SLUG } from "@/lib/season-plan";
+import {
+  getSeasonTimingForPlan,
+  ORIGINAL_CHALLENGE_PLAN_SLUG,
+} from "@/lib/season-plan";
 import { buildPlanDayHref } from "@/lib/plan-day-url";
 import {
   buildTaskViewModels,
@@ -156,7 +158,7 @@ export default async function BrotherhoodPage({
     );
   }
 
-  const challenge = getChallengeTiming(activePlan.total_days);
+  const challenge = getSeasonTimingForPlan(activePlan);
   const activePlanSlug = activePlan.slug ?? ORIGINAL_CHALLENGE_PLAN_SLUG;
   const currentDayNumber = challenge.hasStarted ? challenge.currentDayNumber : 1;
   const maxSelectableDay = challenge.hasStarted ? challenge.currentDayNumber : 1;
