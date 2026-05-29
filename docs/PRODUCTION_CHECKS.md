@@ -56,6 +56,33 @@ gospel-preview-scan-log.json
 If a page fails, copy the JSON/log into the follow-up task so the failure can be
 reviewed with the exact URL, status, missing text, and forbidden text.
 
+## Broad Page Audit
+
+For a one-time read-only smoke check across known production page routes, run:
+
+```bash
+node scripts/audit-production-pages.mjs
+```
+
+Use this only after the deployment chain has completed. The audit uses the same
+local Playwright admin login state as the Gospel preview scanner. On the first
+run, it opens a browser, asks for manual admin login, and saves
+`playwright-auth.json`.
+
+The broad audit visits known safe page routes, representative day URLs, Gospel
+admin preview URLs, admin/support pages that exist in the repo, and up to three
+member detail pages discovered from `/brotherhood`. It does not click buttons,
+submit forms, intentionally visit logout routes, or scan `/api` mutation routes.
+
+It writes local-only output to:
+
+```text
+production-page-audit-log.json
+production-page-audit-summary.txt
+```
+
+Review or paste the JSON log if anything fails.
+
 ## Local Files
 
 These files are local-only and must never be committed:
@@ -64,6 +91,8 @@ These files are local-only and must never be committed:
 playwright-auth.json
 gospel-preview-scan-log.json
 gospel-preview-page-dump.txt
+production-page-audit-log.json
+production-page-audit-summary.txt
 ```
 
 They should stay in `.gitignore`.

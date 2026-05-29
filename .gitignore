@@ -54,3 +54,5 @@ supabase/.temp/
 playwright-auth.json
 gospel-preview-scan-log.json
 gospel-preview-page-dump.txt
+production-page-audit-log.json
+production-page-audit-summary.txt
