@@ -346,6 +346,9 @@ Historical/current deployment flow:
 3. GHCR image is pulled by Unraid/Docker.
 4. Reverse proxy routes public domain traffic to the app container.
 
+Production UI checks should run only after this deployment chain has completed.
+See `docs/PRODUCTION_CHECKS.md` for the Playwright production scanner workflow.
+
 ### Important deployment lessons
 
 - GitHub is code history, not Supabase data backup.
