@@ -1,0 +1,3183 @@
+{
+  "artifact_type": "gospels-season-before-you-read-review",
+  "note": "Review-only local artifact. Not a migration and not live app content.",
+  "source_artifact_path": "content/gospels/the-gospels-september-lent-import-artifact.json",
+  "source_artifact_sha256": "df1311d0b62ce7048a4ab1c4696402537d602126d02d31062a77c95be80c3e10",
+  "plan_slug": "the-gospels-september-lent",
+  "plan_name": "The Gospels: From September to Lent",
+  "total_days": 162,
+  "days": [
+    {
+      "day_number": 1,
+      "date": "2026-09-01",
+      "content_type": "gospel",
+      "reading_title": "The Beginning of the Gospel",
+      "reading_reference": "Mark 1:1-13",
+      "reading_context": "The season opens at the Jordan and in the wilderness. Mark introduces Jesus as the Son of God and moves quickly into His public mission.",
+      "previous_reading_summary": "This is the beginning of the Gospel season, so there is no previous day to review.",
+      "reading_today_preview": "Today, John prepares the way; Jesus is baptized and tempted.",
+      "reading_watch_for": "Watch how baptism is joined to identity, mission, and the work of the Holy Spirit.",
+      "reading_key_terms": [
+        {
+          "term": "Gospel",
+          "definition": "The good news of Jesus Christ, the Son of God and Savior."
+        },
+        {
+          "term": "baptism",
+          "definition": "The sacrament of new birth in Christ and cleansing from sin."
+        }
+      ],
+      "reading_context_source_hash": "c42ba9a3184f4994da37967f290335829d8b9122dbf580f953dc582221d2e108"
+    },
+    {
+      "day_number": 2,
+      "date": "2026-09-02",
+      "content_type": "gospel",
+      "reading_title": "The Kingdom Draws Near",
+      "reading_reference": "Mark 1:14-20",
+      "reading_context": "Mark's opening ministry shows Jesus acting with urgency and authority. This reading continues that beginning as Jesus announces the Kingdom and calls His first disciples.",
+      "previous_reading_summary": "Yesterday, John prepares the way; Jesus is baptized and tempted.",
+      "reading_today_preview": "Today, Jesus announces the Kingdom and calls His first disciples.",
+      "reading_watch_for": "Notice that disciples are called to be with Jesus before they are sent.",
+      "reading_key_terms": [
+        {
+          "term": "Gospel",
+          "definition": "The good news of Jesus Christ, the Son of God and Savior."
+        },
+        {
+          "term": "Kingdom of God",
+          "definition": "God's saving reign, present in Christ and coming to fulfillment."
+        }
+      ],
+      "reading_context_source_hash": "4fc1a42e26c79dde4671b8aff6c6aeca845b9df11e66966bfd1298603d64648b"
+    },
+    {
+      "day_number": 3,
+      "date": "2026-09-03",
+      "content_type": "gospel",
+      "reading_title": "Authority and Mercy",
+      "reading_reference": "Mark 1:21-45",
+      "reading_context": "Mark's opening ministry shows Jesus acting with urgency and authority. This reading continues that beginning as Jesus teaches, heals, casts out demons, and cleanses a leper.",
+      "previous_reading_summary": "Yesterday, Jesus announces the Kingdom and calls His first disciples.",
+      "reading_today_preview": "Today, Jesus teaches, heals, casts out demons, and cleanses a leper.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [
+        {
+          "term": "Holy Spirit",
+          "definition": "The third Person of the Trinity, given by the Father and the Son."
+        },
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "58a4fae248f476c38279c11925e80a4af409c001386897104f6c6082c5dcdcb6"
+    },
+    {
+      "day_number": 4,
+      "date": "2026-09-04",
+      "content_type": "gospel",
+      "reading_title": "The Physician of Sinners",
+      "reading_reference": "Mark 2:1-17",
+      "reading_context": "Mark's opening ministry shows Jesus acting with urgency and authority. This reading continues that beginning as Jesus forgives the paralytic and calls Levi.",
+      "previous_reading_summary": "Yesterday, Jesus teaches, heals, casts out demons, and cleanses a leper.",
+      "reading_today_preview": "Today, Jesus forgives the paralytic and calls Levi.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "716540e1456ec8f8c7bb4b6cd0248ad765fcfd3b8056d6a2cd6d54b8f70a752e"
+    },
+    {
+      "day_number": 5,
+      "date": "2026-09-05",
+      "content_type": "gospel",
+      "reading_title": "Lord of the Sabbath",
+      "reading_reference": "Mark 2:18-3:6",
+      "reading_context": "Mark's opening ministry shows Jesus acting with urgency and authority. This reading continues that beginning as Jesus answers disputes about fasting, Sabbath, and mercy.",
+      "previous_reading_summary": "Yesterday, Jesus forgives the paralytic and calls Levi.",
+      "reading_today_preview": "Today, Jesus answers disputes about fasting, Sabbath, and mercy.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [
+        {
+          "term": "Sabbath",
+          "definition": "The holy day of rest and worship given to Israel by God."
+        },
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "5c14752c3f47a3e32b48add7cebbc0b8292515c146d090d4a4ca98d3bfe05684"
+    },
+    {
+      "day_number": 6,
+      "date": "2026-09-06",
+      "content_type": "catechism",
+      "reading_title": "Sacred Scripture and the Gospels",
+      "reading_reference": "CCC 101-104; 125-127; 131-133",
+      "reading_context": "This first Sunday grounds the season in the Church's love for Sacred Scripture. Before moving deeper into Mark, the Catechism reminds us that the Gospels are the heart of the Scriptures.",
+      "previous_reading_summary": "Yesterday, Jesus answers disputes about fasting, Sabbath, and mercy.",
+      "reading_today_preview": "Today, the Catechism teaches how God speaks through Scripture and why the Gospels hold a privileged place.",
+      "reading_watch_for": "Notice how the Church receives Scripture as God's living word, not as religious information.",
+      "reading_key_terms": [
+        {
+          "term": "Gospel",
+          "definition": "The good news of Jesus Christ, the Son of God and Savior."
+        },
+        {
+          "term": "Church",
+          "definition": "The people Christ gathers into His Body through faith and the sacraments."
+        }
+      ],
+      "reading_context_source_hash": "7926bbde3ed5f7462f42f8b25bb1ef11fb6757046130a4b7d8c62f7a011487dd"
+    },
+    {
+      "day_number": 7,
+      "date": "2026-09-07",
+      "content_type": "gospel",
+      "reading_title": "Called to Be With Him",
+      "reading_reference": "Mark 3:7-35",
+      "reading_context": "Mark now shows Jesus' authority and mercy spreading through Galilee. This reading continues that witness as Jesus appoints the Twelve and names His true family.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on Sacred Scripture and the Gospels.",
+      "reading_today_preview": "Today, Jesus appoints the Twelve and names His true family.",
+      "reading_watch_for": "Notice that disciples are called to be with Jesus before they are sent.",
+      "reading_key_terms": [
+        {
+          "term": "apostle",
+          "definition": "One sent by Christ with authority to witness and serve His Church."
+        }
+      ],
+      "reading_context_source_hash": "b65984a184649c367d11a93786dd2d02c96d60b14f33dd60bcea3f2388ea4319"
+    },
+    {
+      "day_number": 8,
+      "date": "2026-09-08",
+      "content_type": "gospel",
+      "reading_title": "The Sower and the Word",
+      "reading_reference": "Mark 4:1-20",
+      "reading_context": "Mark now shows Jesus' authority and mercy spreading through Galilee. This reading continues that witness as Jesus teaches how the word is received.",
+      "previous_reading_summary": "Yesterday, Jesus appoints the Twelve and names His true family.",
+      "reading_today_preview": "Today, Jesus teaches how the word is received.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "ea1584ff1aeac141e64a6773c244d8d81cfab1776b8e135cec8e974eef14a61b"
+    },
+    {
+      "day_number": 9,
+      "date": "2026-09-09",
+      "content_type": "gospel",
+      "reading_title": "The Hidden Kingdom Grows",
+      "reading_reference": "Mark 4:21-34",
+      "reading_context": "Mark now shows Jesus' authority and mercy spreading through Galilee. This reading continues that witness as Jesus teaches the lamp, seed, and mustard seed.",
+      "previous_reading_summary": "Yesterday, Jesus teaches how the word is received.",
+      "reading_today_preview": "Today, Jesus teaches the lamp, seed, and mustard seed.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "Kingdom of God",
+          "definition": "God's saving reign, present in Christ and coming to fulfillment."
+        },
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "b29753eac28fbab6c3b9e5d51392567600e9559df0508cb9e7ebe21f8c754729"
+    },
+    {
+      "day_number": 10,
+      "date": "2026-09-10",
+      "content_type": "gospel",
+      "reading_title": "Christ Over Storm and Darkness",
+      "reading_reference": "Mark 4:35-5:20",
+      "reading_context": "Mark now shows Jesus' authority and mercy spreading through Galilee. This reading continues that witness as Jesus calms the sea and frees the Gerasene demoniac.",
+      "previous_reading_summary": "Yesterday, Jesus teaches the lamp, seed, and mustard seed.",
+      "reading_today_preview": "Today, Jesus calms the sea and frees the Gerasene demoniac.",
+      "reading_watch_for": "Notice how fear changes when Jesus' authority is seen clearly.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "e35d50a93fc8544d8861e2789e0f32db84cac3730973ebe18d59a46f1bbb239b"
+    },
+    {
+      "day_number": 11,
+      "date": "2026-09-11",
+      "content_type": "gospel",
+      "reading_title": "Do Not Fear, Only Believe",
+      "reading_reference": "Mark 5:21-43",
+      "reading_context": "Mark now shows Jesus' authority and mercy spreading through Galilee. This reading continues that witness as Jesus heals the woman and raises Jairus's daughter.",
+      "previous_reading_summary": "Yesterday, Jesus calms the sea and frees the Gerasene demoniac.",
+      "reading_today_preview": "Today, Jesus heals the woman and raises Jairus's daughter.",
+      "reading_watch_for": "Notice how fear changes when Jesus' authority is seen clearly.",
+      "reading_key_terms": [
+        {
+          "term": "faith",
+          "definition": "Trusting God and receiving what He reveals."
+        }
+      ],
+      "reading_context_source_hash": "5864ff39f00570fe061a4a0157b95a7273b99474adef0f1be124a8dfbf878f16"
+    },
+    {
+      "day_number": 12,
+      "date": "2026-09-12",
+      "content_type": "gospel",
+      "reading_title": "Rejection and Witness",
+      "reading_reference": "Mark 6:1-29",
+      "reading_context": "Mark now shows Jesus' authority and mercy spreading through Galilee. This reading continues that witness as Jesus is rejected, sends the Twelve, and John is killed.",
+      "previous_reading_summary": "Yesterday, Jesus heals the woman and raises Jairus's daughter.",
+      "reading_today_preview": "Today, Jesus is rejected, sends the Twelve, and John is killed.",
+      "reading_watch_for": "Watch how baptism is joined to identity, mission, and the work of the Holy Spirit.",
+      "reading_key_terms": [
+        {
+          "term": "baptism",
+          "definition": "The sacrament of new birth in Christ and cleansing from sin."
+        },
+        {
+          "term": "apostle",
+          "definition": "One sent by Christ with authority to witness and serve His Church."
+        }
+      ],
+      "reading_context_source_hash": "5cf26dd6c59ba56c05a121d660988f728b13b4f2170ad71df821346022dd3357"
+    },
+    {
+      "day_number": 13,
+      "date": "2026-09-13",
+      "content_type": "catechism",
+      "reading_title": "Christ, the Son of God",
+      "reading_reference": "CCC 422-455",
+      "reading_context": "After Mark has shown Jesus teaching and healing with authority, this Sunday names who He is. The Catechism focuses on Christ, Lord, and Son of God.",
+      "previous_reading_summary": "Yesterday, Jesus is rejected, sends the Twelve, and John is killed.",
+      "reading_today_preview": "Today, the Catechism explains the Church's confession that Jesus is the Christ and the Son of God.",
+      "reading_watch_for": "Watch how the titles of Jesus protect the truth of His identity and mission.",
+      "reading_key_terms": [
+        {
+          "term": "Messiah",
+          "definition": "The anointed one promised by God and fulfilled in Jesus."
+        },
+        {
+          "term": "Son of God",
+          "definition": "Jesus' divine identity as the eternal Son of the Father."
+        }
+      ],
+      "reading_context_source_hash": "83866cd5c49aa138ee3e5de2b0e29e691c905627353d3ce9fb2f4b2b12753ccd"
+    },
+    {
+      "day_number": 14,
+      "date": "2026-09-14",
+      "content_type": "gospel",
+      "reading_title": "The Shepherd Feeds His People",
+      "reading_reference": "Mark 6:30-56",
+      "reading_context": "Mark now shows Jesus' authority and mercy spreading through Galilee. This reading continues that witness as Jesus feeds the five thousand and walks on the sea.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on Christ, the Son of God.",
+      "reading_today_preview": "Today, Jesus feeds the five thousand and walks on the sea.",
+      "reading_watch_for": "Watch the pattern of gift, thanksgiving, and abundance. It points toward sacramental life.",
+      "reading_key_terms": [
+        {
+          "term": "Good Shepherd",
+          "definition": "Jesus' image for His pastoral care and self-giving love."
+        }
+      ],
+      "reading_context_source_hash": "02f58eec7f4a3c79707836d16ab7dacc3c43112af4d2b5afd0f4a9d4b4a584b2"
+    },
+    {
+      "day_number": 15,
+      "date": "2026-09-15",
+      "content_type": "gospel",
+      "reading_title": "The Heart Before God",
+      "reading_reference": "Mark 7:1-30",
+      "reading_context": "Mark now shows Jesus' authority and mercy spreading through Galilee. This reading continues that witness as Jesus teaches what defiles and answers the Syrophoenician woman.",
+      "previous_reading_summary": "Yesterday, Jesus feeds the five thousand and walks on the sea.",
+      "reading_today_preview": "Today, Jesus teaches what defiles and answers the Syrophoenician woman.",
+      "reading_watch_for": "Notice how Jesus moves the question from outward appearance to the heart.",
+      "reading_key_terms": [
+        {
+          "term": "faith",
+          "definition": "Trusting God and receiving what He reveals."
+        }
+      ],
+      "reading_context_source_hash": "88b1d415f372c44f85a297bffe63075994c45051f7e1bac098baf52184ae6c10"
+    },
+    {
+      "day_number": 16,
+      "date": "2026-09-16",
+      "content_type": "gospel",
+      "reading_title": "Opened Ears and Shared Bread",
+      "reading_reference": "Mark 7:31-8:10",
+      "reading_context": "Mark now shows Jesus' authority and mercy spreading through Galilee. This reading continues that witness as Jesus heals a deaf man and feeds four thousand.",
+      "previous_reading_summary": "Yesterday, Jesus teaches what defiles and answers the Syrophoenician woman.",
+      "reading_today_preview": "Today, Jesus heals a deaf man and feeds four thousand.",
+      "reading_watch_for": "Watch the pattern of gift, thanksgiving, and abundance. It points toward sacramental life.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "c1f6bcedb0d99e080ba04247d1ce1141318f5e006e6d34d988d4a0685fc0153c"
+    },
+    {
+      "day_number": 17,
+      "date": "2026-09-17",
+      "content_type": "gospel",
+      "reading_title": "Who Do You Say That I Am?",
+      "reading_reference": "Mark 8:11-38",
+      "reading_context": "Mark turns from public wonder toward discipleship and the Cross. This reading continues that turn as Peter confesses Christ and Jesus teaches the cross.",
+      "previous_reading_summary": "Yesterday, Jesus heals a deaf man and feeds four thousand.",
+      "reading_today_preview": "Today, Peter confesses Christ and Jesus teaches the cross.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "crucifixion",
+          "definition": "Jesus' death on the cross, offered in obedience and love."
+        },
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "b92b9ff91b67d2d3a60fe297f425f729d392544ca4d36f133e3da1100732f0c6"
+    },
+    {
+      "day_number": 18,
+      "date": "2026-09-18",
+      "content_type": "gospel",
+      "reading_title": "Glory and Faith",
+      "reading_reference": "Mark 9:1-29",
+      "reading_context": "Mark turns from public wonder toward discipleship and the Cross. This reading continues that turn as Jesus is transfigured and heals a suffering boy.",
+      "previous_reading_summary": "Yesterday, Peter confesses Christ and Jesus teaches the cross.",
+      "reading_today_preview": "Today, Jesus is transfigured and heals a suffering boy.",
+      "reading_watch_for": "Watch how the Holy Spirit is promised as the gift who strengthens and teaches the Church.",
+      "reading_key_terms": [
+        {
+          "term": "Holy Spirit",
+          "definition": "The third Person of the Trinity, given by the Father and the Son."
+        },
+        {
+          "term": "faith",
+          "definition": "Trusting God and receiving what He reveals."
+        },
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        }
+      ],
+      "reading_context_source_hash": "f57d55799abed1f735ba2d6b0eb3aca1f38b77894b787b15ef47c145e9275589"
+    },
+    {
+      "day_number": 19,
+      "date": "2026-09-19",
+      "content_type": "gospel",
+      "reading_title": "The Way of Humility",
+      "reading_reference": "Mark 9:30-50",
+      "reading_context": "Mark turns from public wonder toward discipleship and the Cross. This reading continues that turn as Jesus teaches greatness, service, and resistance to sin.",
+      "previous_reading_summary": "Yesterday, Jesus is transfigured and heals a suffering boy.",
+      "reading_today_preview": "Today, Jesus teaches greatness, service, and resistance to sin.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "f77fa246f84a12bf4b27474f7d160e97a46d1bcc656852f7f64ec3617639e20d"
+    },
+    {
+      "day_number": 20,
+      "date": "2026-09-20",
+      "content_type": "catechism",
+      "reading_title": "The Incarnation",
+      "reading_reference": "CCC 456-483",
+      "reading_context": "Mark has begun to reveal both the glory and the humility of Jesus. This Sunday pauses to contemplate the mystery that the Son of God truly became man.",
+      "previous_reading_summary": "Yesterday, Jesus teaches greatness, service, and resistance to sin.",
+      "reading_today_preview": "Today, the Catechism considers the Incarnation and why the Son of God became man for our salvation.",
+      "reading_watch_for": "Notice that Catholic faith holds together Christ's true divinity and true humanity.",
+      "reading_key_terms": [
+        {
+          "term": "Incarnation",
+          "definition": "The eternal Son of God taking on human flesh."
+        },
+        {
+          "term": "Son of God",
+          "definition": "Jesus' divine identity as the eternal Son of the Father."
+        }
+      ],
+      "reading_context_source_hash": "877855ddc19a2f78fedc46156ea6e96bbc4156d70f4dfef861a0a981e41cc30e"
+    },
+    {
+      "day_number": 21,
+      "date": "2026-09-21",
+      "content_type": "gospel",
+      "reading_title": "Receiving the Kingdom",
+      "reading_reference": "Mark 10:1-31",
+      "reading_context": "Mark turns from public wonder toward discipleship and the Cross. This reading continues that turn as Jesus teaches on marriage, children, and riches.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on the Incarnation.",
+      "reading_today_preview": "Today, Jesus teaches on marriage, children, and riches.",
+      "reading_watch_for": "Watch how Jesus receives the vulnerable and asks freedom from divided loves.",
+      "reading_key_terms": [
+        {
+          "term": "Kingdom of God",
+          "definition": "God's saving reign, present in Christ and coming to fulfillment."
+        }
+      ],
+      "reading_context_source_hash": "5d751ae3914183b012c309ca31b9c114a418497b6112bc4109de142ed55d2a19"
+    },
+    {
+      "day_number": 22,
+      "date": "2026-09-22",
+      "content_type": "gospel",
+      "reading_title": "The Son of Man Serves",
+      "reading_reference": "Mark 10:32-52",
+      "reading_context": "Mark turns from public wonder toward discipleship and the Cross. This reading continues that turn as Jesus teaches servant love and heals Bartimaeus.",
+      "previous_reading_summary": "Yesterday, Jesus teaches on marriage, children, and riches.",
+      "reading_today_preview": "Today, Jesus teaches servant love and heals Bartimaeus.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "Son of Man",
+          "definition": "A title Jesus uses that points to His authority, suffering, and glory."
+        },
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "53f7949f9efa8c8f024ccf1f8b4498c4a605f145aae327a1b6586447108a6570"
+    },
+    {
+      "day_number": 23,
+      "date": "2026-09-23",
+      "content_type": "gospel",
+      "reading_title": "The King Enters Jerusalem",
+      "reading_reference": "Mark 11:1-33",
+      "reading_context": "Mark brings Jesus to Jerusalem and into His Passion. This reading continues that final stretch as Jesus enters Jerusalem, cleanses the temple, and faces questions about His authority.",
+      "previous_reading_summary": "Yesterday, Jesus teaches servant love and heals Bartimaeus.",
+      "reading_today_preview": "Today, Jesus enters Jerusalem, cleanses the temple, and faces questions about His authority.",
+      "reading_watch_for": "Notice how Jesus' authority reaches worship, the temple, and the leaders' questions.",
+      "reading_key_terms": [
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        }
+      ],
+      "reading_context_source_hash": "ec8c14f03c73814a9f2594cf4f8324f66abcfdb894524630a5d3189e04901688"
+    },
+    {
+      "day_number": 24,
+      "date": "2026-09-24",
+      "content_type": "gospel",
+      "reading_title": "Teaching in the Temple",
+      "reading_reference": "Mark 12:1-44",
+      "reading_context": "Mark brings Jesus to Jerusalem and into His Passion. This reading continues that final stretch as Jesus teaches in the temple, answers challenges, and notices the widow's offering.",
+      "previous_reading_summary": "Yesterday, Jesus enters Jerusalem, cleanses the temple, and faces questions about His authority.",
+      "reading_today_preview": "Today, Jesus teaches in the temple, answers challenges, and notices the widow's offering.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        },
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        },
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "c3f42491709a76816c01e0a659521f5c05539116d00176ffbd779c1a6b39cb7b"
+    },
+    {
+      "day_number": 25,
+      "date": "2026-09-25",
+      "content_type": "gospel",
+      "reading_title": "Watch and Be Faithful",
+      "reading_reference": "Mark 13:1-37",
+      "reading_context": "Mark brings Jesus to Jerusalem and into His Passion. This reading continues that final stretch as Jesus teaches endurance and watchfulness.",
+      "previous_reading_summary": "Yesterday, Jesus teaches in the temple, answers challenges, and notices the widow's offering.",
+      "reading_today_preview": "Today, Jesus teaches endurance and watchfulness.",
+      "reading_watch_for": "Notice how Jesus' authority reaches worship, the temple, and the leaders' questions.",
+      "reading_key_terms": [
+        {
+          "term": "Son of Man",
+          "definition": "A title Jesus uses that points to His authority, suffering, and glory."
+        },
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        }
+      ],
+      "reading_context_source_hash": "907366ac692068dbc6bd07f18c2b3c33d23c1a44f7ce5ca48854e7c5b43f6526"
+    },
+    {
+      "day_number": 26,
+      "date": "2026-09-26",
+      "content_type": "gospel",
+      "reading_title": "The Supper, Garden, and Arrest",
+      "reading_reference": "Mark 14:1-49",
+      "reading_context": "Mark brings Jesus to Jerusalem and into His Passion. This reading continues that final stretch as Jesus is anointed, gives the supper, prays, and is betrayed.",
+      "previous_reading_summary": "Yesterday, Jesus teaches endurance and watchfulness.",
+      "reading_today_preview": "Today, Jesus is anointed, gives the supper, prays, and is betrayed.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "Passover",
+          "definition": "Israel's feast of deliverance, fulfilled by Christ in His Passion."
+        },
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        }
+      ],
+      "reading_context_source_hash": "4dda82a9e3f270a384165087567ef0967d0f29b7916ace02fde79bb8ebe75abb"
+    },
+    {
+      "day_number": 27,
+      "date": "2026-09-27",
+      "content_type": "catechism",
+      "reading_title": "Mary and the Annunciation",
+      "reading_reference": "CCC 484-511",
+      "reading_context": "Before the season moves from Mark's Passion into Matthew, this Sunday turns to Mary's yes. The Catechism shows how the Annunciation belongs to the mystery of Christ.",
+      "previous_reading_summary": "Yesterday, Jesus is anointed, gives the supper, prays, and is betrayed.",
+      "reading_today_preview": "Today, the Catechism considers Mary, the Annunciation, and her free consent to God's saving plan.",
+      "reading_watch_for": "Notice Mary's faith. Her yes receives the Savior rather than controlling the gift.",
+      "reading_key_terms": [
+        {
+          "term": "Mary",
+          "definition": "The Mother of Jesus and model disciple."
+        },
+        {
+          "term": "Incarnation",
+          "definition": "The eternal Son of God taking on human flesh."
+        }
+      ],
+      "reading_context_source_hash": "f43cd92f33ad916f61707d6382c8b987f91f44480cdda737201c9dd84b4d77b2"
+    },
+    {
+      "day_number": 28,
+      "date": "2026-09-28",
+      "content_type": "gospel",
+      "reading_title": "Condemned and Mocked",
+      "reading_reference": "Mark 14:50-15:20",
+      "reading_context": "Mark brings Jesus to Jerusalem and into His Passion. This reading continues that final stretch as Jesus is abandoned, tried, denied, condemned, and mocked.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on Mary and the Annunciation.",
+      "reading_today_preview": "Today, Jesus is abandoned, tried, denied, condemned, and mocked.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        },
+        {
+          "term": "crucifixion",
+          "definition": "Jesus' death on the cross, offered in obedience and love."
+        }
+      ],
+      "reading_context_source_hash": "c6ba657bc2a8eeaee797f9dc1a3c5fb4822c254c70d9beb81698145754c8bb08"
+    },
+    {
+      "day_number": 29,
+      "date": "2026-09-29",
+      "content_type": "gospel",
+      "reading_title": "Crucified and Raised",
+      "reading_reference": "Mark 15:21-16:20",
+      "reading_context": "Mark brings Jesus to Jerusalem and into His Passion. This reading continues that final stretch as Jesus is crucified, dies, is buried, and the Resurrection is announced.",
+      "previous_reading_summary": "Yesterday, Jesus is abandoned, tried, denied, condemned, and mocked.",
+      "reading_today_preview": "Today, Jesus is crucified, dies, is buried, and the Resurrection is announced.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "crucifixion",
+          "definition": "Jesus' death on the cross, offered in obedience and love."
+        },
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "f59d1f81fa5da83c09559aa5e5b3e63754e5cc851948f49e00031756dea7cac1"
+    },
+    {
+      "day_number": 30,
+      "date": "2026-09-30",
+      "content_type": "gospel",
+      "reading_title": "The Son of David",
+      "reading_reference": "Matthew 1:1-17",
+      "reading_context": "Matthew begins again at Israel's story, naming Jesus as son of David and son of Abraham. After finishing Mark, the season turns to another Gospel witness to the same Christ.",
+      "previous_reading_summary": "Yesterday, Jesus is crucified, dies, is buried, and the Resurrection is announced.",
+      "reading_today_preview": "Today, Matthew traces Jesus' genealogy and shows that God's promises move through real families and history.",
+      "reading_watch_for": "Notice the names Matthew includes. The Messiah comes through Israel's story, with mercy visible even in a wounded family line.",
+      "reading_key_terms": [
+        {
+          "term": "Messiah",
+          "definition": "The anointed one promised by God and fulfilled in Jesus."
+        },
+        {
+          "term": "son of David",
+          "definition": "A royal title showing Jesus as heir to David's promised kingdom."
+        },
+        {
+          "term": "genealogy",
+          "definition": "A family line that shows how God's promises move through history."
+        }
+      ],
+      "reading_context_source_hash": "5b8d1c592cd7c11e81aa5d313b0bd957cfadf441cfe74e574699b7c27cbe5918"
+    },
+    {
+      "day_number": 31,
+      "date": "2026-10-01",
+      "content_type": "gospel",
+      "reading_title": "God With Us",
+      "reading_reference": "Matthew 1:18-25",
+      "reading_context": "Matthew opens with infancy, fulfillment, and the beginning of Jesus' public mission. This reading continues that foundation as Joseph receives the angel's message and obeys.",
+      "previous_reading_summary": "Yesterday, Matthew begins with Jesus' genealogy.",
+      "reading_today_preview": "Today, Joseph receives the angel's message and obeys.",
+      "reading_watch_for": "Notice how the child Jesus is received, protected, and revealed as God with us.",
+      "reading_key_terms": [
+        {
+          "term": "Incarnation",
+          "definition": "The eternal Son of God taking on human flesh."
+        }
+      ],
+      "reading_context_source_hash": "9ad176a33d77a6ff99883ca009edcd04b02020beffdf93755b2979ef2c07c2d7"
+    },
+    {
+      "day_number": 32,
+      "date": "2026-10-02",
+      "content_type": "gospel",
+      "reading_title": "The Child King",
+      "reading_reference": "Matthew 2:1-23",
+      "reading_context": "Matthew opens with infancy, fulfillment, and the beginning of Jesus' public mission. This reading continues that foundation as the magi worship Jesus and the Holy Family is protected.",
+      "previous_reading_summary": "Yesterday, Joseph receives the angel's message and obeys.",
+      "reading_today_preview": "Today, the magi worship Jesus and the Holy Family is protected.",
+      "reading_watch_for": "Notice how the child Jesus is received, protected, and revealed as God with us.",
+      "reading_key_terms": [
+        {
+          "term": "Incarnation",
+          "definition": "The eternal Son of God taking on human flesh."
+        }
+      ],
+      "reading_context_source_hash": "13ae008d2dfeadfcbda43766e74a8ffd689e0a759026b02e126e75e3911b69ab"
+    },
+    {
+      "day_number": 33,
+      "date": "2026-10-03",
+      "content_type": "gospel",
+      "reading_title": "The Beloved Son",
+      "reading_reference": "Matthew 3:1-17",
+      "reading_context": "Matthew opens with infancy, fulfillment, and the beginning of Jesus' public mission. This reading continues that foundation as John prepares the way and Jesus is baptized.",
+      "previous_reading_summary": "Yesterday, the magi worship Jesus and the Holy Family is protected.",
+      "reading_today_preview": "Today, John prepares the way and Jesus is baptized.",
+      "reading_watch_for": "Watch how baptism is joined to identity, mission, and the work of the Holy Spirit.",
+      "reading_key_terms": [
+        {
+          "term": "baptism",
+          "definition": "The sacrament of new birth in Christ and cleansing from sin."
+        },
+        {
+          "term": "Son of God",
+          "definition": "Jesus' divine identity as the eternal Son of the Father."
+        }
+      ],
+      "reading_context_source_hash": "480c71af46d6b04cb1668dc160bb557e794960f3abcbd1760ed6a1066ab2b65e"
+    },
+    {
+      "day_number": 34,
+      "date": "2026-10-04",
+      "content_type": "catechism",
+      "reading_title": "Baptism, Temptation, and Mission",
+      "reading_reference": "CCC 535-540",
+      "reading_context": "Matthew has introduced Jesus as Emmanuel and beloved Son. This Sunday gathers the meaning of His baptism, temptation, and public mission.",
+      "previous_reading_summary": "Yesterday, John prepares the way and Jesus is baptized.",
+      "reading_today_preview": "Today, the Catechism considers Jesus' baptism, His temptation, and the beginning of His mission.",
+      "reading_watch_for": "Watch how Jesus enters the waters and the wilderness in solidarity with sinners.",
+      "reading_key_terms": [
+        {
+          "term": "baptism",
+          "definition": "The sacrament of new birth in Christ and cleansing from sin."
+        },
+        {
+          "term": "Son of God",
+          "definition": "Jesus' divine identity as the eternal Son of the Father."
+        }
+      ],
+      "reading_context_source_hash": "a30e6f7302b8c371add1bdff3b4c51d0346a3ae082b285426043bf056315e6a1"
+    },
+    {
+      "day_number": 35,
+      "date": "2026-10-05",
+      "content_type": "gospel",
+      "reading_title": "Tested and Sent",
+      "reading_reference": "Matthew 4:1-25",
+      "reading_context": "Matthew opens with infancy, fulfillment, and the beginning of Jesus' public mission. This reading continues that foundation as Jesus is tempted, preaches, calls disciples, and heals.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on Baptism, Temptation, and Mission.",
+      "reading_today_preview": "Today, Jesus is tempted, preaches, calls disciples, and heals.",
+      "reading_watch_for": "Notice how testing reveals trust, obedience, and the Father's care.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "2c82f5b326e5a03dc70dae670f4a2ded130b16a6697f1e69b813a1b10ede8120"
+    },
+    {
+      "day_number": 36,
+      "date": "2026-10-06",
+      "content_type": "gospel",
+      "reading_title": "The Blessed Life",
+      "reading_reference": "Matthew 5:1-20",
+      "reading_context": "Matthew is showing Jesus as teacher of the Kingdom in word and deed. This reading continues that teaching as Jesus begins the Sermon on the Mount.",
+      "previous_reading_summary": "Yesterday, Jesus is tempted, preaches, calls disciples, and heals.",
+      "reading_today_preview": "Today, Jesus begins the Sermon on the Mount.",
+      "reading_watch_for": "Notice the contrast between physical sight and the deeper sight of faith.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "9481ceade9f9a0020e3c3f0efe45a74a18b62062e6da0658d44a2749b9666f0d"
+    },
+    {
+      "day_number": 37,
+      "date": "2026-10-07",
+      "content_type": "gospel",
+      "reading_title": "A Deeper Righteousness",
+      "reading_reference": "Matthew 5:21-48",
+      "reading_context": "Matthew is showing Jesus as teacher of the Kingdom in word and deed. This reading continues that teaching as Jesus teaches conversion of the heart.",
+      "previous_reading_summary": "Yesterday, Jesus begins the Sermon on the Mount.",
+      "reading_today_preview": "Today, Jesus teaches conversion of the heart.",
+      "reading_watch_for": "Notice how Jesus moves the question from outward appearance to the heart.",
+      "reading_key_terms": [
+        {
+          "term": "conversion",
+          "definition": "A real turning of heart and life toward God."
+        }
+      ],
+      "reading_context_source_hash": "fdc117b196cc24befbbe6cf0cf8d1fcb1a0d02b3ba251c3d94a6477564dae5b6"
+    },
+    {
+      "day_number": 38,
+      "date": "2026-10-08",
+      "content_type": "gospel",
+      "reading_title": "Prayer Before the Father",
+      "reading_reference": "Matthew 6:1-18",
+      "reading_context": "Matthew is showing Jesus as teacher of the Kingdom in word and deed. This reading continues that teaching as Jesus teaches almsgiving, prayer, fasting, and the Our Father.",
+      "previous_reading_summary": "Yesterday, Jesus teaches conversion of the heart.",
+      "reading_today_preview": "Today, Jesus teaches almsgiving, prayer, fasting, and the Our Father.",
+      "reading_watch_for": "Watch how Jesus reveals the purpose of worship, mercy, and holy rest.",
+      "reading_key_terms": [
+        {
+          "term": "Our Father",
+          "definition": "The prayer Jesus teaches His disciples to pray to the Father."
+        }
+      ],
+      "reading_context_source_hash": "30e83935b0a4aacb355b440246e6f5585da3757fc2a1285d70fa1b21f0efcfdd"
+    },
+    {
+      "day_number": 39,
+      "date": "2026-10-09",
+      "content_type": "gospel",
+      "reading_title": "Trusting the Father",
+      "reading_reference": "Matthew 6:19-34",
+      "reading_context": "Matthew is showing Jesus as teacher of the Kingdom in word and deed. This reading continues that teaching as Jesus teaches treasure in heaven and freedom from anxiety.",
+      "previous_reading_summary": "Yesterday, Jesus teaches almsgiving, prayer, fasting, and the Our Father.",
+      "reading_today_preview": "Today, Jesus teaches treasure in heaven and freedom from anxiety.",
+      "reading_watch_for": "Watch how Jesus receives the vulnerable and asks freedom from divided loves.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "ad28b3d8d57a85b66dd14436fbf2170287848d786f38eb29e086b26155d569f5"
+    },
+    {
+      "day_number": 40,
+      "date": "2026-10-10",
+      "content_type": "gospel",
+      "reading_title": "Build on the Rock",
+      "reading_reference": "Matthew 7:1-29",
+      "reading_context": "Matthew is showing Jesus as teacher of the Kingdom in word and deed. This reading continues that teaching as Jesus concludes the Sermon with obedience and trust.",
+      "previous_reading_summary": "Yesterday, Jesus teaches treasure in heaven and freedom from anxiety.",
+      "reading_today_preview": "Today, Jesus concludes the Sermon with obedience and trust.",
+      "reading_watch_for": "Notice that hearing Jesus is meant to become obedience, not admiration alone.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "e4c8d2d618861ef8c478738403b1663001917d488c6f376cbb32cac6c3fb151b"
+    },
+    {
+      "day_number": 41,
+      "date": "2026-10-11",
+      "content_type": "catechism",
+      "reading_title": "The Kingdom of God",
+      "reading_reference": "CCC 541-546",
+      "reading_context": "After the Sermon on the Mount, this Sunday names the Kingdom Jesus has been announcing. The Catechism frames His call to conversion and mercy.",
+      "previous_reading_summary": "Yesterday, Jesus concludes the Sermon with obedience and trust.",
+      "reading_today_preview": "Today, the Catechism considers the Kingdom of God and Christ's call to sinners.",
+      "reading_watch_for": "Notice that the Kingdom is not an idea first. It is present in Jesus Himself.",
+      "reading_key_terms": [
+        {
+          "term": "Kingdom of God",
+          "definition": "God's saving reign, present in Christ and coming to fulfillment."
+        },
+        {
+          "term": "conversion",
+          "definition": "A real turning of heart and life toward God."
+        }
+      ],
+      "reading_context_source_hash": "8d74fed0abd36b232f3eacbb11da438052f3ec7276d1d6af5a01761461c9326b"
+    },
+    {
+      "day_number": 42,
+      "date": "2026-10-12",
+      "content_type": "gospel",
+      "reading_title": "He Took Our Infirmities",
+      "reading_reference": "Matthew 8:1-17",
+      "reading_context": "Matthew is showing Jesus as teacher of the Kingdom in word and deed. This reading continues that teaching as Jesus heals the leper, the servant, and many others.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on the Kingdom of God.",
+      "reading_today_preview": "Today, Jesus heals the leper, the servant, and many others.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "399d93555adc95dc6207c8e2805e95e17deccdb62f3826bca637dbff8ec1de4a"
+    },
+    {
+      "day_number": 43,
+      "date": "2026-10-13",
+      "content_type": "gospel",
+      "reading_title": "Following the Lord of Mercy",
+      "reading_reference": "Matthew 8:18-9:8",
+      "reading_context": "Matthew is showing Jesus as teacher of the Kingdom in word and deed. This reading continues that teaching as Jesus teaches the cost of following and forgives the paralytic.",
+      "previous_reading_summary": "Yesterday, Jesus heals the leper, the servant, and many others.",
+      "reading_today_preview": "Today, Jesus teaches the cost of following and forgives the paralytic.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "557570b371006149c02bc70dfedbfabd41fc1d24ed6761d8622552add531f5f1"
+    },
+    {
+      "day_number": 44,
+      "date": "2026-10-14",
+      "content_type": "gospel",
+      "reading_title": "Mercy and the Harvest",
+      "reading_reference": "Matthew 9:9-38",
+      "reading_context": "Matthew is showing Jesus as teacher of the Kingdom in word and deed. This reading continues that teaching as Jesus calls Matthew and sees the crowds with compassion.",
+      "previous_reading_summary": "Yesterday, Jesus teaches the cost of following and forgives the paralytic.",
+      "reading_today_preview": "Today, Jesus calls Matthew and sees the crowds with compassion.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "804268ee16b2c0a4a3cbcb4e351fbd3ea9770570c254df20c878348d83669a6f"
+    },
+    {
+      "day_number": 45,
+      "date": "2026-10-15",
+      "content_type": "gospel",
+      "reading_title": "The Twelve Are Sent",
+      "reading_reference": "Matthew 10:1-23",
+      "reading_context": "Matthew now emphasizes mission, parables, and mercy. This reading continues that movement as Jesus names the Twelve and sends them to Israel.",
+      "previous_reading_summary": "Yesterday, Jesus calls Matthew and sees the crowds with compassion.",
+      "reading_today_preview": "Today, Jesus names the Twelve and sends them to Israel.",
+      "reading_watch_for": "Notice that disciples are called to be with Jesus before they are sent.",
+      "reading_key_terms": [
+        {
+          "term": "disciple",
+          "definition": "One who follows Jesus, learns from Him, and lives under His teaching."
+        },
+        {
+          "term": "apostle",
+          "definition": "One sent by Christ with authority to witness and serve His Church."
+        }
+      ],
+      "reading_context_source_hash": "21b92ac7669491d2548bf5eb6cd987340255453468347ca520a449cadd123c5b"
+    },
+    {
+      "day_number": 46,
+      "date": "2026-10-16",
+      "content_type": "gospel",
+      "reading_title": "Courage in Witness",
+      "reading_reference": "Matthew 10:24-42",
+      "reading_context": "Matthew now emphasizes mission, parables, and mercy. This reading continues that movement as Jesus teaches the cost and courage of discipleship.",
+      "previous_reading_summary": "Yesterday, Jesus names the Twelve and sends them to Israel.",
+      "reading_today_preview": "Today, Jesus teaches the cost and courage of discipleship.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "disciple",
+          "definition": "One who follows Jesus, learns from Him, and lives under His teaching."
+        },
+        {
+          "term": "crucifixion",
+          "definition": "Jesus' death on the cross, offered in obedience and love."
+        }
+      ],
+      "reading_context_source_hash": "e9544f248bbe06da0bd5350d3dbdd0bd9e577d2583e949ed298dc2bb08d2864e"
+    },
+    {
+      "day_number": 47,
+      "date": "2026-10-17",
+      "content_type": "gospel",
+      "reading_title": "Come to Me",
+      "reading_reference": "Matthew 11:1-30",
+      "reading_context": "Matthew now emphasizes mission, parables, and mercy. This reading continues that movement as Jesus answers John's disciples and invites the burdened to rest.",
+      "previous_reading_summary": "Yesterday, Jesus teaches the cost and courage of discipleship.",
+      "reading_today_preview": "Today, Jesus answers John's disciples and invites the burdened to rest.",
+      "reading_watch_for": "Watch how baptism is joined to identity, mission, and the work of the Holy Spirit.",
+      "reading_key_terms": [
+        {
+          "term": "repentance",
+          "definition": "Turning away from sin and back toward God."
+        },
+        {
+          "term": "baptism",
+          "definition": "The sacrament of new birth in Christ and cleansing from sin."
+        }
+      ],
+      "reading_context_source_hash": "707db394c9713e0153eb6ba44312dda54c7cc0c60881eddf9a13e21a969b9788"
+    },
+    {
+      "day_number": 48,
+      "date": "2026-10-18",
+      "content_type": "catechism",
+      "reading_title": "Miracles and Signs of the Kingdom",
+      "reading_reference": "CCC 547-550",
+      "reading_context": "Matthew has shown Jesus healing and teaching with authority. This Sunday looks at miracles as signs that the Kingdom is truly present in Him.",
+      "previous_reading_summary": "Yesterday, Jesus answers John's disciples and invites the burdened to rest.",
+      "reading_today_preview": "Today, the Catechism considers Christ's miracles and signs of the Kingdom.",
+      "reading_watch_for": "Watch how signs point beyond amazement toward faith in Christ.",
+      "reading_key_terms": [
+        {
+          "term": "Kingdom of God",
+          "definition": "God's saving reign, present in Christ and coming to fulfillment."
+        },
+        {
+          "term": "faith",
+          "definition": "Trusting God and receiving what He reveals."
+        }
+      ],
+      "reading_context_source_hash": "f800995cb9970d06d8b3062e989e852548055262adb368a2a3c03b892e6d55da"
+    },
+    {
+      "day_number": 49,
+      "date": "2026-10-19",
+      "content_type": "gospel",
+      "reading_title": "Mercy on the Sabbath",
+      "reading_reference": "Matthew 12:1-21",
+      "reading_context": "Matthew now emphasizes mission, parables, and mercy. This reading continues that movement as Jesus answers Sabbath accusations and fulfills the servant prophecy.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on Miracles and Signs of the Kingdom.",
+      "reading_today_preview": "Today, Jesus answers Sabbath accusations and fulfills the servant prophecy.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [
+        {
+          "term": "Sabbath",
+          "definition": "The holy day of rest and worship given to Israel by God."
+        },
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "189ad238653bc47a63720c447f3517174d9d24e7982e3f241ef75e11e9f985c5"
+    },
+    {
+      "day_number": 50,
+      "date": "2026-10-20",
+      "content_type": "gospel",
+      "reading_title": "The Sign and the Family",
+      "reading_reference": "Matthew 12:22-50",
+      "reading_context": "Matthew now emphasizes mission, parables, and mercy. This reading continues that movement as Jesus warns about the heart and names His true family.",
+      "previous_reading_summary": "Yesterday, Jesus answers Sabbath accusations and fulfills the servant prophecy.",
+      "reading_today_preview": "Today, Jesus warns about the heart and names His true family.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [
+        {
+          "term": "Holy Spirit",
+          "definition": "The third Person of the Trinity, given by the Father and the Son."
+        }
+      ],
+      "reading_context_source_hash": "c047826686a36b7f2d98de2355c6b26a9aaaccf5fe0c1d9c9be984738f0c59d3"
+    },
+    {
+      "day_number": 51,
+      "date": "2026-10-21",
+      "content_type": "gospel",
+      "reading_title": "The Word Sown",
+      "reading_reference": "Matthew 13:1-23",
+      "reading_context": "Matthew now emphasizes mission, parables, and mercy. This reading continues that movement as Jesus tells and explains the parable of the sower.",
+      "previous_reading_summary": "Yesterday, Jesus warns about the heart and names His true family.",
+      "reading_today_preview": "Today, Jesus tells and explains the parable of the sower.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "e4794b30d973b56c515ede5746fae13a95be36b3bcf619b838837559bb9b4717"
+    },
+    {
+      "day_number": 52,
+      "date": "2026-10-22",
+      "content_type": "gospel",
+      "reading_title": "The Kingdom in Parables",
+      "reading_reference": "Matthew 13:24-52",
+      "reading_context": "Matthew now emphasizes mission, parables, and mercy. This reading continues that movement as Jesus teaches wheat and weeds, treasure, pearl, and net.",
+      "previous_reading_summary": "Yesterday, Jesus tells and explains the parable of the sower.",
+      "reading_today_preview": "Today, Jesus teaches wheat and weeds, treasure, pearl, and net.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "Kingdom of God",
+          "definition": "God's saving reign, present in Christ and coming to fulfillment."
+        },
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "d4819818939afd57a8ef9dacb9be4a35a9a46e483259a1d3dfc5147f7727c160"
+    },
+    {
+      "day_number": 53,
+      "date": "2026-10-23",
+      "content_type": "gospel",
+      "reading_title": "Rejected, Then Moved With Compassion",
+      "reading_reference": "Matthew 13:53-14:21",
+      "reading_context": "Matthew now emphasizes mission, parables, and mercy. This reading continues that movement as Nazareth rejects Jesus, John dies, and Jesus feeds the crowd.",
+      "previous_reading_summary": "Yesterday, Jesus teaches wheat and weeds, treasure, pearl, and net.",
+      "reading_today_preview": "Today, Nazareth rejects Jesus, John dies, and Jesus feeds the crowd.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "baptism",
+          "definition": "The sacrament of new birth in Christ and cleansing from sin."
+        },
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "380eea6701d9e86104cb73866c492f07f28eec6160a1e82fa0e520b8a6a73a7d"
+    },
+    {
+      "day_number": 54,
+      "date": "2026-10-24",
+      "content_type": "gospel",
+      "reading_title": "Faith, Fear, and the Heart",
+      "reading_reference": "Matthew 14:22-15:20",
+      "reading_context": "Matthew now emphasizes mission, parables, and mercy. This reading continues that movement as Jesus walks on the sea and teaches what truly defiles.",
+      "previous_reading_summary": "Yesterday, Nazareth rejects Jesus, John dies, and Jesus feeds the crowd.",
+      "reading_today_preview": "Today, Jesus walks on the sea and teaches what truly defiles.",
+      "reading_watch_for": "Notice how fear changes when Jesus' authority is seen clearly.",
+      "reading_key_terms": [
+        {
+          "term": "faith",
+          "definition": "Trusting God and receiving what He reveals."
+        }
+      ],
+      "reading_context_source_hash": "ac5056f8d84cfd50d19cffebf2578bc18e9d89c318c6d10e91b39fe339c7432c"
+    },
+    {
+      "day_number": 55,
+      "date": "2026-10-25",
+      "content_type": "catechism",
+      "reading_title": "The Disciples and the Twelve",
+      "reading_reference": "CCC 551-553",
+      "reading_context": "As Matthew turns toward confession, correction, and mission, this Sunday focuses on the disciples and the Twelve. The Catechism shows that Jesus forms a people around Himself.",
+      "previous_reading_summary": "Yesterday, Jesus walks on the sea and teaches what truly defiles.",
+      "reading_today_preview": "Today, the Catechism considers the disciples, the Twelve, and their share in Christ's mission.",
+      "reading_watch_for": "Notice that Jesus gathers and sends real men, not an abstract movement.",
+      "reading_key_terms": [
+        {
+          "term": "disciple",
+          "definition": "One who follows Jesus, learns from Him, and lives under His teaching."
+        },
+        {
+          "term": "apostle",
+          "definition": "One sent by Christ with authority to witness and serve His Church."
+        }
+      ],
+      "reading_context_source_hash": "7c96d531c8a19c0b2f2851f8bef8fd6cb8d84a59a58cc3a91fce9835a679fabb"
+    },
+    {
+      "day_number": 56,
+      "date": "2026-10-26",
+      "content_type": "gospel",
+      "reading_title": "Mercy for the Nations",
+      "reading_reference": "Matthew 15:21-39",
+      "reading_context": "Matthew now emphasizes mission, parables, and mercy. This reading continues that movement as Jesus answers the Canaanite woman and feeds four thousand.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on the Disciples and the Twelve.",
+      "reading_today_preview": "Today, Jesus answers the Canaanite woman and feeds four thousand.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [
+        {
+          "term": "faith",
+          "definition": "Trusting God and receiving what He reveals."
+        },
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "ab7e935de8bb94def9731f95592efe14cdbaf787735f8e7b95cbc92c918bd22b"
+    },
+    {
+      "day_number": 57,
+      "date": "2026-10-27",
+      "content_type": "gospel",
+      "reading_title": "The Christ and His Church",
+      "reading_reference": "Matthew 16:1-28",
+      "reading_context": "Matthew turns toward confession, the Church, forgiveness, and the cost of following Christ. This reading continues that formation as Peter confesses Jesus and receives the keys.",
+      "previous_reading_summary": "Yesterday, Jesus answers the Canaanite woman and feeds four thousand.",
+      "reading_today_preview": "Today, Peter confesses Jesus and receives the keys.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "crucifixion",
+          "definition": "Jesus' death on the cross, offered in obedience and love."
+        },
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        },
+        {
+          "term": "Church",
+          "definition": "The people Christ gathers into His Body through faith and the sacraments."
+        },
+        {
+          "term": "keys",
+          "definition": "The sign of authority Christ gives to Peter for service in the Church."
+        }
+      ],
+      "reading_context_source_hash": "aa90ffa22e1da6f824380ce809acc8e6eaa71143cead314773a691570fdb0be6"
+    },
+    {
+      "day_number": 58,
+      "date": "2026-10-28",
+      "content_type": "gospel",
+      "reading_title": "Listen to Him",
+      "reading_reference": "Matthew 17:1-27",
+      "reading_context": "Matthew turns toward confession, the Church, forgiveness, and the cost of following Christ. This reading continues that formation as Jesus is transfigured and continues toward the Passion.",
+      "previous_reading_summary": "Yesterday, Peter confesses Jesus and receives the keys.",
+      "reading_today_preview": "Today, Jesus is transfigured and continues toward the Passion.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        },
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        },
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "4c255863179c4acab59bff413a2e0e8517f2ac17f39a9351e52f95b94da181e4"
+    },
+    {
+      "day_number": 59,
+      "date": "2026-10-29",
+      "content_type": "gospel",
+      "reading_title": "Life in the Church",
+      "reading_reference": "Matthew 18:1-20",
+      "reading_context": "Matthew turns toward confession, the Church, forgiveness, and the cost of following Christ. This reading continues that formation as Jesus teaches humility, care, correction, and prayer together.",
+      "previous_reading_summary": "Yesterday, Jesus is transfigured and continues toward the Passion.",
+      "reading_today_preview": "Today, Jesus teaches humility, care, correction, and prayer together.",
+      "reading_watch_for": "Notice how testing reveals trust, obedience, and the Father's care.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        },
+        {
+          "term": "Church",
+          "definition": "The people Christ gathers into His Body through faith and the sacraments."
+        }
+      ],
+      "reading_context_source_hash": "e725a3104258d36096154d56a295ec8d474294af15f785158f7a9caa340704ea"
+    },
+    {
+      "day_number": 60,
+      "date": "2026-10-30",
+      "content_type": "gospel",
+      "reading_title": "Forgiveness and Faithfulness",
+      "reading_reference": "Matthew 18:21-19:15",
+      "reading_context": "Matthew turns toward confession, the Church, forgiveness, and the cost of following Christ. This reading continues that formation as Jesus teaches forgiveness, marriage, and welcomes children.",
+      "previous_reading_summary": "Yesterday, Jesus teaches humility, care, correction, and prayer together.",
+      "reading_today_preview": "Today, Jesus teaches forgiveness, marriage, and welcomes children.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "0cb4d56dee77f6c6014466a9ff8a99f38c9b14a035eb643693b23d84b9cda549"
+    },
+    {
+      "day_number": 61,
+      "date": "2026-10-31",
+      "content_type": "gospel",
+      "reading_title": "Treasure in Heaven",
+      "reading_reference": "Matthew 19:16-20:16",
+      "reading_context": "Matthew turns toward confession, the Church, forgiveness, and the cost of following Christ. This reading continues that formation as Jesus meets the rich young man and teaches generous grace.",
+      "previous_reading_summary": "Yesterday, Jesus teaches forgiveness, marriage, and welcomes children.",
+      "reading_today_preview": "Today, Jesus meets the rich young man and teaches generous grace.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "131a033ea4ca18650b5844e6cc5aed15ee0ca5ea3a603fcd2c0466afd20399f8"
+    },
+    {
+      "day_number": 62,
+      "date": "2026-11-01",
+      "content_type": "catechism",
+      "reading_title": "Peter, the Keys, and the Church",
+      "reading_reference": "CCC 552-553; 880-887",
+      "reading_context": "Matthew has brought us to Peter's confession and the keys. This Sunday considers Peter's office and the Church Christ builds.",
+      "previous_reading_summary": "Yesterday, Jesus meets the rich young man and teaches generous grace.",
+      "reading_today_preview": "Today, the Catechism considers Peter, the keys, and the Church's visible unity.",
+      "reading_watch_for": "Watch how authority is given for service, faith, and unity in the Church.",
+      "reading_key_terms": [
+        {
+          "term": "Church",
+          "definition": "The people Christ gathers into His Body through faith and the sacraments."
+        },
+        {
+          "term": "apostle",
+          "definition": "One sent by Christ with authority to witness and serve His Church."
+        }
+      ],
+      "reading_context_source_hash": "6110a878fcd7fb8eda7ab69dff8918a218537c11332cb31a9a4807601cc50909"
+    },
+    {
+      "day_number": 63,
+      "date": "2026-11-02",
+      "content_type": "gospel",
+      "reading_title": "The Cup and the Servant",
+      "reading_reference": "Matthew 20:17-34",
+      "reading_context": "Matthew turns toward confession, the Church, forgiveness, and the cost of following Christ. This reading continues that formation as Jesus foretells His Passion and heals two blind men.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on Peter, the Keys, and the Church.",
+      "reading_today_preview": "Today, Jesus foretells His Passion and heals two blind men.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        },
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "96d1b12232ef4dcc816db4869abc94e37c493c2ee8c86fb403ea8661f4bb96bf"
+    },
+    {
+      "day_number": 64,
+      "date": "2026-11-03",
+      "content_type": "gospel",
+      "reading_title": "The King Comes to the Temple",
+      "reading_reference": "Matthew 21:1-22",
+      "reading_context": "Matthew brings Jesus into Jerusalem, conflict, judgment, and the Passion. This reading continues that final movement as Jesus enters Jerusalem and purifies worship.",
+      "previous_reading_summary": "Yesterday, Jesus foretells His Passion and heals two blind men.",
+      "reading_today_preview": "Today, Jesus enters Jerusalem and purifies worship.",
+      "reading_watch_for": "Notice how Jesus' authority reaches worship, the temple, and the leaders' questions.",
+      "reading_key_terms": [
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        }
+      ],
+      "reading_context_source_hash": "5b47f6eb675ed32ad46de63dd58c17a1182789415e39473cf17bcbf7c51d2be3"
+    },
+    {
+      "day_number": 65,
+      "date": "2026-11-04",
+      "content_type": "gospel",
+      "reading_title": "The Rejected Son",
+      "reading_reference": "Matthew 21:23-22:14",
+      "reading_context": "Matthew brings Jesus into Jerusalem, conflict, judgment, and the Passion. This reading continues that final movement as Jesus answers authority challenges with parables.",
+      "previous_reading_summary": "Yesterday, Jesus enters Jerusalem and purifies worship.",
+      "reading_today_preview": "Today, Jesus answers authority challenges with parables.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "50312915f36cb8462c575a1046bfc84b1f6f4d1d0611297293bfd38031793de8"
+    },
+    {
+      "day_number": 66,
+      "date": "2026-11-05",
+      "content_type": "gospel",
+      "reading_title": "Questions for the King",
+      "reading_reference": "Matthew 22:15-46",
+      "reading_context": "Matthew brings Jesus into Jerusalem, conflict, judgment, and the Passion. This reading continues that final movement as Jesus answers questions about Caesar, resurrection, and love.",
+      "previous_reading_summary": "Yesterday, Jesus answers authority challenges with parables.",
+      "reading_today_preview": "Today, Jesus answers questions about Caesar, resurrection, and love.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "60547e16d1717cd2a166b775d407c64671d9ec8913cb4ba5c9b255c827de5990"
+    },
+    {
+      "day_number": 67,
+      "date": "2026-11-06",
+      "content_type": "gospel",
+      "reading_title": "Woe and Lament",
+      "reading_reference": "Matthew 23:1-39",
+      "reading_context": "Matthew brings Jesus into Jerusalem, conflict, judgment, and the Passion. This reading continues that final movement as Jesus warns against hypocrisy and laments over Jerusalem.",
+      "previous_reading_summary": "Yesterday, Jesus answers questions about Caesar, resurrection, and love.",
+      "reading_today_preview": "Today, Jesus warns against hypocrisy and laments over Jerusalem.",
+      "reading_watch_for": "Watch how Jesus' warnings are severe because He desires true conversion.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "2dd291aa68abf8ce20487d3ba40472d8273be48f127f458011a36a1abfd07fcc"
+    },
+    {
+      "day_number": 68,
+      "date": "2026-11-07",
+      "content_type": "gospel",
+      "reading_title": "The Son of Man Will Come",
+      "reading_reference": "Matthew 24:1-31",
+      "reading_context": "Matthew brings Jesus into Jerusalem, conflict, judgment, and the Passion. This reading continues that final movement as Jesus teaches endurance, trial, and His coming.",
+      "previous_reading_summary": "Yesterday, Jesus warns against hypocrisy and laments over Jerusalem.",
+      "reading_today_preview": "Today, Jesus teaches endurance, trial, and His coming.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "Son of Man",
+          "definition": "A title Jesus uses that points to His authority, suffering, and glory."
+        },
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        },
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        }
+      ],
+      "reading_context_source_hash": "5bbcc7fb0f849805884be44275e3a06c4bf233a533d259704f8332f8a08432f5"
+    },
+    {
+      "day_number": 69,
+      "date": "2026-11-08",
+      "content_type": "catechism",
+      "reading_title": "The Transfiguration",
+      "reading_reference": "CCC 554-556",
+      "reading_context": "Before Matthew's final teaching and Passion, this Sunday returns to the Transfiguration. The Catechism shows how glory prepares the disciples for the scandal of the Cross.",
+      "previous_reading_summary": "Yesterday, Jesus teaches endurance, trial, and His coming.",
+      "reading_today_preview": "Today, the Catechism considers the Transfiguration and its place on the road to the Passion.",
+      "reading_watch_for": "Notice how glory and the Cross belong together in Christ.",
+      "reading_key_terms": [
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        },
+        {
+          "term": "Son of God",
+          "definition": "Jesus' divine identity as the eternal Son of the Father."
+        }
+      ],
+      "reading_context_source_hash": "0c5a4ed7be9be2dcbe891d2aa1aa2913e9b20058dd554bbaac5d620e8815d595"
+    },
+    {
+      "day_number": 70,
+      "date": "2026-11-09",
+      "content_type": "gospel",
+      "reading_title": "Keep Watch",
+      "reading_reference": "Matthew 24:32-25:13",
+      "reading_context": "Matthew brings Jesus into Jerusalem, conflict, judgment, and the Passion. This reading continues that final movement as Jesus teaches readiness through the faithful servant and the wise virgins.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on the Transfiguration.",
+      "reading_today_preview": "Today, Jesus teaches readiness through the faithful servant and the wise virgins.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "0dd462c1b38afc865f3dfc1322da4f2f0579ce1436f1722d486ed8458ddddabe"
+    },
+    {
+      "day_number": 71,
+      "date": "2026-11-10",
+      "content_type": "gospel",
+      "reading_title": "Talents, the Least, and the Plot",
+      "reading_reference": "Matthew 25:14-26:16",
+      "reading_context": "Matthew brings Jesus into Jerusalem, conflict, judgment, and the Passion. This reading continues that final movement as Jesus teaches talents and judgment, then the Passion plot begins.",
+      "previous_reading_summary": "Yesterday, Jesus teaches readiness through the faithful servant and the wise virgins.",
+      "reading_today_preview": "Today, Jesus teaches talents and judgment, then the Passion plot begins.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        },
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        }
+      ],
+      "reading_context_source_hash": "454833856865018886dacd416dd60dc6e93d00492694dcdbb91122703ee6064f"
+    },
+    {
+      "day_number": 72,
+      "date": "2026-11-11",
+      "content_type": "gospel",
+      "reading_title": "The Supper, the Garden, and the Trial",
+      "reading_reference": "Matthew 26:17-65",
+      "reading_context": "Matthew brings Jesus into Jerusalem, conflict, judgment, and the Passion. This reading continues that final movement as Jesus gives the supper, prays, is arrested, and stands before the high priest.",
+      "previous_reading_summary": "Yesterday, Jesus teaches talents and judgment, then the Passion plot begins.",
+      "reading_today_preview": "Today, Jesus gives the supper, prays, is arrested, and stands before the high priest.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "Passover",
+          "definition": "Israel's feast of deliverance, fulfilled by Christ in His Passion."
+        },
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        }
+      ],
+      "reading_context_source_hash": "609cf727e064a8ab797ea9aa1c28977ed3540135ebbf809ed1245957733a91a8"
+    },
+    {
+      "day_number": 73,
+      "date": "2026-11-12",
+      "content_type": "gospel",
+      "reading_title": "Denied, Condemned, and Crucified",
+      "reading_reference": "Matthew 26:66-27:37",
+      "reading_context": "Matthew brings Jesus into Jerusalem, conflict, judgment, and the Passion. This reading continues that final movement as Jesus is mocked, Peter denies Him, and Pilate hands Him over to be crucified.",
+      "previous_reading_summary": "Yesterday, Jesus gives the supper, prays, is arrested, and stands before the high priest.",
+      "reading_today_preview": "Today, Jesus is mocked, Peter denies Him, and Pilate hands Him over to be crucified.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        },
+        {
+          "term": "crucifixion",
+          "definition": "Jesus' death on the cross, offered in obedience and love."
+        }
+      ],
+      "reading_context_source_hash": "1ba95c591da87e4a420b1d321360b1039fedbe9e1d0b3bd3027915ddc6dcdc99"
+    },
+    {
+      "day_number": 74,
+      "date": "2026-11-13",
+      "content_type": "gospel",
+      "reading_title": "Crucified and Risen",
+      "reading_reference": "Matthew 27:38-28:20",
+      "reading_context": "Matthew brings Jesus into Jerusalem, conflict, judgment, and the Passion. This reading continues that final movement as Jesus dies, is buried, rises, and sends the disciples.",
+      "previous_reading_summary": "Yesterday, Jesus is mocked, Peter denies Him, and Pilate hands Him over to be crucified.",
+      "reading_today_preview": "Today, Jesus dies, is buried, rises, and sends the disciples.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "crucifixion",
+          "definition": "Jesus' death on the cross, offered in obedience and love."
+        },
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "52603d35e90bae47b84808bd4c62248a3adeb707a54e1746e20602472fb0a7de"
+    },
+    {
+      "day_number": 75,
+      "date": "2026-11-14",
+      "content_type": "gospel",
+      "reading_title": "The Promise to Zechariah",
+      "reading_reference": "Luke 1:1-25",
+      "reading_context": "Luke begins with an orderly account rooted in promise, prayer, and the temple. The story opens before Jesus' birth with Zechariah and Elizabeth.",
+      "previous_reading_summary": "Yesterday, Jesus dies, is buried, rises, and sends the disciples.",
+      "reading_today_preview": "Today, the angel announces John's birth while Zechariah is serving in the temple.",
+      "reading_watch_for": "Notice how God begins quietly, through prayer, barrenness, and a promise that asks for trust.",
+      "reading_key_terms": [
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        },
+        {
+          "term": "angel",
+          "definition": "A spiritual messenger sent by God."
+        },
+        {
+          "term": "covenant",
+          "definition": "A sacred bond God establishes with His people."
+        }
+      ],
+      "reading_context_source_hash": "e9fbd2e8af96bf635a3c5d91fd9203a9e9d1a87007bf6e9c058ed67cf798d077"
+    },
+    {
+      "day_number": 76,
+      "date": "2026-11-15",
+      "content_type": "catechism",
+      "reading_title": "Jesus and Israel",
+      "reading_reference": "CCC 574-594",
+      "reading_context": "After Matthew's death and Resurrection narrative, this Sunday considers Jesus and Israel. The Catechism helps us read the opposition to Jesus without losing sight of fulfillment.",
+      "previous_reading_summary": "Yesterday, Luke begins with prayer, promise, and waiting.",
+      "reading_today_preview": "Today, the Catechism considers Jesus' relationship to Israel, the law, the temple, and faith.",
+      "reading_watch_for": "Notice that Jesus fulfills Israel's hope while exposing hardened hearts.",
+      "reading_key_terms": [
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        },
+        {
+          "term": "faith",
+          "definition": "Trusting God and receiving what He reveals."
+        }
+      ],
+      "reading_context_source_hash": "54ad476aebed561f852c6f684a96e03ad29e268dd2effb15928e4e9645cb1cd6"
+    },
+    {
+      "day_number": 77,
+      "date": "2026-11-16",
+      "content_type": "gospel",
+      "reading_title": "The Annunciation and Visitation",
+      "reading_reference": "Luke 1:26-56",
+      "reading_context": "Luke begins with infancy, promise, prayer, and preparation. This reading continues that beginning as Mary receives the angel's word and visits Elizabeth.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on Jesus and Israel.",
+      "reading_today_preview": "Today, Mary receives the angel's word and visits Elizabeth.",
+      "reading_watch_for": "Notice how the child Jesus is received, protected, and revealed as God with us.",
+      "reading_key_terms": [
+        {
+          "term": "Incarnation",
+          "definition": "The eternal Son of God taking on human flesh."
+        },
+        {
+          "term": "Annunciation",
+          "definition": "The angel's announcement to Mary and her faithful consent to God's plan."
+        }
+      ],
+      "reading_context_source_hash": "5ede46580de7cdcf9a46eb1a6de89a4307cb062dc718127edaea25cf094b20bd"
+    },
+    {
+      "day_number": 78,
+      "date": "2026-11-17",
+      "content_type": "gospel",
+      "reading_title": "The Birth of John",
+      "reading_reference": "Luke 1:57-80",
+      "reading_context": "Luke begins with infancy, promise, prayer, and preparation. This reading continues that beginning as John is born and Zechariah blesses God.",
+      "previous_reading_summary": "Yesterday, Mary receives the angel's word and visits Elizabeth.",
+      "reading_today_preview": "Today, John is born and Zechariah blesses God.",
+      "reading_watch_for": "Watch how baptism is joined to identity, mission, and the work of the Holy Spirit.",
+      "reading_key_terms": [
+        {
+          "term": "baptism",
+          "definition": "The sacrament of new birth in Christ and cleansing from sin."
+        },
+        {
+          "term": "Incarnation",
+          "definition": "The eternal Son of God taking on human flesh."
+        }
+      ],
+      "reading_context_source_hash": "1e827bfdfd2712e61b428374c8cbbbbf22f17b77c79fdf012acb4b78d5844a86"
+    },
+    {
+      "day_number": 79,
+      "date": "2026-11-18",
+      "content_type": "gospel",
+      "reading_title": "The Savior Is Born",
+      "reading_reference": "Luke 2:1-20",
+      "reading_context": "Luke begins with infancy, promise, prayer, and preparation. This reading continues that beginning as Jesus is born in Bethlehem and shepherds hear the good news.",
+      "previous_reading_summary": "Yesterday, John is born and Zechariah blesses God.",
+      "reading_today_preview": "Today, Jesus is born in Bethlehem and shepherds hear the good news.",
+      "reading_watch_for": "Notice how the child Jesus is received, protected, and revealed as God with us.",
+      "reading_key_terms": [
+        {
+          "term": "Incarnation",
+          "definition": "The eternal Son of God taking on human flesh."
+        }
+      ],
+      "reading_context_source_hash": "865369a8acbff978cc828420e913e0378b7445fe04d281dba0db09224bfdf815"
+    },
+    {
+      "day_number": 80,
+      "date": "2026-11-19",
+      "content_type": "gospel",
+      "reading_title": "Presented to the Lord",
+      "reading_reference": "Luke 2:21-52",
+      "reading_context": "Luke begins with infancy, promise, prayer, and preparation. This reading continues that beginning as Jesus is presented in the temple and found in His Father's house.",
+      "previous_reading_summary": "Yesterday, Jesus is born in Bethlehem and shepherds hear the good news.",
+      "reading_today_preview": "Today, Jesus is presented in the temple and found in His Father's house.",
+      "reading_watch_for": "Notice that disciples are called to be with Jesus before they are sent.",
+      "reading_key_terms": [
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        }
+      ],
+      "reading_context_source_hash": "b4f68bcf9729ac835aeae03569774dc90dc7311f7b2c9dd696a0f6191d6e65fa"
+    },
+    {
+      "day_number": 81,
+      "date": "2026-11-20",
+      "content_type": "gospel",
+      "reading_title": "Prepare the Way",
+      "reading_reference": "Luke 3:1-22",
+      "reading_context": "Luke begins with infancy, promise, prayer, and preparation. This reading continues that beginning as John preaches repentance and Jesus is baptized.",
+      "previous_reading_summary": "Yesterday, Jesus is presented in the temple and found in His Father's house.",
+      "reading_today_preview": "Today, John preaches repentance and Jesus is baptized.",
+      "reading_watch_for": "Watch how baptism is joined to identity, mission, and the work of the Holy Spirit.",
+      "reading_key_terms": [
+        {
+          "term": "repentance",
+          "definition": "Turning away from sin and back toward God."
+        },
+        {
+          "term": "baptism",
+          "definition": "The sacrament of new birth in Christ and cleansing from sin."
+        }
+      ],
+      "reading_context_source_hash": "868b2830331e46413c5a4269aa327bb0336717cdb577c1747f3d5515b5f58f3a"
+    },
+    {
+      "day_number": 82,
+      "date": "2026-11-21",
+      "content_type": "gospel",
+      "reading_title": "The Son Tested in the Desert",
+      "reading_reference": "Luke 3:23-4:13",
+      "reading_context": "Luke begins with infancy, promise, prayer, and preparation. This reading continues that beginning as Jesus' genealogy leads into His temptation.",
+      "previous_reading_summary": "Yesterday, John preaches repentance and Jesus is baptized.",
+      "reading_today_preview": "Today, Jesus' genealogy leads into His temptation.",
+      "reading_watch_for": "Notice how testing reveals trust, obedience, and the Father's care.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "bb653f0d7a88e5affb06d701a7a27da8600edb720d72f8992833b9bc5326e6b7"
+    },
+    {
+      "day_number": 83,
+      "date": "2026-11-22",
+      "content_type": "catechism",
+      "reading_title": "The Passion of Christ",
+      "reading_reference": "CCC 595-618",
+      "reading_context": "Luke has introduced Jesus as Son and Messiah. This Sunday turns directly to the Passion Christ freely accepts for sinners.",
+      "previous_reading_summary": "Yesterday, Jesus' genealogy leads into His temptation.",
+      "reading_today_preview": "Today, the Catechism considers the Passion of Christ and His saving death.",
+      "reading_watch_for": "Watch how the Church speaks of the Passion as both human sin and Christ's free love.",
+      "reading_key_terms": [
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        },
+        {
+          "term": "crucifixion",
+          "definition": "Jesus' death on the cross, offered in obedience and love."
+        }
+      ],
+      "reading_context_source_hash": "5c45cda96490ec669069f337838bf5f4e3111c8278214f52f0612123736137eb"
+    },
+    {
+      "day_number": 84,
+      "date": "2026-11-23",
+      "content_type": "gospel",
+      "reading_title": "Good News for the Poor",
+      "reading_reference": "Luke 4:14-44",
+      "reading_context": "Luke shows Jesus' Galilee ministry through mercy, teaching, and signs of the Kingdom. This reading continues that ministry as Jesus announces His mission, heals, and preaches the Kingdom.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on the Passion of Christ.",
+      "reading_today_preview": "Today, Jesus announces His mission, heals, and preaches the Kingdom.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [
+        {
+          "term": "Kingdom of God",
+          "definition": "God's saving reign, present in Christ and coming to fulfillment."
+        },
+        {
+          "term": "Holy Spirit",
+          "definition": "The third Person of the Trinity, given by the Father and the Son."
+        }
+      ],
+      "reading_context_source_hash": "d524530d356ec16f3fbe29b7a8ba426d271d991d06d596292e68221b4021904d"
+    },
+    {
+      "day_number": 85,
+      "date": "2026-11-24",
+      "content_type": "gospel",
+      "reading_title": "Put Out Into the Deep",
+      "reading_reference": "Luke 5:1-16",
+      "reading_context": "Luke shows Jesus' Galilee ministry through mercy, teaching, and signs of the Kingdom. This reading continues that ministry as Jesus calls the fishermen and cleanses a leper.",
+      "previous_reading_summary": "Yesterday, Jesus announces His mission, heals, and preaches the Kingdom.",
+      "reading_today_preview": "Today, Jesus calls the fishermen and cleanses a leper.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "d39c1595c07b4c717e07447570bb3d6496d847f15982597584678b31a4e608ad"
+    },
+    {
+      "day_number": 86,
+      "date": "2026-11-25",
+      "content_type": "gospel",
+      "reading_title": "Forgiveness and New Wine",
+      "reading_reference": "Luke 5:17-39",
+      "reading_context": "Luke shows Jesus' Galilee ministry through mercy, teaching, and signs of the Kingdom. This reading continues that ministry as Jesus forgives, calls Levi, and answers fasting questions.",
+      "previous_reading_summary": "Yesterday, Jesus calls the fishermen and cleanses a leper.",
+      "reading_today_preview": "Today, Jesus forgives, calls Levi, and answers fasting questions.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "16e493fe232ed3558292ffabae6d12bf2d90de7739dc2acaade53b10cdf090ce"
+    },
+    {
+      "day_number": 87,
+      "date": "2026-11-26",
+      "content_type": "gospel",
+      "reading_title": "Lord of the Sabbath",
+      "reading_reference": "Luke 6:1-16",
+      "reading_context": "Luke shows Jesus' Galilee ministry through mercy, teaching, and signs of the Kingdom. This reading continues that ministry as Jesus answers Sabbath disputes and chooses the Twelve.",
+      "previous_reading_summary": "Yesterday, Jesus forgives, calls Levi, and answers fasting questions.",
+      "reading_today_preview": "Today, Jesus answers Sabbath disputes and chooses the Twelve.",
+      "reading_watch_for": "Watch how Jesus reveals the purpose of worship, mercy, and holy rest.",
+      "reading_key_terms": [
+        {
+          "term": "apostle",
+          "definition": "One sent by Christ with authority to witness and serve His Church."
+        },
+        {
+          "term": "Sabbath",
+          "definition": "The holy day of rest and worship given to Israel by God."
+        }
+      ],
+      "reading_context_source_hash": "358c75be2db1a6cf5e94da3c74737d555ad627c376373a35f0b61ceb66c4bb5d"
+    },
+    {
+      "day_number": 88,
+      "date": "2026-11-27",
+      "content_type": "gospel",
+      "reading_title": "The Plain Teaching of the Kingdom",
+      "reading_reference": "Luke 6:17-49",
+      "reading_context": "Luke shows Jesus' Galilee ministry through mercy, teaching, and signs of the Kingdom. This reading continues that ministry as Jesus teaches blessings, mercy, and obedience.",
+      "previous_reading_summary": "Yesterday, Jesus answers Sabbath disputes and chooses the Twelve.",
+      "reading_today_preview": "Today, Jesus teaches blessings, mercy, and obedience.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [
+        {
+          "term": "Kingdom of God",
+          "definition": "God's saving reign, present in Christ and coming to fulfillment."
+        },
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "bd11ddd24e64de32dd309e3c36d65c8a62aa1bcb516e8f22fdbd793a32707d32"
+    },
+    {
+      "day_number": 89,
+      "date": "2026-11-28",
+      "content_type": "gospel",
+      "reading_title": "Faith and Compassion",
+      "reading_reference": "Luke 7:1-17",
+      "reading_context": "Jesus is still revealing the Kingdom through mercy and authority in Galilee. The crowds see His power reach a Gentile household and a grieving widow.",
+      "previous_reading_summary": "Yesterday, Jesus teaches blessings, mercy, and obedience.",
+      "reading_today_preview": "Today, Jesus heals the centurion's servant and raises a widow's son.",
+      "reading_watch_for": "Notice the centurion's humility and the Lord's compassion for the widow.",
+      "reading_key_terms": [
+        {
+          "term": "faith",
+          "definition": "Trusting God and receiving what He reveals."
+        },
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "1471f4acb091335b574e8e2124c275c71d56a29f0c1d20f9b59aa83cbbfea213"
+    },
+    {
+      "day_number": 90,
+      "date": "2026-11-29",
+      "content_type": "catechism",
+      "reading_title": "Christ's Death and Burial",
+      "reading_reference": "CCC 624-630",
+      "reading_context": "After Luke shows Jesus giving life to the widow's son, this Sunday contemplates Christ's real death and burial. The Catechism keeps the mystery concrete.",
+      "previous_reading_summary": "Yesterday, Jesus heals the centurion's servant and raises a widow's son.",
+      "reading_today_preview": "Today, the Catechism considers Christ's death, burial, and descent among the dead.",
+      "reading_watch_for": "Notice that Jesus truly enters death. Christian hope does not skip the tomb.",
+      "reading_key_terms": [
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        },
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "c426a4699e544a5c2fa3138f49b4162be4710e3adc9d26215234a70ce09fc898"
+    },
+    {
+      "day_number": 91,
+      "date": "2026-11-30",
+      "content_type": "gospel",
+      "reading_title": "The Works of the Messiah",
+      "reading_reference": "Luke 7:18-35",
+      "reading_context": "After Sunday's Catechism reading on Christ's death and burial, Luke returns to Jesus' public signs. John the Baptist's messengers bring the question directly to Jesus.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on Christ's Death and Burial.",
+      "reading_today_preview": "Today, Jesus answers John's messengers by pointing to the works of the Messiah.",
+      "reading_watch_for": "Notice that Jesus answers with deeds: healing, good news, and mercy reveal who He is.",
+      "reading_key_terms": [
+        {
+          "term": "Messiah",
+          "definition": "The anointed one promised by God and fulfilled in Jesus."
+        },
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "23022de59ebc1960a68a31ce78a31ba417b5af3b4e2fe280f00effb3123dc20b"
+    },
+    {
+      "day_number": 92,
+      "date": "2026-12-01",
+      "content_type": "gospel",
+      "reading_title": "Much Love and Mercy",
+      "reading_reference": "Luke 7:36-8:3",
+      "reading_context": "Luke shows Jesus' Galilee ministry through mercy, teaching, and signs of the Kingdom. This reading continues that ministry as A forgiven woman anoints Jesus and women accompany Him.",
+      "previous_reading_summary": "Yesterday, Jesus answers John's messengers.",
+      "reading_today_preview": "Today, A forgiven woman anoints Jesus and women accompany Him.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "a6cb8ac15f5deafba05aa2492a4a5d82fac3722dc9fe84573dc81343ba7e2fad"
+    },
+    {
+      "day_number": 93,
+      "date": "2026-12-02",
+      "content_type": "gospel",
+      "reading_title": "Hearing the Word",
+      "reading_reference": "Luke 8:4-21",
+      "reading_context": "Luke shows Jesus' Galilee ministry through mercy, teaching, and signs of the Kingdom. This reading continues that ministry as Jesus teaches the sower, the lamp, and His true family.",
+      "previous_reading_summary": "Yesterday, A forgiven woman anoints Jesus and women accompany Him.",
+      "reading_today_preview": "Today, Jesus teaches the sower, the lamp, and His true family.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "a482ceb9fe66f42e18b83282466b8833d9e8569017b453e5bd08a0fd0baf82c8"
+    },
+    {
+      "day_number": 94,
+      "date": "2026-12-03",
+      "content_type": "gospel",
+      "reading_title": "Fear Meets the Lord",
+      "reading_reference": "Luke 8:22-56",
+      "reading_context": "Luke shows Jesus' Galilee ministry through mercy, teaching, and signs of the Kingdom. This reading continues that ministry as Jesus calms, frees, heals, and raises.",
+      "previous_reading_summary": "Yesterday, Jesus teaches the sower, the lamp, and His true family.",
+      "reading_today_preview": "Today, Jesus calms, frees, heals, and raises.",
+      "reading_watch_for": "Notice how fear changes when Jesus' authority is seen clearly.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "88f50f4f9eb9508ff905bed92a9d9efb465d9b8a83ddd83378f145c3037a0910"
+    },
+    {
+      "day_number": 95,
+      "date": "2026-12-04",
+      "content_type": "gospel",
+      "reading_title": "Sent and Fed",
+      "reading_reference": "Luke 9:1-17",
+      "reading_context": "Luke shows Jesus' Galilee ministry through mercy, teaching, and signs of the Kingdom. This reading continues that ministry as Jesus sends the Twelve and feeds the five thousand.",
+      "previous_reading_summary": "Yesterday, Jesus calms, frees, heals, and raises.",
+      "reading_today_preview": "Today, Jesus sends the Twelve and feeds the five thousand.",
+      "reading_watch_for": "Notice that disciples are called to be with Jesus before they are sent.",
+      "reading_key_terms": [
+        {
+          "term": "apostle",
+          "definition": "One sent by Christ with authority to witness and serve His Church."
+        }
+      ],
+      "reading_context_source_hash": "d09e4bd194e3af3645b1612515c6231de4d656032c5b47efc7eb0b571b25b625"
+    },
+    {
+      "day_number": 96,
+      "date": "2026-12-05",
+      "content_type": "gospel",
+      "reading_title": "Confession, Cross, and Glory",
+      "reading_reference": "Luke 9:18-36",
+      "reading_context": "Luke shows Jesus' Galilee ministry through mercy, teaching, and signs of the Kingdom. This reading continues that ministry as Peter confesses Jesus and Jesus is transfigured.",
+      "previous_reading_summary": "Yesterday, Jesus sends the Twelve and feeds the five thousand.",
+      "reading_today_preview": "Today, Peter confesses Jesus and Jesus is transfigured.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "crucifixion",
+          "definition": "Jesus' death on the cross, offered in obedience and love."
+        },
+        {
+          "term": "confession",
+          "definition": "The sacrament where sins are confessed and forgiven through Christ's mercy."
+        }
+      ],
+      "reading_context_source_hash": "ac50da01fcb0ddb563c3c80f62e5f2ee8775d25966f1db71b26d569af4fcb4aa"
+    },
+    {
+      "day_number": 97,
+      "date": "2026-12-06",
+      "content_type": "catechism",
+      "reading_title": "The Resurrection",
+      "reading_reference": "CCC 638-658",
+      "reading_context": "As Luke moves toward the road to Jerusalem, this Sunday turns to the Resurrection. The Catechism names it as a real event and the heart of Christian faith.",
+      "previous_reading_summary": "Yesterday, Peter confesses Jesus and Jesus is transfigured.",
+      "reading_today_preview": "Today, the Catechism considers the Resurrection and the risen life of Christ.",
+      "reading_watch_for": "Watch how the Resurrection is both historical and more than a return to ordinary life.",
+      "reading_key_terms": [
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        },
+        {
+          "term": "faith",
+          "definition": "Trusting God and receiving what He reveals."
+        }
+      ],
+      "reading_context_source_hash": "eb313881f9c9f8b4ccc53f7643cff624ba3b156b97204b181453abc72fb2cba7"
+    },
+    {
+      "day_number": 98,
+      "date": "2026-12-07",
+      "content_type": "gospel",
+      "reading_title": "Humility After Glory",
+      "reading_reference": "Luke 9:37-50",
+      "reading_context": "Luke shows Jesus' Galilee ministry through mercy, teaching, and signs of the Kingdom. This reading continues that ministry as Jesus heals a boy and corrects rivalry.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on the Resurrection.",
+      "reading_today_preview": "Today, Jesus heals a boy and corrects rivalry.",
+      "reading_watch_for": "Notice how Jesus corrects ambition by drawing disciples toward humility.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "75c50ab701a1dd6b841947c0cab881076e939873014da7b7fcc69d7825af82a9"
+    },
+    {
+      "day_number": 99,
+      "date": "2026-12-08",
+      "content_type": "gospel",
+      "reading_title": "On the Road to Jerusalem",
+      "reading_reference": "Luke 9:51-10:24",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus sets His face toward Jerusalem and sends the seventy-two.",
+      "previous_reading_summary": "Yesterday, Jesus heals a boy and corrects rivalry.",
+      "reading_today_preview": "Today, Jesus sets His face toward Jerusalem and sends the seventy-two.",
+      "reading_watch_for": "Watch how Jesus' warnings are severe because He desires true conversion.",
+      "reading_key_terms": [
+        {
+          "term": "repentance",
+          "definition": "Turning away from sin and back toward God."
+        }
+      ],
+      "reading_context_source_hash": "152ed93c31ad12b275dcec7e977661ba4f2e966bb000a924f53fffc58dbc78a9"
+    },
+    {
+      "day_number": 100,
+      "date": "2026-12-09",
+      "content_type": "gospel",
+      "reading_title": "Neighbor and Disciple",
+      "reading_reference": "Luke 10:25-42",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus tells the Good Samaritan and visits Martha and Mary.",
+      "previous_reading_summary": "Yesterday, Jesus sets His face toward Jerusalem and sends the seventy-two.",
+      "reading_today_preview": "Today, Jesus tells the Good Samaritan and visits Martha and Mary.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "2873b401667b180bd7e350e5f827475bbe2455dcdfcf1c4eeb5de2cb4718fa3f"
+    },
+    {
+      "day_number": 101,
+      "date": "2026-12-10",
+      "content_type": "gospel",
+      "reading_title": "Teach Us to Pray",
+      "reading_reference": "Luke 11:1-28",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus gives the Lord's Prayer and teaches persistence.",
+      "previous_reading_summary": "Yesterday, Jesus tells the Good Samaritan and visits Martha and Mary.",
+      "reading_today_preview": "Today, Jesus gives the Lord's Prayer and teaches persistence.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [
+        {
+          "term": "Holy Spirit",
+          "definition": "The third Person of the Trinity, given by the Father and the Son."
+        },
+        {
+          "term": "Our Father",
+          "definition": "The prayer Jesus teaches His disciples to pray to the Father."
+        }
+      ],
+      "reading_context_source_hash": "1d9f0472546111798a14b00693aadc34ad431a65f8646ce186869bda396f1b38"
+    },
+    {
+      "day_number": 102,
+      "date": "2026-12-11",
+      "content_type": "gospel",
+      "reading_title": "Light and Warning",
+      "reading_reference": "Luke 11:29-54",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus warns against blindness and hypocrisy.",
+      "previous_reading_summary": "Yesterday, Jesus gives the Lord's Prayer and teaches persistence.",
+      "reading_today_preview": "Today, Jesus warns against blindness and hypocrisy.",
+      "reading_watch_for": "Watch how Jesus' warnings are severe because He desires true conversion.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "c0cb194f1ce49a457fa01d06bfa821f7108e5641dd9130316221cb9b7b5a309e"
+    },
+    {
+      "day_number": 103,
+      "date": "2026-12-12",
+      "content_type": "gospel",
+      "reading_title": "Fear the Father, Not the World",
+      "reading_reference": "Luke 12:1-34",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus teaches against hypocrisy, greed, and anxiety.",
+      "previous_reading_summary": "Yesterday, Jesus warns against blindness and hypocrisy.",
+      "reading_today_preview": "Today, Jesus teaches against hypocrisy, greed, and anxiety.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "1c7e347c75dd9a2b4efcb48b27aa25a882522f09aec54762873b2c1e3ea22c3c"
+    },
+    {
+      "day_number": 104,
+      "date": "2026-12-13",
+      "content_type": "catechism",
+      "reading_title": "The Ascension and Christ's Reign",
+      "reading_reference": "CCC 659-667",
+      "reading_context": "Luke's Gospel keeps moving toward Jerusalem and the Father's plan. This Sunday considers Christ's return to the Father and His reign.",
+      "previous_reading_summary": "Yesterday, Jesus teaches against hypocrisy, greed, and anxiety.",
+      "reading_today_preview": "Today, the Catechism considers Christ's return to the Father and His reign at the Father's right hand.",
+      "reading_watch_for": "Notice that the risen Christ reigns and intercedes; He has not withdrawn from His Church.",
+      "reading_key_terms": [
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        },
+        {
+          "term": "Church",
+          "definition": "The people Christ gathers into His Body through faith and the sacraments."
+        }
+      ],
+      "reading_context_source_hash": "939b4080ec368dc049d85c37d5b5575ace2906d30d7f3b254d454a2882b97c5e"
+    },
+    {
+      "day_number": 105,
+      "date": "2026-12-14",
+      "content_type": "gospel",
+      "reading_title": "Ready for the Master",
+      "reading_reference": "Luke 12:35-59",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus teaches watchfulness and conversion.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on Christ's return to the Father and His reign.",
+      "reading_today_preview": "Today, Jesus teaches watchfulness and conversion.",
+      "reading_watch_for": "Notice that disciples are called to be with Jesus before they are sent.",
+      "reading_key_terms": [
+        {
+          "term": "conversion",
+          "definition": "A real turning of heart and life toward God."
+        }
+      ],
+      "reading_context_source_hash": "d2d692ae8ca15ecfdc59aceeac7329c372b85a49c6eec18bdde84f3dc944e0ba"
+    },
+    {
+      "day_number": 106,
+      "date": "2026-12-15",
+      "content_type": "gospel",
+      "reading_title": "Repentance and Small Beginnings",
+      "reading_reference": "Luke 13:1-21",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus calls for repentance and teaches Kingdom growth.",
+      "previous_reading_summary": "Yesterday, Jesus teaches watchfulness and conversion.",
+      "reading_today_preview": "Today, Jesus calls for repentance and teaches Kingdom growth.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "repentance",
+          "definition": "Turning away from sin and back toward God."
+        },
+        {
+          "term": "Kingdom of God",
+          "definition": "God's saving reign, present in Christ and coming to fulfillment."
+        },
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "457353e0715cd4cae0d255332fa9e0864b6190ac92c23e853de42cecc83f4525"
+    },
+    {
+      "day_number": 107,
+      "date": "2026-12-16",
+      "content_type": "gospel",
+      "reading_title": "The Narrow Door",
+      "reading_reference": "Luke 13:22-35",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus teaches urgency and laments over Jerusalem.",
+      "previous_reading_summary": "Yesterday, Jesus calls for repentance and teaches Kingdom growth.",
+      "reading_today_preview": "Today, Jesus teaches urgency and laments over Jerusalem.",
+      "reading_watch_for": "Watch the urgency in Jesus' words. Faithfulness is concrete, not vague intention.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "97956b2e52530b2962ae5b9cd530f2405ffe2edae7a7fca705e7caaa40c1bcdc"
+    },
+    {
+      "day_number": 108,
+      "date": "2026-12-17",
+      "content_type": "gospel",
+      "reading_title": "The Humble Place",
+      "reading_reference": "Luke 14:1-35",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus teaches humility, the banquet, and the cost of discipleship.",
+      "previous_reading_summary": "Yesterday, Jesus teaches urgency and laments over Jerusalem.",
+      "reading_today_preview": "Today, Jesus teaches humility, the banquet, and the cost of discipleship.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "disciple",
+          "definition": "One who follows Jesus, learns from Him, and lives under His teaching."
+        },
+        {
+          "term": "Sabbath",
+          "definition": "The holy day of rest and worship given to Israel by God."
+        },
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "d447c257f39d55e773e8ec879eabca1cbe152d10c7aab830730e7d08c50b6a26"
+    },
+    {
+      "day_number": 109,
+      "date": "2026-12-18",
+      "content_type": "gospel",
+      "reading_title": "The Mercy of the Father",
+      "reading_reference": "Luke 15:1-32",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus tells the lost sheep, lost coin, and lost son.",
+      "previous_reading_summary": "Yesterday, Jesus teaches humility, the banquet, and the cost of discipleship.",
+      "reading_today_preview": "Today, Jesus tells the lost sheep, lost coin, and lost son.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        },
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "32256ffd170e6c09be54527cf120f0692cfc0d9d89883467441693a639cf23cb"
+    },
+    {
+      "day_number": 110,
+      "date": "2026-12-19",
+      "content_type": "gospel",
+      "reading_title": "Faithful With What Is Given",
+      "reading_reference": "Luke 16:1-31",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus teaches stewardship, wealth, and Lazarus at the gate.",
+      "previous_reading_summary": "Yesterday, Jesus tells the lost sheep, lost coin, and lost son.",
+      "reading_today_preview": "Today, Jesus teaches stewardship, wealth, and Lazarus at the gate.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "Kingdom of God",
+          "definition": "God's saving reign, present in Christ and coming to fulfillment."
+        },
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "a6eba7edb2f096bf0bc3f4369dc8dfa3d22de32360bddbfbacbb57b521e57bb6"
+    },
+    {
+      "day_number": 111,
+      "date": "2026-12-20",
+      "content_type": "catechism",
+      "reading_title": "The Church in God's Plan",
+      "reading_reference": "CCC 751-780",
+      "reading_context": "Luke has been showing mercy, repentance, and the gathering of the lost. This Sunday considers the Church in God's saving plan.",
+      "previous_reading_summary": "Yesterday, Jesus teaches stewardship, wealth, and Lazarus at the gate.",
+      "reading_today_preview": "Today, the Catechism considers the Church as part of God's plan to gather His people in Christ.",
+      "reading_watch_for": "Notice that the Church begins in God's initiative, not in human organization alone.",
+      "reading_key_terms": [
+        {
+          "term": "Church",
+          "definition": "The people Christ gathers into His Body through faith and the sacraments."
+        },
+        {
+          "term": "Kingdom of God",
+          "definition": "God's saving reign, present in Christ and coming to fulfillment."
+        }
+      ],
+      "reading_context_source_hash": "e28a3a80a704cabf0143d6227f5699ae14596073bd1a26c8abb440dcd88d4788"
+    },
+    {
+      "day_number": 112,
+      "date": "2026-12-21",
+      "content_type": "gospel",
+      "reading_title": "Faith, Duty, and Gratitude",
+      "reading_reference": "Luke 17:1-19",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus teaches forgiveness and heals ten lepers.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on the Church in God's Plan.",
+      "reading_today_preview": "Today, Jesus teaches forgiveness and heals ten lepers.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [
+        {
+          "term": "faith",
+          "definition": "Trusting God and receiving what He reveals."
+        }
+      ],
+      "reading_context_source_hash": "3ceaa0e3906c53aaf076f9566ebd6c0766ae5bbc2fc92eac5c5880cceb3a7483"
+    },
+    {
+      "day_number": 113,
+      "date": "2026-12-22",
+      "content_type": "gospel",
+      "reading_title": "The Kingdom and Humble Prayer",
+      "reading_reference": "Luke 17:20-18:14",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus teaches the Kingdom, perseverance, and humble prayer.",
+      "previous_reading_summary": "Yesterday, Jesus teaches forgiveness and heals ten lepers.",
+      "reading_today_preview": "Today, Jesus teaches the Kingdom, perseverance, and humble prayer.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "Kingdom of God",
+          "definition": "God's saving reign, present in Christ and coming to fulfillment."
+        },
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "6f713ca68e33d57ec76cc8eb54418bae54fd810795c4bb31ffbbec19893a19a9"
+    },
+    {
+      "day_number": 114,
+      "date": "2026-12-23",
+      "content_type": "gospel",
+      "reading_title": "Receive Like a Child",
+      "reading_reference": "Luke 18:15-43",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus welcomes children, warns about riches, and heals a blind man.",
+      "previous_reading_summary": "Yesterday, Jesus teaches the Kingdom, perseverance, and humble prayer.",
+      "reading_today_preview": "Today, Jesus welcomes children, warns about riches, and heals a blind man.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "bec210c5a7a544b51b5de876e94ca6227172990b36d8d5fac1c7ad719045ea88"
+    },
+    {
+      "day_number": 115,
+      "date": "2026-12-24",
+      "content_type": "gospel",
+      "reading_title": "Salvation Comes to This House",
+      "reading_reference": "Luke 19:1-27",
+      "reading_context": "Luke follows Jesus on the road with lessons in mercy, prayer, and discipleship. This reading continues that journey as Jesus meets Zacchaeus and teaches stewardship.",
+      "previous_reading_summary": "Yesterday, Jesus welcomes children, warns about riches, and heals a blind man.",
+      "reading_today_preview": "Today, Jesus meets Zacchaeus and teaches stewardship.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "254cbb89e3aac4e12013d88330ab8a6f892b5000870abab4b192e5bca1e4e2f9"
+    },
+    {
+      "day_number": 116,
+      "date": "2026-12-25",
+      "content_type": "gospel",
+      "reading_title": "The King Weeps and Cleanses",
+      "reading_reference": "Luke 19:28-48",
+      "reading_context": "Luke brings Jesus to Jerusalem, the Cross, and the joy of the Resurrection. This reading continues that final movement as Jesus enters Jerusalem, weeps, and cleanses the temple.",
+      "previous_reading_summary": "Yesterday, Jesus meets Zacchaeus and teaches stewardship.",
+      "reading_today_preview": "Today, Jesus enters Jerusalem, weeps, and cleanses the temple.",
+      "reading_watch_for": "Notice how Jesus' authority reaches worship, the temple, and the leaders' questions.",
+      "reading_key_terms": [
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        }
+      ],
+      "reading_context_source_hash": "16ea573489bb89760e2161995e75e80fbe9c447fd57fed5d38a693a78473d512"
+    },
+    {
+      "day_number": 117,
+      "date": "2026-12-26",
+      "content_type": "gospel",
+      "reading_title": "The Beloved Son Rejected",
+      "reading_reference": "Luke 20:1-26",
+      "reading_context": "Luke brings Jesus to Jerusalem, the Cross, and the joy of the Resurrection. This reading continues that final movement as Jesus answers authority questions and teaches about Caesar.",
+      "previous_reading_summary": "Yesterday, Jesus enters Jerusalem, weeps, and cleanses the temple.",
+      "reading_today_preview": "Today, Jesus answers authority questions and teaches about Caesar.",
+      "reading_watch_for": "Notice the concrete images Jesus uses to reveal the Kingdom.",
+      "reading_key_terms": [
+        {
+          "term": "Son of God",
+          "definition": "Jesus' divine identity as the eternal Son of the Father."
+        },
+        {
+          "term": "parable",
+          "definition": "A short teaching story that reveals the Kingdom through familiar images."
+        }
+      ],
+      "reading_context_source_hash": "dd0e627e304d9d7cc5bc9676628bbe9b21a493035e1411d3d5d4808b7c85d031"
+    },
+    {
+      "day_number": 118,
+      "date": "2026-12-27",
+      "content_type": "catechism",
+      "reading_title": "The Body of Christ",
+      "reading_reference": "CCC 787-796",
+      "reading_context": "As Luke approaches Jerusalem, this Sunday considers the Church as the Body of Christ. The doctrine helps us read discipleship as communion with Jesus.",
+      "previous_reading_summary": "Yesterday, Jesus answers authority questions and teaches about Caesar.",
+      "reading_today_preview": "Today, the Catechism considers the Church as Christ's Body.",
+      "reading_watch_for": "Watch how union with Christ is personal and communal at the same time.",
+      "reading_key_terms": [
+        {
+          "term": "Church",
+          "definition": "The people Christ gathers into His Body through faith and the sacraments."
+        },
+        {
+          "term": "disciple",
+          "definition": "One who follows Jesus, learns from Him, and lives under His teaching."
+        }
+      ],
+      "reading_context_source_hash": "dd0d81d3b1e0fadfe1a7283318df805acfc111926e703236780cc7d18f24faf9"
+    },
+    {
+      "day_number": 119,
+      "date": "2026-12-28",
+      "content_type": "gospel",
+      "reading_title": "The Living God and the Widow's Gift",
+      "reading_reference": "Luke 20:27-21:4",
+      "reading_context": "Luke brings Jesus to Jerusalem, the Cross, and the joy of the Resurrection. This reading continues that final movement as Jesus teaches resurrection and sees the widow's offering.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on the Body of Christ.",
+      "reading_today_preview": "Today, Jesus teaches resurrection and sees the widow's offering.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "204e8efd7bdcebd872b9828c53f300dd88a4b8a209636a4b8795d76ea5aab574"
+    },
+    {
+      "day_number": 120,
+      "date": "2026-12-29",
+      "content_type": "gospel",
+      "reading_title": "Stand Before the Son of Man",
+      "reading_reference": "Luke 21:5-38",
+      "reading_context": "Luke brings Jesus to Jerusalem, the Cross, and the joy of the Resurrection. This reading continues that final movement as Jesus teaches trial, Jerusalem, and watchfulness.",
+      "previous_reading_summary": "Yesterday, Jesus teaches resurrection and sees the widow's offering.",
+      "reading_today_preview": "Today, Jesus teaches trial, Jerusalem, and watchfulness.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "Son of Man",
+          "definition": "A title Jesus uses that points to His authority, suffering, and glory."
+        },
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        },
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        }
+      ],
+      "reading_context_source_hash": "b0ed99400e7d101ff95dc95e37fc86db84c19ecdcac0a15e42141897016f8ce4"
+    },
+    {
+      "day_number": 121,
+      "date": "2026-12-30",
+      "content_type": "gospel",
+      "reading_title": "The Supper, Agony, and Betrayal",
+      "reading_reference": "Luke 22:1-48",
+      "reading_context": "Luke brings Jesus to Jerusalem, the Cross, and the joy of the Resurrection. This reading continues that final movement as Judas betrays, Jesus gives the Passover meal, prays, and is betrayed with a kiss.",
+      "previous_reading_summary": "Yesterday, Jesus teaches trial, Jerusalem, and watchfulness.",
+      "reading_today_preview": "Today, Judas betrays, Jesus gives the Passover meal, prays, and is betrayed with a kiss.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "Passover",
+          "definition": "Israel's feast of deliverance, fulfilled by Christ in His Passion."
+        },
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        },
+        {
+          "term": "Eucharist",
+          "definition": "The sacrament of Christ's Body and Blood, source and summit of Christian life."
+        }
+      ],
+      "reading_context_source_hash": "6cedb14f8a4d09110f352467e15224ed2c7d5a13d477564697cbc573b23a781c"
+    },
+    {
+      "day_number": 122,
+      "date": "2026-12-31",
+      "content_type": "gospel",
+      "reading_title": "Arrested and Condemned",
+      "reading_reference": "Luke 22:49-23:25",
+      "reading_context": "Luke brings Jesus to Jerusalem, the Cross, and the joy of the Resurrection. This reading continues that final movement as Jesus is seized, denied, mocked, tried, and handed over.",
+      "previous_reading_summary": "Yesterday, Judas betrays, Jesus gives the Passover meal, prays, and is betrayed with a kiss.",
+      "reading_today_preview": "Today, Jesus is seized, denied, mocked, tried, and handed over.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        }
+      ],
+      "reading_context_source_hash": "acda382e3b96533657b3b0a6fa43ee4075b7ae316bc38c2ebdfd39fe8342343c"
+    },
+    {
+      "day_number": 123,
+      "date": "2027-01-01",
+      "content_type": "gospel",
+      "reading_title": "The Cross and the Empty Tomb",
+      "reading_reference": "Luke 23:26-24:12",
+      "reading_context": "Luke brings Jesus to Jerusalem, the Cross, and the joy of the Resurrection. This reading continues that final movement as Jesus is crucified, dies, is buried, and the women find the empty tomb.",
+      "previous_reading_summary": "Yesterday, Jesus is seized, denied, mocked, tried, and handed over.",
+      "reading_today_preview": "Today, Jesus is crucified, dies, is buried, and the women find the empty tomb.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "crucifixion",
+          "definition": "Jesus' death on the cross, offered in obedience and love."
+        },
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "184847d7affde95b4c7eb0db2d83b012455ae04e3b5fd6d2dd7899114aa47223"
+    },
+    {
+      "day_number": 124,
+      "date": "2027-01-02",
+      "content_type": "gospel",
+      "reading_title": "He Opened the Scriptures",
+      "reading_reference": "Luke 24:13-53",
+      "reading_context": "Luke closes with the risen Jesus meeting disciples on the road, opening the Scriptures, and blessing them. The Gospel ends in worship and mission.",
+      "previous_reading_summary": "Yesterday, Jesus is crucified, dies, is buried, and the women find the empty tomb.",
+      "reading_today_preview": "Today, Jesus walks with the disciples, opens Scripture, appears to them, blesses them, and sends them as witnesses.",
+      "reading_watch_for": "Notice how the risen Lord opens both Scripture and hearts before sending His disciples.",
+      "reading_key_terms": [
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        },
+        {
+          "term": "witness",
+          "definition": "One who testifies to what God has done."
+        }
+      ],
+      "reading_context_source_hash": "1a93b1fbfc5652e865991b9921c1db8abc382fc92109686487f8aab93fd52072"
+    },
+    {
+      "day_number": 125,
+      "date": "2027-01-03",
+      "content_type": "catechism",
+      "reading_title": "One, Holy, Catholic, and Apostolic",
+      "reading_reference": "CCC 811-812; 813-816; 823-829; 830-835; 857-865",
+      "reading_context": "Luke has ended with opened Scriptures, blessing, and mission. Before John begins, this Sunday names the marks Christ gives His Church.",
+      "previous_reading_summary": "Yesterday, Jesus walks with the disciples, opens Scripture, appears, blesses, and ascends.",
+      "reading_today_preview": "Today, the Catechism considers the Church as one, holy, catholic, and apostolic.",
+      "reading_watch_for": "Notice that the Church's marks come from Christ before they become our responsibility.",
+      "reading_key_terms": [
+        {
+          "term": "Church",
+          "definition": "The people Christ gathers into His Body through faith and the sacraments."
+        },
+        {
+          "term": "apostle",
+          "definition": "One sent by Christ with authority to witness and serve His Church."
+        }
+      ],
+      "reading_context_source_hash": "0045d359f4ce750f00015e25272dfb75097f819a69755a19a7663062e58c7265"
+    },
+    {
+      "day_number": 126,
+      "date": "2027-01-04",
+      "content_type": "gospel",
+      "reading_title": "The Word Became Flesh",
+      "reading_reference": "John 1:1-18",
+      "reading_context": "John begins before creation, with the eternal Word who is with God and is God. The final Gospel opens by naming the mystery behind everything Jesus does.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on One, Holy, Catholic, and Apostolic.",
+      "reading_today_preview": "Today, John proclaims that the Word became flesh and dwelt among us.",
+      "reading_watch_for": "Notice the movement from light and life to the flesh of Christ. John wants belief to become communion with God.",
+      "reading_key_terms": [
+        {
+          "term": "Word",
+          "definition": "The eternal Son through whom the Father creates and reveals Himself."
+        },
+        {
+          "term": "Incarnation",
+          "definition": "The eternal Son of God taking on human flesh."
+        },
+        {
+          "term": "grace",
+          "definition": "God's free gift of divine life and help."
+        }
+      ],
+      "reading_context_source_hash": "d6064e938e456165a2b6aca943a45dc0ff58b0a2d9d76ade239f096e58e554d2"
+    },
+    {
+      "day_number": 127,
+      "date": "2027-01-05",
+      "content_type": "gospel",
+      "reading_title": "Come and See",
+      "reading_reference": "John 1:19-51",
+      "reading_context": "John opens with the Word made flesh and early signs that invite belief. This reading continues that witness as John bears witness and the first disciples come to Jesus.",
+      "previous_reading_summary": "Yesterday, John reveals the eternal Word who became flesh.",
+      "reading_today_preview": "Today, John bears witness and the first disciples come to Jesus.",
+      "reading_watch_for": "Watch how baptism is joined to identity, mission, and the work of the Holy Spirit.",
+      "reading_key_terms": [
+        {
+          "term": "baptism",
+          "definition": "The sacrament of new birth in Christ and cleansing from sin."
+        }
+      ],
+      "reading_context_source_hash": "72ce0cf1361ee838f490b77e87a5c639166ffd999aa64d4304af1e2d3516bc3c"
+    },
+    {
+      "day_number": 128,
+      "date": "2027-01-06",
+      "content_type": "gospel",
+      "reading_title": "Signs of Glory",
+      "reading_reference": "John 2:1-25",
+      "reading_context": "John opens with the Word made flesh and early signs that invite belief. This reading continues that witness as Jesus changes water into wine and cleanses the temple.",
+      "previous_reading_summary": "Yesterday, John bears witness and the first disciples come to Jesus.",
+      "reading_today_preview": "Today, Jesus changes water into wine and cleanses the temple.",
+      "reading_watch_for": "Watch the pattern of gift, thanksgiving, and abundance. It points toward sacramental life.",
+      "reading_key_terms": [
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        }
+      ],
+      "reading_context_source_hash": "4656301ab570b9c5b9f46fd1e480fe4999dc43491b547d9116a8d659e95342f0"
+    },
+    {
+      "day_number": 129,
+      "date": "2027-01-07",
+      "content_type": "gospel",
+      "reading_title": "Born From Above",
+      "reading_reference": "John 3:1-21",
+      "reading_context": "John opens with the Word made flesh and early signs that invite belief. This reading continues that witness as Jesus teaches Nicodemus new birth and God's love.",
+      "previous_reading_summary": "Yesterday, Jesus changes water into wine and cleanses the temple.",
+      "reading_today_preview": "Today, Jesus teaches Nicodemus new birth and God's love.",
+      "reading_watch_for": "Notice how the child Jesus is received, protected, and revealed as God with us.",
+      "reading_key_terms": [
+        {
+          "term": "Incarnation",
+          "definition": "The eternal Son of God taking on human flesh."
+        }
+      ],
+      "reading_context_source_hash": "79088517456cd41b6a60e99f17ba7afede0d762dc2828861b85e87b1c8fba3e4"
+    },
+    {
+      "day_number": 130,
+      "date": "2027-01-08",
+      "content_type": "gospel",
+      "reading_title": "He Must Increase",
+      "reading_reference": "John 3:22-36",
+      "reading_context": "John opens with the Word made flesh and early signs that invite belief. This reading continues that witness as John rejoices as Jesus' ministry grows.",
+      "previous_reading_summary": "Yesterday, Jesus teaches Nicodemus new birth and God's love.",
+      "reading_today_preview": "Today, John rejoices as Jesus' ministry grows.",
+      "reading_watch_for": "Watch how baptism is joined to identity, mission, and the work of the Holy Spirit.",
+      "reading_key_terms": [
+        {
+          "term": "baptism",
+          "definition": "The sacrament of new birth in Christ and cleansing from sin."
+        }
+      ],
+      "reading_context_source_hash": "c463d1051aefe1303b43046de0ba9bd9f60c69bed2c67ba7dff267196094e7f1"
+    },
+    {
+      "day_number": 131,
+      "date": "2027-01-09",
+      "content_type": "gospel",
+      "reading_title": "Living Water",
+      "reading_reference": "John 4:1-42",
+      "reading_context": "John opens with the Word made flesh and early signs that invite belief. This reading continues that witness as Jesus meets the Samaritan woman and her town believes.",
+      "previous_reading_summary": "Yesterday, John rejoices as Jesus' ministry grows.",
+      "reading_today_preview": "Today, Jesus meets the Samaritan woman and her town believes.",
+      "reading_watch_for": "Watch how Jesus leads the Samaritan woman from thirst to faith and witness.",
+      "reading_key_terms": [
+        {
+          "term": "living water",
+          "definition": "Jesus' image for the life of grace given by the Spirit."
+        }
+      ],
+      "reading_context_source_hash": "afa760fdaf6c8f4c9dc1d42562cebee4fec15aa4554f0072f81e8f6f28dea33c"
+    },
+    {
+      "day_number": 132,
+      "date": "2027-01-10",
+      "content_type": "catechism",
+      "reading_title": "Mary, Mother of Christ and Mother of the Church",
+      "reading_reference": "CCC 963-975",
+      "reading_context": "John has begun with the Word made flesh and the gift of living water. This Sunday considers Mary's motherhood in relation to Christ and His Church.",
+      "previous_reading_summary": "Yesterday, Jesus meets the Samaritan woman and her town believes.",
+      "reading_today_preview": "Today, the Catechism considers Mary as Mother of Christ and Mother of the Church.",
+      "reading_watch_for": "Notice how Mary's role always points to Christ and serves His people.",
+      "reading_key_terms": [
+        {
+          "term": "Mary",
+          "definition": "The Mother of Jesus and model disciple."
+        },
+        {
+          "term": "Church",
+          "definition": "The people Christ gathers into His Body through faith and the sacraments."
+        }
+      ],
+      "reading_context_source_hash": "401381fa473034f8555c97b5c7547fd2cc38d786cbc18e432fd1fbf2cd945642"
+    },
+    {
+      "day_number": 133,
+      "date": "2027-01-11",
+      "content_type": "gospel",
+      "reading_title": "The Official's Son",
+      "reading_reference": "John 4:43-54",
+      "reading_context": "John opens with the Word made flesh and early signs that invite belief. This reading continues that witness as Jesus heals through a word that must be trusted.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on Mary, Mother of Christ and Mother of the Church.",
+      "reading_today_preview": "Today, Jesus heals through a word that must be trusted.",
+      "reading_watch_for": "Watch how trust is asked for before the whole outcome can be seen.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "6d96f1397e3726e9993f45d66385b2c601caf5b0283ddc6e858f685d3a4375c2"
+    },
+    {
+      "day_number": 134,
+      "date": "2027-01-12",
+      "content_type": "gospel",
+      "reading_title": "Rise, Take Up Your Mat",
+      "reading_reference": "John 5:1-18",
+      "reading_context": "John opens with the Word made flesh and early signs that invite belief. This reading continues that witness as Jesus heals at the pool on the Sabbath.",
+      "previous_reading_summary": "Yesterday, Jesus heals through a word that must be trusted.",
+      "reading_today_preview": "Today, Jesus heals at the pool on the Sabbath.",
+      "reading_watch_for": "Watch how Jesus reveals the purpose of worship, mercy, and holy rest.",
+      "reading_key_terms": [
+        {
+          "term": "Sabbath",
+          "definition": "The holy day of rest and worship given to Israel by God."
+        }
+      ],
+      "reading_context_source_hash": "78b444ec04907288d860db5c573f7b7305488fc5ddb4f5bfacc2648e26907657"
+    },
+    {
+      "day_number": 135,
+      "date": "2027-01-13",
+      "content_type": "gospel",
+      "reading_title": "The Son and the Father",
+      "reading_reference": "John 5:19-47",
+      "reading_context": "John opens with the Word made flesh and early signs that invite belief. This reading continues that witness as Jesus teaches His unity with the Father.",
+      "previous_reading_summary": "Yesterday, Jesus heals at the pool on the Sabbath.",
+      "reading_today_preview": "Today, Jesus teaches His unity with the Father.",
+      "reading_watch_for": "Notice how prayer reveals trust in the Father and forms the disciple's heart.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "efc5118d920da0f4b41e85f5ba9997581766b8b54b28953f81545b0e17c55e61"
+    },
+    {
+      "day_number": 136,
+      "date": "2027-01-14",
+      "content_type": "gospel",
+      "reading_title": "Bread and the Sea",
+      "reading_reference": "John 6:1-21",
+      "reading_context": "John opens with the Word made flesh and early signs that invite belief. This reading continues that witness as Jesus feeds the crowd and comes on the water.",
+      "previous_reading_summary": "Yesterday, Jesus teaches His unity with the Father.",
+      "reading_today_preview": "Today, Jesus feeds the crowd and comes on the water.",
+      "reading_watch_for": "Watch the pattern of gift, thanksgiving, and abundance. It points toward sacramental life.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "a28d611c6ab1b64449b187286013ddbab0e619822b0fa34c23152c0e5e5541dc"
+    },
+    {
+      "day_number": 137,
+      "date": "2027-01-15",
+      "content_type": "gospel",
+      "reading_title": "The Bread of Life",
+      "reading_reference": "John 6:22-59",
+      "reading_context": "John now unfolds themes of bread, water, light, feasts, and shepherding. This reading continues those signs as Jesus teaches the bread from heaven and His flesh for life.",
+      "previous_reading_summary": "Yesterday, Jesus feeds the crowd and comes on the water.",
+      "reading_today_preview": "Today, Jesus teaches the bread from heaven and His flesh for life.",
+      "reading_watch_for": "Watch the pattern of gift, thanksgiving, and abundance. It points toward sacramental life.",
+      "reading_key_terms": [
+        {
+          "term": "Eucharist",
+          "definition": "The sacrament of Christ's Body and Blood, source and summit of Christian life."
+        }
+      ],
+      "reading_context_source_hash": "40c12ceab6cd5041b51a078d861de1e5d8bc6b38820f73398a89263d965e69b0"
+    },
+    {
+      "day_number": 138,
+      "date": "2027-01-16",
+      "content_type": "gospel",
+      "reading_title": "To Whom Shall We Go?",
+      "reading_reference": "John 6:60-71",
+      "reading_context": "John now unfolds themes of bread, water, light, feasts, and shepherding. This reading continues those signs as Many leave and Peter remains with Jesus.",
+      "previous_reading_summary": "Yesterday, Jesus teaches the bread from heaven and His flesh for life.",
+      "reading_today_preview": "Today, Many leave and Peter remains with Jesus.",
+      "reading_watch_for": "Watch how Jesus gives real pastoral responsibility for the good of His Church.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "f54b20678a0f22f01b676b4c40681e62fddcee549a7696f81ff40e312486278f"
+    },
+    {
+      "day_number": 139,
+      "date": "2027-01-17",
+      "content_type": "catechism",
+      "reading_title": "Baptism and New Life",
+      "reading_reference": "CCC 1213-1228; 1262-1274; 1275-1284",
+      "reading_context": "After John 6 and the call to remain with Jesus, this Sunday considers Baptism and new life. The Catechism names the grace that begins Christian life.",
+      "previous_reading_summary": "Yesterday, Many leave and Peter remains with Jesus.",
+      "reading_today_preview": "Today, the Catechism considers Baptism, new birth, and life in Christ.",
+      "reading_watch_for": "Watch how Baptism is gift, cleansing, belonging, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "baptism",
+          "definition": "The sacrament of new birth in Christ and cleansing from sin."
+        },
+        {
+          "term": "grace",
+          "definition": "God's free gift of divine life and help."
+        }
+      ],
+      "reading_context_source_hash": "4e6e493d0e416b55f00baed9574fc3c8649d247ea95fd1cea11bafc51c586993"
+    },
+    {
+      "day_number": 140,
+      "date": "2027-01-18",
+      "content_type": "gospel",
+      "reading_title": "At the Feast",
+      "reading_reference": "John 7:1-24",
+      "reading_context": "John now unfolds themes of bread, water, light, feasts, and shepherding. This reading continues those signs as Jesus goes to the feast and teaches in the temple.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on Baptism and New Life.",
+      "reading_today_preview": "Today, Jesus goes to the feast and teaches in the temple.",
+      "reading_watch_for": "Notice how Jesus' authority reaches worship, the temple, and the leaders' questions.",
+      "reading_key_terms": [
+        {
+          "term": "temple",
+          "definition": "The holy place of worship in Jerusalem, where Israel offered sacrifice."
+        }
+      ],
+      "reading_context_source_hash": "c6073c2480fb81dca7cb826d902985d95dd755527b5e0fd5bb20634a058cb268"
+    },
+    {
+      "day_number": 141,
+      "date": "2027-01-19",
+      "content_type": "gospel",
+      "reading_title": "Rivers of Living Water",
+      "reading_reference": "John 7:25-52",
+      "reading_context": "John now unfolds themes of bread, water, light, feasts, and shepherding. This reading continues those signs as the crowd is divided and Jesus promises living water.",
+      "previous_reading_summary": "Yesterday, Jesus goes to the feast and teaches in the temple.",
+      "reading_today_preview": "Today, the crowd is divided and Jesus promises living water.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        },
+        {
+          "term": "living water",
+          "definition": "Jesus' image for the life of grace given by the Spirit."
+        }
+      ],
+      "reading_context_source_hash": "d2f6d08124f991c21f2e1c5c90936644f7426a4dd0975232c2de19a6b8c99c6c"
+    },
+    {
+      "day_number": 142,
+      "date": "2027-01-20",
+      "content_type": "gospel",
+      "reading_title": "Mercy for the Accused Woman",
+      "reading_reference": "John 7:53-8:11",
+      "reading_context": "John now unfolds themes of bread, water, light, feasts, and shepherding. This reading continues those signs as Jesus shows mercy and calls the woman away from sin.",
+      "previous_reading_summary": "Yesterday, the crowd is divided and Jesus promises living water.",
+      "reading_today_preview": "Today, Jesus shows mercy and calls the woman away from sin.",
+      "reading_watch_for": "Watch how mercy restores real people without pretending sin is harmless.",
+      "reading_key_terms": [
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "cea984fcf477309135f881303bd25c2674997bfd176730e06a066276209aacd3"
+    },
+    {
+      "day_number": 143,
+      "date": "2027-01-21",
+      "content_type": "gospel",
+      "reading_title": "Light, Freedom, and I AM",
+      "reading_reference": "John 8:12-59",
+      "reading_context": "John now unfolds themes of bread, water, light, feasts, and shepherding. This reading continues those signs as Jesus declares Himself the light of the world and reveals freedom, sonship, Abraham, and His divine identity.",
+      "previous_reading_summary": "Yesterday, Jesus shows mercy and calls the woman away from sin.",
+      "reading_today_preview": "Today, Jesus declares Himself the light of the world and reveals freedom, sonship, Abraham, and His divine identity.",
+      "reading_watch_for": "Notice that disciples are called to be with Jesus before they are sent.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "3d349fa8e4409e02515f22d6adcaeba268e562272ff78e6c025b90a1afc7aa44"
+    },
+    {
+      "day_number": 144,
+      "date": "2027-01-22",
+      "content_type": "gospel",
+      "reading_title": "The Man Born Blind",
+      "reading_reference": "John 9:1-41",
+      "reading_context": "John now unfolds themes of bread, water, light, feasts, and shepherding. This reading continues those signs as Jesus heals blindness and exposes spiritual blindness.",
+      "previous_reading_summary": "Yesterday, Jesus declares Himself the light of the world and reveals freedom, sonship, Abraham, and His divine identity.",
+      "reading_today_preview": "Today, Jesus heals blindness and exposes spiritual blindness.",
+      "reading_watch_for": "Watch how the Holy Spirit is promised as the gift who strengthens and teaches the Church.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "63fd163d7cbdb6d7f3e79021b089c1a0cf94d51892039be98bbeb115b7bee349"
+    },
+    {
+      "day_number": 145,
+      "date": "2027-01-23",
+      "content_type": "gospel",
+      "reading_title": "The Good Shepherd",
+      "reading_reference": "John 10:1-21",
+      "reading_context": "John now unfolds themes of bread, water, light, feasts, and shepherding. This reading continues those signs as Jesus is the shepherd who lays down His life.",
+      "previous_reading_summary": "Yesterday, Jesus heals blindness and exposes spiritual blindness.",
+      "reading_today_preview": "Today, Jesus is the shepherd who lays down His life.",
+      "reading_watch_for": "Watch how Jesus describes His care as personal, sacrificial, and protective.",
+      "reading_key_terms": [
+        {
+          "term": "Good Shepherd",
+          "definition": "Jesus' image for His pastoral care and self-giving love."
+        }
+      ],
+      "reading_context_source_hash": "1d0033035154f91f204b976cce003044606ca4437c328e2cc02d35b16f1d1c74"
+    },
+    {
+      "day_number": 146,
+      "date": "2027-01-24",
+      "content_type": "catechism",
+      "reading_title": "The Eucharist",
+      "reading_reference": "CCC 1322-1327; 1337-1344; 1362-1372; 1373-1381",
+      "reading_context": "John has shown Jesus as shepherd and giver of life. This Sunday turns to the Eucharist, the sacrament of Christ's Body and Blood.",
+      "previous_reading_summary": "Yesterday, Jesus is the shepherd who lays down His life.",
+      "reading_today_preview": "Today, the Catechism considers the Eucharist as the source and summit of Christian life.",
+      "reading_watch_for": "Notice how the Eucharist gathers sacrifice, presence, thanksgiving, and communion.",
+      "reading_key_terms": [
+        {
+          "term": "Eucharist",
+          "definition": "The sacrament of Christ's Body and Blood, source and summit of Christian life."
+        },
+        {
+          "term": "Church",
+          "definition": "The people Christ gathers into His Body through faith and the sacraments."
+        }
+      ],
+      "reading_context_source_hash": "66dd278bcdafc54b7c4a6f268bd522648b8582537d453e972bb9ad5879ab700e"
+    },
+    {
+      "day_number": 147,
+      "date": "2027-01-25",
+      "content_type": "gospel",
+      "reading_title": "One With the Father",
+      "reading_reference": "John 10:22-42",
+      "reading_context": "John now unfolds themes of bread, water, light, feasts, and shepherding. This reading continues those signs as Jesus speaks plainly of His unity with the Father.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on the Eucharist.",
+      "reading_today_preview": "Today, Jesus speaks plainly of His unity with the Father.",
+      "reading_watch_for": "Notice how prayer reveals trust in the Father and forms the disciple's heart.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "966c1eca145dcc8af8ca32af3c5aa2da5e1674f4002ec0af7facc4cfe6e675af"
+    },
+    {
+      "day_number": 148,
+      "date": "2027-01-26",
+      "content_type": "gospel",
+      "reading_title": "The Resurrection and the Life",
+      "reading_reference": "John 11:1-44",
+      "reading_context": "John turns toward Jesus' hour through friendship, anointing, service, and the new commandment. This reading continues that turn as Jesus raises Lazarus from the dead.",
+      "previous_reading_summary": "Yesterday, Jesus speaks plainly of His unity with the Father.",
+      "reading_today_preview": "Today, Jesus raises Lazarus from the dead.",
+      "reading_watch_for": "Watch how the Resurrection creates witness, worship, and mission.",
+      "reading_key_terms": [
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "15848e7620a6397b6da3a6d9449121dadbe62d6af77f84cffb6c4fb34a57d904"
+    },
+    {
+      "day_number": 149,
+      "date": "2027-01-27",
+      "content_type": "gospel",
+      "reading_title": "The Hour Draws Near",
+      "reading_reference": "John 11:45-12:11",
+      "reading_context": "John turns toward Jesus' hour through friendship, anointing, service, and the new commandment. This reading continues that turn as the leaders plot and Mary anoints Jesus.",
+      "previous_reading_summary": "Yesterday, Jesus raises Lazarus from the dead.",
+      "reading_today_preview": "Today, the leaders plot and Mary anoints Jesus.",
+      "reading_watch_for": "Notice Mary's faithful response and how grace moves through humble obedience.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "a1b2869f39b06a7856ecf2671a284129d981b1d36670d11f39584be9c503319f"
+    },
+    {
+      "day_number": 150,
+      "date": "2027-01-28",
+      "content_type": "gospel",
+      "reading_title": "Lifted Up for the World",
+      "reading_reference": "John 12:12-50",
+      "reading_context": "John turns toward Jesus' hour through friendship, anointing, service, and the new commandment. This reading continues that turn as Jesus enters Jerusalem and speaks of His hour.",
+      "previous_reading_summary": "Yesterday, the leaders plot and Mary anoints Jesus.",
+      "reading_today_preview": "Today, Jesus enters Jerusalem and speaks of His hour.",
+      "reading_watch_for": "Notice how Jesus' authority reaches worship, the temple, and the leaders' questions.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "34ef9355556fe43dd82a0abbd2311ee7dae3f2f667f58a65ce5dbd093f4c62cf"
+    },
+    {
+      "day_number": 151,
+      "date": "2027-01-29",
+      "content_type": "gospel",
+      "reading_title": "He Loved Them to the End",
+      "reading_reference": "John 13:1-30",
+      "reading_context": "John turns toward Jesus' hour through friendship, anointing, service, and the new commandment. This reading continues that turn as Jesus washes feet and identifies His betrayer.",
+      "previous_reading_summary": "Yesterday, Jesus enters Jerusalem and speaks of His hour.",
+      "reading_today_preview": "Today, Jesus washes feet and identifies His betrayer.",
+      "reading_watch_for": "Notice that disciples are called to be with Jesus before they are sent.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "0b242728ab477159e3aee7723ce49868df0d33be4211e85a11d9b893a81a2dbf"
+    },
+    {
+      "day_number": 152,
+      "date": "2027-01-30",
+      "content_type": "gospel",
+      "reading_title": "The Way to the Father",
+      "reading_reference": "John 13:31-14:14",
+      "reading_context": "John turns toward Jesus' hour through friendship, anointing, service, and the new commandment. This reading continues that turn as Jesus gives the new commandment and reveals the way.",
+      "previous_reading_summary": "Yesterday, Jesus washes feet and identifies His betrayer.",
+      "reading_today_preview": "Today, Jesus gives the new commandment and reveals the way.",
+      "reading_watch_for": "Watch how Jesus gives real pastoral responsibility for the good of His Church.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "b381e4eb47516f878d4c1ad8437fa543c278fa89e6cdd5445dd4fe8aecd2a824"
+    },
+    {
+      "day_number": 153,
+      "date": "2027-01-31",
+      "content_type": "catechism",
+      "reading_title": "The Prayer of Jesus and the Lord's Prayer",
+      "reading_reference": "CCC 2599-2606; 2607-2616; 2759-2764; 2777-2785",
+      "reading_context": "John's farewell discourse has led into Jesus' words about the Father. This Sunday considers the prayer of Jesus and the prayer He gives His disciples.",
+      "previous_reading_summary": "Yesterday, Jesus gives the new commandment and reveals the way.",
+      "reading_today_preview": "Today, the Catechism considers Jesus' prayer and the Lord's Prayer.",
+      "reading_watch_for": "Notice how Christian prayer begins with Jesus' own relationship to the Father.",
+      "reading_key_terms": [
+        {
+          "term": "faith",
+          "definition": "Trusting God and receiving what He reveals."
+        },
+        {
+          "term": "disciple",
+          "definition": "One who follows Jesus, learns from Him, and lives under His teaching."
+        }
+      ],
+      "reading_context_source_hash": "b2a5a7456522d60efee76637f5a3df6e44ad5e566ce259872004071a24587956"
+    },
+    {
+      "day_number": 154,
+      "date": "2027-02-01",
+      "content_type": "gospel",
+      "reading_title": "The Spirit and Peace",
+      "reading_reference": "John 14:15-31",
+      "reading_context": "John's farewell discourse prepares the disciples for the Cross, the Spirit, and mission. This reading continues that preparation as Jesus promises the Advocate and gives His peace.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on the Prayer of Jesus and the Lord's Prayer.",
+      "reading_today_preview": "Today, Jesus promises the Advocate and gives His peace.",
+      "reading_watch_for": "Watch how the Holy Spirit is promised as the gift who strengthens and teaches the Church.",
+      "reading_key_terms": [
+        {
+          "term": "Holy Spirit",
+          "definition": "The third Person of the Trinity, given by the Father and the Son."
+        }
+      ],
+      "reading_context_source_hash": "4d2b38cb6da7276773890dd6aeeadbf18620787149951ae2a5283f8ee382ed42"
+    },
+    {
+      "day_number": 155,
+      "date": "2027-02-02",
+      "content_type": "gospel",
+      "reading_title": "Abide in Me",
+      "reading_reference": "John 15:1-27",
+      "reading_context": "John's farewell discourse prepares the disciples for the Cross, the Spirit, and mission. This reading continues that preparation as Jesus teaches the vine, love, friendship, and witness.",
+      "previous_reading_summary": "Yesterday, Jesus promises the Advocate and gives His peace.",
+      "reading_today_preview": "Today, Jesus teaches the vine, love, friendship, and witness.",
+      "reading_watch_for": "Watch the word abide. Jesus describes discipleship as living communion with Him.",
+      "reading_key_terms": [],
+      "reading_context_source_hash": "ec2717b40e77f291f94d4e5bfcd6e6da386b807b748abc59bf58dcb6efd791f1"
+    },
+    {
+      "day_number": 156,
+      "date": "2027-02-03",
+      "content_type": "gospel",
+      "reading_title": "Sorrow Turned to Joy",
+      "reading_reference": "John 16:1-33",
+      "reading_context": "Jesus is still speaking to the disciples before His Passion. He prepares them for sorrow, the Spirit's help, and the peace that remains in Him.",
+      "previous_reading_summary": "Yesterday, Jesus teaches the vine, love, friendship, and witness.",
+      "reading_today_preview": "Today, Jesus teaches about the Spirit, coming sorrow, prayer, and His victory over the world.",
+      "reading_watch_for": "Notice that Jesus does not deny tribulation. He gives peace from within His victory.",
+      "reading_key_terms": [
+        {
+          "term": "Holy Spirit",
+          "definition": "The third Person of the Trinity, given by the Father and the Son."
+        },
+        {
+          "term": "faith",
+          "definition": "Trusting God and receiving what He reveals."
+        }
+      ],
+      "reading_context_source_hash": "f8d5df124d87f23d47bb6d66bdc055d595367c9efaffecf459b790c3f13e7a82"
+    },
+    {
+      "day_number": 157,
+      "date": "2027-02-04",
+      "content_type": "gospel",
+      "reading_title": "The Prayer of Jesus",
+      "reading_reference": "John 17:1-26",
+      "reading_context": "The farewell discourse becomes prayer. Jesus turns to the Father and prays for His disciples and for those who will believe through their word.",
+      "previous_reading_summary": "Yesterday, Jesus teaches the Spirit, prayer, and His victory.",
+      "reading_today_preview": "Today, Jesus prays to the Father for glory, unity, holiness, and the mission of His disciples.",
+      "reading_watch_for": "Notice that Jesus prays before He suffers. His prayer reveals His love for the Father and His people.",
+      "reading_key_terms": [
+        {
+          "term": "disciple",
+          "definition": "One who follows Jesus, learns from Him, and lives under His teaching."
+        },
+        {
+          "term": "Church",
+          "definition": "The people Christ gathers into His Body through faith and the sacraments."
+        }
+      ],
+      "reading_context_source_hash": "24a02fd10d8c522860a08f292d577256ff4cfd08cd9abde6aca8ea30f633b131"
+    },
+    {
+      "day_number": 158,
+      "date": "2027-02-05",
+      "content_type": "gospel",
+      "reading_title": "Arrested and Denied",
+      "reading_reference": "John 18:1-27",
+      "reading_context": "John brings the Gospel to Jesus' Passion and Resurrection. This reading continues that final witness as Jesus is arrested and Peter denies Him.",
+      "previous_reading_summary": "Yesterday, Jesus prays to the Father for His disciples.",
+      "reading_today_preview": "Today, Jesus is arrested and Peter denies Him.",
+      "reading_watch_for": "Stay close to Jesus' obedience and silence as He freely enters His Passion.",
+      "reading_key_terms": [
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        }
+      ],
+      "reading_context_source_hash": "bb6822efe2baa7081fcad262f8a9608c256403f42c74cd79f7e66fe9befc5fd3"
+    },
+    {
+      "day_number": 159,
+      "date": "2027-02-06",
+      "content_type": "gospel",
+      "reading_title": "Behold the Man",
+      "reading_reference": "John 18:28-19:16",
+      "reading_context": "Jesus stands before Pilate as the Passion moves toward the Cross. Human judgment is confused, but Christ remains faithful.",
+      "previous_reading_summary": "Yesterday, Jesus is arrested and Peter denies Him.",
+      "reading_today_preview": "Today, Jesus is questioned, mocked, presented to the crowd, and handed over to be crucified.",
+      "reading_watch_for": "Notice the words \"Behold the man.\" John shows Jesus' kingship through suffering and humiliation.",
+      "reading_key_terms": [
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        },
+        {
+          "term": "kingship",
+          "definition": "Christ's royal authority, revealed through humility and the Cross."
+        },
+        {
+          "term": "crucifixion",
+          "definition": "Jesus' death on the cross, offered in obedience and love."
+        }
+      ],
+      "reading_context_source_hash": "1bd3ab5930a8826356f1c3adbd1045dcaf57d528ecc00470e77766b1982e615b"
+    },
+    {
+      "day_number": 160,
+      "date": "2027-02-07",
+      "content_type": "catechism",
+      "reading_title": "Conversion, Penance, and Preparing for Lent",
+      "reading_reference": "CCC 1422-1433; 1440-1449; 1450-1460; 1480-1484",
+      "reading_context": "This final Sunday before Lent turns from John's Passion narrative toward conversion. The Catechism prepares the season to close with penance, confession, and mercy.",
+      "previous_reading_summary": "Yesterday, Jesus stands before Pilate and is handed over.",
+      "reading_today_preview": "Today, the Catechism considers conversion, penance, confession, and preparing for Lent.",
+      "reading_watch_for": "Notice that penance is not self-punishment. It is a return to the Father through Christ's mercy.",
+      "reading_key_terms": [
+        {
+          "term": "conversion",
+          "definition": "A real turning of heart and life toward God."
+        },
+        {
+          "term": "confession",
+          "definition": "The sacrament where sins are confessed and forgiven through Christ's mercy."
+        },
+        {
+          "term": "mercy",
+          "definition": "God's faithful love toward sinners, the suffering, and the lost."
+        }
+      ],
+      "reading_context_source_hash": "715bb29e35de51f93f81235bb1a25a64e2983a32c9d8511dee4c7195cb04defa"
+    },
+    {
+      "day_number": 161,
+      "date": "2027-02-08",
+      "content_type": "gospel",
+      "reading_title": "It Is Finished and He Is Risen",
+      "reading_reference": "John 19:17-20:18",
+      "reading_context": "The season reaches the Cross, the tomb, and the first Easter witness. John shows Jesus' death, burial, and appearance to Mary Magdalene.",
+      "previous_reading_summary": "Yesterday's Catechism reading focused on Conversion, Penance, and Preparing for Lent.",
+      "reading_today_preview": "Today, Jesus is crucified, dies, is buried, and appears to Mary Magdalene at the empty tomb.",
+      "reading_watch_for": "Watch the movement from \"It is finished\" to Mary's name being spoken by the risen Lord.",
+      "reading_key_terms": [
+        {
+          "term": "Passion",
+          "definition": "The suffering and death Jesus freely accepts for our salvation."
+        },
+        {
+          "term": "crucifixion",
+          "definition": "Jesus' death on the cross, offered in obedience and love."
+        },
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        }
+      ],
+      "reading_context_source_hash": "4a7710e11a7e6570c16d3f38cc8d3afcaecab8394d9c2622528b6859bf435aec"
+    },
+    {
+      "day_number": 162,
+      "date": "2027-02-09",
+      "content_type": "gospel",
+      "reading_title": "Peace, Thomas, and Peter",
+      "reading_reference": "John 20:19-21:25",
+      "reading_context": "The season closes with the risen Jesus giving peace, mercy, and mission. John ends by restoring faith, Peter's love, and the witness of the beloved disciple.",
+      "previous_reading_summary": "Yesterday, Jesus is crucified, dies, is buried, and appears to Mary Magdalene.",
+      "reading_today_preview": "Today, Jesus appears to the disciples, gives the authority to forgive sins, meets Thomas' doubt, and restores Peter.",
+      "reading_watch_for": "Notice how the wounds of Christ remain visible after the Resurrection. Peace, mercy, and mission all flow from the risen Lord.",
+      "reading_key_terms": [
+        {
+          "term": "Resurrection",
+          "definition": "Jesus' rising from the dead in His glorified body."
+        },
+        {
+          "term": "forgiveness of sins",
+          "definition": "Christ's mercy freeing sinners from guilt and restoring communion with God."
+        },
+        {
+          "term": "witness",
+          "definition": "One who testifies to what God has done."
+        }
+      ],
+      "reading_context_source_hash": "6711c04cb6f7d6066e9df080e209e762bc14df79438f1530704f6d4e6f01010d"
+    }
+  ],
+  "warnings": []
+}
