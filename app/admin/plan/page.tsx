@@ -16,11 +16,12 @@ import { Button } from "@/components/ui/button";
 import { getAdminEmails, isAllowedAdminEmail, requireAdminUser } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
+import { addDaysToIsoDate } from "@/lib/challenge";
 import {
-  addDaysToIsoDate,
-  CHALLENGE_START_DATE,
-  getChallengeTiming,
-} from "@/lib/challenge";
+  getSeasonStartDateForPlan,
+  getSeasonTimingForPlan,
+  type PlanTimingSource,
+} from "@/lib/season-plan";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -83,6 +84,8 @@ type SourceAssignmentRow = {
   display_order: number | null;
 };
 
+type AdminSupabaseClient = ReturnType<typeof createAdminClient>;
+
 const EDITABLE_CADENCES = new Set(["daily", "weekly_quota"]);
 
 function normalizeDayNumber(value: number, totalDays: number) {
@@ -104,16 +107,13 @@ function isEditableCadence(value: string | null | undefined) {
   return EDITABLE_CADENCES.has(value ?? "");
 }
 
-function getPlanDayTaskDates(dayNumber: number) {
-  const dayDate = addDaysToIsoDate(CHALLENGE_START_DATE, dayNumber - 1);
+function getPlanDayTaskDates(dayNumber: number, seasonStartDate: string) {
+  const dayDate = addDaysToIsoDate(seasonStartDate, dayNumber - 1);
   const weekStartDayNumber = Math.floor((dayNumber - 1) / 7) * 7 + 1;
 
   return {
     day_date: dayDate,
-    week_start_date: addDaysToIsoDate(
-      CHALLENGE_START_DATE,
-      weekStartDayNumber - 1
-    ),
+    week_start_date: addDaysToIsoDate(seasonStartDate, weekStartDayNumber - 1),
     month_start_date: `${dayDate.slice(0, 7)}-01`,
   };
 }
@@ -144,14 +144,16 @@ function buildAssignmentMetadata({
   isRequired,
   sortOrder,
   template,
+  seasonStartDate,
 }: {
   dayNumber: number;
   isRequired: boolean;
   sortOrder: number;
   template: AssignmentTemplateRow;
+  seasonStartDate: string;
 }) {
   return {
-    ...getPlanDayTaskDates(dayNumber),
+    ...getPlanDayTaskDates(dayNumber, seasonStartDate),
     is_optional: !isRequired,
     requirement_note: template.description,
     display_order: template.sort_order ?? sortOrder,
@@ -162,12 +164,14 @@ function buildAssignmentMetadata({
 function buildCopiedAssignmentMetadata({
   dayNumber,
   task,
+  seasonStartDate,
 }: {
   dayNumber: number;
   task: SourceAssignmentRow;
+  seasonStartDate: string;
 }) {
   return {
-    ...getPlanDayTaskDates(dayNumber),
+    ...getPlanDayTaskDates(dayNumber, seasonStartDate),
     is_optional: task.is_optional ?? !task.is_required,
     quota_scope: task.quota_scope,
     quota_target: task.quota_target,
@@ -187,6 +191,23 @@ function slugify(value: string) {
 
 function getAdminKey() {
   return process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+}
+
+async function loadPlanTimingSource(
+  admin: AdminSupabaseClient,
+  planId: number
+): Promise<PlanTimingSource> {
+  const { data: plan, error } = await admin
+    .from("challenge_plans")
+    .select("id, slug, name, total_days")
+    .eq("id", planId)
+    .maybeSingle();
+
+  if (error || !plan) {
+    throw new Error("Unable to load the selected plan.");
+  }
+
+  return plan as PlanTimingSource;
 }
 
 const fieldClassName = "monastic-field";
@@ -306,6 +327,8 @@ async function addTaskToDay(formData: FormData) {
   const taskTemplateId = Number(formData.get("task_template_id"));
   const isRequired = formData.get("is_required") === "on";
   const sortOrder = Number(formData.get("sort_order") ?? 0);
+  const planTimingSource = await loadPlanTimingSource(admin, planId);
+  const seasonStartDate = getSeasonStartDateForPlan(planTimingSource);
 
   const { data: ensuredDay } = await admin
     .from("plan_days")
@@ -350,6 +373,7 @@ async function addTaskToDay(formData: FormData) {
         isRequired,
         sortOrder,
         template: taskTemplate as AssignmentTemplateRow,
+        seasonStartDate,
       }),
     },
     {
@@ -508,6 +532,9 @@ async function copyDayToDay(formData: FormData) {
     redirect(`/admin/plan?day=${sourceDayNumber}`);
   }
 
+  const planTimingSource = await loadPlanTimingSource(admin, planId);
+  const seasonStartDate = getSeasonStartDateForPlan(planTimingSource);
+
   const { data: sourceDay, error: sourceDayError } = await admin
     .from("plan_days")
     .select("id, title, reflection_prompt")
@@ -574,6 +601,7 @@ async function copyDayToDay(formData: FormData) {
         ...buildCopiedAssignmentMetadata({
           dayNumber: targetDayNumber,
           task,
+          seasonStartDate,
         }),
       }))
     );
@@ -602,6 +630,9 @@ async function copyWeekToWeek(formData: FormData) {
   if (sourceWeekStartDay === targetWeekStartDay) {
     redirect(`/admin/plan?day=${returnDayNumber || sourceWeekStartDay}`);
   }
+
+  const planTimingSource = await loadPlanTimingSource(admin, planId);
+  const seasonStartDate = getSeasonStartDateForPlan(planTimingSource);
 
   const sourceWeekEndDay = Math.min(sourceWeekStartDay + 6, totalDays);
   const targetWeekEndDay = Math.min(targetWeekStartDay + 6, totalDays);
@@ -709,6 +740,7 @@ async function copyWeekToWeek(formData: FormData) {
           ...buildCopiedAssignmentMetadata({
             dayNumber: targetDayNumber,
             task,
+            seasonStartDate,
           }),
         }))
       );
@@ -741,7 +773,7 @@ export default async function AdminPlanPage({
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")
-    .select("id, name, total_days")
+    .select("id, slug, name, total_days")
     .eq("is_active", true)
     .maybeSingle();
 
@@ -761,7 +793,7 @@ export default async function AdminPlanPage({
     );
   }
 
-  const challenge = getChallengeTiming(activePlan.total_days);
+  const challenge = getSeasonTimingForPlan(activePlan);
 
   const resolvedSearchParams = await searchParams;
   const rawDay = Array.isArray(resolvedSearchParams.day)
