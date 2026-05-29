@@ -9,8 +9,7 @@ write was performed during this audit.
 ## Overall Verdict
 
 Core season timing refactors are mostly complete, but Gospel activation is still
-not ready until remaining cleanup, production scanner expansion, and activation
-planning are done.
+not ready until production scanner expansion and activation planning are done.
 
 The Gospel plan content, admin-only inactive preview path, and Before You Read
 fields are in good shape. The first round of season-aware timing work has
@@ -35,6 +34,8 @@ Completed:
 - `app/rosary/page.tsx`
 - `app/admin/plan/page.tsx` display timing
 - `app/admin/plan/page.tsx` task-date generation
+- Post-complete final-day link copy in `app/today/page.tsx` and
+  `app/dashboard/page.tsx`
 
 Deferred:
 
@@ -47,7 +48,6 @@ season, weekly recap timing must be refactored or disabled before activation.
 
 Remaining open items:
 
-- Post-complete `Review Day 90` copy cleanup.
 - Production scanner expansion for Brotherhood, Night Prayer, Rosary, and the
   progress strip after deployment.
 - Final activation plan.
@@ -101,12 +101,11 @@ wrong, but they should stay isolated from Gospel activation:
 - `components/season-timeline.tsx` includes historical copy that the 90-day
   challenge closes July 4. This is timeline copy, not runtime timing.
 
-Potential copy cleanup before or after activation:
+Resolved copy cleanup:
 
 - `app/today/page.tsx` and `app/dashboard/page.tsx` still label some completed
-  season links as `Review Day 90` even when the current active plan could have
-  162 days. This is mainly a post-season copy/navigation issue, not a Day 1
-  Gospel launch blocker.
+  season links with the original final day. These links now use the active
+  plan's final day count.
 
 ## April 6, 2026 Start-Date Assumptions Found
 
@@ -213,8 +212,8 @@ High-risk supporting work:
 
 Lower-risk cleanup:
 
-- Adjust completed-season navigation/copy in `/today` and `/dashboard` so a
-  completed 162-day Gospel season does not show `Review Day 90`.
+- Completed-season navigation/copy in `/today` and `/dashboard` now uses the
+  active plan's final day count.
 - Keep `/give-thanks` and `/challenge-feedback` explicitly original-plan-only.
 
 ## Recommended Next Implementation Tasks
@@ -232,7 +231,5 @@ Lower-risk cleanup:
    using the editor against Gospel days.
 6. Refactor `lib/groupme-weekly.ts`; review `lib/groupme-nightly.ts` messaging
    and date assumptions.
-7. Clean up post-complete `Review Day 90` labels in `/today` and `/dashboard`
-   so the label matches the active plan's final day.
-8. Add production scanner coverage for the routes above after deployment,
+7. Add production scanner coverage for the routes above after deployment,
    especially `/brotherhood`, `/night-prayer`, `/rosary`, and the progress strip.

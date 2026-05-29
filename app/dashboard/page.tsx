@@ -357,7 +357,7 @@ export default async function DashboardPage({
                       track,
                       preserveViewTrack
                     ),
-                    label: "Review Day 90",
+                    label: `Review Day ${activePlan.total_days}`,
                     variant: "primary",
                   },
                   {
@@ -395,7 +395,7 @@ export default async function DashboardPage({
                   )}
                   className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
                 >
-                  Review Day 90
+                  Review Day {activePlan.total_days}
                 </Link>
                 <Link
                   href={withViewTrack("/brotherhood", track, preserveViewTrack)}

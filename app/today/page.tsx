@@ -401,7 +401,7 @@ export default async function TodayPage({
                       track,
                       preserveViewTrack
                     ),
-                    label: "Review Day 90",
+                    label: `Review Day ${activePlan.total_days}`,
                     variant: "primary",
                   },
                   {
