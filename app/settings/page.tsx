@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Download, LifeBuoy, Map as MapIcon } from "lucide-react";
+import { Download, LifeBuoy, Map as MapIcon, Megaphone } from "lucide-react";
 import { PageFrame, SectionHeader, SurfaceCard, SurfaceInset } from "@/components/monastic-ui";
 import { DailyReminderSettings } from "@/components/daily-reminder-settings";
 import { PushNotificationControl } from "@/components/push-notification-control";
@@ -68,7 +68,28 @@ export default async function SettingsPage() {
           </div>
         </SurfaceCard>
 
-        <div className="grid min-w-0 max-w-full gap-4 sm:grid-cols-3">
+        <div className="grid min-w-0 max-w-full gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <SurfaceInset>
+            <div className="section-kicker">Announcements</div>
+            <h2 className="mt-2 text-xl font-semibold text-monastic-0">
+              Official updates
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-monastic-1">
+              Read signed-in updates from The Narrow Path.
+            </p>
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="mt-4 w-full sm:w-auto"
+            >
+              <Link href="/announcements">
+                <Megaphone aria-hidden="true" />
+                Announcements
+              </Link>
+            </Button>
+          </SurfaceInset>
+
           <SurfaceInset>
             <div className="section-kicker">Roadmap</div>
             <h2 className="mt-2 text-xl font-semibold text-monastic-0">

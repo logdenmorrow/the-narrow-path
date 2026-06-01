@@ -8,6 +8,7 @@ import {
   LifeBuoy,
   Map as MapIcon,
   Menu,
+  Megaphone,
   Moon,
   Settings,
   Sun,
@@ -64,6 +65,12 @@ export default function MobileAccountMenu({
           <Link href="/settings">
             <Settings className="h-4 w-4 text-monastic-2" aria-hidden="true" />
             Settings
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild className="rounded-[0.85rem] px-3 py-2 text-monastic-1">
+          <Link href="/announcements">
+            <Megaphone className="h-4 w-4 text-monastic-2" aria-hidden="true" />
+            Announcements
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="rounded-[0.85rem] px-3 py-2 text-monastic-1">

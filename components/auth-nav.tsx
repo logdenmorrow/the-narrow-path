@@ -22,6 +22,12 @@ export default async function AuthNav({ mobile = false }: { mobile?: boolean }) 
         )}
       >
         <Link
+          href="/announcements"
+          className="text-xs font-medium text-monastic-2 underline-offset-4 transition hover:text-monastic-0 hover:underline"
+        >
+          Announcements
+        </Link>
+        <Link
           href="/news"
           className="text-xs font-medium text-monastic-2 underline-offset-4 transition hover:text-monastic-0 hover:underline"
         >
