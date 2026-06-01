@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Download, LifeBuoy } from "lucide-react";
+import { Download, LifeBuoy, Newspaper } from "lucide-react";
 import { PageFrame, SectionHeader, SurfaceCard, SurfaceInset } from "@/components/monastic-ui";
 import { DailyReminderSettings } from "@/components/daily-reminder-settings";
 import { PushNotificationControl } from "@/components/push-notification-control";
@@ -68,7 +68,28 @@ export default async function SettingsPage() {
           </div>
         </SurfaceCard>
 
-        <div className="grid min-w-0 max-w-full gap-4 sm:grid-cols-2">
+        <div className="grid min-w-0 max-w-full gap-4 sm:grid-cols-3">
+          <SurfaceInset>
+            <div className="section-kicker">News</div>
+            <h2 className="mt-2 text-xl font-semibold text-monastic-0">
+              What's ahead
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-monastic-1">
+              See the current roadmap after Narrow Path 90.
+            </p>
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="mt-4 w-full sm:w-auto"
+            >
+              <Link href="/news">
+                <Newspaper aria-hidden="true" />
+                News
+              </Link>
+            </Button>
+          </SurfaceInset>
+
           <SurfaceInset>
             <div className="section-kicker">Support</div>
             <h2 className="mt-2 text-xl font-semibold text-monastic-0">
@@ -77,7 +98,12 @@ export default async function SettingsPage() {
             <p className="mt-2 text-sm leading-6 text-monastic-1">
               Send a bug report or describe anything confusing.
             </p>
-            <Button asChild variant="outline" size="sm" className="mt-4 w-full sm:w-auto">
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="mt-4 w-full sm:w-auto"
+            >
               <Link href="/support">
                 <LifeBuoy aria-hidden="true" />
                 Support
@@ -93,7 +119,12 @@ export default async function SettingsPage() {
             <p className="mt-2 text-sm leading-6 text-monastic-1">
               Open install guidance for iPhone, iPad, and Android.
             </p>
-            <Button asChild variant="outline" size="sm" className="mt-4 w-full sm:w-auto">
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="mt-4 w-full sm:w-auto"
+            >
               <Link href="/install">
                 <Download aria-hidden="true" />
                 Install

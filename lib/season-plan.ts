@@ -40,6 +40,12 @@ export type SeasonTimelineItem = {
   intensity: string;
 };
 
+export type NewsRoadmapItem = {
+  dateLabel: string;
+  title: string;
+  description: string;
+};
+
 export type AugustJamesPlan = {
   title: string;
   dateLabel: string;
@@ -96,6 +102,37 @@ export const SEASON_TIMELINE: SeasonTimelineItem[] = [
     title: "Lent 2027",
     description: "A separate stricter Lenten challenge.",
     intensity: "High",
+  },
+];
+
+export const NEWS_ROADMAP_ITEMS: NewsRoadmapItem[] = [
+  {
+    dateLabel: "Now",
+    title: ORIGINAL_CHALLENGE_PLAN_NAME,
+    description: "The current challenge continues through its planned 90 days.",
+  },
+  {
+    dateLabel: "July 2026",
+    title: "Short Break",
+    description:
+      "A short break after Narrow Path 90. The app remains available for prayer, review, and preparation.",
+  },
+  {
+    dateLabel: "August 2026",
+    title: AUGUST_JAMES_PLAN_NAME,
+    description: "A shorter Scripture season focused on the Letter of James.",
+  },
+  {
+    dateLabel: "September 1, 2026 to February 9, 2027",
+    title: GOSPELS_SEPTEMBER_LENT_PLAN_NAME,
+    description:
+      "The Gospels season begins September 1, 2026 and runs through February 9, 2027. The planned reading order is Mark, Matthew, Luke, and John.",
+  },
+  {
+    dateLabel: "Lent 2027",
+    title: "Lent 2027",
+    description:
+      "A stricter Lenten season is planned after the Gospels season.",
   },
 ];
 

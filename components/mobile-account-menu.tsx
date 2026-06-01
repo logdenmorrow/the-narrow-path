@@ -3,7 +3,15 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { Laptop, LifeBuoy, Menu, Moon, Settings, Sun } from "lucide-react";
+import {
+  Laptop,
+  LifeBuoy,
+  Menu,
+  Moon,
+  Newspaper,
+  Settings,
+  Sun,
+} from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import {
@@ -56,6 +64,12 @@ export default function MobileAccountMenu({
           <Link href="/settings">
             <Settings className="h-4 w-4 text-monastic-2" aria-hidden="true" />
             Settings
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild className="rounded-[0.85rem] px-3 py-2 text-monastic-1">
+          <Link href="/news">
+            <Newspaper className="h-4 w-4 text-monastic-2" aria-hidden="true" />
+            News
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="rounded-[0.85rem] px-3 py-2 text-monastic-1">

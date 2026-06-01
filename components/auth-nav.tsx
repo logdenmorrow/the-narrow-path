@@ -15,7 +15,18 @@ export default async function AuthNav({ mobile = false }: { mobile?: boolean }) 
 
   if (isLoggedIn) {
     return (
-      <div className={cn("ml-auto flex items-center", mobile ? "min-w-0 flex-wrap justify-end gap-1.5" : "gap-3")}>
+      <div
+        className={cn(
+          "ml-auto flex items-center",
+          mobile ? "min-w-0 flex-wrap justify-end gap-1.5" : "gap-3"
+        )}
+      >
+        <Link
+          href="/news"
+          className="text-xs font-medium text-monastic-2 underline-offset-4 transition hover:text-monastic-0 hover:underline"
+        >
+          News
+        </Link>
         <Link
           href="/support"
           className="text-xs font-medium text-monastic-2 underline-offset-4 transition hover:text-monastic-0 hover:underline"
@@ -28,7 +39,12 @@ export default async function AuthNav({ mobile = false }: { mobile?: boolean }) 
   }
 
   return (
-    <div className={cn("ml-auto flex items-center", mobile ? "min-w-0 flex-wrap justify-end gap-1" : "gap-3")}>
+    <div
+      className={cn(
+        "ml-auto flex items-center",
+        mobile ? "min-w-0 flex-wrap justify-end gap-1" : "gap-3"
+      )}
+    >
       <Button
         asChild
         variant={mobile ? "secondary" : "ghost"}
