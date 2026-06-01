@@ -73,6 +73,10 @@ The broad audit visits known safe page routes, representative day URLs, Gospel
 admin preview URLs, admin/support pages that exist in the repo, and up to three
 member detail pages discovered from `/brotherhood`. It does not click buttons,
 submit forms, intentionally visit logout routes, or scan `/api` mutation routes.
+Expected download routes such as `/admin/plan/export` and
+`/admin/challenge-feedback/download` are handled as download checks. The audit
+passes those routes when Playwright observes the download starting and records
+the suggested filename when the browser provides one.
 
 It writes local-only output to:
 

@@ -7,6 +7,8 @@ const base = "https://thenarrowpath.xyz";
 const authPath = path.resolve("playwright-auth.json");
 const jsonOutputPath = path.resolve("production-page-audit-log.json");
 const summaryOutputPath = path.resolve("production-page-audit-summary.txt");
+const navigationTimeoutMs = 30000;
+const bodyTextTimeoutMs = 5000;
 
 const checks = [
   { name: "Home", path: "/", auth: false },
@@ -26,7 +28,13 @@ const checks = [
   { name: "Install", path: "/install", auth: true },
   { name: "Fasting Guide", path: "/guides/fasting-and-penance", auth: true },
   { name: "Admin Plan", path: "/admin/plan", auth: true, admin: true },
-  { name: "Admin Plan Export", path: "/admin/plan/export", auth: true, admin: true },
+  {
+    name: "Admin Plan Export",
+    path: "/admin/plan/export",
+    auth: true,
+    admin: true,
+    expectedDownload: true,
+  },
   { name: "Admin Auth Reports", path: "/admin/auth-reports", auth: true, admin: true },
   {
     name: "Admin Auth Reports Download",
@@ -45,6 +53,7 @@ const checks = [
     path: "/admin/challenge-feedback/download",
     auth: true,
     admin: true,
+    expectedDownload: true,
   },
   { name: "Admin Notifications", path: "/admin/notifications", auth: true, admin: true },
   { name: "Admin Support", path: "/admin/support", auth: true, admin: true },
@@ -154,11 +163,11 @@ async function validateDashboardAuth(context) {
 
   try {
     const response = await page.goto(buildFullUrl("/dashboard"), {
-      waitUntil: "networkidle",
-      timeout: 30000,
+      waitUntil: "domcontentloaded",
+      timeout: navigationTimeoutMs,
     });
     const finalUrl = page.url();
-    const bodyText = await page.locator("body").innerText().catch(() => "");
+    const bodyText = await readBodyText(page);
     const failureReasons = [];
 
     if (!response?.ok()) {
@@ -261,6 +270,19 @@ function getBodySnippet(bodyText) {
   return String(bodyText ?? "").replace(/\s+/g, " ").trim().slice(0, 500);
 }
 
+async function readBodyText(page) {
+  const body = page.locator("body");
+
+  await body.waitFor({ state: "attached", timeout: bodyTextTimeoutMs }).catch(() => {});
+  await page
+    .waitForFunction(() => globalThis.document.body?.innerText.trim().length > 0, null, {
+      timeout: bodyTextTimeoutMs,
+    })
+    .catch(() => {});
+
+  return body.innerText({ timeout: bodyTextTimeoutMs }).catch(() => "");
+}
+
 function hasCrashText(bodyText) {
   const normalized = String(bodyText ?? "").toLowerCase();
   return [
@@ -299,9 +321,10 @@ async function discoverBrotherhoodMemberChecks(context) {
 
   try {
     await page.goto(buildFullUrl("/brotherhood"), {
-      waitUntil: "networkidle",
-      timeout: 30000,
+      waitUntil: "domcontentloaded",
+      timeout: navigationTimeoutMs,
     });
+    await readBodyText(page);
 
     const hrefs = await page.$$eval("a[href]", (anchors) =>
       anchors
@@ -365,13 +388,13 @@ async function auditPage(context, check) {
 
   try {
     const response = await page.goto(url, {
-      waitUntil: "networkidle",
-      timeout: 30000,
+      waitUntil: "domcontentloaded",
+      timeout: navigationTimeoutMs,
     });
     const status = response?.status() ?? null;
     const finalUrl = page.url();
     const title = await page.title();
-    const bodyText = await page.locator("body").innerText().catch(() => "");
+    const bodyText = await readBodyText(page);
     const bodySnippet = getBodySnippet(bodyText);
     const failureReasons = [];
 
@@ -427,6 +450,133 @@ async function auditPage(context, check) {
   }
 }
 
+async function auditDownload(context, check) {
+  const page = await context.newPage();
+  const url = buildFullUrl(check.path);
+  const consoleErrors = [];
+  const pageErrors = [];
+  const failedResponses = [];
+
+  page.on("console", (message) => {
+    if (message.type() === "error") {
+      consoleErrors.push(message.text());
+    }
+  });
+
+  page.on("pageerror", (error) => {
+    pageErrors.push(String(error));
+  });
+
+  page.on("response", (response) => {
+    const status = response.status();
+    if (status >= 400) {
+      failedResponses.push({
+        status,
+        url: response.url(),
+        resourceType: response.request().resourceType(),
+      });
+    }
+  });
+
+  try {
+    const downloadResult = page
+      .waitForEvent("download", { timeout: navigationTimeoutMs })
+      .then((download) => ({ type: "download", download }))
+      .catch((error) => ({ type: "download-error", error }));
+
+    const navigationResult = page
+      .goto(url, {
+        waitUntil: "domcontentloaded",
+        timeout: navigationTimeoutMs,
+      })
+      .then((response) => ({ type: "navigation", response }))
+      .catch((error) => ({ type: "navigation-error", error }));
+
+    let result = await Promise.race([downloadResult, navigationResult]);
+
+    if (result.type === "navigation-error") {
+      const possibleDownload = await downloadResult;
+      if (possibleDownload.type === "download") {
+        result = possibleDownload;
+      }
+    }
+
+    const finalUrl = page.url();
+    const title = await page.title().catch(() => "");
+    const failureReasons = [];
+    let status = null;
+    let suggestedFilename = null;
+    let bodyText = "";
+
+    if (result.type === "download") {
+      status = "DOWNLOAD";
+      suggestedFilename = result.download.suggestedFilename();
+    } else if (result.type === "navigation") {
+      status = result.response?.status() ?? null;
+      bodyText = await readBodyText(page);
+
+      if (status === null) {
+        failureReasons.push("No main response status.");
+      } else if (status === 404) {
+        failureReasons.push("Main response returned 404.");
+      } else if (status >= 500) {
+        failureReasons.push(`Main response returned ${status}.`);
+      } else {
+        failureReasons.push("Expected route to start a download, but it loaded as a page.");
+      }
+    } else {
+      bodyText = await readBodyText(page);
+      failureReasons.push(`Expected download did not start: ${String(result.error)}`);
+    }
+
+    if (pageErrors.length > 0) {
+      failureReasons.push("Page threw an uncaught error.");
+    }
+
+    if (bodyText && hasCrashText(bodyText)) {
+      failureReasons.push("Body contains application crash text.");
+    }
+
+    if (isUnexpectedLoginRedirect(check, finalUrl)) {
+      failureReasons.push("Signed-in/admin route ended at login.");
+    }
+
+    return {
+      name: check.name,
+      url,
+      finalUrl,
+      status,
+      passed: failureReasons.length === 0,
+      title,
+      consoleErrors,
+      pageErrors,
+      failedResponses,
+      bodySnippet: getBodySnippet(bodyText),
+      suggestedFilename,
+      expectedDownload: true,
+      failureReasons,
+    };
+  } catch (error) {
+    return {
+      name: check.name,
+      url,
+      finalUrl: page.url(),
+      status: "ERROR",
+      passed: false,
+      title: "",
+      consoleErrors,
+      pageErrors: [...pageErrors, String(error)],
+      failedResponses,
+      bodySnippet: "",
+      suggestedFilename: null,
+      expectedDownload: true,
+      failureReasons: [`Download check failed: ${String(error)}`],
+    };
+  } finally {
+    await page.close();
+  }
+}
+
 function buildSummaryText(summary) {
   const lines = [
     `Production page audit`,
@@ -446,6 +596,10 @@ function buildSummaryText(summary) {
 
     if (result.failureReasons.length > 0) {
       lines.push(`  Reasons: ${result.failureReasons.join("; ")}`);
+    }
+
+    if (result.expectedDownload && result.suggestedFilename) {
+      lines.push(`  Download: ${result.suggestedFilename}`);
     }
   }
 
@@ -467,7 +621,9 @@ async function main() {
 
     for (const check of auditChecks) {
       const context = check.auth ? authContext : publicContext;
-      results.push(await auditPage(context, check));
+      results.push(
+        await (check.expectedDownload ? auditDownload(context, check) : auditPage(context, check))
+      );
     }
 
     const summary = {
