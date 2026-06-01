@@ -50,10 +50,8 @@ import {
 } from "@/components/monastic-ui";
 import { TodayTaskCard } from "@/components/today-task-card";
 import {
-  createReflectionCompletionOverrides,
   buildTaskViewModels,
   formatReadableDate,
-  getReflectionTaskId,
   type CompletionRecord,
   type PlanDayTaskRecord,
   type TaskViewModel,
@@ -68,14 +66,6 @@ type PlanDayRow = {
   reflection_prompt: string | null;
   reading_title: string | null;
   reading_reference: string | null;
-};
-
-type ReflectionEntryRow = {
-  id: number;
-};
-
-type ChallengeFeedbackResponseRow = {
-  id: string;
 };
 
 type DailyCheckinRow = {
@@ -102,11 +92,6 @@ function uniqueTaskIds(tasks: PlanDayTaskRecord[]) {
 function getTaskAudience(task: PlanDayTaskRecord) {
   const relation = task.task_templates;
   return Array.isArray(relation) ? relation[0]?.audience : relation?.audience;
-}
-
-function getTaskSlug(task: Pick<PlanDayTaskRecord, "task_templates">) {
-  const relation = task.task_templates;
-  return Array.isArray(relation) ? relation[0]?.slug : relation?.slug;
 }
 
 function filterTasksForTrack(tasks: PlanDayTaskRecord[], track: Track) {
@@ -657,47 +642,11 @@ export default async function TodayPage({
         .in("plan_day_task_id", completionTaskIds)
     : { data: [] as CompletionRecord[] };
 
-  const reflectionTaskId = getReflectionTaskId(typedDayTasks);
-  const challengeFeedbackTaskId =
-    typedDayTasks.find((task) => getTaskSlug(task) === "challenge_feedback")?.id ?? null;
-
-  const { data: reflectionEntryData } = reflectionTaskId
-    ? await supabase
-        .from("user_reflection_entries")
-        .select("id")
-        .eq("user_id", user.id)
-        .eq("plan_day_id", selectedPlanDayId)
-        .maybeSingle()
-    : { data: null };
-
-  const { data: challengeFeedbackData } = challengeFeedbackTaskId
-    ? await supabase
-        .from("challenge_feedback_responses")
-        .select("id")
-        .eq("user_id", user.id)
-        .eq("plan_day_id", selectedPlanDayId)
-        .maybeSingle()
-    : { data: null };
-
-  const reflectionEntry = (reflectionEntryData ?? null) as ReflectionEntryRow | null;
-  const challengeFeedback = (challengeFeedbackData ??
-    null) as ChallengeFeedbackResponseRow | null;
-  const hasSavedReflection = Boolean(reflectionEntry?.id);
-  const completionOverrides = createReflectionCompletionOverrides(
-    reflectionTaskId,
-    hasSavedReflection
-  );
-
-  if (challengeFeedbackTaskId !== null) {
-    completionOverrides.set(challengeFeedbackTaskId, Boolean(challengeFeedback?.id));
-  }
-
   const baseTaskModels = buildTaskViewModels(
     typedDayTasks,
     visibleScopeTasks,
     (completions ?? []) as CompletionRecord[],
-    user.id,
-    completionOverrides
+    user.id
   );
   const taskModels = isDay90CelebrationView
     ? applyDay90CelebrationTaskRules(baseTaskModels)

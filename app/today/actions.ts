@@ -155,12 +155,11 @@ export async function toggleTaskCompletionWithResult(
     }
   }
 
-  const { data: existing, error: existingError } = await supabase
+  const { data: existingCompletions, error: existingError } = await supabase
     .from("user_task_completions")
     .select("id")
     .eq("user_id", user.id)
-    .eq("plan_day_task_id", planDayTaskId)
-    .maybeSingle();
+    .eq("plan_day_task_id", planDayTaskId);
 
   if (existingError) {
     throw new Error(`Could not check existing completion: ${existingError.message}`);
@@ -168,11 +167,14 @@ export async function toggleTaskCompletionWithResult(
 
   // Completion model: row existence means "completed".
   // Toggle on => insert row; toggle off => delete row.
-  if (existing?.id) {
+  const hasExistingCompletion = (existingCompletions?.length ?? 0) > 0;
+
+  if (hasExistingCompletion) {
     const { error: deleteError } = await supabase
       .from("user_task_completions")
       .delete()
-      .eq("id", existing.id);
+      .eq("user_id", user.id)
+      .eq("plan_day_task_id", planDayTaskId);
 
     if (deleteError) {
       throw new Error(`Could not remove completion: ${deleteError.message}`);
@@ -197,7 +199,7 @@ export async function toggleTaskCompletionWithResult(
   return {
     status: "success",
     planDayTaskId,
-    transitionedToComplete: !existing?.id,
+    transitionedToComplete: !hasExistingCompletion,
   };
 }
 

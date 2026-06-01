@@ -42,7 +42,6 @@ import {
 } from "@/lib/plan-day-url";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
 import { updateLastActiveAt } from "@/lib/last-active";
-import { applyReflectionCompletionOverride, getReflectionTaskId } from "@/lib/task-progress";
 
 type TaskTemplateCadence = "daily" | "weekly_quota";
 
@@ -579,8 +578,6 @@ export default async function DashboardPage({
     )
   );
 
-  const reflectionTaskId = getReflectionTaskId(todayTasks);
-
   const { data: reflectionEntryData } = planDay
     ? await supabase
         .from("user_reflection_entries")
@@ -592,12 +589,6 @@ export default async function DashboardPage({
 
   const reflectionEntry = (reflectionEntryData ?? null) as ReflectionEntryRow | null;
   const hasSavedReflection = Boolean(reflectionEntry?.id);
-
-  applyReflectionCompletionOverride(
-    completionIds,
-    reflectionTaskId,
-    hasSavedReflection
-  );
 
   const requiredDailyToday = todayTasks.filter(
     (task) =>

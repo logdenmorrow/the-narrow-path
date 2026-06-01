@@ -55,8 +55,6 @@ export type TaskStatusPillState = {
   label: "Required" | "Optional" | "Completed";
 };
 
-type ReflectionTaskLike = Pick<PlanDayTaskRecord, "id" | "task_templates">;
-
 function normalizeTaskTemplate(
   relation: TaskTemplateRelation
 ): { title: string; slug: string } {
@@ -90,46 +88,6 @@ function scopeKey(task: PlanDayTaskRecord): string | null {
   return null;
 }
 
-export function getReflectionTaskId(tasks: ReflectionTaskLike[]): number | null {
-  for (const task of tasks) {
-    const template = normalizeTaskTemplate(task.task_templates);
-    if (template.slug === "reflection") {
-      return task.id;
-    }
-  }
-
-  return null;
-}
-
-export function createReflectionCompletionOverrides(
-  reflectionTaskId: number | null,
-  hasSavedReflection: boolean
-) {
-  const overrides = new Map<number, boolean>();
-
-  // Reflection entries can mark the task complete even if the completion row
-  // is missing, but the absence of an entry should not erase a real completion.
-  if (reflectionTaskId !== null && hasSavedReflection) {
-    overrides.set(reflectionTaskId, true);
-  }
-
-  return overrides;
-}
-
-export function applyReflectionCompletionOverride(
-  completedTaskIds: Set<number>,
-  reflectionTaskId: number | null,
-  hasSavedReflection: boolean
-) {
-  if (reflectionTaskId === null || !hasSavedReflection) {
-    return completedTaskIds;
-  }
-
-  completedTaskIds.add(reflectionTaskId);
-
-  return completedTaskIds;
-}
-
 export function getTaskStatusPillState(task: {
   isCompleted: boolean;
   isRequired: boolean;
@@ -154,8 +112,7 @@ export function buildTaskViewModels(
   dayTasks: PlanDayTaskRecord[],
   scopeTasks: PlanDayTaskRecord[],
   completions: CompletionRecord[],
-  userId: string,
-  completionOverrides?: Map<number, boolean>
+  userId: string
 ): TaskViewModel[] {
   const userCompletions = completions.filter((row) => row.user_id === userId);
   const completedTaskIds = new Set(userCompletions.map((row) => row.plan_day_task_id));
@@ -213,8 +170,7 @@ export function buildTaskViewModels(
         slug: template.slug,
         isRequired: task.is_required,
         isOptional: task.is_optional,
-        isCompleted:
-          completionOverrides?.get(task.id) ?? completedTaskIds.has(task.id),
+        isCompleted: completedTaskIds.has(task.id),
         quotaScope: task.quota_scope,
         quotaTarget: task.quota_target,
         progressCount,

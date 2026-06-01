@@ -34,9 +34,7 @@ import {
 import { buildPlanDayHref } from "@/lib/plan-day-url";
 import {
   buildTaskViewModels,
-  createReflectionCompletionOverrides,
   formatReadableDate,
-  getReflectionTaskId,
   getTaskStatusPillState,
   summarizeRequiredTasks,
   toShortDisplayName,
@@ -63,10 +61,6 @@ type PlanDayRow = {
 type CompletionWithTime = CompletionRecord & {
   completed_at: string | null;
   updated_at: string | null;
-};
-
-type ReflectionEntryRow = {
-  id: number;
 };
 
 type MeterTone = "neutral" | "accent" | "success";
@@ -355,29 +349,12 @@ export default async function BrotherhoodMemberPage({
     : { data: [] as CompletionWithTime[] };
 
   const typedCompletions = (completions ?? []) as CompletionWithTime[];
-  const reflectionTaskId = getReflectionTaskId(typedDayTasks);
-
-  const { data: reflectionEntryData } = reflectionTaskId
-    ? await supabase
-        .from("user_reflection_entries")
-        .select("id")
-        .eq("user_id", selectedUserId)
-        .eq("plan_day_id", selectedPlanDayId)
-        .maybeSingle()
-    : { data: null };
-
-  const reflectionEntry = (reflectionEntryData ?? null) as ReflectionEntryRow | null;
-  const completionOverrides = createReflectionCompletionOverrides(
-    reflectionTaskId,
-    Boolean(reflectionEntry?.id)
-  );
 
   const taskModels = buildTaskViewModels(
     typedDayTasks,
     typedScopeTasks,
     typedCompletions,
-    selectedUserId,
-    completionOverrides
+    selectedUserId
   );
 
   const completionByTaskId = new Map(
@@ -582,15 +559,12 @@ export default async function BrotherhoodMemberPage({
               {requiredTasks.length > 0 ? (
                 requiredTasks.map((task) => {
                   const completion = completionByTaskId.get(task.id);
-                  const isReflectionTask = task.id === reflectionTaskId;
                   const statusPill = getTaskStatusPillState(task);
                   const completionLabel = completion
                     ? `Completed: ${toCompletedLabel(
                         completion.completed_at ?? completion.updated_at
                       )}`
-                    : isReflectionTask && reflectionEntry?.id && task.isCompleted
-                      ? "Completed via saved reflection entry"
-                      : "Not completed";
+                    : "Not completed";
 
                   return (
                     <TaskCard key={task.id}>

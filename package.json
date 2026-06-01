@@ -5,6 +5,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "test:e2e": "playwright test",
+    "test:e2e:auth": "playwright test --project=setup",
     "build:reading-context-sql": "node scripts/build-reading-context-sql.mjs",
     "email:test": "node --env-file=.env.local scripts/send-resend-test.mjs",
     "import:night-prayer": "node scripts/import-night-prayer.mjs",

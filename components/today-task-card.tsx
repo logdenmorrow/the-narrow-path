@@ -56,13 +56,20 @@ export function TodayTaskCard({
 }: TodayTaskCardProps) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
+  const initialCompleted =
+    optimisticCompletionOverrides.get(planDayTaskId) ?? completed;
+  const displayedCompletedRef = useRef(initialCompleted);
   const latestServerCompletedRef = useRef(completed);
   const pendingTargetRef = useRef<boolean | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [optimisticCompleted, setOptimisticCompleted] = useState(
-    optimisticCompletionOverrides.get(planDayTaskId) ?? completed
-  );
+  const [optimisticCompleted, setOptimisticCompletedState] =
+    useState(initialCompleted);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const setOptimisticCompleted = (value: boolean) => {
+    displayedCompletedRef.current = value;
+    setOptimisticCompletedState(value);
+  };
 
   useEffect(() => {
     const optimisticOverride = optimisticCompletionOverrides.get(planDayTaskId);
@@ -103,7 +110,7 @@ export function TodayTaskCard({
   const submitTask = async (formData: FormData) => {
     if (isBusy) return;
 
-    const previousCompleted = latestServerCompletedRef.current;
+    const previousCompleted = displayedCompletedRef.current;
     const nextCompleted = !previousCompleted;
     const startedAt = Date.now();
 

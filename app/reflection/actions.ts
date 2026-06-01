@@ -129,14 +129,20 @@ export async function saveReflectionEntry(formData: FormData) {
   }
 
   if (validatedReflectionTaskId !== null) {
-    const { data: existingCompletion } = await supabase
+    const { data: existingCompletions, error: existingCompletionError } = await supabase
       .from("user_task_completions")
       .select("id")
       .eq("user_id", user.id)
       .eq("plan_day_task_id", validatedReflectionTaskId)
-      .maybeSingle();
+      .limit(1);
 
-    if (!existingCompletion?.id) {
+    if (existingCompletionError) {
+      throw new Error(
+        `Could not verify reflection completion: ${existingCompletionError.message}`
+      );
+    }
+
+    if ((existingCompletions?.length ?? 0) === 0) {
       const { error: completionError } = await supabase
         .from("user_task_completions")
         .insert({

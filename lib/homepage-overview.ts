@@ -1,6 +1,5 @@
 import { getSeasonTimingForPlan } from "@/lib/season-plan";
 import { createClient } from "@/lib/supabase/server";
-import { getReflectionTaskId } from "@/lib/task-progress";
 import { getCommunityName, isVisibleForTrack, type Track } from "@/lib/track";
 
 type QueryResult<T> = {
@@ -363,21 +362,12 @@ export async function getHomepageOverview(
       return task.is_required && template?.cadence !== "weekly_quota";
     });
 
-    const reflectionTaskId = getReflectionTaskId(visibleTodayTasks);
     const totalRequiredActs = requiredTodayTasks.length * memberIds.length;
     let completedRequiredActs = 0;
     let completedDailyCoreCount = 0;
 
     for (const memberId of memberIds) {
       const completedTaskIds = new Set(completionsByUser.get(memberId) ?? []);
-
-      if (reflectionTaskId !== null) {
-        if (reflectionUserIds.has(memberId)) {
-          completedTaskIds.add(reflectionTaskId);
-        } else {
-          completedTaskIds.delete(reflectionTaskId);
-        }
-      }
 
       const memberRequiredDone = requiredTodayTasks.filter((task) =>
         completedTaskIds.has(task.id)

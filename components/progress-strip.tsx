@@ -1,6 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
 import { getSeasonTimingForPlan } from "@/lib/season-plan";
-import { applyReflectionCompletionOverride, getReflectionTaskId } from "@/lib/task-progress";
 
 type PlanDayTaskRow = {
   id: number;
@@ -72,22 +71,6 @@ export default async function ProgressStrip() {
 
   const completionIds = new Set(
     (completions ?? []).map((completion) => completion.plan_day_task_id)
-  );
-  const reflectionTaskId = getReflectionTaskId(typedTasks);
-
-  const { data: reflectionEntryData } = reflectionTaskId
-    ? await supabase
-        .from("user_reflection_entries")
-        .select("id")
-        .eq("user_id", user.id)
-        .eq("plan_day_id", planDay.id)
-        .maybeSingle()
-    : { data: null };
-
-  applyReflectionCompletionOverride(
-    completionIds,
-    reflectionTaskId,
-    Boolean(reflectionEntryData?.id)
   );
 
   const completedRequiredCount = requiredTaskIds.filter((taskId) =>
