@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { AccountMenu } from "@/components/account-menu";
 import SignOutButton from "@/components/sign-out-button";
 import { Button } from "@/components/ui/button";
-import { UpdatesDropdown } from "@/components/updates-dropdown";
 import { cn } from "@/lib/utils";
 
 export default async function AuthNav({ mobile = false }: { mobile?: boolean }) {
@@ -22,14 +22,17 @@ export default async function AuthNav({ mobile = false }: { mobile?: boolean }) 
           mobile ? "min-w-0 flex-wrap justify-end gap-1.5" : "gap-3"
         )}
       >
-        <UpdatesDropdown />
-        <Link
-          href="/support"
-          className="text-xs font-medium text-monastic-2 underline-offset-4 transition hover:text-monastic-0 hover:underline"
-        >
-          Support
-        </Link>
-        <SignOutButton mobile={mobile} />
+        <AccountMenu
+          signOutAction={
+            <SignOutButton
+              mobile
+              className="h-10 w-full justify-start rounded-[0.85rem] px-3 text-[11px] tracking-[0.12em]"
+              label="Logout"
+              size="sm"
+              variant="outline"
+            />
+          }
+        />
       </div>
     );
   }
