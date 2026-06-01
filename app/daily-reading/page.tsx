@@ -596,7 +596,10 @@ export default async function DailyReadingPage({
 
             <SurfaceInset className="mt-4 px-4 py-4 sm:px-6 sm:py-6">
               {hasReadingText ? (
-                <ReadingTextRenderer text={planDay.reading_text ?? ""} />
+                <ReadingTextRenderer
+                  text={planDay.reading_text ?? ""}
+                  variant={catechismDay ? "catechism" : "scripture"}
+                />
               ) : (
                 <p className="text-sm text-monastic-1 sm:text-base">
                   No reading text has been added yet for this day.
