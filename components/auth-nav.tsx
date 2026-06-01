@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import SignOutButton from "@/components/sign-out-button";
 import { Button } from "@/components/ui/button";
+import { UpdatesDropdown } from "@/components/updates-dropdown";
 import { cn } from "@/lib/utils";
 
 export default async function AuthNav({ mobile = false }: { mobile?: boolean }) {
@@ -21,18 +22,7 @@ export default async function AuthNav({ mobile = false }: { mobile?: boolean }) 
           mobile ? "min-w-0 flex-wrap justify-end gap-1.5" : "gap-3"
         )}
       >
-        <Link
-          href="/announcements"
-          className="text-xs font-medium text-monastic-2 underline-offset-4 transition hover:text-monastic-0 hover:underline"
-        >
-          Announcements
-        </Link>
-        <Link
-          href="/news"
-          className="text-xs font-medium text-monastic-2 underline-offset-4 transition hover:text-monastic-0 hover:underline"
-        >
-          Roadmap
-        </Link>
+        <UpdatesDropdown />
         <Link
           href="/support"
           className="text-xs font-medium text-monastic-2 underline-offset-4 transition hover:text-monastic-0 hover:underline"
