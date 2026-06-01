@@ -25,7 +25,7 @@ export default async function AuthNav({ mobile = false }: { mobile?: boolean }) 
           href="/news"
           className="text-xs font-medium text-monastic-2 underline-offset-4 transition hover:text-monastic-0 hover:underline"
         >
-          News
+          Roadmap
         </Link>
         <Link
           href="/support"

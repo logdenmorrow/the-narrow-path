@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Download, LifeBuoy, Newspaper } from "lucide-react";
+import { Download, LifeBuoy, Map as MapIcon } from "lucide-react";
 import { PageFrame, SectionHeader, SurfaceCard, SurfaceInset } from "@/components/monastic-ui";
 import { DailyReminderSettings } from "@/components/daily-reminder-settings";
 import { PushNotificationControl } from "@/components/push-notification-control";
@@ -70,7 +70,7 @@ export default async function SettingsPage() {
 
         <div className="grid min-w-0 max-w-full gap-4 sm:grid-cols-3">
           <SurfaceInset>
-            <div className="section-kicker">News</div>
+            <div className="section-kicker">Roadmap</div>
             <h2 className="mt-2 text-xl font-semibold text-monastic-0">
               What's ahead
             </h2>
@@ -84,8 +84,8 @@ export default async function SettingsPage() {
               className="mt-4 w-full sm:w-auto"
             >
               <Link href="/news">
-                <Newspaper aria-hidden="true" />
-                News
+                <MapIcon aria-hidden="true" />
+                Roadmap
               </Link>
             </Button>
           </SurfaceInset>

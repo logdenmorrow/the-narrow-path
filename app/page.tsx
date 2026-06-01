@@ -8,6 +8,7 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { RoadmapTimeline } from "@/components/roadmap-timeline";
 import { syncAdminProfileVisibility } from "@/lib/admin";
 import { getHomepageOverview } from "@/lib/homepage-overview";
 import { createClient } from "@/lib/supabase/server";
@@ -322,6 +323,12 @@ export default async function HomePage() {
             </SurfaceCard>
           </div>
         </HeroPanel>
+
+        <RoadmapTimeline
+          variant="compact"
+          actionHref="/news"
+          actionLabel="View roadmap"
+        />
 
         <section className="grid gap-4 lg:grid-cols-3">
           {pillars.map((pillar) => (

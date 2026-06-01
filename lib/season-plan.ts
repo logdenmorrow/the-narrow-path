@@ -40,7 +40,13 @@ export type SeasonTimelineItem = {
   intensity: string;
 };
 
-export type NewsRoadmapItem = {
+export type RoadmapItem = {
+  phase:
+    | "narrow-path-90"
+    | "july-reset"
+    | "james"
+    | "gospels"
+    | "lent-2027";
   dateLabel: string;
   title: string;
   description: string;
@@ -105,30 +111,35 @@ export const SEASON_TIMELINE: SeasonTimelineItem[] = [
   },
 ];
 
-export const NEWS_ROADMAP_ITEMS: NewsRoadmapItem[] = [
+export const ROADMAP_ITEMS: RoadmapItem[] = [
   {
-    dateLabel: "Now",
+    phase: "narrow-path-90",
+    dateLabel: "April 6-July 4, 2026",
     title: ORIGINAL_CHALLENGE_PLAN_NAME,
     description: "The current challenge continues through its planned 90 days.",
   },
   {
+    phase: "july-reset",
     dateLabel: "July 2026",
-    title: "Short Break",
+    title: "July Reset",
     description:
       "A short break after Narrow Path 90. The app remains available for prayer, review, and preparation.",
   },
   {
+    phase: "james",
     dateLabel: "August 2026",
     title: AUGUST_JAMES_PLAN_NAME,
     description: "A shorter Scripture season focused on the Letter of James.",
   },
   {
+    phase: "gospels",
     dateLabel: "September 1, 2026 to February 9, 2027",
     title: GOSPELS_SEPTEMBER_LENT_PLAN_NAME,
     description:
       "The Gospels season begins September 1, 2026 and runs through February 9, 2027. The planned reading order is Mark, Matthew, Luke, and John.",
   },
   {
+    phase: "lent-2027",
     dateLabel: "Lent 2027",
     title: "Lent 2027",
     description:

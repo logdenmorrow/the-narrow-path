@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import {
   Laptop,
   LifeBuoy,
+  Map as MapIcon,
   Menu,
   Moon,
-  Newspaper,
   Settings,
   Sun,
 } from "lucide-react";
@@ -68,8 +68,8 @@ export default function MobileAccountMenu({
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="rounded-[0.85rem] px-3 py-2 text-monastic-1">
           <Link href="/news">
-            <Newspaper className="h-4 w-4 text-monastic-2" aria-hidden="true" />
-            News
+            <MapIcon className="h-4 w-4 text-monastic-2" aria-hidden="true" />
+            Roadmap
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="rounded-[0.85rem] px-3 py-2 text-monastic-1">
