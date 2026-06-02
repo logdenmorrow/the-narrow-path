@@ -9,7 +9,11 @@ import {
   adminUpdateAnnouncement,
 } from "@/lib/announcements";
 import { requireAdminUser } from "@/lib/admin-auth";
-import { sendAnnouncementPush } from "@/lib/push/announcement-broadcasts";
+import {
+  cancelAnnouncementPushSchedule,
+  scheduleAnnouncementPush,
+  sendAnnouncementPush,
+} from "@/lib/push/announcement-broadcasts";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 function redirectWithError(message: string) {
@@ -117,4 +121,55 @@ export async function sendAnnouncementPushAction(formData: FormData) {
   redirect(
     `/admin/announcements?push=sent&succeeded=${result.succeeded}&failed=${result.failed}&revoked=${result.revoked}`
   );
+}
+
+export async function scheduleAnnouncementPushAction(formData: FormData) {
+  const user = await requireAdminUser();
+  const id = String(formData.get("id") ?? "").trim();
+  const scheduledFor = String(formData.get("scheduled_for") ?? "").trim();
+
+  if (!id) {
+    redirectWithError("Announcement id is required.");
+  }
+
+  if (!scheduledFor) {
+    redirectWithError("Schedule Push At is required.");
+  }
+
+  const admin = createAdminClient();
+  const result = await scheduleAnnouncementPush({
+    admin,
+    announcementId: id,
+    scheduledFor,
+    createdBy: user.id,
+  });
+
+  if (!result.ok) {
+    redirectWithError(result.error ?? "Scheduled push was not created.");
+  }
+
+  revalidateAnnouncementPaths();
+  redirect("/admin/announcements?scheduled=1");
+}
+
+export async function cancelAnnouncementPushScheduleAction(formData: FormData) {
+  await requireAdminUser();
+  const scheduleId = String(formData.get("schedule_id") ?? "").trim();
+
+  if (!scheduleId) {
+    redirectWithError("Scheduled push id is required.");
+  }
+
+  const admin = createAdminClient();
+  const result = await cancelAnnouncementPushSchedule({
+    admin,
+    scheduleId,
+  });
+
+  if (!result.ok) {
+    redirectWithError(result.error ?? "Scheduled push was not canceled.");
+  }
+
+  revalidateAnnouncementPaths();
+  redirect("/admin/announcements?canceled=1");
 }

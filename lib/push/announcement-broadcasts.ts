@@ -17,9 +17,59 @@ type AnnouncementPushSummary = {
   error?: string;
 };
 
+export type AnnouncementPushScheduleStatus =
+  | "pending"
+  | "sending"
+  | "sent"
+  | "failed"
+  | "canceled";
+
+export type AnnouncementPushSchedule = {
+  id: string;
+  announcement_id: string;
+  scheduled_for: string;
+  status: AnnouncementPushScheduleStatus;
+  broadcast_id: string | null;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+  sent_at: string | null;
+  attempted_count: number;
+  success_count: number;
+  failure_count: number;
+  revoked_count: number;
+  error_message: string | null;
+  announcements?: {
+    title: string | null;
+    slug: string | null;
+    audience: AnnouncementAudience | null;
+    status: string | null;
+  } | null;
+};
+
+export type AnnouncementPushScheduleResult = {
+  ok: boolean;
+  schedule?: AnnouncementPushSchedule;
+  error?: string;
+};
+
+export type ScheduledAnnouncementPushResult = {
+  scheduleId: string;
+  status: AnnouncementPushScheduleStatus | "skipped";
+  attempted: number;
+  succeeded: number;
+  failed: number;
+  revoked: number;
+  broadcastId?: string | null;
+  errorMessage?: string | null;
+};
+
 const SUBSCRIPTION_PAGE_SIZE = 100;
 const USER_ID_BATCH_SIZE = 500;
 const SEND_BATCH_SIZE = 10;
+const SCHEDULE_SELECT =
+  "id, announcement_id, scheduled_for, status, broadcast_id, created_by, created_at, updated_at, sent_at, attempted_count, success_count, failure_count, revoked_count, error_message";
+const SCHEDULE_WITH_ANNOUNCEMENT_SELECT = `${SCHEDULE_SELECT}, announcements ( title, slug, audience, status )`;
 
 function truncateText(value: string, maxLength: number) {
   const trimmed = value.trim().replace(/\s+/g, " ");
@@ -207,7 +257,7 @@ export async function sendAnnouncementPush({
 }: {
   admin: AdminSupabaseClient;
   announcementId: string;
-  createdBy: string;
+  createdBy?: string | null;
 }): Promise<AnnouncementPushSummary> {
   const { data, error } = await admin
     .from("announcements")
@@ -249,7 +299,7 @@ export async function sendAnnouncementPush({
   const { data: broadcast, error: broadcastError } = await admin
     .from("notification_broadcasts")
     .insert({
-      created_by: createdBy,
+      created_by: createdBy ?? null,
       title,
       body,
       target_url: targetUrl,
@@ -392,5 +442,261 @@ export async function sendAnnouncementPush({
         ? `Push sent: ${summary.succeeded} delivered, ${summary.failed} failed.`
         : "No announcement push notifications were delivered.",
     error: errorMessage ?? undefined,
+  };
+}
+
+export async function listAnnouncementPushSchedules(admin: AdminSupabaseClient) {
+  const { data, error } = await admin
+    .from("announcement_push_schedules")
+    .select(SCHEDULE_WITH_ANNOUNCEMENT_SELECT)
+    .order("scheduled_for", { ascending: false })
+    .limit(200);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return (data ?? []) as unknown as AnnouncementPushSchedule[];
+}
+
+export async function listDueAnnouncementPushSchedules({
+  admin,
+  limit,
+  now = new Date(),
+}: {
+  admin: AdminSupabaseClient;
+  limit: number;
+  now?: Date;
+}) {
+  const { data, error } = await admin
+    .from("announcement_push_schedules")
+    .select(SCHEDULE_WITH_ANNOUNCEMENT_SELECT)
+    .eq("status", "pending")
+    .lte("scheduled_for", now.toISOString())
+    .order("scheduled_for", { ascending: true })
+    .limit(limit);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return (data ?? []) as unknown as AnnouncementPushSchedule[];
+}
+
+export async function scheduleAnnouncementPush({
+  admin,
+  announcementId,
+  scheduledFor,
+  createdBy,
+}: {
+  admin: AdminSupabaseClient;
+  announcementId: string;
+  scheduledFor: string;
+  createdBy: string;
+}): Promise<AnnouncementPushScheduleResult> {
+  const scheduledDate = new Date(scheduledFor);
+
+  if (Number.isNaN(scheduledDate.getTime())) {
+    return { ok: false, error: "Schedule Push At must be a valid date and time." };
+  }
+
+  if (scheduledDate.getTime() <= Date.now()) {
+    return { ok: false, error: "Schedule Push At must be in the future." };
+  }
+
+  const { data: announcementData, error: announcementError } = await admin
+    .from("announcements")
+    .select(
+      "id, title, slug, summary, body, category, audience, status, is_pinned, published_at, expires_at, cta_label, cta_href, created_by, created_at, updated_at"
+    )
+    .eq("id", announcementId)
+    .maybeSingle();
+
+  if (announcementError || !announcementData) {
+    return {
+      ok: false,
+      error: announcementError?.message ?? "Announcement was not found.",
+    };
+  }
+
+  if (!isAnnouncementVisibleNow(announcementData as Announcement)) {
+    return {
+      ok: false,
+      error: "Only currently visible published announcements can be scheduled for push.",
+    };
+  }
+
+  const { data, error } = await admin
+    .from("announcement_push_schedules")
+    .insert({
+      announcement_id: announcementId,
+      scheduled_for: scheduledDate.toISOString(),
+      status: "pending",
+      created_by: createdBy,
+    })
+    .select(SCHEDULE_WITH_ANNOUNCEMENT_SELECT)
+    .single();
+
+  if (error) {
+    return { ok: false, error: error.message };
+  }
+
+  return {
+    ok: true,
+    schedule: data as unknown as AnnouncementPushSchedule,
+  };
+}
+
+export async function cancelAnnouncementPushSchedule({
+  admin,
+  scheduleId,
+}: {
+  admin: AdminSupabaseClient;
+  scheduleId: string;
+}): Promise<AnnouncementPushScheduleResult> {
+  const { data, error } = await admin
+    .from("announcement_push_schedules")
+    .update({
+      status: "canceled",
+      error_message: "Canceled by admin.",
+    })
+    .eq("id", scheduleId)
+    .eq("status", "pending")
+    .select(SCHEDULE_WITH_ANNOUNCEMENT_SELECT)
+    .maybeSingle();
+
+  if (error || !data) {
+    return {
+      ok: false,
+      error: error?.message ?? "Only pending scheduled pushes can be canceled.",
+    };
+  }
+
+  return {
+    ok: true,
+    schedule: data as unknown as AnnouncementPushSchedule,
+  };
+}
+
+async function updateScheduleAfterSend({
+  admin,
+  scheduleId,
+  result,
+}: {
+  admin: AdminSupabaseClient;
+  scheduleId: string;
+  result: AnnouncementPushSummary;
+}) {
+  const status: AnnouncementPushScheduleStatus =
+    result.ok && result.attempted > 0 ? "sent" : "failed";
+  const { error } = await admin
+    .from("announcement_push_schedules")
+    .update({
+      status,
+      broadcast_id: result.broadcastId ?? null,
+      attempted_count: result.attempted,
+      success_count: result.succeeded,
+      failure_count: result.failed,
+      revoked_count: result.revoked,
+      sent_at: new Date().toISOString(),
+      error_message: status === "sent" ? null : result.error ?? result.message,
+    })
+    .eq("id", scheduleId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return status;
+}
+
+export async function sendScheduledAnnouncementPush({
+  admin,
+  scheduleId,
+  now = new Date(),
+}: {
+  admin: AdminSupabaseClient;
+  scheduleId: string;
+  now?: Date;
+}): Promise<ScheduledAnnouncementPushResult> {
+  const { data: claimedSchedule, error: claimError } = await admin
+    .from("announcement_push_schedules")
+    .update({ status: "sending" })
+    .eq("id", scheduleId)
+    .eq("status", "pending")
+    .lte("scheduled_for", now.toISOString())
+    .select(SCHEDULE_SELECT)
+    .maybeSingle();
+
+  if (claimError) {
+    throw new Error(claimError.message);
+  }
+
+  if (!claimedSchedule) {
+    return {
+      scheduleId,
+      status: "skipped",
+      attempted: 0,
+      succeeded: 0,
+      failed: 0,
+      revoked: 0,
+      errorMessage: "Schedule was already claimed, canceled, or no longer due.",
+    };
+  }
+
+  const schedule = claimedSchedule as AnnouncementPushSchedule;
+  let result: AnnouncementPushSummary;
+
+  try {
+    result = await sendAnnouncementPush({
+      admin,
+      announcementId: schedule.announcement_id,
+      createdBy: schedule.created_by,
+    });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : "Scheduled announcement push failed.";
+
+    await admin
+      .from("announcement_push_schedules")
+      .update({
+        status: "failed",
+        attempted_count: 0,
+        success_count: 0,
+        failure_count: 1,
+        revoked_count: 0,
+        sent_at: new Date().toISOString(),
+        error_message: errorMessage,
+      })
+      .eq("id", scheduleId);
+
+    return {
+      scheduleId,
+      status: "failed",
+      attempted: 0,
+      succeeded: 0,
+      failed: 1,
+      revoked: 0,
+      errorMessage,
+    };
+  }
+
+  const status = await updateScheduleAfterSend({
+    admin,
+    scheduleId,
+    result,
+  });
+
+  return {
+    scheduleId,
+    status,
+    attempted: result.attempted,
+    succeeded: result.succeeded,
+    failed: result.failed,
+    revoked: result.revoked,
+    broadcastId: result.broadcastId ?? null,
+    errorMessage: status === "sent" ? null : result.error ?? result.message,
   };
 }

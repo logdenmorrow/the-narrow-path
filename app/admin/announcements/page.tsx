@@ -2,10 +2,12 @@ import Link from "next/link";
 import {
   Archive,
   BellRing,
+  Clock,
   Megaphone,
   Pencil,
   Plus,
   Send,
+  XCircle,
 } from "lucide-react";
 import {
   HeroPanel,
@@ -19,8 +21,10 @@ import { AppActionBar } from "@/components/page-actions";
 import { Button } from "@/components/ui/button";
 import {
   archiveAnnouncementAction,
+  cancelAnnouncementPushScheduleAction,
   createAnnouncementAction,
   publishAnnouncementAction,
+  scheduleAnnouncementPushAction,
   sendAnnouncementPushAction,
   updateAnnouncementAction,
 } from "@/app/admin/announcements/actions";
@@ -35,6 +39,10 @@ import {
   type Announcement,
 } from "@/lib/announcements";
 import { requireAdminUser } from "@/lib/admin-auth";
+import {
+  listAnnouncementPushSchedules,
+  type AnnouncementPushSchedule,
+} from "@/lib/push/announcement-broadcasts";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -62,6 +70,20 @@ function toDateTimeLocal(value: string | null) {
   }
 
   return date.toISOString().slice(0, 16);
+}
+
+function formatAdminDateTime(value: string | null) {
+  if (!value) {
+    return "Not set";
+  }
+
+  return new Date(value).toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
 }
 
 function isCurrentlyVisibleAnnouncement(announcement: Announcement) {
@@ -106,6 +128,10 @@ function StatusNotice({
     message = "Announcement published.";
   } else if (getSearchParam(searchParams, "archived") === "1") {
     message = "Announcement archived.";
+  } else if (getSearchParam(searchParams, "scheduled") === "1") {
+    message = "Push scheduled.";
+  } else if (getSearchParam(searchParams, "canceled") === "1") {
+    message = "Scheduled push canceled.";
   } else if (getSearchParam(searchParams, "push") === "none") {
     message = "No active push subscriptions matched this audience.";
   } else if (getSearchParam(searchParams, "push") === "sent") {
@@ -119,6 +145,59 @@ function StatusNotice({
   return (
     <div className="rounded-[1rem] border border-emerald-700/40 bg-emerald-950/20 px-4 py-3 text-sm leading-6 text-emerald-100">
       {message}
+    </div>
+  );
+}
+
+function ScheduleRows({
+  schedules,
+}: {
+  schedules: AnnouncementPushSchedule[];
+}) {
+  if (schedules.length === 0) {
+    return (
+      <p className="mt-3 text-sm leading-6 text-monastic-1">
+        No scheduled pushes for this announcement.
+      </p>
+    );
+  }
+
+  return (
+    <div className="mt-3 divide-y divide-[color:var(--line-soft)] border-y border-[color:var(--line-soft)]">
+      {schedules.map((schedule) => (
+        <div
+          key={schedule.id}
+          className="grid gap-3 py-3 lg:grid-cols-[1fr_auto] lg:items-center"
+        >
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-monastic-0">
+              {formatAdminDateTime(schedule.scheduled_for)}
+            </p>
+            <p className="mt-1 text-xs leading-5 text-monastic-1">
+              {formatAnnouncementLabel(schedule.status)}
+              {schedule.sent_at ? ` / Sent ${formatAdminDateTime(schedule.sent_at)}` : ""}
+              {" / "}
+              {schedule.success_count} delivered, {schedule.failure_count} failed,{" "}
+              {schedule.revoked_count} revoked
+            </p>
+            {schedule.error_message ? (
+              <p className="mt-1 text-xs leading-5 text-red-200">
+                {schedule.error_message}
+              </p>
+            ) : null}
+          </div>
+
+          {schedule.status === "pending" ? (
+            <form action={cancelAnnouncementPushScheduleAction}>
+              <input type="hidden" name="schedule_id" value={schedule.id} />
+              <Button type="submit" variant="outline" size="sm">
+                <XCircle aria-hidden="true" />
+                Cancel
+              </Button>
+            </form>
+          ) : null}
+        </div>
+      ))}
     </div>
   );
 }
@@ -330,6 +409,14 @@ export default async function AdminAnnouncementsPage({
   const resolvedSearchParams = await searchParams;
   const admin = createAdminClient();
   const announcements = await adminListAnnouncements(admin);
+  const schedules = await listAnnouncementPushSchedules(admin);
+  const schedulesByAnnouncementId = new Map<string, AnnouncementPushSchedule[]>();
+
+  for (const schedule of schedules) {
+    const existing = schedulesByAnnouncementId.get(schedule.announcement_id) ?? [];
+    existing.push(schedule);
+    schedulesByAnnouncementId.set(schedule.announcement_id, existing);
+  }
 
   return (
     <main className="monastic-page">
@@ -407,60 +494,95 @@ export default async function AdminAnnouncementsPage({
             <div className="mt-5 space-y-5">
               {announcements.map((announcement) => {
                 const canSendPush = isCurrentlyVisibleAnnouncement(announcement);
+                const announcementSchedules =
+                  schedulesByAnnouncementId.get(announcement.id) ?? [];
 
                 return (
                   <SurfaceInset key={announcement.id}>
-                  <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
-                    <div>
-                      <p className="section-kicker">
-                        {formatAnnouncementLabel(announcement.status)} /{" "}
-                        {formatAnnouncementLabel(announcement.audience)} /{" "}
-                        {formatAnnouncementLabel(announcement.category)}
-                      </p>
-                      <h2 className="mt-2 text-2xl font-semibold text-monastic-0">
-                        {announcement.title}
-                      </h2>
-                      <p className="mt-2 text-sm text-monastic-1">
-                        Published: {formatAnnouncementDate(announcement.published_at)}
-                      </p>
-                    </div>
+                    <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                      <div>
+                        <p className="section-kicker">
+                          {formatAnnouncementLabel(announcement.status)} /{" "}
+                          {formatAnnouncementLabel(announcement.audience)} /{" "}
+                          {formatAnnouncementLabel(announcement.category)}
+                        </p>
+                        <h2 className="mt-2 text-2xl font-semibold text-monastic-0">
+                          {announcement.title}
+                        </h2>
+                        <p className="mt-2 text-sm text-monastic-1">
+                          Published: {formatAnnouncementDate(announcement.published_at)}
+                        </p>
+                      </div>
 
-                    <div className="flex flex-wrap gap-2">
-                      {canSendPush ? (
-                        <Button asChild variant="outline" size="sm">
-                          <Link href={`/announcements/${announcement.slug}`}>
-                            <Megaphone aria-hidden="true" />
-                            View
-                          </Link>
-                        </Button>
-                      ) : null}
+                      <div className="flex flex-wrap gap-2">
+                        {canSendPush ? (
+                          <Button asChild variant="outline" size="sm">
+                            <Link href={`/announcements/${announcement.slug}`}>
+                              <Megaphone aria-hidden="true" />
+                              View
+                            </Link>
+                          </Button>
+                        ) : null}
 
-                      {canSendPush ? (
-                        <form action={sendAnnouncementPushAction}>
+                        {canSendPush ? (
+                          <form action={sendAnnouncementPushAction}>
+                            <input type="hidden" name="id" value={announcement.id} />
+                            <Button type="submit" variant="primary" size="sm">
+                              <BellRing aria-hidden="true" />
+                              Send Push
+                            </Button>
+                          </form>
+                        ) : null}
+
+                        <form action={publishAnnouncementAction}>
                           <input type="hidden" name="id" value={announcement.id} />
-                          <Button type="submit" variant="primary" size="sm">
-                            <BellRing aria-hidden="true" />
-                            Send Push
+                          <Button type="submit" variant="secondary" size="sm">
+                            <Send aria-hidden="true" />
+                            Publish
                           </Button>
                         </form>
-                      ) : null}
 
-                      <form action={publishAnnouncementAction}>
-                        <input type="hidden" name="id" value={announcement.id} />
-                        <Button type="submit" variant="secondary" size="sm">
-                          <Send aria-hidden="true" />
-                          Publish
-                        </Button>
-                      </form>
-
-                      <form action={archiveAnnouncementAction}>
-                        <input type="hidden" name="id" value={announcement.id} />
-                        <Button type="submit" variant="outline" size="sm">
-                          <Archive aria-hidden="true" />
-                          Archive
-                        </Button>
-                      </form>
+                        <form action={archiveAnnouncementAction}>
+                          <input type="hidden" name="id" value={announcement.id} />
+                          <Button type="submit" variant="outline" size="sm">
+                            <Archive aria-hidden="true" />
+                            Archive
+                          </Button>
+                        </form>
+                      </div>
                     </div>
+
+                  {canSendPush ? (
+                    <form
+                      action={scheduleAnnouncementPushAction}
+                      className="mb-5 grid gap-3 border-y border-[color:var(--line-soft)] py-4 sm:grid-cols-[1fr_auto] sm:items-end"
+                    >
+                      <input type="hidden" name="id" value={announcement.id} />
+                      <div className="grid gap-2">
+                        <label
+                          htmlFor={`scheduled-for-${announcement.id}`}
+                          className={labelClassName}
+                        >
+                          Schedule Push At
+                        </label>
+                        <input
+                          id={`scheduled-for-${announcement.id}`}
+                          name="scheduled_for"
+                          type="datetime-local"
+                          required
+                          className={fieldClassName}
+                        />
+                      </div>
+                      <Button type="submit" variant="outline" size="sm">
+                        <Clock aria-hidden="true" />
+                        Schedule Push
+                      </Button>
+                    </form>
+                  ) : null}
+
+                  <div className="mb-5">
+                    <div className="section-kicker">Scheduled Pushes</div>
+                    <ScheduleRows schedules={announcementSchedules} />
                   </div>
 
                   <form action={updateAnnouncementAction} className="space-y-5">
