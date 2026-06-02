@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   Archive,
+  BellRing,
   Megaphone,
   Pencil,
   Plus,
@@ -20,6 +21,7 @@ import {
   archiveAnnouncementAction,
   createAnnouncementAction,
   publishAnnouncementAction,
+  sendAnnouncementPushAction,
   updateAnnouncementAction,
 } from "@/app/admin/announcements/actions";
 import {
@@ -62,6 +64,23 @@ function toDateTimeLocal(value: string | null) {
   return date.toISOString().slice(0, 16);
 }
 
+function isCurrentlyVisibleAnnouncement(announcement: Announcement) {
+  const now = Date.now();
+  const publishedAt = announcement.published_at
+    ? new Date(announcement.published_at).getTime()
+    : Number.NaN;
+  const expiresAt = announcement.expires_at
+    ? new Date(announcement.expires_at).getTime()
+    : null;
+
+  return (
+    announcement.status === "published" &&
+    Number.isFinite(publishedAt) &&
+    publishedAt <= now &&
+    (expiresAt === null || (Number.isFinite(expiresAt) && expiresAt > now))
+  );
+}
+
 function StatusNotice({
   searchParams,
 }: {
@@ -77,16 +96,21 @@ function StatusNotice({
     );
   }
 
-  const message =
-    getSearchParam(searchParams, "created") === "1"
-      ? "Announcement created."
-      : getSearchParam(searchParams, "updated") === "1"
-        ? "Announcement updated."
-        : getSearchParam(searchParams, "published") === "1"
-          ? "Announcement published."
-          : getSearchParam(searchParams, "archived") === "1"
-            ? "Announcement archived."
-            : null;
+  let message: string | null = null;
+
+  if (getSearchParam(searchParams, "created") === "1") {
+    message = "Announcement created.";
+  } else if (getSearchParam(searchParams, "updated") === "1") {
+    message = "Announcement updated.";
+  } else if (getSearchParam(searchParams, "published") === "1") {
+    message = "Announcement published.";
+  } else if (getSearchParam(searchParams, "archived") === "1") {
+    message = "Announcement archived.";
+  } else if (getSearchParam(searchParams, "push") === "none") {
+    message = "No active push subscriptions matched this audience.";
+  } else if (getSearchParam(searchParams, "push") === "sent") {
+    message = `Push sent: ${getSearchParam(searchParams, "succeeded") ?? "0"} delivered, ${getSearchParam(searchParams, "failed") ?? "0"} failed, ${getSearchParam(searchParams, "revoked") ?? "0"} revoked.`;
+  }
 
   if (!message) {
     return null;
@@ -381,8 +405,11 @@ export default async function AdminAnnouncementsPage({
             </p>
           ) : (
             <div className="mt-5 space-y-5">
-              {announcements.map((announcement) => (
-                <SurfaceInset key={announcement.id}>
+              {announcements.map((announcement) => {
+                const canSendPush = isCurrentlyVisibleAnnouncement(announcement);
+
+                return (
+                  <SurfaceInset key={announcement.id}>
                   <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
                     <div>
                       <p className="section-kicker">
@@ -399,13 +426,23 @@ export default async function AdminAnnouncementsPage({
                     </div>
 
                     <div className="flex flex-wrap gap-2">
-                      {announcement.status === "published" ? (
+                      {canSendPush ? (
                         <Button asChild variant="outline" size="sm">
                           <Link href={`/announcements/${announcement.slug}`}>
                             <Megaphone aria-hidden="true" />
                             View
                           </Link>
                         </Button>
+                      ) : null}
+
+                      {canSendPush ? (
+                        <form action={sendAnnouncementPushAction}>
+                          <input type="hidden" name="id" value={announcement.id} />
+                          <Button type="submit" variant="primary" size="sm">
+                            <BellRing aria-hidden="true" />
+                            Send Push
+                          </Button>
+                        </form>
                       ) : null}
 
                       <form action={publishAnnouncementAction}>
@@ -433,8 +470,9 @@ export default async function AdminAnnouncementsPage({
                       Save Changes
                     </Button>
                   </form>
-                </SurfaceInset>
-              ))}
+                  </SurfaceInset>
+                );
+              })}
             </div>
           )}
         </SurfaceCard>

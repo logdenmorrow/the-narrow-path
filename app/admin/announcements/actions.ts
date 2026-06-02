@@ -9,6 +9,7 @@ import {
   adminUpdateAnnouncement,
 } from "@/lib/announcements";
 import { requireAdminUser } from "@/lib/admin-auth";
+import { sendAnnouncementPush } from "@/lib/push/announcement-broadcasts";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 function redirectWithError(message: string) {
@@ -86,4 +87,34 @@ export async function archiveAnnouncementAction(formData: FormData) {
 
   revalidateAnnouncementPaths();
   redirect("/admin/announcements?archived=1");
+}
+
+export async function sendAnnouncementPushAction(formData: FormData) {
+  const user = await requireAdminUser();
+  const id = String(formData.get("id") ?? "").trim();
+
+  if (!id) {
+    redirectWithError("Announcement id is required.");
+  }
+
+  const admin = createAdminClient();
+  const result = await sendAnnouncementPush({
+    admin,
+    announcementId: id,
+    createdBy: user.id,
+  });
+
+  if (!result.ok) {
+    redirectWithError(result.error ?? result.message);
+  }
+
+  revalidateAnnouncementPaths();
+
+  if (result.attempted === 0) {
+    redirect("/admin/announcements?push=none");
+  }
+
+  redirect(
+    `/admin/announcements?push=sent&succeeded=${result.succeeded}&failed=${result.failed}&revoked=${result.revoked}`
+  );
 }
