@@ -15,6 +15,7 @@
 /test-results/
 /playwright-report/
 /.auth/
+/playwright/.auth/
 
 # next.js
 /.next/
@@ -60,3 +61,4 @@ gospel-preview-scan-log.json
 gospel-preview-page-dump.txt
 production-page-audit-log.json
 production-page-audit-summary.txt
+prayer-request-visibility-scan-log.json
