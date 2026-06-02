@@ -354,7 +354,7 @@ export default async function BrotherhoodPage({
       prayerAuthorProfileById.get(request.user_id) ?? profileById.get(request.user_id);
 
     if (!authorProfile) {
-      return normalizePrayerRequestVisibility(request.visibility) === "shared";
+      return false;
     }
 
     return (
