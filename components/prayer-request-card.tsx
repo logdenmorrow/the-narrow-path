@@ -8,11 +8,17 @@ import {
   PRAYER_REQUEST_CATEGORY_VALUES,
   type PrayerRequestCategory,
 } from "@/lib/accountability";
+import {
+  getPrayerRequestVisibilityLabel,
+  normalizePrayerRequestVisibility,
+  type PrayerRequestVisibility,
+} from "@/lib/prayer-requests";
 import { Button } from "@/components/ui/button";
 
 type PrayerRequestCardProps = {
   initialCategory: PrayerRequestCategory | null;
   initialNote: string;
+  initialVisibility?: PrayerRequestVisibility | null;
   communityName?: string;
   disabled?: boolean;
   helperText?: string;
@@ -23,6 +29,7 @@ const NOTE_MAX_LENGTH = 200;
 export function PrayerRequestCard({
   initialCategory,
   initialNote,
+  initialVisibility = "track",
   communityName = "Brotherhood",
   disabled = false,
   helperText,
@@ -34,20 +41,37 @@ export function PrayerRequestCard({
     initialCategory ?? "unspoken"
   );
   const [note, setNote] = useState(initialNote);
+  const [visibility, setVisibility] = useState<PrayerRequestVisibility>(
+    normalizePrayerRequestVisibility(initialVisibility)
+  );
   const [savedCategory, setSavedCategory] = useState<PrayerRequestCategory | null>(
     initialCategory
   );
   const [savedNote, setSavedNote] = useState(initialNote);
+  const [savedVisibility, setSavedVisibility] = useState<PrayerRequestVisibility>(
+    normalizePrayerRequestVisibility(initialVisibility)
+  );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     setCategory(initialCategory ?? "unspoken");
     setNote(initialNote);
+    setVisibility(normalizePrayerRequestVisibility(initialVisibility));
     setSavedCategory(initialCategory);
     setSavedNote(initialNote);
-  }, [initialCategory, initialNote]);
+    setSavedVisibility(normalizePrayerRequestVisibility(initialVisibility));
+  }, [initialCategory, initialNote, initialVisibility]);
 
   const hasPrayerRequest = Boolean(savedCategory);
+  const communityTrack = communityName === "Sisterhood" ? "sisterhood" : "brotherhood";
+  const savedVisibilityLabel = getPrayerRequestVisibilityLabel({
+    visibility: savedVisibility,
+    track: communityTrack,
+  });
+  const selectedVisibilityLabel = getPrayerRequestVisibilityLabel({
+    visibility,
+    track: communityTrack,
+  });
 
   const handleSubmit = () => {
     if (disabled || isPending) return;
@@ -60,9 +84,11 @@ export function PrayerRequestCard({
         const formData = new FormData();
         formData.set("category", category);
         formData.set("note", trimmedNote);
+        formData.set("visibility", visibility);
         await savePrayerRequest(formData);
         setSavedCategory(category);
         setSavedNote(trimmedNote);
+        setSavedVisibility(visibility);
         setIsEditing(false);
         router.refresh();
       } catch (error) {
@@ -85,6 +111,7 @@ export function PrayerRequestCard({
         setSavedNote("");
         setCategory("unspoken");
         setNote("");
+        setVisibility("track");
         setIsEditing(false);
         router.refresh();
       } catch (error) {
@@ -106,6 +133,9 @@ export function PrayerRequestCard({
             <p className="mt-3 text-lg font-semibold text-monastic-0">
               {savedCategory ? PRAYER_REQUEST_CATEGORY_LABELS[savedCategory] : ""}
             </p>
+            <p className="mt-2 inline-flex rounded-full border border-[color:var(--line-soft)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-monastic-1">
+              {savedVisibilityLabel}
+            </p>
             {savedNote ? (
               <p className="mt-2 text-sm leading-6 text-monastic-1">{savedNote}</p>
             ) : null}
@@ -119,6 +149,7 @@ export function PrayerRequestCard({
               onClick={() => {
                 setCategory(savedCategory ?? "unspoken");
                 setNote(savedNote);
+                setVisibility(savedVisibility);
                 setIsEditing(true);
               }}
             >
@@ -175,8 +206,7 @@ export function PrayerRequestCard({
 
               <div className="space-y-2">
                 <label htmlFor="prayer-note" className="text-sm font-medium text-monastic-1">
-                  Optional note. Keep it short. This will be visible to the{" "}
-                  {communityName.toLowerCase()}.
+                  Optional note. Keep it short.
                 </label>
                 <textarea
                   id="prayer-note"
@@ -191,6 +221,59 @@ export function PrayerRequestCard({
                   {note.length}/{NOTE_MAX_LENGTH}
                 </p>
               </div>
+
+              <fieldset className="space-y-2">
+                <legend className="text-sm font-medium text-monastic-1">
+                  Visibility
+                </legend>
+                <div className="grid gap-2">
+                  <label className="flex cursor-pointer items-start gap-3 rounded-[0.9rem] border border-monastic bg-[color:var(--surface-1)] p-3 text-sm leading-6 text-monastic-1 transition hover:bg-[color:var(--surface-3)]">
+                    <input
+                      type="radio"
+                      name="prayer-visibility"
+                      value="track"
+                      checked={visibility === "track"}
+                      disabled={disabled || isPending}
+                      onChange={() => setVisibility("track")}
+                      className="mt-1"
+                    />
+                    <span>
+                      <span className="block font-semibold text-monastic-0">
+                        {getPrayerRequestVisibilityLabel({
+                          visibility: "track",
+                          track: communityTrack,
+                        })}
+                      </span>
+                      <span className="block text-xs uppercase tracking-[0.12em] text-monastic-2">
+                        Only your {communityName.toLowerCase()} can see it.
+                      </span>
+                    </span>
+                  </label>
+
+                  <label className="flex cursor-pointer items-start gap-3 rounded-[0.9rem] border border-monastic bg-[color:var(--surface-1)] p-3 text-sm leading-6 text-monastic-1 transition hover:bg-[color:var(--surface-3)]">
+                    <input
+                      type="radio"
+                      name="prayer-visibility"
+                      value="shared"
+                      checked={visibility === "shared"}
+                      disabled={disabled || isPending}
+                      onChange={() => setVisibility("shared")}
+                      className="mt-1"
+                    />
+                    <span>
+                      <span className="block font-semibold text-monastic-0">
+                        Shared with both tracks
+                      </span>
+                      <span className="block text-xs uppercase tracking-[0.12em] text-monastic-2">
+                        Brotherhood and Sisterhood can pray for it.
+                      </span>
+                    </span>
+                  </label>
+                </div>
+                <p className="text-xs uppercase tracking-[0.16em] text-monastic-2">
+                  {selectedVisibilityLabel}
+                </p>
+              </fieldset>
 
               <div className="flex flex-wrap gap-3">
                 <Button
@@ -208,6 +291,7 @@ export function PrayerRequestCard({
                     setErrorMessage(null);
                     setCategory(savedCategory ?? "unspoken");
                     setNote(savedNote);
+                    setVisibility(savedVisibility);
                     setIsEditing(false);
                   }}
                 >

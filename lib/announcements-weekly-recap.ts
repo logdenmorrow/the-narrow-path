@@ -9,9 +9,16 @@ import {
   PRAYER_REQUEST_CATEGORY_LABELS,
   type PrayerRequestCategory,
 } from "@/lib/accountability";
+import {
+  getPrayerRequestAuthorLabel,
+  getPrayerRequestVisibilityLabel,
+  isPrayerRequestVisibleForTrack,
+  normalizePrayerRequestVisibility,
+  type PrayerRequestVisibility,
+} from "@/lib/prayer-requests";
 import { sendAnnouncementPush } from "@/lib/push/announcement-broadcasts";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { TRACKS, type Track } from "@/lib/track";
+import { normalizeTrack, TRACKS, type Track } from "@/lib/track";
 
 type AdminSupabaseClient = ReturnType<typeof createAdminClient>;
 
@@ -20,6 +27,8 @@ type ProfileRow = {
   display_name: string | null;
   first_name: string | null;
   last_name: string | null;
+  track: string | null;
+  is_hidden_from_community: boolean | null;
 };
 
 type CheckinRow = {
@@ -32,6 +41,7 @@ type PrayerRequestRow = {
   request_date: string;
   category: PrayerRequestCategory;
   note: string | null;
+  visibility: PrayerRequestVisibility | null;
   created_at: string;
 };
 
@@ -170,14 +180,19 @@ function buildRecapContent({
   profiles,
   checkins,
   prayerRequests,
+  prayerAuthorProfiles,
 }: {
   track: Track;
   weekEnd: string;
   profiles: ProfileRow[];
   checkins: CheckinRow[];
   prayerRequests: PrayerRequestRow[];
+  prayerAuthorProfiles: ProfileRow[];
 }) {
   const profileById = new Map(profiles.map((profile) => [profile.id, profile]));
+  const prayerAuthorProfileById = new Map(
+    prayerAuthorProfiles.map((profile) => [profile.id, profile])
+  );
   const visibleMemberIds = new Set(profileById.keys());
   const checkinDatesByUserId = new Map<string, Set<string>>();
 
@@ -191,9 +206,19 @@ function buildRecapContent({
     checkinDatesByUserId.set(checkin.user_id, dates);
   }
 
-  const visiblePrayerRequests = prayerRequests.filter((request) =>
-    visibleMemberIds.has(request.user_id)
-  );
+  const visiblePrayerRequests = prayerRequests.filter((request) => {
+    const authorProfile =
+      prayerAuthorProfileById.get(request.user_id) ?? profileById.get(request.user_id);
+
+    return (
+      authorProfile?.is_hidden_from_community === false &&
+      isPrayerRequestVisibleForTrack({
+        visibility: request.visibility,
+        authorTrack: authorProfile.track,
+        viewerTrack: track,
+      })
+    );
+  });
   const eligibleMembers = profiles.length;
   const checkedInAtLeastOnce = checkinDatesByUserId.size;
   const checkedInFivePlusDays = Array.from(checkinDatesByUserId.values()).filter(
@@ -205,10 +230,23 @@ function buildRecapContent({
   const summary = `This week: ${checkedInAtLeastOnce}/${eligibleMembers} checked in, ${checkedInFivePlusDays} reached 5+ days, and ${prayerRequestCount} prayer requests were shared.`;
   const prayerLines =
     visiblePrayerRequests.length > 0
-      ? visiblePrayerRequests.map(
-          (request) =>
-            `- ${formatPrayerName(profileById.get(request.user_id))}: ${getPrayerText(request)}`
-        )
+      ? visiblePrayerRequests.map((request) => {
+          const authorProfile =
+            prayerAuthorProfileById.get(request.user_id) ??
+            profileById.get(request.user_id);
+          const authorTrack = normalizeTrack(authorProfile?.track);
+          const authorLabel = getPrayerRequestAuthorLabel({
+            authorProfile,
+            viewerTrack: track,
+            sameTrackName: formatPrayerName(authorProfile),
+          });
+          const visibilityLabel = getPrayerRequestVisibilityLabel({
+            visibility: normalizePrayerRequestVisibility(request.visibility),
+            track: authorTrack,
+          });
+
+          return `- ${authorLabel}: ${getPrayerText(request)} (${visibilityLabel})`;
+        })
       : ["None this week."];
   const body = [
     "This week:",
@@ -251,16 +289,21 @@ async function loadTrackRecapData({
 }) {
   const [
     profilesResult,
+    prayerAuthorProfilesResult,
     checkinsResult,
     prayerRequestsResult,
     existingAnnouncementResult,
   ] = await Promise.all([
     admin
       .from("profiles")
-      .select("id, display_name, first_name, last_name")
+      .select("id, display_name, first_name, last_name, track, is_hidden_from_community")
       .eq("track", track)
       .eq("is_hidden_from_community", false)
       .order("display_name"),
+    admin
+      .from("profiles")
+      .select("id, display_name, first_name, last_name, track, is_hidden_from_community")
+      .eq("is_hidden_from_community", false),
     admin
       .from("user_daily_checkins")
       .select("user_id, day_date")
@@ -268,7 +311,7 @@ async function loadTrackRecapData({
       .lte("day_date", weekEnd),
     admin
       .from("user_prayer_requests")
-      .select("user_id, request_date, category, note, created_at")
+      .select("user_id, request_date, category, note, visibility, created_at")
       .gte("request_date", weekStart)
       .lte("request_date", weekEnd)
       .order("request_date", { ascending: true })
@@ -284,6 +327,10 @@ async function loadTrackRecapData({
     throw new Error(checkinsResult.error.message);
   }
 
+  if (prayerAuthorProfilesResult.error) {
+    throw new Error(prayerAuthorProfilesResult.error.message);
+  }
+
   if (prayerRequestsResult.error) {
     throw new Error(prayerRequestsResult.error.message);
   }
@@ -294,6 +341,7 @@ async function loadTrackRecapData({
 
   return {
     profiles: (profilesResult.data ?? []) as ProfileRow[],
+    prayerAuthorProfiles: (prayerAuthorProfilesResult.data ?? []) as ProfileRow[],
     checkins: (checkinsResult.data ?? []) as CheckinRow[],
     prayerRequests: (prayerRequestsResult.data ?? []) as PrayerRequestRow[],
     existingAnnouncement: (existingAnnouncementResult.data ??
@@ -317,7 +365,13 @@ async function generateTrackRecap({
   now: Date;
 }): Promise<WeeklyRecapTrackResult> {
   const slug = `weekly-recap-${track}-${weekEnd}`;
-  const { profiles, checkins, prayerRequests, existingAnnouncement } =
+  const {
+    profiles,
+    prayerAuthorProfiles,
+    checkins,
+    prayerRequests,
+    existingAnnouncement,
+  } =
     await loadTrackRecapData({ admin, track, weekStart, weekEnd, slug });
   const content = buildRecapContent({
     track,
@@ -325,6 +379,7 @@ async function generateTrackRecap({
     profiles,
     checkins,
     prayerRequests,
+    prayerAuthorProfiles,
   });
   const baseResult = {
     track,

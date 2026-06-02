@@ -26,6 +26,13 @@ import { formatLastActiveAt, updateLastActiveAt } from "@/lib/last-active";
 import { createClient } from "@/lib/supabase/server";
 import { getCommunityName, isVisibleForTrack, type Track } from "@/lib/track";
 import {
+  getPrayerRequestAuthorLabel,
+  getPrayerRequestVisibilityLabel,
+  isPrayerRequestVisibleForTrack,
+  normalizePrayerRequestVisibility,
+  type PrayerRequestVisibility,
+} from "@/lib/prayer-requests";
+import {
   DAILY_STATUS_LABELS,
   PRAYER_REQUEST_CATEGORY_LABELS,
   getAccountabilityDates,
@@ -52,7 +59,9 @@ type SearchParams = Promise<SearchParamRecord>;
 type ProfileRow = {
   id: string;
   display_name: string | null;
-  last_active_at: string | null;
+  track: string | null;
+  is_hidden_from_community?: boolean | null;
+  last_active_at?: string | null;
 };
 
 type PlanDayRow = {
@@ -71,6 +80,7 @@ type PrayerRequestRow = {
   request_date: string;
   category: PrayerRequestCategory;
   note: string | null;
+  visibility: PrayerRequestVisibility | null;
 };
 
 function uniqueTaskIds(tasks: PlanDayTaskRecord[]) {
@@ -293,7 +303,7 @@ export default async function BrotherhoodPage({
 
   const { data: profiles } = await supabase
     .from("profiles")
-    .select("id, display_name, last_active_at")
+    .select("id, display_name, track, is_hidden_from_community, last_active_at")
     .eq("track", viewerTrack)
     .eq("is_hidden_from_community", false)
     .order("display_name");
@@ -312,21 +322,50 @@ export default async function BrotherhoodPage({
   const { data: prayerRequestsData } = challenge.hasStarted
     ? await supabase
         .from("user_prayer_requests")
-        .select("user_id, request_date, category, note")
+        .select("user_id, request_date, category, note, visibility")
         .in("request_date", [todayIso, yesterdayIso])
         .order("request_date", { ascending: false })
         .order("created_at", { ascending: true })
     : { data: [] as PrayerRequestRow[] };
 
-  const trackMemberIds = new Set(typedProfiles.map((profile) => profile.id));
   const dailyCheckins = (dailyCheckinsData ?? []) as DailyCheckinRow[];
-  const prayerRequests = ((prayerRequestsData ?? []) as PrayerRequestRow[]).filter(
-    (request) => trackMemberIds.has(request.user_id)
-  );
   const dailyCheckinByUserId = new Map(
     dailyCheckins.map((row) => [row.user_id, row.status])
   );
   const profileById = new Map(typedProfiles.map((profile) => [profile.id, profile]));
+  const rawPrayerRequests = (prayerRequestsData ?? []) as PrayerRequestRow[];
+  const prayerAuthorIds = [
+    ...new Set(rawPrayerRequests.map((request) => request.user_id)),
+  ];
+  const { data: prayerAuthorProfilesData } = prayerAuthorIds.length
+    ? await supabase
+        .from("profiles")
+        .select("id, display_name, track, is_hidden_from_community")
+        .in("id", prayerAuthorIds)
+    : { data: [] as ProfileRow[] };
+  const prayerAuthorProfileById = new Map(
+    ((prayerAuthorProfilesData ?? []) as ProfileRow[]).map((profile) => [
+      profile.id,
+      profile,
+    ])
+  );
+  const prayerRequests = rawPrayerRequests.filter((request) => {
+    const authorProfile =
+      prayerAuthorProfileById.get(request.user_id) ?? profileById.get(request.user_id);
+
+    if (!authorProfile) {
+      return normalizePrayerRequestVisibility(request.visibility) === "shared";
+    }
+
+    return (
+      authorProfile?.is_hidden_from_community === false &&
+      isPrayerRequestVisibleForTrack({
+        visibility: request.visibility,
+        authorTrack: authorProfile.track,
+        viewerTrack,
+      })
+    );
+  });
 
   const memberRows = typedProfiles
     .map((profile) => {
@@ -399,20 +438,36 @@ export default async function BrotherhoodPage({
   const preserveViewTrack = isAdmin && isUsingViewOverride;
 
   const renderPrayerRequestLine = (request: PrayerRequestRow) => {
-    const profile = profileById.get(request.user_id);
-    const shortName = toShortDisplayName(profile?.display_name);
+    const profile =
+      prayerAuthorProfileById.get(request.user_id) ?? profileById.get(request.user_id);
+    const authorTrack = profile?.track === "sisterhood" ? "sisterhood" : "brotherhood";
+    const shortName = getPrayerRequestAuthorLabel({
+      authorProfile: profile,
+      viewerTrack,
+      sameTrackName: toShortDisplayName(profile?.display_name),
+    });
     const categoryLabel = PRAYER_REQUEST_CATEGORY_LABELS[request.category];
+    const visibility = normalizePrayerRequestVisibility(request.visibility);
+    const visibilityLabel = getPrayerRequestVisibilityLabel({
+      visibility,
+      track: authorTrack,
+    });
 
     return (
-      <p
+      <div
         key={`${request.user_id}-${request.request_date}`}
         className="text-base leading-7 text-monastic-1"
       >
-        <span className="font-semibold text-monastic-0">{shortName}</span>
-        {" - "}
-        {categoryLabel}
-        {request.note ? `: ${request.note}` : ""}
-      </p>
+        <p>
+          <span className="font-semibold text-monastic-0">{shortName}</span>
+          {" - "}
+          {categoryLabel}
+          {request.note ? `: ${request.note}` : ""}
+        </p>
+        <span className="mt-1 inline-flex rounded-full border border-[color:var(--line-soft)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-monastic-1">
+          {visibilityLabel}
+        </span>
+      </div>
     );
   };
 

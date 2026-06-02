@@ -2,6 +2,7 @@ import "server-only";
 
 import { getCurrentChallengeWeekWindow } from "@/lib/challenge";
 import { GroupMeError } from "@/lib/groupme";
+import { isPrayerRequestVisibleForTrack } from "@/lib/prayer-requests";
 import { getAppBaseUrl } from "@/lib/server-config";
 import { createAdminClient } from "@/lib/supabase/admin";
 
@@ -17,6 +18,13 @@ type CheckinSummaryRow = {
 
 type PrayerRequestSummaryRow = {
   user_id: string;
+  visibility: string | null;
+};
+
+type ProfileSummaryRow = {
+  id: string;
+  track: string | null;
+  is_hidden_from_community: boolean | null;
 };
 
 export async function generateWeeklyRecapPreview() {
@@ -38,12 +46,18 @@ export async function generateWeeklyRecapPreview() {
 
   const [
     { data: profileRows, error: profilesError },
+    { data: prayerAuthorProfileRows, error: prayerAuthorProfilesError },
     { data: checkinRows, error: checkinsError },
     { data: prayerRows, error: prayerError },
   ] = await Promise.all([
     supabase
       .from("profiles")
-      .select("id", { count: "exact", head: false })
+      .select("id, track, is_hidden_from_community", { count: "exact", head: false })
+      .eq("track", "brotherhood")
+      .eq("is_hidden_from_community", false),
+    supabase
+      .from("profiles")
+      .select("id, track, is_hidden_from_community")
       .eq("is_hidden_from_community", false),
     supabase
       .from("user_daily_checkins")
@@ -52,7 +66,7 @@ export async function generateWeeklyRecapPreview() {
       .lte("day_date", weekWindow.weekEndDate),
     supabase
       .from("user_prayer_requests")
-      .select("user_id")
+      .select("user_id, visibility")
       .gte("request_date", weekWindow.weekStartDate)
       .lte("request_date", weekWindow.weekEndDate),
   ]);
@@ -65,17 +79,40 @@ export async function generateWeeklyRecapPreview() {
     throw new GroupMeError("Could not load weekly daily-status summaries.", 500);
   }
 
+  if (prayerAuthorProfilesError) {
+    throw new GroupMeError("Could not load weekly prayer request profiles.", 500);
+  }
+
   if (prayerError) {
     throw new GroupMeError("Could not load weekly prayer request totals.", 500);
   }
 
   const totalMen = profileRows?.length ?? 0;
-  const visibleMemberIds = new Set((profileRows ?? []).map((profile) => profile.id));
+  const visibleMemberIds = new Set(
+    ((profileRows ?? []) as ProfileSummaryRow[]).map((profile) => profile.id)
+  );
+  const prayerAuthorProfileById = new Map(
+    ((prayerAuthorProfileRows ?? []) as ProfileSummaryRow[]).map((profile) => [
+      profile.id,
+      profile,
+    ])
+  );
   const typedCheckins = ((checkinRows ?? []) as CheckinSummaryRow[]).filter((row) =>
     visibleMemberIds.has(row.user_id)
   );
   const prayerRequestCount = ((prayerRows ?? []) as PrayerRequestSummaryRow[]).filter(
-    (row) => visibleMemberIds.has(row.user_id)
+    (row) => {
+      const authorProfile = prayerAuthorProfileById.get(row.user_id);
+
+      return (
+        authorProfile?.is_hidden_from_community === false &&
+        isPrayerRequestVisibleForTrack({
+          visibility: row.visibility,
+          authorTrack: authorProfile.track,
+          viewerTrack: "brotherhood",
+        })
+      );
+    }
   ).length;
   const checkinsByUserId = new Map<string, Set<CheckinSummaryRow["status"]>>();
   const checkinCountByUserId = new Map<string, number>();

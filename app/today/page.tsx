@@ -31,6 +31,10 @@ import {
   type PrayerRequestCategory,
 } from "@/lib/accountability";
 import {
+  normalizePrayerRequestVisibility,
+  type PrayerRequestVisibility,
+} from "@/lib/prayer-requests";
+import {
   getPostChallengeDisplay,
   getSeasonTimelineItem,
   isDay90Celebration,
@@ -75,6 +79,7 @@ type DailyCheckinRow = {
 type PrayerRequestRow = {
   category: PrayerRequestCategory;
   note: string | null;
+  visibility: PrayerRequestVisibility | null;
 };
 
 function normalizeDayNumber(value: number, totalDays: number) {
@@ -721,7 +726,7 @@ export default async function TodayPage({
   const { data: prayerRequestData } = accountabilityEnabled
     ? await supabase
         .from("user_prayer_requests")
-        .select("category, note")
+        .select("category, note, visibility")
         .eq("user_id", user.id)
         .eq("request_date", currentDateIso)
         .maybeSingle()
@@ -1144,6 +1149,9 @@ export default async function TodayPage({
               <PrayerRequestCard
                 initialCategory={prayerRequest?.category ?? null}
                 initialNote={prayerRequest?.note ?? ""}
+                initialVisibility={normalizePrayerRequestVisibility(
+                  prayerRequest?.visibility
+                )}
                 communityName={communityName}
                 disabled={!accountabilityEnabled}
                 helperText={

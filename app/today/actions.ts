@@ -5,6 +5,10 @@ import {
   isDailyStatus,
   isPrayerRequestCategory,
 } from "@/lib/accountability";
+import {
+  isPrayerRequestVisibility,
+  normalizePrayerRequestVisibility,
+} from "@/lib/prayer-requests";
 import { getIsoDateInTimeZone } from "@/lib/challenge";
 import { createClient } from "@/lib/supabase/server";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
@@ -259,9 +263,16 @@ export async function savePrayerRequest(formData: FormData) {
   const category = typeof rawCategory === "string" ? rawCategory : "";
   const rawNote = formData.get("note");
   const note = typeof rawNote === "string" ? rawNote.trim() : "";
+  const rawVisibility = formData.get("visibility");
+  const visibilityInput = typeof rawVisibility === "string" ? rawVisibility : "";
+  const visibility = normalizePrayerRequestVisibility(visibilityInput);
 
   if (!isPrayerRequestCategory(category)) {
     throw new Error("Choose a valid prayer request category.");
+  }
+
+  if (visibilityInput && !isPrayerRequestVisibility(visibilityInput)) {
+    throw new Error("Choose a valid prayer request visibility.");
   }
 
   if (note.length > 200) {
@@ -298,6 +309,7 @@ export async function savePrayerRequest(formData: FormData) {
       request_date: todayIso,
       category,
       note: note || null,
+      visibility,
       updated_at: nowIso,
     },
     {
