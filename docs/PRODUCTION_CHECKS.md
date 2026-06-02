@@ -4,14 +4,26 @@ Production checks verify the deployed app that real users are reaching. They are
 useful after a release because they exercise the production URL, production
 auth, deployed code, and production database reads together.
 
-The first production scanner is the Gospel preview scanner:
+The Gospel preview scanner is:
 
 ```bash
 node scripts/scan-gospel-preview.mjs
 ```
 
 It checks selected admin-only Gospel preview pages on `https://thenarrowpath.xyz`
-and writes a local JSON result file.
+and writes a local JSON result file. The repo does not currently define an
+`npm run scan:gospel-preview` alias; use the `node` command above unless a
+future `package.json` adds one.
+
+For The Narrow Path production scanner/test commands, default to the production
+domain:
+
+```text
+https://thenarrowpath.xyz
+```
+
+Do not default examples to localhost unless explicitly documenting local
+testing.
 
 ## Required Order
 
@@ -33,7 +45,7 @@ production build.
 
 Run:
 
-```bash
+```powershell
 node scripts/scan-gospel-preview.mjs
 ```
 
@@ -87,16 +99,87 @@ production-page-audit-summary.txt
 
 Review or paste the JSON log if anything fails.
 
+## Prayer Request Visibility Scanner
+
+The prayer visibility scanner verifies the private/shared prayer request rules
+with normal Brotherhood and Sisterhood accounts. Admin smoke checks are useful,
+but they do not prove normal-user RLS/privacy.
+
+Set up local auth states with dedicated test accounts:
+
+```powershell
+npm run scan:prayer-visibility -- --setup-auth admin --base-url https://thenarrowpath.xyz
+npm run scan:prayer-visibility -- --setup-auth brotherhood --base-url https://thenarrowpath.xyz
+npm run scan:prayer-visibility -- --setup-auth sisterhood --base-url https://thenarrowpath.xyz
+```
+
+Run the normal-user production privacy scan:
+
+```powershell
+$env:PLAYWRIGHT_ALLOW_MUTATIONS='true'
+$env:PLAYWRIGHT_ALLOW_PRODUCTION_MUTATIONS='true'
+npm run scan:prayer-visibility -- --non-admin --headless --base-url https://thenarrowpath.xyz
+```
+
+The mutation flags must be the exact string value `true`. For non-local URLs,
+both flags are required. The scanner creates only test-marked requests using
+`PW_VISIBILITY_TEST_<timestamp>` markers and refuses to delete or overwrite
+non-test prayer requests.
+
+Local auth state paths:
+
+```text
+playwright/.auth/admin.json
+playwright/.auth/brotherhood.json
+playwright/.auth/sisterhood.json
+```
+
+Local output:
+
+```text
+prayer-request-visibility-scan-log.json
+```
+
+The latest documented production result used `https://thenarrowpath.xyz` with
+normal Brotherhood and Sisterhood auth states: total `16`, passed privacy checks
+`8`, failed `0`, skipped `0`. Final cleanup entries with
+`marker_not_present` were expected because earlier cleanup had already removed
+the temporary requests.
+
+## Cron Dry-Runs
+
+Use placeholders for secrets. Do not paste real `CRON_SECRET` values into docs
+or chat.
+
+Weekly recap announcement dry-run:
+
+```powershell
+curl.exe -H "Authorization: Bearer YOUR_CRON_SECRET" "https://thenarrowpath.xyz/api/cron/announcements/weekly-recap?dryRun=1"
+```
+
+Scheduled announcement push dry-run:
+
+```powershell
+curl.exe -H "Authorization: Bearer YOUR_CRON_SECRET" "https://thenarrowpath.xyz/api/cron/push/announcement-schedules?dryRun=1"
+```
+
+The weekly recap endpoint also supports `asOf=YYYY-MM-DD`. The scheduled
+announcement push endpoint supports `limit`, capped at 50.
+
 ## Local Files
 
 These files are local-only and must never be committed:
 
 ```text
 playwright-auth.json
+playwright/.auth/
+.auth/
+.env.playwright.local
 gospel-preview-scan-log.json
 gospel-preview-page-dump.txt
 production-page-audit-log.json
 production-page-audit-summary.txt
+prayer-request-visibility-scan-log.json
 ```
 
 They should stay in `.gitignore`.

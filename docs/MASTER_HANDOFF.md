@@ -1,10 +1,10 @@
 # The Narrow Path — Master Project Handoff
 
-**Replacement handoff version:** 2026-05-17  
+**Replacement handoff version:** 2026-06-02  
 **Project domain:** thenarrowpath.xyz  
 **Repository:** logdenmorrow/the-narrow-path  
 **Preferred source format:** Markdown  
-**Purpose:** This document replaces the older May 9, 2026 PDF handoff and consolidates the original project history, ChatGPT Project audits, Codex Cloud audits, local repo-history audit, and the May 17 reminder/branding/tone cleanup checkpoint into one current source-of-truth document for future ChatGPT Project context.
+**Purpose:** This document replaces the older May 9, 2026 PDF handoff and consolidates the original project history, ChatGPT Project audits, Codex Cloud audits, local repo-history audit, the May 17 reminder/branding/tone cleanup checkpoint, and the completed June 2026 implementation/documentation checkpoint into one current source-of-truth document for future ChatGPT Project context.
 
 ---
 
@@ -103,6 +103,770 @@ A broad copy cleanup was completed because the app had become too slogan-heavy, 
 ### Repo hygiene checkpoint
 
 Known unused-variable lint issues were cleaned up. After that cleanup, `npm run lint` and `npm run build` passed.
+
+---
+
+## 1B. June 2026 Completed Checkpoint
+
+This checkpoint consolidates the June 2026 work visible in the current repo and
+related audit logs. Treat the current repo and production database as the source
+of truth if any pasted summary conflicts with this section. This section is
+documentation only; it does not imply a commit, deployment, migration, or
+production write happened unless stated below as verified by repo docs/logs.
+
+### `/today` task toggle fix
+
+The `/today` completed task unchecking bug was fixed. Task completion remains
+row-existence based:
+
+- row exists in `user_task_completions` = completed
+- row absent = incomplete
+- toggle on inserts a completion row
+- toggle off deletes matching completion rows
+
+`components/today-task-card.tsx` now toggles optimistic client state from the
+current displayed state instead of stale server props. `app/today/actions.ts`
+treats one-or-more completion rows as complete and deletes all matching rows on
+toggle-off, which makes the feature resilient to duplicate completion rows.
+
+Reflection and challenge feedback records no longer override task completion
+unless a matching `user_task_completions` row exists. Their save actions may
+still auto-complete their own tasks, but duplicate completion inserts are
+avoided.
+
+Important files:
+
+```text
+components/today-task-card.tsx
+app/today/actions.ts
+app/today/page.tsx
+lib/task-progress.ts
+app/reflection/actions.ts
+app/challenge-feedback/actions.ts
+app/brotherhood/page.tsx
+app/brotherhood/[userId]/page.tsx
+app/dashboard/page.tsx
+components/progress-strip.tsx
+lib/homepage-overview.ts
+```
+
+Verification noted in the June summaries:
+
+- `npm run build` passed.
+- Playwright caught the toggle bug before deployment.
+- The exact final post-deployment Playwright output for this toggle fix was not
+  present in the repo context reviewed for this handoff, so do not quote a final
+  exact output unless a later log is supplied.
+- A dedicated Playwright test account was hidden from community lists by setting
+  `is_hidden_from_community = true`. Do not document or commit its password or
+  auth state.
+
+### Playwright E2E for `/today`
+
+Playwright E2E auth setup exists for authenticated `/today` task toggle testing.
+New E2E auth state uses `.auth/user.json`; older scanner flows may still use
+separate auth JSON files.
+
+Important files:
+
+```text
+playwright.config.ts
+tests/e2e/auth.setup.ts
+tests/e2e/test-env.ts
+tests/e2e/today-toggle.spec.ts
+docs/PLAYWRIGHT_E2E.md
+.gitignore
+package.json
+```
+
+Local-only files must not be committed:
+
+```text
+.env.playwright.local
+.auth/
+playwright/.auth/
+playwright-auth.json
+playwright-report/
+test-results/
+```
+
+Production mutation tests must only run with dedicated test accounts and exact
+safety flags. For The Narrow Path production scanners, default examples to:
+
+```text
+https://thenarrowpath.xyz
+```
+
+Do not default scanner examples to localhost unless explicitly documenting local
+testing.
+
+### Catechism reading formatting
+
+Catechism readability was improved on `/daily-reading`. Active Narrow Path 90
+Catechism content is raw CCC paragraph text, not Gospel-style structured
+markers. `ReadingTextRenderer` now supports a Catechism variant, and
+`app/daily-reading/page.tsx` passes that variant based on existing CCC reference
+detection.
+
+CCC paragraph numbers render as readable badges. Long CCC paragraphs are spaced
+more comfortably. Lists, headings, and raw CCC paragraphs are handled without
+changing stored Catechism content. Mobile/narrow-screen safeguards were added to
+avoid overflow and preserve readability.
+
+Important files:
+
+```text
+app/daily-reading/page.tsx
+components/reading-text-renderer.tsx
+```
+
+Verification reported in the June summaries:
+
+- `npm run lint` passed.
+- `npm run build` passed.
+- Mobile and desktop browser checks were reported.
+- A production visual check on `https://thenarrowpath.xyz` was accepted.
+
+### Acts and James structured reading formatting
+
+Acts and James readings were standardized to the same structured Scripture
+format used by Gospel readings:
+
+```text
+### Section Heading
+**n.** Verse text
+```
+
+This was a content migration, not a new renderer/UI change. Acts readings in
+active `the-narrow-path-90` and James readings in `ordinary-time-james` were
+updated. The source was the Ascension Web App RSV2CE, following the established
+Gospel source pattern. Logan stated he has permission from Ascension for this
+parish-scale use. Preserve documented RSV2CE omissions; do not invent omitted
+verses.
+
+Important files:
+
+```text
+scripts/fetch-ascension-scripture-source.mjs
+scripts/build-structured-scripture-reading-sql.mjs
+content/scripture/structured-reading-targets.json
+content/scripture/source/README.md
+content/scripture/source/acts-rsv2ce-ascension.json
+content/scripture/source/acts-rsv2ce-ascension.md
+content/scripture/source/james-rsv2ce-ascension.json
+content/scripture/source/james-rsv2ce-ascension.md
+content/scripture/source/ascension-scripture-diagnostics.md
+supabase/migrations/20260601130000_structure_acts_james_reading_text.sql
+supabase/generated/structured-acts-james-reading-text-review.sql
+```
+
+Database notes:
+
+- Migration: `20260601130000_structure_acts_james_reading_text.sql`
+- Updated only `public.plan_days.reading_text`
+- Targeted `the-narrow-path-90`: 78 Acts rows
+- Targeted `ordinary-time-james`: 31 James rows
+- Total rows: 109
+- No schema, RLS, task, profile, prayer, notification, or plan activation
+  changes.
+
+Verification reported:
+
+- `npm run lint` passed.
+- `npm run build` passed.
+- Supabase dry-run showed only the intended migration.
+- The real Supabase push was run.
+- Production verification showed `ordinary-time-james` 31/31 rows and
+  `the-narrow-path-90` 78/78 rows had headings and verse markers with 0 problem
+  rows.
+- Production Acts day 57 was manually checked and rendered correctly.
+- Browser smoke was reported for Acts, James preview, Gospel preview, and
+  Catechism at mobile width.
+- Do not claim a user-shown James production screenshot unless it is supplied.
+
+### Public Roadmap / News page
+
+`/news` exists as a public, display-only Roadmap page. It was initially
+signed-in only and was changed to public so visitors can see what is coming
+before signing up. Roadmap data is centralized in `lib/season-plan.ts`.
+
+The Roadmap appears:
+
+- full page at `/news`
+- teaser on the logged-out homepage
+- linked from signed-in account menu/settings
+
+This is not a CMS/admin announcement system.
+
+Roadmap items:
+
+- Narrow Path 90
+- July reset / short break
+- August 2026 / Ordinary Time: James
+- September 1, 2026 to February 9, 2027 / The Gospels
+- Lent 2027 stricter season
+
+Important files:
+
+```text
+app/news/page.tsx
+app/page.tsx
+components/roadmap-timeline.tsx
+lib/season-plan.ts
+lib/supabase/proxy.ts
+components/account-menu.tsx
+components/auth-nav.tsx
+components/mobile-account-menu.tsx
+app/settings/page.tsx
+```
+
+Verification reported:
+
+- `npm run build` passed.
+- Visual screenshots were checked and accepted.
+- `/news` is public.
+
+### Announcements system
+
+Signed-in announcements MVP was added:
+
+- `/announcements`
+- `/announcements/[slug]`
+- `/admin/announcements`
+
+Announcements support:
+
+- draft, published, and archived status
+- pinned state
+- read receipts
+- CTA fields
+- category
+- audience targeting: `all`, `brotherhood`, `sisterhood`
+
+Normal users can see only published, active, non-expired announcements visible
+to their track. Opening an announcement marks it read. Body text is plain text
+rendered as paragraphs. No comments, reactions, uploads, or rich-text editor
+were added.
+
+Important files:
+
+```text
+app/announcements/page.tsx
+app/announcements/[slug]/page.tsx
+app/admin/announcements/page.tsx
+app/admin/announcements/actions.ts
+lib/announcements.ts
+supabase/migrations/20260601143000_add_announcements.sql
+```
+
+Database:
+
+- `public.announcements`
+- `public.announcement_reads`
+- RLS restricts normal users to published active announcements visible to their
+  audience.
+- `announcement_reads` are own-user only.
+- Admins manage through admin authorization / `public.is_app_admin()`.
+
+Verification reported:
+
+- Supabase dry-run passed.
+- Real migration push was run.
+- Production admin/list/detail flows were visually checked.
+
+### Announcement PWA pushes
+
+Admins can manually send PWA push notifications for visible published
+announcements. Draft, archived, expired, future-published, and invisible
+announcements do not show/send push. Push URLs point to
+`/announcements/{slug}`.
+
+Audience filtering:
+
+- `all`
+- `brotherhood`
+- `sisterhood`
+
+Broadcast/delivery records are logged. Dead or revoked subscriptions are
+handled by the existing push helper.
+
+Important files:
+
+```text
+lib/push/announcement-broadcasts.ts
+app/admin/announcements/page.tsx
+app/admin/announcements/actions.ts
+supabase/migrations/20260602120000_allow_announcement_push_broadcast_audiences.sql
+```
+
+Database:
+
+- Updated `notification_broadcasts` audience check to allow
+  `announcement:all`, `announcement:brotherhood`, and
+  `announcement:sisterhood`.
+
+Verification reported:
+
+- Supabase dry-run passed.
+- Real push was run.
+- Manual production announcement push was tested and delivered.
+- Admin showed 3 delivered, 0 failed, 0 revoked.
+- Logan later received the notification.
+
+### Scheduled announcement pushes
+
+Admins can schedule future PWA pushes for visible published announcements.
+Pending scheduled pushes can be canceled. The protected cron route processes due
+schedules:
+
+```text
+/api/cron/push/announcement-schedules
+```
+
+It supports `dryRun=1` and `limit`, capped at 50. Due jobs are claimed by
+`pending -> sending` to avoid duplicate sends. Schedule rows store broadcast and
+delivery counts.
+
+Important files:
+
+```text
+app/api/cron/push/announcement-schedules/route.ts
+app/admin/announcements/actions.ts
+supabase/migrations/20260602123000_add_announcement_push_schedules.sql
+```
+
+Database:
+
+- Created `public.announcement_push_schedules`.
+- Admin-only RLS for normal authenticated users.
+- Service role is used for cron/admin operations.
+
+Verification reported:
+
+- Supabase dry-run passed.
+- Real migration push was run.
+- Scheduled announcement push was production tested.
+- Unraid cron processed it.
+- Logan reported it worked.
+
+### Weekly recap announcement cron
+
+Weekly recap cron MVP was added:
+
+```text
+/api/cron/announcements/weekly-recap
+```
+
+It is protected by `CRON_SECRET` and supports `dryRun=1` and
+`asOf=YYYY-MM-DD`. It computes a Monday-Sunday week in
+`America/New_York`.
+
+The cron generates separate announcements for:
+
+- Brotherhood audience
+- Sisterhood audience
+
+It does not create an all-users recap. It uses predictable slugs to prevent
+duplicate creation/sending:
+
+```text
+weekly-recap-brotherhood-YYYY-MM-DD
+weekly-recap-sisterhood-YYYY-MM-DD
+```
+
+The category is `recap`; the announcement publishes immediately and sends a push
+after creation. Push title is `Weekly Recap`; push body is the summary only and
+does not include prayer request text. Push URL points to the announcement
+detail.
+
+Important files:
+
+```text
+app/api/cron/announcements/weekly-recap/route.ts
+lib/announcements-weekly-recap.ts
+lib/push/announcement-broadcasts.ts
+supabase/migrations/20260602130000_add_recap_announcement_category.sql
+```
+
+Caution:
+
+- Real Sunday generation/send was not verified in the repo context reviewed for
+  this handoff.
+- Weekly recap dry-run worked from Unraid.
+- Do not claim the first real scheduled Sunday run succeeded unless later logs
+  prove it.
+
+### GroupMe transition
+
+Official communication moved away from GroupMe and into:
+
+- in-app Roadmap
+- in-app Announcements
+- personal reminder pushes
+- scheduled announcement pushes
+- weekly recap announcements/pushes
+
+The existing GroupMe nightly reminder script was disabled. The existing GroupMe
+weekly recap script was disabled. GroupMe may still exist for discussion/chat,
+but it is not the main reminder/recap delivery path. Do not claim GroupMe was
+fully removed from the repo; GroupMe routes and helpers still exist.
+
+### Gospel season database staging and Supabase CLI repair
+
+Inactive Gospel season staging was completed in production. Supabase CLI was
+linked to the production project. Historical migration filenames were normalized
+to unique 14-digit timestamp prefixes, and remote migration history was repaired.
+
+After repair, `npx supabase db push --dry-run` showed only:
+
+```text
+20260527150103_add_gospels_september_lent_draft_plan.sql
+```
+
+A real `npx supabase db push` was then run successfully.
+
+Production now contains an inactive plan:
+
+```text
+slug: the-gospels-september-lent
+name: The Gospels: From September to Lent
+total_days: 162
+is_active: false
+start: September 1, 2026
+end: February 9, 2027
+```
+
+Production verification:
+
+- `plan_days`: 162
+- `plan_day_tasks`: 1,481
+- Task counts:
+  - `adoration`: 162
+  - `attend_mass`: 23
+  - `check_in_anchor`: 162
+  - `confession`: 162
+  - `night-prayer`: 162
+  - `reading`: 162
+  - `reflection`: 162
+  - `rosary`: 162
+  - `weekly_fast_or_penance`: 162
+  - `workout`: 162
+
+Important decisions:
+
+- Gospel season remains inactive.
+- `weekly_fast_or_penance` is included as a weekly quota task.
+- `temperance` remains an app/season rule, not a task row.
+- `give_up_alcohol` was not reused.
+- Standalone `fast` was not reused.
+- Before You Read context was deferred at the original Gospel staging point and
+  later applied through a separate migration.
+
+Important files:
+
+```text
+supabase/migrations/20260527150103_add_gospels_september_lent_draft_plan.sql
+docs/GOSPELS_SEASON_POST_APPLY_AUDIT.md
+docs/SUPABASE_CLI_MIGRATION_HISTORY_REPAIR_PLAN.md
+docs/SUPABASE_CLI_MIGRATION_FILENAME_NORMALIZATION_PLAN.md
+supabase/generated/verify-existing-migrations-before-repair.sql
+supabase/generated/verify-gospels-season-prerequisites.sql
+```
+
+Cautions:
+
+- Future database work should use normalized migration filenames.
+- Always run `npx supabase db push --dry-run` before a real push.
+- Do not run a real push unless dry-run shows only the intended migration.
+- Do not paste huge SQL into Supabase SQL Editor unless CLI workflow is
+  unavailable.
+
+### Gospel preview/readiness/timing refactors
+
+Admin-only inactive Gospel preview was added and verified. Routes supporting
+admin preview include:
+
+- `/today`
+- `/this-week`
+- `/daily-reading`
+- `/reflection`
+
+Inactive Gospel preview is read-only:
+
+- completion locked
+- reflection saving locked
+- accountability/daily status/prayer input locked where applicable
+
+Non-admin users cannot access inactive Gospel content by adding query params.
+Gospel Daily Reading formatting uses `ReadingTextRenderer` with headings and
+verse numbers.
+
+Gospel Before You Read context was generated, QA'd, migrated, and production
+verified later. The migration:
+
+```text
+supabase/migrations/20260529120000_add_gospels_before_you_read_context.sql
+```
+
+updates only reading context fields:
+
+- `reading_context`
+- `previous_reading_summary`
+- `reading_today_preview`
+- `reading_watch_for`
+- `reading_key_terms`
+- `reading_context_source_hash`
+
+It does not update:
+
+- `reading_text`
+- `reading_title`
+- `reading_reference`
+- `reflection_prompt`
+- `plan_day_tasks`
+- `is_active`
+
+Production verification showed all 162 Gospel days had context fields
+populated, and the Gospel plan remained inactive.
+
+Season-aware timing refactors reduced hardcoded 90-day assumptions across:
+
+- progress strip
+- homepage overview
+- Brotherhood pages
+- Night Prayer
+- Rosary
+- Admin Plan
+- dashboard/final-day labels
+
+`/admin/plan/export` bug was found by the broad audit and fixed. Gospel
+activation readiness and activation plan docs were added. Gospel plan was not
+activated.
+
+Important files:
+
+```text
+lib/season-plan.ts
+lib/plan-day-url.ts
+lib/season-plan-server.ts
+app/today/page.tsx
+app/this-week/page.tsx
+app/daily-reading/page.tsx
+app/reflection/page.tsx
+components/progress-strip.tsx
+lib/homepage-overview.ts
+app/brotherhood/page.tsx
+app/brotherhood/[userId]/page.tsx
+app/night-prayer/page.tsx
+app/rosary/page.tsx
+app/admin/plan/page.tsx
+app/dashboard/page.tsx
+app/admin/plan/export/route.ts
+components/reading-text-renderer.tsx
+scripts/scan-gospel-preview.mjs
+scripts/audit-production-pages.mjs
+docs/GOSPEL_ACTIVATION_READINESS_AUDIT.md
+docs/GOSPEL_ACTIVATION_PLAN.md
+docs/PRODUCTION_CHECKS.md
+```
+
+Production scanners:
+
+- `scripts/scan-gospel-preview.mjs` checks selected production Gospel preview
+  pages and uses saved local auth state.
+- `scripts/audit-production-pages.mjs` performs a broader read-only production
+  route audit.
+- Auth/log files must not be committed.
+- The Gospel preview scanner previously reported 8/8 passed.
+- The broad production audit documented in `docs/GOSPEL_ACTIVATION_PLAN.md`
+  reported total 44, passed 44, failed 0.
+
+### Prayer request visibility/private-shared feature
+
+Prayer requests support:
+
+```text
+visibility = 'track' | 'shared'
+```
+
+Default is `track`. Existing prayer requests were backfilled to `track`,
+preserving prior privacy behavior. New request UI defaults to `Private to
+Brotherhood` or `Private to Sisterhood`; users can explicitly choose `Shared
+with both tracks`.
+
+Visibility rules:
+
+- Private Brotherhood requests are visible only to Brotherhood.
+- Private Sisterhood requests are visible only to Sisterhood.
+- Shared requests are visible to both tracks.
+- Opposite-track shared requests show generic author labels:
+  - `A Brother`
+  - `A Sister`
+- Full names are not exposed cross-track.
+- Missing/deleted author profiles are excluded from cross-user prayer request
+  visibility.
+- Hidden community profiles remain excluded from cross-user visibility.
+- Admins may read all where policy allows, but admin access is not normal-user
+  privacy proof.
+
+Important files:
+
+```text
+components/prayer-request-card.tsx
+app/today/actions.ts
+app/today/page.tsx
+app/brotherhood/page.tsx
+lib/prayer-requests.ts
+lib/announcements-weekly-recap.ts
+lib/groupme-weekly.ts
+supabase/migrations/20260602133000_add_prayer_request_visibility.sql
+```
+
+Database:
+
+- Adds `visibility` to `public.user_prayer_requests`.
+- Backfills existing rows to `track`.
+- Adds check constraint for `track` / `shared`.
+- Adds default `track`.
+- Sets `visibility` NOT NULL.
+- Adds index on `(visibility, request_date)`.
+- Replaces/updates read RLS so signed-in users can read own requests,
+  same-track visible members' private requests, visible members' shared
+  requests from either track, and admins can read all.
+- RLS requires joined profile/subject profile for cross-user visibility.
+
+Weekly recap / announcement behavior:
+
+- Weekly recaps respect prayer request visibility.
+- Private Brotherhood requests do not appear in Sisterhood recaps.
+- Private Sisterhood requests do not appear in Brotherhood recaps.
+- Shared requests may appear in both tracks' recaps.
+- Opposite-track shared authors are generic.
+- Existing stored announcement text was not mutated.
+- Legacy GroupMe weekly count is scoped to Brotherhood and counts
+  Brotherhood-private plus shared requests visible to Brotherhood.
+
+Verification reported:
+
+- `npm run build` passed.
+- `npx supabase db push --dry-run` passed and showed only
+  `20260602133000_add_prayer_request_visibility.sql`.
+- The real migration push was run before deployment according to the June
+  summary supplied for this handoff.
+- Missing/deleted author profile hardening was added after review.
+
+### Prayer request visibility Playwright scanner
+
+New scanner:
+
+```text
+scripts/scan-prayer-request-visibility.mjs
+```
+
+NPM command:
+
+```text
+npm run scan:prayer-visibility
+```
+
+Gitignored local auth states:
+
+```text
+playwright/.auth/admin.json
+playwright/.auth/brotherhood.json
+playwright/.auth/sisterhood.json
+```
+
+Gitignored local log:
+
+```text
+prayer-request-visibility-scan-log.json
+```
+
+`.env.playwright.local` may be used locally and must not be committed. The
+scanner default base URL is `https://thenarrowpath.xyz`, not localhost. It loads
+`.env.playwright.local` before reading `PLAYWRIGHT_BASE_URL` or mutation flags.
+
+Mutation gates require exact string values:
+
+```text
+PLAYWRIGHT_ALLOW_MUTATIONS === "true"
+PLAYWRIGHT_ALLOW_PRODUCTION_MUTATIONS === "true" for non-local URLs
+```
+
+Admin smoke can check UI labels/admin behavior, but admin smoke does not prove
+normal-user RLS/privacy. Normal privacy proof requires non-admin Brotherhood and
+Sisterhood auth states.
+
+The scanner creates only obvious temporary requests using
+`PW_VISIBILITY_TEST_<timestamp>` markers. Cleanup only deletes test-marked
+requests and refuses to overwrite non-test requests.
+
+Production setup commands:
+
+```powershell
+npm run scan:prayer-visibility -- --setup-auth admin --base-url https://thenarrowpath.xyz
+npm run scan:prayer-visibility -- --setup-auth brotherhood --base-url https://thenarrowpath.xyz
+npm run scan:prayer-visibility -- --setup-auth sisterhood --base-url https://thenarrowpath.xyz
+```
+
+Production non-admin privacy scan:
+
+```powershell
+$env:PLAYWRIGHT_ALLOW_MUTATIONS='true'
+$env:PLAYWRIGHT_ALLOW_PRODUCTION_MUTATIONS='true'
+npm run scan:prayer-visibility -- --non-admin --headless --base-url https://thenarrowpath.xyz
+```
+
+Production verification result from `prayer-request-visibility-scan-log.json`:
+
+- Base URL: `https://thenarrowpath.xyz`
+- Normal Brotherhood and Sisterhood auth states were used.
+- Total: 16
+- Passed privacy checks: 8
+- Failed: 0
+- Skipped: 0
+- Verified:
+  - pre-run cleanup passed for Brotherhood and Sisterhood
+  - Brotherhood private visible to Brotherhood
+  - Brotherhood private hidden from Sisterhood
+  - Brotherhood shared visible to both with generic `A Brother` label for
+    Sisterhood
+  - Sisterhood private visible to Sisterhood
+  - Sisterhood private hidden from Brotherhood
+  - Sisterhood shared visible to both with generic `A Sister` label for
+    Brotherhood
+  - created test requests were cleaned up successfully
+- Final cleanup entries of `marker_not_present` were expected because earlier
+  cleanup had already removed the test requests.
+
+Bugs fixed during scanner implementation:
+
+- Initial scanner defaulted to localhost; fixed to default to
+  `https://thenarrowpath.xyz`.
+- `.env.playwright.local` was not automatically loaded; fixed.
+- Duplicate label text caused strict locator failures; fixed with
+  duplicate-safe assertions.
+- Scanner initially tried to create private and shared requests for the same
+  user on the same day without cleanup; fixed by save/verify/delete sequencing.
+- Cleanup initially missed private markers; fixed.
+- Sisterhood auth state was invalid once and redirected to login; recaptured
+  auth state fixed it.
+
+### June 2026 claim boundaries
+
+Do not claim:
+
+- Future Gospel season is active.
+- Lent 2027 season is implemented.
+- Weekly recap real Sunday send happened unless logs prove it.
+- GroupMe is completely removed.
+- Admin smoke tests prove normal-user privacy.
+- Playwright auth JSON contents should be committed.
+- `.env.playwright.local` should be committed.
+- Old stored announcement text was changed.
+- Every possible future season-safe timing assumption has been found and fixed.
+- Every device/browser was tested.
 
 ---
 
