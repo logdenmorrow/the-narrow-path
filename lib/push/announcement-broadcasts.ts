@@ -254,10 +254,14 @@ export async function sendAnnouncementPush({
   admin,
   announcementId,
   createdBy,
+  titleOverride,
+  bodyOverride,
 }: {
   admin: AdminSupabaseClient;
   announcementId: string;
   createdBy?: string | null;
+  titleOverride?: string | null;
+  bodyOverride?: string | null;
 }): Promise<AnnouncementPushSummary> {
   const { data, error } = await admin
     .from("announcements")
@@ -293,8 +297,12 @@ export async function sendAnnouncementPush({
     };
   }
 
-  const title = getAnnouncementPushTitle(announcement);
-  const body = getAnnouncementPushBody(announcement);
+  const title = titleOverride?.trim()
+    ? truncateText(titleOverride, 120)
+    : getAnnouncementPushTitle(announcement);
+  const body = bodyOverride?.trim()
+    ? truncateText(bodyOverride, 500)
+    : getAnnouncementPushBody(announcement);
   const targetUrl = `/announcements/${announcement.slug}`;
   const { data: broadcast, error: broadcastError } = await admin
     .from("notification_broadcasts")

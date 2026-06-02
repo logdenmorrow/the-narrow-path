@@ -11,6 +11,7 @@ export const ANNOUNCEMENT_CATEGORIES = [
   "feature",
   "maintenance",
   "reflection",
+  "recap",
 ] as const;
 
 export const ANNOUNCEMENT_AUDIENCES = [
