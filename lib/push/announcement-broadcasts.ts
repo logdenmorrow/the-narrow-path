@@ -22,6 +22,7 @@ export type AnnouncementPushScheduleStatus =
   | "sending"
   | "sent"
   | "failed"
+  | "skipped"
   | "canceled";
 
 export type AnnouncementPushSchedule = {
@@ -55,7 +56,7 @@ export type AnnouncementPushScheduleResult = {
 
 export type ScheduledAnnouncementPushResult = {
   scheduleId: string;
-  status: AnnouncementPushScheduleStatus | "skipped";
+  status: AnnouncementPushScheduleStatus;
   attempted: number;
   succeeded: number;
   failed: number;
@@ -67,6 +68,8 @@ export type ScheduledAnnouncementPushResult = {
 const SUBSCRIPTION_PAGE_SIZE = 100;
 const USER_ID_BATCH_SIZE = 500;
 const SEND_BATCH_SIZE = 10;
+const ANNOUNCEMENT_SELECT =
+  "id, title, slug, summary, body, category, audience, status, is_pinned, published_at, expires_at, cta_label, cta_href, created_by, created_at, updated_at";
 const SCHEDULE_SELECT =
   "id, announcement_id, scheduled_for, status, broadcast_id, created_by, created_at, updated_at, sent_at, attempted_count, success_count, failure_count, revoked_count, error_message";
 const SCHEDULE_WITH_ANNOUNCEMENT_SELECT = `${SCHEDULE_SELECT}, announcements ( title, slug, audience, status )`;
@@ -105,6 +108,17 @@ function isAnnouncementVisibleNow(announcement: Announcement) {
     Number.isFinite(publishedAt) &&
     publishedAt <= now &&
     (expiresAt === null || (Number.isFinite(expiresAt) && expiresAt > now))
+  );
+}
+
+function shouldSkipScheduledSendResult(result: AnnouncementPushSummary) {
+  return (
+    !result.ok &&
+    result.attempted === 0 &&
+    !result.broadcastId &&
+    (result.message === "Announcement was not found." ||
+      result.message ===
+        "Only currently visible published announcements can send push notifications.")
   );
 }
 
@@ -265,9 +279,7 @@ export async function sendAnnouncementPush({
 }): Promise<AnnouncementPushSummary> {
   const { data, error } = await admin
     .from("announcements")
-    .select(
-      "id, title, slug, summary, body, category, audience, status, is_pinned, published_at, expires_at, cta_label, cta_href, created_by, created_at, updated_at"
-    )
+    .select(ANNOUNCEMENT_SELECT)
     .eq("id", announcementId)
     .maybeSingle();
 
@@ -514,9 +526,7 @@ export async function scheduleAnnouncementPush({
 
   const { data: announcementData, error: announcementError } = await admin
     .from("announcements")
-    .select(
-      "id, title, slug, summary, body, category, audience, status, is_pinned, published_at, expires_at, cta_label, cta_href, created_by, created_at, updated_at"
-    )
+    .select(ANNOUNCEMENT_SELECT)
     .eq("id", announcementId)
     .maybeSingle();
 
@@ -534,6 +544,25 @@ export async function scheduleAnnouncementPush({
     };
   }
 
+  const { data: existingPending, error: pendingLookupError } = await admin
+    .from("announcement_push_schedules")
+    .select("id")
+    .eq("announcement_id", announcementId)
+    .eq("status", "pending")
+    .limit(1);
+
+  if (pendingLookupError) {
+    return { ok: false, error: pendingLookupError.message };
+  }
+
+  if ((existingPending?.length ?? 0) > 0) {
+    return {
+      ok: false,
+      error:
+        "This announcement already has a pending scheduled push. Cancel it before scheduling another.",
+    };
+  }
+
   const { data, error } = await admin
     .from("announcement_push_schedules")
     .insert({
@@ -546,6 +575,14 @@ export async function scheduleAnnouncementPush({
     .single();
 
   if (error) {
+    if (error.code === "23505") {
+      return {
+        ok: false,
+        error:
+          "This announcement already has a pending scheduled push. Cancel it before scheduling another.",
+      };
+    }
+
     return { ok: false, error: error.message };
   }
 
@@ -618,6 +655,34 @@ async function updateScheduleAfterSend({
   return status;
 }
 
+async function skipAnnouncementPushSchedule({
+  admin,
+  scheduleId,
+  errorMessage,
+}: {
+  admin: AdminSupabaseClient;
+  scheduleId: string;
+  errorMessage: string;
+}) {
+  const { error } = await admin
+    .from("announcement_push_schedules")
+    .update({
+      status: "skipped",
+      broadcast_id: null,
+      attempted_count: 0,
+      success_count: 0,
+      failure_count: 0,
+      revoked_count: 0,
+      sent_at: new Date().toISOString(),
+      error_message: errorMessage,
+    })
+    .eq("id", scheduleId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+}
+
 export async function sendScheduledAnnouncementPush({
   admin,
   scheduleId,
@@ -653,6 +718,38 @@ export async function sendScheduledAnnouncementPush({
   }
 
   const schedule = claimedSchedule as AnnouncementPushSchedule;
+  const skippedMessage =
+    "Announcement is no longer visible or published at send time.";
+
+  const { data: announcementData, error: announcementError } = await admin
+    .from("announcements")
+    .select(ANNOUNCEMENT_SELECT)
+    .eq("id", schedule.announcement_id)
+    .maybeSingle();
+
+  if (announcementError) {
+    throw new Error(announcementError.message);
+  }
+
+  if (!announcementData || !isAnnouncementVisibleNow(announcementData as Announcement)) {
+    await skipAnnouncementPushSchedule({
+      admin,
+      scheduleId,
+      errorMessage: skippedMessage,
+    });
+
+    return {
+      scheduleId,
+      status: "skipped",
+      attempted: 0,
+      succeeded: 0,
+      failed: 0,
+      revoked: 0,
+      broadcastId: null,
+      errorMessage: skippedMessage,
+    };
+  }
+
   let result: AnnouncementPushSummary;
 
   try {
@@ -688,6 +785,25 @@ export async function sendScheduledAnnouncementPush({
       failed: 1,
       revoked: 0,
       errorMessage,
+    };
+  }
+
+  if (shouldSkipScheduledSendResult(result)) {
+    await skipAnnouncementPushSchedule({
+      admin,
+      scheduleId,
+      errorMessage: skippedMessage,
+    });
+
+    return {
+      scheduleId,
+      status: "skipped",
+      attempted: 0,
+      succeeded: 0,
+      failed: 0,
+      revoked: 0,
+      broadcastId: null,
+      errorMessage: skippedMessage,
     };
   }
 

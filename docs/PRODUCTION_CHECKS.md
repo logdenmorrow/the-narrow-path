@@ -35,7 +35,7 @@ categories, run each relevant row.
 | Normal UI/content changes | `npm run build`, broad production page audit after deployment, manual mobile smoke check if layout changed |
 | Reading/season changes | `npm run build`, SQL verification for plan/readings, relevant scanner, manual Daily Reading mobile check |
 | Privacy changes | `npm run build`, prayer visibility scanner with normal Brotherhood and Sisterhood users, RLS/SQL review |
-| Push/cron changes | `npm run build`, cron dry-run, one controlled real test, verify logs |
+| Push/cron changes | `npm run build`, `npm run lint`, `npx supabase db push --dry-run` if a migration is created, cron dry-run, one controlled real test after approval, verify logs |
 
 ## Required Order
 
@@ -177,6 +177,11 @@ curl.exe -H "Authorization: Bearer YOUR_CRON_SECRET" "https://thenarrowpath.xyz/
 
 The weekly recap endpoint also supports `asOf=YYYY-MM-DD`. The scheduled
 announcement push endpoint supports `limit`, capped at 50.
+
+For scheduled announcement push changes, run the scheduled push dry-run after
+deployment. If a real push test is needed, schedule one controlled visible
+announcement push only after explicit approval, then verify the cron response,
+schedule row, broadcast row, and delivery logs.
 
 ## Local Files
 

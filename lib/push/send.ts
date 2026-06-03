@@ -27,6 +27,8 @@ export type PushDeliveryResult = {
   errorMessage: string | null;
 };
 
+const MAX_WEB_PUSH_ATTEMPTS = 3;
+
 function toWebPushSubscription(subscription: PushSubscriptionRow): PushSubscription {
   return {
     endpoint: subscription.endpoint,
@@ -75,6 +77,44 @@ function getPushErrorDetails(error: unknown) {
     httpStatus: null,
     errorCode: null,
     errorMessage: "Unknown push service error.",
+  };
+}
+
+function isRevokedPushError(httpStatus: number | null) {
+  return httpStatus === 404 || httpStatus === 410;
+}
+
+async function sendWebPushWithRetry({
+  subscription,
+  payloadJson,
+}: {
+  subscription: PushSubscription;
+  payloadJson: string;
+}) {
+  let lastDetails: ReturnType<typeof getPushErrorDetails> | null = null;
+
+  for (let attempt = 1; attempt <= MAX_WEB_PUSH_ATTEMPTS; attempt += 1) {
+    try {
+      await getConfiguredWebPush().sendNotification(subscription, payloadJson);
+      return { ok: true as const, details: null };
+    } catch (error) {
+      const details = getPushErrorDetails(error);
+      lastDetails = details;
+
+      if (isRevokedPushError(details.httpStatus)) {
+        return { ok: false as const, details };
+      }
+    }
+  }
+
+  return {
+    ok: false as const,
+    details:
+      lastDetails ?? {
+        httpStatus: null,
+        errorCode: null,
+        errorMessage: "Unknown push service error.",
+      },
   };
 }
 
@@ -162,12 +202,12 @@ export async function sendPushNotification({
     throw new Error(deliveryError.message);
   }
 
-  try {
-    await getConfiguredWebPush().sendNotification(
-      toWebPushSubscription(subscription),
-      JSON.stringify(getSafePayload(payload))
-    );
+  const pushResult = await sendWebPushWithRetry({
+    subscription: toWebPushSubscription(subscription),
+    payloadJson: JSON.stringify(getSafePayload(payload)),
+  });
 
+  if (pushResult.ok) {
     const now = new Date().toISOString();
     const { error: subscriptionError } = await supabase
       .from("push_subscriptions")
@@ -198,44 +238,43 @@ export async function sendPushNotification({
       errorCode: null,
       errorMessage: null,
     };
-  } catch (error) {
-    const details = getPushErrorDetails(error);
-    const isRevoked =
-      details.httpStatus === 404 || details.httpStatus === 410;
-    const status = isRevoked ? "revoked" : "failed";
-    const now = new Date().toISOString();
-
-    if (isRevoked) {
-      await markSubscriptionRevoked({ supabase, subscriptionId: subscription.id });
-    } else {
-      const { error: subscriptionError } = await supabase
-        .from("push_subscriptions")
-        .update({
-          last_failure_at: now,
-          failure_count: (subscription.failure_count ?? 0) + 1,
-        })
-        .eq("id", subscription.id);
-
-      if (subscriptionError) {
-        throw new Error(subscriptionError.message);
-      }
-    }
-
-    await updateDelivery({
-      supabase,
-      deliveryId: delivery.id,
-      status,
-      httpStatus: details.httpStatus,
-      errorCode: details.errorCode,
-      errorMessage: details.errorMessage,
-    });
-
-    return {
-      subscriptionId: subscription.id,
-      status,
-      httpStatus: details.httpStatus,
-      errorCode: details.errorCode,
-      errorMessage: details.errorMessage,
-    };
   }
+
+  const details = pushResult.details;
+  const isRevoked = isRevokedPushError(details.httpStatus);
+  const status = isRevoked ? "revoked" : "failed";
+  const now = new Date().toISOString();
+
+  if (isRevoked) {
+    await markSubscriptionRevoked({ supabase, subscriptionId: subscription.id });
+  } else {
+    const { error: subscriptionError } = await supabase
+      .from("push_subscriptions")
+      .update({
+        last_failure_at: now,
+        failure_count: (subscription.failure_count ?? 0) + 1,
+      })
+      .eq("id", subscription.id);
+
+    if (subscriptionError) {
+      throw new Error(subscriptionError.message);
+    }
+  }
+
+  await updateDelivery({
+    supabase,
+    deliveryId: delivery.id,
+    status,
+    httpStatus: details.httpStatus,
+    errorCode: details.errorCode,
+    errorMessage: details.errorMessage,
+  });
+
+  return {
+    subscriptionId: subscription.id,
+    status,
+    httpStatus: details.httpStatus,
+    errorCode: details.errorCode,
+    errorMessage: details.errorMessage,
+  };
 }

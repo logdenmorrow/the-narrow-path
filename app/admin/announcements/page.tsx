@@ -503,6 +503,9 @@ export default async function AdminAnnouncementsPage({
                 const canSendPush = isCurrentlyVisibleAnnouncement(announcement);
                 const announcementSchedules =
                   schedulesByAnnouncementId.get(announcement.id) ?? [];
+                const hasPendingSchedule = announcementSchedules.some(
+                  (schedule) => schedule.status === "pending"
+                );
 
                 return (
                   <SurfaceInset key={announcement.id}>
@@ -559,7 +562,7 @@ export default async function AdminAnnouncementsPage({
                       </div>
                     </div>
 
-                  {canSendPush ? (
+                  {canSendPush && !hasPendingSchedule ? (
                     <form
                       action={scheduleAnnouncementPushAction}
                       className="mb-5 grid gap-3 border-y border-[color:var(--line-soft)] py-4 sm:grid-cols-[1fr_auto] sm:items-end"
@@ -585,6 +588,13 @@ export default async function AdminAnnouncementsPage({
                         Schedule Push
                       </Button>
                     </form>
+                  ) : canSendPush ? (
+                    <div className="mb-5 border-y border-[color:var(--line-soft)] py-4">
+                      <p className="text-sm leading-6 text-monastic-1">
+                        A push is already scheduled for this announcement. Cancel
+                        the pending schedule before adding another.
+                      </p>
+                    </div>
                   ) : null}
 
                   <div className="mb-5">
