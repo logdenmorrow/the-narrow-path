@@ -62,3 +62,5 @@ gospel-preview-page-dump.txt
 production-page-audit-log.json
 production-page-audit-summary.txt
 prayer-request-visibility-scan-log.json
+reading-integrity-scan-log.json
+reading-integrity-scan-summary.txt

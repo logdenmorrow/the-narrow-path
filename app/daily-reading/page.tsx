@@ -601,9 +601,15 @@ export default async function DailyReadingPage({
                   variant={catechismDay ? "catechism" : "scripture"}
                 />
               ) : (
-                <p className="text-sm text-monastic-1 sm:text-base">
-                  No reading text has been added yet for this day.
-                </p>
+                <div className="rounded-lg border border-amber-700/50 bg-amber-950/20 p-4">
+                  <p className="text-sm font-semibold text-amber-100 sm:text-base">
+                    Reading text is missing.
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-amber-100/85 sm:text-base sm:leading-7">
+                    This reading should be reviewed before it is used. The app
+                    will not fill missing Scripture text automatically.
+                  </p>
+                </div>
               )}
             </SurfaceInset>
           </SurfaceCard>

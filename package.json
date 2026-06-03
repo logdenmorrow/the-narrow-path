@@ -8,6 +8,7 @@
     "test:e2e": "playwright test",
     "test:e2e:auth": "playwright test --project=setup",
     "scan:prayer-visibility": "node scripts/scan-prayer-request-visibility.mjs",
+    "scan:reading-integrity": "node scripts/scan-reading-integrity.mjs",
     "build:reading-context-sql": "node scripts/build-reading-context-sql.mjs",
     "email:test": "node --env-file=.env.local scripts/send-resend-test.mjs",
     "import:night-prayer": "node scripts/import-night-prayer.mjs",

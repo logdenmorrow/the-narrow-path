@@ -111,6 +111,38 @@ production-page-audit-summary.txt
 
 Review or paste the JSON log if anything fails.
 
+## Reading Integrity Scanner
+
+Run this before and after reading/season deployments:
+
+```powershell
+npm run scan:reading-integrity
+```
+
+The scanner reads loaded Supabase plan data for:
+
+```text
+the-narrow-path-90
+ordinary-time-james
+the-gospels-september-lent
+```
+
+It reports missing or malformed reading content and writes local-only output to:
+
+```text
+reading-integrity-scan-log.json
+reading-integrity-scan-summary.txt
+```
+
+The scanner must report missing Scripture. It must never repair, invent,
+reconstruct, paraphrase, or fill Scripture text. If Scripture is missing or
+malformed, get corrected text from the approved source or wait for the user to
+supply it.
+
+Catechism detection currently follows the app rule: a day renders as Catechism
+when `reading_reference` starts with `CCC`. The scanner reports Catechism rows
+separately and does not require Scripture verse markers for them.
+
 ## Prayer Request Visibility Scanner
 
 The prayer visibility scanner verifies the private/shared prayer request rules
@@ -150,6 +182,8 @@ Local output:
 
 ```text
 prayer-request-visibility-scan-log.json
+reading-integrity-scan-log.json
+reading-integrity-scan-summary.txt
 ```
 
 The latest documented production result used `https://thenarrowpath.xyz` with
