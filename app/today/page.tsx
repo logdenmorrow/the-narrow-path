@@ -35,6 +35,8 @@ import {
   type PrayerRequestVisibility,
 } from "@/lib/prayer-requests";
 import {
+  ORIGINAL_CHALLENGE_PLAN_SLUG,
+  ORIGINAL_CHALLENGE_TOTAL_DAYS,
   getPostChallengeDisplay,
   getSeasonTimelineItem,
   isDay90Celebration,
@@ -400,6 +402,15 @@ export default async function TodayPage({
                     variant: "secondary",
                   },
                   {
+                    href: buildPlanDayHref(
+                      "/challenge-feedback",
+                      ORIGINAL_CHALLENGE_PLAN_SLUG,
+                      ORIGINAL_CHALLENGE_TOTAL_DAYS
+                    ),
+                    label: "Challenge Feedback",
+                    variant: "secondary",
+                  },
+                  {
                     href: "#whats-next",
                     label: "View What's Next",
                     variant: "outline",
@@ -418,7 +429,7 @@ export default async function TodayPage({
               title="Prayer Resources Stay Open"
               description="There is no daily task pressure during the reset period. Community and past days remain available."
             />
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            <div className="mt-5 grid gap-3 sm:grid-cols-4">
               <SurfaceInset>
                 <div className="section-kicker">Optional</div>
                 <p className="mt-2 text-lg font-semibold text-monastic-0">
@@ -435,6 +446,12 @@ export default async function TodayPage({
                 <div className="section-kicker">Optional</div>
                 <p className="mt-2 text-lg font-semibold text-monastic-0">
                   Confession
+                </p>
+              </SurfaceInset>
+              <SurfaceInset>
+                <div className="section-kicker">Available</div>
+                <p className="mt-2 text-lg font-semibold text-monastic-0">
+                  Challenge Feedback
                 </p>
               </SurfaceInset>
             </div>

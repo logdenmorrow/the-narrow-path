@@ -115,7 +115,7 @@ export function TaskCompletionForm({
             : "translate-y-1 opacity-0 motion-safe:duration-100"
         }`}
       >
-        Nice—+1 consistency
+        Task marked complete.
       </div>
     </div>
   );

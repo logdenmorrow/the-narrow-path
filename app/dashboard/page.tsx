@@ -33,6 +33,8 @@ import {
 } from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
 import {
+  ORIGINAL_CHALLENGE_PLAN_SLUG,
+  ORIGINAL_CHALLENGE_TOTAL_DAYS,
   getPostChallengeDisplay,
   getSeasonTimelineItem,
 } from "@/lib/season-plan";
@@ -365,6 +367,15 @@ export default async function DashboardPage({
                     variant: "secondary",
                   },
                   {
+                    href: buildPlanDayHref(
+                      "/challenge-feedback",
+                      ORIGINAL_CHALLENGE_PLAN_SLUG,
+                      ORIGINAL_CHALLENGE_TOTAL_DAYS
+                    ),
+                    label: "Challenge Feedback",
+                    variant: "secondary",
+                  },
+                  {
                     href: "#whats-next",
                     label: "View What's Next",
                     variant: "outline",
@@ -407,6 +418,16 @@ export default async function DashboardPage({
                   className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
                 >
                   Night Prayer
+                </Link>
+                <Link
+                  href={buildPlanDayHref(
+                    "/challenge-feedback",
+                    ORIGINAL_CHALLENGE_PLAN_SLUG,
+                    ORIGINAL_CHALLENGE_TOTAL_DAYS
+                  )}
+                  className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+                >
+                  Challenge Feedback
                 </Link>
                 <Link
                   href="/rosary"

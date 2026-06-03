@@ -1,6 +1,7 @@
 import { CHALLENGE_START_DATE, getIsoDateInTimeZone } from "@/lib/challenge";
 import { createClient } from "@/lib/supabase/server";
 import {
+  AUGUST_JAMES_LEGACY_PLAN_NAME,
   AUGUST_JAMES_PLAN_NAME,
   AUGUST_JAMES_PLAN_SLUG,
   AUGUST_JAMES_START_DATE,
@@ -112,15 +113,25 @@ export async function resolveSeasonPlan(
       !slugLookup.plan && expectedPlanName
         ? await loadPlanByName(supabase, expectedPlanName)
         : null;
+    const legacyNameLookup =
+      !slugLookup.plan &&
+      !nameLookup?.plan &&
+      requestedPlanSlug === AUGUST_JAMES_PLAN_SLUG
+        ? await loadPlanByName(supabase, AUGUST_JAMES_LEGACY_PLAN_NAME)
+        : null;
     const fallbackActiveOriginal =
       !slugLookup.plan &&
       !nameLookup?.plan &&
+      !legacyNameLookup?.plan &&
       requestedPlanSlug === ORIGINAL_CHALLENGE_PLAN_SLUG &&
       activePlan?.total_days === ORIGINAL_CHALLENGE_TOTAL_DAYS
         ? activePlan
         : null;
     const matchedRequestedPlan =
-      slugLookup.plan ?? nameLookup?.plan ?? fallbackActiveOriginal;
+      slugLookup.plan ??
+      nameLookup?.plan ??
+      legacyNameLookup?.plan ??
+      fallbackActiveOriginal;
     const requestedPlan =
       (matchedRequestedPlan?.is_active === true ||
       options.allowInactiveRequestedPlanPreview
@@ -150,7 +161,10 @@ export async function resolveSeasonPlan(
       isUsingNamedPlan: Boolean(requestedPlan),
       isReviewingOriginalChallenge: requestedPlanSlug === ORIGINAL_CHALLENGE_PLAN_SLUG,
       errorMessage:
-        slugLookup.errorMessage ?? nameLookup?.errorMessage ?? activeLookup.errorMessage,
+        slugLookup.errorMessage ??
+        nameLookup?.errorMessage ??
+        legacyNameLookup?.errorMessage ??
+        activeLookup.errorMessage,
       timing: requestedPlan
         ? getSeasonTiming({
             startDate,
@@ -191,7 +205,12 @@ export async function resolveSeasonPlan(
     const namedLookup = slugLookup.plan
       ? null
       : await loadPlanByName(supabase, AUGUST_JAMES_PLAN_NAME);
-    const namedPlan = slugLookup.plan ?? namedLookup?.plan ?? null;
+    const legacyNamedLookup =
+      slugLookup.plan || namedLookup?.plan
+        ? null
+        : await loadPlanByName(supabase, AUGUST_JAMES_LEGACY_PLAN_NAME);
+    const namedPlan =
+      slugLookup.plan ?? namedLookup?.plan ?? legacyNamedLookup?.plan ?? null;
 
     return {
       todayIso,
@@ -204,7 +223,10 @@ export async function resolveSeasonPlan(
       isUsingNamedPlan: Boolean(namedPlan),
       isReviewingOriginalChallenge: false,
       errorMessage:
-        slugLookup.errorMessage ?? namedLookup?.errorMessage ?? activeLookup.errorMessage,
+        slugLookup.errorMessage ??
+        namedLookup?.errorMessage ??
+        legacyNamedLookup?.errorMessage ??
+        activeLookup.errorMessage,
       timing: namedPlan
         ? getSeasonTiming({
             startDate: AUGUST_JAMES_START_DATE,

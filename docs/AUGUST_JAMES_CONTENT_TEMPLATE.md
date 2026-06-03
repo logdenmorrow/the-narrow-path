@@ -1,4 +1,4 @@
-# Ordinary Time: James Content Draft
+# James: Faith That Works Content Draft
 
 This content draft is for the August 1-31, 2026 James bridge season.
 

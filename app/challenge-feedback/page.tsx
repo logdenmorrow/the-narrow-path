@@ -11,9 +11,10 @@ import {
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming } from "@/lib/challenge";
+import { getChallengeTiming, getIsoDateInTimeZone } from "@/lib/challenge";
 import {
   ORIGINAL_CHALLENGE_PLAN_SLUG,
+  isChallengeFeedbackWindowOpen,
   isDay90Celebration,
 } from "@/lib/season-plan";
 import { buildPlanDayHref } from "@/lib/plan-day-url";
@@ -102,6 +103,7 @@ export default async function ChallengeFeedbackPage({
   }
 
   const challenge = getChallengeTiming(activePlan.total_days);
+  const todayIso = getIsoDateInTimeZone();
   const originalPlanSlug = activePlan.slug ?? ORIGINAL_CHALLENGE_PLAN_SLUG;
   const resolvedSearchParams = await searchParams;
   const rawDay = Array.isArray(resolvedSearchParams.day)
@@ -133,7 +135,7 @@ export default async function ChallengeFeedbackPage({
             <SectionHeader
               kicker="Feedback"
               title="Challenge Feedback"
-              description="Challenge Feedback is only available on Day 90."
+              description="Challenge Feedback opens on Day 90 and remains available through July 31."
             />
             <div className="mt-5">
               <Link
@@ -175,7 +177,12 @@ export default async function ChallengeFeedbackPage({
     .maybeSingle();
 
   const feedback = (feedbackData ?? null) as ChallengeFeedbackResponseRow | null;
-  const isLocked = !challenge.hasStarted || planDay.day_number > challenge.currentDayNumber;
+  const isFeedbackWindowOpen = isChallengeFeedbackWindowOpen({
+    dayNumber: planDay.day_number,
+    totalDays: activePlan.total_days,
+    todayIso,
+  });
+  const isLocked = !isFeedbackWindowOpen;
 
   return (
     <main className="monastic-page">
@@ -188,7 +195,7 @@ export default async function ChallengeFeedbackPage({
                 Challenge Feedback
               </h1>
               <p className="mt-3 text-base leading-7 text-[#ead8bc] sm:text-lg sm:leading-8">
-                Day 90 feedback helps shape the next season.
+                Your feedback helps shape the next season.
               </p>
             </div>
 
@@ -220,8 +227,8 @@ export default async function ChallengeFeedbackPage({
             value={feedback?.id ? "Saved" : "Open"}
             detail={
               feedback?.id
-                ? "Your feedback currently counts as completed."
-                : "Save feedback to complete this task."
+                ? "Your feedback is saved."
+                : "Save feedback when you are ready."
             }
           />
           <MetricCard
@@ -234,7 +241,7 @@ export default async function ChallengeFeedbackPage({
             value={isLocked ? "Locked" : "Available"}
             detail={
               isLocked
-                ? "Challenge Feedback opens on Day 90."
+                ? "Challenge Feedback is available July 4-31."
                 : "You can update and resave your response."
             }
           />

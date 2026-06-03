@@ -13,9 +13,11 @@ export const ORIGINAL_CHALLENGE_PLAN_SLUG = "the-narrow-path-90";
 export const ORIGINAL_CHALLENGE_PLAN_NAME = "The Narrow Path 90";
 export const ORIGINAL_CHALLENGE_TOTAL_DAYS = 90;
 export const AUGUST_JAMES_PLAN_SLUG = "ordinary-time-james";
-export const AUGUST_JAMES_PLAN_NAME = "Ordinary Time: James";
+export const AUGUST_JAMES_PLAN_NAME = "James: Faith That Works";
+export const AUGUST_JAMES_LEGACY_PLAN_NAME = "Ordinary Time: James";
 export const AUGUST_JAMES_START_DATE = "2026-08-01";
 export const AUGUST_JAMES_END_DATE = "2026-08-31";
+export const JULY_RESET_END_DATE = "2026-07-31";
 export const GOSPELS_SEPTEMBER_LENT_PLAN_SLUG =
   "the-gospels-september-lent";
 export const GOSPELS_SEPTEMBER_LENT_PLAN_NAME =
@@ -90,7 +92,7 @@ export const SEASON_TIMELINE: SeasonTimelineItem[] = [
   {
     phase: "james",
     dateLabel: "August 1-31",
-    title: "Ordinary Time: James",
+    title: AUGUST_JAMES_PLAN_NAME,
     description:
       "Daily reading and short reflection through the Letter of James.",
     intensity: "Low/medium",
@@ -252,7 +254,8 @@ export function getSeasonStartDateForPlan(plan: {
 
   if (
     plan.slug === AUGUST_JAMES_PLAN_SLUG ||
-    plan.name === AUGUST_JAMES_PLAN_NAME
+    plan.name === AUGUST_JAMES_PLAN_NAME ||
+    plan.name === AUGUST_JAMES_LEGACY_PLAN_NAME
   ) {
     return AUGUST_JAMES_START_DATE;
   }
@@ -280,6 +283,22 @@ export function isDay90Celebration(dayNumber: number, totalDays: number) {
     totalDays === 90 &&
     dayNumber === 90 &&
     getChallengeDayDate(dayNumber) === DAY_90_CELEBRATION_DATE
+  );
+}
+
+export function isChallengeFeedbackWindowOpen({
+  dayNumber,
+  totalDays,
+  todayIso,
+}: {
+  dayNumber: number;
+  totalDays: number;
+  todayIso: string;
+}) {
+  return (
+    isDay90Celebration(dayNumber, totalDays) &&
+    toUtcDayValue(todayIso) >= toUtcDayValue(DAY_90_CELEBRATION_DATE) &&
+    toUtcDayValue(todayIso) <= toUtcDayValue(JULY_RESET_END_DATE)
   );
 }
 
@@ -330,7 +349,7 @@ export function getSeasonTimelineItem(phase: SeasonPhase) {
 export function getPostChallengeDisplay(phase: SeasonPhase | null) {
   if (phase === "james") {
     return {
-      title: "Ordinary Time: James",
+      title: AUGUST_JAMES_PLAN_NAME,
       body: "A lighter month of Scripture and reflection after the 90 days.",
     };
   }
@@ -351,6 +370,6 @@ export function getPostChallengeDisplay(phase: SeasonPhase | null) {
 
   return {
     title: "Challenge Complete",
-    body: "You finished the 90 days. The rest of July is a reset period. Ordinary Time: James begins August 1.",
+    body: `You finished the 90 days. The rest of July is a reset period. ${AUGUST_JAMES_PLAN_NAME} begins August 1.`,
   };
 }

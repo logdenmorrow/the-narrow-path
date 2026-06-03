@@ -25,6 +25,18 @@ https://thenarrowpath.xyz
 Do not default examples to localhost unless explicitly documenting local
 testing.
 
+## Verification Matrix
+
+Use the smallest category that matches the release. If a change spans multiple
+categories, run each relevant row.
+
+| Change type | Required verification |
+| --- | --- |
+| Normal UI/content changes | `npm run build`, broad production page audit after deployment, manual mobile smoke check if layout changed |
+| Reading/season changes | `npm run build`, SQL verification for plan/readings, relevant scanner, manual Daily Reading mobile check |
+| Privacy changes | `npm run build`, prayer visibility scanner with normal Brotherhood and Sisterhood users, RLS/SQL review |
+| Push/cron changes | `npm run build`, cron dry-run, one controlled real test, verify logs |
+
 ## Required Order
 
 Playwright production checks only prove the deployed production app is correct
@@ -197,6 +209,20 @@ including:
 - plan activation
 - destructive SQL
 - any SQL that writes production data
+
+## August James Activation
+
+The internal August slug remains:
+
+```text
+ordinary-time-james
+```
+
+Before August 1, 2026, confirm the public plan name is
+`James: Faith That Works`, the plan has been reviewed, and activation has been
+explicitly approved. Do not run activation SQL or set `is_active` in production
+without explicit approval. After activation, verify normal users do not see
+admin-preview or locked inactive-plan behavior on August routes.
 
 ## Release Checklist
 

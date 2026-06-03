@@ -21,7 +21,7 @@ this pass and should not be changed by this plan.
 
 ## Current Decisions
 
-- The Gospel season should be more intense than Ordinary Time: James.
+- The Gospel season should be more intense than James: Faith That Works.
 - The Gospel season should be less intense than Lent / Narrow Path 90.
 - The Gospel season should not be merely a reading plan.
 - Preferred future task concepts:

@@ -14,7 +14,7 @@ Special Celebration day. Food, drink, and social media restrictions are relaxed 
 
 No daily task pressure. Night Prayer, Rosary, Confession, community, and past-day review remain available as optional resources.
 
-## August 1-31, 2026: Ordinary Time: James
+## August 1-31, 2026: James: Faith That Works
 
 A lighter Scripture bridge season after the 90 days.
 
@@ -55,10 +55,13 @@ It now contains a 31-day working draft with daily references, titles, focus text
 Draft import data now lives here:
 
 ```text
-supabase/migrations/20260518_zz_add_august_james_draft_plan.sql
+supabase/migrations/20260518091000_add_august_james_draft_plan.sql
 ```
 
-This migration creates `Ordinary Time: James` as an inactive 31-day plan for admin/data review. Do not run it against production or make that plan active until date-based season/plan resolution is implemented.
+This migration creates `James: Faith That Works` with the internal slug
+`ordinary-time-james` as an inactive 31-day plan for admin/data review. Do not
+make that plan active until the launch has been reviewed and explicitly
+approved.
 
 Implementation notes:
 
@@ -66,6 +69,7 @@ Implementation notes:
 - Current task assignments use `task_templates` and `plan_day_tasks`.
 - Primary day-review pages now use date/plan-aware resolution; some legacy/community/prayer pages still load the single `challenge_plans.is_active = true` plan and use the April 6, 2026 start date in `lib/challenge.ts`.
 - Do not mark a second plan active without first updating plan/season selection logic; existing `.maybeSingle()` queries expect one active plan.
+- Before August 1, confirm the `ordinary-time-james` row is reviewed, named `James: Faith That Works`, and intentionally activated only after explicit approval.
 - Once final content is provided, the safe data path is a migration or controlled import that creates the August plan days and assigns only the August task set.
 - August task data should include reading/reflection, Sunday Mass, weekly Adoration, monthly Confession, and optional prayer/community tasks. It should not include the original food, drink, cold shower, social media, fasting, or meat-abstinence challenge restrictions.
 - Current task progress code supports `quota_scope = 'month'` for August Confession. Review dashboard summary copy before the plan is made active so the monthly requirement is surfaced clearly.

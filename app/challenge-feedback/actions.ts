@@ -2,8 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
-import { getChallengeTiming } from "@/lib/challenge";
-import { isDay90Celebration } from "@/lib/season-plan";
+import { getIsoDateInTimeZone } from "@/lib/challenge";
+import {
+  isChallengeFeedbackWindowOpen,
+  isDay90Celebration,
+} from "@/lib/season-plan";
 
 function cleanText(value: FormDataEntryValue | null, maxLength = 5000) {
   const text = String(value ?? "").trim();
@@ -77,12 +80,17 @@ export async function saveChallengeFeedback(formData: FormData) {
   }
 
   if (!isDay90Celebration(planDay.day_number, activePlan.total_days)) {
-    throw new Error("Challenge Feedback is only available for Day 90.");
+    throw new Error("Challenge Feedback uses the Day 90 feedback form.");
   }
 
-  const challenge = getChallengeTiming(activePlan.total_days);
-  if (!challenge.hasStarted || planDay.day_number > challenge.currentDayNumber) {
-    throw new Error("Challenge Feedback is locked until Day 90.");
+  const isFeedbackWindowOpen = isChallengeFeedbackWindowOpen({
+    dayNumber: planDay.day_number,
+    totalDays: activePlan.total_days,
+    todayIso: getIsoDateInTimeZone(),
+  });
+
+  if (!isFeedbackWindowOpen) {
+    throw new Error("Challenge Feedback is available July 4-31.");
   }
 
   const { data: feedbackTask, error: feedbackTaskError } = await supabase

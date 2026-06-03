@@ -302,7 +302,7 @@ Roadmap items:
 
 - Narrow Path 90
 - July reset / short break
-- August 2026 / Ordinary Time: James
+- August 2026 / James: Faith That Works
 - September 1, 2026 to February 9, 2027 / The Gospels
 - Lent 2027 stricter season
 
@@ -1499,7 +1499,7 @@ Current roadmap:
 
 - July 4, 2026: Day 90 Celebration. Food, drink, and social media restrictions are relaxed for this day only. Challenge Feedback is Supabase-backed and exportable from `/admin/challenge-feedback`. Give Thanks is a real Day 90 task with placeholder text based on *Dignitatis Humanae*; final reading copy still needs to be supplied.
 - July 5-31, 2026: Challenge Complete / Reset. No daily task pressure. Night Prayer, Rosary, Confession, community, and past-day review remain available as optional resources.
-- August 1-31, 2026: Ordinary Time: James. Planned as a lighter Scripture bridge season with daily James reading, required reflection, Sunday Mass, weekly Adoration, and one Confession in August. Night Prayer, Rosary, workout, anchor check-in, and community are optional.
+- August 1-31, 2026: James: Faith That Works. Planned as a lighter Scripture bridge season with daily James reading, required reflection, Sunday Mass, weekly Adoration, and one Confession in August. Night Prayer, Rosary, workout, anchor check-in, and community are optional.
 - September 1, 2026-February 9, 2027: The Gospels. Future metadata only for now. Reading order is Mark -> Matthew -> Luke -> John.
 - February 10-March 28, 2027: Lent 2027. Planned as a separate stricter Lenten challenge.
 

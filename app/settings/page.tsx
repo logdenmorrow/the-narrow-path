@@ -93,7 +93,7 @@ export default async function SettingsPage() {
           <SurfaceInset>
             <div className="section-kicker">Roadmap</div>
             <h2 className="mt-2 text-xl font-semibold text-monastic-0">
-              What's ahead
+              What&apos;s ahead
             </h2>
             <p className="mt-2 text-sm leading-6 text-monastic-1">
               See the current roadmap after Narrow Path 90.
