@@ -7,16 +7,26 @@ This note records the current plan after the first 90-day challenge. Treat the l
 Special Celebration day. Food, drink, and social media restrictions are relaxed for this day only.
 
 - Challenge Feedback is Supabase-backed and exportable from `/admin/challenge-feedback`.
+- Challenge Feedback opens on Day 90 / July 4 and remains available through July 31.
+- Challenge Feedback is not treated as overdue or required after July 4.
 - Give Thanks is a real Day 90 reading-only task at `/give-thanks?plan=the-narrow-path-90&day=90`.
 - Give Thanks uses a curated reading based on selected sections of Vatican II's *Dignitatis Humanae*.
+- Production manual check of the reset/feedback behavior looked good.
 
 ## July 5-31, 2026: Challenge Complete / Reset
 
-No daily task pressure. Night Prayer, Rosary, Confession, community, and past-day review remain available as optional resources.
+July reset is implemented as code-level reset state, not as a July database
+plan. It does not show Daily Reading or Scripture Reflection as active July
+tasks.
+
+No daily task pressure. Night Prayer, Rosary, Confession, community, past-day
+review, and Challenge Feedback remain available as optional resources where
+applicable.
 
 ## August 1-31, 2026: James: Faith That Works
 
-A lighter Scripture bridge season after the 90 days.
+A lighter Scripture bridge season after the 90 days. The public display name is
+`James: Faith That Works`; the internal slug remains `ordinary-time-james`.
 
 Required/planned:
 
@@ -42,7 +52,9 @@ Working display-only outline:
 - Aug 19-24: James 4
 - Aug 25-31: James 5
 
-Do not treat the outline or draft splits as final until reviewed. The content draft should still be checked before generating plan data.
+June 3 readiness status: James content and task rows appear ready, but the plan
+remains inactive. A read-only readiness audit found no Critical or High issues.
+Activation must not happen without explicit approval.
 
 The August James content draft lives here:
 
@@ -50,27 +62,50 @@ The August James content draft lives here:
 docs/AUGUST_JAMES_CONTENT_TEMPLATE.md
 ```
 
-It now contains a 31-day working draft with daily references, titles, focus text, reading text, and reflection prompts. It is still a draft until reviewed and imported.
+It contains the 31-day James content reference used for review. Production data
+has since been verified with 31 loaded days, 0 reading-integrity errors, and
+only the acceptable Day 1 previous-summary warning.
 
-Draft import data now lives here:
+Initial James import migration:
 
 ```text
 supabase/migrations/20260518091000_add_august_james_draft_plan.sql
 ```
 
-This migration creates `James: Faith That Works` with the internal slug
-`ordinary-time-james` as an inactive 31-day plan for admin/data review. Do not
-make that plan active until the launch has been reviewed and explicitly
+This migration created the inactive 31-day James plan for admin/data review.
+The later production DB migration
+`20260603120000_update_august_james_public_name.sql` updated the public name by
+slug to `James: Faith That Works`.
+
+Latest production verification confirmed:
+
+```text
+slug: ordinary-time-james
+name: James: Faith That Works
+total_days: 31
+is_active: false
+```
+
+Do not make that plan active until the launch has been reviewed and explicitly
 approved.
 
 Implementation notes:
 
 - Current reading content is stored on `plan_days` using `reading_mission`, `reading_focus`, `reading_title`, `reading_reference`, `reading_notes`, `reading_text`, and `reflection_prompt`.
 - Current task assignments use `task_templates` and `plan_day_tasks`.
-- Primary day-review pages now use date/plan-aware resolution; some legacy/community/prayer pages still load the single `challenge_plans.is_active = true` plan and use the April 6, 2026 start date in `lib/challenge.ts`.
-- Do not mark a second plan active without first updating plan/season selection logic; existing `.maybeSingle()` queries expect one active plan.
-- Before August 1, confirm the `ordinary-time-james` row is reviewed, named `James: Faith That Works`, and intentionally activated only after explicit approval.
-- Once final content is provided, the safe data path is a migration or controlled import that creates the August plan days and assigns only the August task set.
+- Primary day-review pages now use date/plan-aware resolution; some non-core
+  routes still load the single `challenge_plans.is_active = true` plan and/or
+  use older challenge timing assumptions.
+- Current active production plan count remains 1: `the-narrow-path-90`.
+- Before August activation, either keep exactly one active plan at a time or
+  harden the remaining routes to use shared season resolution.
+- If August 1 arrives without activation, James can resolve by date/slug while
+  still inactive and may show locked/admin-preview behavior. This is a Medium
+  activation hygiene risk, not a current production blocker.
+- Do not mark a second plan active without first updating plan/season selection
+  logic; existing `.maybeSingle()` queries expect one active plan.
+- Before August 1, confirm the `ordinary-time-james` row is reviewed and
+  intentionally activated only after explicit approval.
 - August task data should include reading/reflection, Sunday Mass, weekly Adoration, monthly Confession, and optional prayer/community tasks. It should not include the original food, drink, cold shower, social media, fasting, or meat-abstinence challenge restrictions.
 - Current task progress code supports `quota_scope = 'month'` for August Confession. Review dashboard summary copy before the plan is made active so the monthly requirement is surfaced clearly.
 
@@ -81,13 +116,13 @@ Routing convention:
 - Bare `?day=<number>` remains a legacy shortcut and should keep working for existing shared links.
 - During August, use `/today?plan=ordinary-time-james&day=10` instead of relying on `/today?day=10`.
 
-Possible loading paths:
+Activation caution:
 
-- Option A: keep August as a virtual display season using `lib/season-plan.ts` until full season support exists.
-- Option B: add plan/season selection logic so date-based plans can be loaded without relying only on `challenge_plans.is_active = true`.
-- Option C: create August plan data as inactive/draft until the resolver exists.
-
-Recommended next step: use Option A until the James content is final. Then implement Option B before any August plan is made active. Option C is acceptable for private admin/data review only if the draft plan remains inactive.
+- Do not activate without explicit approval.
+- Keep exactly one active plan unless the remaining active-plan-only routes have
+  been hardened.
+- After activation, verify normal users do not see inactive/admin-preview/locked
+  behavior on August routes.
 
 ## September 1, 2026 - February 9, 2027: The Gospels
 

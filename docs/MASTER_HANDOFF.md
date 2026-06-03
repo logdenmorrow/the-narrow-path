@@ -1,6 +1,6 @@
 # The Narrow Path — Master Project Handoff
 
-**Replacement handoff version:** 2026-06-02  
+**Replacement handoff version:** 2026-06-03  
 **Project domain:** thenarrowpath.xyz  
 **Repository:** logdenmorrow/the-narrow-path  
 **Preferred source format:** Markdown  
@@ -113,6 +113,92 @@ related audit logs. Treat the current repo and production database as the source
 of truth if any pasted summary conflicts with this section. This section is
 documentation only; it does not imply a commit, deployment, migration, or
 production write happened unless stated below as verified by repo docs/logs.
+
+### June 3 hardening checkpoint
+
+The June 3 hardening pass was a verification/documentation checkpoint around
+post-90 season behavior, August James readiness, scheduled announcement push
+hardening, and reading integrity.
+
+July reset / Challenge Feedback:
+
+- July 5-31 reset behavior is implemented as code-level reset state, not as a
+  July database plan.
+- July reset does not show Daily Reading or Scripture Reflection as active July
+  tasks.
+- Night Prayer, Rosary, Confession, community, past-day review, and Challenge
+  Feedback remain available as optional resources where applicable.
+- Challenge Feedback opens on Day 90 / July 4 and remains available through
+  July 31.
+- Challenge Feedback is not treated as overdue or required after July 4.
+- A production manual check of the reset/feedback behavior looked good.
+
+August James:
+
+- The public August name is `James: Faith That Works`.
+- The internal slug remains `ordinary-time-james`.
+- Production migration `20260603120000_update_august_james_public_name.sql`
+  updated the plan name by slug.
+- Production verification confirmed slug `ordinary-time-james`, name
+  `James: Faith That Works`, `total_days = 31`, and `is_active = false`.
+- A read-only James readiness audit found no Critical or High issues.
+- James content and task rows appear ready, but the plan remains inactive.
+- Do not activate James without explicit approval.
+
+August activation caution:
+
+- The current active production plan count remains 1:
+  `the-narrow-path-90`.
+- Several non-core routes still assume exactly one
+  `challenge_plans.is_active = true` row and/or older challenge timing
+  assumptions.
+- Before August activation, either keep exactly one active plan at a time or
+  harden the remaining routes to use shared season resolution.
+- If August 1 arrives without activation, James can resolve by date/slug while
+  still inactive and may show locked/admin-preview behavior.
+- This is a Medium activation hygiene risk, not a current production blocker.
+
+Scheduled announcement push hardening:
+
+- Migration `20260603133000_harden_announcement_push_schedules.sql` was applied
+  and verified.
+- Schedule status now includes `skipped`.
+- A partial unique index enforces one pending scheduled push per announcement.
+- Cron dry-run after deployment succeeded with 0 due schedules.
+- No real controlled push test was run because Logan chose to skip it.
+
+Reading integrity:
+
+- `npm run scan:reading-integrity` was added.
+- The scanner checks `the-narrow-path-90`, `ordinary-time-james`, and
+  `the-gospels-september-lent`.
+- The scanner is read-only and must never repair, invent, reconstruct,
+  paraphrase, or fill Scripture text.
+- The latest production scan after deployment reported 283 total days, 248
+  Scripture days, 35 Catechism days, 29 errors, and 4 warnings.
+- `the-narrow-path-90`: 90 days, 0 errors, 3 warnings.
+- `ordinary-time-james`: 31 days, 0 errors, 1 acceptable Day 1
+  previous-summary warning.
+- `the-gospels-september-lent`: 162 days, 29 errors, all missing
+  `reading_key_terms`.
+- No missing Scripture text, missing Scripture headings, or missing Scripture
+  verse markers were reported.
+- Catechism detection currently uses `reading_reference` starting with `CCC`.
+  Current loaded rows are safe enough for now, but an explicit `reading_type` or
+  `reading_kind` field would be safer later.
+- `/daily-reading` now shows a clear warning if reading text is missing and
+  states the app will not fill missing Scripture text automatically.
+
+Known non-blockers / future work:
+
+- Gospel preview remains inactive and has 29 key-term gaps.
+- Day 1 previous-summary warnings are acceptable.
+- Catechism paragraph marker warnings on Narrow Path 90 days 49 and 56 are
+  warnings only, not missing content.
+- Admin export/download scanner failures remain low-priority admin tooling
+  cleanup.
+- GroupMe routes/helpers remain intentionally unchanged until after Sunday
+  weekly recap verification. Do not claim GroupMe is fully removed.
 
 ### `/today` task toggle fix
 

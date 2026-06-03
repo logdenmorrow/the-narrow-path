@@ -143,6 +143,32 @@ Catechism detection currently follows the app rule: a day renders as Catechism
 when `reading_reference` starts with `CCC`. The scanner reports Catechism rows
 separately and does not require Scripture verse markers for them.
 
+The latest documented production scan after deployment reported:
+
+```text
+Total days: 283
+Scripture days: 248
+Catechism days: 35
+Errors: 29
+Warnings: 4
+```
+
+Plan results:
+
+- `the-narrow-path-90`: 90 days, 0 errors, 3 warnings.
+- `ordinary-time-james`: 31 days, 0 errors, 1 acceptable Day 1
+  previous-summary warning.
+- `the-gospels-september-lent`: 162 days, 29 errors, all missing
+  `reading_key_terms`.
+
+No missing Scripture text, missing Scripture headings, or missing Scripture
+verse markers were reported. The Gospel preview key-term gaps are real data
+gaps and should be supplied or reviewed later; the scanner must not generate or
+fill them.
+
+`/daily-reading` should show a clear warning if reading text is missing and
+state that the app will not fill missing Scripture text automatically.
+
 ## Prayer Request Visibility Scanner
 
 The prayer visibility scanner verifies the private/shared prayer request rules
@@ -182,8 +208,6 @@ Local output:
 
 ```text
 prayer-request-visibility-scan-log.json
-reading-integrity-scan-log.json
-reading-integrity-scan-summary.txt
 ```
 
 The latest documented production result used `https://thenarrowpath.xyz` with
@@ -217,6 +241,15 @@ deployment. If a real push test is needed, schedule one controlled visible
 announcement push only after explicit approval, then verify the cron response,
 schedule row, broadcast row, and delivery logs.
 
+Latest scheduled announcement push hardening:
+
+- Migration `20260603133000_harden_announcement_push_schedules.sql` was applied
+  and verified.
+- Schedule status now includes `skipped`.
+- A partial unique index enforces one pending scheduled push per announcement.
+- Cron dry-run after deployment succeeded with 0 due schedules.
+- No real controlled push test was run because Logan chose to skip it.
+
 ## Local Files
 
 These files are local-only and must never be committed:
@@ -231,6 +264,8 @@ gospel-preview-page-dump.txt
 production-page-audit-log.json
 production-page-audit-summary.txt
 prayer-request-visibility-scan-log.json
+reading-integrity-scan-log.json
+reading-integrity-scan-summary.txt
 ```
 
 They should stay in `.gitignore`.
@@ -262,6 +297,37 @@ Before August 1, 2026, confirm the public plan name is
 explicitly approved. Do not run activation SQL or set `is_active` in production
 without explicit approval. After activation, verify normal users do not see
 admin-preview or locked inactive-plan behavior on August routes.
+
+Latest read-only verification confirmed:
+
+```text
+slug: ordinary-time-james
+name: James: Faith That Works
+total_days: 31
+is_active: false
+active production plan count: 1
+active production plan: the-narrow-path-90
+```
+
+James content and task rows appear ready, but the plan remains inactive. Before
+activation, either keep exactly one active plan at a time or harden remaining
+non-core routes that still assume one `challenge_plans.is_active = true` row
+and/or older challenge timing. If August 1 arrives without activation, James can
+resolve by date/slug while still inactive and may show locked/admin-preview
+behavior. This is a Medium activation hygiene risk, not a current production
+blocker.
+
+## July Reset and Challenge Feedback
+
+July 5-31 reset behavior is implemented as code-level reset state, not as a
+July database plan. July reset does not show Daily Reading or Scripture
+Reflection as active July tasks.
+
+Night Prayer, Rosary, Confession, community, past-day review, and Challenge
+Feedback remain available as optional resources where applicable. Challenge
+Feedback opens on Day 90 / July 4 and remains available through July 31. It is
+not treated as overdue or required after July 4. The production manual check
+looked good.
 
 ## Release Checklist
 
