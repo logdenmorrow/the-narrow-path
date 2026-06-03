@@ -104,7 +104,7 @@ export function formatAnnouncementLabel(value: string) {
 
 export function renderPlainTextParagraphs(body: string) {
   return body
-    .split(/\n{2,}/)
+    .split(/\r?\n\s*\r?\n/)
     .map((paragraph) => paragraph.trim())
     .filter(Boolean);
 }
