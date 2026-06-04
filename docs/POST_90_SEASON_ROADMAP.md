@@ -23,6 +23,12 @@ No daily task pressure. Night Prayer, Rosary, Confession, community, past-day
 review, and Challenge Feedback remain available as optional resources where
 applicable.
 
+`/today` also shows a read-only Today in the Church card. It is not a task, is
+not completable, and does not write to task completions or daily check-ins. V1
+uses a small reviewed local data file at
+`content/liturgical-calendar/us-2026.json` with graceful fallback copy for dates
+that have not been added yet.
+
 ## August 1-31, 2026: James: Faith That Works
 
 A lighter Scripture bridge season after the 90 days. The public display name is

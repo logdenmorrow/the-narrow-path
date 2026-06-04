@@ -2220,6 +2220,21 @@ Important roles:
 
 ## 20. Daily Status, Prayer Requests, and GroupMe
 
+### Today in the Church
+
+`/today` now replaces the visible Daily Status card with a read-only Today in
+the Church card. It links to `/today-in-the-church?date=YYYY-MM-DD`.
+
+Important rules:
+
+- It is not a task.
+- It is not completable.
+- It does not affect progress.
+- It must not write to `user_task_completions`.
+- It must not write to `user_daily_checkins`.
+- V1 uses reviewed local content in `content/liturgical-calendar/us-2026.json`
+  and falls back gracefully for missing dates.
+
 ### Daily status and prayer requests
 
 A migration added:

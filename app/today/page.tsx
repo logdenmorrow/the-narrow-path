@@ -2,9 +2,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppActionBar } from "@/components/page-actions";
 import { AdminViewTrackSwitcher } from "@/components/admin-view-track-switcher";
-import { DailyStatusCard } from "@/components/daily-status-card";
 import { PrayerRequestCard } from "@/components/prayer-request-card";
 import { SoftMobileInstallPrompt } from "@/components/pwa-install-prompt";
+import { TodayInTheChurchCard } from "@/components/today-in-the-church-card";
 import {
   GospelScaffoldingCard,
   JamesScaffoldingCard,
@@ -25,9 +25,7 @@ import {
 } from "@/lib/admin";
 import { updateLastActiveAt } from "@/lib/last-active";
 import {
-  DAILY_STATUS_LABELS,
   PRAYER_REQUEST_CATEGORY_LABELS,
-  type DailyStatus,
   type PrayerRequestCategory,
 } from "@/lib/accountability";
 import {
@@ -45,6 +43,7 @@ import {
   buildPlanDayHref,
   getPlanSlugForResolvedSeason,
 } from "@/lib/plan-day-url";
+import { getLiturgicalCalendarDay } from "@/lib/liturgical-calendar";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
 import {
   HeroPanel,
@@ -72,10 +71,6 @@ type PlanDayRow = {
   reflection_prompt: string | null;
   reading_title: string | null;
   reading_reference: string | null;
-};
-
-type DailyCheckinRow = {
-  status: DailyStatus;
 };
 
 type PrayerRequestRow = {
@@ -730,15 +725,8 @@ export default async function TodayPage({
     activePlan.is_active === true &&
     challenge.hasStarted &&
     selectedDay === challenge.currentDayNumber;
-
-  const { data: dailyCheckinData } = accountabilityEnabled
-    ? await supabase
-        .from("user_daily_checkins")
-        .select("status")
-        .eq("user_id", user.id)
-        .eq("day_date", currentDateIso)
-        .maybeSingle()
-    : { data: null };
+  const liturgicalDateIso = taskModels[0]?.dayDate ?? currentDateIso;
+  const liturgicalDay = getLiturgicalCalendarDay(liturgicalDateIso);
 
   const { data: prayerRequestData } = accountabilityEnabled
     ? await supabase
@@ -749,11 +737,10 @@ export default async function TodayPage({
         .maybeSingle()
     : { data: null };
 
-  const dailyCheckin = (dailyCheckinData ?? null) as DailyCheckinRow | null;
   const prayerRequest = (prayerRequestData ?? null) as PrayerRequestRow | null;
   const accountabilityHelperText = !accountabilityEnabled
     ? challenge.hasStarted
-      ? "Daily Status and Prayer Requests are only available on today's challenge day."
+      ? "Prayer Requests are only available on today's challenge day."
       : "These fields will open when the challenge begins."
     : "This is separate from individual task completion.";
 
@@ -1135,25 +1122,13 @@ export default async function TodayPage({
 
           <SurfaceCard>
             <SectionHeader
-              kicker="Accountability"
-              title="Daily Status"
-              description="How did today go?"
+              kicker="Today in the Church"
+              title={liturgicalDay.title}
+              description={`${liturgicalDay.rank} • ${liturgicalDay.liturgical_color}${
+                liturgicalDay.season ? ` • ${liturgicalDay.season}` : ""
+              }`}
             />
-            {accountabilityEnabled ? (
-              <DailyStatusCard
-                initialStatus={dailyCheckin?.status ?? null}
-                disabled={!accountabilityEnabled}
-                helperText={
-                  dailyCheckin?.status
-                    ? `${DAILY_STATUS_LABELS[dailyCheckin.status]} saved for today. ${accountabilityHelperText}`
-                    : accountabilityHelperText
-                }
-              />
-            ) : (
-              <p className="mt-5 text-base leading-7 text-monastic-1">
-                {accountabilityHelperText}
-              </p>
-            )}
+            <TodayInTheChurchCard day={liturgicalDay} />
           </SurfaceCard>
 
           <SurfaceCard>
