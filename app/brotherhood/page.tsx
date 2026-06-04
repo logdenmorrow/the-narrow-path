@@ -33,11 +33,8 @@ import {
   type PrayerRequestVisibility,
 } from "@/lib/prayer-requests";
 import {
-  DAILY_STATUS_LABELS,
   PRAYER_REQUEST_CATEGORY_LABELS,
   getAccountabilityDates,
-  getDailyStatusTone,
-  type DailyStatus,
   type PrayerRequestCategory,
 } from "@/lib/accountability";
 import {
@@ -68,11 +65,6 @@ type PlanDayRow = {
   id: number;
   day_number: number;
   title?: string | null;
-};
-
-type DailyCheckinRow = {
-  user_id: string;
-  status: DailyStatus;
 };
 
 type PrayerRequestRow = {
@@ -312,13 +304,6 @@ export default async function BrotherhoodPage({
   const typedCompletions = (completions ?? []) as CompletionRecord[];
   const { todayIso, yesterdayIso } = getAccountabilityDates();
 
-  const { data: dailyCheckinsData } = challenge.hasStarted
-    ? await supabase
-        .from("user_daily_checkins")
-        .select("user_id, status")
-        .eq("day_date", todayIso)
-    : { data: [] as DailyCheckinRow[] };
-
   const { data: prayerRequestsData } = challenge.hasStarted
     ? await supabase
         .from("user_prayer_requests")
@@ -328,10 +313,6 @@ export default async function BrotherhoodPage({
         .order("created_at", { ascending: true })
     : { data: [] as PrayerRequestRow[] };
 
-  const dailyCheckins = (dailyCheckinsData ?? []) as DailyCheckinRow[];
-  const dailyCheckinByUserId = new Map(
-    dailyCheckins.map((row) => [row.user_id, row.status])
-  );
   const profileById = new Map(typedProfiles.map((profile) => [profile.id, profile]));
   const rawPrayerRequests = (prayerRequestsData ?? []) as PrayerRequestRow[];
   const prayerAuthorIds = [
@@ -397,7 +378,6 @@ export default async function BrotherhoodPage({
         );
       const hasWeeklyMomentum = quotaRows.some((row) => (row.progressCount ?? 0) > 0);
       const startedToday = requiredDoneToday > 0 || optionalDoneToday > 0;
-      const dailyStatus = dailyCheckinByUserId.get(profile.id) ?? null;
 
       let statusLabel = "Not Started";
       if (requiredSummary.completedAll) {
@@ -416,7 +396,6 @@ export default async function BrotherhoodPage({
         optionalTotal,
         quotaRows,
         hasWeeklyMomentum,
-        dailyStatus,
         startedToday,
         completedToday: requiredSummary.completedAll,
         statusLabel,
@@ -685,22 +664,6 @@ export default async function BrotherhoodPage({
                         Required: {member.requiredSummary.done}/{member.requiredSummary.total}
                       </span>
                     </StatusPill>
-                    {isCurrentDayView ? (
-                      <StatusPill tone={getDailyStatusTone(member.dailyStatus)}>
-                        <span className="sm:hidden">
-                          Daily:{" "}
-                          {member.dailyStatus
-                            ? DAILY_STATUS_LABELS[member.dailyStatus]
-                            : "None"}
-                        </span>
-                        <span className="hidden sm:inline">
-                          Daily Status:{" "}
-                          {member.dailyStatus
-                            ? DAILY_STATUS_LABELS[member.dailyStatus]
-                            : "No check-in yet"}
-                        </span>
-                      </StatusPill>
-                    ) : null}
                     <StatusPill tone="optional">
                       <span className="sm:hidden">
                         Opt {member.optionalDone}/{member.optionalTotal}
