@@ -27,7 +27,9 @@ applicable.
 not completable, and does not write to task completions or daily check-ins. V1
 uses a small reviewed local data file at
 `content/liturgical-calendar/us-2026.json` with graceful fallback copy for dates
-that have not been added yet.
+that have not been added yet. Follow
+`docs/TODAY_IN_THE_CHURCH_CONTENT_WORKFLOW.md` and run
+`npm run scan:liturgical-content` before adding calendar/profile content.
 
 ## August 1-31, 2026: James: Faith That Works
 

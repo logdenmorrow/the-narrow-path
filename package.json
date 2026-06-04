@@ -7,6 +7,7 @@
     "lint": "eslint .",
     "test:e2e": "playwright test",
     "test:e2e:auth": "playwright test --project=setup",
+    "scan:liturgical-content": "node scripts/scan-liturgical-content.mjs",
     "scan:prayer-visibility": "node scripts/scan-prayer-request-visibility.mjs",
     "scan:reading-integrity": "node scripts/scan-reading-integrity.mjs",
     "build:reading-context-sql": "node scripts/build-reading-context-sql.mjs",

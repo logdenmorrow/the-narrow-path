@@ -2234,6 +2234,9 @@ Important rules:
 - It must not write to `user_daily_checkins`.
 - V1 uses reviewed local content in `content/liturgical-calendar/us-2026.json`
   and falls back gracefully for missing dates.
+- Content workflow and validation are documented in
+  `docs/TODAY_IN_THE_CHURCH_CONTENT_WORKFLOW.md`; run
+  `npm run scan:liturgical-content` before adding calendar/profile content.
 
 ### Daily status and prayer requests
 
