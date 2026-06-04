@@ -206,10 +206,15 @@ export default async function TodayInTheChurchPage({
                             {observance.description}
                           </p>
                         ) : null}
-                        {observance.profile_slug && relatedProfile ? (
+                        {observance.profile_slug && relatedProfile && isSelected ? (
+                          <p className="mt-4 text-sm leading-6 text-monastic-2">
+                            Profile shown below
+                          </p>
+                        ) : null}
+                        {observance.profile_slug && relatedProfile && !isSelected ? (
                           <Button
                             asChild
-                            variant={isSelected ? "primary" : "secondary"}
+                            variant="secondary"
                             className="mt-4"
                           >
                             <Link
@@ -217,7 +222,7 @@ export default async function TodayInTheChurchPage({
                                 observance.profile_slug
                               )}`}
                             >
-                              {isSelected ? "Viewing profile" : "View profile"}
+                              View profile
                             </Link>
                           </Button>
                         ) : null}
