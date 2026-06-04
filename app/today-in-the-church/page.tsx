@@ -59,7 +59,7 @@ export default async function TodayInTheChurchPage({
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.34fr)]">
           <div className="grid gap-5">
             <SurfaceCard>
-              <SectionHeader kicker="Why this day matters" title="Today in the Church" />
+              <SectionHeader kicker="Overview" title="Why this day matters" />
               <p className="mt-5 text-base leading-7 text-monastic-1">
                 {day.summary}
               </p>
@@ -68,7 +68,7 @@ export default async function TodayInTheChurchPage({
             <SurfaceCard>
               <SectionHeader
                 kicker="About"
-                title="About the saint or celebration"
+                title="About this day"
               />
               <p className="mt-5 text-base leading-7 text-monastic-1">
                 {day.description}
