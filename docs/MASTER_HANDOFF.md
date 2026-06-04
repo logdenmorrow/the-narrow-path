@@ -1,10 +1,10 @@
 # The Narrow Path — Master Project Handoff
 
-**Replacement handoff version:** 2026-06-03  
+**Replacement handoff version:** 2026-06-04  
 **Project domain:** thenarrowpath.xyz  
 **Repository:** logdenmorrow/the-narrow-path  
 **Preferred source format:** Markdown  
-**Purpose:** This document replaces the older May 9, 2026 PDF handoff and consolidates the original project history, ChatGPT Project audits, Codex Cloud audits, local repo-history audit, the May 17 reminder/branding/tone cleanup checkpoint, and the completed June 2026 implementation/documentation checkpoint into one current source-of-truth document for future ChatGPT Project context.
+**Purpose:** This document replaces the older May 9, 2026 PDF handoff and consolidates the original project history, ChatGPT Project audits, Codex Cloud audits, local repo-history audit, the May 17 reminder/branding/tone cleanup checkpoint, the completed June 2026 implementation/documentation checkpoint, and the June 4 Catholic Source Corpus / Today in the Church review checkpoint into one current source-of-truth document for future ChatGPT Project context.
 
 ---
 
@@ -44,6 +44,24 @@ This handoff should be read as a product/architecture guide, not as proof that e
 - A Codex PR/tool call does not prove a branch was pushed, merged, deployed, or live-tested.
 - The current committed repo should be inspected before any new code advice.
 - If local uncommitted changes exist, they must be pasted or committed before relying on repo state.
+
+### Catholic source layer
+
+As of June 4, 2026, the ChatGPT Project context also includes a curated Catholic
+reference library imported from Logan's Catholic Q&A project, "Offbrand Truthly."
+That source corpus is the theological/source-review layer for Catholic accuracy,
+not a replacement for this handoff, the GitHub repo, or Supabase production data.
+
+Use the normal project hierarchy for app/code/product questions:
+
+- current GitHub repo for implementation
+- this handoff for product/code/workflow context
+- Supabase production database for live production data
+
+Use the Catholic Source Corpus hierarchy for Catholic/theological content
+questions. For combined tasks, such as adding or reviewing a feast profile in
+the app, inspect the current repo for implementation details while using the
+Catholic Source Corpus for theological accuracy.
 
 ---
 
@@ -953,6 +971,162 @@ Do not claim:
 - Old stored announcement text was changed.
 - Every possible future season-safe timing assumption has been found and fixed.
 - Every device/browser was tested.
+
+---
+
+## 1C. June 4, 2026 Catholic Source Corpus and Today in the Church Review Checkpoint
+
+As of June 4, 2026, The Narrow Path Project has a dedicated Catholic Source
+Corpus imported into ChatGPT Project context from Logan's Catholic Q&A project,
+"Offbrand Truthly." The corpus is not a replacement for the technical/product
+handoff. It is the theological reference layer for Catholic accuracy, doctrinal
+review, feast/saint profiles, Scripture/Catechism explanations, moral theology,
+liturgical wording, devotional practice, and app-publication review.
+
+The active-use source pack includes:
+
+```text
+TNP_Source_00_Master_Instructions_and_Index.md
+TNP_Source_01_Scripture_Douay_Rheims.md
+TNP_Source_02_Core_Catechisms_and_Councils.md
+TNP_Source_03_Law_Liturgy_Moral_Social_and_Guardrails.md
+TNP_Source_04_Summa_01.md
+TNP_Source_04_Summa_02.md
+TNP_Source_04_Summa_03.md
+TNP_Source_04_Summa_04.md
+README.md
+Catechism of the Catholic Church - USCCB.pdf
+Book_of_Acts_Combined.txt
+```
+
+Do not add these corpus files to the repo unless they already exist there and
+the user explicitly asks for repo-file work. The GitHub master handoff remains
+the product/code/workflow source of truth. The current GitHub repo remains the
+implementation source of truth. Supabase remains the source of truth for live
+production data. The Catholic Source Corpus is the theological/source-review
+layer.
+
+Use the corpus especially for:
+
+- `Today in the Church` content
+- feast profiles
+- saint profiles
+- solemnity/memorial explanations
+- liturgical explanations
+- Eucharistic doctrine
+- Marian doctrine
+- sacramental language
+- moral claims
+- devotional practices
+- Scripture explanations
+- Catechism explanations
+- JSON/content review before marking an item approved
+
+### Authority / source hierarchy
+
+The corpus is a curated Catholic reference library, not a flat authority. Higher
+authority Catholic sources govern lower-level summaries. Do not describe the
+corpus itself as magisterial authority.
+
+For Catholic content review, prioritize:
+
+1. Sacred Scripture interpreted according to Catholic Tradition and the Magisterium
+2. Catechism of the Catholic Church
+3. Ecumenical councils, especially Trent, Vatican I, and Vatican II interpreted in continuity
+4. Solemn definitions and dogmatic teaching
+5. Roman Catechism / Catechism of the Council of Trent
+6. Canon law and official liturgical law when practical norms are involved
+7. Papal encyclicals, Vatican instructions, CDF/DDF documents, GIRM, and official liturgical documents
+8. Summa Theologiae and traditional catechetical sources as theological support
+9. Secondary explainers only when official sources do not already answer clearly
+
+Permanent review rules:
+
+- Do not treat all uploaded Catholic documents as equal in authority.
+- Do not invent CCC paragraph numbers, canon numbers, quotes, feast data, or magisterial claims.
+- Vatican II must be read from the actual documents and interpreted in continuity with Scripture, Tradition, Trent, Vatican I, the Catechism, canon law, and the constant teaching of the Church.
+- For moral theology, distinguish grave matter, full knowledge, deliberate consent, mortal sin, venial sin, objective disorder, subjective culpability, scandal, confession guidance, and Communion guidance.
+- For liturgy, distinguish universal liturgical law, Roman Rite norms, United States adaptations, diocesan policy, parish custom, abuse/irregular practice, and legitimate options.
+- For Scripture, interpret according to Catholic Tradition and the Magisterium, not Protestant private interpretation or isolated proof-texting.
+- For app publication, prefer cautious, source-grounded Catholic wording over clever summaries.
+
+### Today in the Church review workflow
+
+`Today in the Church` content needs two layers:
+
+```text
+Layer 1: Current/date-specific verification
+- USCCB liturgical calendar
+- USCCB daily readings
+- Roman Missal / GIRM where relevant
+- official Vatican/diocesan/parish sources when needed
+- trustworthy saint/feast sources
+
+Layer 2: Catholic theological review
+- Scripture
+- Catechism
+- councils
+- Roman Catechism / Trent
+- canon/liturgical law
+- Eucharistic, Marian, sacramental, moral, and devotional guardrails
+- Summa as theological support, not controlling authority
+```
+
+The Catholic Source Corpus is excellent for theological approval, but it should
+not be the only source for date-specific facts. Feast rank, transferred
+solemnities, holy days, readings, memorials, local observances, Vatican updates,
+USCCB calendars, and diocesan/parish details can be current/date-sensitive and
+should be verified against current official sources when needed.
+
+When reviewing `Today in the Church` JSON/content, check:
+
+1. Date and liturgical identity
+2. Feast/solemnity/memorial rank
+3. Liturgical color if included
+4. Daily readings if included
+5. Saint/feast historical claims
+6. Catholic doctrinal accuracy
+7. Theological precision
+8. Proper distinction between doctrine, discipline, devotion, custom, and opinion
+9. Avoidance of Protestantized or symbolic-only sacramental language
+10. Avoidance of vague modernist phrasing
+11. Avoidance of polemical or rage-traditionalist overcorrection
+12. Suitability for ordinary Catholics using a devotional app
+13. Whether any claim needs stronger sourcing
+14. Whether the item is safe to publish
+
+Approval statuses:
+
+- `approved`
+- `approved_with_minor_edits`
+- `needs_revision`
+- `do_not_publish_yet`
+
+Do not mark an item `approved` merely because it sounds Catholic. Approval
+requires Catholic accuracy, source fidelity, theological clarity, current/date
+verification where needed, and safe publication wording.
+
+### Historical caution
+
+If saint or feast history is uncertain, legendary, disputed, or based on
+tradition rather than firm historical evidence, do not state uncertain details
+as fact. Qualify the wording carefully or move the concern to internal review
+notes.
+
+### Tone
+
+`Today in the Church` content should be Catholic, reverent, plainspoken, and
+useful. It should not sound like a marketing campaign, academic encyclopedia
+entry, devotional fluff, Protestant summary, or polemical correction.
+
+### Relationship to normal app/code work
+
+For app/code/product questions, keep using the existing repo/Supabase/master
+handoff source hierarchy. For Catholic/theological content questions, use the
+Catholic Source Corpus hierarchy. For combined tasks, such as adding or
+reviewing a feast profile in the app, inspect the current repo for
+implementation details while using the Catholic Source Corpus for theological
+accuracy.
 
 ---
 
