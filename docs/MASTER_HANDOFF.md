@@ -1130,6 +1130,80 @@ accuracy.
 
 ---
 
+## 1D. June 4, 2026 Today in the Church June-July Expansion Checkpoint
+
+The June-July Today in the Church expansion was completed, committed, pushed,
+deployed, and production-accepted. It remains a read-only calendar feature: it
+is not a task, not completable, not gamified, and does not affect task progress.
+
+Current production behavior:
+
+- `/today` replaces the visible Daily Status card with Today in the Church.
+- The Brotherhood/Sisterhood community page no longer shows visible Daily
+  Status pills.
+- Today in the Church content lives in reviewed local JSON:
+  `content/liturgical-calendar/us-2026.json` and
+  `content/liturgical-profiles/**`.
+- The content workflow is documented in
+  `docs/TODAY_IN_THE_CHURCH_CONTENT_WORKFLOW.md`.
+- The content scanner is `npm run scan:liturgical-content`.
+
+Completed content:
+
+- Calendar coverage was added for June 8 through July 31, 2026.
+- Fourteen rich profiles were added and Catholic-reviewed:
+  `saint-barnabas`, `sacred-heart-of-jesus`,
+  `nativity-of-saint-john-the-baptist`, `saints-peter-and-paul`,
+  `saint-thomas-apostle`, `saint-benedict`,
+  `saint-kateri-tekakwitha`, `saint-bonaventure`,
+  `our-lady-of-mount-carmel`, `saint-mary-magdalene`,
+  `saint-james-apostle`, `saints-joachim-and-anne`,
+  `saints-martha-mary-and-lazarus`, and `saint-ignatius-of-loyola`.
+- All linked rich profiles in the June-July batch were reviewed and approved.
+- Approved but unlinked profiles may exist for optional or displaced
+  observances.
+
+Verification and production acceptance:
+
+- `npm run scan:liturgical-content` passed with 0 errors and 0 warnings after
+  review.
+- `npm run build` passed.
+- `npm run lint` passed.
+- Production spot checks passed for `/today`,
+  `/today-in-the-church?date=2026-06-12`,
+  `/today-in-the-church?date=2026-06-24`,
+  `/today-in-the-church?date=2026-06-29`,
+  `/today-in-the-church?date=2026-07-03`,
+  `/today-in-the-church?date=2026-07-22`, and
+  `/today-in-the-church?date=2026-07-31`.
+- Intentional non-linked checks passed:
+  `/today-in-the-church?date=2026-07-16` did not show the rich Our Lady of
+  Mount Carmel profile, and `/today-in-the-church?date=2026-07-26` did not show
+  Saints Joachim and Anne as the main profile because July 26, 2026 is a Sunday
+  in the U.S. calendar.
+
+Known model limitation:
+
+- The current model supports only one primary `profile_slug` per calendar date.
+- Optional memorials and displaced observances need future optional-observance
+  support before rich profiles can display without implying that they are the
+  primary day.
+
+Continue using the two-layer review method for future Today in the Church work:
+
+1. Current/date-specific verification using the USCCB calendar/readings and
+   official current sources where needed.
+2. Catholic theological review using the Catholic Source Corpus/source
+   hierarchy.
+
+Do not mark future profiles approved merely because they sound Catholic.
+Approval requires Catholic accuracy, source fidelity, theological clarity,
+current/date verification where needed, and publication-safe wording. Never
+invent feast data, CCC numbers, canon numbers, quotes, liturgical colors,
+ranks, readings, saint facts, or magisterial claims.
+
+---
+
 ## 2. Quick Non-Negotiables
 
 Paste this into future prompts when needed:

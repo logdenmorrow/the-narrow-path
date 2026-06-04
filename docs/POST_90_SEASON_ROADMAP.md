@@ -24,12 +24,19 @@ review, and Challenge Feedback remain available as optional resources where
 applicable.
 
 `/today` also shows a read-only Today in the Church card. It is not a task, is
-not completable, and does not write to task completions or daily check-ins. V1
-uses a small reviewed local data file at
-`content/liturgical-calendar/us-2026.json` with graceful fallback copy for dates
-that have not been added yet. Follow
-`docs/TODAY_IN_THE_CHURCH_CONTENT_WORKFLOW.md` and run
-`npm run scan:liturgical-content` before adding calendar/profile content.
+not completable, and does not write to task completions or daily check-ins.
+June 8-July 31, 2026 calendar coverage and approved rich profiles are now live
+from reviewed local JSON at `content/liturgical-calendar/us-2026.json` and
+`content/liturgical-profiles/**`, with graceful fallback copy for dates that
+have not been added yet. Follow `docs/TODAY_IN_THE_CHURCH_CONTENT_WORKFLOW.md`
+and run `npm run scan:liturgical-content` before adding calendar/profile
+content.
+
+Optional/displaced observance limitation: the current Today in the Church model
+supports only one primary `profile_slug` per calendar date. Approved but
+unlinked profiles may exist, but optional memorials and displaced observances
+need future optional-observance support before rich profiles can display without
+implying they are the primary day.
 
 ## August 1-31, 2026: James: Faith That Works
 
