@@ -84,6 +84,10 @@
     "summary": "The Church gives solemn honor to Christ's gift of himself in the Eucharist.",
     "description": "In the United States, Corpus Christi is observed on this Sunday in 2026.",
     "catholic_connection": "White is used for celebrations of the Lord outside his Passion. This solemnity draws the Church back to Eucharistic worship and thanksgiving.",
+    "profile_slug": "corpus-christi",
+    "profile_type": "solemnity",
+    "calendar_scope": "us",
+    "is_optional": false,
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",

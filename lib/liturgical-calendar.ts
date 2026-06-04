@@ -1,5 +1,6 @@
 import calendarData from "@/content/liturgical-calendar/us-2026.json";
 import saintBonifaceProfile from "@/content/liturgical-profiles/saints/saint-boniface.json";
+import corpusChristiProfile from "@/content/liturgical-profiles/solemnities/corpus-christi.json";
 
 export type LiturgicalCalendarSource = {
   label: string;
@@ -69,10 +70,9 @@ const daysByDate = new Map(
 );
 
 const profilesBySlug = new Map(
-  ([saintBonifaceProfile] as LiturgicalProfile[]).map((profile) => [
-    profile.slug,
-    profile,
-  ])
+  ([saintBonifaceProfile, corpusChristiProfile] as LiturgicalProfile[]).map(
+    (profile) => [profile.slug, profile]
+  )
 );
 
 function isDisplayableProfile(
