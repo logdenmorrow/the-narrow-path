@@ -1,0 +1,66 @@
+{
+  "slug": "saint-james-apostle",
+  "type": "feast",
+  "title": "Saint James, Apostle",
+  "short_summary": "Saint James, son of Zebedee, is one of the Twelve, brother of Saint John, witness to key moments in Christ's ministry, and the first apostle recorded in Acts as martyred.",
+  "key_facts": [
+    "The U.S. calendar keeps his feast on July 25.",
+    "The liturgical color is red.",
+    "He is James the Greater, son of Zebedee and brother of John.",
+    "He belongs with Peter and John among the three apostles present at key Gospel moments.",
+    "Acts records that Herod had James killed by the sword."
+  ],
+  "sections": [
+    {
+      "heading": "James the Greater",
+      "body": "The New Testament distinguishes James, son of Zebedee, from James, son of Alphaeus. This feast honors James the Greater, brother of John and one of the Twelve."
+    },
+    {
+      "heading": "Close to Christ's glory and suffering",
+      "body": "James is present with Peter and John at key moments, including the Transfiguration and Gethsemane. His witness includes both the glory Christ revealed and the suffering of the Passion."
+    },
+    {
+      "heading": "Martyr witness",
+      "body": "Acts records his death by the sword under Herod Agrippa. The brevity of the account keeps attention on apostolic fidelity rather than embellished detail."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Apostolic courage",
+      "body": "James shows that following Christ includes both consolation and the Cross."
+    },
+    {
+      "heading": "Pilgrim tradition",
+      "body": "Later tradition connects James with Spain and Santiago de Compostela. The pilgrimage tradition is important, but the Gospel and Acts witness remains the sure foundation."
+    }
+  ],
+  "historical_cautions": [
+    "Traditions about James in Spain and the transfer of his relics are important in Catholic history, but details should be presented as later tradition rather than New Testament fact."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint James."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-07-25",
+      "url": "https://bible.usccb.org/bible/readings/072526.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "USCCB Bible: Acts 12",
+      "url": "https://bible.usccb.org/bible/acts/12",
+      "note": "Scriptural source for the martyrdom of James under Herod."
+    },
+    {
+      "label": "Benedict XVI General Audience: James the Greater",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2006/documents/hf_ben-xvi_aud_20060621.html",
+      "note": "Catholic reflection on James in Scripture and tradition."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved after minor edits. The profile distinguishes James the Greater from other New Testament figures named James, presents his apostolic and martyr witness faithfully, and treats later Spain/Santiago traditions with appropriate caution."
+  }
+}

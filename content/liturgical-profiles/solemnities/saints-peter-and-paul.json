@@ -1,0 +1,76 @@
+{
+  "slug": "saints-peter-and-paul",
+  "type": "solemnity",
+  "title": "Saints Peter and Paul, Apostles",
+  "short_summary": "Saints Peter and Paul are honored together as apostolic pillars: Peter, the rock entrusted with strengthening the brethren, and Paul, the Apostle to the Gentiles.",
+  "key_facts": [
+    "The U.S. calendar lists this solemnity on June 29.",
+    "The liturgical color is red.",
+    "Peter is the apostle to whom Christ gives the keys and a unique pastoral charge.",
+    "Paul is called by the risen Christ and sent to proclaim the Gospel to the nations.",
+    "Both apostles are associated with martyr witness in Rome."
+  ],
+  "sections": [
+    {
+      "heading": "Peter and the rock",
+      "body": "Peter is not merely an early Christian leader. The Gospel witness and Catholic teaching present Peter as receiving a unique role from Christ: the rock, the keys, and a charge to strengthen his brethren."
+    },
+    {
+      "heading": "Paul and the mission to the nations",
+      "body": "Paul is called by the risen Christ and gives his life to proclaiming the Gospel beyond the boundaries of Israel. His missionary preaching shows the universal reach of salvation in Christ."
+    },
+    {
+      "heading": "One apostolic witness",
+      "body": "The solemnity keeps Peter and Paul together. Peter's primacy and Paul's missionary proclamation are not rivals; together they show the Church's apostolic foundation, unity, and mission."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Apostolic foundation",
+      "body": "The Church is built on the apostles with Christ as her Lord. Peter and Paul stand as pillars of unity and evangelization."
+    },
+    {
+      "heading": "Rome and martyrdom",
+      "body": "Their witness is bound to Rome, where Catholic tradition venerates their martyrdom and sees the Church's visible unity in communion with Peter's successor."
+    }
+  ],
+  "historical_cautions": [
+    "Peter and Paul are venerated by Catholic tradition as martyrs in Rome, but this profile does not attempt to reconstruct the exact historical details of their deaths."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saints Peter and Paul."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-06-29",
+      "url": "https://bible.usccb.org/bible/readings/062926.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Catechism of the Catholic Church 552-553",
+      "url": "https://www.vatican.va/archive/ENG0015/__P1K.HTM",
+      "note": "Catholic doctrine on Peter's role, the keys, and binding and loosing."
+    },
+    {
+      "label": "USCCB Bible: Luke 22",
+      "url": "https://bible.usccb.org/bible/luke/22",
+      "note": "Scriptural source for Christ's charge that Peter strengthen his brethren."
+    },
+    {
+      "label": "Benedict XVI General Audience: Peter, the Rock",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2006/documents/hf_ben-xvi_aud_20060607.html",
+      "note": "Catholic reflection on Peter's mandate."
+    },
+    {
+      "label": "Benedict XVI General Audience: Paul the Apostle",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2006/documents/hf_ben-xvi_aud_20061025.html",
+      "note": "Catholic reflection on Paul's vocation and mission."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved after minor edits. The profile presents Peter’s primacy and Paul’s missionary apostolate in a Catholic way, avoids Protestantized flattening of Petrine authority, and handles Roman martyr tradition with appropriate caution."
+  }
+}

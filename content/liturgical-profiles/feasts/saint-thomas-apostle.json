@@ -1,0 +1,66 @@
+{
+  "slug": "saint-thomas-apostle",
+  "type": "feast",
+  "title": "Saint Thomas, Apostle",
+  "short_summary": "Saint Thomas is one of the Twelve, remembered especially for his encounter with the risen Christ and his confession of Jesus as Lord and God.",
+  "key_facts": [
+    "The U.S. calendar keeps his feast on July 3.",
+    "The liturgical color is red.",
+    "John's Gospel calls him Thomas, also known as Didymus.",
+    "He confesses the risen Jesus as Lord and God.",
+    "Ancient tradition connects his later mission with the East and India."
+  ],
+  "sections": [
+    {
+      "heading": "One of the Twelve",
+      "body": "Thomas belongs to the apostolic foundation of the Church. The Gospels do not present him as a symbol only, but as one of the apostles chosen by Christ."
+    },
+    {
+      "heading": "Faith before the risen Lord",
+      "body": "Thomas is often remembered for doubt, but the Gospel scene ends in confession. Before the risen Jesus, he acknowledges Christ in words of worship and faith."
+    },
+    {
+      "heading": "Tradition of mission",
+      "body": "Ancient Christian tradition connects Thomas with missionary work eastward, especially toward India. The details should be handled with care, while the apostolic witness remains central."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Faith seeks Christ",
+      "body": "Thomas shows that hesitant faith can be drawn by Christ into a clear confession of the risen Lord, not into a reduction of the Resurrection to an idea."
+    },
+    {
+      "heading": "Apostolic witness",
+      "body": "His feast keeps Catholics close to the apostles, whose witness grounds the Church's proclamation of the Resurrection."
+    }
+  ],
+  "historical_cautions": [
+    "Traditions about Thomas's later missionary routes are ancient and important, but details vary across sources and should not be overstated."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Thomas."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-07-03",
+      "url": "https://bible.usccb.org/bible/readings/070326.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "USCCB Bible: John 20",
+      "url": "https://bible.usccb.org/bible/john/20",
+      "note": "Scriptural source for Thomas's encounter with the risen Christ and his confession of Jesus as Lord and God."
+    },
+    {
+      "label": "Benedict XVI General Audience: Thomas, the Twin",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2006/documents/hf_ben-xvi_aud_20060927.html",
+      "note": "Catholic reflection on Thomas in the Gospel and tradition."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved after minor edits. The profile presents Saint Thomas according to the Gospel witness, handles eastern and Indian mission traditions with appropriate caution, and is suitable for publication."
+  }
+}

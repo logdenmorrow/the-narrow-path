@@ -1,0 +1,58 @@
+{
+  "slug": "saint-benedict",
+  "type": "saint",
+  "title": "Saint Benedict, Abbot",
+  "short_summary": "Saint Benedict of Norcia is honored as an abbot whose Rule and monastic family helped shape Western monastic life and Christian culture.",
+  "key_facts": [
+    "The U.S. calendar keeps his memorial on July 11.",
+    "The liturgical color is white.",
+    "He is associated with Norcia, Monte Cassino, and the Benedictine Rule.",
+    "His monastic legacy shaped prayer, work, learning, and Christian culture in Europe.",
+    "He died in the sixth century."
+  ],
+  "sections": [
+    {
+      "heading": "Father of Western monastic life",
+      "body": "Benedict is remembered above all for the monastic way of life associated with his Rule. His influence reaches far beyond one monastery because Benedictine life formed communities of prayer, work, discipline, learning, and hospitality."
+    },
+    {
+      "heading": "A rule for ordered life",
+      "body": "The Rule of Benedict is sober, practical, and deeply Christian. It orders a community around the worship of God, obedience, humility, and daily fidelity."
+    },
+    {
+      "heading": "Christian leaven in Europe",
+      "body": "Benedictine monasteries helped preserve and renew Christian culture amid the instability that followed the decline of Roman political order in the West. His legacy remains ecclesial, spiritual, and cultural."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Prayer and stability",
+      "body": "Benedict reminds Catholics that holiness is formed through ordered worship, humility, patience, and life in communion."
+    },
+    {
+      "heading": "Culture shaped by faith",
+      "body": "His legacy shows how Christian life can shape learning, labor, community, and hospitality without reducing faith to culture alone."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Benedict."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-07-11",
+      "url": "https://bible.usccb.org/bible/readings/071126.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Benedict XVI General Audience: Saint Benedict of Norcia",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2008/documents/hf_ben-xvi_aud_20080409.html",
+      "note": "Catholic reflection on Benedict's life, Rule, and legacy."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved after minor edits. The profile presents Saint Benedict, his Rule, and his monastic legacy in a Catholic and historically careful way, without reducing faith to culture alone."
+  }
+}

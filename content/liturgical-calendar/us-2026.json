@@ -102,5 +102,1133 @@
         "url": "https://www.usccb.org/prayer-and-worship/liturgical-year-and-calendar/understanding-the-liturgical-colors"
       }
     ]
+  },
+  {
+    "date": "2026-06-08",
+    "title": "Monday of the Tenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues with the Tenth Week.",
+    "description": "The U.S. calendar lists this date as a weekday in the Tenth Week in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/08/2026",
+        "url": "https://bible.usccb.org/bible/readings/060826.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-09",
+    "title": "Tuesday of the Tenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The Church permits the Optional Memorial of Saint Ephrem, Deacon and Doctor of the Church.",
+    "catholic_connection": "Green marks the weekday in Ordinary Time; white may be used if the optional memorial is observed.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/09/2026",
+        "url": "https://bible.usccb.org/bible/readings/060926.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-10",
+    "title": "Wednesday of the Tenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Tenth Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/10/2026",
+        "url": "https://bible.usccb.org/bible/readings/061026.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-11",
+    "title": "Saint Barnabas, Apostle",
+    "rank": "Memorial",
+    "liturgical_color": "Red",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Barnabas, an apostolic witness and companion of Saint Paul.",
+    "description": "The U.S. calendar keeps Saint Barnabas, Apostle, as a memorial during Ordinary Time.",
+    "catholic_connection": "Red is used for apostles and martyrs, pointing to apostolic witness and the courage of the early Church.",
+    "profile_slug": "saint-barnabas",
+    "profile_type": "saint",
+    "calendar_scope": "universal",
+    "is_optional": false,
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/11/2026",
+        "url": "https://bible.usccb.org/bible/readings/061126.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-12",
+    "title": "The Most Sacred Heart of Jesus",
+    "rank": "Solemnity",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Christ's divine and human love under the sign of his Sacred Heart.",
+    "description": "The U.S. calendar lists the Most Sacred Heart of Jesus as a solemnity on this Friday in Ordinary Time.",
+    "catholic_connection": "White is used for solemn celebrations of the Lord outside his Passion, expressing joy and reverence before Christ.",
+    "profile_slug": "sacred-heart-of-jesus",
+    "profile_type": "solemnity",
+    "calendar_scope": "universal",
+    "is_optional": false,
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/12/2026",
+        "url": "https://bible.usccb.org/bible/readings/061226.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-13",
+    "title": "Saturday of the Tenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White/White/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a Saturday weekday with several optional observances available.",
+    "description": "The Church permits the Optional Memorial of the Immaculate Heart of the Blessed Virgin Mary, the Optional Memorial of Saint Anthony of Padua, Priest and Doctor of the Church, or the Saturday observance of the Blessed Virgin Mary.",
+    "catholic_connection": "The weekday remains Ordinary Time unless one of the optional observances is chosen in the liturgy.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/13/2026",
+        "url": "https://bible.usccb.org/bible/readings/061326.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-14",
+    "title": "Eleventh Sunday in Ordinary Time",
+    "rank": "Sunday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church gathers for the Eleventh Sunday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as the Eleventh Sunday in Ordinary Time.",
+    "catholic_connection": "Sunday is the Lord's Day, the weekly celebration of Christ's Resurrection in the life of the Church.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/14/2026",
+        "url": "https://bible.usccb.org/bible/readings/061426.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-15",
+    "title": "Monday of the Eleventh Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues with the Eleventh Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/15/2026",
+        "url": "https://bible.usccb.org/bible/readings/061526.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-16",
+    "title": "Tuesday of the Eleventh Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Eleventh Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/16/2026",
+        "url": "https://bible.usccb.org/bible/readings/061626.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-17",
+    "title": "Wednesday of the Eleventh Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/17/2026",
+        "url": "https://bible.usccb.org/bible/readings/061726.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-18",
+    "title": "Thursday of the Eleventh Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Eleventh Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/18/2026",
+        "url": "https://bible.usccb.org/bible/readings/061826.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-19",
+    "title": "Friday of the Eleventh Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The Church permits the Optional Memorial of Saint Romuald, Abbot.",
+    "catholic_connection": "Green marks the weekday in Ordinary Time; white may be used if the optional memorial is observed.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/19/2026",
+        "url": "https://bible.usccb.org/bible/readings/061926.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-20",
+    "title": "Saturday of the Eleventh Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a Saturday weekday in Ordinary Time.",
+    "description": "The U.S. calendar lists this as a weekday and indicates that the Blessed Virgin Mary may be observed on Saturday.",
+    "catholic_connection": "Saturday observances of the Blessed Virgin Mary are optional and should not be treated as replacing the weekday unless chosen in the liturgy.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/20/2026",
+        "url": "https://bible.usccb.org/bible/readings/062026.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-21",
+    "title": "Twelfth Sunday in Ordinary Time",
+    "rank": "Sunday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church gathers for the Twelfth Sunday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as the Twelfth Sunday in Ordinary Time.",
+    "catholic_connection": "Sunday is the Lord's Day, the weekly celebration of Christ's Resurrection in the life of the Church.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/21/2026",
+        "url": "https://bible.usccb.org/bible/readings/062126.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-22",
+    "title": "Monday of the Twelfth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White/Red",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with optional memorials available.",
+    "description": "The Church permits the Optional Memorial of Saint Paulinus of Nola, Bishop, or the Optional Memorial of Saints John Fisher, Bishop, and Thomas More, Martyrs.",
+    "catholic_connection": "The weekday remains Ordinary Time unless an optional memorial is chosen; red may be used for martyrs.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/22/2026",
+        "url": "https://bible.usccb.org/bible/readings/062226.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-23",
+    "title": "Tuesday of the Twelfth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Twelfth Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/23/2026",
+        "url": "https://bible.usccb.org/bible/readings/062326.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-24",
+    "title": "The Nativity of Saint John the Baptist",
+    "rank": "Solemnity",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church celebrates the birth of Saint John the Baptist, the Forerunner of the Lord.",
+    "description": "The U.S. calendar lists the Nativity of Saint John the Baptist as a solemnity.",
+    "catholic_connection": "John's mission points beyond himself to Christ, calling Israel to repentance and preparing the way of the Lord.",
+    "profile_slug": "nativity-of-saint-john-the-baptist",
+    "profile_type": "solemnity",
+    "calendar_scope": "universal",
+    "is_optional": false,
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/24/2026",
+        "url": "https://bible.usccb.org/bible/readings/062426.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-25",
+    "title": "Thursday of the Twelfth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/25/2026",
+        "url": "https://bible.usccb.org/bible/readings/062526.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-26",
+    "title": "Friday of the Twelfth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Twelfth Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/26/2026",
+        "url": "https://bible.usccb.org/bible/readings/062626.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-27",
+    "title": "Saturday of the Twelfth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a Saturday weekday with optional observances available.",
+    "description": "The Church permits the Optional Memorial of Saint Cyril of Alexandria, Bishop and Doctor of the Church, or the Saturday observance of the Blessed Virgin Mary.",
+    "catholic_connection": "The weekday remains Ordinary Time unless one of the optional observances is chosen in the liturgy.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/27/2026",
+        "url": "https://bible.usccb.org/bible/readings/062726.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-28",
+    "title": "Thirteenth Sunday in Ordinary Time",
+    "rank": "Sunday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church gathers for the Thirteenth Sunday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as the Thirteenth Sunday in Ordinary Time.",
+    "catholic_connection": "Sunday is the Lord's Day, the weekly celebration of Christ's Resurrection in the life of the Church.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/28/2026",
+        "url": "https://bible.usccb.org/bible/readings/062826.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-29",
+    "title": "Saints Peter and Paul, Apostles",
+    "rank": "Solemnity",
+    "liturgical_color": "Red",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saints Peter and Paul, apostolic pillars and martyrs of Rome.",
+    "description": "The U.S. calendar lists Saints Peter and Paul, Apostles, as a solemnity.",
+    "catholic_connection": "Peter's primacy and Paul's missionary proclamation stand together in the apostolic foundation of the Church.",
+    "profile_slug": "saints-peter-and-paul",
+    "profile_type": "solemnity",
+    "calendar_scope": "universal",
+    "is_optional": false,
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/29/2026",
+        "url": "https://bible.usccb.org/bible/readings/062926.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-30",
+    "title": "Tuesday of the Thirteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/Red",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The Church permits the Optional Memorial of the First Martyrs of the Holy Roman Church.",
+    "catholic_connection": "Green marks the weekday in Ordinary Time; red may be used if the optional memorial of martyrs is observed.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 06/30/2026",
+        "url": "https://bible.usccb.org/bible/readings/063026.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-01",
+    "title": "Wednesday of the Thirteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with a U.S. optional memorial available.",
+    "description": "In the United States, the Church permits the Optional Memorial of Saint Junipero Serra, Priest.",
+    "catholic_connection": "The weekday remains Ordinary Time unless the U.S. optional memorial is chosen.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/01/2026",
+        "url": "https://bible.usccb.org/bible/readings/070126.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-02",
+    "title": "Thursday of the Thirteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Thirteenth Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/02/2026",
+        "url": "https://bible.usccb.org/bible/readings/070226.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-03",
+    "title": "Saint Thomas, Apostle",
+    "rank": "Feast",
+    "liturgical_color": "Red",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Thomas, the Apostle who confessed the risen Christ.",
+    "description": "The U.S. calendar keeps Saint Thomas, Apostle, as a feast.",
+    "catholic_connection": "Red is used for apostles and martyrs, pointing to apostolic witness and the confession of Christ.",
+    "profile_slug": "saint-thomas-apostle",
+    "profile_type": "feast",
+    "calendar_scope": "universal",
+    "is_optional": false,
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/03/2026",
+        "url": "https://bible.usccb.org/bible/readings/070326.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-04",
+    "title": "Saturday of the Thirteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a Saturday weekday in Ordinary Time, with U.S. observances available.",
+    "description": "The U.S. calendar indicates Independence Day and the Saturday observance of the Blessed Virgin Mary as options for this weekday.",
+    "catholic_connection": "The civil observance does not make this a liturgical solemnity; the weekday remains Ordinary Time unless an available option is chosen.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/04/2026",
+        "url": "https://bible.usccb.org/bible/readings/070426.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-05",
+    "title": "Fourteenth Sunday in Ordinary Time",
+    "rank": "Sunday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church gathers for the Fourteenth Sunday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as the Fourteenth Sunday in Ordinary Time.",
+    "catholic_connection": "Sunday is the Lord's Day, the weekly celebration of Christ's Resurrection in the life of the Church.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/05/2026",
+        "url": "https://bible.usccb.org/bible/readings/070526.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-06",
+    "title": "Monday of the Fourteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/Red",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The Church permits the Optional Memorial of Saint Maria Goretti, Virgin and Martyr.",
+    "catholic_connection": "The weekday remains Ordinary Time unless the optional memorial is chosen; red may be used for a martyr.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/06/2026",
+        "url": "https://bible.usccb.org/bible/readings/070626.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-07",
+    "title": "Tuesday of the Fourteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Fourteenth Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/07/2026",
+        "url": "https://bible.usccb.org/bible/readings/070726.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-08",
+    "title": "Wednesday of the Fourteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/08/2026",
+        "url": "https://bible.usccb.org/bible/readings/070826.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-09",
+    "title": "Thursday of the Fourteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/Red",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The Church permits the Optional Memorial of Saint Augustine Zhao Rong, Priest, and Companions, Martyrs.",
+    "catholic_connection": "The weekday remains Ordinary Time unless the optional memorial is chosen; red may be used for martyrs.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/09/2026",
+        "url": "https://bible.usccb.org/bible/readings/070926.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-10",
+    "title": "Friday of the Fourteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Fourteenth Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/10/2026",
+        "url": "https://bible.usccb.org/bible/readings/071026.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-11",
+    "title": "Saint Benedict, Abbot",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Benedict, abbot and father of Western monastic life.",
+    "description": "The U.S. calendar keeps Saint Benedict, Abbot, as a memorial.",
+    "catholic_connection": "White is used for saints who were not martyrs and points to holiness in Christ.",
+    "profile_slug": "saint-benedict",
+    "profile_type": "saint",
+    "calendar_scope": "universal",
+    "is_optional": false,
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/11/2026",
+        "url": "https://bible.usccb.org/bible/readings/071126.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-12",
+    "title": "Fifteenth Sunday in Ordinary Time",
+    "rank": "Sunday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church gathers for the Fifteenth Sunday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as the Fifteenth Sunday in Ordinary Time.",
+    "catholic_connection": "Sunday is the Lord's Day, the weekly celebration of Christ's Resurrection in the life of the Church.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/12/2026",
+        "url": "https://bible.usccb.org/bible/readings/071226.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-13",
+    "title": "Monday of the Fifteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The Church permits the Optional Memorial of Saint Henry.",
+    "catholic_connection": "Green marks the weekday in Ordinary Time; white may be used if the optional memorial is observed.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/13/2026",
+        "url": "https://bible.usccb.org/bible/readings/071326.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-14",
+    "title": "Saint Kateri Tekakwitha, Virgin",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "In the United States, the Church honors Saint Kateri Tekakwitha, Virgin.",
+    "description": "The U.S. calendar keeps Saint Kateri Tekakwitha, Virgin, as a memorial in the United States.",
+    "catholic_connection": "White is used for saints who were not martyrs and points to holiness in Christ.",
+    "profile_slug": "saint-kateri-tekakwitha",
+    "profile_type": "saint",
+    "calendar_scope": "us",
+    "is_optional": false,
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/14/2026",
+        "url": "https://bible.usccb.org/bible/readings/071426.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-15",
+    "title": "Saint Bonaventure, Bishop and Doctor of the Church",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Bonaventure, Franciscan bishop, theologian, and Doctor of the Church.",
+    "description": "The U.S. calendar keeps Saint Bonaventure, Bishop and Doctor of the Church, as a memorial.",
+    "catholic_connection": "White is used for saints who were not martyrs and points to holiness in Christ.",
+    "profile_slug": "saint-bonaventure",
+    "profile_type": "saint",
+    "calendar_scope": "universal",
+    "is_optional": false,
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/15/2026",
+        "url": "https://bible.usccb.org/bible/readings/071526.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-16",
+    "title": "Thursday of the Fifteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with a Marian optional memorial available.",
+    "description": "The Church permits the Optional Memorial of Our Lady of Mount Carmel.",
+    "catholic_connection": "Marian devotion is ordered toward Christ and differs from the adoration given to God alone.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/16/2026",
+        "url": "https://bible.usccb.org/bible/readings/071626.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-17",
+    "title": "Friday of the Fifteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Fifteenth Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/17/2026",
+        "url": "https://bible.usccb.org/bible/readings/071726.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-18",
+    "title": "Saturday of the Fifteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a Saturday weekday with optional observances available.",
+    "description": "In the United States, the Church permits the Optional Memorial of Saint Camillus de Lellis, Priest, or the Saturday observance of the Blessed Virgin Mary.",
+    "catholic_connection": "The weekday remains Ordinary Time unless one of the optional observances is chosen in the liturgy.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/18/2026",
+        "url": "https://bible.usccb.org/bible/readings/071826.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-19",
+    "title": "Sixteenth Sunday in Ordinary Time",
+    "rank": "Sunday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church gathers for the Sixteenth Sunday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as the Sixteenth Sunday in Ordinary Time.",
+    "catholic_connection": "Sunday is the Lord's Day, the weekly celebration of Christ's Resurrection in the life of the Church.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/19/2026",
+        "url": "https://bible.usccb.org/bible/readings/071926.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-20",
+    "title": "Monday of the Sixteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/Red",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The Church permits the Optional Memorial of Saint Apollinaris, Bishop and Martyr.",
+    "catholic_connection": "The weekday remains Ordinary Time unless the optional memorial is chosen; red may be used for a martyr.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/20/2026",
+        "url": "https://bible.usccb.org/bible/readings/072026.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-21",
+    "title": "Tuesday of the Sixteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The Church permits the Optional Memorial of Saint Lawrence of Brindisi, Priest and Doctor of the Church.",
+    "catholic_connection": "Green marks the weekday in Ordinary Time; white may be used if the optional memorial is observed.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/21/2026",
+        "url": "https://bible.usccb.org/bible/readings/072126.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-22",
+    "title": "Saint Mary Magdalene",
+    "rank": "Feast",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Mary Magdalene, witness to the risen Lord.",
+    "description": "The U.S. calendar keeps Saint Mary Magdalene as a feast.",
+    "catholic_connection": "Her feast points to the Resurrection and to the Lord's mercy, not to speculation beyond the Gospel witness.",
+    "profile_slug": "saint-mary-magdalene",
+    "profile_type": "feast",
+    "calendar_scope": "universal",
+    "is_optional": false,
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/22/2026",
+        "url": "https://bible.usccb.org/bible/readings/072226.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-23",
+    "title": "Thursday of the Sixteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The Church permits the Optional Memorial of Saint Bridget, Religious.",
+    "catholic_connection": "Green marks the weekday in Ordinary Time; white may be used if the optional memorial is observed.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/23/2026",
+        "url": "https://bible.usccb.org/bible/readings/072326.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-24",
+    "title": "Friday of the Sixteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The Church permits the Optional Memorial of Saint Sharbel Makhluf, Priest.",
+    "catholic_connection": "Green marks the weekday in Ordinary Time; white may be used if the optional memorial is observed.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/24/2026",
+        "url": "https://bible.usccb.org/bible/readings/072426.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-25",
+    "title": "Saint James, Apostle",
+    "rank": "Feast",
+    "liturgical_color": "Red",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint James, Apostle, one of the Twelve and a martyr.",
+    "description": "The U.S. calendar keeps Saint James, Apostle, as a feast.",
+    "catholic_connection": "Red is used for apostles and martyrs, pointing to apostolic witness and the cost of following Christ.",
+    "profile_slug": "saint-james-apostle",
+    "profile_type": "feast",
+    "calendar_scope": "universal",
+    "is_optional": false,
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/25/2026",
+        "url": "https://bible.usccb.org/bible/readings/072526.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-26",
+    "title": "Seventeenth Sunday in Ordinary Time",
+    "rank": "Sunday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church gathers for the Seventeenth Sunday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as the Seventeenth Sunday in Ordinary Time in 2026; the usual July 26 memorial of Saints Joachim and Anne does not appear as the primary calendar entry this year.",
+    "catholic_connection": "Sunday is the Lord's Day and takes precedence over ordinary memorials in the Roman calendar.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/26/2026",
+        "url": "https://bible.usccb.org/bible/readings/072626.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-27",
+    "title": "Monday of the Seventeenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Seventeenth Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/27/2026",
+        "url": "https://bible.usccb.org/bible/readings/072726.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-28",
+    "title": "Tuesday of the Seventeenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/28/2026",
+        "url": "https://bible.usccb.org/bible/readings/072826.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-29",
+    "title": "Saints Martha, Mary, and Lazarus",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors the friends of the Lord at Bethany.",
+    "description": "The U.S. calendar keeps Saints Martha, Mary, and Lazarus as a memorial.",
+    "catholic_connection": "Their memorial keeps close to the Gospel witness: they welcomed Christ, listened to him, and believed in him.",
+    "profile_slug": "saints-martha-mary-and-lazarus",
+    "profile_type": "saint",
+    "calendar_scope": "universal",
+    "is_optional": false,
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/29/2026",
+        "url": "https://bible.usccb.org/bible/readings/072926.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-30",
+    "title": "Thursday of the Seventeenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The Church permits the Optional Memorial of Saint Peter Chrysologus, Bishop and Doctor of the Church.",
+    "catholic_connection": "Green marks the weekday in Ordinary Time; white may be used if the optional memorial is observed.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/30/2026",
+        "url": "https://bible.usccb.org/bible/readings/073026.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-07-31",
+    "title": "Saint Ignatius of Loyola, Priest",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Ignatius of Loyola, priest and founder of the Society of Jesus.",
+    "description": "The U.S. calendar keeps Saint Ignatius of Loyola, Priest, as a memorial.",
+    "catholic_connection": "White is used for saints who were not martyrs and points to holiness in Christ.",
+    "profile_slug": "saint-ignatius-of-loyola",
+    "profile_type": "saint",
+    "calendar_scope": "universal",
+    "is_optional": false,
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for 07/31/2026",
+        "url": "https://bible.usccb.org/bible/readings/073126.cfm"
+      }
+    ]
   }
 ]

@@ -1,0 +1,63 @@
+{
+  "slug": "nativity-of-saint-john-the-baptist",
+  "type": "solemnity",
+  "title": "The Nativity of Saint John the Baptist",
+  "short_summary": "This solemnity celebrates the birth of John the Baptist, the Forerunner who prepares the way for Christ and points beyond himself to the Lamb of God.",
+  "key_facts": [
+    "The U.S. calendar lists this solemnity on June 24.",
+    "The liturgical color is white.",
+    "John is the Forerunner of the Lord.",
+    "His mission is ordered entirely to Christ.",
+    "His preaching calls for repentance and preparation."
+  ],
+  "sections": [
+    {
+      "heading": "The Forerunner",
+      "body": "John the Baptist is honored because his mission stands at the threshold of the Gospel. He is not celebrated apart from Christ; he prepares Israel for Christ and points others toward him."
+    },
+    {
+      "heading": "A birth with a mission",
+      "body": "The Church celebrates John's nativity because his birth belongs to the history of salvation. The Gospel presents him as set apart for a prophetic mission before the public ministry of Jesus begins."
+    },
+    {
+      "heading": "Repentance and preparation",
+      "body": "John's preaching calls the people to repentance. His witness reminds the Church that true preparation for the Lord includes conversion of heart and readiness to receive Christ."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "All eyes turn to Christ",
+      "body": "John's greatness is found in his humility before the Messiah. His mission is to make Christ known."
+    },
+    {
+      "heading": "Prophecy fulfilled",
+      "body": "John gathers up the prophetic expectation of Israel and stands immediately before the coming of the Lord."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for The Nativity of Saint John the Baptist."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-06-24",
+      "url": "https://bible.usccb.org/bible/readings/062426.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Catechism of the Catholic Church 523",
+      "url": "https://www.vatican.va/archive/ENG0015/__P1L.HTM",
+      "note": "John the Baptist as the immediate precursor of the Lord."
+    },
+    {
+      "label": "Catechism of the Catholic Church 717-720",
+      "url": "https://www.vatican.va/archive/ENG0015/__P21.HTM",
+      "note": "John's mission in relation to Christ and the Holy Spirit."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile accurately presents Saint John the Baptist as the Forerunner whose mission is ordered to Christ, avoids treating him independently from Christ’s mission, and is suitable for publication."
+  }
+}

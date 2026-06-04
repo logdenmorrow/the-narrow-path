@@ -1,0 +1,59 @@
+{
+  "slug": "saint-bonaventure",
+  "type": "saint",
+  "title": "Saint Bonaventure, Bishop and Doctor of the Church",
+  "short_summary": "Saint Bonaventure was a Franciscan theologian, minister general, bishop, cardinal, and Doctor of the Church who joined learning with contemplation and service.",
+  "key_facts": [
+    "The U.S. calendar keeps his memorial on July 15.",
+    "The liturgical color is white.",
+    "He was born Giovanni di Fidanza, likely in 1217.",
+    "He entered the Franciscan Order and became a major theologian.",
+    "He served as Minister General of the Friars Minor.",
+    "He died in 1274 during the period of the Second Council of Lyons."
+  ],
+  "sections": [
+    {
+      "heading": "Franciscan theologian",
+      "body": "Bonaventure joined theological learning with deep devotion. He studied and taught in the university world of the thirteenth century while remaining shaped by the Franciscan search for Christ."
+    },
+    {
+      "heading": "Service to the Friars Minor",
+      "body": "As Minister General, Bonaventure worked to preserve unity and fidelity within a rapidly growing order. His service required prudence, discipline, and love for Saint Francis's charism."
+    },
+    {
+      "heading": "Doctor of the Church",
+      "body": "The Church honors Bonaventure as a Doctor because his teaching helps the faithful contemplate Christ and understand the relationship between faith, reason, and love."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Faith and reason",
+      "body": "Bonaventure shows Catholic theology as prayerful intelligence, not dry speculation or private opinion."
+    },
+    {
+      "heading": "Christ the center",
+      "body": "His Franciscan theology keeps Christ at the center of contemplation, learning, and ecclesial service."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Bonaventure."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-07-15",
+      "url": "https://bible.usccb.org/bible/readings/071526.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Benedict XVI General Audience: Saint Bonaventure",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2010/documents/hf_ben-xvi_aud_20100303.html",
+      "note": "Catholic reflection on Bonaventure's life, Franciscan service, and theology."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Bonaventure as a Franciscan theologian, servant of the Church, and Doctor of the Church, joining learning, contemplation, and Christ-centered service in a Catholic way."
+  }
+}

@@ -1,6 +1,20 @@
 import calendarData from "@/content/liturgical-calendar/us-2026.json";
 import saintBonifaceProfile from "@/content/liturgical-profiles/saints/saint-boniface.json";
 import corpusChristiProfile from "@/content/liturgical-profiles/solemnities/corpus-christi.json";
+import saintJamesApostleProfile from "@/content/liturgical-profiles/feasts/saint-james-apostle.json";
+import saintMaryMagdaleneProfile from "@/content/liturgical-profiles/feasts/saint-mary-magdalene.json";
+import saintThomasApostleProfile from "@/content/liturgical-profiles/feasts/saint-thomas-apostle.json";
+import ourLadyOfMountCarmelProfile from "@/content/liturgical-profiles/other/our-lady-of-mount-carmel.json";
+import saintBarnabasProfile from "@/content/liturgical-profiles/saints/saint-barnabas.json";
+import saintBenedictProfile from "@/content/liturgical-profiles/saints/saint-benedict.json";
+import saintBonaventureProfile from "@/content/liturgical-profiles/saints/saint-bonaventure.json";
+import saintIgnatiusOfLoyolaProfile from "@/content/liturgical-profiles/saints/saint-ignatius-of-loyola.json";
+import saintKateriTekakwithaProfile from "@/content/liturgical-profiles/saints/saint-kateri-tekakwitha.json";
+import saintsJoachimAndAnneProfile from "@/content/liturgical-profiles/saints/saints-joachim-and-anne.json";
+import saintsMarthaMaryAndLazarusProfile from "@/content/liturgical-profiles/saints/saints-martha-mary-and-lazarus.json";
+import nativityOfSaintJohnTheBaptistProfile from "@/content/liturgical-profiles/solemnities/nativity-of-saint-john-the-baptist.json";
+import sacredHeartOfJesusProfile from "@/content/liturgical-profiles/solemnities/sacred-heart-of-jesus.json";
+import saintsPeterAndPaulProfile from "@/content/liturgical-profiles/solemnities/saints-peter-and-paul.json";
 
 export type LiturgicalCalendarSource = {
   label: string;
@@ -70,9 +84,26 @@ const daysByDate = new Map(
 );
 
 const profilesBySlug = new Map(
-  ([saintBonifaceProfile, corpusChristiProfile] as LiturgicalProfile[]).map(
-    (profile) => [profile.slug, profile]
-  )
+  (
+    [
+      saintBonifaceProfile,
+      corpusChristiProfile,
+      saintJamesApostleProfile,
+      saintMaryMagdaleneProfile,
+      saintThomasApostleProfile,
+      ourLadyOfMountCarmelProfile,
+      saintBarnabasProfile,
+      saintBenedictProfile,
+      saintBonaventureProfile,
+      saintIgnatiusOfLoyolaProfile,
+      saintKateriTekakwithaProfile,
+      saintsJoachimAndAnneProfile,
+      saintsMarthaMaryAndLazarusProfile,
+      nativityOfSaintJohnTheBaptistProfile,
+      sacredHeartOfJesusProfile,
+      saintsPeterAndPaulProfile,
+    ] as LiturgicalProfile[]
+  ).map((profile) => [profile.slug, profile])
 );
 
 function isDisplayableProfile(

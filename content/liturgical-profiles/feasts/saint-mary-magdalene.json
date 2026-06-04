@@ -1,0 +1,71 @@
+{
+  "slug": "saint-mary-magdalene",
+  "type": "feast",
+  "title": "Saint Mary Magdalene",
+  "short_summary": "Saint Mary Magdalene is honored as a faithful disciple, witness to the Crucifixion and Resurrection, and the first messenger of the risen Lord to the apostles.",
+  "key_facts": [
+    "The U.S. calendar keeps her feast on July 22.",
+    "The liturgical color is white.",
+    "The Holy See raised her liturgical celebration to the rank of feast in 2016.",
+    "The Gospel of John presents her encounter with the risen Christ.",
+    "The Holy See connects the title apostle of the apostles with her witness to the risen Christ and her announcement of the Resurrection to the apostles."
+  ],
+  "sections": [
+    {
+      "heading": "Witness to the risen Lord",
+      "body": "Mary Magdalene is honored above all as a witness to the Resurrection. In John's Gospel she encounters the risen Jesus and is sent to announce the news to the apostles."
+    },
+    {
+      "heading": "A feast in the calendar",
+      "body": "In 2016 the Holy See raised her observance from memorial to feast, placing her liturgical rank alongside the feasts of the apostles while preserving her particular identity as a disciple and witness."
+    },
+    {
+      "heading": "Care with identities",
+      "body": "The profile should stay close to the Gospel and the Church's liturgical sources. It should not depend on speculative claims about Mary Magdalene or merge her with other Gospel women unless the source itself warrants the point."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Mercy and Resurrection",
+      "body": "Mary Magdalene's feast draws attention to the mercy of Christ and the announcement of the Resurrection."
+    },
+    {
+      "heading": "Faithful witness",
+      "body": "Her place in the calendar honors a disciple who remained close to the Lord and bore witness to him."
+    }
+  ],
+  "historical_cautions": [
+    "Avoid speculative or sensational claims about Mary Magdalene. Treat traditional identity questions only with explicit source support."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Mary Magdalene."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-07-22",
+      "url": "https://bible.usccb.org/bible/readings/072226.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "USCCB Bible: John 20",
+      "url": "https://bible.usccb.org/bible/john/20",
+      "note": "Scriptural source for Mary Magdalene's encounter with the risen Christ and announcement to the disciples."
+    },
+    {
+      "label": "Holy See Press Office: Mary Magdalene, Apostle of the Apostles",
+      "url": "https://press.vatican.va/content/salastampa/en/bollettino/pubblico/2016/06/10/160610c.html",
+      "note": "Context for the 2016 elevation of her celebration to a feast."
+    },
+    {
+      "label": "Congregation for Divine Worship Decree on Saint Mary Magdalene",
+      "url": "https://www.vatican.va/roman_curia/congregations/ccdds/documents/sanctae-m-magdalenae-decretum_en.pdf",
+      "note": "Official decree raising the liturgical celebration to a feast."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved after minor edits. The profile stays close to the Gospel and official liturgical sources, avoids speculative claims about Mary Magdalene, and presents apostle of the apostles language in connection with her Resurrection witness."
+  }
+}

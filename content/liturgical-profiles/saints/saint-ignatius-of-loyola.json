@@ -1,0 +1,64 @@
+{
+  "slug": "saint-ignatius-of-loyola",
+  "type": "saint",
+  "title": "Saint Ignatius of Loyola, Priest",
+  "short_summary": "Saint Ignatius of Loyola was a Spanish priest, founder of the Society of Jesus, and teacher of discernment whose conversion led to a life of service to Christ and the Church.",
+  "key_facts": [
+    "The U.S. calendar keeps his memorial on July 31.",
+    "The liturgical color is white.",
+    "He was born in 1491 at Loyola in Spain.",
+    "He founded the Society of Jesus.",
+    "He died in Rome on July 31, 1556.",
+    "The Spiritual Exercises are central to his spiritual legacy."
+  ],
+  "sections": [
+    {
+      "heading": "Conversion and discernment",
+      "body": "Ignatius's conversion began after injury and long reflection. Catholic sources present him as a major witness to discernment: learning to recognize movements of the heart and to choose what leads toward Christ."
+    },
+    {
+      "heading": "Founder of the Society of Jesus",
+      "body": "Ignatius gathered companions and founded the Society of Jesus, a religious order known for missionary work, education, and service to the Church under obedience."
+    },
+    {
+      "heading": "Spiritual Exercises",
+      "body": "The Spiritual Exercises became a lasting Catholic school of prayer and discernment. They are ordered toward deeper union with Christ and faithful service in the Church."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Discernment in the Church",
+      "body": "Ignatius helps Catholics understand discernment as a spiritual practice rooted in grace, prayer, and obedience, not merely personal preference."
+    },
+    {
+      "heading": "Mission and obedience",
+      "body": "His legacy joins interior conversion with missionary service and loyalty to the Church."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Ignatius of Loyola."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-07-31",
+      "url": "https://bible.usccb.org/bible/readings/073126.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Pope Francis General Audience: Ignatius of Loyola",
+      "url": "https://www.vatican.va/content/francesco/en/audiences/2022/documents/20220907-udienza-generale.html",
+      "note": "Catholic reflection on Ignatius and discernment."
+    },
+    {
+      "label": "Catholic Encyclopedia: Saint Ignatius Loyola",
+      "url": "https://www.newadvent.org/cathen/07639c.htm",
+      "note": "Biographical reference for dates, foundation of the Society of Jesus, and death."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Ignatius of Loyola, conversion, discernment, the Spiritual Exercises, mission, and obedience in a Catholic and publication-safe way."
+  }
+}

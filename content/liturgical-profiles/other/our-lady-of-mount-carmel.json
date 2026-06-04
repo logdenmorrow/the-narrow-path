@@ -1,0 +1,71 @@
+{
+  "slug": "our-lady-of-mount-carmel",
+  "type": "other",
+  "title": "Our Lady of Mount Carmel",
+  "short_summary": "Our Lady of Mount Carmel is a Marian title connected with the Carmelite tradition, contemplation, and the Brown Scapular as a sign of Marian devotion ordered toward Christ.",
+  "key_facts": [
+    "The U.S. calendar lists Our Lady of Mount Carmel as an optional memorial on July 16.",
+    "In 2026, July 16 remains a weekday entry with this optional memorial available.",
+    "The devotion is connected with the Carmelite Order.",
+    "The Brown Scapular is a sacramental and a sign of devotion, not a magical guarantee.",
+    "Marian devotion differs from the adoration given to God alone and leads the faithful toward Christ."
+  ],
+  "sections": [
+    {
+      "heading": "A Marian title in Carmel",
+      "body": "Our Lady of Mount Carmel is tied to the Carmelite tradition of prayer, contemplation, and belonging to Mary in service of Christ. The devotion should be presented as Marian and Christ-centered."
+    },
+    {
+      "heading": "The Brown Scapular",
+      "body": "The Brown Scapular, when properly received and worn as the Church intends, is a Catholic sacramental associated with the Carmelite family. It expresses devotion, belonging, and a desire to live a Christian life under Mary's motherly care."
+    },
+    {
+      "heading": "No magical shortcut",
+      "body": "Scapular devotion must not be reduced to an automatic promise detached from faith, repentance, the sacraments, and Christian life. It is a sign within Catholic devotion, not a substitute for discipleship."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Mary leads to Christ",
+      "body": "Catholic devotion to Mary is never worship of Mary as God. It honors the Mother of God and fosters adoration of Christ."
+    },
+    {
+      "heading": "Devotion and discipline",
+      "body": "The scapular belongs to popular piety and sacramental life. It should be explained with care so custom does not become superstition."
+    }
+  ],
+  "historical_cautions": [
+    "Claims about particular scapular promises should be carefully sourced and qualified; this draft does not rely on disputed private-revelation claims."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Our Lady of Mount Carmel."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-07-16",
+      "url": "https://bible.usccb.org/bible/readings/071626.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Catechism of the Catholic Church 971",
+      "url": "https://www.vatican.va/archive/ENG0015/__P2C.HTM",
+      "note": "Catholic teaching on Marian devotion and the distinction from adoration."
+    },
+    {
+      "label": "Directory on Popular Piety and the Liturgy",
+      "url": "https://www.vatican.va/content/dam/wss/roman_curia/congregations/ccdds/documents/rc_con_ccdds_doc_20020513_vers-direttorio_en.html",
+      "note": "Guidance for popular piety and sacramentals."
+    },
+    {
+      "label": "Carmelite Catechesis on the Brown Scapular",
+      "url": "https://www.carmelitefriarsocd.org/blog/brown-scapular",
+      "note": "Secondary Carmelite explainer for scapular devotion and Holy See-approved rite context."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved after minor edits. The profile presents Our Lady of Mount Carmel and the Brown Scapular in a Marian, Christ-centered, non-superstitious way, distinguishes Marian devotion from adoration, and remains unlinked until optional observance display is supported."
+  }
+}
