@@ -9,6 +9,7 @@
     "test:e2e:auth": "playwright test --project=setup",
     "scan:liturgical-content": "node scripts/scan-liturgical-content.mjs",
     "scan:prayer-visibility": "node scripts/scan-prayer-request-visibility.mjs",
+    "scan:season-activation": "node scripts/scan-season-activation-readiness.mjs",
     "scan:reading-integrity": "node scripts/scan-reading-integrity.mjs",
     "build:reading-context-sql": "node scripts/build-reading-context-sql.mjs",
     "email:test": "node --env-file=.env.local scripts/send-resend-test.mjs",

@@ -22,6 +22,7 @@ import {
   getSeasonTimingForPlan,
   type PlanTimingSource,
 } from "@/lib/season-plan";
+import { loadActivePlan } from "@/lib/active-plan";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -771,13 +772,10 @@ export default async function AdminPlanPage({
     redirect("/dashboard");
   }
 
-  const { data: activePlan, error: activePlanError } = await supabase
-    .from("challenge_plans")
-    .select("id, slug, name, total_days")
-    .eq("is_active", true)
-    .maybeSingle();
+  const activePlanLookup = await loadActivePlan(supabase);
+  const activePlan = activePlanLookup.plan;
 
-  if (activePlanError || !activePlan) {
+  if (activePlanLookup.status !== "single" || !activePlan) {
     return (
       <main className="monastic-page">
         <PageFrame className="space-y-6">

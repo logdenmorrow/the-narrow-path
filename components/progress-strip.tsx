@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { loadActivePlan } from "@/lib/active-plan";
 import { getSeasonTimingForPlan } from "@/lib/season-plan";
 
 type PlanDayTaskRow = {
@@ -24,13 +25,10 @@ export default async function ProgressStrip() {
 
   if (!user) return null;
 
-  const { data: activePlan } = await supabase
-    .from("challenge_plans")
-    .select("id, slug, name, total_days")
-    .eq("is_active", true)
-    .maybeSingle();
+  const activePlanLookup = await loadActivePlan(supabase);
+  const activePlan = activePlanLookup.plan;
 
-  if (!activePlan) return null;
+  if (activePlanLookup.status !== "single" || !activePlan) return null;
 
   const challenge = getSeasonTimingForPlan(activePlan);
   const selectedDay = challenge.hasStarted ? challenge.currentDayNumber : 1;

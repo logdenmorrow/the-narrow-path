@@ -16,6 +16,7 @@ import {
   getSeasonTimingForPlan,
   ORIGINAL_CHALLENGE_PLAN_SLUG,
 } from "@/lib/season-plan";
+import { loadActivePlan } from "@/lib/active-plan";
 import { buildPlanDayHref } from "@/lib/plan-day-url";
 import { updateLastActiveAt } from "@/lib/last-active";
 import {
@@ -167,13 +168,10 @@ export default async function RosaryPage({
 
   await updateLastActiveAt(supabase);
 
-  const { data: activePlan, error: activePlanError } = await supabase
-    .from("challenge_plans")
-    .select("id, slug, name, total_days")
-    .eq("is_active", true)
-    .maybeSingle();
+  const activePlanLookup = await loadActivePlan(supabase);
+  const activePlan = activePlanLookup.plan;
 
-  if (activePlanError || !activePlan) {
+  if (activePlanLookup.status !== "single" || !activePlan) {
     return (
       <main className="monastic-page">
         <PageFrame className="max-w-4xl">

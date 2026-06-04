@@ -41,6 +41,7 @@ import {
   getSeasonTimingForPlan,
   ORIGINAL_CHALLENGE_PLAN_SLUG,
 } from "@/lib/season-plan";
+import { loadActivePlan } from "@/lib/active-plan";
 import { buildPlanDayHref } from "@/lib/plan-day-url";
 import {
   buildTaskViewModels,
@@ -135,13 +136,10 @@ export default async function BrotherhoodPage({
   });
   const communityName = getCommunityName(viewerTrack);
 
-  const { data: activePlan, error: activePlanError } = await supabase
-    .from("challenge_plans")
-    .select("id, slug, name, total_days")
-    .eq("is_active", true)
-    .maybeSingle();
+  const activePlanLookup = await loadActivePlan(supabase);
+  const activePlan = activePlanLookup.plan;
 
-  if (activePlanError || !activePlan) {
+  if (activePlanLookup.status !== "single" || !activePlan) {
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">

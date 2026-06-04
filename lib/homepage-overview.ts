@@ -1,4 +1,5 @@
 import { getSeasonTimingForPlan } from "@/lib/season-plan";
+import { loadActivePlan } from "@/lib/active-plan";
 import { createClient } from "@/lib/supabase/server";
 import { getCommunityName, isVisibleForTrack, type Track } from "@/lib/track";
 
@@ -196,13 +197,10 @@ export async function getHomepageOverview(
   };
 
   try {
-    const { data: activePlanData, error: activePlanError } = (await supabase
-      .from("challenge_plans")
-      .select("id, slug, name, total_days")
-      .eq("is_active", true)
-      .maybeSingle()) as QueryResult<ActivePlanRow>;
+    const activePlanLookup = await loadActivePlan(supabase);
+    const activePlanData = activePlanLookup.plan as ActivePlanRow | null;
 
-    if (activePlanError || !activePlanData) {
+    if (activePlanLookup.status !== "single" || !activePlanData) {
       return fallback;
     }
 

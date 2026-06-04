@@ -1,4 +1,5 @@
 import { CHALLENGE_START_DATE, getIsoDateInTimeZone } from "@/lib/challenge";
+import { loadActivePlan as loadSingleActivePlan } from "@/lib/active-plan";
 import { createClient } from "@/lib/supabase/server";
 import {
   AUGUST_JAMES_LEGACY_PLAN_NAME,
@@ -51,19 +52,6 @@ function normalizeRequestedDay(value?: number | null) {
   return Number.isFinite(value ?? Number.NaN) ? Math.floor(value as number) : null;
 }
 
-async function loadActivePlan(supabase: ServerSupabaseClient) {
-  const { data, error } = await supabase
-    .from("challenge_plans")
-    .select(PLAN_SELECT)
-    .eq("is_active", true)
-    .maybeSingle();
-
-  return {
-    plan: (data ?? null) as SeasonPlanRow | null,
-    errorMessage: error?.message ?? null,
-  };
-}
-
 async function loadPlanByName(supabase: ServerSupabaseClient, name: string) {
   const { data, error } = await supabase
     .from("challenge_plans")
@@ -103,8 +91,8 @@ export async function resolveSeasonPlan(
   const datePhase = getResolvedSeasonPhase(todayIso);
   const requestedDay = normalizeRequestedDay(options.requestedDay);
   const requestedPlanSlug = normalizePlanSlug(options.requestedPlanSlug);
-  const activeLookup = await loadActivePlan(supabase);
-  const activePlan = activeLookup.plan;
+  const activeLookup = await loadSingleActivePlan(supabase);
+  const activePlan = activeLookup.plan as SeasonPlanRow | null;
 
   if (requestedPlanSlug) {
     const expectedPlanName = getExpectedPlanNameForSlug(requestedPlanSlug);
