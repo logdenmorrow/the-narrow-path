@@ -11,6 +11,8 @@ import {
   formatLiturgicalDate,
   getEasternDateIso,
   getLiturgicalCalendarDay,
+  getLiturgicalProfileForDay,
+  getLiturgicalSources,
   isIsoDate,
 } from "@/lib/liturgical-calendar";
 
@@ -29,6 +31,8 @@ export default async function TodayInTheChurchPage({
     : resolvedSearchParams.date;
   const dateIso = isIsoDate(rawDate) ? rawDate : getEasternDateIso();
   const day = getLiturgicalCalendarDay(dateIso);
+  const profile = getLiturgicalProfileForDay(day);
+  const sources = getLiturgicalSources(day, profile);
   const previousDate = addDaysToIsoDate(dateIso, -1);
   const nextDate = addDaysToIsoDate(dateIso, 1);
 
@@ -61,26 +65,87 @@ export default async function TodayInTheChurchPage({
             <SurfaceCard>
               <SectionHeader kicker="Overview" title="Why this day matters" />
               <p className="mt-5 text-base leading-7 text-monastic-1">
-                {day.summary}
+                {profile?.short_summary ?? day.summary}
               </p>
+              {profile ? (
+                <div className="mt-5 grid gap-3">
+                  {profile.key_facts.map((fact) => (
+                    <SurfaceInset key={fact}>
+                      <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+                        {fact}
+                      </p>
+                    </SurfaceInset>
+                  ))}
+                </div>
+              ) : null}
             </SurfaceCard>
 
-            <SurfaceCard>
-              <SectionHeader
-                kicker="About"
-                title="About this day"
-              />
-              <p className="mt-5 text-base leading-7 text-monastic-1">
-                {day.description}
-              </p>
-            </SurfaceCard>
+            {profile ? (
+              profile.sections.map((section) => (
+                <SurfaceCard key={section.heading}>
+                  <SectionHeader kicker="About" title={section.heading} />
+                  <p className="mt-5 text-base leading-7 text-monastic-1">
+                    {section.body}
+                  </p>
+                </SurfaceCard>
+              ))
+            ) : (
+              <SurfaceCard>
+                <SectionHeader kicker="About" title="About this day" />
+                <p className="mt-5 text-base leading-7 text-monastic-1">
+                  {day.description}
+                </p>
+              </SurfaceCard>
+            )}
 
-            <SurfaceCard>
-              <SectionHeader kicker="Catholic connection" title="Catholic connection" />
-              <p className="mt-5 text-base leading-7 text-monastic-1">
-                {day.catholic_connection}
-              </p>
-            </SurfaceCard>
+            {profile ? (
+              <SurfaceCard>
+                <SectionHeader
+                  kicker="Catholic connection"
+                  title="Catholic meaning"
+                />
+                <div className="mt-5 grid gap-5">
+                  {profile.catholic_connection_sections.map((section) => (
+                    <div key={section.heading}>
+                      <h3 className="text-lg font-semibold text-monastic-0">
+                        {section.heading}
+                      </h3>
+                      <p className="mt-2 text-base leading-7 text-monastic-1">
+                        {section.body}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </SurfaceCard>
+            ) : (
+              <SurfaceCard>
+                <SectionHeader
+                  kicker="Catholic connection"
+                  title="Catholic connection"
+                />
+                <p className="mt-5 text-base leading-7 text-monastic-1">
+                  {day.catholic_connection}
+                </p>
+              </SurfaceCard>
+            )}
+
+            {profile?.historical_cautions?.length ? (
+              <SurfaceCard>
+                <SectionHeader
+                  kicker="Review note"
+                  title="Historical cautions"
+                />
+                <div className="mt-5 grid gap-3">
+                  {profile.historical_cautions.map((caution) => (
+                    <SurfaceInset key={caution}>
+                      <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+                        {caution}
+                      </p>
+                    </SurfaceInset>
+                  ))}
+                </div>
+              </SurfaceCard>
+            ) : null}
           </div>
 
           <aside className="grid gap-5 self-start">
@@ -127,16 +192,22 @@ export default async function TodayInTheChurchPage({
             <SurfaceCard>
               <SectionHeader kicker="Sources" title="Learn more" />
               <div className="mt-5 grid gap-3 text-sm leading-6 text-monastic-1">
-                {day.sources.map((source) => (
-                  <a
-                    key={`${source.label}-${source.url}`}
-                    href={source.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline underline-offset-4 transition hover:text-monastic-0"
-                  >
-                    {source.label}
-                  </a>
+                {sources.map((source) => (
+                  <div key={`${source.label}-${source.url}`}>
+                    <a
+                      href={source.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline underline-offset-4 transition hover:text-monastic-0"
+                    >
+                      {source.label}
+                    </a>
+                    {source.note ? (
+                      <p className="mt-1 text-xs leading-5 text-monastic-2">
+                        {source.note}
+                      </p>
+                    ) : null}
+                  </div>
                 ))}
               </div>
             </SurfaceCard>

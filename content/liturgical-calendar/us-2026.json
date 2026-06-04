@@ -32,6 +32,10 @@
     "summary": "The Church honors Saint Boniface, remembered as a bishop and martyr.",
     "description": "The U.S. calendar keeps Saint Boniface as a memorial during the Ninth Week in Ordinary Time.",
     "catholic_connection": "Red is used for martyrs. The day turns attention to faithful witness that holds fast even under pressure.",
+    "profile_slug": "saint-boniface",
+    "profile_type": "saint",
+    "calendar_scope": "us",
+    "is_optional": false,
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",

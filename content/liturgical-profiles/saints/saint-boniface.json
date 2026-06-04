@@ -1,0 +1,89 @@
+{
+  "slug": "saint-boniface",
+  "type": "saint",
+  "title": "Saint Boniface, Bishop and Martyr",
+  "short_summary": "Saint Boniface was an Anglo-Saxon Benedictine missionary bishop who helped evangelize and organize the Church among the Germanic peoples and died as a martyr in Frisia.",
+  "key_facts": [
+    "Born Winfrid or Wynfrith in Anglo-Saxon England, in Wessex, around 675.",
+    "Entered monastic life young, became a Benedictine monk, taught, wrote, and was ordained a priest around age thirty.",
+    "Received papal support for missionary work among the Germanic peoples and kept close communion with Rome.",
+    "Worked as a missionary, reformer, organizer of dioceses, and builder of monastic life.",
+    "Was appointed Archbishop of Mainz according to Catholic Encyclopedia source material.",
+    "Returned to Frisia late in life and was killed there on June 5, 754."
+  ],
+  "sections": [
+    {
+      "heading": "From Winfrid to Boniface",
+      "body": "Boniface was born Winfrid, also written Wynfrith, into an Anglo-Saxon family in Wessex around 675. He entered monastic life early, became known for learning and teaching, and was ordained a priest around age thirty. His later missionary name, Boniface, is tied to his mission under papal authority."
+    },
+    {
+      "heading": "Missionary to the Germanic peoples",
+      "body": "After an early failed attempt in Frisia, Boniface went to Rome and received Pope Gregory II's support for preaching the Gospel among the Germanic peoples. He worked in places including Frisia, Thuringia, Hessia, and Bavaria, preaching the faith, strengthening Christian practice, and correcting confusion where Christian life had become mixed with pagan customs or poor discipline."
+    },
+    {
+      "heading": "Communion with Rome",
+      "body": "Boniface's mission was marked by a strong relationship with the Apostolic See. Benedict XVI emphasized that communion with the Successor of Peter was central to Boniface's work. The Catholic Encyclopedia also presents his mission and reforms as carried out with papal direction and support."
+    },
+    {
+      "heading": "The oak at Geismar",
+      "body": "Catholic source material preserves the traditional account that Boniface cut down an oak at Geismar associated with pagan worship. This should be read as a traditional historical account from the missionary tradition, not as a detail to expand beyond the sources. In the account, the act served as a public rejection of pagan worship and many people were moved toward the faith."
+    },
+    {
+      "heading": "Reformer and organizer",
+      "body": "Boniface did not only preach. He helped organize dioceses, held synods, supported monastic foundations, and strengthened discipline among clergy and communities. The Catholic Encyclopedia says Pope Zachary appointed him Archbishop of Mainz, and Benedict XVI describes his work of evangelization together with his organization of Church life."
+    },
+    {
+      "heading": "Martyr in Frisia",
+      "body": "Late in life Boniface returned to Frisia, where he had first tried to evangelize. On June 5, 754, he was killed at Dokkum with companions. The Church remembers him as a bishop and martyr because he spent his episcopal ministry preaching and strengthening the Church, and he gave his life while serving that mission."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "A missionary bishop",
+      "body": "Boniface shows the missionary character of the Church. He left the safety of monastic and scholarly life to preach Christ, build up Christian communities, and bring scattered local churches into ordered communion."
+    },
+    {
+      "heading": "Faith and Church unity",
+      "body": "His life highlights Catholic unity with the Apostolic See. His work was not private religious enthusiasm; it was missionary labor carried out in communion with the Pope and ordered toward the life of the Church."
+    },
+    {
+      "heading": "Red for martyrdom",
+      "body": "The liturgical color is red because the Church honors him as a martyr. Red points to witness sealed with blood and to the love that remains faithful under danger."
+    }
+  ],
+  "historical_cautions": [
+    "The oak at Geismar is included as a traditional historical account preserved in Catholic source material; do not embellish it beyond the sources.",
+    "Older sources vary on some dates and spellings, including Winfrid/Wynfrith and details around his episcopal appointments."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color."
+    },
+    {
+      "label": "USCCB Daily Readings for June 5, 2026",
+      "url": "https://bible.usccb.org/bible/readings/060526.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "USCCB Understanding the Liturgical Colors",
+      "url": "https://www.usccb.org/prayer-and-worship/liturgical-year-and-calendar/understanding-the-liturgical-colors",
+      "note": "Color context for red and martyrdom."
+    },
+    {
+      "label": "New Advent Catholic Encyclopedia: St. Boniface",
+      "url": "https://www.newadvent.org/cathen/02656a.htm",
+      "note": "Biography, missionary work, Geismar account, Mainz appointment, and martyrdom."
+    },
+    {
+      "label": "Benedict XVI General Audience: Saint Boniface",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2009/documents/hf_ben-xvi_aud_20090311.html",
+      "note": "Catholic interpretation of Boniface's mission, communion with Rome, organization of Church life, and martyrdom."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Original plain-English summary written from Catholic source refs for MVP proof of concept."
+  }
+}

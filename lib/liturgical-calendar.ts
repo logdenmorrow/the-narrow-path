@@ -1,9 +1,18 @@
 import calendarData from "@/content/liturgical-calendar/us-2026.json";
+import saintBonifaceProfile from "@/content/liturgical-profiles/saints/saint-boniface.json";
 
 export type LiturgicalCalendarSource = {
   label: string;
   url: string;
+  note?: string;
 };
+
+export type LiturgicalProfileType =
+  | "saint"
+  | "feast"
+  | "solemnity"
+  | "season"
+  | "other";
 
 export type LiturgicalCalendarDay = {
   date: string;
@@ -15,10 +24,41 @@ export type LiturgicalCalendarDay = {
   description: string;
   catholic_connection: string;
   sources: LiturgicalCalendarSource[];
+  profile_slug?: string;
+  profile_type?: LiturgicalProfileType;
+  calendar_scope?: "universal" | "us" | "diocesan" | "parish";
+  is_optional?: boolean;
 };
 
 export type LiturgicalCalendarEntry = LiturgicalCalendarDay & {
   isFallback: boolean;
+};
+
+export type LiturgicalProfileReviewStatus =
+  | "drafted_ai"
+  | "needs_catholic_review"
+  | "approved"
+  | "locked";
+
+export type LiturgicalProfileSection = {
+  heading: string;
+  body: string;
+};
+
+export type LiturgicalProfile = {
+  slug: string;
+  type: LiturgicalProfileType;
+  title: string;
+  short_summary: string;
+  key_facts: string[];
+  sections: LiturgicalProfileSection[];
+  catholic_connection_sections: LiturgicalProfileSection[];
+  historical_cautions?: string[];
+  source_refs: LiturgicalCalendarSource[];
+  review: {
+    status: LiturgicalProfileReviewStatus;
+    notes?: string;
+  };
 };
 
 const EASTERN_TIME_ZONE = "America/New_York";
@@ -27,6 +67,21 @@ const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const daysByDate = new Map(
   (calendarData as LiturgicalCalendarDay[]).map((day) => [day.date, day])
 );
+
+const profilesBySlug = new Map(
+  ([saintBonifaceProfile] as LiturgicalProfile[]).map((profile) => [
+    profile.slug,
+    profile,
+  ])
+);
+
+function isDisplayableProfile(
+  profile: LiturgicalProfile | undefined
+): profile is LiturgicalProfile {
+  return (
+    profile?.review.status === "approved" || profile?.review.status === "locked"
+  );
+}
 
 export function getEasternDateIso(date = new Date()) {
   const parts = new Intl.DateTimeFormat("en-US", {
@@ -94,4 +149,26 @@ export function getLiturgicalCalendarDay(dateIso: string): LiturgicalCalendarEnt
     ],
     isFallback: true,
   };
+}
+
+export function getLiturgicalProfileForDay(
+  day: LiturgicalCalendarEntry
+): LiturgicalProfile | null {
+  if (!day.profile_slug) return null;
+
+  const profile = profilesBySlug.get(day.profile_slug);
+  return isDisplayableProfile(profile) ? profile : null;
+}
+
+export function getLiturgicalSources(
+  day: LiturgicalCalendarEntry,
+  profile: LiturgicalProfile | null
+) {
+  const sourcesByUrl = new Map<string, LiturgicalCalendarSource>();
+
+  for (const source of [...day.sources, ...(profile?.source_refs ?? [])]) {
+    sourcesByUrl.set(source.url, source);
+  }
+
+  return [...sourcesByUrl.values()];
 }
