@@ -29,6 +29,26 @@ export type LiturgicalProfileType =
   | "season"
   | "other";
 
+export type LiturgicalCalendarScope = "universal" | "us" | "diocesan" | "parish";
+
+export type LiturgicalRelatedObservanceRelation =
+  | "optional_memorial"
+  | "displaced_by_sunday"
+  | "also_observed"
+  | "local_option";
+
+export type LiturgicalRelatedObservance = {
+  title: string;
+  rank: string;
+  liturgical_color?: string;
+  profile_slug?: string;
+  profile_type?: LiturgicalProfileType;
+  calendar_scope?: LiturgicalCalendarScope;
+  relation: LiturgicalRelatedObservanceRelation;
+  summary: string;
+  description?: string;
+};
+
 export type LiturgicalCalendarDay = {
   date: string;
   title: string;
@@ -41,8 +61,9 @@ export type LiturgicalCalendarDay = {
   sources: LiturgicalCalendarSource[];
   profile_slug?: string;
   profile_type?: LiturgicalProfileType;
-  calendar_scope?: "universal" | "us" | "diocesan" | "parish";
+  calendar_scope?: LiturgicalCalendarScope;
   is_optional?: boolean;
+  related_observances?: LiturgicalRelatedObservance[];
 };
 
 export type LiturgicalCalendarEntry = LiturgicalCalendarDay & {
@@ -187,19 +208,81 @@ export function getLiturgicalProfileForDay(
 ): LiturgicalProfile | null {
   if (!day.profile_slug) return null;
 
-  const profile = profilesBySlug.get(day.profile_slug);
+  return getDisplayableLiturgicalProfileBySlug(day.profile_slug);
+}
+
+export function getDisplayableLiturgicalProfileBySlug(
+  slug: string | null | undefined
+): LiturgicalProfile | null {
+  if (!slug) return null;
+
+  const profile = profilesBySlug.get(slug);
   return isDisplayableProfile(profile) ? profile : null;
+}
+
+export function getLiturgicalProfileForRelatedObservance(
+  observance: LiturgicalRelatedObservance
+): LiturgicalProfile | null {
+  return getDisplayableLiturgicalProfileBySlug(observance.profile_slug);
+}
+
+export function getRelatedObservanceRelationLabel(
+  relation: LiturgicalRelatedObservanceRelation
+) {
+  switch (relation) {
+    case "optional_memorial":
+      return "Optional Memorial";
+    case "displaced_by_sunday":
+      return "Displaced by Sunday";
+    case "also_observed":
+      return "Also Observed";
+    case "local_option":
+      return "Local Option";
+  }
+}
+
+export function getRelatedObservanceByProfileSlug(
+  day: LiturgicalCalendarEntry,
+  slug: string | null | undefined
+): LiturgicalRelatedObservance | null {
+  if (!slug) return null;
+
+  return (
+    day.related_observances?.find(
+      (observance) => observance.profile_slug === slug
+    ) ?? null
+  );
+}
+
+export function getDisplayableRelatedProfileForDay(
+  day: LiturgicalCalendarEntry,
+  slug: string | null | undefined
+): LiturgicalProfile | null {
+  const observance = getRelatedObservanceByProfileSlug(day, slug);
+  if (!observance) return null;
+
+  return getLiturgicalProfileForRelatedObservance(observance);
+}
+
+export function getLiturgicalSourcesForProfiles(
+  day: LiturgicalCalendarEntry,
+  profiles: Array<LiturgicalProfile | null | undefined>
+) {
+  const sourcesByUrl = new Map<string, LiturgicalCalendarSource>();
+
+  for (const source of [
+    ...day.sources,
+    ...profiles.flatMap((profile) => profile?.source_refs ?? []),
+  ]) {
+    sourcesByUrl.set(source.url, source);
+  }
+
+  return [...sourcesByUrl.values()];
 }
 
 export function getLiturgicalSources(
   day: LiturgicalCalendarEntry,
   profile: LiturgicalProfile | null
 ) {
-  const sourcesByUrl = new Map<string, LiturgicalCalendarSource>();
-
-  for (const source of [...day.sources, ...(profile?.source_refs ?? [])]) {
-    sourcesByUrl.set(source.url, source);
-  }
-
-  return [...sourcesByUrl.values()];
+  return getLiturgicalSourcesForProfiles(day, [profile]);
 }

@@ -36,6 +36,13 @@ const validProfileTypes = new Set([
   "other",
 ]);
 
+const validRelatedObservanceRelations = new Set([
+  "optional_memorial",
+  "displaced_by_sunday",
+  "also_observed",
+  "local_option",
+]);
+
 const displayableReviewStatuses = new Set(["approved", "locked"]);
 const validReviewStatuses = new Set([
   "drafted_ai",
@@ -263,7 +270,10 @@ function validateCalendarEntry(entry, index, seenDates, referencedProfiles) {
     if (!hasText(entry.profile_slug)) {
       addError(`${label}: profile_slug must be non-empty when present.`);
     } else {
-      referencedProfiles.set(entry.profile_slug, entry);
+      referencedProfiles.set(entry.profile_slug, {
+        date: entry.date,
+        context: `Calendar date ${entry.date}`,
+      });
     }
 
     if (!hasText(entry.profile_type)) {
@@ -283,6 +293,10 @@ function validateCalendarEntry(entry, index, seenDates, referencedProfiles) {
     }
   }
 
+  if (entry.related_observances !== undefined) {
+    validateRelatedObservances(entry, label, referencedProfiles);
+  }
+
   checkTextHeuristics({
     label,
     value: {
@@ -294,6 +308,67 @@ function validateCalendarEntry(entry, index, seenDates, referencedProfiles) {
       catholic_connection: entry.catholic_connection,
     },
     isApprovedContent: false,
+  });
+}
+
+function validateRelatedObservances(entry, label, referencedProfiles) {
+  if (!Array.isArray(entry.related_observances)) {
+    addError(`${label}: related_observances must be an array when present.`);
+    return;
+  }
+
+  entry.related_observances.forEach((observance, index) => {
+    const relatedLabel = `${label}.related_observances[${index}]`;
+
+    if (!isPlainObject(observance)) {
+      addError(`${relatedLabel}: related observance must be an object.`);
+      return;
+    }
+
+    for (const field of ["title", "rank", "relation", "summary"]) {
+      if (!hasText(observance[field])) {
+        addError(`${relatedLabel}: "${field}" must be non-empty text.`);
+      }
+    }
+
+    if (
+      hasText(observance.relation) &&
+      !validRelatedObservanceRelations.has(observance.relation)
+    ) {
+      addError(
+        `${relatedLabel}: relation "${observance.relation}" is not supported.`
+      );
+    }
+
+    if (observance.profile_slug !== undefined) {
+      if (!hasText(observance.profile_slug)) {
+        addError(`${relatedLabel}: profile_slug must be non-empty when present.`);
+      } else {
+        referencedProfiles.set(observance.profile_slug, {
+          date: entry.date,
+          context: `Calendar date ${entry.date} related observance "${observance.title}"`,
+        });
+      }
+
+      if (!hasText(observance.profile_type)) {
+        addError(`${relatedLabel}: profile_type is required when profile_slug is present.`);
+      } else if (!validProfileTypes.has(observance.profile_type)) {
+        addError(
+          `${relatedLabel}: profile_type "${observance.profile_type}" is not supported.`
+        );
+      }
+    }
+
+    checkTextHeuristics({
+      label: relatedLabel,
+      value: {
+        title: observance.title,
+        rank: observance.rank,
+        summary: observance.summary,
+        description: observance.description,
+      },
+      isApprovedContent: false,
+    });
   });
 }
 
@@ -424,18 +499,19 @@ async function main() {
     }
   }
 
-  for (const [slug, entry] of referencedProfiles.entries()) {
+  for (const [slug, reference] of referencedProfiles.entries()) {
     const profileRow = profilesBySlug.get(slug);
+    const context = reference.context ?? `Calendar date ${reference.date}`;
 
     if (!profileRow) {
-      addError(`Calendar date ${entry.date} references missing profile_slug "${slug}".`);
+      addError(`${context} references missing profile_slug "${slug}".`);
       continue;
     }
 
     const status = profileRow.profile.review?.status;
     if (!displayableReviewStatuses.has(status)) {
       addWarning(
-        `Calendar date ${entry.date} references profile "${slug}" with review.status "${status}". The app should fall back to calendar copy.`
+        `${context} references profile "${slug}" with review.status "${status}". The app should fall back to calendar copy.`
       );
     }
   }

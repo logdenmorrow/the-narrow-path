@@ -9,15 +9,22 @@ import {
 import {
   addDaysToIsoDate,
   formatLiturgicalDate,
+  getDisplayableRelatedProfileForDay,
   getEasternDateIso,
   getLiturgicalCalendarDay,
   getLiturgicalProfileForDay,
-  getLiturgicalSources,
+  getLiturgicalProfileForRelatedObservance,
+  getLiturgicalSourcesForProfiles,
+  getRelatedObservanceByProfileSlug,
+  getRelatedObservanceRelationLabel,
   isIsoDate,
+  type LiturgicalProfile,
+  type LiturgicalRelatedObservance,
 } from "@/lib/liturgical-calendar";
 
 type TodayInTheChurchSearchParams = Promise<{
   date?: string | string[];
+  profile?: string | string[];
 }>;
 
 export default async function TodayInTheChurchPage({
@@ -29,10 +36,24 @@ export default async function TodayInTheChurchPage({
   const rawDate = Array.isArray(resolvedSearchParams.date)
     ? resolvedSearchParams.date[0]
     : resolvedSearchParams.date;
+  const rawProfile = Array.isArray(resolvedSearchParams.profile)
+    ? resolvedSearchParams.profile[0]
+    : resolvedSearchParams.profile;
   const dateIso = isIsoDate(rawDate) ? rawDate : getEasternDateIso();
   const day = getLiturgicalCalendarDay(dateIso);
   const profile = getLiturgicalProfileForDay(day);
-  const sources = getLiturgicalSources(day, profile);
+  const selectedRelatedObservance = getRelatedObservanceByProfileSlug(
+    day,
+    rawProfile
+  );
+  const selectedRelatedProfile = getDisplayableRelatedProfileForDay(
+    day,
+    rawProfile
+  );
+  const sources = getLiturgicalSourcesForProfiles(day, [
+    profile,
+    selectedRelatedProfile,
+  ]);
   const previousDate = addDaysToIsoDate(dateIso, -1);
   const nextDate = addDaysToIsoDate(dateIso, 1);
 
@@ -146,6 +167,73 @@ export default async function TodayInTheChurchPage({
                 </div>
               </SurfaceCard>
             ) : null}
+
+            {day.related_observances?.length ? (
+              <SurfaceCard>
+                <SectionHeader
+                  kicker="Related observances"
+                  title="Optional and related observances"
+                  description="These do not replace the primary liturgical day."
+                />
+                <div className="mt-5 grid gap-4">
+                  {day.related_observances.map((observance) => {
+                    const relatedProfile =
+                      getLiturgicalProfileForRelatedObservance(observance);
+                    const isSelected =
+                      selectedRelatedObservance?.profile_slug &&
+                      selectedRelatedObservance.profile_slug ===
+                        observance.profile_slug;
+
+                    return (
+                      <SurfaceInset key={`${observance.title}-${observance.relation}`}>
+                        <div className="section-kicker">
+                          {getRelatedObservanceRelationLabel(observance.relation)}
+                        </div>
+                        <h3 className="mt-2 text-xl font-semibold text-monastic-0">
+                          {observance.title}
+                        </h3>
+                        <p className="mt-1 text-sm leading-6 text-monastic-2">
+                          {observance.rank}
+                          {observance.liturgical_color
+                            ? ` • ${observance.liturgical_color}`
+                            : ""}
+                        </p>
+                        <p className="mt-3 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+                          {observance.summary}
+                        </p>
+                        {observance.description ? (
+                          <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+                            {observance.description}
+                          </p>
+                        ) : null}
+                        {observance.profile_slug && relatedProfile ? (
+                          <Button
+                            asChild
+                            variant={isSelected ? "primary" : "secondary"}
+                            className="mt-4"
+                          >
+                            <Link
+                              href={`/today-in-the-church?date=${dateIso}&profile=${encodeURIComponent(
+                                observance.profile_slug
+                              )}`}
+                            >
+                              {isSelected ? "Viewing profile" : "View profile"}
+                            </Link>
+                          </Button>
+                        ) : null}
+                      </SurfaceInset>
+                    );
+                  })}
+                </div>
+              </SurfaceCard>
+            ) : null}
+
+            {selectedRelatedObservance && selectedRelatedProfile ? (
+              <RelatedProfileSection
+                observance={selectedRelatedObservance}
+                profile={selectedRelatedProfile}
+              />
+            ) : null}
           </div>
 
           <aside className="grid gap-5 self-start">
@@ -215,5 +303,80 @@ export default async function TodayInTheChurchPage({
         </div>
       </PageFrame>
     </main>
+  );
+}
+
+function RelatedProfileSection({
+  observance,
+  profile,
+}: {
+  observance: LiturgicalRelatedObservance;
+  profile: LiturgicalProfile;
+}) {
+  return (
+    <SurfaceCard>
+      <SectionHeader
+        kicker={getRelatedObservanceRelationLabel(observance.relation)}
+        title={profile.title}
+        description={profile.short_summary}
+      />
+      <div className="mt-5 grid gap-5">
+        <div className="grid gap-3">
+          {profile.key_facts.map((fact) => (
+            <SurfaceInset key={fact}>
+              <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+                {fact}
+              </p>
+            </SurfaceInset>
+          ))}
+        </div>
+
+        {profile.sections.map((section) => (
+          <div key={section.heading}>
+            <h3 className="text-lg font-semibold text-monastic-0">
+              {section.heading}
+            </h3>
+            <p className="mt-2 text-base leading-7 text-monastic-1">
+              {section.body}
+            </p>
+          </div>
+        ))}
+
+        <div>
+          <h3 className="text-lg font-semibold text-monastic-0">
+            Catholic meaning
+          </h3>
+          <div className="mt-3 grid gap-4">
+            {profile.catholic_connection_sections.map((section) => (
+              <div key={section.heading}>
+                <h4 className="font-semibold text-monastic-0">
+                  {section.heading}
+                </h4>
+                <p className="mt-2 text-base leading-7 text-monastic-1">
+                  {section.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {profile.historical_cautions?.length ? (
+          <div>
+            <h3 className="text-lg font-semibold text-monastic-0">
+              Historical cautions
+            </h3>
+            <div className="mt-3 grid gap-3">
+              {profile.historical_cautions.map((caution) => (
+                <SurfaceInset key={caution}>
+                  <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+                    {caution}
+                  </p>
+                </SurfaceInset>
+              ))}
+            </div>
+          </div>
+        ) : null}
+      </div>
+    </SurfaceCard>
   );
 }

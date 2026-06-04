@@ -904,6 +904,18 @@
     "summary": "The Church keeps a weekday in Ordinary Time, with a Marian optional memorial available.",
     "description": "The Church permits the Optional Memorial of Our Lady of Mount Carmel.",
     "catholic_connection": "Marian devotion is ordered toward Christ and differs from the adoration given to God alone.",
+    "related_observances": [
+      {
+        "title": "Our Lady of Mount Carmel",
+        "rank": "Optional Memorial",
+        "liturgical_color": "White",
+        "profile_slug": "our-lady-of-mount-carmel",
+        "profile_type": "other",
+        "calendar_scope": "universal",
+        "relation": "optional_memorial",
+        "summary": "The Church permits the Optional Memorial of Our Lady of Mount Carmel on this weekday; it is available as an optional observance and does not replace the primary weekday entry."
+      }
+    ],
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",
@@ -1112,6 +1124,18 @@
     "summary": "The Church gathers for the Seventeenth Sunday in Ordinary Time.",
     "description": "The U.S. calendar lists this date as the Seventeenth Sunday in Ordinary Time in 2026; the usual July 26 memorial of Saints Joachim and Anne does not appear as the primary calendar entry this year.",
     "catholic_connection": "Sunday is the Lord's Day and takes precedence over ordinary memorials in the Roman calendar.",
+    "related_observances": [
+      {
+        "title": "Saints Joachim and Anne",
+        "rank": "Memorial",
+        "liturgical_color": "White",
+        "profile_slug": "saints-joachim-and-anne",
+        "profile_type": "saint",
+        "calendar_scope": "universal",
+        "relation": "displaced_by_sunday",
+        "summary": "Saints Joachim and Anne are ordinarily remembered on July 26, but in 2026 the Seventeenth Sunday in Ordinary Time is the primary day because Sunday takes precedence."
+      }
+    ],
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",

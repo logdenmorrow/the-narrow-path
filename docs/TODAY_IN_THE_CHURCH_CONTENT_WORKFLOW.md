@@ -15,8 +15,15 @@ Calendar entries answer what the Church assigns to a date:
 content/liturgical-calendar/us-2026.json
 ```
 
-Use this file for date, U.S. observance, season, rank, liturgical color, short
-fallback summary, and optional `profile_slug` / `profile_type` links.
+Use this file for date, U.S. observance, season, rank, liturgical color, and
+short fallback summary. A calendar entry may include one primary `profile_slug`
+and `profile_type` for the main liturgical day.
+
+Calendar entries may also include secondary `related_observances` for optional,
+local, also-observed, or displaced observances. Related observances must not
+replace the primary liturgical day. If a related observance references an
+unapproved profile, the app must show only the related-observance summary, not
+rich profile content.
 
 Profile files answer who or what the observance is:
 
@@ -27,6 +34,11 @@ content/liturgical-profiles/
 Use profiles for reusable saint, feast, solemnity, season, or other rich
 explanations. The app may show a profile only when `review.status` is
 `approved` or `locked`; otherwise it falls back to the calendar copy.
+
+Use profiles for related observances when approved rich content should be
+available without implying that the optional or displaced observance is the
+primary day. Examples include optional memorials on weekdays and memorials
+displaced by Sundays.
 
 ## Source Hierarchy
 
@@ -81,8 +93,8 @@ npm run scan:liturgical-content
 ```
 
 The scanner checks required fields, duplicate dates/slugs, profile references,
-review statuses, source presence, and obvious unsafe content. Warnings should be
-reviewed before commit. Errors must be fixed.
+related observances, review statuses, source presence, and obvious unsafe
+content. Warnings should be reviewed before commit. Errors must be fixed.
 
 ## Offline AI Drafting Prompt
 

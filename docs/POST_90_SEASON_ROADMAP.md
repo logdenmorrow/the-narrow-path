@@ -32,11 +32,10 @@ have not been added yet. Follow `docs/TODAY_IN_THE_CHURCH_CONTENT_WORKFLOW.md`
 and run `npm run scan:liturgical-content` before adding calendar/profile
 content.
 
-Optional/displaced observance limitation: the current Today in the Church model
-supports only one primary `profile_slug` per calendar date. Approved but
-unlinked profiles may exist, but optional memorials and displaced observances
-need future optional-observance support before rich profiles can display without
-implying they are the primary day.
+Optional and displaced observances are secondary. They can appear under related
+observances on the detail page, but they must not replace the primary
+liturgical day. The primary date still supports one main `profile_slug`.
+Related observance profiles display only when approved or locked.
 
 ## August 1-31, 2026: James: Faith That Works
 
