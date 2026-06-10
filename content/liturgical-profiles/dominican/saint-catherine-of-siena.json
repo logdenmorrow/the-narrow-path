@@ -1,0 +1,45 @@
+{
+  "slug": "saint-catherine-of-siena",
+  "type": "saint",
+  "title": "Saint Catherine of Siena, Virgin and Doctor of the Church",
+  "short_summary": "Saint Catherine of Siena is honored in the Dominican calendar as a virgin and Doctor of the Church whose life joined prayer, penance, charity, and courageous service to the Church.",
+  "key_facts": [
+    "The Dominican Calendarium keeps Saint Catherine of Siena as a feast on April 29.",
+    "The liturgical color is white.",
+    "The Order of Preachers identifies her as a virgin and Doctor of the Church.",
+    "The Order's saints and blesseds page says she was born in Siena in the Fontebranda district.",
+    "Her Dominican observance remains local or proper in the app and does not replace the general U.S. calendar day."
+  ],
+  "sections": [
+    {
+      "heading": "A Dominican Doctor",
+      "body": "Catherine's holiness was not separated from the Church's life. Her prayer and teaching served the Body of Christ with clarity, courage, and love."
+    },
+    {
+      "heading": "Prayer and public witness",
+      "body": "Her life reminds the faithful that contemplation can bear fruit in concrete service, counsel, and reform when rooted in Christ."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Love for Christ and the Church",
+      "body": "Catherine's witness holds together personal holiness and love for the visible Church, never treating them as rivals."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "Order of Preachers: Saints & Blesseds",
+      "url": "https://www.op.org/saints-blesseds/",
+      "note": "Official Dominican source for Saint Catherine of Siena in the Order's saints and blesseds list."
+    },
+    {
+      "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+      "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+      "note": "Official proper calendar source for the April 29 Dominican feast."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+  }
+}

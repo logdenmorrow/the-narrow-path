@@ -16,6 +16,15 @@ import saintsMarthaMaryAndLazarusProfile from "@/content/liturgical-profiles/sai
 import nativityOfSaintJohnTheBaptistProfile from "@/content/liturgical-profiles/solemnities/nativity-of-saint-john-the-baptist.json";
 import sacredHeartOfJesusProfile from "@/content/liturgical-profiles/solemnities/sacred-heart-of-jesus.json";
 import saintsPeterAndPaulProfile from "@/content/liturgical-profiles/solemnities/saints-peter-and-paul.json";
+import blessedDianaAndCeciliaProfile from "@/content/liturgical-profiles/dominican/blessed-diana-and-cecilia.json";
+import blessedVirginMaryOfTheRosaryProfile from "@/content/liturgical-profiles/dominican/blessed-virgin-mary-of-the-rosary.json";
+import saintAlbertTheGreatProfile from "@/content/liturgical-profiles/dominican/saint-albert-the-great.json";
+import saintCatherineOfSienaProfile from "@/content/liturgical-profiles/dominican/saint-catherine-of-siena.json";
+import saintDominicProfile from "@/content/liturgical-profiles/dominican/saint-dominic.json";
+import saintMartinDePorresProfile from "@/content/liturgical-profiles/dominican/saint-martin-de-porres.json";
+import saintPiusVProfile from "@/content/liturgical-profiles/dominican/saint-pius-v.json";
+import saintRoseOfLimaProfile from "@/content/liturgical-profiles/dominican/saint-rose-of-lima.json";
+import saintThomasAquinasProfile from "@/content/liturgical-profiles/dominican/saint-thomas-aquinas.json";
 
 export type LiturgicalCalendarSource = {
   label: string;
@@ -88,6 +97,8 @@ export type LiturgicalProperCalendarOverlay = {
   title: string;
   rank: string;
   liturgical_color?: string;
+  profile_slug?: string;
+  profile_type?: LiturgicalProfileType;
   display_note?: string;
   occurrence_note?: string;
   sources: LiturgicalCalendarSource[];
@@ -149,6 +160,15 @@ const profilesBySlug = new Map(
       nativityOfSaintJohnTheBaptistProfile,
       sacredHeartOfJesusProfile,
       saintsPeterAndPaulProfile,
+      blessedDianaAndCeciliaProfile,
+      blessedVirginMaryOfTheRosaryProfile,
+      saintAlbertTheGreatProfile,
+      saintCatherineOfSienaProfile,
+      saintDominicProfile,
+      saintMartinDePorresProfile,
+      saintPiusVProfile,
+      saintRoseOfLimaProfile,
+      saintThomasAquinasProfile,
     ] as LiturgicalProfile[]
   ).map((profile) => [profile.slug, profile])
 );
@@ -305,6 +325,12 @@ export function getLiturgicalProfileForRelatedObservance(
   return getDisplayableLiturgicalProfileBySlug(observance.profile_slug);
 }
 
+export function getLiturgicalProfileForProperOverlay(
+  overlay: LiturgicalProperCalendarOverlay
+): LiturgicalProfile | null {
+  return getDisplayableLiturgicalProfileBySlug(overlay.profile_slug);
+}
+
 export function getRelatedObservanceRelationLabel(
   relation: LiturgicalRelatedObservanceRelation
 ) {
@@ -341,6 +367,15 @@ export function getDisplayableRelatedProfileForDay(
   if (!observance) return null;
 
   return getLiturgicalProfileForRelatedObservance(observance);
+}
+
+export function getProperOverlayByProfileSlug(
+  overlays: LiturgicalProperCalendarOverlay[],
+  slug: string | null | undefined
+): LiturgicalProperCalendarOverlay | null {
+  if (!slug) return null;
+
+  return overlays.find((overlay) => overlay.profile_slug === slug) ?? null;
 }
 
 export function getLiturgicalSourcesForProfiles(

@@ -1,0 +1,45 @@
+{
+  "slug": "saint-pius-v",
+  "type": "saint",
+  "title": "Saint Pius V, Pope",
+  "short_summary": "Saint Pius V is honored in the Dominican calendar as a Dominican friar who became pope and served the Church through reform, discipline, and fidelity to Catholic worship and doctrine.",
+  "key_facts": [
+    "The Dominican Calendarium keeps Saint Pius V as a memorial on April 30.",
+    "The liturgical color is white.",
+    "The Order of Preachers identifies him as pope.",
+    "The Order's saints and blesseds page says Antonio Ghislieri was born at Bosco, near Alessandria in Italy, in 1504.",
+    "This memorial is shown as a Dominican proper observance and does not replace the general U.S. calendar day."
+  ],
+  "sections": [
+    {
+      "heading": "A Dominican pope",
+      "body": "Pius V's memory in the Dominican calendar reflects the Order's service to the wider Church. His vocation as a friar and his office as pope were both ordered toward fidelity to Christ."
+    },
+    {
+      "heading": "Reform and worship",
+      "body": "His witness is best presented with sobriety: a pastor remembered for reform and Catholic worship, not as a figure reduced to political conflict."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Service of the Church",
+      "body": "Pius V reminds the faithful that authority in the Church is ordered toward worship, doctrine, holiness, and pastoral care."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "Order of Preachers: Saints & Blesseds",
+      "url": "https://www.op.org/saints-blesseds/",
+      "note": "Official Dominican source for Saint Pius V in the Order's saints and blesseds list."
+    },
+    {
+      "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+      "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+      "note": "Official proper calendar source for the April 30 Dominican memorial."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+  }
+}

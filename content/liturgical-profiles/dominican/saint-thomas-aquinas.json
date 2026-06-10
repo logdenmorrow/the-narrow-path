@@ -1,0 +1,45 @@
+{
+  "slug": "saint-thomas-aquinas",
+  "type": "saint",
+  "title": "Saint Thomas Aquinas, Priest and Doctor of the Church",
+  "short_summary": "Saint Thomas Aquinas is honored in the Dominican calendar as a priest and Doctor of the Church whose study, teaching, and prayer served the truth of Christ.",
+  "key_facts": [
+    "The Dominican Calendarium keeps Saint Thomas Aquinas as a feast on January 28.",
+    "The liturgical color is white.",
+    "The Order of Preachers identifies him as a priest and Doctor of the Church.",
+    "The Order's saints and blesseds page says Thomas was born at Roccasecca in Italy.",
+    "His Dominican feast is shown as a proper observance in the app while the general U.S. calendar remains primary."
+  ],
+  "sections": [
+    {
+      "heading": "Study in service of truth",
+      "body": "Thomas's theological work belongs to the Church's search for truth under the light of faith. His learning was ordered toward God, worship, and the care of souls."
+    },
+    {
+      "heading": "A Dominican Doctor",
+      "body": "The Dominican calendar honors Thomas not only as a brilliant teacher, but as a friar whose intellectual life was rooted in prayer and service."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Faith and reason",
+      "body": "Thomas's witness shows that careful reason and Catholic faith can work together in the service of revealed truth."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "Order of Preachers: Saints & Blesseds",
+      "url": "https://www.op.org/saints-blesseds/",
+      "note": "Official Dominican source for Saint Thomas Aquinas in the Order's saints and blesseds list."
+    },
+    {
+      "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+      "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+      "note": "Official proper calendar source for the January 28 Dominican feast."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+  }
+}

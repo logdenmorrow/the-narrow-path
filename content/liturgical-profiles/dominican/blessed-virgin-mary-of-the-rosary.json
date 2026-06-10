@@ -1,0 +1,45 @@
+{
+  "slug": "blessed-virgin-mary-of-the-rosary",
+  "type": "feast",
+  "title": "Blessed Virgin Mary of the Rosary",
+  "short_summary": "The Blessed Virgin Mary of the Rosary is kept in the Dominican calendar as a feast that turns Marian devotion toward contemplation of Christ and the mysteries of salvation.",
+  "key_facts": [
+    "The Dominican Calendarium keeps the Blessed Virgin Mary of the Rosary as a feast on October 7.",
+    "The liturgical color is white.",
+    "The Order of Preachers connects this feast with the Church's celebration of the wonders of salvation.",
+    "The Rosary is a Marian prayer that leads the faithful to meditate on Christ.",
+    "This Dominican profile is local or proper in the app; the general U.S. calendar remains primary."
+  ],
+  "sections": [
+    {
+      "heading": "A Dominican Marian feast",
+      "body": "The Rosary has a deep place in Dominican devotion. In this feast, the Order honors Mary while directing prayer toward the saving mysteries of her Son."
+    },
+    {
+      "heading": "Contemplating Christ with Mary",
+      "body": "The Rosary is not a distraction from Christ. It is a way of meditating on his life, death, and Resurrection with the Mother of the Lord."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Marian devotion ordered to Jesus",
+      "body": "Catholic devotion to Mary is faithful when it leads more deeply into the mystery of Christ and the Gospel."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "Order of Preachers: Saints & Blesseds",
+      "url": "https://www.op.org/saints-blesseds/",
+      "note": "Official Dominican source for the feast of the Blessed Virgin Mary of the Rosary."
+    },
+    {
+      "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+      "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+      "note": "Official proper calendar source for the October 7 Dominican feast."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+  }
+}

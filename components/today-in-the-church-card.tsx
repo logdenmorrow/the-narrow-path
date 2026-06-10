@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
+  getLiturgicalProfileForProperOverlay,
   type LiturgicalCalendarEntry,
   type LiturgicalProperCalendarOverlay,
 } from "@/lib/liturgical-calendar";
@@ -43,29 +44,44 @@ export function TodayInTheChurchCard({
             Dominican calendar
           </p>
           <div className="mt-3 space-y-3">
-            {properOverlays.map((overlay) => (
-              <div key={`${overlay.scope}-${overlay.scope_key}-${overlay.title}`}>
-                <p className="text-sm font-semibold text-monastic-0">
-                  {overlay.title}
-                </p>
-                <p className="mt-1 text-xs leading-5 text-monastic-2">
-                  {overlay.rank}
-                  {overlay.liturgical_color
-                    ? ` • Color if celebrated: ${overlay.liturgical_color}`
-                    : ""}
-                </p>
-                {overlay.display_note ? (
-                  <p className="mt-2 text-sm leading-6 text-monastic-1">
-                    {overlay.display_note}
+            {properOverlays.map((overlay) => {
+              const properProfile = getLiturgicalProfileForProperOverlay(overlay);
+
+              return (
+                <div key={`${overlay.scope}-${overlay.scope_key}-${overlay.title}`}>
+                  <p className="text-sm font-semibold text-monastic-0">
+                    {overlay.title}
                   </p>
-                ) : null}
-                {overlay.occurrence_note ? (
-                  <p className="mt-2 text-xs leading-5 text-monastic-2">
-                    {overlay.occurrence_note}
+                  <p className="mt-1 text-xs leading-5 text-monastic-2">
+                    {overlay.rank}
+                    {overlay.liturgical_color
+                      ? ` • Color if celebrated: ${overlay.liturgical_color}`
+                      : ""}
                   </p>
-                ) : null}
-              </div>
-            ))}
+                  {overlay.display_note ? (
+                    <p className="mt-2 text-sm leading-6 text-monastic-1">
+                      {overlay.display_note}
+                    </p>
+                  ) : null}
+                  {overlay.occurrence_note ? (
+                    <p className="mt-2 text-xs leading-5 text-monastic-2">
+                      {overlay.occurrence_note}
+                    </p>
+                  ) : null}
+                  {overlay.profile_slug && properProfile ? (
+                    <Button asChild variant="secondary" className="mt-3">
+                      <Link
+                        href={`/today-in-the-church?date=${day.date}&profile=${encodeURIComponent(
+                          overlay.profile_slug
+                        )}`}
+                      >
+                        Learn more
+                      </Link>
+                    </Button>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
         </div>
       ) : null}

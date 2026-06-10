@@ -1,0 +1,45 @@
+{
+  "slug": "saint-martin-de-porres",
+  "type": "saint",
+  "title": "Saint Martin de Porres, Religious",
+  "short_summary": "Saint Martin de Porres is honored in the Dominican calendar as a religious whose humble charity and service made visible the mercy of Christ.",
+  "key_facts": [
+    "The Dominican Calendarium keeps Saint Martin de Porres as a feast on November 3.",
+    "The liturgical color is white.",
+    "The Order of Preachers identifies him as a Dominican religious.",
+    "The Order's saints and blesseds page says Martin was born in Lima, Peru, in 1579.",
+    "His feast is shown as a Dominican proper observance in the app, not as a replacement for the general U.S. calendar day."
+  ],
+  "sections": [
+    {
+      "heading": "Humble service",
+      "body": "Martin's holiness is remembered through charity, humility, and care for those in need. His Dominican witness shows that preaching the Gospel includes works of mercy."
+    },
+    {
+      "heading": "A saint of the Dominican family",
+      "body": "The Dominican calendar honors Martin as part of the Order's proper rhythm of prayer. The app presents that observance only for users who choose the Dominican calendar preference."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Mercy made concrete",
+      "body": "Martin's life reminds the faithful that love of Christ must become patient, practical charity toward neighbors."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "Order of Preachers: Saints & Blesseds",
+      "url": "https://www.op.org/saints-blesseds/",
+      "note": "Official Dominican source for Saint Martin de Porres in the Order's saints and blesseds list."
+    },
+    {
+      "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+      "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+      "note": "Official proper calendar source for the November 3 Dominican feast."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "slug": "saint-albert-the-great",
+  "type": "saint",
+  "title": "Saint Albert the Great, Bishop and Doctor of the Church",
+  "short_summary": "Saint Albert the Great is honored by the Dominican family as a bishop, Doctor of the Church, and teacher whose learning served the truth of God and the formation of the Church.",
+  "key_facts": [
+    "The Dominican Calendarium lists Saint Albert the Great on November 15.",
+    "The liturgical color is white.",
+    "The Order of Preachers identifies him as a bishop and Doctor of the Church.",
+    "The Order's saints and blesseds page says Albert was born at Lauingen in Swabia.",
+    "In 2026, November 15 falls on a Sunday, so the app keeps the general U.S. calendar day primary."
+  ],
+  "sections": [
+    {
+      "heading": "Teacher in the Dominican tradition",
+      "body": "Albert's memory belongs naturally to an Order that values study for the service of preaching. His learning was not merely academic; it was directed toward truth and the good of the Church."
+    },
+    {
+      "heading": "A local observance in the app",
+      "body": "Because this date falls on a Sunday in 2026, the Dominican overlay is presented as local information while the primary liturgical day remains the general U.S. calendar day."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Faith seeking understanding",
+      "body": "Albert's witness shows that reason, learning, and careful attention to creation can serve faith when they are ordered toward God."
+    }
+  ],
+  "historical_cautions": [
+    "The OP Saints & Blesseds index displays Saint Albert as a feast, while the Calendarium row used for this overlay gives the 2026 proper-calendar rank followed in the app."
+  ],
+  "source_refs": [
+    {
+      "label": "Order of Preachers: Saints & Blesseds",
+      "url": "https://www.op.org/saints-blesseds/",
+      "note": "Official Dominican source for Saint Albert the Great in the Order's saints and blesseds list."
+    },
+    {
+      "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+      "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+      "note": "Official proper calendar source for the November 15 Dominican observance."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources, with a rank-display caution retained."
+  }
+}

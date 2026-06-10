@@ -14,9 +14,11 @@ import {
   getEasternDateIso,
   getLiturgicalCalendarDay,
   getLiturgicalProfileForDay,
+  getLiturgicalProfileForProperOverlay,
   getLiturgicalProfileForRelatedObservance,
   getLiturgicalProperCalendarOverlays,
   getLiturgicalSourcesForProfiles,
+  getProperOverlayByProfileSlug,
   getRelatedObservanceByProfileSlug,
   getRelatedObservanceRelationLabel,
   isIsoDate,
@@ -59,9 +61,16 @@ export default async function TodayInTheChurchPage({
     day,
     rawProfile
   );
+  const selectedProperOverlay = getProperOverlayByProfileSlug(
+    properOverlays,
+    rawProfile
+  );
+  const selectedProperProfile = selectedProperOverlay
+    ? getLiturgicalProfileForProperOverlay(selectedProperOverlay)
+    : null;
   const sources = getLiturgicalSourcesForProfiles(
     day,
-    [profile, selectedRelatedProfile],
+    [profile, selectedRelatedProfile, selectedProperProfile],
     properOverlays.flatMap((overlay) => overlay.sources)
   );
   const previousDate = addDaysToIsoDate(dateIso, -1);
@@ -92,7 +101,18 @@ export default async function TodayInTheChurchPage({
         </SurfaceCard>
 
         {properOverlays.length > 0 ? (
-          <ProperCalendarSection overlays={properOverlays} />
+          <ProperCalendarSection
+            dateIso={dateIso}
+            overlays={properOverlays}
+            selectedOverlay={selectedProperOverlay}
+          />
+        ) : null}
+
+        {selectedProperOverlay && selectedProperProfile ? (
+          <ProperProfileSection
+            overlay={selectedProperOverlay}
+            profile={selectedProperProfile}
+          />
         ) : null}
 
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.34fr)]">
@@ -358,9 +378,13 @@ async function getViewerReligiousOrderCalendar() {
 }
 
 function ProperCalendarSection({
+  dateIso,
   overlays,
+  selectedOverlay,
 }: {
+  dateIso: string;
   overlays: LiturgicalProperCalendarOverlay[];
+  selectedOverlay: LiturgicalProperCalendarOverlay | null;
 }) {
   return (
     <SurfaceCard>
@@ -370,29 +394,133 @@ function ProperCalendarSection({
         description="This does not replace the general calendar day."
       />
       <div className="mt-5 grid gap-3">
-        {overlays.map((overlay) => (
-          <SurfaceInset key={`${overlay.scope}-${overlay.scope_key}-${overlay.title}`}>
-            <div className="section-kicker">{overlay.rank}</div>
-            <h2 className="mt-2 text-xl font-semibold text-monastic-0">
-              {overlay.title}
-            </h2>
-            {overlay.liturgical_color ? (
-              <p className="mt-1 text-sm leading-6 text-monastic-2">
-                Color if celebrated: {overlay.liturgical_color}
+        {overlays.map((overlay) => {
+          const properProfile = getLiturgicalProfileForProperOverlay(overlay);
+          const isSelected =
+            selectedOverlay?.profile_slug &&
+            selectedOverlay.profile_slug === overlay.profile_slug;
+
+          return (
+            <SurfaceInset key={`${overlay.scope}-${overlay.scope_key}-${overlay.title}`}>
+              <div className="section-kicker">{overlay.rank}</div>
+              <h2 className="mt-2 text-xl font-semibold text-monastic-0">
+                {overlay.title}
+              </h2>
+              {overlay.liturgical_color ? (
+                <p className="mt-1 text-sm leading-6 text-monastic-2">
+                  Color if celebrated: {overlay.liturgical_color}
+                </p>
+              ) : null}
+              {overlay.display_note ? (
+                <p className="mt-3 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+                  {overlay.display_note}
+                </p>
+              ) : null}
+              {overlay.occurrence_note ? (
+                <p className="mt-2 text-sm leading-6 text-monastic-2">
+                  {overlay.occurrence_note}
+                </p>
+              ) : null}
+              {overlay.profile_slug && properProfile && isSelected ? (
+                <p className="mt-4 text-sm leading-6 text-monastic-2">
+                  Profile shown below
+                </p>
+              ) : null}
+              {overlay.profile_slug && properProfile && !isSelected ? (
+                <Button asChild variant="secondary" className="mt-4">
+                  <Link
+                    href={`/today-in-the-church?date=${dateIso}&profile=${encodeURIComponent(
+                      overlay.profile_slug
+                    )}`}
+                  >
+                    Learn more
+                  </Link>
+                </Button>
+              ) : null}
+            </SurfaceInset>
+          );
+        })}
+      </div>
+    </SurfaceCard>
+  );
+}
+
+function ProperProfileSection({
+  overlay,
+  profile,
+}: {
+  overlay: LiturgicalProperCalendarOverlay;
+  profile: LiturgicalProfile;
+}) {
+  return (
+    <SurfaceCard>
+      <SectionHeader
+        kicker="Dominican calendar"
+        title={profile.title}
+        description={profile.short_summary}
+      />
+      <p className="mt-4 text-sm leading-6 text-monastic-2">
+        {overlay.rank}
+        {overlay.liturgical_color
+          ? ` • Color if celebrated: ${overlay.liturgical_color}`
+          : ""}
+      </p>
+      <div className="mt-5 grid gap-5">
+        <div className="grid gap-3">
+          {profile.key_facts.map((fact) => (
+            <SurfaceInset key={fact}>
+              <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+                {fact}
               </p>
-            ) : null}
-            {overlay.display_note ? (
-              <p className="mt-3 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
-                {overlay.display_note}
-              </p>
-            ) : null}
-            {overlay.occurrence_note ? (
-              <p className="mt-2 text-sm leading-6 text-monastic-2">
-                {overlay.occurrence_note}
-              </p>
-            ) : null}
-          </SurfaceInset>
+            </SurfaceInset>
+          ))}
+        </div>
+
+        {profile.sections.map((section) => (
+          <div key={section.heading}>
+            <h3 className="text-lg font-semibold text-monastic-0">
+              {section.heading}
+            </h3>
+            <p className="mt-2 text-base leading-7 text-monastic-1">
+              {section.body}
+            </p>
+          </div>
         ))}
+
+        <div>
+          <h3 className="text-lg font-semibold text-monastic-0">
+            Catholic meaning
+          </h3>
+          <div className="mt-3 grid gap-4">
+            {profile.catholic_connection_sections.map((section) => (
+              <div key={section.heading}>
+                <h4 className="font-semibold text-monastic-0">
+                  {section.heading}
+                </h4>
+                <p className="mt-2 text-base leading-7 text-monastic-1">
+                  {section.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {profile.historical_cautions?.length ? (
+          <div>
+            <h3 className="text-lg font-semibold text-monastic-0">
+              Historical cautions
+            </h3>
+            <div className="mt-3 grid gap-3">
+              {profile.historical_cautions.map((caution) => (
+                <SurfaceInset key={caution}>
+                  <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+                    {caution}
+                  </p>
+                </SurfaceInset>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
     </SurfaceCard>
   );

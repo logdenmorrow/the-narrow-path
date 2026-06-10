@@ -1,0 +1,45 @@
+{
+  "slug": "saint-rose-of-lima",
+  "type": "saint",
+  "title": "Saint Rose of Lima, Virgin",
+  "short_summary": "Saint Rose of Lima is honored in the Dominican calendar as a virgin whose life of prayer, penance, and charity bore witness to Christ in the Americas.",
+  "key_facts": [
+    "The Dominican Calendarium lists Saint Rose of Lima on August 23.",
+    "The liturgical color is white.",
+    "The Order of Preachers identifies her as a virgin.",
+    "The Order's saints and blesseds page says Isabel Flores, known as Rose, was born in Lima.",
+    "In 2026, August 23 falls on a Sunday, so the app keeps the general U.S. calendar day primary."
+  ],
+  "sections": [
+    {
+      "heading": "Holiness in Lima",
+      "body": "Rose's life is remembered for prayer, penance, and charity. Her witness shows that the call to holiness takes root in particular places and cultures while remaining centered on Christ."
+    },
+    {
+      "heading": "A Sunday occurrence in 2026",
+      "body": "Because this observance falls on a Sunday in 2026, the app presents it as Dominican local information and does not replace the primary liturgical day."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Consecrated love",
+      "body": "Rose's witness points to a life given to Christ through prayer and sacrificial charity."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "Order of Preachers: Saints & Blesseds",
+      "url": "https://www.op.org/saints-blesseds/",
+      "note": "Official Dominican source for Saint Rose of Lima in the Order's saints and blesseds list."
+    },
+    {
+      "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+      "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+      "note": "Official proper calendar source for the August 23 Dominican observance."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+  }
+}

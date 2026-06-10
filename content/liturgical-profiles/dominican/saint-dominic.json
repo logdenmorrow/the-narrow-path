@@ -1,0 +1,49 @@
+{
+  "slug": "saint-dominic",
+  "type": "saint",
+  "title": "Saint Dominic, Priest",
+  "short_summary": "Saint Dominic is honored by the Order of Preachers as its founder, a priest whose life joined preaching, study, prayer, and evangelical poverty for the service of the Gospel.",
+  "key_facts": [
+    "The Dominican Calendarium keeps Saint Dominic as a solemnity on August 8.",
+    "The liturgical color is white.",
+    "The Order of Preachers honors him as Our Holy Father Dominic.",
+    "The Order's saints and blesseds page says Dominic was born at Caleruega in Spain around 1172-1173.",
+    "This Dominican solemnity is shown as a proper calendar observance and does not replace the general U.S. calendar day."
+  ],
+  "sections": [
+    {
+      "heading": "Founder of the Preachers",
+      "body": "Dominic gathered a community ordered toward preaching the Gospel, study, prayer, and common life. The Dominican tradition remembers him as a father whose mission served the Church."
+    },
+    {
+      "heading": "Prayer and preaching",
+      "body": "Dominican life looks to Dominic as a model of contemplation turned outward in preaching. Study and prayer are held together so that the truth of Christ can be shared with clarity and charity."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Truth for the sake of souls",
+      "body": "Dominic's witness shows that doctrine, prayer, poverty, and mercy belong together in the Church's mission."
+    },
+    {
+      "heading": "A family in the Church",
+      "body": "His solemnity is local and proper for the Dominican family while the general U.S. calendar remains primary in the app."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "Order of Preachers: Saints & Blesseds",
+      "url": "https://www.op.org/saints-blesseds/",
+      "note": "Official Dominican source for Saint Dominic in the Order's saints and blesseds list."
+    },
+    {
+      "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+      "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+      "note": "Official proper calendar source for the August 8 Dominican solemnity."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+  }
+}

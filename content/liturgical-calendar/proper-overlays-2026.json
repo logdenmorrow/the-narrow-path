@@ -59,6 +59,8 @@
     "title": "Saint Thomas Aquinas, priest and Doctor of the Church",
     "rank": "Feast",
     "liturgical_color": "White",
+    "profile_slug": "saint-thomas-aquinas",
+    "profile_type": "saint",
     "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
     "sources": [
       {
@@ -160,6 +162,8 @@
     "title": "Saint Catherine of Siena, virgin and Doctor of the Church",
     "rank": "Feast",
     "liturgical_color": "White",
+    "profile_slug": "saint-catherine-of-siena",
+    "profile_type": "saint",
     "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
     "sources": [
       {
@@ -177,6 +181,8 @@
     "title": "Saint Pius V, pope",
     "rank": "Memorial",
     "liturgical_color": "White",
+    "profile_slug": "saint-pius-v",
+    "profile_type": "saint",
     "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
     "sources": [
       {
@@ -281,6 +287,8 @@
     "title": "Blessed Diana Andalò and Blessed Cecilia, virgins",
     "rank": "Optional Memorial",
     "liturgical_color": "White",
+    "profile_slug": "blessed-diana-and-cecilia",
+    "profile_type": "saint",
     "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
     "sources": [
       {
@@ -350,6 +358,8 @@
     "title": "Saint Dominic, priest",
     "rank": "Solemnity",
     "liturgical_color": "White",
+    "profile_slug": "saint-dominic",
+    "profile_type": "saint",
     "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
     "sources": [
       {
@@ -401,6 +411,8 @@
     "title": "Saint Rose of Lima, virgin",
     "rank": "Memorial",
     "liturgical_color": "White",
+    "profile_slug": "saint-rose-of-lima",
+    "profile_type": "saint",
     "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
     "occurrence_note": "This observance falls on a Sunday in 2026. The general U.S. calendar remains primary here.",
     "sources": [
@@ -521,6 +533,8 @@
     "title": "Blessed Virgin Mary of the Rosary",
     "rank": "Feast",
     "liturgical_color": "White",
+    "profile_slug": "blessed-virgin-mary-of-the-rosary",
+    "profile_type": "feast",
     "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
     "sources": [
       {
@@ -572,6 +586,8 @@
     "title": "Saint Martin de Porres, religious",
     "rank": "Feast",
     "liturgical_color": "White",
+    "profile_slug": "saint-martin-de-porres",
+    "profile_type": "saint",
     "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
     "sources": [
       {
@@ -640,6 +656,8 @@
     "title": "Saint Albert the Great, bishop and Doctor of the Church",
     "rank": "Memorial",
     "liturgical_color": "White",
+    "profile_slug": "saint-albert-the-great",
+    "profile_type": "saint",
     "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
     "occurrence_note": "This observance falls on a Sunday in 2026. The general U.S. calendar remains primary here.",
     "sources": [
