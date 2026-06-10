@@ -358,7 +358,7 @@ function ProperCalendarSection({
     <SurfaceCard>
       <SectionHeader
         kicker="Dominican calendar"
-        title="Proper observance"
+        title="Also observed locally"
         description="This does not replace the general calendar day."
       />
       <div className="mt-5 grid gap-3">
@@ -370,7 +370,7 @@ function ProperCalendarSection({
             </h2>
             {overlay.liturgical_color ? (
               <p className="mt-1 text-sm leading-6 text-monastic-2">
-                {overlay.liturgical_color}
+                Color if celebrated: {overlay.liturgical_color}
               </p>
             ) : null}
             {overlay.display_note ? (

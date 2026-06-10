@@ -50,7 +50,9 @@ export function TodayInTheChurchCard({
                 </p>
                 <p className="mt-1 text-xs leading-5 text-monastic-2">
                   {overlay.rank}
-                  {overlay.liturgical_color ? ` • ${overlay.liturgical_color}` : ""}
+                  {overlay.liturgical_color
+                    ? ` • Color if celebrated: ${overlay.liturgical_color}`
+                    : ""}
                 </p>
                 {overlay.display_note ? (
                   <p className="mt-2 text-sm leading-6 text-monastic-1">
