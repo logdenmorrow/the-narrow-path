@@ -43,7 +43,11 @@ import {
   buildPlanDayHref,
   getPlanSlugForResolvedSeason,
 } from "@/lib/plan-day-url";
-import { getLiturgicalCalendarDay } from "@/lib/liturgical-calendar";
+import {
+  getLiturgicalCalendarDay,
+  getLiturgicalProperCalendarOverlays,
+  normalizeReligiousOrderCalendar,
+} from "@/lib/liturgical-calendar";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
 import {
   HeroPanel,
@@ -273,6 +277,17 @@ export default async function TodayPage({
     .select("track")
     .eq("id", user.id)
     .maybeSingle();
+  const { data: calendarPreferenceData } = await supabase
+    .from("profiles")
+    .select("religious_order_calendar")
+    .eq("id", user.id)
+    .maybeSingle();
+  const calendarPreference = calendarPreferenceData as {
+    religious_order_calendar?: unknown;
+  } | null;
+  const religiousOrderCalendar = normalizeReligiousOrderCalendar(
+    calendarPreference?.religious_order_calendar
+  );
   const requestedViewTrack = getViewTrackFromSearchParams(resolvedSearchParams);
   const {
     effectiveTrack: track,
@@ -727,6 +742,10 @@ export default async function TodayPage({
     selectedDay === challenge.currentDayNumber;
   const liturgicalDateIso = taskModels[0]?.dayDate ?? currentDateIso;
   const liturgicalDay = getLiturgicalCalendarDay(liturgicalDateIso);
+  const properCalendarOverlays = getLiturgicalProperCalendarOverlays({
+    dateIso: liturgicalDateIso,
+    religiousOrderCalendar,
+  });
 
   const { data: prayerRequestData } = accountabilityEnabled
     ? await supabase
@@ -1128,7 +1147,10 @@ export default async function TodayPage({
                 liturgicalDay.season ? ` • ${liturgicalDay.season}` : ""
               }`}
             />
-            <TodayInTheChurchCard day={liturgicalDay} />
+            <TodayInTheChurchCard
+              day={liturgicalDay}
+              properOverlays={properCalendarOverlays}
+            />
           </SurfaceCard>
 
           <SurfaceCard>

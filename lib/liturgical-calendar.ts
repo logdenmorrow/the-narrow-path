@@ -1,4 +1,5 @@
 import calendarData from "@/content/liturgical-calendar/us-2026.json";
+import properOverlayData from "@/content/liturgical-calendar/proper-overlays-2026.json";
 import saintBonifaceProfile from "@/content/liturgical-profiles/saints/saint-boniface.json";
 import corpusChristiProfile from "@/content/liturgical-profiles/solemnities/corpus-christi.json";
 import saintJamesApostleProfile from "@/content/liturgical-profiles/feasts/saint-james-apostle.json";
@@ -30,6 +31,16 @@ export type LiturgicalProfileType =
   | "other";
 
 export type LiturgicalCalendarScope = "universal" | "us" | "diocesan" | "parish";
+export type LiturgicalProperCalendarScope =
+  | "religious_order"
+  | "diocesan"
+  | "parish";
+export type ReligiousOrderCalendar = "dominican";
+export type LiturgicalOverlayReviewStatus =
+  | "drafted_ai"
+  | "needs_catholic_review"
+  | "approved"
+  | "locked";
 
 export type LiturgicalRelatedObservanceRelation =
   | "optional_memorial"
@@ -70,6 +81,18 @@ export type LiturgicalCalendarEntry = LiturgicalCalendarDay & {
   isFallback: boolean;
 };
 
+export type LiturgicalProperCalendarOverlay = {
+  date: string;
+  scope: LiturgicalProperCalendarScope;
+  scope_key: string;
+  title: string;
+  rank: string;
+  liturgical_color?: string;
+  display_note?: string;
+  sources: LiturgicalCalendarSource[];
+  review_status: LiturgicalOverlayReviewStatus;
+};
+
 export type LiturgicalProfileReviewStatus =
   | "drafted_ai"
   | "needs_catholic_review"
@@ -103,6 +126,8 @@ const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const daysByDate = new Map(
   (calendarData as LiturgicalCalendarDay[]).map((day) => [day.date, day])
 );
+
+const properOverlays = properOverlayData as LiturgicalProperCalendarOverlay[];
 
 const profilesBySlug = new Map(
   (
@@ -203,6 +228,59 @@ export function getLiturgicalCalendarDay(dateIso: string): LiturgicalCalendarEnt
   };
 }
 
+export function normalizeReligiousOrderCalendar(
+  value: unknown
+): ReligiousOrderCalendar | null {
+  return value === "dominican" ? value : null;
+}
+
+export function normalizeLiturgicalColor(value: string | null | undefined) {
+  if (!value) return null;
+
+  const colors = value
+    .split("/")
+    .map((part) =>
+      part
+        .replace(/\s*\(?\b(?:with\s+)?black\s+trim\b\)?/gi, "")
+        .replace(/\s{2,}/g, " ")
+        .trim()
+    )
+    .filter((part) => part && !/^black$/i.test(part) && !/^trim$/i.test(part));
+
+  return colors.length > 0 ? colors.join("/") : null;
+}
+
+function isDisplayableOverlay(overlay: LiturgicalProperCalendarOverlay) {
+  return overlay.review_status === "approved" || overlay.review_status === "locked";
+}
+
+export function getLiturgicalProperCalendarOverlays({
+  dateIso,
+  religiousOrderCalendar,
+}: {
+  dateIso: string;
+  religiousOrderCalendar?: ReligiousOrderCalendar | null;
+}) {
+  return properOverlays
+    .filter((overlay) => overlay.date === dateIso)
+    .filter(isDisplayableOverlay)
+    .filter((overlay) => {
+      if (overlay.scope === "religious_order") {
+        return (
+          religiousOrderCalendar !== null &&
+          religiousOrderCalendar !== undefined &&
+          overlay.scope_key === religiousOrderCalendar
+        );
+      }
+
+      return false;
+    })
+    .map((overlay) => ({
+      ...overlay,
+      liturgical_color: normalizeLiturgicalColor(overlay.liturgical_color) ?? undefined,
+    }));
+}
+
 export function getLiturgicalProfileForDay(
   day: LiturgicalCalendarEntry
 ): LiturgicalProfile | null {
@@ -266,13 +344,15 @@ export function getDisplayableRelatedProfileForDay(
 
 export function getLiturgicalSourcesForProfiles(
   day: LiturgicalCalendarEntry,
-  profiles: Array<LiturgicalProfile | null | undefined>
+  profiles: Array<LiturgicalProfile | null | undefined>,
+  extraSources: LiturgicalCalendarSource[] = []
 ) {
   const sourcesByUrl = new Map<string, LiturgicalCalendarSource>();
 
   for (const source of [
     ...day.sources,
     ...profiles.flatMap((profile) => profile?.source_refs ?? []),
+    ...extraSources,
   ]) {
     sourcesByUrl.set(source.url, source);
   }

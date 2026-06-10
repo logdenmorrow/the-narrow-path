@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
 import {
   PageFrame,
   SectionHeader,
@@ -14,11 +15,14 @@ import {
   getLiturgicalCalendarDay,
   getLiturgicalProfileForDay,
   getLiturgicalProfileForRelatedObservance,
+  getLiturgicalProperCalendarOverlays,
   getLiturgicalSourcesForProfiles,
   getRelatedObservanceByProfileSlug,
   getRelatedObservanceRelationLabel,
   isIsoDate,
+  normalizeReligiousOrderCalendar,
   type LiturgicalProfile,
+  type LiturgicalProperCalendarOverlay,
   type LiturgicalRelatedObservance,
 } from "@/lib/liturgical-calendar";
 
@@ -42,6 +46,11 @@ export default async function TodayInTheChurchPage({
   const dateIso = isIsoDate(rawDate) ? rawDate : getEasternDateIso();
   const day = getLiturgicalCalendarDay(dateIso);
   const profile = getLiturgicalProfileForDay(day);
+  const religiousOrderCalendar = await getViewerReligiousOrderCalendar();
+  const properOverlays = getLiturgicalProperCalendarOverlays({
+    dateIso,
+    religiousOrderCalendar,
+  });
   const selectedRelatedObservance = getRelatedObservanceByProfileSlug(
     day,
     rawProfile
@@ -50,10 +59,11 @@ export default async function TodayInTheChurchPage({
     day,
     rawProfile
   );
-  const sources = getLiturgicalSourcesForProfiles(day, [
-    profile,
-    selectedRelatedProfile,
-  ]);
+  const sources = getLiturgicalSourcesForProfiles(
+    day,
+    [profile, selectedRelatedProfile],
+    properOverlays.flatMap((overlay) => overlay.sources)
+  );
   const previousDate = addDaysToIsoDate(dateIso, -1);
   const nextDate = addDaysToIsoDate(dateIso, 1);
 
@@ -80,6 +90,10 @@ export default async function TodayInTheChurchPage({
             </SurfaceInset>
           ) : null}
         </SurfaceCard>
+
+        {properOverlays.length > 0 ? (
+          <ProperCalendarSection overlays={properOverlays} />
+        ) : null}
 
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.34fr)]">
           <div className="grid gap-5">
@@ -308,6 +322,66 @@ export default async function TodayInTheChurchPage({
         </div>
       </PageFrame>
     </main>
+  );
+}
+
+async function getViewerReligiousOrderCalendar() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return null;
+  }
+
+  const { data } = await supabase
+    .from("profiles")
+    .select("religious_order_calendar")
+    .eq("id", user.id)
+    .maybeSingle();
+  const calendarPreference = data as {
+    religious_order_calendar?: unknown;
+  } | null;
+
+  return normalizeReligiousOrderCalendar(
+    calendarPreference?.religious_order_calendar
+  );
+}
+
+function ProperCalendarSection({
+  overlays,
+}: {
+  overlays: LiturgicalProperCalendarOverlay[];
+}) {
+  return (
+    <SurfaceCard>
+      <SectionHeader
+        kicker="Dominican calendar"
+        title="Proper observance"
+        description="This does not replace the general calendar day."
+      />
+      <div className="mt-5 grid gap-3">
+        {overlays.map((overlay) => (
+          <SurfaceInset key={`${overlay.scope}-${overlay.scope_key}-${overlay.title}`}>
+            <div className="section-kicker">{overlay.rank}</div>
+            <h2 className="mt-2 text-xl font-semibold text-monastic-0">
+              {overlay.title}
+            </h2>
+            {overlay.liturgical_color ? (
+              <p className="mt-1 text-sm leading-6 text-monastic-2">
+                {overlay.liturgical_color}
+              </p>
+            ) : null}
+            {overlay.display_note ? (
+              <p className="mt-3 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+                {overlay.display_note}
+              </p>
+            ) : null}
+          </SurfaceInset>
+        ))}
+      </div>
+    </SurfaceCard>
   );
 }
 

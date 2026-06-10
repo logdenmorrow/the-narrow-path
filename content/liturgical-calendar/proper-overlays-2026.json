@@ -1,0 +1,19 @@
+[
+  {
+    "date": "2026-06-08",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Optional Memorial of Blessed Diana Andalò and Blessed Cecilia, nuns and virgins",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Proper Dominican observance. It does not replace the general calendar day.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Blesseds Diana and Cecilia",
+        "url": "https://www.op.org/saints/bb-dianae-et-caeciliae/",
+        "note": "Official Dominican source for the June 8 optional memorial."
+      }
+    ],
+    "review_status": "approved"
+  }
+]

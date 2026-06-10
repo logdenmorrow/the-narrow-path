@@ -1,12 +1,19 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { type LiturgicalCalendarEntry } from "@/lib/liturgical-calendar";
+import {
+  type LiturgicalCalendarEntry,
+  type LiturgicalProperCalendarOverlay,
+} from "@/lib/liturgical-calendar";
 
 type TodayInTheChurchCardProps = {
   day: LiturgicalCalendarEntry;
+  properOverlays?: LiturgicalProperCalendarOverlay[];
 };
 
-export function TodayInTheChurchCard({ day }: TodayInTheChurchCardProps) {
+export function TodayInTheChurchCard({
+  day,
+  properOverlays = [],
+}: TodayInTheChurchCardProps) {
   const href = `/today-in-the-church?date=${day.date}`;
 
   return (
@@ -29,6 +36,32 @@ export function TodayInTheChurchCard({ day }: TodayInTheChurchCardProps) {
           </p>
         ) : null}
       </Link>
+
+      {properOverlays.length > 0 ? (
+        <div className="rounded-[1.1rem] border border-monastic bg-[color:var(--surface-1)] p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-monastic-2">
+            Dominican calendar
+          </p>
+          <div className="mt-3 space-y-3">
+            {properOverlays.map((overlay) => (
+              <div key={`${overlay.scope}-${overlay.scope_key}-${overlay.title}`}>
+                <p className="text-sm font-semibold text-monastic-0">
+                  {overlay.title}
+                </p>
+                <p className="mt-1 text-xs leading-5 text-monastic-2">
+                  {overlay.rank}
+                  {overlay.liturgical_color ? ` • ${overlay.liturgical_color}` : ""}
+                </p>
+                {overlay.display_note ? (
+                  <p className="mt-2 text-sm leading-6 text-monastic-1">
+                    {overlay.display_note}
+                  </p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       <Button asChild variant="secondary">
         <Link href={href}>Learn about today</Link>
