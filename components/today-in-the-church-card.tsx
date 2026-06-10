@@ -68,6 +68,14 @@ export function TodayInTheChurchCard({
       <Button asChild variant="secondary">
         <Link href={href}>Learn about today</Link>
       </Button>
+      <p className="text-xs leading-5 text-monastic-2">
+        <Link
+          href="/settings#liturgical-calendar"
+          className="underline underline-offset-4 transition hover:text-monastic-0"
+        >
+          Calendar preference
+        </Link>
+      </p>
     </div>
   );
 }

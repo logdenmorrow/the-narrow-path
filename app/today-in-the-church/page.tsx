@@ -278,6 +278,14 @@ export default async function TodayInTheChurchPage({
                   </p>
                 </SurfaceInset>
               </div>
+              <p className="mt-4 text-xs leading-5 text-monastic-2">
+                <Link
+                  href="/settings#liturgical-calendar"
+                  className="underline underline-offset-4 transition hover:text-monastic-0"
+                >
+                  Calendar preference
+                </Link>
+              </p>
             </SurfaceCard>
 
             <SurfaceCard>

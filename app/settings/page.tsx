@@ -3,9 +3,11 @@ import { redirect } from "next/navigation";
 import { Download, LifeBuoy, Map as MapIcon, Megaphone } from "lucide-react";
 import { PageFrame, SectionHeader, SurfaceCard, SurfaceInset } from "@/components/monastic-ui";
 import { DailyReminderSettings } from "@/components/daily-reminder-settings";
+import { LiturgicalCalendarSettings } from "@/components/liturgical-calendar-settings";
 import { PushNotificationControl } from "@/components/push-notification-control";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
+import { normalizeReligiousOrderCalendar } from "@/lib/liturgical-calendar";
 
 type ReminderSlotRow = {
   reminder_type: "morning_scripture" | "night_prayer";
@@ -31,6 +33,17 @@ export default async function SettingsPage() {
     .eq("user_id", user.id)
     .order("sort_order", { ascending: true })
     .returns<ReminderSlotRow[]>();
+  const { data: profileData } = await supabase
+    .from("profiles")
+    .select("religious_order_calendar")
+    .eq("id", user.id)
+    .maybeSingle();
+  const calendarPreference = profileData as {
+    religious_order_calendar?: unknown;
+  } | null;
+  const religiousOrderCalendar = normalizeReligiousOrderCalendar(
+    calendarPreference?.religious_order_calendar
+  );
 
   return (
     <main className="monastic-page">
@@ -65,6 +78,19 @@ export default async function SettingsPage() {
           />
           <div className="mt-4 min-w-0 max-w-full">
             <DailyReminderSettings initialSlots={reminderSlots ?? []} />
+          </div>
+        </SurfaceCard>
+
+        <SurfaceCard id="liturgical-calendar" className="scroll-mt-24">
+          <SectionHeader
+            kicker="Today in the Church"
+            title="Liturgical calendar"
+            description="Choose whether The Narrow Path should also show a proper local calendar when available."
+          />
+          <div className="mt-4 min-w-0 max-w-full">
+            <LiturgicalCalendarSettings
+              initialPreference={religiousOrderCalendar}
+            />
           </div>
         </SurfaceCard>
 
