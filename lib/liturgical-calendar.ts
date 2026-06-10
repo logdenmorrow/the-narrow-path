@@ -89,6 +89,7 @@ export type LiturgicalProperCalendarOverlay = {
   rank: string;
   liturgical_color?: string;
   display_note?: string;
+  occurrence_note?: string;
   sources: LiturgicalCalendarSource[];
   review_status: LiturgicalOverlayReviewStatus;
 };

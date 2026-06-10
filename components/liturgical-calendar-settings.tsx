@@ -22,8 +22,8 @@ const OPTIONS: Array<{
   },
   {
     value: "dominican",
-    title: "Dominican calendar",
-    body: "Also show proper Dominican observances locally when available.",
+    title: "Also show Dominican calendar",
+    body: "For Dominican parishes and communities. The general U.S. calendar remains primary; Dominican proper observances appear as local additions when available.",
   },
 ];
 

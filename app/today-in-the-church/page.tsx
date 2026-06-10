@@ -386,6 +386,11 @@ function ProperCalendarSection({
                 {overlay.display_note}
               </p>
             ) : null}
+            {overlay.occurrence_note ? (
+              <p className="mt-2 text-sm leading-6 text-monastic-2">
+                {overlay.occurrence_note}
+              </p>
+            ) : null}
           </SurfaceInset>
         ))}
       </div>

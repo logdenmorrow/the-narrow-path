@@ -1,17 +1,669 @@
 [
   {
-    "date": "2026-06-08",
+    "date": "2026-01-04",
     "scope": "religious_order",
     "scope_key": "dominican",
-    "title": "Optional Memorial of Blessed Diana Andalò and Blessed Cecilia, nuns and virgins",
+    "title": "Saint Zdislava of Lemberk",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "occurrence_note": "This observance falls on a Sunday in 2026. The general U.S. calendar remains primary here.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-01-07",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Raymond of Peñafort, priest",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-01-18",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Margaret of Hungary, virgin",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "occurrence_note": "This observance falls on a Sunday in 2026. The general U.S. calendar remains primary here.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-01-28",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Thomas Aquinas, priest and Doctor of the Church",
+    "rank": "Feast",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-02-04",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Catherine de' Ricci, virgin",
     "rank": "Optional Memorial",
     "liturgical_color": "White",
     "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
     "sources": [
       {
-        "label": "Order of Preachers: Blesseds Diana and Cecilia",
-        "url": "https://www.op.org/saints/bb-dianae-et-caeciliae/",
-        "note": "Official Dominican source for the June 8 optional memorial."
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-02-07",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Anniversary of deceased fathers and mothers",
+    "rank": "Optional Memorial",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. No liturgical color was added because the Calendarium does not print one for this commemoration."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-02-13",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Blessed Jordan of Saxony, priest",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-02-18",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Blessed Fra Angelico, or Blessed John of Fiesole, priest",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-04-20",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Agnes of Montepulciano, virgin",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-04-29",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Catherine of Siena, virgin and Doctor of the Church",
+    "rank": "Feast",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-04-30",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Pius V, pope",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-05-05",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Vincent Ferrer, priest",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-05-10",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Antoninus of Florence, bishop",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "occurrence_note": "This observance falls on a Sunday in 2026. The general U.S. calendar remains primary here.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-05-19",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Francis Coll Guitart, priest",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-05-24",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Translation of Saint Dominic, priest",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "occurrence_note": "This observance falls on Pentecost Sunday in 2026. The general U.S. calendar remains primary here.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-06-04",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Peter of Verona, priest and martyr",
+    "rank": "Memorial",
+    "liturgical_color": "Red",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-06-08",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Blessed Diana Andalò and Blessed Cecilia, virgins",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-07-04",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Blessed Pier Giorgio Frassati",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-07-09",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint John of Cologne, priest, and companion martyrs; Saints Francis Fernández de Capillas, Peter Sanz, Augustine Zhao Rong, and companions, martyrs",
+    "rank": "Optional Memorial",
+    "liturgical_color": "Red",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-08-02",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Blessed Joan, mother of Saint Dominic",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "occurrence_note": "This observance falls on a Sunday in 2026. The general U.S. calendar remains primary here.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-08-08",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Dominic, priest",
+    "rank": "Solemnity",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-08-17",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Hyacinth of Poland, priest",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-08-18",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Blessed Mannes, priest, brother of Saint Dominic",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-08-23",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Rose of Lima, virgin",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "occurrence_note": "This observance falls on a Sunday in 2026. The general U.S. calendar remains primary here.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-08-28",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Augustine, bishop and Doctor of the Church",
+    "rank": "Feast",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-09-05",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Anniversary of deceased family members and benefactors",
+    "rank": "Optional Memorial",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. No liturgical color was added because the Calendarium does not print one for this commemoration."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-09-18",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint John Macías, religious",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-09-28",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Dominic Ibáñez de Erquicia, priest, Saint Lawrence Ruiz, Blessed Alphonsus Navarrete, priest, and companions, martyrs",
+    "rank": "Optional Memorial",
+    "liturgical_color": "Red",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-10-04",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Francis of Assisi, deacon",
+    "rank": "Feast",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "occurrence_note": "This observance falls on a Sunday in 2026. The general U.S. calendar remains primary here.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-10-05",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Blessed Raymond of Capua, priest",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-10-07",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Blessed Virgin Mary of the Rosary",
+    "rank": "Feast",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-10-09",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Louis Bertrand, priest",
+    "rank": "Optional Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-10-22",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Dedication of a Church",
+    "rank": "Solemnity",
+    "liturgical_color": "White",
+    "display_note": "For Dominican churches whose date of dedication is not known. The general U.S. calendar remains primary.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. The Calendarium limits this entry to dedicated churches whose dedication date is unknown."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-11-03",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Martin de Porres, religious",
+    "rank": "Feast",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-11-06",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Blessed Bonaventure García Paredes, Hyacinth Serrano López, priests, and companions, martyrs",
+    "rank": "Optional Memorial",
+    "liturgical_color": "Red",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. Rows without a printed rank are optional memorials according to the Calendarium footnote."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-11-07",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "All Saints of the Order of Preachers",
+    "rank": "Feast",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-11-08",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Anniversary of all deceased brothers and sisters",
+    "rank": "Optional Memorial",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "occurrence_note": "This observance falls on a Sunday in 2026. The general U.S. calendar remains primary here.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers. No liturgical color was added because the Calendarium does not print one for this commemoration."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-11-15",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saint Albert the Great, bishop and Doctor of the Church",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "occurrence_note": "This observance falls on a Sunday in 2026. The general U.S. calendar remains primary here.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
+      }
+    ],
+    "review_status": "approved"
+  },
+  {
+    "date": "2026-11-24",
+    "scope": "religious_order",
+    "scope_key": "dominican",
+    "title": "Saints Ignatius Delgado, bishop, Vincent Liem, priest, Dominic An-Kham, layman, Andrew Dũng-Lạc, priest, and companions, martyrs",
+    "rank": "Memorial",
+    "liturgical_color": "Red",
+    "display_note": "Your parish may follow the proper Dominican calendar in addition to the general U.S. calendar.",
+    "sources": [
+      {
+        "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
+        "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
+        "note": "Official proper calendar of the Order of Preachers."
       }
     ],
     "review_status": "approved"

@@ -59,6 +59,11 @@ export function TodayInTheChurchCard({
                     {overlay.display_note}
                   </p>
                 ) : null}
+                {overlay.occurrence_note ? (
+                  <p className="mt-2 text-xs leading-5 text-monastic-2">
+                    {overlay.occurrence_note}
+                  </p>
+                ) : null}
               </div>
             ))}
           </div>
