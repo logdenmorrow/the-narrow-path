@@ -230,15 +230,15 @@ export function getLiturgicalCalendarDay(dateIso: string): LiturgicalCalendarEnt
 
   return {
     date: dateIso,
-    title: "Weekday",
-    rank: "Weekday",
-    liturgical_color: "Green",
-    season: "Ordinary Time",
-    summary: "Detailed calendar information has not been added for this date yet.",
+    title: "Liturgical calendar day",
+    rank: "Date pending review",
+    liturgical_color: "Varies",
+    season: "Liturgical Year",
+    summary: "A reviewed Today in the Church entry for this date has not been added yet.",
     description:
-      "This local MVP only includes a small reviewed sample of the 2026 U.S. liturgical calendar.",
+      "The Church still marks this day within the rhythm of the liturgical year. More specific U.S. calendar details will appear here after review.",
     catholic_connection:
-      "The Church marks time through seasons, feasts, memorials, and ordinary weekdays. This entry will become more specific when reviewed content is added.",
+      "The Church marks time through seasons, solemnities, feasts, memorials, and weekdays so that the mystery of Christ shapes ordinary life.",
     sources: [
       {
         label: "USCCB Liturgical Calendar",

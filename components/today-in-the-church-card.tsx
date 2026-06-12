@@ -33,7 +33,8 @@ export function TodayInTheChurchCard({
         <p className="mt-2 text-sm leading-6 text-monastic-1">{day.summary}</p>
         {day.isFallback ? (
           <p className="mt-2 text-sm leading-6 text-monastic-2">
-            Detailed calendar information has not been added for this date yet.
+            A reviewed Today in the Church entry for this date has not been
+            added yet.
           </p>
         ) : null}
       </Link>

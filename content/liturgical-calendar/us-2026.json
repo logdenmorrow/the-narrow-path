@@ -1,5 +1,105 @@
 [
   {
+    "date": "2026-01-28",
+    "title": "Saint Thomas Aquinas, Priest and Doctor of the Church",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Thomas Aquinas, Dominican priest, theologian, and Doctor of the Church.",
+    "description": "The U.S. calendar keeps Saint Thomas Aquinas as a memorial during the Third Week in Ordinary Time.",
+    "catholic_connection": "White is used for saints who were not martyrs and points to holiness in Christ. Thomas's memory reminds the Church that study and prayer serve the truth of God.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for January 28, 2026",
+        "url": "https://bible.usccb.org/bible/readings/012826.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-01-31",
+    "title": "Saint John Bosco, Priest",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint John Bosco, priest and servant of young people.",
+    "description": "The U.S. calendar keeps Saint John Bosco, Priest, as a memorial during Ordinary Time.",
+    "catholic_connection": "White is used for saints who were not martyrs and points to holiness in Christ. His memorial highlights pastoral charity and the formation of the young.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for January 31, 2026",
+        "url": "https://bible.usccb.org/bible/readings/013126.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-29",
+    "title": "Saint Catherine of Siena, Virgin and Doctor of the Church",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Easter",
+    "summary": "The Church honors Saint Catherine of Siena, a Doctor of the Church whose prayer and counsel served Christ and his Church.",
+    "description": "The U.S. calendar keeps Saint Catherine of Siena as a memorial during the Easter season.",
+    "catholic_connection": "White marks Easter joy and the holiness of saints who were not martyrs. Catherine's witness joins contemplation, charity, and love for the unity of the Church.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for April 29, 2026",
+        "url": "https://bible.usccb.org/bible/readings/042926.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-30",
+    "title": "Thursday of the Fourth Week of Easter",
+    "rank": "Easter Weekday",
+    "liturgical_color": "White",
+    "season": "Easter",
+    "summary": "The Church continues the Easter season, with the optional memorial of Saint Pius V available.",
+    "description": "The U.S. calendar lists this date as an Easter weekday and permits the Optional Memorial of Saint Pius V, Pope.",
+    "catholic_connection": "White marks the joy of Easter. Optional memorials may be observed, but they do not replace the primary Easter weekday unless chosen in the liturgy.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for April 30, 2026",
+        "url": "https://bible.usccb.org/bible/readings/043026.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-05-01",
+    "title": "Friday of the Fourth Week of Easter",
+    "rank": "Easter Weekday",
+    "liturgical_color": "White",
+    "season": "Easter",
+    "summary": "The Church continues the Easter season, with the optional memorial of Saint Joseph the Worker available.",
+    "description": "The U.S. calendar lists this date as an Easter weekday and permits the Optional Memorial of Saint Joseph the Worker.",
+    "catholic_connection": "Easter white points to the joy of the Resurrection. Saint Joseph the Worker, when observed, directs ordinary labor toward God and the dignity of human work.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for May 1, 2026",
+        "url": "https://bible.usccb.org/bible/readings/050126.cfm"
+      }
+    ]
+  },
+  {
     "date": "2026-06-04",
     "title": "Thursday of the Ninth Week in Ordinary Time",
     "rank": "Weekday",
@@ -109,16 +209,16 @@
     "rank": "Weekday",
     "liturgical_color": "Green",
     "season": "Ordinary Time",
-    "summary": "Ordinary Time continues with the Tenth Week.",
-    "description": "The U.S. calendar lists this date as a weekday in the Tenth Week in Ordinary Time.",
-    "catholic_connection": "Ordinary Time keeps the Church close to Christ's public ministry and to steady growth in faith, prayer, repentance, and charity.",
+    "summary": "The Church begins the Tenth Week in Ordinary Time, returning to the steady rhythm of discipleship after the Sunday solemnity of Corpus Christi.",
+    "description": "The U.S. calendar lists June 8, 2026 as Monday of the Tenth Week in Ordinary Time. No required memorial is listed for the general U.S. calendar on this date.",
+    "catholic_connection": "Green marks Ordinary Time and points to growth in Christian life. The day keeps attention on ordinary fidelity: hearing Christ, repenting, praying, and practicing charity.",
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",
         "url": "https://www.usccb.org/resources/2026cal.pdf"
       },
       {
-        "label": "USCCB Daily Readings for 06/08/2026",
+        "label": "USCCB Daily Readings for June 8, 2026",
         "url": "https://bible.usccb.org/bible/readings/060826.cfm"
       }
     ]
@@ -1252,6 +1352,726 @@
       {
         "label": "USCCB Daily Readings for 07/31/2026",
         "url": "https://bible.usccb.org/bible/readings/073126.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-01",
+    "title": "Saint Alphonsus Liguori, Bishop and Doctor of the Church",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Alphonsus Liguori, bishop, Doctor of the Church, and moral theologian.",
+    "description": "The U.S. calendar keeps Saint Alphonsus Liguori as a memorial at the close of the Seventeenth Week in Ordinary Time.",
+    "catholic_connection": "White is used for saints who were not martyrs and points to holiness in Christ. Alphonsus's memory highlights pastoral wisdom and mercy.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 1, 2026",
+        "url": "https://bible.usccb.org/bible/readings/080126.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-02",
+    "title": "Eighteenth Sunday in Ordinary Time",
+    "rank": "Sunday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church gathers for the Eighteenth Sunday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as the Eighteenth Sunday in Ordinary Time.",
+    "catholic_connection": "Sunday is the Lord's Day, the weekly celebration of Christ's Resurrection in the life of the Church.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 2, 2026",
+        "url": "https://bible.usccb.org/bible/readings/080226.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-03",
+    "title": "Monday of the Eighteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues with the Eighteenth Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Green marks Ordinary Time and points to growth in the Christian life through prayer, repentance, work, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 3, 2026",
+        "url": "https://bible.usccb.org/bible/readings/080326.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-04",
+    "title": "Saint John Vianney, Priest",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint John Vianney, priest and pastor.",
+    "description": "The U.S. calendar keeps Saint John Vianney, Priest, as a memorial during Ordinary Time.",
+    "catholic_connection": "White is used for saints who were not martyrs. His memorial points to pastoral charity, patient confession, and priestly service.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 4, 2026",
+        "url": "https://bible.usccb.org/bible/readings/080426.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-05",
+    "title": "Wednesday of the Eighteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The U.S. calendar permits the Optional Memorial of the Dedication of the Basilica of Saint Mary Major.",
+    "catholic_connection": "The weekday remains Ordinary Time unless the optional memorial is chosen. Marian devotion and church dedications both point back to Christ and the worship of God.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 5, 2026",
+        "url": "https://bible.usccb.org/bible/readings/080526.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-06",
+    "title": "The Transfiguration of the Lord",
+    "rank": "Feast",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church celebrates Christ's Transfiguration, when his glory was revealed to Peter, James, and John.",
+    "description": "The U.S. calendar keeps the Transfiguration of the Lord as a feast.",
+    "catholic_connection": "White is used for feasts of the Lord outside his Passion. The Transfiguration reveals Christ's glory and prepares the disciples for the mystery of the Cross.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 6, 2026",
+        "url": "https://bible.usccb.org/bible/readings/080626.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-07",
+    "title": "Friday of the Eighteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/Red/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with optional memorials available.",
+    "description": "The U.S. calendar permits the Optional Memorial of Saint Sixtus II, Pope, and Companions, Martyrs, or the Optional Memorial of Saint Cajetan, Priest.",
+    "catholic_connection": "The weekday remains Ordinary Time unless an optional memorial is chosen; red may be used for martyrs and white for priests who were not martyrs.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 7, 2026",
+        "url": "https://bible.usccb.org/bible/readings/080726.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-08",
+    "title": "Saint Dominic, Priest",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Dominic, priest and founder of the Order of Preachers.",
+    "description": "The U.S. calendar keeps Saint Dominic, Priest, as a memorial. Dominican communities may also observe him according to their proper calendar.",
+    "catholic_connection": "White is used for saints who were not martyrs. Dominic's witness joins preaching, study, prayer, and mission in service of the Gospel.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 8, 2026",
+        "url": "https://bible.usccb.org/bible/readings/080826.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-09",
+    "title": "Nineteenth Sunday in Ordinary Time",
+    "rank": "Sunday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church gathers for the Nineteenth Sunday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as the Nineteenth Sunday in Ordinary Time.",
+    "catholic_connection": "Sunday is the Lord's Day, the weekly celebration of Christ's Resurrection in the life of the Church.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 9, 2026",
+        "url": "https://bible.usccb.org/bible/readings/080926.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-10",
+    "title": "Saint Lawrence, Deacon and Martyr",
+    "rank": "Feast",
+    "liturgical_color": "Red",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Lawrence, deacon and martyr.",
+    "description": "The U.S. calendar keeps Saint Lawrence as a feast during Ordinary Time.",
+    "catholic_connection": "Red is used for martyrs and points to witness sealed by blood. Lawrence's feast recalls service, courage, and fidelity to Christ.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 10, 2026",
+        "url": "https://bible.usccb.org/bible/readings/081026.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-11",
+    "title": "Saint Clare, Virgin",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Clare, virgin and witness to evangelical poverty.",
+    "description": "The U.S. calendar keeps Saint Clare, Virgin, as a memorial.",
+    "catholic_connection": "White is used for saints who were not martyrs. Clare's memorial points to consecrated life and trust in Christ.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 11, 2026",
+        "url": "https://bible.usccb.org/bible/readings/081126.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-12",
+    "title": "Wednesday of the Nineteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The U.S. calendar permits the Optional Memorial of Saint Jane Frances de Chantal, Religious.",
+    "catholic_connection": "Green marks the weekday in Ordinary Time; white may be used if the optional memorial is observed.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 12, 2026",
+        "url": "https://bible.usccb.org/bible/readings/081226.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-13",
+    "title": "Thursday of the Nineteenth Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/Red",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
+    "description": "The U.S. calendar permits the Optional Memorial of Saints Pontian, Pope, and Hippolytus, Priest, Martyrs.",
+    "catholic_connection": "The weekday remains Ordinary Time unless the optional memorial is chosen; red may be used for martyrs.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 13, 2026",
+        "url": "https://bible.usccb.org/bible/readings/081326.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-14",
+    "title": "Saint Maximilian Kolbe, Priest and Martyr",
+    "rank": "Memorial",
+    "liturgical_color": "Red",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Maximilian Kolbe, priest and martyr.",
+    "description": "The U.S. calendar keeps Saint Maximilian Kolbe as a memorial during Ordinary Time.",
+    "catholic_connection": "Red is used for martyrs. His memorial points to charity, sacrifice, and fidelity to Christ under persecution.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 14, 2026",
+        "url": "https://bible.usccb.org/bible/readings/081426.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-08-15",
+    "title": "The Assumption of the Blessed Virgin Mary",
+    "rank": "Solemnity",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church celebrates the Assumption of the Blessed Virgin Mary.",
+    "description": "The U.S. calendar keeps the Assumption of the Blessed Virgin Mary as a solemnity. In 2026 it falls on a Saturday in the United States.",
+    "catholic_connection": "White is used for solemn celebrations of Mary. The Assumption points to the hope of resurrection and the dignity of the human body in Christ.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for August 15, 2026",
+        "url": "https://bible.usccb.org/bible/readings/081526.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-10-05",
+    "title": "Monday of the Twenty-Seventh Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with optional memorials available.",
+    "description": "The U.S. calendar permits the Optional Memorial of Saint Faustina Kowalska, Virgin, or, in the United States, Blessed Francis Xavier Seelos, Priest.",
+    "catholic_connection": "The weekday remains Ordinary Time unless an optional memorial is chosen; white may be used for these optional observances.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for October 5, 2026",
+        "url": "https://bible.usccb.org/bible/readings/100526.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-10-06",
+    "title": "Tuesday of the Twenty-Seventh Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with optional memorials available.",
+    "description": "The U.S. calendar permits the Optional Memorial of Saint Bruno, Priest, or, in the United States, Blessed Marie Rose Durocher, Virgin.",
+    "catholic_connection": "The weekday remains Ordinary Time unless an optional memorial is chosen; white may be used for these optional observances.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for October 6, 2026",
+        "url": "https://bible.usccb.org/bible/readings/100626.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-10-07",
+    "title": "Our Lady of the Rosary",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Our Lady of the Rosary, turning Marian devotion toward the mysteries of Christ.",
+    "description": "The U.S. calendar keeps Our Lady of the Rosary as a memorial during Ordinary Time.",
+    "catholic_connection": "White is used for Marian celebrations. The Rosary is a Marian prayer ordered toward contemplation of Christ and the Gospel.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for October 7, 2026",
+        "url": "https://bible.usccb.org/bible/readings/100726.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "title": "Thursday of the Twenty-Seventh Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Twenty-Seventh Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Green marks Ordinary Time and points to growth in the Christian life through prayer, repentance, work, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for October 8, 2026",
+        "url": "https://bible.usccb.org/bible/readings/100826.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-10-09",
+    "title": "Friday of the Twenty-Seventh Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/Red/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with optional memorials available.",
+    "description": "The U.S. calendar permits the Optional Memorial of Saint Denis, Bishop, and Companions, Martyrs; Saint John Leonardi, Priest; or Saint John Henry Newman, Priest and Doctor of the Church.",
+    "catholic_connection": "The weekday remains Ordinary Time unless an optional memorial is chosen; red may be used for martyrs and white for priests who were not martyrs.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for October 9, 2026",
+        "url": "https://bible.usccb.org/bible/readings/100926.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-10-10",
+    "title": "Saturday of the Twenty-Seventh Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a Saturday weekday in Ordinary Time.",
+    "description": "The U.S. calendar lists this as a weekday and indicates that the Blessed Virgin Mary may be observed on Saturday.",
+    "catholic_connection": "Saturday observances of the Blessed Virgin Mary are optional and should not be treated as replacing the weekday unless chosen in the liturgy.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for October 10, 2026",
+        "url": "https://bible.usccb.org/bible/readings/101026.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-01",
+    "title": "All Saints",
+    "rank": "Solemnity",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church celebrates all the saints, known and unknown, who share in Christ's glory.",
+    "description": "The U.S. calendar keeps All Saints as a solemnity on this Sunday in 2026.",
+    "catholic_connection": "White is used for solemn celebrations of the saints. All Saints points to the communion of saints and the universal call to holiness.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 1, 2026",
+        "url": "https://bible.usccb.org/bible/readings/110126.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-02",
+    "title": "The Commemoration of All the Faithful Departed",
+    "rank": "Commemoration",
+    "liturgical_color": "Violet/White/Black",
+    "season": "Ordinary Time",
+    "summary": "The Church prays for all the faithful departed on All Souls' Day.",
+    "description": "The U.S. calendar lists the Commemoration of All the Faithful Departed, commonly called All Souls' Day.",
+    "catholic_connection": "Prayer for the dead expresses the communion of saints and Christian hope in the mercy of God.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 2, 2026",
+        "url": "https://bible.usccb.org/bible/readings/110226.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-03",
+    "title": "Tuesday of the Thirty-First Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a weekday in Ordinary Time, with the optional memorial of Saint Martin de Porres available.",
+    "description": "The U.S. calendar lists this date as a weekday and permits the Optional Memorial of Saint Martin de Porres, Religious.",
+    "catholic_connection": "Green marks the weekday in Ordinary Time; white may be used if Saint Martin de Porres is observed.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 3, 2026",
+        "url": "https://bible.usccb.org/bible/readings/110326.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-04",
+    "title": "Saint Charles Borromeo, Bishop",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Charles Borromeo, bishop and pastor.",
+    "description": "The U.S. calendar keeps Saint Charles Borromeo, Bishop, as a memorial.",
+    "catholic_connection": "White is used for saints who were not martyrs. His memorial highlights pastoral reform and faithful service to the Church.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 4, 2026",
+        "url": "https://bible.usccb.org/bible/readings/110426.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-05",
+    "title": "Thursday of the Thirty-First Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Thirty-First Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Green marks Ordinary Time and points to growth in the Christian life through prayer, repentance, work, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 5, 2026",
+        "url": "https://bible.usccb.org/bible/readings/110526.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-06",
+    "title": "Friday of the Thirty-First Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "Ordinary Time continues in the Thirty-First Week.",
+    "description": "The U.S. calendar lists this date as a weekday in Ordinary Time.",
+    "catholic_connection": "Green marks Ordinary Time and points to growth in the Christian life through prayer, repentance, work, and charity.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 6, 2026",
+        "url": "https://bible.usccb.org/bible/readings/110626.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-07",
+    "title": "Saturday of the Thirty-First Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a Saturday weekday in Ordinary Time.",
+    "description": "The U.S. calendar lists this as a weekday and indicates that the Blessed Virgin Mary may be observed on Saturday.",
+    "catholic_connection": "Saturday observances of the Blessed Virgin Mary are optional and should not be treated as replacing the weekday unless chosen in the liturgy.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 7, 2026",
+        "url": "https://bible.usccb.org/bible/readings/110726.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-08",
+    "title": "Thirty-Second Sunday in Ordinary Time",
+    "rank": "Sunday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church gathers for the Thirty-Second Sunday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as the Thirty-Second Sunday in Ordinary Time.",
+    "catholic_connection": "Sunday is the Lord's Day, the weekly celebration of Christ's Resurrection in the life of the Church.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 8, 2026",
+        "url": "https://bible.usccb.org/bible/readings/110826.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-09",
+    "title": "The Dedication of the Lateran Basilica",
+    "rank": "Feast",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church celebrates the Dedication of the Lateran Basilica, cathedral church of the Bishop of Rome.",
+    "description": "The U.S. calendar keeps the Dedication of the Lateran Basilica as a feast.",
+    "catholic_connection": "This feast points to the Church as a visible communion gathered for worship, not merely to a building.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 9, 2026",
+        "url": "https://bible.usccb.org/bible/readings/110926.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-10",
+    "title": "Saint Leo the Great, Pope and Doctor of the Church",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Leo the Great, pope and Doctor of the Church.",
+    "description": "The U.S. calendar keeps Saint Leo the Great as a memorial.",
+    "catholic_connection": "White is used for saints who were not martyrs. Leo's memorial points to teaching, pastoral authority, and defense of the faith.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 10, 2026",
+        "url": "https://bible.usccb.org/bible/readings/111026.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-11",
+    "title": "Saint Martin of Tours, Bishop",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Martin of Tours, bishop and pastor.",
+    "description": "The U.S. calendar keeps Saint Martin of Tours as a memorial.",
+    "catholic_connection": "White is used for saints who were not martyrs. Martin's memorial points to charity, pastoral care, and holiness in public witness.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 11, 2026",
+        "url": "https://bible.usccb.org/bible/readings/111126.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-12",
+    "title": "Saint Josaphat, Bishop and Martyr",
+    "rank": "Memorial",
+    "liturgical_color": "Red",
+    "season": "Ordinary Time",
+    "summary": "The Church honors Saint Josaphat, bishop and martyr.",
+    "description": "The U.S. calendar keeps Saint Josaphat as a memorial.",
+    "catholic_connection": "Red is used for martyrs. His memorial points to fidelity to Christ and love for the unity of the Church.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 12, 2026",
+        "url": "https://bible.usccb.org/bible/readings/111226.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-13",
+    "title": "Saint Frances Xavier Cabrini, Virgin",
+    "rank": "Memorial",
+    "liturgical_color": "White",
+    "season": "Ordinary Time",
+    "summary": "In the United States, the Church honors Saint Frances Xavier Cabrini, virgin and missionary.",
+    "description": "The U.S. calendar keeps Saint Frances Xavier Cabrini, Virgin, as a memorial in the United States.",
+    "catholic_connection": "White is used for saints who were not martyrs. Cabrini's memorial points to missionary charity and care for immigrants.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 13, 2026",
+        "url": "https://bible.usccb.org/bible/readings/111326.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-14",
+    "title": "Saturday of the Thirty-Second Week in Ordinary Time",
+    "rank": "Weekday",
+    "liturgical_color": "Green/White",
+    "season": "Ordinary Time",
+    "summary": "The Church keeps a Saturday weekday in Ordinary Time.",
+    "description": "The U.S. calendar lists this as a weekday and indicates that the Blessed Virgin Mary may be observed on Saturday.",
+    "catholic_connection": "Saturday observances of the Blessed Virgin Mary are optional and should not be treated as replacing the weekday unless chosen in the liturgy.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 14, 2026",
+        "url": "https://bible.usccb.org/bible/readings/111426.cfm"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-15",
+    "title": "Thirty-Third Sunday in Ordinary Time",
+    "rank": "Sunday",
+    "liturgical_color": "Green",
+    "season": "Ordinary Time",
+    "summary": "The Church gathers for the Thirty-Third Sunday in Ordinary Time.",
+    "description": "The U.S. calendar lists this date as the Thirty-Third Sunday in Ordinary Time. Saint Albert the Great is not the primary general-calendar entry this year because the date falls on Sunday.",
+    "catholic_connection": "Sunday is the Lord's Day and takes precedence over ordinary memorials in the Roman calendar.",
+    "sources": [
+      {
+        "label": "USCCB 2026 Liturgical Calendar",
+        "url": "https://www.usccb.org/resources/2026cal.pdf"
+      },
+      {
+        "label": "USCCB Daily Readings for November 15, 2026",
+        "url": "https://bible.usccb.org/bible/readings/111526.cfm"
       }
     ]
   }

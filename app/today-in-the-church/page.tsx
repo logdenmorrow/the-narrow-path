@@ -93,8 +93,8 @@ export default async function TodayInTheChurchPage({
           {day.isFallback ? (
             <SurfaceInset className="mt-5 border-[rgba(168,129,81,0.34)] bg-[rgba(168,129,81,0.08)]">
               <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
-                Detailed calendar information has not been added for this date
-                yet.
+                A reviewed Today in the Church entry for this date has not been
+                added yet.
               </p>
             </SurfaceInset>
           ) : null}
