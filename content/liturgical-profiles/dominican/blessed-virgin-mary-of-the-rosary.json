@@ -7,7 +7,8 @@
     "The Dominican Calendarium keeps the Blessed Virgin Mary of the Rosary as a feast on October 7.",
     "The liturgical color is white.",
     "The Order of Preachers connects this feast with the Church's celebration of the wonders of salvation.",
-    "The Rosary is a Marian prayer that leads the faithful to meditate on Christ.",
+    "Saint John Paul II described the Rosary as a simple and profound prayer within the Christian life.",
+    "The Rosary is Marian, but its meditation is centered on Christ.",
     "This Dominican profile is local or proper in the app; the general U.S. calendar remains primary."
   ],
   "sections": [
@@ -16,14 +17,30 @@
       "body": "The Rosary has a deep place in Dominican devotion. In this feast, the Order honors Mary while directing prayer toward the saving mysteries of her Son."
     },
     {
-      "heading": "Contemplating Christ with Mary",
-      "body": "The Rosary is not a distraction from Christ. It is a way of meditating on his life, death, and Resurrection with the Mother of the Lord."
+      "heading": "Meditating on Christ",
+      "body": "The Rosary is not a substitute for the Gospel. It is a way of lingering with the mysteries of Christ's life, death, and Resurrection in the company of Mary."
+    },
+    {
+      "heading": "Prayer that forms attention",
+      "body": "The repeated prayers of the Rosary are meant to steady the heart for contemplation. They train attention toward the Lord rather than toward spiritual distraction."
+    },
+    {
+      "heading": "A proper Dominican feast",
+      "body": "The app presents the Dominican feast as a proper calendar observance for Dominican users. It does not make the observance the primary general U.S. calendar day."
     }
   ],
   "catholic_connection_sections": [
     {
       "heading": "Marian devotion ordered to Jesus",
       "body": "Catholic devotion to Mary is faithful when it leads more deeply into the mystery of Christ and the Gospel."
+    },
+    {
+      "heading": "Prayer with the Church",
+      "body": "The Rosary belongs to the Church's living devotional tradition and invites the faithful to receive the mysteries of salvation with Mary's faith."
+    },
+    {
+      "heading": "Contemplation and mission",
+      "body": "For Dominicans, contemplation is never closed in on itself. Prayer prepares the heart to speak and live the truth of Christ with charity."
     }
   ],
   "source_refs": [
@@ -36,10 +53,15 @@
       "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
       "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
       "note": "Official proper calendar source for the October 7 Dominican feast."
+    },
+    {
+      "label": "Holy See: Rosarium Virginis Mariae",
+      "url": "https://www.vatican.va/content/john-paul-ii/en/apost_letters/2002/documents/hf_jp-ii_apl_20021016_rosarium-virginis-mariae.html",
+      "note": "Magisterial source for the Rosary as a Christ-centered Marian prayer."
     }
   ],
   "review": {
     "status": "approved",
-    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+    "notes": "Reviewed for Dominican proper-calendar use from official Order of Preachers sources and Holy See teaching on the Rosary."
   }
 }

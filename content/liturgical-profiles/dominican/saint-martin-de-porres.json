@@ -2,18 +2,27 @@
   "slug": "saint-martin-de-porres",
   "type": "saint",
   "title": "Saint Martin de Porres, Religious",
-  "short_summary": "Saint Martin de Porres is honored in the Dominican calendar as a religious whose humble charity and service made visible the mercy of Christ.",
+  "short_summary": "Saint Martin de Porres is honored in the Dominican calendar as a religious whose humble charity, mercy, and service to the poor made visible the compassion of Christ.",
   "key_facts": [
     "The Dominican Calendarium keeps Saint Martin de Porres as a feast on November 3.",
     "The liturgical color is white.",
     "The Order of Preachers identifies him as a Dominican religious.",
     "The Order's saints and blesseds page says Martin was born in Lima, Peru, in 1579.",
+    "The USCCB provides readings for his memorial and identifies him as a religious.",
     "His feast is shown as a Dominican proper observance in the app, not as a replacement for the general U.S. calendar day."
   ],
   "sections": [
     {
       "heading": "Humble service",
       "body": "Martin's holiness is remembered through charity, humility, and care for those in need. His Dominican witness shows that preaching the Gospel includes works of mercy."
+    },
+    {
+      "heading": "Mercy without display",
+      "body": "His sanctity does not need to be made dramatic to be compelling. Patient service, prayer, and compassion reveal Christ's mercy in ordinary human need."
+    },
+    {
+      "heading": "Religious life as charity",
+      "body": "As a Dominican religious, Martin's life was shaped by prayer and community. His service shows that consecrated life is fruitful when it becomes concrete love."
     },
     {
       "heading": "A saint of the Dominican family",
@@ -24,6 +33,10 @@
     {
       "heading": "Mercy made concrete",
       "body": "Martin's life reminds the faithful that love of Christ must become patient, practical charity toward neighbors."
+    },
+    {
+      "heading": "Dignity of the poor",
+      "body": "His witness points to the poor and vulnerable not as problems to manage, but as neighbors in whom Christ calls for love."
     }
   ],
   "source_refs": [
@@ -36,10 +49,15 @@
       "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
       "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
       "note": "Official proper calendar source for the November 3 Dominican feast."
+    },
+    {
+      "label": "USCCB: Optional Memorial of Saint Martin de Porres",
+      "url": "https://bible.usccb.org/bible/readings/1103-memorial-martin-de-porres.cfm",
+      "note": "USCCB source identifying the memorial of Saint Martin de Porres, religious."
     }
   ],
   "review": {
     "status": "approved",
-    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+    "notes": "Reviewed for Dominican proper-calendar use from official Order of Preachers and USCCB sources."
   }
 }

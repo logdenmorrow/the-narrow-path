@@ -2,28 +2,45 @@
   "slug": "saint-catherine-of-siena",
   "type": "saint",
   "title": "Saint Catherine of Siena, Virgin and Doctor of the Church",
-  "short_summary": "Saint Catherine of Siena is honored in the Dominican calendar as a virgin and Doctor of the Church whose life joined prayer, penance, charity, and courageous service to the Church.",
+  "short_summary": "Saint Catherine of Siena is honored in the Dominican calendar as a virgin and Doctor of the Church whose prayer, charity, counsel, and love for Church unity flowed from union with Christ.",
   "key_facts": [
     "The Dominican Calendarium keeps Saint Catherine of Siena as a feast on April 29.",
     "The liturgical color is white.",
     "The Order of Preachers identifies her as a virgin and Doctor of the Church.",
     "The Order's saints and blesseds page says she was born in Siena in the Fontebranda district.",
+    "Benedict XVI connected her teaching with her recognition as a Doctor of the Church.",
     "Her Dominican observance remains local or proper in the app and does not replace the general U.S. calendar day."
   ],
   "sections": [
     {
-      "heading": "A Dominican Doctor",
-      "body": "Catherine's holiness was not separated from the Church's life. Her prayer and teaching served the Body of Christ with clarity, courage, and love."
+      "heading": "Prayer at the center",
+      "body": "Catherine's public witness cannot be separated from prayer. Her counsel and courage flowed from a life turned toward Christ, not from mere force of personality."
     },
     {
-      "heading": "Prayer and public witness",
-      "body": "Her life reminds the faithful that contemplation can bear fruit in concrete service, counsel, and reform when rooted in Christ."
+      "heading": "Charity and reform",
+      "body": "Her love for the Church included a desire for holiness and reform. She could speak with urgency because her concern was the good of souls and the unity of the Church."
+    },
+    {
+      "heading": "Doctor of the Church",
+      "body": "Catherine's title as Doctor of the Church recognizes teaching that nourishes the whole Church. Her voice joins contemplation, doctrine, and practical charity."
+    },
+    {
+      "heading": "A Dominican feast",
+      "body": "The app displays this feast as part of the Dominican proper calendar for users who choose that preference. It remains distinct from the primary general U.S. calendar day."
     }
   ],
   "catholic_connection_sections": [
     {
       "heading": "Love for Christ and the Church",
       "body": "Catherine's witness holds together personal holiness and love for the visible Church, never treating them as rivals."
+    },
+    {
+      "heading": "Truth spoken in charity",
+      "body": "Her example shows that Catholic reform is not contempt for the Church, but a call to deeper fidelity, humility, and conversion."
+    },
+    {
+      "heading": "Contemplation bearing fruit",
+      "body": "Catherine shows that deep prayer can become service, counsel, and courage when it remains rooted in Christ."
     }
   ],
   "source_refs": [
@@ -36,10 +53,15 @@
       "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
       "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
       "note": "Official proper calendar source for the April 29 Dominican feast."
+    },
+    {
+      "label": "Holy See: Benedict XVI General Audience on Saint Catherine of Siena",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2010/documents/hf_ben-xvi_aud_20101124.html",
+      "note": "Holy See source for Catherine's teaching, holiness, and recognition as Doctor of the Church."
     }
   ],
   "review": {
     "status": "approved",
-    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+    "notes": "Reviewed for Dominican proper-calendar use from official Order of Preachers and Holy See sources."
   }
 }

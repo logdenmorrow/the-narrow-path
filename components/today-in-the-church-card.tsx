@@ -73,7 +73,7 @@ export function TodayInTheChurchCard({
                       <Link
                         href={`/today-in-the-church?date=${day.date}&profile=${encodeURIComponent(
                           overlay.profile_slug
-                        )}`}
+                        )}#proper-profile`}
                       >
                         Learn more
                       </Link>

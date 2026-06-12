@@ -2,29 +2,45 @@
   "slug": "blessed-diana-and-cecilia",
   "type": "saint",
   "title": "Blessed Diana Andalò and Blessed Cecilia, Virgins",
-  "short_summary": "Blessed Diana Andalò and Blessed Cecilia are honored in the Dominican calendar as early women of the Order whose consecrated life helped root Dominican holiness in prayer, community, and fidelity to Christ.",
+  "short_summary": "Blessed Diana Andalò and Blessed Cecilia are remembered in the Dominican calendar as early women of the Order whose consecrated life helped root Dominican holiness in prayer, community, and fidelity to Christ.",
   "key_facts": [
     "The Dominican Calendarium keeps Blessed Diana and Blessed Cecilia as an optional memorial on June 8.",
     "The liturgical color is white when the memorial is celebrated.",
     "The Order of Preachers lists them among the saints and blesseds observed by the Order throughout the world.",
     "Diana Andalò was born in Bologna near the beginning of the thirteenth century.",
+    "Their memorial points to the early growth of Dominican life among women.",
     "Their remembrance belongs to the Dominican proper calendar and does not replace the general U.S. calendar day."
   ],
   "sections": [
     {
-      "heading": "Early Dominican women",
-      "body": "Diana and Cecilia stand near the early growth of Dominican life among women. Their memorial points to a form of holiness marked by consecrated life, prayer, and the shared mission of the Order."
+      "heading": "Women at the roots of Dominican life",
+      "body": "Diana and Cecilia stand close to the early flowering of Dominican holiness among women. Their memorial honors a consecrated form of life marked by prayer, community, and a share in the spiritual mission of the Order."
+    },
+    {
+      "heading": "Contemplation supporting preaching",
+      "body": "Dominican preaching is sustained by prayer. The remembrance of early Dominican women keeps visible the contemplative and communal life that supports the Order's service of the Gospel."
+    },
+    {
+      "heading": "A modest historical profile",
+      "body": "The app keeps their profile brief because the reliable public source material is brief. It does not fill gaps with dramatic stories or unsupported claims."
     },
     {
       "heading": "A proper Dominican memorial",
-      "body": "The app presents this observance only for users who choose the Dominican calendar preference. It remains a local or proper observance, not a universal feast."
+      "body": "This observance appears only for users who choose the Dominican calendar preference. It remains an optional local or proper memorial, not a universal feast."
     }
   ],
   "catholic_connection_sections": [
     {
       "heading": "Hidden fidelity",
-      "body": "Their witness reminds the Church that preaching is sustained by contemplative fidelity and by communities ordered toward Christ."
+      "body": "Their witness reminds the Church that visible preaching depends on hidden fidelity, shared prayer, and lives ordered toward Christ."
+    },
+    {
+      "heading": "Consecrated life in the Church",
+      "body": "Diana and Cecilia show that consecrated life is not separate from the Church's mission; it strengthens that mission by worship, charity, and perseverance."
     }
+  ],
+  "historical_cautions": [
+    "The profile keeps biographical detail limited because the official public OP summary is concise and the app should not add unsourced embellishment."
   ],
   "source_refs": [
     {
@@ -40,6 +56,6 @@
   ],
   "review": {
     "status": "approved",
-    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+    "notes": "Reviewed for Dominican proper-calendar use from official Order of Preachers sources, with historical restraint where the source material is brief."
   }
 }

@@ -2,12 +2,13 @@
   "slug": "saint-thomas-aquinas",
   "type": "saint",
   "title": "Saint Thomas Aquinas, Priest and Doctor of the Church",
-  "short_summary": "Saint Thomas Aquinas is honored in the Dominican calendar as a priest and Doctor of the Church whose study, teaching, and prayer served the truth of Christ.",
+  "short_summary": "Saint Thomas Aquinas is honored in the Dominican calendar as a priest and Doctor of the Church whose study, teaching, prayer, and love for the Eucharist served the truth of Christ and the good of souls.",
   "key_facts": [
     "The Dominican Calendarium keeps Saint Thomas Aquinas as a feast on January 28.",
     "The liturgical color is white.",
     "The Order of Preachers identifies him as a priest and Doctor of the Church.",
     "The Order's saints and blesseds page says Thomas was born at Roccasecca in Italy.",
+    "Benedict XVI highlighted Thomas's theological wisdom and his Eucharistic soul.",
     "His Dominican feast is shown as a proper observance in the app while the general U.S. calendar remains primary."
   ],
   "sections": [
@@ -16,14 +17,30 @@
       "body": "Thomas's theological work belongs to the Church's search for truth under the light of faith. His learning was ordered toward God, worship, and the care of souls."
     },
     {
+      "heading": "Faith and reason together",
+      "body": "Thomas is often remembered for showing that reason and revelation are not enemies. Human intelligence is purified and elevated when it receives the light of faith."
+    },
+    {
+      "heading": "Theology serving worship",
+      "body": "His teaching did not end in ideas alone. Benedict XVI highlighted the Eucharistic depth of Thomas's faith, reminding readers that theology serves adoration and communion with God."
+    },
+    {
       "heading": "A Dominican Doctor",
-      "body": "The Dominican calendar honors Thomas not only as a brilliant teacher, but as a friar whose intellectual life was rooted in prayer and service."
+      "body": "The Dominican calendar honors Thomas not only as a brilliant teacher, but as a friar whose intellectual life was rooted in prayer, humility, and service."
     }
   ],
   "catholic_connection_sections": [
     {
-      "heading": "Faith and reason",
+      "heading": "Faith seeking understanding",
       "body": "Thomas's witness shows that careful reason and Catholic faith can work together in the service of revealed truth."
+    },
+    {
+      "heading": "Truth for worship and souls",
+      "body": "Catholic theology is healthiest when it leads to worship, conversion, and pastoral care rather than pride or sterile argument."
+    },
+    {
+      "heading": "Dominican study",
+      "body": "In the Dominican tradition, study is a form of service: patient attention to truth so that Christ may be preached faithfully."
     }
   ],
   "source_refs": [
@@ -36,10 +53,15 @@
       "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
       "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
       "note": "Official proper calendar source for the January 28 Dominican feast."
+    },
+    {
+      "label": "Holy See: Benedict XVI General Audience on Saint Thomas Aquinas",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2010/documents/hf_ben-xvi_aud_20100602.html",
+      "note": "Holy See source for Thomas's theology, Eucharistic faith, and service to the Church."
     }
   ],
   "review": {
     "status": "approved",
-    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+    "notes": "Reviewed for Dominican proper-calendar use from official Order of Preachers and Holy See sources."
   }
 }

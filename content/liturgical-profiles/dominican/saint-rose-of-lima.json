@@ -2,18 +2,27 @@
   "slug": "saint-rose-of-lima",
   "type": "saint",
   "title": "Saint Rose of Lima, Virgin",
-  "short_summary": "Saint Rose of Lima is honored in the Dominican calendar as a virgin whose life of prayer, penance, and charity bore witness to Christ in the Americas.",
+  "short_summary": "Saint Rose of Lima is honored in the Dominican calendar as a virgin whose prayer, penance, charity, and witness to Christ took root in Lima and continue to speak to the Church in the Americas.",
   "key_facts": [
     "The Dominican Calendarium lists Saint Rose of Lima on August 23.",
     "The liturgical color is white.",
     "The Order of Preachers identifies her as a virgin.",
     "The Order's saints and blesseds page says Isabel Flores, known as Rose, was born in Lima.",
+    "Her profile is presented as a Dominican proper observance, not as a universal replacement for the day.",
     "In 2026, August 23 falls on a Sunday, so the app keeps the general U.S. calendar day primary."
   ],
   "sections": [
     {
       "heading": "Holiness in Lima",
       "body": "Rose's life is remembered for prayer, penance, and charity. Her witness shows that the call to holiness takes root in particular places and cultures while remaining centered on Christ."
+    },
+    {
+      "heading": "Prayer and penance",
+      "body": "The app presents her penitential witness carefully, not as spectacle, but as a sign of a heart given to Christ and to intercession."
+    },
+    {
+      "heading": "Charity close to home",
+      "body": "Rose's holiness was not abstract. Her memory invites attention to concrete charity, especially toward those near enough to be served with patience."
     },
     {
       "heading": "A Sunday occurrence in 2026",
@@ -24,6 +33,10 @@
     {
       "heading": "Consecrated love",
       "body": "Rose's witness points to a life given to Christ through prayer and sacrificial charity."
+    },
+    {
+      "heading": "Holiness in the Americas",
+      "body": "Her memory helps the faithful see that sanctity is not distant from local history, culture, family, and daily acts of love."
     }
   ],
   "source_refs": [
@@ -40,6 +53,6 @@
   ],
   "review": {
     "status": "approved",
-    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources."
+    "notes": "Reviewed for Dominican proper-calendar use from official Order of Preachers sources, with the 2026 Sunday occurrence stated cautiously."
   }
 }

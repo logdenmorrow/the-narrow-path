@@ -431,7 +431,7 @@ function ProperCalendarSection({
                   <Link
                     href={`/today-in-the-church?date=${dateIso}&profile=${encodeURIComponent(
                       overlay.profile_slug
-                    )}`}
+                    )}#proper-profile`}
                   >
                     Learn more
                   </Link>
@@ -453,10 +453,10 @@ function ProperProfileSection({
   profile: LiturgicalProfile;
 }) {
   return (
-    <SurfaceCard>
+    <SurfaceCard id="proper-profile" className="scroll-mt-6">
       <SectionHeader
         kicker="Dominican calendar"
-        title={profile.title}
+        title={`Learn more: ${profile.title}`}
         description={profile.short_summary}
       />
       <p className="mt-4 text-sm leading-6 text-monastic-2">

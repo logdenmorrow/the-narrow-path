@@ -8,15 +8,24 @@
     "The liturgical color is white.",
     "The Order of Preachers identifies him as a bishop and Doctor of the Church.",
     "The Order's saints and blesseds page says Albert was born at Lauingen in Swabia.",
+    "Benedict XVI presented Albert as a teacher whose study ranged across philosophy, theology, and the natural sciences.",
     "In 2026, November 15 falls on a Sunday, so the app keeps the general U.S. calendar day primary."
   ],
   "sections": [
     {
-      "heading": "Teacher in the Dominican tradition",
+      "heading": "Learning in the service of preaching",
       "body": "Albert's memory belongs naturally to an Order that values study for the service of preaching. His learning was not merely academic; it was directed toward truth and the good of the Church."
     },
     {
-      "heading": "A local observance in the app",
+      "heading": "Creation and truth",
+      "body": "Albert's attention to the created world shows that faith does not fear honest inquiry. The world can be studied as God's creation without reducing it to a closed system apart from its Creator."
+    },
+    {
+      "heading": "Teacher and bishop",
+      "body": "The title Doctor of the Church points to teaching that serves the whole Church. Albert's witness joins intellectual breadth with ecclesial service."
+    },
+    {
+      "heading": "A Sunday occurrence in 2026",
       "body": "Because this date falls on a Sunday in 2026, the Dominican overlay is presented as local information while the primary liturgical day remains the general U.S. calendar day."
     }
   ],
@@ -24,10 +33,14 @@
     {
       "heading": "Faith seeking understanding",
       "body": "Albert's witness shows that reason, learning, and careful attention to creation can serve faith when they are ordered toward God."
+    },
+    {
+      "heading": "Study as charity",
+      "body": "Dominican study is not self-display. At its best, it becomes charity: patient labor so that the truth can be preached with clarity."
     }
   ],
   "historical_cautions": [
-    "The OP Saints & Blesseds index displays Saint Albert as a feast, while the Calendarium row used for this overlay gives the 2026 proper-calendar rank followed in the app."
+    "The OP Saints & Blesseds index displays Saint Albert as a feast, while the Calendarium row used for this overlay gives the proper-calendar rank followed in the app."
   ],
   "source_refs": [
     {
@@ -39,10 +52,15 @@
       "label": "Order of Preachers: Calendarium Ordinis Praedicatorum (2019)",
       "url": "https://www.op.org/wp-content/uploads/2026/05/CAL-00-01-Calendarium-OP-2019.pdf",
       "note": "Official proper calendar source for the November 15 Dominican observance."
+    },
+    {
+      "label": "Holy See: Benedict XVI General Audience on Saint Albert the Great",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2010/documents/hf_ben-xvi_aud_20100324.html",
+      "note": "Holy See source for Albert's learning, Dominican vocation, and witness to faith and reason."
     }
   ],
   "review": {
     "status": "approved",
-    "notes": "Reviewed for short Dominican proper-calendar use from official Order of Preachers sources, with a rank-display caution retained."
+    "notes": "Reviewed for Dominican proper-calendar use from official Order of Preachers and Holy See sources, with a rank-display caution retained."
   }
 }
