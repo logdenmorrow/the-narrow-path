@@ -1,6 +1,11 @@
 import "server-only";
 
-import { getCurrentChallengeWeekWindow } from "@/lib/challenge";
+import {
+  addDaysToIsoDate,
+  CHALLENGE_TIME_ZONE,
+  getCurrentChallengeWeekWindow,
+  getIsoDateInTimeZone,
+} from "@/lib/challenge";
 import { GroupMeError } from "@/lib/groupme";
 import { isPrayerRequestVisibleForTrack } from "@/lib/prayer-requests";
 import { getAppBaseUrl } from "@/lib/server-config";
@@ -11,9 +16,9 @@ type ActivePlanRow = {
   total_days: number;
 };
 
-type CheckinSummaryRow = {
+type TaskCompletionSummaryRow = {
   user_id: string;
-  status: "completed" | "struggled" | "missed";
+  completed_at: string | null;
 };
 
 type PrayerRequestSummaryRow = {
@@ -47,7 +52,7 @@ export async function generateWeeklyRecapPreview() {
   const [
     { data: profileRows, error: profilesError },
     { data: prayerAuthorProfileRows, error: prayerAuthorProfilesError },
-    { data: checkinRows, error: checkinsError },
+    { data: completionRows, error: completionsError },
     { data: prayerRows, error: prayerError },
   ] = await Promise.all([
     supabase
@@ -60,10 +65,13 @@ export async function generateWeeklyRecapPreview() {
       .select("id, track, is_hidden_from_community")
       .eq("is_hidden_from_community", false),
     supabase
-      .from("user_daily_checkins")
-      .select("user_id, status")
-      .gte("day_date", weekWindow.weekStartDate)
-      .lte("day_date", weekWindow.weekEndDate),
+      .from("user_task_completions")
+      .select("user_id, completed_at")
+      .gte("completed_at", `${weekWindow.weekStartDate}T00:00:00.000Z`)
+      .lt(
+        "completed_at",
+        `${addDaysToIsoDate(weekWindow.weekEndDate, 2)}T00:00:00.000Z`
+      ),
     supabase
       .from("user_prayer_requests")
       .select("user_id, visibility")
@@ -75,8 +83,8 @@ export async function generateWeeklyRecapPreview() {
     throw new GroupMeError("Could not load brotherhood member count.", 500);
   }
 
-  if (checkinsError) {
-    throw new GroupMeError("Could not load weekly daily-status summaries.", 500);
+  if (completionsError) {
+    throw new GroupMeError("Could not load weekly task completion activity.", 500);
   }
 
   if (prayerAuthorProfilesError) {
@@ -97,8 +105,8 @@ export async function generateWeeklyRecapPreview() {
       profile,
     ])
   );
-  const typedCheckins = ((checkinRows ?? []) as CheckinSummaryRow[]).filter((row) =>
-    visibleMemberIds.has(row.user_id)
+  const typedCompletions = ((completionRows ?? []) as TaskCompletionSummaryRow[]).filter(
+    (row) => visibleMemberIds.has(row.user_id)
   );
   const prayerRequestCount = ((prayerRows ?? []) as PrayerRequestSummaryRow[]).filter(
     (row) => {
@@ -114,43 +122,41 @@ export async function generateWeeklyRecapPreview() {
       );
     }
   ).length;
-  const checkinsByUserId = new Map<string, Set<CheckinSummaryRow["status"]>>();
-  const checkinCountByUserId = new Map<string, number>();
+  const activeDatesByUserId = new Map<string, Set<string>>();
 
-  for (const row of typedCheckins) {
-    const statuses =
-      checkinsByUserId.get(row.user_id) ?? new Set<CheckinSummaryRow["status"]>();
-    statuses.add(row.status);
-    checkinsByUserId.set(row.user_id, statuses);
-    checkinCountByUserId.set(
-      row.user_id,
-      (checkinCountByUserId.get(row.user_id) ?? 0) + 1
+  for (const row of typedCompletions) {
+    if (!row.completed_at) {
+      continue;
+    }
+
+    const completionDate = getIsoDateInTimeZone(
+      new Date(row.completed_at),
+      CHALLENGE_TIME_ZONE
     );
+
+    if (
+      completionDate < weekWindow.weekStartDate ||
+      completionDate > weekWindow.weekEndDate
+    ) {
+      continue;
+    }
+
+    const dates = activeDatesByUserId.get(row.user_id) ?? new Set<string>();
+    dates.add(completionDate);
+    activeDatesByUserId.set(row.user_id, dates);
   }
 
-  const usersCheckedInAtLeastOnce = checkinsByUserId.size;
-  const usersWithFivePlusCheckins = Array.from(checkinCountByUserId.values()).filter(
-    (count) => count >= 5
-  ).length;
-  const usersWithCompleted = Array.from(checkinsByUserId.values()).filter((statuses) =>
-    statuses.has("completed")
-  ).length;
-  const usersWithStruggled = Array.from(checkinsByUserId.values()).filter((statuses) =>
-    statuses.has("struggled")
-  ).length;
-  const usersWithMissed = Array.from(checkinsByUserId.values()).filter((statuses) =>
-    statuses.has("missed")
+  const usersActiveAtLeastOnce = activeDatesByUserId.size;
+  const usersWithFivePlusActiveDays = Array.from(activeDatesByUserId.values()).filter(
+    (dates) => dates.size >= 5
   ).length;
 
   const lines = [
     "The Narrow Path - Weekly Recap",
     "",
     "This week:",
-    `- ${usersCheckedInAtLeastOnce}/${totalMen} men checked in at least once`,
-    `- ${usersWithFivePlusCheckins}/${totalMen} men checked in 5+ days`,
-    `- ${usersWithCompleted} men marked Completed at least once`,
-    `- ${usersWithStruggled} men marked Struggled at least once`,
-    `- ${usersWithMissed} men marked Missed at least once`,
+    `- ${usersActiveAtLeastOnce}/${totalMen} men completed at least one task`,
+    `- ${usersWithFivePlusActiveDays}/${totalMen} men were active 5+ days`,
     `- ${prayerRequestCount} prayer requests were made`,
     "",
     "Keep praying for each other.",
@@ -162,11 +168,8 @@ export async function generateWeeklyRecapPreview() {
   return {
     weekWindow,
     totalMen,
-    usersCheckedInAtLeastOnce,
-    usersWithFivePlusCheckins,
-    usersWithCompleted,
-    usersWithStruggled,
-    usersWithMissed,
+    usersActiveAtLeastOnce,
+    usersWithFivePlusActiveDays,
     prayerRequestCount,
     message: lines.join("\n"),
   };

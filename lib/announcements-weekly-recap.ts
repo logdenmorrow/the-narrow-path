@@ -31,9 +31,9 @@ type ProfileRow = {
   is_hidden_from_community: boolean | null;
 };
 
-type CheckinRow = {
+type TaskCompletionRow = {
   user_id: string;
-  day_date: string;
+  completed_at: string | null;
 };
 
 type PrayerRequestRow = {
@@ -69,8 +69,8 @@ export type WeeklyRecapTrackResult = {
   existingAnnouncementId?: string;
   counts: {
     eligibleMembers: number;
-    checkedInAtLeastOnce: number;
-    checkedInFivePlusDays: number;
+    activeAtLeastOnce: number;
+    activeFivePlusDays: number;
     prayerRequests: number;
   };
   push?: {
@@ -176,16 +176,18 @@ function getPrayerText(row: PrayerRequestRow) {
 
 function buildRecapContent({
   track,
+  weekStart,
   weekEnd,
   profiles,
-  checkins,
+  completions,
   prayerRequests,
   prayerAuthorProfiles,
 }: {
   track: Track;
+  weekStart: string;
   weekEnd: string;
   profiles: ProfileRow[];
-  checkins: CheckinRow[];
+  completions: TaskCompletionRow[];
   prayerRequests: PrayerRequestRow[];
   prayerAuthorProfiles: ProfileRow[];
 }) {
@@ -194,16 +196,29 @@ function buildRecapContent({
     prayerAuthorProfiles.map((profile) => [profile.id, profile])
   );
   const visibleMemberIds = new Set(profileById.keys());
-  const checkinDatesByUserId = new Map<string, Set<string>>();
+  const activeDatesByUserId = new Map<string, Set<string>>();
 
-  for (const checkin of checkins) {
-    if (!visibleMemberIds.has(checkin.user_id)) {
+  for (const completion of completions) {
+    if (!visibleMemberIds.has(completion.user_id)) {
       continue;
     }
 
-    const dates = checkinDatesByUserId.get(checkin.user_id) ?? new Set<string>();
-    dates.add(checkin.day_date);
-    checkinDatesByUserId.set(checkin.user_id, dates);
+    if (!completion.completed_at) {
+      continue;
+    }
+
+    const activeDate = getIsoDateInTimeZone(
+      new Date(completion.completed_at),
+      CHALLENGE_TIME_ZONE
+    );
+
+    if (activeDate < weekStart || activeDate > weekEnd) {
+      continue;
+    }
+
+    const dates = activeDatesByUserId.get(completion.user_id) ?? new Set<string>();
+    dates.add(activeDate);
+    activeDatesByUserId.set(completion.user_id, dates);
   }
 
   const visiblePrayerRequests = prayerRequests.filter((request) => {
@@ -220,14 +235,14 @@ function buildRecapContent({
     );
   });
   const eligibleMembers = profiles.length;
-  const checkedInAtLeastOnce = checkinDatesByUserId.size;
-  const checkedInFivePlusDays = Array.from(checkinDatesByUserId.values()).filter(
+  const activeAtLeastOnce = activeDatesByUserId.size;
+  const activeFivePlusDays = Array.from(activeDatesByUserId.values()).filter(
     (dates) => dates.size >= 5
   ).length;
   const prayerRequestCount = visiblePrayerRequests.length;
   const noun = memberNoun(track);
   const title = `Weekly Recap - ${formatMonthDay(weekEnd)}`;
-  const summary = `This week: ${checkedInAtLeastOnce}/${eligibleMembers} checked in, ${checkedInFivePlusDays} reached 5+ days, and ${prayerRequestCount} prayer requests were shared.`;
+  const summary = `This week: ${activeAtLeastOnce}/${eligibleMembers} were active at least once, ${activeFivePlusDays} reached 5+ active days, and ${prayerRequestCount} prayer requests were shared.`;
   const prayerLines =
     visiblePrayerRequests.length > 0
       ? visiblePrayerRequests.map((request) => {
@@ -250,8 +265,8 @@ function buildRecapContent({
       : ["None this week."];
   const body = [
     "This week:",
-    `- ${checkedInAtLeastOnce}/${eligibleMembers} ${noun} checked in at least once`,
-    `- ${checkedInFivePlusDays}/${eligibleMembers} ${noun} checked in 5+ days`,
+    `- ${activeAtLeastOnce}/${eligibleMembers} ${noun} completed at least one task`,
+    `- ${activeFivePlusDays}/${eligibleMembers} ${noun} were active 5+ days`,
     `- ${prayerRequestCount} prayer requests were shared`,
     "",
     "Prayer requests shared this week:",
@@ -267,8 +282,8 @@ function buildRecapContent({
     body,
     counts: {
       eligibleMembers,
-      checkedInAtLeastOnce,
-      checkedInFivePlusDays,
+      activeAtLeastOnce,
+      activeFivePlusDays,
       prayerRequests: prayerRequestCount,
     },
   };
@@ -290,7 +305,7 @@ async function loadTrackRecapData({
   const [
     profilesResult,
     prayerAuthorProfilesResult,
-    checkinsResult,
+    completionsResult,
     prayerRequestsResult,
     existingAnnouncementResult,
   ] = await Promise.all([
@@ -305,10 +320,10 @@ async function loadTrackRecapData({
       .select("id, display_name, first_name, last_name, track, is_hidden_from_community")
       .eq("is_hidden_from_community", false),
     admin
-      .from("user_daily_checkins")
-      .select("user_id, day_date")
-      .gte("day_date", weekStart)
-      .lte("day_date", weekEnd),
+      .from("user_task_completions")
+      .select("user_id, completed_at")
+      .gte("completed_at", `${weekStart}T00:00:00.000Z`)
+      .lt("completed_at", `${addDaysToIsoDate(weekEnd, 2)}T00:00:00.000Z`),
     admin
       .from("user_prayer_requests")
       .select("user_id, request_date, category, note, visibility, created_at")
@@ -323,8 +338,8 @@ async function loadTrackRecapData({
     throw new Error(profilesResult.error.message);
   }
 
-  if (checkinsResult.error) {
-    throw new Error(checkinsResult.error.message);
+  if (completionsResult.error) {
+    throw new Error(completionsResult.error.message);
   }
 
   if (prayerAuthorProfilesResult.error) {
@@ -342,7 +357,7 @@ async function loadTrackRecapData({
   return {
     profiles: (profilesResult.data ?? []) as ProfileRow[],
     prayerAuthorProfiles: (prayerAuthorProfilesResult.data ?? []) as ProfileRow[],
-    checkins: (checkinsResult.data ?? []) as CheckinRow[],
+    completions: (completionsResult.data ?? []) as TaskCompletionRow[],
     prayerRequests: (prayerRequestsResult.data ?? []) as PrayerRequestRow[],
     existingAnnouncement: (existingAnnouncementResult.data ??
       null) as ExistingAnnouncementRow | null,
@@ -368,16 +383,17 @@ async function generateTrackRecap({
   const {
     profiles,
     prayerAuthorProfiles,
-    checkins,
+    completions,
     prayerRequests,
     existingAnnouncement,
   } =
     await loadTrackRecapData({ admin, track, weekStart, weekEnd, slug });
   const content = buildRecapContent({
     track,
+    weekStart,
     weekEnd,
     profiles,
-    checkins,
+    completions,
     prayerRequests,
     prayerAuthorProfiles,
   });
@@ -494,8 +510,8 @@ export async function generateWeeklyRecapAnnouncements({
         status: "failed",
         counts: {
           eligibleMembers: 0,
-          checkedInAtLeastOnce: 0,
-          checkedInFivePlusDays: 0,
+          activeAtLeastOnce: 0,
+          activeFivePlusDays: 0,
           prayerRequests: 0,
         },
         error:
