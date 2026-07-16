@@ -13,3 +13,7 @@ export function getAppBaseUrl() {
 export function getCronSecret() {
   return process.env.CRON_SECRET ?? "";
 }
+
+export function getAuthReportToken() {
+  return process.env.NEXT_PUBLIC_AUTH_REPORT_TOKEN ?? "";
+}

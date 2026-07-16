@@ -502,6 +502,7 @@ export async function submitAuthReport(reason: string, attemptId: string | null)
       headers: {
         "content-type": "application/json",
         "cache-control": "no-store",
+        "x-narrow-path-report-token": process.env.NEXT_PUBLIC_AUTH_REPORT_TOKEN ?? "",
       },
       body: JSON.stringify({
         ts: new Date().toISOString(),
