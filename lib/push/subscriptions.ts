@@ -39,6 +39,41 @@ export type UnsubscribePushInput = {
 
 const PERMISSION_STATES = new Set(["default", "granted", "denied"]);
 
+// Real browser push services only. A push subscription endpoint is passed
+// straight to `https.request()` by the web-push library with no host
+// validation of its own, so this allowlist is the only thing standing
+// between an attacker-supplied endpoint and an outbound request from the
+// production server (see audit finding CRIT-3).
+const ALLOWED_PUSH_ENDPOINT_HOSTS = new Set([
+  "fcm.googleapis.com",
+  "android.googleapis.com",
+  "updates.push.services.mozilla.com",
+  "web.push.apple.com",
+]);
+const ALLOWED_PUSH_ENDPOINT_HOST_SUFFIXES = [".notify.windows.com"];
+
+function isAllowedPushEndpoint(endpoint: string) {
+  let parsed: URL;
+
+  try {
+    parsed = new URL(endpoint);
+  } catch {
+    return false;
+  }
+
+  if (parsed.protocol !== "https:") {
+    return false;
+  }
+
+  const hostname = parsed.hostname.toLowerCase();
+
+  if (ALLOWED_PUSH_ENDPOINT_HOSTS.has(hostname)) {
+    return true;
+  }
+
+  return ALLOWED_PUSH_ENDPOINT_HOST_SUFFIXES.some((suffix) => hostname.endsWith(suffix));
+}
+
 function optionalString(value: unknown) {
   return typeof value === "string" && value.trim() ? value.trim() : null;
 }
@@ -64,6 +99,10 @@ export function parsePushSubscriptionInput(input: SubscribePushInput) {
 
   if (!endpoint) {
     throw new Error("Push subscription endpoint is required.");
+  }
+
+  if (!isAllowedPushEndpoint(endpoint)) {
+    throw new Error("Push subscription endpoint host is not a recognized push service.");
   }
 
   if (!p256dh) {

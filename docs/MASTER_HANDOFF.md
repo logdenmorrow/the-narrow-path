@@ -1204,6 +1204,122 @@ ranks, readings, saint facts, or magisterial claims.
 
 ---
 
+## 1E. July 17, 2026 Security Audit Remediation Checkpoint
+
+This checkpoint records production database work applied on 2026-07-17 as
+part of remediating the Critical findings from the 2026-07-16 security audit.
+All three items below were applied to the Supabase production project via the
+Supabase MCP tooling and verified read-only immediately after. Treat
+production as the source of truth if any summary conflicts.
+
+### CRIT-4 — profiles.track update trigger (APPLIED to production 2026-07-17)
+
+- Migration: `supabase/migrations/20260716120000_protect_profile_track_column.sql`
+- Summary: adds a `before update of track` trigger `protect_profile_track` on
+  `public.profiles`, backed by SECURITY DEFINER function
+  `public.prevent_profile_track_update()`. Non-admin authenticated users can
+  no longer change their own `track`; service-role writes are unaffected.
+  Mirrors the existing `prevent_profile_admin_visibility_flag_update` pattern.
+- Note on timing: the earlier CRIT-2/3/4 commit (`0e6847d`) described this
+  migration as written-but-not-yet-applied. As of 2026-07-17 it HAS now been
+  applied to production.
+- Verification: `pg_proc` showed the function with `prosecdef = true`;
+  `pg_trigger` showed `protect_profile_track` on `profiles`, enabled.
+
+### CRIT-1 — cross-track RLS leak on profiles and user_task_completions (APPLIED to production 2026-07-17)
+
+- Migration: `supabase/migrations/20260717090000_fix_profiles_and_task_completions_rls_leak.sql`
+- Summary: both tables carried a PERMISSIVE `qual = true` SELECT policy
+  ("Authenticated users can view all profiles" / "...task completions") that
+  OR'd with the narrow policies and let any authenticated user read every row
+  cross-track. Both were dropped and replaced with same-track community
+  visibility (own row, or admin, or same-track with both viewer and subject
+  `is_hidden_from_community = false`), enforced by new SECURITY DEFINER helper
+  `public.can_view_community_profile(uuid)`. The helper mirrors
+  `public.is_app_admin()`'s conventions (`language sql`, `stable`,
+  `security definer`, `set search_path = ''`, EXECUTE revoked from PUBLIC and
+  granted to `authenticated` only). A helper was required rather than an
+  inline USING clause because a policy ON `profiles` that queries `profiles`
+  directly triggers Postgres "infinite recursion detected in policy"; the
+  SECURITY DEFINER function bypasses the profiles RLS and breaks the cycle.
+- Scope: `profiles` and `user_task_completions` only. `user_prayer_requests`,
+  `challenge_plans`, `task_templates`, `plan_days`, `plan_day_tasks`, and all
+  other existing policies were intentionally left untouched.
+- Verification: `pg_policies` confirmed both `qual = true` SELECT policies are
+  gone, the two new `Signed-in users can read same-track visible...` policies
+  exist using `can_view_community_profile(...)`, and the pre-existing own-row
+  policies remain (harmless PERMISSIVE redundancy).
+
+### playwright-test account hidden from community (production write 2026-07-17)
+
+- The Playwright E2E account `playwright-test` (id
+  `d5e12208-69dc-4911-b8b0-0e602bb697a8`, brotherhood track) had
+  `is_hidden_from_community = false`, so under the newly-applied CRIT-1
+  same-track policy it would have been visible to real Brotherhood members.
+  A single UPDATE set `is_hidden_from_community = true` on that row (verified
+  exactly 1 row, confirmed true). This is data hygiene, not a policy change.
+
+### Follow-ups flagged, not acted on
+
+- `user_task_completions` has two INSERT policies; `user_task_completions_insert_own`
+  has no launch-date gate, so it OR's away the date restriction on
+  `Users can insert their own task completions after launch`. Separate INSERT-path
+  follow-up, unrelated to the CRIT-1 read leak.
+- Redundant duplicate own-row SELECT policies on `user_task_completions`
+  (`Users can read their own task completions` + `user_task_completions_select_own`)
+  and on `profiles` (`Users can view their own profile`, now redundant with the
+  same-track policy) are cleanup candidates.
+- Supabase security advisors (2026-07-17 read-only pass) show pre-existing
+  WARNs: 11 `function_search_path_mutable` trigger/util functions, several
+  SECURITY DEFINER functions executable by anon/authenticated (same class as
+  the long-standing `is_app_admin`), and `auth_leaked_password_protection`
+  disabled. None introduced by this session's changes. Partially addressed
+  by the batch hardening below.
+
+### Batch security hardening (APPLIED to production 2026-07-17)
+
+- Migration: `supabase/migrations/20260717180000_batch_security_hardening.sql`
+- Part A — `search_path` pinned to `''` on 11 previously-mutable functions
+  (10 `set_*_updated_at` trigger fns + `hook_require_invite_code`). Bodies
+  transcribed verbatim from production; only `set search_path = ''` added.
+  DONE and verified: `pg_proc.proconfig` shows `search_path=""` on all 11,
+  and all 11 `function_search_path_mutable` advisor WARNs cleared.
+- Part B — `revoke execute ... from anon` on
+  `can_view_community_profile(uuid)`. DONE and verified: anon grant gone;
+  `authenticated`/`service_role` retained (RLS evaluation needs
+  authenticated EXECUTE). Its `anon` advisor WARN cleared.
+- Part C — revoked `anon` + `authenticated` EXECUTE on three trigger-only
+  functions (`handle_new_user`, `prevent_profile_admin_visibility_flag_update`,
+  `prevent_profile_track_update`). `touch_last_active_at` was DELIBERATELY
+  EXCLUDED: it returns `void`, is wired to no trigger, and is called
+  directly by authenticated users via `supabase.rpc("touch_last_active_at")`
+  in `lib/last-active.ts:17` — revoking would break last-active tracking.
+- KNOWN GAP (Part C ineffective in practice): the three trigger-only
+  functions still carry an EXECUTE grant to `PUBLIC`, and `anon`/
+  `authenticated` inherit through `PUBLIC`, so the role-scoped revokes were
+  a no-op — the advisor still flags all three under both anon (0028) and
+  authenticated (0029). Actually clearing them requires a follow-up
+  `revoke execute on function ... from public` on those three (triggers
+  fire as table owner, so revoking from PUBLIC is safe). NOT done pending
+  an explicit decision.
+- Advisor net after this batch: 24 security WARN -> 12 (11 search_path + 1
+  anon SECURITY DEFINER cleared). Remaining WARNs: the three PUBLIC-grant
+  trigger fns (both roles), `touch_last_active_at` (both, intentional),
+  `is_app_admin` + `can_view_community_profile` (authenticated, required by
+  RLS), and `auth_leaked_password_protection` (Auth dashboard toggle).
+- `npm run build` after apply FAILED, but on a pre-existing, unrelated
+  cause: `@playwright/test` (devDependency ^1.60.0) is not installed in
+  this environment, so `playwright.config.ts` fails type-check. This batch
+  changed zero TypeScript; the DB-only change did not break the build.
+- Follow-up `supabase/migrations/20260717210000_revoke_public_execute_trigger_fns.sql`
+  (APPLIED to production 2026-07-17) closed the Part C gap by revoking
+  EXECUTE from PUBLIC (not just anon/authenticated) on the same three
+  trigger-only functions; verified via grant table (only postgres +
+  service_role remain) and advisors (12 WARN -> 6 WARN, those exact 6
+  gone).
+
+---
+
 ## 2. Quick Non-Negotiables
 
 Paste this into future prompts when needed:
