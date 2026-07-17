@@ -1311,6 +1311,12 @@ production as the source of truth if any summary conflicts.
   cause: `@playwright/test` (devDependency ^1.60.0) is not installed in
   this environment, so `playwright.config.ts` fails type-check. This batch
   changed zero TypeScript; the DB-only change did not break the build.
+- Follow-up `supabase/migrations/20260717210000_revoke_public_execute_trigger_fns.sql`
+  (APPLIED to production 2026-07-17) closed the Part C gap by revoking
+  EXECUTE from PUBLIC (not just anon/authenticated) on the same three
+  trigger-only functions; verified via grant table (only postgres +
+  service_role remain) and advisors (12 WARN -> 6 WARN, those exact 6
+  gone).
 
 ---
 
