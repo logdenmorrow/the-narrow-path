@@ -1273,7 +1273,44 @@ production as the source of truth if any summary conflicts.
   WARNs: 11 `function_search_path_mutable` trigger/util functions, several
   SECURITY DEFINER functions executable by anon/authenticated (same class as
   the long-standing `is_app_admin`), and `auth_leaked_password_protection`
-  disabled. None introduced by this session's changes; not acted on.
+  disabled. None introduced by this session's changes. Partially addressed
+  by the batch hardening below.
+
+### Batch security hardening (APPLIED to production 2026-07-17)
+
+- Migration: `supabase/migrations/20260717180000_batch_security_hardening.sql`
+- Part A — `search_path` pinned to `''` on 11 previously-mutable functions
+  (10 `set_*_updated_at` trigger fns + `hook_require_invite_code`). Bodies
+  transcribed verbatim from production; only `set search_path = ''` added.
+  DONE and verified: `pg_proc.proconfig` shows `search_path=""` on all 11,
+  and all 11 `function_search_path_mutable` advisor WARNs cleared.
+- Part B — `revoke execute ... from anon` on
+  `can_view_community_profile(uuid)`. DONE and verified: anon grant gone;
+  `authenticated`/`service_role` retained (RLS evaluation needs
+  authenticated EXECUTE). Its `anon` advisor WARN cleared.
+- Part C — revoked `anon` + `authenticated` EXECUTE on three trigger-only
+  functions (`handle_new_user`, `prevent_profile_admin_visibility_flag_update`,
+  `prevent_profile_track_update`). `touch_last_active_at` was DELIBERATELY
+  EXCLUDED: it returns `void`, is wired to no trigger, and is called
+  directly by authenticated users via `supabase.rpc("touch_last_active_at")`
+  in `lib/last-active.ts:17` — revoking would break last-active tracking.
+- KNOWN GAP (Part C ineffective in practice): the three trigger-only
+  functions still carry an EXECUTE grant to `PUBLIC`, and `anon`/
+  `authenticated` inherit through `PUBLIC`, so the role-scoped revokes were
+  a no-op — the advisor still flags all three under both anon (0028) and
+  authenticated (0029). Actually clearing them requires a follow-up
+  `revoke execute on function ... from public` on those three (triggers
+  fire as table owner, so revoking from PUBLIC is safe). NOT done pending
+  an explicit decision.
+- Advisor net after this batch: 24 security WARN -> 12 (11 search_path + 1
+  anon SECURITY DEFINER cleared). Remaining WARNs: the three PUBLIC-grant
+  trigger fns (both roles), `touch_last_active_at` (both, intentional),
+  `is_app_admin` + `can_view_community_profile` (authenticated, required by
+  RLS), and `auth_leaked_password_protection` (Auth dashboard toggle).
+- `npm run build` after apply FAILED, but on a pre-existing, unrelated
+  cause: `@playwright/test` (devDependency ^1.60.0) is not installed in
+  this environment, so `playwright.config.ts` fails type-check. This batch
+  changed zero TypeScript; the DB-only change did not break the build.
 
 ---
 
