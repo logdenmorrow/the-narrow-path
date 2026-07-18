@@ -37,6 +37,7 @@ import {
   ORIGINAL_CHALLENGE_TOTAL_DAYS,
   getPostChallengeDisplay,
   getSeasonTimelineItem,
+  isChallengeFeedbackWindowOpen,
   isDay90Celebration,
 } from "@/lib/season-plan";
 import {
@@ -361,6 +362,108 @@ export default async function TodayPage({
     const currentSeason = postChallengePhase
       ? getSeasonTimelineItem(postChallengePhase)
       : null;
+    const isReset = postChallengePhase === "reset";
+
+    const RESET_OPTIONAL_TASK_SLUGS = [
+      "attend_mass",
+      "rosary",
+      "confession",
+      "night-prayer",
+    ] as const;
+    const RESET_TASK_ROUTES: Record<string, string> = {
+      rosary: "/rosary",
+      "night-prayer": "/night-prayer",
+    };
+
+    let resetOptionalTasks: TaskViewModel[] = [];
+    let resetChallengeFeedbackTask: TaskViewModel | null = null;
+    let resetHasSubmittedFeedback = false;
+    let resetIsFeedbackWindowOpen = false;
+
+    if (isReset) {
+      const { data: finalPlanDayRow } = await supabase
+        .from("plan_days")
+        .select("id, day_number")
+        .eq("plan_id", activePlan.id)
+        .eq("day_number", activePlan.total_days)
+        .maybeSingle();
+
+      if (finalPlanDayRow) {
+        const { data: finalDayTaskRows } = await supabase
+          .from("plan_day_tasks")
+          .select(
+            `
+              id,
+              task_template_id,
+              is_required,
+              is_optional,
+              quota_scope,
+              quota_target,
+              requirement_note,
+              day_date,
+              week_start_date,
+              month_start_date,
+              display_order,
+              task_templates (
+                title,
+                slug,
+                audience
+              )
+            `
+          )
+          .eq("plan_day_id", finalPlanDayRow.id);
+
+        const trackVisibleFinalDayTasks = filterTasksForTrack(
+          (finalDayTaskRows ?? []) as PlanDayTaskRecord[],
+          track
+        );
+        const finalDayTaskIds = trackVisibleFinalDayTasks.map((task) => task.id);
+
+        const { data: finalDayCompletions } = finalDayTaskIds.length
+          ? await supabase
+              .from("user_task_completions")
+              .select("user_id, plan_day_task_id")
+              .eq("user_id", user.id)
+              .in("plan_day_task_id", finalDayTaskIds)
+          : { data: [] as CompletionRecord[] };
+
+        const finalDayTaskModels = buildTaskViewModels(
+          trackVisibleFinalDayTasks,
+          [],
+          (finalDayCompletions ?? []) as CompletionRecord[],
+          user.id
+        ).map((task) => ({ ...task, note: null as string | null }));
+
+        resetOptionalTasks = RESET_OPTIONAL_TASK_SLUGS.map((slug) =>
+          finalDayTaskModels.find((task) => task.slug === slug)
+        ).filter((task): task is TaskViewModel => Boolean(task));
+        resetChallengeFeedbackTask =
+          finalDayTaskModels.find((task) => task.slug === "challenge_feedback") ??
+          null;
+
+        resetIsFeedbackWindowOpen = isChallengeFeedbackWindowOpen({
+          dayNumber: finalPlanDayRow.day_number,
+          totalDays: activePlan.total_days,
+          todayIso: currentDateIso,
+        });
+
+        if (resetIsFeedbackWindowOpen) {
+          const { data: feedbackResponseRow } = await supabase
+            .from("challenge_feedback_responses")
+            .select("id")
+            .eq("user_id", user.id)
+            .eq("plan_day_id", finalPlanDayRow.id)
+            .maybeSingle();
+          resetHasSubmittedFeedback = Boolean(feedbackResponseRow?.id);
+        }
+      }
+    }
+
+    const liturgicalDay = getLiturgicalCalendarDay(currentDateIso);
+    const properCalendarOverlays = getLiturgicalProperCalendarOverlays({
+      dateIso: currentDateIso,
+      religiousOrderCalendar,
+    });
 
     return (
       <main className="monastic-page">
@@ -421,7 +524,7 @@ export default async function TodayPage({
                     variant: "secondary",
                   },
                   {
-                    href: "#whats-next",
+                    href: isReset ? "/dashboard#whats-next" : "#whats-next",
                     label: "View What's Next",
                     variant: "outline",
                   },
@@ -433,41 +536,128 @@ export default async function TodayPage({
           {postChallengePhase === "james" ? <JamesScaffoldingCard /> : null}
           {postChallengePhase === "gospels" ? <GospelScaffoldingCard /> : null}
 
-          <SurfaceCard>
-            <SectionHeader
-              kicker="Reset"
-              title="Prayer Resources Stay Open"
-              description="There is no daily task pressure during the reset period. Community and past days remain available."
-            />
-            <div className="mt-5 grid gap-3 sm:grid-cols-4">
-              <SurfaceInset>
-                <div className="section-kicker">Optional</div>
-                <p className="mt-2 text-lg font-semibold text-monastic-0">
-                  Night Prayer
-                </p>
-              </SurfaceInset>
-              <SurfaceInset>
-                <div className="section-kicker">Optional</div>
-                <p className="mt-2 text-lg font-semibold text-monastic-0">
-                  Rosary
-                </p>
-              </SurfaceInset>
-              <SurfaceInset>
-                <div className="section-kicker">Optional</div>
-                <p className="mt-2 text-lg font-semibold text-monastic-0">
-                  Confession
-                </p>
-              </SurfaceInset>
-              <SurfaceInset>
-                <div className="section-kicker">Available</div>
-                <p className="mt-2 text-lg font-semibold text-monastic-0">
-                  Challenge Feedback
-                </p>
-              </SurfaceInset>
-            </div>
-          </SurfaceCard>
+          {isReset ? (
+            <SurfaceCard>
+              <SectionHeader
+                kicker="Reset"
+                title="Optional Today"
+                description="There is no daily task pressure during the reset period. These stay available if you want them."
+              />
+              <div className="mt-5 space-y-3">
+                {resetOptionalTasks.map((task) => {
+                  const route = RESET_TASK_ROUTES[task.slug];
+                  return (
+                    <TodayTaskCard
+                      key={task.id}
+                      planDayTaskId={task.id}
+                      title={task.title}
+                      note={task.note}
+                      isRequired={false}
+                      isOptional={true}
+                      completed={task.isCompleted}
+                      locked={false}
+                      planSlug={currentPlanSlug}
+                      secondaryAction={
+                        route
+                          ? {
+                              href: route,
+                              label:
+                                task.slug === "rosary"
+                                  ? "Guided Rosary"
+                                  : "Open Night Prayer",
+                              statusText:
+                                task.slug === "rosary"
+                                  ? "Open prayer guide"
+                                  : "Pray Compline",
+                            }
+                          : undefined
+                      }
+                    />
+                  );
+                })}
 
-          <SeasonTimeline currentPhase={postChallengePhase} />
+                {resetIsFeedbackWindowOpen && resetChallengeFeedbackTask ? (
+                  <TodayTaskCard
+                    planDayTaskId={resetChallengeFeedbackTask.id}
+                    title="Challenge Feedback"
+                    note={null}
+                    isRequired={false}
+                    isOptional={true}
+                    completed={resetHasSubmittedFeedback}
+                    locked
+                    planSlug={currentPlanSlug}
+                    secondaryAction={{
+                      href: "/challenge-feedback",
+                      label: resetHasSubmittedFeedback
+                        ? "Review Challenge Feedback"
+                        : "Open Challenge Feedback",
+                      statusText: resetHasSubmittedFeedback
+                        ? "Feedback saved"
+                        : "Open feedback form",
+                    }}
+                  />
+                ) : null}
+
+                {resetOptionalTasks.length === 0 && !resetIsFeedbackWindowOpen ? (
+                  <p className="text-base leading-7 text-monastic-1">
+                    No optional resources are available right now.
+                  </p>
+                ) : null}
+              </div>
+            </SurfaceCard>
+          ) : (
+            <SurfaceCard>
+              <SectionHeader
+                kicker="Reset"
+                title="Prayer Resources Stay Open"
+                description="There is no daily task pressure during the reset period. Community and past days remain available."
+              />
+              <div className="mt-5 grid gap-3 sm:grid-cols-4">
+                <SurfaceInset>
+                  <div className="section-kicker">Optional</div>
+                  <p className="mt-2 text-lg font-semibold text-monastic-0">
+                    Night Prayer
+                  </p>
+                </SurfaceInset>
+                <SurfaceInset>
+                  <div className="section-kicker">Optional</div>
+                  <p className="mt-2 text-lg font-semibold text-monastic-0">
+                    Rosary
+                  </p>
+                </SurfaceInset>
+                <SurfaceInset>
+                  <div className="section-kicker">Optional</div>
+                  <p className="mt-2 text-lg font-semibold text-monastic-0">
+                    Confession
+                  </p>
+                </SurfaceInset>
+                <SurfaceInset>
+                  <div className="section-kicker">Available</div>
+                  <p className="mt-2 text-lg font-semibold text-monastic-0">
+                    Challenge Feedback
+                  </p>
+                </SurfaceInset>
+              </div>
+            </SurfaceCard>
+          )}
+
+          {isReset ? (
+            <SurfaceCard>
+              <SectionHeader
+                kicker="Today in the Church"
+                title={liturgicalDay.title}
+                description={`${liturgicalDay.rank} • ${liturgicalDay.liturgical_color}${
+                  liturgicalDay.season ? ` • ${liturgicalDay.season}` : ""
+                }`}
+              />
+              <TodayInTheChurchCard
+                day={liturgicalDay}
+                properOverlays={properCalendarOverlays}
+              />
+            </SurfaceCard>
+          ) : null}
+
+          {!isReset ? <SeasonTimeline currentPhase={postChallengePhase} /> : null}
         </PageFrame>
       </main>
     );
