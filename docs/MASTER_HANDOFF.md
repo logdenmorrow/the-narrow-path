@@ -1320,6 +1320,55 @@ production as the source of truth if any summary conflicts.
 
 ---
 
+## 1F. July 19, 2026 James Plan Activation Checkpoint
+
+This checkpoint records production activation of the August James season,
+explicitly approved and applied ahead of the August 1, 2026 date-based phase
+transition. It follows a readiness assessment against this handoff and
+`docs/GOSPEL_ACTIVATION_READINESS_AUDIT.md` earlier the same week, which found
+season-timing refactors, task content, and reading content already in place,
+with plan activation itself the remaining blocking step.
+
+### Activation (APPLIED to production 2026-07-19)
+
+- `challenge_plans.is_active` set to `false` for `the-narrow-path-90` and
+  `true` for `ordinary-time-james`, applied via Supabase MCP.
+- Verified exactly one active plan afterward: `ordinary-time-james` /
+  `James: Faith That Works`, `is_active = true`. `the-narrow-path-90`
+  confirmed `is_active = false`.
+- `npm run scan:season-activation -- --allow-james-active` result: PASS, 0
+  errors, 0 warnings. `plan_days` 31/31; all task rows present (`reading`
+  31/31, `reflection` 31/31, `adoration` 31/31, `confession` 31/31,
+  `night-prayer` 31/31, `rosary` 31/31, `workout` 31/31, `check_in_anchor`
+  31/31, `attend_mass` 5/5).
+  - Note: the plain `npm run scan:season-activation` (no flag) intentionally
+    FAILs once James is active. It is a pre-activation safety guard against an
+    unexpected active plan, not a data-integrity problem. Use
+    `--allow-james-active` for any post-activation reruns of this scanner.
+- `npm run scan:reading-integrity` result: `ordinary-time-james` PASS, 31
+  days, 0 errors, 1 acceptable warning (Day 1 `previous_reading_summary`
+  empty). `the-narrow-path-90` still PASS after deactivation.
+  `the-gospels-september-lent` still FAILs with its pre-existing 29
+  `reading_key_terms` gaps; unrelated to this activation.
+
+### User-facing timing
+
+- `getResolvedSeasonPhase` already treats August 1-31, 2026 as the `james`
+  phase by date, independent of `is_active`. Before this activation, that
+  date-based transition would have shown users the real James content in a
+  read-only "Admin preview only. This plan is inactive. Task completion is
+  locked." state once August 1 arrived, because `resolveSeasonPlan` resolves
+  the James plan row by slug/name once the date phase is `james`, without
+  filtering on `is_active`.
+- With the plan now active ahead of that date, no such gap exists: task
+  completion, reflection saving, and prayer-request input become fully
+  enabled for all users starting August 1, 2026, when the date-based phase
+  transition fires. No admin-only preview override was used or is needed.
+- No code, migration, or table other than `challenge_plans.is_active` was
+  touched. This was a data-only activation.
+
+---
+
 ## 2. Quick Non-Negotiables
 
 Paste this into future prompts when needed:
