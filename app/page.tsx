@@ -10,7 +10,9 @@ import {
 import { AppActionBar } from "@/components/page-actions";
 import { RoadmapTimeline } from "@/components/roadmap-timeline";
 import { syncAdminProfileVisibility } from "@/lib/admin";
+import { getIsoDateInTimeZone } from "@/lib/challenge";
 import { getHomepageOverview } from "@/lib/homepage-overview";
+import { isResetPhase } from "@/lib/season-plan";
 import { createClient } from "@/lib/supabase/server";
 import { getCommunityName, normalizeTrack } from "@/lib/track";
 
@@ -80,7 +82,75 @@ export default async function HomePage() {
     : { data: null };
   const track = normalizeTrack(profileData?.track);
   const communityName = getCommunityName(track);
-  const overview = isSignedIn ? await getHomepageOverview(supabase, track) : null;
+  const isReset = isResetPhase(getIsoDateInTimeZone());
+  const overview =
+    isSignedIn && !isReset ? await getHomepageOverview(supabase, track) : null;
+
+  if (isSignedIn && isReset) {
+    return (
+      <main className="monastic-page">
+        <PageFrame className="space-y-5 sm:space-y-7">
+          <HeroPanel className="py-5 sm:py-7">
+            <div className="max-w-3xl text-[#f7ebd8]">
+              <p className="section-kicker text-[#ead6b0]">Reset</p>
+              <h1 className="mt-3 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+                Welcome Back
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-[#f3e5cf] sm:text-lg sm:leading-8">
+                July is a reset period. There is no daily task pressure right
+                now — James: Faith That Works begins August 1.
+              </p>
+
+              <AppActionBar
+                stackOnMobile
+                className="mt-5 w-full border-white/10 bg-[rgba(31,20,14,0.24)] sm:w-fit"
+                actions={[
+                  {
+                    href: "/today",
+                    label: "Go to Today",
+                    variant: "primary",
+                    size: "lg",
+                    className: "w-full sm:w-auto",
+                  },
+                  {
+                    href: "/dashboard",
+                    label: "Dashboard",
+                    variant: "outline",
+                    size: "lg",
+                    className: "w-full sm:w-auto",
+                  },
+                ]}
+              />
+            </div>
+          </HeroPanel>
+
+          <SurfaceCard>
+            <SectionHeader kicker="Quick Access" title="Quick Access" />
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              <Link
+                href="/today"
+                className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+              >
+                Today
+              </Link>
+              <Link
+                href="/brotherhood"
+                className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+              >
+                {communityName}
+              </Link>
+              <Link
+                href="/dashboard"
+                className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+              >
+                Dashboard
+              </Link>
+            </div>
+          </SurfaceCard>
+        </PageFrame>
+      </main>
+    );
+  }
 
   if (isSignedIn && overview) {
     return (
