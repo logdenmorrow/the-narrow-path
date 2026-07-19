@@ -169,6 +169,24 @@ function getTaskSecondaryAction(
   return undefined;
 }
 
+const READING_PROCLAMATIONS = new Map([
+  ["Acts", "A reading from the Acts of the Apostles"],
+  ["James", "A reading from the Letter of Saint James"],
+  ["Matthew", "A reading from the holy Gospel according to Matthew"],
+  ["Mark", "A reading from the holy Gospel according to Mark"],
+  ["Luke", "A reading from the holy Gospel according to Luke"],
+  ["John", "A reading from the holy Gospel according to John"],
+]);
+
+function getReadingProclamation(readingReference: string | null | undefined) {
+  if (!readingReference) return null;
+
+  const bookMatch = readingReference.trim().match(/^([A-Za-z][A-Za-z ]*?)\s+\d/);
+  if (!bookMatch) return null;
+
+  return READING_PROCLAMATIONS.get(bookMatch[1].trim()) ?? null;
+}
+
 const DAY_90_REQUIRED_SLUGS = new Set([
   "morning_prayer",
   "scripture_reading",
@@ -937,6 +955,9 @@ export default async function TodayPage({
     dateIso: liturgicalDateIso,
     religiousOrderCalendar,
   });
+  const readingProclamation = getReadingProclamation(
+    typedPlanDay.reading_reference
+  );
 
   const { data: prayerRequestData } = accountabilityEnabled
     ? await supabase
@@ -994,9 +1015,20 @@ export default async function TodayPage({
               <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">
                 {isDay90CelebrationView ? "Day 90: Celebration" : "Today"}
               </h1>
-              <p className="mt-3 text-base text-[#f0dec1] sm:text-lg">
-                Day {typedPlanDay.day_number} • {formatReadableDate(taskModels[0]?.dayDate)}
-              </p>
+              {!liturgicalDay.isFallback ? (
+                <>
+                  <p className="mt-3 text-lg leading-7 text-[#f0dec1] sm:text-xl sm:leading-8">
+                    {liturgicalDay.title}
+                  </p>
+                  <p className="mt-1 text-sm text-[#ead6b0] sm:text-base">
+                    Day {typedPlanDay.day_number} • {formatReadableDate(taskModels[0]?.dayDate)}
+                  </p>
+                </>
+              ) : (
+                <p className="mt-3 text-base text-[#f0dec1] sm:text-lg">
+                  Day {typedPlanDay.day_number} • {formatReadableDate(taskModels[0]?.dayDate)}
+                </p>
+              )}
               <h2 className="mt-6 text-3xl font-semibold text-white sm:text-4xl">
                 {typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
               </h2>
@@ -1108,8 +1140,28 @@ export default async function TodayPage({
           />
           <MetricCard
             label="Reading"
-            value={typedPlanDay.reading_reference ?? "Daily reading"}
-            detail={typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
+            value={
+              readingProclamation ??
+              typedPlanDay.reading_reference ??
+              "Daily reading"
+            }
+            valueClassName={
+              readingProclamation
+                ? "text-xl leading-7 sm:text-2xl sm:leading-8"
+                : undefined
+            }
+            detail={
+              readingProclamation ? (
+                <>
+                  <span className="block">{typedPlanDay.reading_reference}</span>
+                  {typedPlanDay.reading_title ? (
+                    <span className="block">{typedPlanDay.reading_title}</span>
+                  ) : null}
+                </>
+              ) : (
+                typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"
+              )
+            }
           />
           <SurfaceCard
             className={
