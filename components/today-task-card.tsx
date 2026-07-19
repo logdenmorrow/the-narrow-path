@@ -20,6 +20,7 @@ type TodayTaskCardProps = {
   completed: boolean;
   locked: boolean;
   lockedLabel?: string;
+  toggleDisabled?: boolean;
   planSlug?: string;
   secondaryAction?: {
     href: string;
@@ -51,6 +52,7 @@ export function TodayTaskCard({
   completed,
   locked,
   lockedLabel,
+  toggleDisabled = false,
   planSlug,
   secondaryAction,
 }: TodayTaskCardProps) {
@@ -100,7 +102,7 @@ export function TodayTaskCard({
     setOptimisticCompleted(completed);
   }, [completed, planDayTaskId]);
 
-  const isBusy = isSubmitting || locked;
+  const isBusy = isSubmitting || locked || toggleDisabled;
   const statusPill = getTaskStatusPillState({
     isCompleted: optimisticCompleted,
     isRequired,
@@ -233,21 +235,27 @@ export function TodayTaskCard({
         </div>
 
         <TaskCardMeta className="mt-2.5 justify-between gap-2.5 sm:mt-3 sm:gap-3">
-          <span>
+          <span
+            className={
+              errorMessage
+                ? "normal-case tracking-normal text-sm leading-6 text-destructive"
+                : undefined
+            }
+          >
             {errorMessage
               ? errorMessage
               : isSubmitting
                 ? "Saving..."
-                : secondaryAction
-                  ? secondaryAction.statusText ?? "Open related page"
-                  : locked
-                    ? lockedLabel ?? "Locked"
+                : locked
+                  ? lockedLabel ?? "Locked"
+                  : secondaryAction
+                    ? secondaryAction.statusText ?? "Open related page"
                     : optimisticCompleted
                       ? "Completed"
-                      : "Tap to mark complete"}
+                      : "Mark complete"}
           </span>
 
-          {secondaryAction ? (
+          {secondaryAction && !locked ? (
             <Button asChild variant="secondary" size="xs">
               <Link href={secondaryAction.href}>{secondaryAction.label}</Link>
             </Button>

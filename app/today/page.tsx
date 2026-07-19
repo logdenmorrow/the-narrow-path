@@ -584,7 +584,8 @@ export default async function TodayPage({
                     isRequired={false}
                     isOptional={true}
                     completed={resetHasSubmittedFeedback}
-                    locked
+                    locked={false}
+                    toggleDisabled
                     planSlug={currentPlanSlug}
                     secondaryAction={{
                       href: "/challenge-feedback",
