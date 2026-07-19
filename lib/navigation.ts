@@ -16,6 +16,22 @@ export const mobileTabItems = [
   { href: "/brotherhood", label: "Brotherhood", icon: Users },
 ] as const;
 
+const SEASONAL_NAV_HREFS = ["/this-week", "/daily-reading"] as const;
+
+export function getDesktopNavItems(hideSeasonalNav: boolean) {
+  if (!hideSeasonalNav) return desktopNavItems;
+  return desktopNavItems.filter(
+    (item) => !SEASONAL_NAV_HREFS.includes(item.href as (typeof SEASONAL_NAV_HREFS)[number])
+  );
+}
+
+export function getMobileTabItems(hideSeasonalNav: boolean) {
+  if (!hideSeasonalNav) return mobileTabItems;
+  return mobileTabItems.filter(
+    (item) => !SEASONAL_NAV_HREFS.includes(item.href as (typeof SEASONAL_NAV_HREFS)[number])
+  );
+}
+
 export function isActivePath(pathname: string, href: string) {
   if (href === "/") {
     return pathname === "/";

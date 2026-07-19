@@ -3,15 +3,25 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { isActivePath, mobileTabItems } from "@/lib/navigation";
+import { getMobileTabItems, isActivePath } from "@/lib/navigation";
+
+const GRID_COLS_CLASS: Record<number, string> = {
+  1: "grid-cols-1",
+  2: "grid-cols-2",
+  3: "grid-cols-3",
+  4: "grid-cols-4",
+};
 
 export default function MobileTabBar({
   communityName = "Brotherhood",
+  hideSeasonalNav = false,
 }: {
   communityName?: string;
+  hideSeasonalNav?: boolean;
 }) {
   const pathname = usePathname();
   const isRosaryPrayerMode = pathname === "/rosary";
+  const tabs = getMobileTabItems(hideSeasonalNav);
 
   if (isRosaryPrayerMode) {
     return null;
@@ -21,9 +31,12 @@ export default function MobileTabBar({
     <div className="mobile-tab-bar inset-x-0 bottom-0 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 sm:hidden">
       <nav
         aria-label="Primary mobile"
-        className="mx-auto grid max-w-6xl grid-cols-4 gap-1 rounded-[1.75rem] border border-monastic bg-[color:var(--surface-1)]/95 p-2 shadow-[0_-10px_34px_-18px_rgba(24,16,12,0.7)] backdrop-blur-xl"
+        className={cn(
+          "mx-auto grid max-w-6xl gap-1 rounded-[1.75rem] border border-monastic bg-[color:var(--surface-1)]/95 p-2 shadow-[0_-10px_34px_-18px_rgba(24,16,12,0.7)] backdrop-blur-xl",
+          GRID_COLS_CLASS[tabs.length] ?? "grid-cols-4"
+        )}
       >
-        {mobileTabItems.map((tab) => {
+        {tabs.map((tab) => {
           const active = isActivePath(pathname, tab.href);
           const Icon = tab.icon;
           const label = tab.href === "/brotherhood" ? communityName : tab.label;

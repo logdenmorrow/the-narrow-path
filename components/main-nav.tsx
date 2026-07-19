@@ -3,16 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { desktopNavItems, isActivePath } from "@/lib/navigation";
+import { getDesktopNavItems, isActivePath } from "@/lib/navigation";
 
 export default function MainNav({
   mobile = false,
   communityName = "Brotherhood",
+  hideSeasonalNav = false,
 }: {
   mobile?: boolean;
   communityName?: string;
+  hideSeasonalNav?: boolean;
 }) {
   const pathname = usePathname();
+  const navItems = getDesktopNavItems(hideSeasonalNav);
 
   return (
     <nav
@@ -24,7 +27,7 @@ export default function MainNav({
           : "rounded-full border border-monastic bg-monastic-panel p-1.5 shadow-[0_16px_34px_-28px_rgba(42,25,15,0.9)]"
       )}
     >
-      {desktopNavItems.map((item) => {
+      {navItems.map((item) => {
         const active = isActivePath(pathname, item.href);
         const label = item.href === "/brotherhood" ? communityName : item.label;
 

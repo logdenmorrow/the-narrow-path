@@ -251,6 +251,36 @@ export default async function DailyReadingPage({
     planName: activePlan?.name,
   });
 
+  if (seasonResolution.phase === "reset") {
+    return (
+      <main className="monastic-page">
+        <PageFrame className="max-w-6xl space-y-5 sm:space-y-6">
+          <HeroPanel className="py-7 sm:py-8">
+            <div className="text-[#f7ebd8]">
+              <p className="section-kicker text-[#ead6b0]">Reset</p>
+              <h1 className="mt-3 text-4xl font-semibold sm:text-5xl">
+                Daily Reading Opens August 1
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-[#f0dec1] sm:text-lg sm:leading-8">
+                July is a reset period between challenges. There is no
+                assigned reading right now — Daily Reading returns when
+                James: Faith That Works begins August 1.
+              </p>
+              <AppActionBar
+                stackOnMobile
+                className="mt-6 w-full border-white/10 bg-[rgba(22,16,13,0.28)] sm:w-fit"
+                actions={[
+                  { href: "/today", label: "Back to Today", variant: "primary" },
+                  { href: "/dashboard", label: "Dashboard", variant: "secondary" },
+                ]}
+              />
+            </div>
+          </HeroPanel>
+        </PageFrame>
+      </main>
+    );
+  }
+
   if (seasonResolution.phase === "james" && !activePlan) {
     return (
       <main className="monastic-page">

@@ -346,6 +346,10 @@ export function getSeasonTimelineItem(phase: SeasonPhase) {
   return SEASON_TIMELINE.find((item) => item.phase === phase) ?? null;
 }
 
+export function isResetPhase(todayIso: string) {
+  return getResolvedSeasonPhase(todayIso) === "reset";
+}
+
 export function getPostChallengeDisplay(phase: SeasonPhase | null) {
   if (phase === "james") {
     return {

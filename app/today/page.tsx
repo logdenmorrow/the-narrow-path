@@ -383,10 +383,10 @@ export default async function TodayPage({
     const isReset = postChallengePhase === "reset";
 
     const RESET_OPTIONAL_TASK_SLUGS = [
-      "attend_mass",
       "rosary",
-      "confession",
       "night-prayer",
+      "adoration",
+      "attend_mass",
     ] as const;
     const RESET_TASK_ROUTES: Record<string, string> = {
       rosary: "/rosary",
@@ -647,13 +647,13 @@ export default async function TodayPage({
                 <SurfaceInset>
                   <div className="section-kicker">Optional</div>
                   <p className="mt-2 text-lg font-semibold text-monastic-0">
-                    Confession
+                    Adoration
                   </p>
                 </SurfaceInset>
                 <SurfaceInset>
-                  <div className="section-kicker">Available</div>
+                  <div className="section-kicker">Optional</div>
                   <p className="mt-2 text-lg font-semibold text-monastic-0">
-                    Challenge Feedback
+                    Attend Mass
                   </p>
                 </SurfaceInset>
               </div>

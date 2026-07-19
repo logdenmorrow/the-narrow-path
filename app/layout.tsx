@@ -16,6 +16,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { syncAdminProfileVisibility } from "@/lib/admin";
 import { isServerAuthDebugEnabled } from "@/lib/auth-debug";
+import { getIsoDateInTimeZone } from "@/lib/challenge";
+import { isResetPhase } from "@/lib/season-plan";
 import { createClient } from "@/lib/supabase/server";
 import { getCommunityName, normalizeTrack } from "@/lib/track";
 import "./globals.css";
@@ -132,6 +134,7 @@ export default async function RootLayout({
     reminderSlots?.some((slot) => slot.enabled)
   );
   const communityName = getCommunityName(normalizeTrack(profileData?.track));
+  const isResetSeason = isResetPhase(getIsoDateInTimeZone());
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -207,12 +210,14 @@ export default async function RootLayout({
                 {isSignedIn ? (
                   <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
                     <div className="hidden sm:block">
-                      <MainNav communityName={communityName} />
+                      <MainNav communityName={communityName} hideSeasonalNav={isResetSeason} />
                     </div>
 
-                    <Suspense fallback={null}>
-                      <ProgressStrip />
-                    </Suspense>
+                    {!isResetSeason ? (
+                      <Suspense fallback={null}>
+                        <ProgressStrip />
+                      </Suspense>
+                    ) : null}
                   </div>
                 ) : null}
               </div>
@@ -223,7 +228,9 @@ export default async function RootLayout({
           {isSignedIn ? (
             <ReminderOnboardingCard hasEnabledReminder={hasEnabledReminder} />
           ) : null}
-          {isSignedIn ? <MobileTabBar communityName={communityName} /> : null}
+          {isSignedIn ? (
+            <MobileTabBar communityName={communityName} hideSeasonalNav={isResetSeason} />
+          ) : null}
         </ThemeProvider>
       </body>
     </html>
