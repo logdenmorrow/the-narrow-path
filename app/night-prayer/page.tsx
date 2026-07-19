@@ -10,6 +10,7 @@ import {
 import { AppActionBar } from "@/components/page-actions";
 import { TodayTaskCard } from "@/components/today-task-card";
 import { Button } from "@/components/ui/button";
+import { getIsoDateInTimeZone } from "@/lib/challenge";
 import {
   getSeasonTimingForPlan,
   ORIGINAL_CHALLENGE_PLAN_SLUG,
@@ -513,6 +514,8 @@ export default async function NightPrayerPage({
     Number(rawDay ?? (challenge.hasStarted ? challenge.currentDayNumber : 1)),
     activePlan.total_days
   );
+  const isTodayPreview = !challenge.hasStarted && rawDay === undefined;
+  const todayIso = getIsoDateInTimeZone();
 
   const { data: planDayData } = await supabase
     .from("plan_days")
@@ -565,13 +568,14 @@ export default async function NightPrayerPage({
   });
 
   const prayerDate = nightPrayerTask?.day_date ?? null;
-  const { data: nightPrayerData } = prayerDate
+  const displayDate = isTodayPreview ? todayIso : prayerDate;
+  const { data: nightPrayerData } = displayDate
     ? await supabase
         .from("night_prayers")
         .select(
           "prayer_date, source, source_url, liturgical_day, title, subtitle, content_json, copyright_notice, attribution_html, imported_at, updated_at"
         )
-        .eq("prayer_date", prayerDate)
+        .eq("prayer_date", displayDate)
         .maybeSingle()
     : { data: null };
 
@@ -589,26 +593,25 @@ export default async function NightPrayerPage({
     : { data: null };
 
   const completion = (completionData ?? null) as CompletionRow | null;
-  const selectedDateLabel = formatReadableDate(prayerDate);
+  const selectedDateLabel = formatReadableDate(displayDate);
   const previousDay = selectedDay > 1 ? selectedDay - 1 : 1;
   const nextDay =
     selectedDay < activePlan.total_days ? selectedDay + 1 : activePlan.total_days;
   const isLocked = !challenge.hasStarted || selectedDay > challenge.currentDayNumber;
   const sourceUrl =
     nightPrayer?.source_url ??
-    (prayerDate ? getDivineOfficeDateUrl(prayerDate) : "https://divineoffice.org/");
+    (displayDate ? getDivineOfficeDateUrl(displayDate) : "https://divineoffice.org/");
   const title = nightPrayer?.title?.trim() || "Night Prayer";
   const subtitle =
     nightPrayer?.subtitle?.trim() ||
     nightPrayer?.liturgical_day?.trim() ||
-    planDay.title ||
-    `Day ${selectedDay}`;
+    (isTodayPreview ? "" : planDay.title || `Day ${selectedDay}`);
   const sourceLabel =
     nightPrayer?.source === "divineoffice" || !nightPrayer?.source
       ? "DivineOffice"
       : nightPrayer.source;
   const metadataParts = [
-    `Day ${selectedDay}`,
+    isTodayPreview ? null : `Day ${selectedDay}`,
     selectedDateLabel,
     subtitle,
     `Source: ${sourceLabel}`,
@@ -632,7 +635,9 @@ export default async function NightPrayerPage({
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div className="text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">
-                Day {selectedDay} {selectedDateLabel ? `- ${selectedDateLabel}` : ""}
+                {isTodayPreview
+                  ? selectedDateLabel
+                  : `Day ${selectedDay} ${selectedDateLabel ? `- ${selectedDateLabel}` : ""}`}
               </p>
               <h1 className="mt-2 text-4xl font-semibold sm:text-5xl">Night Prayer</h1>
               <p className="mt-2 text-base leading-7 text-[#ead8bc] sm:text-lg">
