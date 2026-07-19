@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import {
   getCommunityName,
@@ -178,23 +179,40 @@ function getQuotaMeterClasses(tone: MeterTone) {
   switch (tone) {
     case "success":
       return {
-        track: "bg-emerald-950/60",
-        fill: "bg-emerald-400",
-        text: "text-emerald-200 border-emerald-700",
+        track: "bg-[rgba(126,167,145,0.14)]",
+        fill: "bg-[#9ab9a5]",
+        text: "text-[#426855] dark:text-[#a7ccb9] border-[rgba(69,116,85,0.45)]",
       };
     case "accent":
       return {
-        track: "bg-blue-950/60",
-        fill: "bg-blue-400",
-        text: "text-blue-200 border-blue-700",
+        track: "bg-[color:var(--surface-3)]",
+        fill: "bg-[color:var(--surface-strong)]",
+        text: "text-[color:var(--surface-strong)] border-[color:var(--line-strong)]",
       };
     default:
       return {
-        track: "bg-zinc-800",
-        fill: "bg-zinc-300",
-        text: "text-zinc-300 border-zinc-700",
+        track: "bg-[color:var(--surface-3)]",
+        fill: "bg-[color:var(--surface-strong-2)]",
+        text: "text-monastic-1 border-monastic",
       };
   }
+}
+
+function QuickAccessTile({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+    >
+      {children}
+    </Link>
+  );
 }
 
 export default async function DashboardPage({
@@ -252,7 +270,7 @@ export default async function DashboardPage({
         <DashboardLoginRedirectClear />
         <PageFrame className="space-y-6">
           <div className="mb-5">
-            <p className="break-all text-sm text-zinc-400 sm:break-normal">
+            <p className="break-all text-sm text-monastic-2 sm:break-normal">
               Signed in as {user.email}
             </p>
           </div>
@@ -275,13 +293,12 @@ export default async function DashboardPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+          <div className="monastic-card p-5 sm:p-6">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Dashboard
             </h1>
-            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
-              No active challenge plan was found. Add or activate a plan in
-              Supabase before using this page.
+            <p className="mt-4 text-sm text-monastic-1 sm:text-base">
+              Something went wrong loading your plan. Try refreshing.
             </p>
           </div>
         </div>
@@ -314,7 +331,7 @@ export default async function DashboardPage({
         <DashboardLoginRedirectClear />
         <PageFrame className="space-y-6">
           <div className="mb-5">
-            <p className="break-all text-sm text-zinc-400 sm:break-normal">
+            <p className="break-all text-sm text-monastic-2 sm:break-normal">
               Signed in as {user.email}
             </p>
           </div>
@@ -393,7 +410,7 @@ export default async function DashboardPage({
             <SurfaceCard>
               <SectionHeader kicker="Quick Access" title="Quick Access" />
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <Link
+                <QuickAccessTile
                   href={withViewTrack(
                     buildPlanDayHref(
                       "/today",
@@ -403,59 +420,37 @@ export default async function DashboardPage({
                     track,
                     preserveViewTrack
                   )}
-                  className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
                 >
                   Review Day {activePlan.total_days}
-                </Link>
-                <Link
+                </QuickAccessTile>
+                <QuickAccessTile
                   href={withViewTrack("/brotherhood", track, preserveViewTrack)}
-                  className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
                 >
                   {communityName}
-                </Link>
-                <Link
-                  href="/night-prayer"
-                  className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
-                >
+                </QuickAccessTile>
+                <QuickAccessTile href="/night-prayer">
                   Night Prayer
-                </Link>
-                <Link
+                </QuickAccessTile>
+                <QuickAccessTile
                   href={buildPlanDayHref(
                     "/challenge-feedback",
                     ORIGINAL_CHALLENGE_PLAN_SLUG,
                     ORIGINAL_CHALLENGE_TOTAL_DAYS
                   )}
-                  className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
                 >
                   Challenge Feedback
-                </Link>
-                <Link
-                  href="/rosary"
-                  className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
-                >
-                  Rosary
-                </Link>
-                <Link
-                  href="/settings"
-                  className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
-                >
-                  Settings
-                </Link>
+                </QuickAccessTile>
+                <QuickAccessTile href="/rosary">Rosary</QuickAccessTile>
+                <QuickAccessTile href="/settings">Settings</QuickAccessTile>
                 {isAdmin && (
-                  <Link
-                    href="/admin/plan"
-                    className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
-                  >
+                  <QuickAccessTile href="/admin/plan">
                     Admin Plan
-                  </Link>
+                  </QuickAccessTile>
                 )}
                 {isAdmin && (
-                  <Link
-                    href="/admin/challenge-feedback"
-                    className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
-                  >
+                  <QuickAccessTile href="/admin/challenge-feedback">
                     Challenge Feedback
-                  </Link>
+                  </QuickAccessTile>
                 )}
               </div>
             </SurfaceCard>
@@ -716,11 +711,11 @@ export default async function DashboardPage({
       <DashboardLoginRedirectClear />
       <PageFrame className="space-y-6">
         {!challenge.hasStarted && (
-          <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-6">
-            <p className="text-base font-semibold text-white sm:text-lg">
+          <div className="mb-6 monastic-card p-4 sm:p-6">
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               The challenge begins on {challenge.startDateLabel}.
             </p>
-            <p className="mt-2 text-sm text-zinc-300 sm:text-base">
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               You&apos;re currently in preview mode. Daily and weekly quota
               progress will begin counting at launch.
             </p>
@@ -728,7 +723,7 @@ export default async function DashboardPage({
         )}
 
         <div className="mb-5">
-          <p className="break-all text-sm text-zinc-400 sm:break-normal">
+          <p className="break-all text-sm text-monastic-2 sm:break-normal">
             Signed in as {user.email}
           </p>
         </div>
@@ -781,37 +776,35 @@ export default async function DashboardPage({
               title="Quick Access"
             />
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              <Link href={withViewTrack("/today", track, preserveViewTrack)} className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+              <QuickAccessTile href={withViewTrack("/today", track, preserveViewTrack)}>
                 Today
-              </Link>
-              <Link href={withViewTrack("/this-week", track, preserveViewTrack)} className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+              </QuickAccessTile>
+              <QuickAccessTile href={withViewTrack("/this-week", track, preserveViewTrack)}>
                 This Week
-              </Link>
-              <Link href={withViewTrack("/brotherhood", track, preserveViewTrack)} className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+              </QuickAccessTile>
+              <QuickAccessTile href={withViewTrack("/brotherhood", track, preserveViewTrack)}>
                 {communityName}
-              </Link>
-              <Link href={withViewTrack(buildPlanDayHref("/today", currentPlanSlug, Math.max(selectedDay - 1, 1)), track, preserveViewTrack)} className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+              </QuickAccessTile>
+              <QuickAccessTile href={withViewTrack(buildPlanDayHref("/today", currentPlanSlug, Math.max(selectedDay - 1, 1)), track, preserveViewTrack)}>
                 Review Yesterday
-              </Link>
+              </QuickAccessTile>
               {isAdmin && (
-                <Link href="/admin/plan" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
-                  Admin Plan
-                </Link>
+                <QuickAccessTile href="/admin/plan">Admin Plan</QuickAccessTile>
               )}
               {isAdmin && (
-                <Link href="/admin/auth-reports" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                <QuickAccessTile href="/admin/auth-reports">
                   Auth Reports
-                </Link>
+                </QuickAccessTile>
               )}
               {isAdmin && (
-                <Link href="/admin/challenge-feedback" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                <QuickAccessTile href="/admin/challenge-feedback">
                   Challenge Feedback
-                </Link>
+                </QuickAccessTile>
               )}
               {isAdmin && (
-                <Link href="/admin/support" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
+                <QuickAccessTile href="/admin/support">
                   Support Tickets
-                </Link>
+                </QuickAccessTile>
               )}
             </div>
           </SurfaceCard>
