@@ -362,9 +362,9 @@ export default async function TodayPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="monastic-card p-6">
             <h1 className="text-3xl font-bold">Today</h1>
-            <p className="mt-3 text-zinc-300">No active challenge plan was found.</p>
+            <p className="mt-3 text-monastic-1">No active challenge plan was found.</p>
           </div>
         </div>
       </main>
@@ -702,9 +702,9 @@ export default async function TodayPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="monastic-card p-6">
             <h1 className="text-3xl font-bold">Today</h1>
-            <p className="mt-3 text-zinc-300">Could not load plan days.</p>
+            <p className="mt-3 text-monastic-1">Could not load plan days.</p>
           </div>
         </div>
       </main>
@@ -718,9 +718,9 @@ export default async function TodayPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="monastic-card p-6">
             <h1 className="text-3xl font-bold">Today</h1>
-            <p className="mt-3 text-zinc-300">Day {selectedDay} was not found.</p>
+            <p className="mt-3 text-monastic-1">Day {selectedDay} was not found.</p>
           </div>
         </div>
       </main>
@@ -741,9 +741,9 @@ export default async function TodayPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="monastic-card p-6">
             <h1 className="text-3xl font-bold">Today</h1>
-            <p className="mt-3 text-zinc-300">Could not load today&apos;s plan.</p>
+            <p className="mt-3 text-monastic-1">Could not load today&apos;s plan.</p>
           </div>
         </div>
       </main>
@@ -798,9 +798,9 @@ export default async function TodayPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="monastic-card p-6">
             <h1 className="text-3xl font-bold">Today</h1>
-            <p className="mt-3 text-zinc-300">Could not load today&apos;s tasks.</p>
+            <p className="mt-3 text-monastic-1">Could not load today&apos;s tasks.</p>
           </div>
         </div>
       </main>
@@ -1012,7 +1012,7 @@ export default async function TodayPage({
           <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
             <div className="text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
-              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">
+              <h1 className="mt-3 text-3xl font-semibold sm:text-6xl">
                 {isDay90CelebrationView ? "Day 90: Celebration" : "Today"}
               </h1>
               {!liturgicalDay.isFallback ? (
@@ -1029,10 +1029,10 @@ export default async function TodayPage({
                   Day {typedPlanDay.day_number} • {formatReadableDate(taskModels[0]?.dayDate)}
                 </p>
               )}
-              <h2 className="mt-6 text-3xl font-semibold text-white sm:text-4xl">
+              <h2 className="mt-6 hidden text-3xl font-semibold text-white sm:block sm:text-4xl">
                 {typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"}
               </h2>
-              <p className="mt-2 text-xl text-[#ead8bc]">
+              <p className="mt-2 hidden text-xl text-[#ead8bc] sm:block">
                 {typedPlanDay.reading_reference ?? "Open the reading page"}
               </p>
             </div>
@@ -1066,6 +1066,7 @@ export default async function TodayPage({
                   ),
                   label: "Daily Reading",
                   variant: "outline",
+                  className: "hidden sm:inline-flex",
                 },
                 {
                   href: withViewTrack(
@@ -1079,6 +1080,7 @@ export default async function TodayPage({
                   ),
                   label: "This Week",
                   variant: "primary",
+                  className: "hidden sm:inline-flex",
                 },
               ]}
             />

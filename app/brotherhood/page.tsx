@@ -143,9 +143,9 @@ export default async function BrotherhoodPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="monastic-card p-6">
             <h1 className="text-3xl font-bold">{communityName}</h1>
-            <p className="mt-3 text-zinc-300">No active challenge plan was found.</p>
+            <p className="mt-3 text-monastic-1">No active challenge plan was found.</p>
           </div>
         </div>
       </main>
@@ -178,9 +178,9 @@ export default async function BrotherhoodPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="monastic-card p-6">
             <h1 className="text-3xl font-bold">{communityName}</h1>
-            <p className="mt-3 text-zinc-300">Could not load Day {selectedDay}.</p>
+            <p className="mt-3 text-monastic-1">Could not load Day {selectedDay}.</p>
           </div>
         </div>
       </main>
@@ -199,9 +199,9 @@ export default async function BrotherhoodPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="monastic-card p-6">
             <h1 className="text-3xl font-bold">{communityName}</h1>
-            <p className="mt-3 text-zinc-300">Day {selectedDay} was not found.</p>
+            <p className="mt-3 text-monastic-1">Day {selectedDay} was not found.</p>
           </div>
         </div>
       </main>
@@ -614,7 +614,7 @@ export default async function BrotherhoodPage({
               return (
                 <TaskCard
                   key={member.profile.id}
-                  className="relative h-full bg-[#f8efdd] p-3 transition hover:border-[#94724a] hover:bg-[#f3e5ca] dark:bg-black dark:hover:border-zinc-600 dark:hover:bg-black sm:p-4"
+                  className="relative h-full bg-[color:var(--surface-2)] p-3 transition hover:border-[color:var(--line-strong)] hover:bg-[color:var(--surface-3)] sm:p-4"
                 >
                   <Link
                     href={memberHref}

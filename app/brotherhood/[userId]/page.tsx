@@ -118,23 +118,23 @@ function getQuotaMeterTone(completed: number, target: number): MeterTone {
 function getQuotaMeterClasses(tone: MeterTone) {
   if (tone === "success") {
     return {
-      track: "bg-emerald-950/60 dark:bg-emerald-950/60",
-      fill: "bg-emerald-400",
-      text: "border-emerald-700 text-emerald-200 dark:border-emerald-700 dark:text-emerald-200",
+      track: "bg-[rgba(126,167,145,0.14)]",
+      fill: "bg-[#9ab9a5]",
+      text: "text-[#426855] dark:text-[#a7ccb9] border-[rgba(69,116,85,0.45)]",
     };
   }
 
   if (tone === "accent") {
     return {
-      track: "bg-blue-950/60 dark:bg-blue-950/60",
-      fill: "bg-blue-400",
-      text: "border-blue-700 text-blue-200 dark:border-blue-700 dark:text-blue-200",
+      track: "bg-[color:var(--surface-3)]",
+      fill: "bg-[color:var(--surface-strong)]",
+      text: "text-[color:var(--surface-strong)] border-[color:var(--line-strong)]",
     };
   }
 
   return {
-    track: "bg-[color:var(--surface-3)] dark:bg-zinc-800",
-    fill: "bg-[color:var(--surface-strong)] dark:bg-zinc-300",
+    track: "bg-[color:var(--surface-3)]",
+    fill: "bg-[color:var(--surface-strong-2)]",
     text: "border-monastic text-monastic-1",
   };
 }
@@ -203,9 +203,9 @@ export default async function BrotherhoodMemberPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="monastic-card p-6">
             <h1 className="text-3xl font-bold">{communityName}</h1>
-            <p className="mt-3 text-zinc-300">No active challenge plan was found.</p>
+            <p className="mt-3 text-monastic-1">No active challenge plan was found.</p>
           </div>
         </div>
       </main>
@@ -238,9 +238,9 @@ export default async function BrotherhoodMemberPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+          <div className="monastic-card p-6">
             <h1 className="text-3xl font-bold">{communityName}</h1>
-            <p className="mt-3 text-zinc-300">Day {selectedDay} was not found.</p>
+            <p className="mt-3 text-monastic-1">Day {selectedDay} was not found.</p>
           </div>
         </div>
       </main>
