@@ -12,6 +12,7 @@ import { AppActionBar } from "@/components/page-actions";
 import { RosaryAudioPlayer } from "@/components/rosary-audio-player";
 import { TodayTaskCard } from "@/components/today-task-card";
 import { Button } from "@/components/ui/button";
+import { getIsoDateInTimeZone } from "@/lib/challenge";
 import {
   getSeasonTimingForPlan,
   ORIGINAL_CHALLENGE_PLAN_SLUG,
@@ -198,6 +199,8 @@ export default async function RosaryPage({
     Number(rawDay ?? defaultDay),
     activePlan.total_days
   );
+  const isTodayPreview = !challenge.hasStarted && rawDay === undefined;
+  const todayIso = getIsoDateInTimeZone();
 
   const { data: planDayData } = await supabase
     .from("plan_days")
@@ -255,8 +258,9 @@ export default async function RosaryPage({
     ((taskRows ?? []) as RosaryTaskRow[]).find((task) => task.day_date)?.day_date ??
     null;
   const prayerDate = rosaryTask?.day_date ?? selectedPlanDayDate;
-  const mysterySet = getRosaryMysterySetForDate(prayerDate);
-  const audioPath = getRosaryAudioPathForDate(prayerDate);
+  const displayDate = isTodayPreview ? todayIso : prayerDate;
+  const mysterySet = getRosaryMysterySetForDate(displayDate);
+  const audioPath = getRosaryAudioPathForDate(displayDate);
   const { data: signedAudioData, error: signedAudioError } = audioPath
     ? await supabase.storage
         .from("rosary-audio")
@@ -273,16 +277,16 @@ export default async function RosaryPage({
     : { data: null };
 
   const completion = (completionData ?? null) as CompletionRow | null;
-  const selectedDateLabel = formatReadableDate(prayerDate);
+  const selectedDateLabel = formatReadableDate(displayDate);
   const previousDay = selectedDay > 1 ? selectedDay - 1 : 1;
   const nextDay =
     selectedDay < activePlan.total_days ? selectedDay + 1 : activePlan.total_days;
   const isLocked = !challenge.hasStarted || selectedDay > challenge.currentDayNumber;
   const metadataParts = [
-    `Day ${selectedDay}`,
+    isTodayPreview ? null : `Day ${selectedDay}`,
     selectedDateLabel,
     mysterySet.title,
-    planDay.title,
+    isTodayPreview ? null : planDay.title,
   ].filter(Boolean);
 
   return (
@@ -310,7 +314,9 @@ export default async function RosaryPage({
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div className="text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">
-                Day {selectedDay} {selectedDateLabel ? `- ${selectedDateLabel}` : ""}
+                {isTodayPreview
+                  ? selectedDateLabel
+                  : `Day ${selectedDay} ${selectedDateLabel ? `- ${selectedDateLabel}` : ""}`}
               </p>
               <h1 className="mt-2 text-4xl font-semibold sm:text-5xl">
                 Guided Rosary
