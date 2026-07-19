@@ -67,6 +67,7 @@ type MetricCardProps = {
   detail?: React.ReactNode;
   meterValue?: number;
   className?: string;
+  valueClassName?: string;
 };
 
 export function MetricCard({
@@ -75,11 +76,12 @@ export function MetricCard({
   detail,
   meterValue,
   className,
+  valueClassName,
 }: MetricCardProps) {
   return (
     <SurfaceCard className={cn("h-full", className)}>
       <div className="section-kicker">{label}</div>
-      <div className="mt-2 text-2xl font-semibold text-monastic-0 sm:mt-3 sm:text-4xl">{value}</div>
+      <div className={cn("mt-2 text-2xl font-semibold text-monastic-0 sm:mt-3 sm:text-4xl", valueClassName)}>{value}</div>
       {detail ? <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base">{detail}</p> : null}
       {typeof meterValue === "number" ? (
         <div className="monastic-meter mt-4 sm:mt-5">
