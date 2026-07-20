@@ -1369,6 +1369,77 @@ with plan activation itself the remaining blocking step.
 
 ---
 
+## 1G. July 20, 2026 Night Prayer Import Checkpoint
+
+This checkpoint records a Night Prayer content import gap fix and bulk
+catch-up import run on 2026-07-20.
+
+### Script bug found and fixed
+
+- `scripts/import-night-prayer.mjs` built its DivineOffice.org request as
+  `?date_start=<hyphenated-date>&date_end=<hyphenated-date>` (e.g.
+  `2026-07-21`). DivineOffice.org's public API stopped accepting that format
+  and now requires `Ymd` (e.g. `20260721`), returning `400 invalid_date`
+  otherwise. This was confirmed to affect every date, not just future ones
+  (a request for 2026-07-03, already imported, also failed).
+- Fixed with a one-line change: the endpoint now uses the file's existing
+  `yyyymmdd(date)` helper for `date_start`/`date_end` instead of the raw
+  ISO date. No other script behavior was changed.
+
+### DivineOffice.org API constraints discovered
+
+- The public endpoint enforces a rolling lookahead window, not a fixed
+  content cutoff: it rejects any `date_end` after "first day of current
+  month + 2 months" with `400 date_range_too_far_future`. As of 2026-07-20
+  the furthest available date was 2026-09-01. This boundary advances by
+  roughly a month as calendar time passes.
+- The endpoint also enforces a short burst rate limit. A sequential import
+  of ~29-30 requests (500ms apart) triggered `429` on every subsequent
+  request in the same run. The limit cleared within a few minutes; a retry
+  pass with a 3s delay succeeded for all but one date, which hit `429`
+  again as the very last request of that batch.
+
+### Import run result (applied to production 2026-07-20)
+
+- Before this run, `night_prayers` had rows through 2026-07-04.
+- Imported 2026-07-05 through 2026-08-31 (58 of 59 attempted dates).
+  2026-09-01 was attempted twice (initial run + retry pass) and failed
+  both times with `429`; it was not retried a third time per the
+  no-more-than-one-retry policy for this run.
+- Verified after import: `night_prayers` total 148 rows, range
+  2026-04-06 to 2026-08-31. Spot-checked 2026-07-20, 2026-08-15, and
+  2026-08-31 — all present with normal titles (2026-08-15, the Assumption
+  solemnity, correctly used "Night Prayer II", matching the same
+  before/after-solemnity pattern already seen for ordinary Sundays).
+  2026-09-01 and 2026-12-25 were correctly absent (rate-limited /
+  outside the available window, not failures).
+
+### Do not regress
+
+- Keep the `date_start`/`date_end` query params in `Ymd` format
+  (`yyyymmdd(date)`), not the raw ISO `--date` value.
+- Do not assume DivineOffice.org will serve dates more than ~2 months
+  ahead of the current date; the window is rolling, not fixed.
+- Do not run bulk imports faster than the script's default ~500ms
+  per-request pacing without expecting `429`s; back off to a few seconds
+  between requests if importing more than ~25-30 dates in one run.
+
+### Follow-up required: recurring monthly import
+
+- Night Prayer content must be re-imported periodically to stay ahead of
+  the gap, because DivineOffice.org only exposes ~2 months of lookahead
+  at any given time.
+- 2026-09-01 is still missing (rate-limited on both attempts this run)
+  and should be picked up on the next run.
+- **Next run should happen in early August 2026** and should cover the
+  gap through **2026-10-01** (the rolling window's expected edge by
+  then), plus catch the still-missing 2026-09-01.
+- This is a recurring monthly task, not a one-time fix. Repeat in early
+  September, early October, etc., each time extending through
+  approximately two months out from that run's date.
+
+---
+
 ## 2. Quick Non-Negotiables
 
 Paste this into future prompts when needed:

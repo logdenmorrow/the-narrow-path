@@ -214,7 +214,7 @@ function collectCopyrightNotice(html) {
 }
 
 async function fetchJsonPrayer(date) {
-  const endpoint = `https://divineoffice.org/wp-json/do/v1/prayers/?date_start=${date}&date_end=${date}`;
+  const endpoint = `https://divineoffice.org/wp-json/do/v1/prayers/?date_start=${yyyymmdd(date)}&date_end=${yyyymmdd(date)}`;
   const response = await fetch(endpoint, {
     headers: {
       accept: "application/json",
