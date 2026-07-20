@@ -452,8 +452,64 @@ export default async function TodayPage({
           user.id
         ).map((task) => ({ ...task, note: null as string | null }));
 
+        // Attend Mass is Sunday-only in the source plan data, so it usually
+        // isn't on the final plan day. Pull it from its own Sunday row so it
+        // still shows up every day during the reset.
+        let attendMassTaskModel: TaskViewModel | null = null;
+        if (!finalDayTaskModels.some((task) => task.slug === "attend_mass")) {
+          const { data: attendMassRows } = await supabase
+            .from("plan_day_tasks")
+            .select(
+              `
+                id,
+                task_template_id,
+                is_required,
+                is_optional,
+                quota_scope,
+                quota_target,
+                requirement_note,
+                day_date,
+                week_start_date,
+                month_start_date,
+                display_order,
+                plan_days!inner ( plan_id ),
+                task_templates!inner ( title, slug, audience )
+              `
+            )
+            .eq("plan_days.plan_id", activePlan.id)
+            .eq("task_templates.slug", "attend_mass")
+            .order("day_date", { ascending: false })
+            .limit(1);
+
+          const attendMassRow = filterTasksForTrack(
+            (attendMassRows ?? []) as PlanDayTaskRecord[],
+            track
+          )[0];
+
+          if (attendMassRow) {
+            const { data: attendMassCompletionRow } = await supabase
+              .from("user_task_completions")
+              .select("user_id, plan_day_task_id")
+              .eq("user_id", user.id)
+              .eq("plan_day_task_id", attendMassRow.id)
+              .maybeSingle();
+
+            const [attendMassModel] = buildTaskViewModels(
+              [attendMassRow],
+              [],
+              attendMassCompletionRow ? [attendMassCompletionRow] : [],
+              user.id
+            );
+            if (attendMassModel) {
+              attendMassTaskModel = { ...attendMassModel, note: null };
+            }
+          }
+        }
+
         resetOptionalTasks = RESET_OPTIONAL_TASK_SLUGS.map((slug) =>
-          finalDayTaskModels.find((task) => task.slug === slug)
+          slug === "attend_mass" && attendMassTaskModel
+            ? attendMassTaskModel
+            : finalDayTaskModels.find((task) => task.slug === slug)
         ).filter((task): task is TaskViewModel => Boolean(task));
         resetChallengeFeedbackTask =
           finalDayTaskModels.find((task) => task.slug === "challenge_feedback") ??
