@@ -4,10 +4,35 @@ import { resolve } from "node:path";
 
 const SOURCE = "divineoffice";
 const ATTRIBUTION_TEXT =
-  "Night Prayer text provided with permission from DivineOffice.org. All rights remain with their respective owners.";
+  "Liturgy of the Hours text provided with permission from DivineOffice.org. All rights remain with their respective owners.";
 const ATTRIBUTION_HTML =
-  '<p>Night Prayer text provided with permission from <a href="https://divineoffice.org/">DivineOffice.org</a>. All rights remain with their respective owners.</p>';
+  '<p>Liturgy of the Hours text provided with permission from <a href="https://divineoffice.org/">DivineOffice.org</a>. All rights remain with their respective owners.</p>';
 const DEFAULT_DELAY_MS = 500;
+
+// Each date's API response contains all Hours in one payload. 'compline'
+// keeps its original required-and-throws-if-missing behavior for backward
+// compatibility; 'lauds' and 'vespers' are skipped and logged if a date's
+// response doesn't include them.
+const HOUR_DEFINITIONS = [
+  {
+    hour: "lauds",
+    label: "MorningPrayer",
+    postTitleFallback: "Morning Prayer",
+    subtitlePrefix: "Morning Prayer for",
+  },
+  {
+    hour: "vespers",
+    label: "EveningPrayer",
+    postTitleFallback: "Evening Prayer",
+    subtitlePrefix: "Evening Prayer for",
+  },
+  {
+    hour: "compline",
+    label: "NightPrayer",
+    postTitleFallback: "Night Prayer",
+    subtitlePrefix: "Night Prayer for",
+  },
+];
 
 function loadLocalEnv() {
   const envPath = resolve(process.cwd(), ".env.local");
@@ -192,9 +217,11 @@ function htmlToBlocks(html) {
     }));
 }
 
-function extractSubtitle(blocks) {
+function extractSubtitle(blocks, subtitlePrefix) {
+  const pattern = new RegExp(`^${subtitlePrefix} `, "i");
+
   for (const block of blocks.slice(0, 8)) {
-    const line = block.lines.find((item) => /^Night Prayer for /i.test(item));
+    const line = block.lines.find((item) => pattern.test(item));
     if (line) return line;
   }
 
@@ -230,29 +257,32 @@ async function fetchJsonPrayer(date) {
   const dayKey = yyyymmdd(date);
   const day = json?.[dayKey];
   const prayers = Array.isArray(day?.prayers) ? day.prayers : [];
-  const nightPrayer =
-    prayers.find((prayer) => prayer?.label === "NightPrayer") ??
-    prayers.find((prayer) => prayer?.post_title === "Night Prayer");
 
   return {
     endpoint,
     day,
     prayers,
-    nightPrayer,
     responseShape: {
       topLevelKeys: Object.keys(json ?? {}),
       dayKeys: day ? Object.keys(day) : [],
       prayerCount: prayers.length,
       prayerLabels: prayers.map((prayer) => prayer?.label ?? prayer?.post_title ?? null),
-      nightPrayerKeys: nightPrayer ? Object.keys(nightPrayer) : [],
     },
   };
 }
 
-async function fetchFallbackHtml(nightPrayer, date) {
-  if (!nightPrayer?.guid) return null;
+function extractHourPrayer(prayers, definition) {
+  return (
+    prayers.find((prayer) => prayer?.label === definition.label) ??
+    prayers.find((prayer) => prayer?.post_title === definition.postTitleFallback) ??
+    null
+  );
+}
 
-  const url = `${nightPrayer.guid}?accessible=true&date=${yyyymmdd(date)}`;
+async function fetchFallbackHtml(hourPrayer, date) {
+  if (!hourPrayer?.guid) return null;
+
+  const url = `${hourPrayer.guid}?accessible=true&date=${yyyymmdd(date)}`;
   const response = await fetch(url, {
     headers: {
       accept: "text/html",
@@ -273,22 +303,13 @@ async function fetchFallbackHtml(nightPrayer, date) {
   };
 }
 
-async function buildNightPrayerPayload(date) {
-  const jsonResult = await fetchJsonPrayer(date);
-  const nightPrayer = jsonResult.nightPrayer;
-
-  if (!nightPrayer) {
-    throw new Error(
-      `No Night Prayer item found. Labels: ${jsonResult.responseShape.prayerLabels.join(", ")}`
-    );
-  }
-
-  let sourceUrl = nightPrayer.guid ?? jsonResult.endpoint;
-  let rawHtml = typeof nightPrayer.post_content === "string" ? nightPrayer.post_content : "";
+async function buildHourPayload(date, jsonResult, definition, hourPrayer) {
+  let sourceUrl = hourPrayer.guid ?? jsonResult.endpoint;
+  let rawHtml = typeof hourPrayer.post_content === "string" ? hourPrayer.post_content : "";
   let usedFallback = false;
 
   if (!rawHtml.trim()) {
-    const fallback = await fetchFallbackHtml(nightPrayer, date);
+    const fallback = await fetchFallbackHtml(hourPrayer, date);
     if (fallback?.html) {
       rawHtml = fallback.html;
       sourceUrl = fallback.url;
@@ -297,25 +318,26 @@ async function buildNightPrayerPayload(date) {
   }
 
   if (!rawHtml.trim()) {
-    throw new Error("Night Prayer was present but did not include content HTML.");
+    throw new Error(`${definition.label} was present but did not include content HTML.`);
   }
 
   const blocks = htmlToBlocks(rawHtml);
 
   if (blocks.length === 0) {
-    throw new Error("Night Prayer content parsed into zero renderable blocks.");
+    throw new Error(`${definition.label} content parsed into zero renderable blocks.`);
   }
 
   const sanitizedHtml = sanitizeHtml(rawHtml);
-  const subtitle = extractSubtitle(blocks);
+  const subtitle = extractSubtitle(blocks, definition.subtitlePrefix);
 
   return {
     payload: {
       prayer_date: date,
+      hour: definition.hour,
       source: SOURCE,
       source_url: sourceUrl,
       liturgical_day: jsonResult.day?.description ?? null,
-      title: nightPrayer.post_title ?? "Night Prayer",
+      title: hourPrayer.post_title ?? definition.postTitleFallback,
       subtitle,
       content_html: sanitizedHtml,
       content_json: {
@@ -326,7 +348,6 @@ async function buildNightPrayerPayload(date) {
       attribution_html: ATTRIBUTION_HTML,
       updated_at: new Date().toISOString(),
     },
-    responseShape: jsonResult.responseShape,
     parsing: {
       usedFallback,
       sourceUrl,
@@ -335,6 +356,44 @@ async function buildNightPrayerPayload(date) {
       subtitle,
     },
   };
+}
+
+async function buildAllHourResults(date) {
+  const jsonResult = await fetchJsonPrayer(date);
+  const hourResults = [];
+
+  for (const definition of HOUR_DEFINITIONS) {
+    const hourPrayer = extractHourPrayer(jsonResult.prayers, definition);
+
+    if (!hourPrayer) {
+      const reason = `${definition.label} not present in API response for this date.`;
+
+      if (definition.hour === "compline") {
+        throw new Error(
+          `No Night Prayer item found. Labels: ${jsonResult.responseShape.prayerLabels.join(", ")}`
+        );
+      }
+
+      hourResults.push({ hour: definition.hour, skipped: true, reason });
+      continue;
+    }
+
+    if (definition.hour === "compline") {
+      const built = await buildHourPayload(date, jsonResult, definition, hourPrayer);
+      hourResults.push({ hour: definition.hour, skipped: false, ...built });
+      continue;
+    }
+
+    try {
+      const built = await buildHourPayload(date, jsonResult, definition, hourPrayer);
+      hourResults.push({ hour: definition.hour, skipped: false, ...built });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      hourResults.push({ hour: definition.hour, skipped: true, reason: message });
+    }
+  }
+
+  return { jsonResult, hourResults };
 }
 
 function createSupabaseAdminClient() {
@@ -432,10 +491,13 @@ async function fetchExistingNightPrayerDates(supabase, dates) {
 async function importOneDate(date, { dryRun }) {
   assertIsoDate(date);
 
-  const result = await buildNightPrayerPayload(date);
+  const { jsonResult, hourResults } = await buildAllHourResults(date);
 
   if (!dryRun) {
-    await upsertPayload(result.payload);
+    for (const result of hourResults) {
+      if (result.skipped) continue;
+      await upsertPayload(result.payload);
+    }
   }
 
   console.log(
@@ -443,15 +505,20 @@ async function importOneDate(date, { dryRun }) {
       {
         status: dryRun ? "dry-run-ok" : "imported",
         date,
-        responseShape: result.responseShape,
-        parsing: result.parsing,
+        responseShape: jsonResult.responseShape,
+        hours: hourResults.map((result) => ({
+          hour: result.hour,
+          skipped: result.skipped,
+          reason: result.reason ?? null,
+          parsing: result.parsing ?? null,
+        })),
       },
       null,
       2
     )
   );
 
-  return result;
+  return { jsonResult, hourResults };
 }
 
 async function importAllActivePlan({ dryRun, force, delayMs }) {
@@ -489,16 +556,24 @@ async function importAllActivePlan({ dryRun, force, delayMs }) {
     const position = index + 1;
     try {
       console.log(`[${position}/${targetDates.length}] ${dryRun ? "Parsing" : "Importing"} ${date}`);
-      const result = await buildNightPrayerPayload(date);
+      const { hourResults } = await buildAllHourResults(date);
 
       if (!dryRun) {
-        await upsertPayload(result.payload);
+        for (const result of hourResults) {
+          if (result.skipped) continue;
+          await upsertPayload(result.payload);
+        }
       }
 
       imported += 1;
-      console.log(
-        `[${position}/${targetDates.length}] OK ${date} blocks=${result.parsing.blockCount} fallback=${result.parsing.usedFallback}`
-      );
+      const hourSummary = hourResults
+        .map((result) =>
+          result.skipped
+            ? `${result.hour}=skipped`
+            : `${result.hour}=ok(blocks=${result.parsing.blockCount},fallback=${result.parsing.usedFallback})`
+        )
+        .join(" ");
+      console.log(`[${position}/${targetDates.length}] OK ${date} ${hourSummary}`);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       failures.push({ date, message });
