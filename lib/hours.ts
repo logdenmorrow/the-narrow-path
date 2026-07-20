@@ -1,4 +1,4 @@
-export const VALID_HOURS = ["compline"] as const;
+export const VALID_HOURS = ["lauds", "vespers", "compline"] as const;
 
 export type LiturgicalHour = (typeof VALID_HOURS)[number];
 
@@ -7,10 +7,14 @@ export function isValidHour(value: string): value is LiturgicalHour {
 }
 
 const HOUR_DISPLAY_NAMES: Record<LiturgicalHour, string> = {
+  lauds: "Morning Prayer",
+  vespers: "Evening Prayer",
   compline: "Night Prayer",
 };
 
 const HOUR_KICKERS: Record<LiturgicalHour, string> = {
+  lauds: "Lauds",
+  vespers: "Vespers",
   compline: "Compline",
 };
 
