@@ -144,7 +144,7 @@ function getTaskSecondaryAction(
 
   if (slug === "night-prayer") {
     return {
-      href: `/night-prayer?day=${dayNumber}`,
+      href: `/hours/compline?day=${dayNumber}`,
       label: "Open Night Prayer",
       statusText: "Pray Compline",
     };
@@ -390,7 +390,7 @@ export default async function TodayPage({
     ] as const;
     const RESET_TASK_ROUTES: Record<string, string> = {
       rosary: "/rosary",
-      "night-prayer": "/night-prayer",
+      "night-prayer": "/hours/compline",
     };
 
     let resetOptionalTasks: TaskViewModel[] = [];

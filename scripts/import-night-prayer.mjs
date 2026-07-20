@@ -359,7 +359,7 @@ async function upsertPayload(payload) {
   const supabase = createSupabaseAdminClient();
   const { error } = await supabase
     .from("night_prayers")
-    .upsert(payload, { onConflict: "prayer_date" });
+    .upsert(payload, { onConflict: "prayer_date,hour" });
 
   if (error) {
     throw new Error(`Could not upsert night_prayers row: ${error.message}`);
