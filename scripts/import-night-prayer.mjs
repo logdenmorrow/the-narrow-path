@@ -34,6 +34,15 @@ const HOUR_DEFINITIONS = [
   },
 ];
 
+// Plans that have been split into per-Hour tasks use these slugs. The
+// legacy 'night-prayer' slug is kept in the lookup too, so this still works
+// for any plan (e.g. an inactive future plan) that hasn't been migrated to
+// the three-Hour task split yet.
+const HOUR_TASK_SLUGS = HOUR_DEFINITIONS.map(
+  (definition) => `liturgy-of-the-hours-${definition.hour}`
+);
+const ACTIVE_PLAN_TASK_SLUGS = [...HOUR_TASK_SLUGS, "night-prayer"];
+
 function loadLocalEnv() {
   const envPath = resolve(process.cwd(), ".env.local");
   if (!existsSync(envPath)) return;
@@ -444,27 +453,38 @@ async function fetchActivePlanNightPrayerDates(supabase) {
     throw new Error("No active challenge plan was found.");
   }
 
+  const { data: templateRows, error: templateError } = await supabase
+    .from("task_templates")
+    .select("id")
+    .in("slug", ACTIVE_PLAN_TASK_SLUGS);
+
+  if (templateError) {
+    throw new Error(`Could not read task_templates: ${templateError.message}`);
+  }
+
+  const templateIds = (templateRows ?? []).map((row) => row.id);
+
+  if (templateIds.length === 0) {
+    return { activePlan, dates: [] };
+  }
+
   const { data: rows, error: taskError } = await supabase
     .from("plan_day_tasks")
     .select(
       `
         day_date,
         plan_days!inner (
-          plan_id,
-          day_number
-        ),
-        task_templates!inner (
-          slug
+          plan_id
         )
       `
     )
     .eq("plan_days.plan_id", activePlan.id)
-    .eq("task_templates.slug", "night-prayer")
+    .in("task_template_id", templateIds)
     .not("day_date", "is", null)
     .order("day_date", { ascending: true });
 
   if (taskError) {
-    throw new Error(`Could not read active plan Night Prayer tasks: ${taskError.message}`);
+    throw new Error(`Could not read active plan Liturgy of the Hours tasks: ${taskError.message}`);
   }
 
   return {
@@ -473,19 +493,19 @@ async function fetchActivePlanNightPrayerDates(supabase) {
   };
 }
 
-async function fetchExistingNightPrayerDates(supabase, dates) {
+async function fetchExistingNightPrayerHourPairs(supabase, dates) {
   if (dates.length === 0) return new Set();
 
   const { data, error } = await supabase
     .from("night_prayers")
-    .select("prayer_date")
+    .select("prayer_date, hour")
     .in("prayer_date", dates);
 
   if (error) {
     throw new Error(`Could not read existing night_prayers rows: ${error.message}`);
   }
 
-  return new Set((data ?? []).map((row) => row.prayer_date));
+  return new Set((data ?? []).map((row) => `${row.prayer_date}|${row.hour}`));
 }
 
 async function importOneDate(date, { dryRun }) {
@@ -524,11 +544,12 @@ async function importOneDate(date, { dryRun }) {
 async function importAllActivePlan({ dryRun, force, delayMs }) {
   const supabase = createSupabaseAdminClient();
   const { activePlan, dates } = await fetchActivePlanNightPrayerDates(supabase);
-  const existingDates = await fetchExistingNightPrayerDates(supabase, dates);
-  const targetDates = force ? dates : dates.filter((date) => !existingDates.has(date));
-  const skippedDates = force ? [] : dates.filter((date) => existingDates.has(date));
+  const existingHourPairs = await fetchExistingNightPrayerHourPairs(supabase, dates);
   const failures = [];
-  let imported = 0;
+  let datesProcessed = 0;
+  let hoursImported = 0;
+  let hoursSkippedExisting = 0;
+  let hoursUnavailable = 0;
 
   console.log(
     JSON.stringify(
@@ -541,9 +562,7 @@ async function importAllActivePlan({ dryRun, force, delayMs }) {
           totalDays: activePlan.total_days,
         },
         totalDates: dates.length,
-        existingDates: existingDates.size,
-        skippedExisting: skippedDates.length,
-        toProcess: targetDates.length,
+        existingHourPairs: existingHourPairs.size,
         force,
         delayMs,
       },
@@ -552,35 +571,46 @@ async function importAllActivePlan({ dryRun, force, delayMs }) {
     )
   );
 
-  for (const [index, date] of targetDates.entries()) {
+  for (const [index, date] of dates.entries()) {
     const position = index + 1;
     try {
-      console.log(`[${position}/${targetDates.length}] ${dryRun ? "Parsing" : "Importing"} ${date}`);
+      console.log(`[${position}/${dates.length}] ${dryRun ? "Parsing" : "Importing"} ${date}`);
       const { hourResults } = await buildAllHourResults(date);
+      const hourSummaryParts = [];
 
-      if (!dryRun) {
-        for (const result of hourResults) {
-          if (result.skipped) continue;
+      for (const result of hourResults) {
+        if (result.skipped) {
+          hoursUnavailable += 1;
+          hourSummaryParts.push(`${result.hour}=unavailable`);
+          continue;
+        }
+
+        const alreadyImported = existingHourPairs.has(`${date}|${result.hour}`);
+        if (!force && alreadyImported) {
+          hoursSkippedExisting += 1;
+          hourSummaryParts.push(`${result.hour}=already-imported`);
+          continue;
+        }
+
+        if (!dryRun) {
           await upsertPayload(result.payload);
         }
+
+        hoursImported += 1;
+        hourSummaryParts.push(
+          `${result.hour}=${dryRun ? "would-import" : "ok"}(blocks=${result.parsing.blockCount},fallback=${result.parsing.usedFallback})`
+        );
       }
 
-      imported += 1;
-      const hourSummary = hourResults
-        .map((result) =>
-          result.skipped
-            ? `${result.hour}=skipped`
-            : `${result.hour}=ok(blocks=${result.parsing.blockCount},fallback=${result.parsing.usedFallback})`
-        )
-        .join(" ");
-      console.log(`[${position}/${targetDates.length}] OK ${date} ${hourSummary}`);
+      datesProcessed += 1;
+      console.log(`[${position}/${dates.length}] OK ${date} ${hourSummaryParts.join(" ")}`);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       failures.push({ date, message });
-      console.error(`[${position}/${targetDates.length}] FAILED ${date}: ${message}`);
+      console.error(`[${position}/${dates.length}] FAILED ${date}: ${message}`);
     }
 
-    if (position < targetDates.length) {
+    if (position < dates.length) {
       await sleep(delayMs);
     }
   }
@@ -589,8 +619,10 @@ async function importAllActivePlan({ dryRun, force, delayMs }) {
     status: failures.length > 0 ? "bulk-completed-with-failures" : "bulk-completed",
     mode: dryRun ? "dry-run" : "import",
     totalDates: dates.length,
-    skippedExisting: skippedDates.length,
-    imported,
+    datesProcessed,
+    hoursImported,
+    hoursSkippedExisting,
+    hoursUnavailable,
     failed: failures.length,
     failedDates: failures.map((failure) => failure.date),
   };
