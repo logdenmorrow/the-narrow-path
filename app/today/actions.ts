@@ -21,7 +21,7 @@ function revalidateAccountabilityPaths() {
   revalidatePath("/today");
   revalidatePath("/challenge-feedback");
   revalidatePath("/daily-reading");
-  revalidatePath("/night-prayer");
+  revalidatePath("/hours");
   revalidatePath("/this-week");
   revalidatePath("/brotherhood");
   revalidatePath("/dashboard");

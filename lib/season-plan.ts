@@ -173,7 +173,7 @@ export const AUGUST_JAMES_PLAN: AugustJamesPlan = {
     "Confession required once in August",
   ],
   optional: [
-    "Night Prayer",
+    "Liturgy of the Hours",
     "Rosary",
     "Workout",
     "Anchor Check-In",
