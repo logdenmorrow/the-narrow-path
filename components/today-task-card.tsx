@@ -21,6 +21,7 @@ type TodayTaskCardProps = {
   locked: boolean;
   lockedLabel?: string;
   toggleDisabled?: boolean;
+  hideToggle?: boolean;
   planSlug?: string;
   secondaryAction?: {
     href: string;
@@ -53,6 +54,7 @@ export function TodayTaskCard({
   locked,
   lockedLabel,
   toggleDisabled = false,
+  hideToggle = false,
   planSlug,
   secondaryAction,
 }: TodayTaskCardProps) {
@@ -147,64 +149,64 @@ export function TodayTaskCard({
     }
   };
 
-  return (
-    <form
-      ref={formRef}
-      action={submitTask}
-      onClick={(event) => {
-        if (isBusy) return;
+  const handleRowClick = (event: React.MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (target.closest(INTERACTIVE_TARGET_SELECTOR)) return;
 
-        const target = event.target as HTMLElement;
-        if (target.closest(INTERACTIVE_TARGET_SELECTOR)) return;
+    if (hideToggle) {
+      if (secondaryAction) {
+        router.push(secondaryAction.href);
+      }
+      return;
+    }
 
-        formRef.current?.requestSubmit();
-      }}
-      className="group"
+    if (isBusy) return;
+    formRef.current?.requestSubmit();
+  };
+
+  const cardBody = (
+    <TaskCard
+      className={`p-4 transition duration-200 ${
+        optimisticCompleted
+          ? "border-[rgba(86,124,102,0.45)] bg-[rgba(151,186,164,0.09)]"
+          : "hover:border-[color:var(--line-strong)] hover:bg-[color:var(--surface-2)]"
+      } active:scale-[0.99]`}
     >
-      <input type="hidden" name="planDayTaskId" value={planDayTaskId} />
-      {planSlug ? <input type="hidden" name="planSlug" value={planSlug} /> : null}
+      <div className="flex items-start justify-between gap-3 sm:gap-4">
+        <div className="min-w-0 space-y-2.5 sm:space-y-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <h3
+              className={`text-[0.95rem] font-semibold sm:text-lg ${
+                optimisticCompleted
+                  ? "text-[#5d725f] dark:text-[#a7ccb9]"
+                  : "text-monastic-0"
+              }`}
+            >
+              {title}
+            </h3>
 
-      <TaskCard
-        className={`p-4 transition duration-200 ${
-          optimisticCompleted
-            ? "border-[rgba(86,124,102,0.45)] bg-[rgba(151,186,164,0.09)]"
-            : "hover:border-[color:var(--line-strong)] hover:bg-[color:var(--surface-2)]"
-        } active:scale-[0.99]`}
-      >
-        <div className="flex items-start justify-between gap-3 sm:gap-4">
-          <div className="min-w-0 space-y-2.5 sm:space-y-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <h3
-                className={`text-[0.95rem] font-semibold sm:text-lg ${
-                  optimisticCompleted
-                    ? "text-[#5d725f] dark:text-[#a7ccb9]"
-                    : "text-monastic-0"
-                }`}
-              >
-                {title}
-              </h3>
-
-              {statusPill ? (
-                <StatusPill tone={statusPill.tone}>{statusPill.label}</StatusPill>
-              ) : null}
-              {progressLabel ? (
-                <StatusPill tone="progress">{progressLabel}</StatusPill>
-              ) : null}
-            </div>
-
-            {note ? (
-              <p
-                className={`text-sm leading-6 ${
-                  optimisticCompleted
-                    ? "text-[#6f776d] dark:text-[#c2b49c]"
-                    : "text-monastic-1"
-                }`}
-              >
-                {note}
-              </p>
+            {statusPill ? (
+              <StatusPill tone={statusPill.tone}>{statusPill.label}</StatusPill>
+            ) : null}
+            {progressLabel ? (
+              <StatusPill tone="progress">{progressLabel}</StatusPill>
             ) : null}
           </div>
 
+          {note ? (
+            <p
+              className={`text-sm leading-6 ${
+                optimisticCompleted
+                  ? "text-[#6f776d] dark:text-[#c2b49c]"
+                  : "text-monastic-1"
+              }`}
+            >
+              {note}
+            </p>
+          ) : null}
+        </div>
+
+        {!hideToggle && (
           <Button
             type="submit"
             disabled={isBusy}
@@ -232,36 +234,58 @@ export function TodayTaskCard({
               )}
             </span>
           </Button>
-        </div>
+        )}
+      </div>
 
-        <TaskCardMeta className="mt-2.5 justify-between gap-2.5 sm:mt-3 sm:gap-3">
-          <span
-            className={
-              errorMessage
-                ? "normal-case tracking-normal text-sm leading-6 text-destructive"
-                : undefined
-            }
-          >
-            {errorMessage
-              ? errorMessage
-              : isSubmitting
-                ? "Saving..."
-                : locked
-                  ? lockedLabel ?? "Locked"
-                  : secondaryAction
-                    ? secondaryAction.statusText ?? "Open related page"
-                    : optimisticCompleted
-                      ? "Completed"
-                      : "Mark complete"}
-          </span>
+      <TaskCardMeta className="mt-2.5 justify-between gap-2.5 sm:mt-3 sm:gap-3">
+        <span
+          className={
+            errorMessage
+              ? "normal-case tracking-normal text-sm leading-6 text-destructive"
+              : undefined
+          }
+        >
+          {errorMessage
+            ? errorMessage
+            : isSubmitting
+              ? "Saving..."
+              : locked
+                ? lockedLabel ?? "Locked"
+                : secondaryAction
+                  ? secondaryAction.statusText ?? "Open related page"
+                  : optimisticCompleted
+                    ? "Completed"
+                    : "Mark complete"}
+        </span>
 
-          {secondaryAction && !locked ? (
-            <Button asChild variant="secondary" size="xs">
-              <Link href={secondaryAction.href}>{secondaryAction.label}</Link>
-            </Button>
-          ) : null}
-        </TaskCardMeta>
-      </TaskCard>
+        {secondaryAction && !locked ? (
+          <Button asChild variant="secondary" size="xs">
+            <Link href={secondaryAction.href}>{secondaryAction.label}</Link>
+          </Button>
+        ) : null}
+      </TaskCardMeta>
+    </TaskCard>
+  );
+
+  if (hideToggle) {
+    return (
+      <div className="group" onClick={handleRowClick}>
+        {cardBody}
+      </div>
+    );
+  }
+
+  return (
+    <form
+      ref={formRef}
+      action={submitTask}
+      onClick={handleRowClick}
+      className="group"
+    >
+      <input type="hidden" name="planDayTaskId" value={planDayTaskId} />
+      {planSlug ? <input type="hidden" name="planSlug" value={planSlug} /> : null}
+
+      {cardBody}
     </form>
   );
 }

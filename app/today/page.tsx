@@ -105,6 +105,10 @@ function filterTasksForTrack(tasks: PlanDayTaskRecord[], track: Track) {
   return tasks.filter((task) => isVisibleForTrack(getTaskAudience(task), track));
 }
 
+function isLiturgyOfTheHoursSlug(slug: string) {
+  return slug.startsWith("liturgy-of-the-hours-");
+}
+
 function getTaskSecondaryAction(
   slug: string,
   dayNumber: number,
@@ -150,7 +154,7 @@ function getTaskSecondaryAction(
     };
   }
 
-  if (slug === "liturgy-of-the-hours") {
+  if (isLiturgyOfTheHoursSlug(slug)) {
     return {
       href: "/hours",
       label: "Open Prayer",
@@ -392,13 +396,13 @@ export default async function TodayPage({
 
     const RESET_OPTIONAL_TASK_SLUGS = [
       "rosary",
-      "liturgy-of-the-hours",
+      "liturgy-of-the-hours-lauds",
       "adoration",
       "attend_mass",
     ] as const;
     const RESET_TASK_ROUTES: Record<string, string> = {
       rosary: "/rosary",
-      "liturgy-of-the-hours": "/hours",
+      "liturgy-of-the-hours-lauds": "/hours",
     };
 
     let resetOptionalTasks: TaskViewModel[] = [];
@@ -632,12 +636,17 @@ export default async function TodayPage({
                     <TodayTaskCard
                       key={task.id}
                       planDayTaskId={task.id}
-                      title={task.title}
+                      title={
+                        isLiturgyOfTheHoursSlug(task.slug)
+                          ? "Liturgy of the Hours"
+                          : task.title
+                      }
                       note={task.note}
                       isRequired={false}
                       isOptional={true}
                       completed={task.isCompleted}
                       locked={false}
+                      hideToggle={isLiturgyOfTheHoursSlug(task.slug)}
                       planSlug={currentPlanSlug}
                       secondaryAction={
                         route
@@ -1358,6 +1367,7 @@ export default async function TodayPage({
                         completed={task.isCompleted}
                         locked={!canEditSelectedDay}
                         lockedLabel={lockLabel}
+                        hideToggle={isLiturgyOfTheHoursSlug(task.slug)}
                         planSlug={currentPlanSlug}
                         secondaryAction={getTaskSecondaryAction(
                           task.slug,

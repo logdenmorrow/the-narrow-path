@@ -21,6 +21,7 @@ import {
   getDefaultHour,
   getHourDisplayName,
   getHourKicker,
+  getHourTaskSlug,
   isValidHour,
   type LiturgicalHour,
 } from "@/lib/hours";
@@ -583,9 +584,10 @@ export default async function LiturgicalHourPage({
     .eq("plan_day_id", planDay.id);
 
   const typedTaskRows = (taskRows ?? []) as HourTaskRow[];
+  const hourTaskSlug = getHourTaskSlug(hour);
   const hourTask =
     typedTaskRows.find(
-      (task) => normalizeTaskTemplate(task.task_templates).slug === "liturgy-of-the-hours"
+      (task) => normalizeTaskTemplate(task.task_templates).slug === hourTaskSlug
     ) ??
     typedTaskRows.find(
       (task) => normalizeTaskTemplate(task.task_templates).slug === "night-prayer"
