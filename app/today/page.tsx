@@ -150,6 +150,14 @@ function getTaskSecondaryAction(
     };
   }
 
+  if (slug === "liturgy-of-the-hours") {
+    return {
+      href: "/hours",
+      label: "Open Prayer",
+      statusText: "Liturgy of the Hours",
+    };
+  }
+
   if (slug === "rosary") {
     return {
       href: `/rosary?day=${dayNumber}`,
@@ -384,13 +392,13 @@ export default async function TodayPage({
 
     const RESET_OPTIONAL_TASK_SLUGS = [
       "rosary",
-      "night-prayer",
+      "liturgy-of-the-hours",
       "adoration",
       "attend_mass",
     ] as const;
     const RESET_TASK_ROUTES: Record<string, string> = {
       rosary: "/rosary",
-      "night-prayer": "/hours/compline",
+      "liturgy-of-the-hours": "/hours",
     };
 
     let resetOptionalTasks: TaskViewModel[] = [];
@@ -638,11 +646,11 @@ export default async function TodayPage({
                               label:
                                 task.slug === "rosary"
                                   ? "Guided Rosary"
-                                  : "Open Night Prayer",
+                                  : "Open Prayer",
                               statusText:
                                 task.slug === "rosary"
                                   ? "Open prayer guide"
-                                  : "Pray Compline",
+                                  : "Liturgy of the Hours",
                             }
                           : undefined
                       }
@@ -691,7 +699,7 @@ export default async function TodayPage({
                 <SurfaceInset>
                   <div className="section-kicker">Optional</div>
                   <p className="mt-2 text-lg font-semibold text-monastic-0">
-                    Night Prayer
+                    Liturgy of the Hours
                   </p>
                 </SurfaceInset>
                 <SurfaceInset>

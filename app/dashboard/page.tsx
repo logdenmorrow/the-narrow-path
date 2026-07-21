@@ -428,8 +428,8 @@ export default async function DashboardPage({
                 >
                   {communityName}
                 </QuickAccessTile>
-                <QuickAccessTile href="/night-prayer">
-                  Night Prayer
+                <QuickAccessTile href="/hours">
+                  Liturgy of the Hours
                 </QuickAccessTile>
                 <QuickAccessTile
                   href={buildPlanDayHref(
