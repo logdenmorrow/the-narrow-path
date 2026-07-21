@@ -31,3 +31,13 @@ export function getHourKicker(hour: LiturgicalHour): string {
 export function getDefaultHour(): LiturgicalHour {
   return "compline";
 }
+
+const HOUR_TASK_SLUGS: Record<LiturgicalHour, string> = {
+  lauds: "liturgy-of-the-hours-lauds",
+  vespers: "liturgy-of-the-hours-vespers",
+  compline: "liturgy-of-the-hours-compline",
+};
+
+export function getHourTaskSlug(hour: LiturgicalHour): string {
+  return HOUR_TASK_SLUGS[hour];
+}
