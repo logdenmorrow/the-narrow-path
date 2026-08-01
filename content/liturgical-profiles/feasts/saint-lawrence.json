@@ -1,0 +1,62 @@
+{
+  "slug": "saint-lawrence",
+  "type": "feast",
+  "title": "Saint Lawrence, Deacon and Martyr",
+  "short_summary": "Saint Lawrence, a deacon of Rome martyred in 258, is remembered for his service to the poor and his steadfast witness to Christ under persecution.",
+  "key_facts": [
+    "The U.S. calendar keeps his feast on August 10.",
+    "The liturgical color is red.",
+    "He served as one of the seven deacons of Rome under Pope Saint Sixtus II.",
+    "He was martyred in 258 during the persecution of Emperor Valerian, days after Pope Sixtus II.",
+    "As a deacon, he was entrusted with the Church's charitable goods and care for the poor.",
+    "He has been venerated in Rome since ancient times, among the most honored martyrs of the early Church."
+  ],
+  "sections": [
+    {
+      "heading": "A deacon entrusted with the poor",
+      "body": "As one of Rome's seven deacons, Lawrence administered the Church's material goods and care for the poor. Ancient tradition holds that when Roman authorities demanded the Church's treasures, Lawrence presented the poor of the city, saying they were the Church's true riches."
+    },
+    {
+      "heading": "Martyrdom under Valerian",
+      "body": "Lawrence was martyred in Rome in 258, in the same persecution that claimed Pope Sixtus II days earlier. Ancient accounts, recorded by Saint Ambrose among others, describe the manner of his death, though some narrative details reflect the conventions of early martyr accounts and should be read with appropriate historical care."
+    },
+    {
+      "heading": "Among Rome's most honored martyrs",
+      "body": "The Church in Rome venerated Lawrence from a very early date, and his feast has long ranked among the most solemn of martyr commemorations, comparable in ancient practice to the feasts of the apostles."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "The poor as the Church's treasure",
+      "body": "Lawrence's witness ties the diaconate's charitable service to the poor directly to fidelity to Christ, showing that care for the poor is not incidental to the Church's mission but central to it."
+    },
+    {
+      "heading": "Fidelity under pressure",
+      "body": "Red marks his feast as a martyr's witness. Lawrence's steadfastness under persecution points the Church back to Christ's own suffering and the courage his grace makes possible."
+    }
+  ],
+  "historical_cautions": [
+    "Ancient accounts of the specific manner of Lawrence's execution, including the tradition of the gridiron, come from later martyr narratives and should be received as venerable tradition rather than as verified historical detail."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Lawrence."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-10",
+      "url": "https://bible.usccb.org/bible/readings/081026.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Benedict XVI Pastoral Visit: Basilica of Saint Lawrence Outside the Walls",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/homilies/2008/documents/hf_ben-xvi_hom_20081130_san-lorenzo.html",
+      "note": "Catholic reflection on Lawrence's diaconal service and martyrdom, given at his own basilica."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Lawrence's diaconal ministry and martyrdom with appropriate historical care around the ancient gridiron tradition, and is suitable for publication."
+  }
+}

@@ -8,14 +8,25 @@ import saintThomasApostleProfile from "@/content/liturgical-profiles/feasts/sain
 import ourLadyOfMountCarmelProfile from "@/content/liturgical-profiles/other/our-lady-of-mount-carmel.json";
 import saintBarnabasProfile from "@/content/liturgical-profiles/saints/saint-barnabas.json";
 import saintBenedictProfile from "@/content/liturgical-profiles/saints/saint-benedict.json";
+import saintBernardProfile from "@/content/liturgical-profiles/saints/saint-bernard.json";
 import saintBonaventureProfile from "@/content/liturgical-profiles/saints/saint-bonaventure.json";
+import saintClareProfile from "@/content/liturgical-profiles/saints/saint-clare.json";
 import saintIgnatiusOfLoyolaProfile from "@/content/liturgical-profiles/saints/saint-ignatius-of-loyola.json";
+import saintJohnVianneyProfile from "@/content/liturgical-profiles/saints/saint-john-vianney.json";
 import saintKateriTekakwithaProfile from "@/content/liturgical-profiles/saints/saint-kateri-tekakwitha.json";
+import saintMaximilianKolbeProfile from "@/content/liturgical-profiles/saints/saint-maximilian-kolbe.json";
+import saintMonicaProfile from "@/content/liturgical-profiles/saints/saint-monica.json";
 import saintsJoachimAndAnneProfile from "@/content/liturgical-profiles/saints/saints-joachim-and-anne.json";
 import saintsMarthaMaryAndLazarusProfile from "@/content/liturgical-profiles/saints/saints-martha-mary-and-lazarus.json";
+import assumptionOfTheBlessedVirginMaryProfile from "@/content/liturgical-profiles/solemnities/assumption-of-the-blessed-virgin-mary.json";
 import nativityOfSaintJohnTheBaptistProfile from "@/content/liturgical-profiles/solemnities/nativity-of-saint-john-the-baptist.json";
 import sacredHeartOfJesusProfile from "@/content/liturgical-profiles/solemnities/sacred-heart-of-jesus.json";
 import saintsPeterAndPaulProfile from "@/content/liturgical-profiles/solemnities/saints-peter-and-paul.json";
+import transfigurationOfTheLordProfile from "@/content/liturgical-profiles/feasts/transfiguration-of-the-lord.json";
+import saintLawrenceProfile from "@/content/liturgical-profiles/feasts/saint-lawrence.json";
+import saintBartholomewApostleProfile from "@/content/liturgical-profiles/feasts/saint-bartholomew-apostle.json";
+import saintAugustineProfile from "@/content/liturgical-profiles/feasts/saint-augustine.json";
+import passionOfSaintJohnTheBaptistProfile from "@/content/liturgical-profiles/feasts/passion-of-saint-john-the-baptist.json";
 import blessedDianaAndCeciliaProfile from "@/content/liturgical-profiles/dominican/blessed-diana-and-cecilia.json";
 import blessedVirginMaryOfTheRosaryProfile from "@/content/liturgical-profiles/dominican/blessed-virgin-mary-of-the-rosary.json";
 import saintAlbertTheGreatProfile from "@/content/liturgical-profiles/dominican/saint-albert-the-great.json";
@@ -152,14 +163,25 @@ const profilesBySlug = new Map(
       ourLadyOfMountCarmelProfile,
       saintBarnabasProfile,
       saintBenedictProfile,
+      saintBernardProfile,
       saintBonaventureProfile,
+      saintClareProfile,
       saintIgnatiusOfLoyolaProfile,
+      saintJohnVianneyProfile,
       saintKateriTekakwithaProfile,
+      saintMaximilianKolbeProfile,
+      saintMonicaProfile,
       saintsJoachimAndAnneProfile,
       saintsMarthaMaryAndLazarusProfile,
+      assumptionOfTheBlessedVirginMaryProfile,
       nativityOfSaintJohnTheBaptistProfile,
       sacredHeartOfJesusProfile,
       saintsPeterAndPaulProfile,
+      transfigurationOfTheLordProfile,
+      saintLawrenceProfile,
+      saintBartholomewApostleProfile,
+      saintAugustineProfile,
+      passionOfSaintJohnTheBaptistProfile,
       blessedDianaAndCeciliaProfile,
       blessedVirginMaryOfTheRosaryProfile,
       saintAlbertTheGreatProfile,
