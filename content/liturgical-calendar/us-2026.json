@@ -1364,6 +1364,10 @@
     "summary": "The Church honors Saint Alphonsus Liguori, bishop, Doctor of the Church, and moral theologian.",
     "description": "The U.S. calendar keeps Saint Alphonsus Liguori as a memorial at the close of the Seventeenth Week in Ordinary Time.",
     "catholic_connection": "White is used for saints who were not martyrs and points to holiness in Christ. Alphonsus's memory highlights pastoral wisdom and mercy.",
+    "profile_slug": "saint-alphonsus-liguori",
+    "profile_type": "saint",
+    "calendar_scope": "universal",
+    "is_optional": false,
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",
@@ -1404,6 +1408,28 @@
     "summary": "The Church keeps a weekday in Ordinary Time, with optional memorials available.",
     "description": "The Church permits the Optional Memorial of Saint Eusebius of Vercelli, Bishop, or the Optional Memorial of Saint Peter Julian Eymard, Priest.",
     "catholic_connection": "The weekday remains Ordinary Time unless an optional memorial is chosen; white is used for these optional observances.",
+    "related_observances": [
+      {
+        "title": "Saint Eusebius of Vercelli, Bishop",
+        "rank": "Optional Memorial",
+        "liturgical_color": "White",
+        "profile_slug": "saint-eusebius-of-vercelli",
+        "profile_type": "saint",
+        "calendar_scope": "universal",
+        "relation": "optional_memorial",
+        "summary": "The Church permits the Optional Memorial of Saint Eusebius of Vercelli on this weekday; it is available as an optional observance and does not replace the primary weekday entry."
+      },
+      {
+        "title": "Saint Peter Julian Eymard, Priest",
+        "rank": "Optional Memorial",
+        "liturgical_color": "White",
+        "profile_slug": "saint-peter-julian-eymard",
+        "profile_type": "saint",
+        "calendar_scope": "universal",
+        "relation": "optional_memorial",
+        "summary": "The Church permits the Optional Memorial of Saint Peter Julian Eymard on this weekday; it is available as an optional observance and does not replace the primary weekday entry."
+      }
+    ],
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",
@@ -1448,6 +1474,18 @@
     "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
     "description": "The U.S. calendar permits the Optional Memorial of the Dedication of the Basilica of Saint Mary Major.",
     "catholic_connection": "The weekday remains Ordinary Time unless the optional memorial is chosen. Marian devotion and church dedications both point back to Christ and the worship of God.",
+    "related_observances": [
+      {
+        "title": "Dedication of the Basilica of Saint Mary Major",
+        "rank": "Optional Memorial",
+        "liturgical_color": "White",
+        "profile_slug": "dedication-of-the-basilica-of-saint-mary-major",
+        "profile_type": "feast",
+        "calendar_scope": "universal",
+        "relation": "optional_memorial",
+        "summary": "The Church permits the Optional Memorial of the Dedication of the Basilica of Saint Mary Major on this weekday; it is available as an optional observance and does not replace the primary weekday entry."
+      }
+    ],
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",
@@ -1492,6 +1530,28 @@
     "summary": "The Church keeps a weekday in Ordinary Time, with optional memorials available.",
     "description": "The U.S. calendar permits the Optional Memorial of Saint Sixtus II, Pope, and Companions, Martyrs, or the Optional Memorial of Saint Cajetan, Priest.",
     "catholic_connection": "The weekday remains Ordinary Time unless an optional memorial is chosen; red may be used for martyrs and white for priests who were not martyrs.",
+    "related_observances": [
+      {
+        "title": "Saint Sixtus II, Pope, and Companions, Martyrs",
+        "rank": "Optional Memorial",
+        "liturgical_color": "Red",
+        "profile_slug": "saint-sixtus-ii-and-companions",
+        "profile_type": "saint",
+        "calendar_scope": "universal",
+        "relation": "optional_memorial",
+        "summary": "The Church permits the Optional Memorial of Saint Sixtus II and Companions on this weekday; it is available as an optional observance and does not replace the primary weekday entry."
+      },
+      {
+        "title": "Saint Cajetan, Priest",
+        "rank": "Optional Memorial",
+        "liturgical_color": "White",
+        "profile_slug": "saint-cajetan",
+        "profile_type": "saint",
+        "calendar_scope": "universal",
+        "relation": "optional_memorial",
+        "summary": "The Church permits the Optional Memorial of Saint Cajetan on this weekday; it is available as an optional observance and does not replace the primary weekday entry."
+      }
+    ],
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",
@@ -1604,6 +1664,18 @@
     "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
     "description": "The U.S. calendar permits the Optional Memorial of Saint Jane Frances de Chantal, Religious.",
     "catholic_connection": "Green marks the weekday in Ordinary Time; white may be used if the optional memorial is observed.",
+    "related_observances": [
+      {
+        "title": "Saint Jane Frances de Chantal, Religious",
+        "rank": "Optional Memorial",
+        "liturgical_color": "White",
+        "profile_slug": "saint-jane-frances-de-chantal",
+        "profile_type": "saint",
+        "calendar_scope": "universal",
+        "relation": "optional_memorial",
+        "summary": "The Church permits the Optional Memorial of Saint Jane Frances de Chantal on this weekday; it is available as an optional observance and does not replace the primary weekday entry."
+      }
+    ],
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",
@@ -1624,6 +1696,18 @@
     "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
     "description": "The U.S. calendar permits the Optional Memorial of Saints Pontian, Pope, and Hippolytus, Priest, Martyrs.",
     "catholic_connection": "The weekday remains Ordinary Time unless the optional memorial is chosen; red may be used for martyrs.",
+    "related_observances": [
+      {
+        "title": "Saints Pontian, Pope, and Hippolytus, Priest, Martyrs",
+        "rank": "Optional Memorial",
+        "liturgical_color": "Red",
+        "profile_slug": "saints-pontian-and-hippolytus",
+        "profile_type": "saint",
+        "calendar_scope": "universal",
+        "relation": "optional_memorial",
+        "summary": "The Church permits the Optional Memorial of Saints Pontian and Hippolytus on this weekday; it is available as an optional observance and does not replace the primary weekday entry."
+      }
+    ],
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",
@@ -1752,6 +1836,18 @@
     "summary": "The Church keeps a weekday in Ordinary Time, with an optional memorial available.",
     "description": "The Church permits the Optional Memorial of Saint John Eudes, Priest.",
     "catholic_connection": "Green marks the weekday in Ordinary Time; white may be used if the optional memorial is observed.",
+    "related_observances": [
+      {
+        "title": "Saint John Eudes, Priest",
+        "rank": "Optional Memorial",
+        "liturgical_color": "White",
+        "profile_slug": "saint-john-eudes",
+        "profile_type": "saint",
+        "calendar_scope": "universal",
+        "relation": "optional_memorial",
+        "summary": "The Church permits the Optional Memorial of Saint John Eudes on this weekday; it is available as an optional observance and does not replace the primary weekday entry."
+      }
+    ],
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",
@@ -1796,6 +1892,10 @@
     "summary": "The Church honors Saint Pius X, pope and reformer of the sacramental and liturgical life of the faithful.",
     "description": "The U.S. calendar keeps Saint Pius X, Pope, as a memorial.",
     "catholic_connection": "White is used for saints who were not martyrs. His memorial points to pastoral reform ordered toward frequent and worthy reception of the Eucharist.",
+    "profile_slug": "saint-pius-x",
+    "profile_type": "saint",
+    "calendar_scope": "universal",
+    "is_optional": false,
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",
@@ -1816,6 +1916,10 @@
     "summary": "The Church honors Mary's queenship, which flows from her Son's kingship and her unique share in his life.",
     "description": "The U.S. calendar keeps the Queenship of the Blessed Virgin Mary as a memorial, observed a week after the Assumption.",
     "catholic_connection": "White is used for Marian celebrations. Mary's queenship is entirely dependent on Christ the King and does not stand apart from him.",
+    "profile_slug": "queenship-of-the-blessed-virgin-mary",
+    "profile_type": "other",
+    "calendar_scope": "universal",
+    "is_optional": false,
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",
@@ -1880,6 +1984,28 @@
     "summary": "The Church keeps a weekday in Ordinary Time, with optional memorials available.",
     "description": "The Church permits the Optional Memorial of Saint Louis, or the Optional Memorial of Saint Joseph Calasanz, Priest.",
     "catholic_connection": "The weekday remains Ordinary Time unless an optional memorial is chosen; white is used for these optional observances.",
+    "related_observances": [
+      {
+        "title": "Saint Louis",
+        "rank": "Optional Memorial",
+        "liturgical_color": "White",
+        "profile_slug": "saint-louis",
+        "profile_type": "saint",
+        "calendar_scope": "universal",
+        "relation": "optional_memorial",
+        "summary": "The Church permits the Optional Memorial of Saint Louis on this weekday; it is available as an optional observance and does not replace the primary weekday entry."
+      },
+      {
+        "title": "Saint Joseph Calasanz, Priest",
+        "rank": "Optional Memorial",
+        "liturgical_color": "White",
+        "profile_slug": "saint-joseph-calasanz",
+        "profile_type": "saint",
+        "calendar_scope": "universal",
+        "relation": "optional_memorial",
+        "summary": "The Church permits the Optional Memorial of Saint Joseph Calasanz on this weekday; it is available as an optional observance and does not replace the primary weekday entry."
+      }
+    ],
     "sources": [
       {
         "label": "USCCB 2026 Liturgical Calendar",

@@ -1,0 +1,64 @@
+{
+  "slug": "saint-pius-x",
+  "type": "saint",
+  "title": "Saint Pius X, Pope",
+  "short_summary": "Saint Pius X was an Italian pope known for promoting frequent Communion, strengthening catechesis, and reforming the governance and worship of the Church.",
+  "key_facts": [
+    "The U.S. calendar keeps his memorial on August 21.",
+    "The liturgical color is white.",
+    "He was born Giuseppe Sarto in 1835 in northern Italy and served as a parish priest and bishop before his election as pope in 1903.",
+    "He promoted frequent reception of Holy Communion and lowered the age for children to receive First Communion.",
+    "He began the work that led to the first Code of Canon Law and strengthened the training of clergy in catechesis.",
+    "He died in 1914 and was canonized in 1954."
+  ],
+  "sections": [
+    {
+      "heading": "From parish priest to pope",
+      "body": "Giuseppe Sarto served for years as a parish priest and later a bishop in northern Italy before his election as Pope Pius X in 1903. His pastoral experience shaped a pontificate concerned above all with the ordinary spiritual life of the faithful."
+    },
+    {
+      "heading": "Frequent Communion and catechesis",
+      "body": "Pius X encouraged frequent, even daily, reception of Holy Communion and lowered the age at which children could receive their First Communion to the age of reason. He also worked to strengthen catechetical instruction throughout the Church."
+    },
+    {
+      "heading": "Reform of Church governance and worship",
+      "body": "His pontificate began the process that produced the first Code of Canon Law, reorganized the Roman Curia, and promoted the restoration of Gregorian chant in the liturgy. He also opposed theological positions he judged to undermine the Church's teaching authority."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "The Eucharist at the center",
+      "body": "Pius X's promotion of frequent Communion reflects the conviction that the Eucharist is meant to be the ordinary nourishment of Christian life, not a rare or distant reception."
+    },
+    {
+      "heading": "Formation of the faithful",
+      "body": "His attention to catechesis points to the Church's continuing responsibility to teach the faith clearly to children and adults alike."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Pius X."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-21",
+      "url": "https://bible.usccb.org/bible/readings/082126.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Catholic Encyclopedia: Pope Pius X",
+      "url": "https://www.newadvent.org/cathen/12137a.htm",
+      "note": "Biographical reference for his pontificate and reforms."
+    },
+    {
+      "label": "Benedict XVI General Audience: Saint Pius X",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2010/documents/hf_ben-xvi_aud_20100818.html",
+      "note": "Catholic reflection on Pius X's pastoral reforms and promotion of frequent Communion."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Pius X's pastoral reforms, promotion of frequent Communion, and catechetical work in a Catholic and publication-safe way."
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "slug": "saint-louis",
+  "type": "saint",
+  "title": "Saint Louis, King of France",
+  "short_summary": "Saint Louis was a thirteenth-century King of France remembered for his personal administration of justice, his charitable foundations, and his leadership of two Crusades.",
+  "key_facts": [
+    "The Church permits his optional memorial on August 25.",
+    "The liturgical color is white.",
+    "He was born in 1214 and became King of France in 1226 at the age of twelve.",
+    "He was known for personally hearing the complaints of his subjects, including the poor, and seeking to judge fairly.",
+    "He led two Crusades, to the Holy Land and to North Africa.",
+    "He died near Tunis in 1270 during his second Crusade and was canonized in 1297."
+  ],
+  "sections": [
+    {
+      "heading": "A king known for justice",
+      "body": "Louis IX became King of France as a child and grew into a ruler remembered for personally hearing the complaints of his subjects and seeking to administer justice fairly, including to the poor who had little other recourse."
+    },
+    {
+      "heading": "Founder of charitable works",
+      "body": "Louis founded hospitals and charitable institutions, including a home for the blind in Paris, and built the Sainte-Chapelle in Paris to house relics associated with Christ's Passion that he had acquired."
+    },
+    {
+      "heading": "Crusader king",
+      "body": "Louis led two Crusades, to the Holy Land and to North Africa, reflecting the medieval Christian conviction that armed expeditions could serve the defense of Christian territory and pilgrims. He died of illness near Tunis during the second expedition in 1270."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Kingship as service",
+      "body": "Louis's reputation for personally administering justice reflects a Christian understanding of political authority as service to the common good rather than mere power."
+    },
+    {
+      "heading": "A complex legacy",
+      "body": "His Crusading campaigns belong to a historical and political context substantially different from today, and the Church's memory of Louis centers on his personal holiness, charity, and pursuit of justice rather than on later judgments about Crusade history."
+    }
+  ],
+  "historical_cautions": [
+    "The Crusades occurred within a historical and political context substantially different from the present day; this profile does not attempt a full historical or moral evaluation of the Crusades."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Louis."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-25",
+      "url": "https://bible.usccb.org/bible/readings/082526.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Catholic Encyclopedia: Saint Louis IX",
+      "url": "https://www.newadvent.org/cathen/09368a.htm",
+      "note": "Biographical reference for his reign, charitable works, and death."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Louis's justice, charity, and Crusading history with appropriate historical caution about the Crusades."
+  }
+}

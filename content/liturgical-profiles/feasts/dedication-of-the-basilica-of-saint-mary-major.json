@@ -1,0 +1,61 @@
+{
+  "slug": "dedication-of-the-basilica-of-saint-mary-major",
+  "type": "feast",
+  "title": "Dedication of the Basilica of Saint Mary Major",
+  "short_summary": "This optional memorial commemorates the dedication of the Basilica of Saint Mary Major in Rome, one of the great Roman monuments to Mary's title as Mother of God.",
+  "key_facts": [
+    "The Church permits this optional memorial on August 5.",
+    "The liturgical color is white.",
+    "The Basilica of Saint Mary Major in Rome is one of the four papal major basilicas.",
+    "Pope Sixtus III rebuilt and dedicated the basilica in the fifth century after the Council of Ephesus affirmed Mary as Mother of God.",
+    "A later legend tells of an August snowfall marking the site of the church, but the historical record does not confirm this account."
+  ],
+  "sections": [
+    {
+      "heading": "A basilica honoring Mary as Mother of God",
+      "body": "The Basilica of Saint Mary Major stands among the four papal major basilicas of Rome. Its rebuilding under Pope Sixtus III followed soon after the Council of Ephesus in 431 affirmed the title Mother of God for Mary, and the basilica became one of the great Roman monuments to that doctrine."
+    },
+    {
+      "heading": "The snow legend",
+      "body": "A later tradition tells of a miraculous August snowfall in Rome that marked the outline of the church to be built, sometimes called Our Lady of the Snows. This account belongs to venerable legend rather than to firm historical record and should not be presented as established history."
+    },
+    {
+      "heading": "A feast of a place and a doctrine",
+      "body": "Unlike a feast honoring a person, this memorial commemorates a church building and, through it, the doctrine the building was raised to honor: that Mary is truly the Mother of God because her Son is truly God."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Theotokos and the unity of Christ",
+      "body": "The doctrine behind this basilica, defined at Ephesus, protects the truth that Jesus Christ is one person, fully God and fully man, so that his mother can rightly be called Mother of God."
+    },
+    {
+      "heading": "Church buildings as signs",
+      "body": "Dedication feasts remind Catholics that church buildings are consecrated as signs of the ongoing worship of God offered by his people."
+    }
+  ],
+  "historical_cautions": [
+    "The account of a miraculous snowfall marking the site of the basilica is a later legend, not a firmly established historical event, and is presented here as tradition rather than fact."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for the Dedication of the Basilica of Saint Mary Major."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-05",
+      "url": "https://bible.usccb.org/bible/readings/080526.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Catholic Encyclopedia: Our Lady of the Snow",
+      "url": "https://www.newadvent.org/cathen/11361c.htm",
+      "note": "Reference on the basilica's origin under Sixtus III and the later snow legend."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents the basilica's dedication and its connection to the Council of Ephesus, and clearly labels the snow legend as tradition rather than certain history."
+  }
+}

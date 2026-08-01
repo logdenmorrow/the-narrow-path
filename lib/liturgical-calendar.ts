@@ -36,6 +36,19 @@ import saintMartinDePorresProfile from "@/content/liturgical-profiles/dominican/
 import saintPiusVProfile from "@/content/liturgical-profiles/dominican/saint-pius-v.json";
 import saintRoseOfLimaProfile from "@/content/liturgical-profiles/dominican/saint-rose-of-lima.json";
 import saintThomasAquinasProfile from "@/content/liturgical-profiles/dominican/saint-thomas-aquinas.json";
+import saintAlphonsusLiguoriProfile from "@/content/liturgical-profiles/saints/saint-alphonsus-liguori.json";
+import saintEusebiusOfVercelliProfile from "@/content/liturgical-profiles/saints/saint-eusebius-of-vercelli.json";
+import saintPeterJulianEymardProfile from "@/content/liturgical-profiles/saints/saint-peter-julian-eymard.json";
+import dedicationOfTheBasilicaOfSaintMaryMajorProfile from "@/content/liturgical-profiles/feasts/dedication-of-the-basilica-of-saint-mary-major.json";
+import saintSixtusIIAndCompanionsProfile from "@/content/liturgical-profiles/saints/saint-sixtus-ii-and-companions.json";
+import saintCajetanProfile from "@/content/liturgical-profiles/saints/saint-cajetan.json";
+import saintJaneFrancesDeChantalProfile from "@/content/liturgical-profiles/saints/saint-jane-frances-de-chantal.json";
+import saintsPontianAndHippolytusProfile from "@/content/liturgical-profiles/saints/saints-pontian-and-hippolytus.json";
+import saintJohnEudesProfile from "@/content/liturgical-profiles/saints/saint-john-eudes.json";
+import saintPiusXProfile from "@/content/liturgical-profiles/saints/saint-pius-x.json";
+import queenshipOfTheBlessedVirginMaryProfile from "@/content/liturgical-profiles/other/queenship-of-the-blessed-virgin-mary.json";
+import saintLouisProfile from "@/content/liturgical-profiles/saints/saint-louis.json";
+import saintJosephCalasanzProfile from "@/content/liturgical-profiles/saints/saint-joseph-calasanz.json";
 
 export type LiturgicalCalendarSource = {
   label: string;
@@ -191,6 +204,19 @@ const profilesBySlug = new Map(
       saintPiusVProfile,
       saintRoseOfLimaProfile,
       saintThomasAquinasProfile,
+      saintAlphonsusLiguoriProfile,
+      saintEusebiusOfVercelliProfile,
+      saintPeterJulianEymardProfile,
+      dedicationOfTheBasilicaOfSaintMaryMajorProfile,
+      saintSixtusIIAndCompanionsProfile,
+      saintCajetanProfile,
+      saintJaneFrancesDeChantalProfile,
+      saintsPontianAndHippolytusProfile,
+      saintJohnEudesProfile,
+      saintPiusXProfile,
+      queenshipOfTheBlessedVirginMaryProfile,
+      saintLouisProfile,
+      saintJosephCalasanzProfile,
     ] as LiturgicalProfile[]
   ).map((profile) => [profile.slug, profile])
 );
