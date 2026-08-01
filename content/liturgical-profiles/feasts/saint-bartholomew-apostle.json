@@ -1,0 +1,67 @@
+{
+  "slug": "saint-bartholomew-apostle",
+  "type": "feast",
+  "title": "Saint Bartholomew, Apostle",
+  "short_summary": "Saint Bartholomew, one of the Twelve Apostles, is traditionally identified with Nathanael, whom Christ called an Israelite without guile.",
+  "key_facts": [
+    "The U.S. calendar keeps his feast on August 24.",
+    "The liturgical color is red.",
+    "The Synoptic Gospels list Bartholomew among the Twelve Apostles.",
+    "Catholic tradition identifies him with Nathanael, introduced by Philip in the Gospel of John.",
+    "Jesus calls him an Israelite in whom there is no guile.",
+    "Ancient tradition associates his later missionary activity with regions to the east, including Armenia."
+  ],
+  "sections": [
+    {
+      "heading": "Called among the Twelve",
+      "body": "Bartholomew appears in the lists of the Twelve Apostles in the Synoptic Gospels. Catholic tradition, following ancient sources, identifies him with Nathanael from John's Gospel, brought to Jesus by Philip."
+    },
+    {
+      "heading": "An Israelite without guile",
+      "body": "When Philip brings Nathanael to Jesus, Nathanael's initial skepticism gives way to faith when Christ reveals knowledge of him under the fig tree. Jesus's words, calling him an Israelite without guile, mark him as a man of sincere, unpretentious faith."
+    },
+    {
+      "heading": "Apostolic mission and martyrdom",
+      "body": "Ancient Christian tradition connects Bartholomew with missionary work in regions to the east, including Armenia, where he is venerated as a founding apostle of the Armenian Church. Details of his martyrdom belong to venerable tradition rather than to firmly established historical record."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Sincerity before Christ",
+      "body": "Bartholomew's witness shows that Christ calls ordinary sincerity of heart, not worldly sophistication, into the service of the Gospel."
+    },
+    {
+      "heading": "Apostolic foundation",
+      "body": "Red marks his feast as an apostle and, by tradition, a martyr. His witness joins the Church to her apostolic foundation and to the mission Christ entrusted to the Twelve."
+    }
+  ],
+  "historical_cautions": [
+    "The identification of Bartholomew with Nathanael, though ancient and widely received, is a matter of tradition rather than explicit New Testament statement. Details of his later missionary travels and martyrdom rest on tradition of varying antiquity and should not be presented as certain history."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Bartholomew."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-24",
+      "url": "https://bible.usccb.org/bible/readings/082426.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "USCCB Bible: John 1",
+      "url": "https://bible.usccb.org/bible/john/1",
+      "note": "Scriptural account of Nathanael's calling, traditionally identified with Bartholomew."
+    },
+    {
+      "label": "Benedict XVI General Audience: Bartholomew",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2006/documents/hf_ben-xvi_aud_20061004.html",
+      "note": "Catholic reflection on Bartholomew, his identification with Nathanael, and his apostolic witness."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Bartholomew according to the Gospel witness and ancient tradition, handles the Nathanael identification and missionary traditions with appropriate historical caution, and is suitable for publication."
+  }
+}

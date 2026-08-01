@@ -1,0 +1,63 @@
+{
+  "slug": "saint-augustine",
+  "type": "saint",
+  "title": "Saint Augustine, Bishop and Doctor of the Church",
+  "short_summary": "Saint Augustine of Hippo, one of the most influential Doctors of the Church, is remembered for his dramatic conversion, his writings on grace and the restless human heart, and his lifelong defense of Catholic doctrine.",
+  "key_facts": [
+    "The U.S. calendar keeps his memorial on August 28, the day after his mother Monica's memorial.",
+    "The liturgical color is white.",
+    "He was born in North Africa in 354 and baptized by Saint Ambrose in Milan in 387.",
+    "He became bishop of Hippo in North Africa in 396.",
+    "His Confessions and City of God remain among the most influential works in Christian history.",
+    "He died in 430 and is honored as a Doctor of the Church."
+  ],
+  "sections": [
+    {
+      "heading": "A long road to conversion",
+      "body": "Augustine's early adulthood was marked by ambition, disordered attachments, and years drawn toward Manichean teaching before his slow return to the Catholic faith of his mother Monica. His conversion in a garden in Milan, followed by baptism at the hands of Saint Ambrose, marks one of the most studied turning points in Christian history."
+    },
+    {
+      "heading": "The restless heart",
+      "body": "Augustine's Confessions opens with words that have shaped Christian reflection ever since: that the human heart is restless until it rests in God. His account of his own searching became a lasting testimony that no created good can finally satisfy what only God can fulfill."
+    },
+    {
+      "heading": "Bishop and defender of doctrine",
+      "body": "As bishop of Hippo, Augustine wrote extensively against errors of his time, defending the Church's teaching on grace, original sin, and the sacraments. His theological work shaped Western Christian thought for over a thousand years."
+    },
+    {
+      "heading": "Doctor of grace",
+      "body": "Augustine is often called the Doctor of Grace for his insistence that salvation is God's free gift, not something the human will can achieve on its own. His teaching on grace remains foundational to Catholic doctrine, understood always alongside the Church's teaching on human freedom and cooperation with grace."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Grace and freedom together",
+      "body": "The Church reads Augustine's teaching on grace as inseparable from the human person's real freedom to respond to God, not as a denial of that freedom. His witness calls Catholics to humility about self-sufficiency and confidence in God's mercy."
+    },
+    {
+      "heading": "Conversion is possible",
+      "body": "Augustine's own long path to faith shows that no life is too disordered or too late for conversion, and that a mother's persistent prayer, as Monica's was, can be part of how God brings that conversion about."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Augustine."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-28",
+      "url": "https://bible.usccb.org/bible/readings/082826.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Benedict XVI General Audience: Saint Augustine of Hippo (1)",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2008/documents/hf_ben-xvi_aud_20080109.html",
+      "note": "Catholic reflection on Augustine's life, conversion, and theological legacy."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Augustine's conversion and doctrine of grace in continuity with Catholic teaching on grace and freedom, avoids a deterministic reading, and is suitable for publication."
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "slug": "assumption-of-the-blessed-virgin-mary",
+  "type": "solemnity",
+  "title": "The Assumption of the Blessed Virgin Mary",
+  "short_summary": "The Assumption celebrates that Mary, at the end of her earthly life, was taken up body and soul into heavenly glory, a share in her Son's Resurrection that anticipates the hope of every believer.",
+  "key_facts": [
+    "The U.S. calendar keeps this solemnity on August 15.",
+    "The liturgical color is white.",
+    "It is one of the holy days of obligation in the United States.",
+    "Pope Pius XII defined the Assumption as dogma in 1950 in Munificentissimus Deus.",
+    "The Church teaches Mary was assumed body and soul into heavenly glory at the end of her earthly life.",
+    "The Assumption is distinct from the Ascension: Christ ascends by his own divine power, while Mary is assumed, taken up by God's grace."
+  ],
+  "sections": [
+    {
+      "heading": "Taken up body and soul",
+      "body": "The Church teaches that Mary, preserved from sin from the first moment of her existence, was taken up body and soul into heavenly glory when the course of her earthly life was finished. This is the content of the dogma Pope Pius XII defined in 1950."
+    },
+    {
+      "heading": "A share in her Son's victory",
+      "body": "Mary's Assumption flows from her unique relationship to Christ. Because she was preserved from sin and united to her Son's saving work in a singular way, her glorification anticipates what Christ's Resurrection promises to all who belong to him."
+    },
+    {
+      "heading": "A pledge of hope for the Church",
+      "body": "Catholic teaching presents Mary's Assumption as a sign of certain hope for the pilgrim people of God, pointing to the resurrection of the body and everlasting life that Christ has won for those united to him."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Assumed, not ascended",
+      "body": "Mary does not save herself or rise by her own power. She is assumed, raised by God's grace, in a manner entirely dependent on Christ, who ascends by his own divine authority as true God."
+    },
+    {
+      "heading": "The dignity of the body",
+      "body": "The Assumption affirms the goodness of the human body and its place in salvation. Catholic faith does not treat bodily life as something salvation leaves behind, but as something Christ redeems and glorifies."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, liturgical color, and holy day of obligation status for the Assumption."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-15",
+      "url": "https://bible.usccb.org/bible/readings/081526.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Catechism of the Catholic Church 966",
+      "url": "https://www.vatican.va/archive/ENG0015/__P2C.HTM",
+      "note": "Catholic doctrine on Mary's Assumption body and soul into heavenly glory."
+    },
+    {
+      "label": "Pius XII: Munificentissimus Deus",
+      "url": "https://www.vatican.va/content/pius-xii/en/apost_constitutions/documents/hf_p-xii_apc_19501101_munificentissimus-deus.html",
+      "note": "Apostolic Constitution defining the dogma of the Assumption."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents the Assumption using the Catechism and Munificentissimus Deus, distinguishes Mary's Assumption from Christ's Ascension, and avoids overstating Mary's role apart from Christ's saving work."
+  }
+}

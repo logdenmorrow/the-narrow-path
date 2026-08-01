@@ -1,0 +1,59 @@
+{
+  "slug": "saint-john-vianney",
+  "type": "saint",
+  "title": "Saint John Vianney, Priest",
+  "short_summary": "Saint John Vianney, the Curé of Ars, is honored as the patron of parish priests, remembered for his tireless hearing of confessions and his single-minded devotion to the souls entrusted to him.",
+  "key_facts": [
+    "The U.S. calendar keeps his memorial on August 4.",
+    "The liturgical color is white.",
+    "He was born in 1786 near Lyon, France.",
+    "He served as parish priest of Ars for over forty years.",
+    "He spent many hours each day in the confessional.",
+    "Pope Pius XI named him patron of parish priests."
+  ],
+  "sections": [
+    {
+      "heading": "A priest for one small parish",
+      "body": "John Vianney struggled academically as a seminarian, yet was ordained and sent to the obscure village of Ars. He remained there the rest of his life, and his fidelity to one small parish became the setting for an extraordinary priestly witness."
+    },
+    {
+      "heading": "Hours in the confessional",
+      "body": "Vianney became known throughout France for the long hours he spent hearing confessions, often ten or more a day, as penitents traveled from far away to seek him out. His patience with sinners flowed from his own intense life of prayer and penance."
+    },
+    {
+      "heading": "A life of prayer and penance",
+      "body": "He lived simply, prayed constantly, and took on considerable personal austerity. Catholic tradition presents this not as harshness toward himself for its own sake, but as a priest's offering united to Christ for the people in his care."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Confession and mercy",
+      "body": "Vianney's life points to the ordinary means by which Christ heals souls: patient, persistent availability for confession, undertaken as an act of charity toward sinners."
+    },
+    {
+      "heading": "Priestly identity",
+      "body": "His memorial highlights the priest as one set apart to serve souls, not merely to administer a parish. His example shaped the Church's understanding of pastoral charity in ordinary parish life."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint John Vianney."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-04",
+      "url": "https://bible.usccb.org/bible/readings/080426.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Benedict XVI General Audience: Saint John Mary Vianney",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2009/documents/hf_ben-xvi_aud_20090805.html",
+      "note": "Catholic reflection on Vianney's life, prayer, and priestly ministry, given during the Year for Priests."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint John Vianney's parish ministry, confessional apostolate, and life of prayer and penance in a Catholic and publication-safe way."
+  }
+}

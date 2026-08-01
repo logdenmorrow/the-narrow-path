@@ -1,0 +1,59 @@
+{
+  "slug": "saint-clare",
+  "type": "saint",
+  "title": "Saint Clare, Virgin",
+  "short_summary": "Saint Clare of Assisi, a companion of Saint Francis, founded the Poor Clares and lived a life of evangelical poverty, contemplative prayer, and total trust in Christ.",
+  "key_facts": [
+    "The U.S. calendar keeps her memorial on August 11.",
+    "The liturgical color is white.",
+    "She was born in Assisi in 1194.",
+    "She left her family's wealth at eighteen to follow the example of Saint Francis.",
+    "She founded the Order of Poor Ladies, later known as the Poor Clares.",
+    "She died in 1253 and was canonized two years later."
+  ],
+  "sections": [
+    {
+      "heading": "A daughter of Assisi",
+      "body": "Clare came from a noble family in Assisi but was drawn by Francis of Assisi's preaching and manner of life. At eighteen she left home to embrace a life of poverty and consecrated virginity, receiving the habit from Francis himself."
+    },
+    {
+      "heading": "Founder of the Poor Clares",
+      "body": "Clare founded a community of women at San Damiano who lived a strict form of evangelical poverty modeled on the Franciscan ideal. She governed the community as abbess for decades and insisted on the primacy of poverty even against pressure to soften the rule."
+    },
+    {
+      "heading": "Contemplative life ordered to Christ",
+      "body": "Clare's community was cloistered and contemplative, centered on prayer, poverty, and total dependence on God's providence. Her writings, including letters to Saint Agnes of Prague, present union with Christ as the goal of consecrated life."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Poverty as trust in God",
+      "body": "Clare's insistence on poverty was not asceticism for its own sake but an expression of total trust in God's providence, following Christ who \"though he was rich, became poor.\""
+    },
+    {
+      "heading": "A woman's leadership in the Church",
+      "body": "As foundress and abbess, Clare exercised significant spiritual leadership within the Church, showing how consecrated women have shaped the Church's life of prayer and evangelical witness."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Clare."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-11",
+      "url": "https://bible.usccb.org/bible/readings/081126.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Benedict XVI General Audience: Saint Clare of Assisi",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2010/documents/hf_ben-xvi_aud_20100915.html",
+      "note": "Catholic reflection on Clare's life, foundation of the Poor Clares, and spirituality of poverty."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Clare's foundation of the Poor Clares and her spirituality of evangelical poverty in a Catholic and publication-safe way."
+  }
+}

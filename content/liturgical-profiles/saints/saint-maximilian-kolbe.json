@@ -1,0 +1,59 @@
+{
+  "slug": "saint-maximilian-kolbe",
+  "type": "saint",
+  "title": "Saint Maximilian Kolbe, Priest and Martyr",
+  "short_summary": "Saint Maximilian Kolbe, a Conventual Franciscan priest, gave his life in Auschwitz in place of a fellow prisoner, a martyrdom of charity joined to a lifetime of Marian devotion and missionary zeal.",
+  "key_facts": [
+    "The U.S. calendar keeps his memorial on August 14.",
+    "The liturgical color is red.",
+    "He was born in Poland in 1894 and became a Conventual Franciscan priest.",
+    "He founded religious communities and publications devoted to Mary Immaculate.",
+    "He was imprisoned at Auschwitz and, in July 1941, offered his life in place of a fellow prisoner condemned to death.",
+    "He died on August 14, 1941, and was canonized by Pope John Paul II in 1982, who declared him a martyr of charity."
+  ],
+  "sections": [
+    {
+      "heading": "A Franciscan devoted to Mary",
+      "body": "Before his imprisonment, Kolbe spent his priestly life in missionary and publishing work dedicated to Mary Immaculate, founding communities and periodicals meant to spread devotion to Christ through his Mother."
+    },
+    {
+      "heading": "Imprisonment at Auschwitz",
+      "body": "Arrested during the German occupation of Poland, Kolbe was sent to Auschwitz. When the camp authorities selected ten prisoners to die by starvation as reprisal for an escape, Kolbe volunteered to take the place of a man who had a wife and children."
+    },
+    {
+      "heading": "A martyr of charity",
+      "body": "Kolbe died in the starvation bunker on August 14, 1941. Pope John Paul II canonized him in 1982 and declared him a martyr of charity, applying Christ's words that no one has greater love than to lay down his life for his friends."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Charity that lays down life",
+      "body": "Kolbe's sacrifice is read by the Church as a direct living out of Christ's own self-gift, charity carried to its furthest point in the darkest circumstances of the twentieth century."
+    },
+    {
+      "heading": "Marian devotion bearing fruit",
+      "body": "His lifelong devotion to Mary and his final act of self-offering are held together in Catholic memory: a life given to Christ through Mary that ended in total self-gift for another."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Maximilian Kolbe."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-14",
+      "url": "https://bible.usccb.org/bible/readings/081426.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "John Paul II: Homily for the Canonization of Maximilian Mary Kolbe",
+      "url": "https://www.vatican.va/content/john-paul-ii/en/homilies/1982/documents/hf_jp-ii_hom_19821010_canonizzazione-kolbe.html",
+      "note": "Official canonization homily declaring Kolbe a martyr of charity."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Maximilian Kolbe's Marian apostolate and martyrdom of charity at Auschwitz using the canonization homily as primary source, and is suitable for publication."
+  }
+}

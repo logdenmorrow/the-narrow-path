@@ -1,0 +1,59 @@
+{
+  "slug": "saint-bernard",
+  "type": "saint",
+  "title": "Saint Bernard, Abbot and Doctor of the Church",
+  "short_summary": "Saint Bernard of Clairvaux, a Cistercian abbot and Doctor of the Church, is remembered for his reform of monastic life, his theological writing, and his preaching of devotion to Christ through Mary.",
+  "key_facts": [
+    "The U.S. calendar keeps his memorial on August 20.",
+    "The liturgical color is white.",
+    "He was born near Dijon, France, around 1090.",
+    "He entered the Cistercian monastery of Citeaux and founded the monastery of Clairvaux in 1115.",
+    "He is a Doctor of the Church, sometimes called the Mellifluous Doctor for the sweetness of his preaching.",
+    "He died in 1153."
+  ],
+  "sections": [
+    {
+      "heading": "Reformer of monastic life",
+      "body": "Bernard entered the young Cistercian reform and, still in his twenties, was sent to found the monastery of Clairvaux. Under his leadership Clairvaux became a center of disciplined, prayerful monastic life that spread widely across Europe."
+    },
+    {
+      "heading": "Doctor of the Church",
+      "body": "Bernard's writings on Scripture, contemplative prayer, and the love of God shaped Western spirituality for centuries. The Church honors him as a Doctor for the depth and influence of his theological and spiritual teaching."
+    },
+    {
+      "heading": "Preacher of devotion to Mary",
+      "body": "Bernard is closely associated with devotion to the Blessed Virgin Mary, presenting her always in relation to Christ, as the one through whom the Church approaches her Son."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Contemplation ordered to charity",
+      "body": "Bernard's teaching holds that contemplative love of God is meant to overflow into active charity, not remain a private experience apart from the life of the Church."
+    },
+    {
+      "heading": "Marian devotion centered on Christ",
+      "body": "His preaching on Mary consistently points back to Christ, showing that authentic Marian devotion draws the faithful closer to her Son rather than standing apart from him."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Bernard."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-20",
+      "url": "https://bible.usccb.org/bible/readings/082026.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Benedict XVI General Audience: Saint Bernard of Clairvaux",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2009/documents/hf_ben-xvi_aud_20091021.html",
+      "note": "Catholic reflection on Bernard's life, monastic reform, and theological legacy."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Bernard's monastic reform, Doctor of the Church status, and Marian devotion centered on Christ in a Catholic and publication-safe way."
+  }
+}

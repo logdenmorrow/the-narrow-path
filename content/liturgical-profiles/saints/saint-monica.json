@@ -1,0 +1,59 @@
+{
+  "slug": "saint-monica",
+  "type": "saint",
+  "title": "Saint Monica",
+  "short_summary": "Saint Monica is honored for her decades of prayer and tears for the conversion of her son, Saint Augustine, and for her steady faith through a difficult marriage and long uncertainty.",
+  "key_facts": [
+    "The U.S. calendar keeps her memorial on August 27, the day before her son Augustine's memorial.",
+    "The liturgical color is white.",
+    "She was born in North Africa around 331 and raised Christian.",
+    "She was married to Patricius, a pagan, and endured a difficult marriage with patience.",
+    "She prayed for many years for the conversion of her son Augustine.",
+    "Augustine's own Confessions is the primary historical source for her life."
+  ],
+  "sections": [
+    {
+      "heading": "A mother's long prayer",
+      "body": "Monica prayed for years, through disappointment and delay, for her son Augustine's conversion to the Catholic faith. Augustine's Confessions describes her tears and persistence, and a bishop's assurance to her that a son of so many tears could not be lost."
+    },
+    {
+      "heading": "Patience within a difficult marriage",
+      "body": "Monica was married to Patricius, a man of difficult temperament who was not baptized until near the end of his life. Catholic tradition remembers her patience and steady witness within the marriage as a form of quiet fidelity."
+    },
+    {
+      "heading": "Witness to the end",
+      "body": "Monica lived to see Augustine's baptism. Augustine records a conversation with her at Ostia, shortly before her death, in which they spoke together of the eternal life toward which all their longing was directed."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Perseverance in prayer",
+      "body": "Monica's memorial keeps the Church close to the truth that prayer for the conversion of loved ones can be answered only after long years, and that such perseverance is itself a form of holiness."
+    },
+    {
+      "heading": "Ordinary fidelity",
+      "body": "Her witness is not built on public deeds but on patient endurance within family life, showing that sanctity is often found in ordinary, sustained faithfulness."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Monica."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-27",
+      "url": "https://bible.usccb.org/bible/readings/082726.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Benedict XVI General Audience: Saint Monica",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2010/documents/hf_ben-xvi_aud_20100825.html",
+      "note": "Catholic reflection on Monica's life and her relationship with Augustine, drawn from the Confessions."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Monica's perseverance in prayer and family witness using Augustine's Confessions as the historical basis, and is suitable for publication."
+  }
+}
