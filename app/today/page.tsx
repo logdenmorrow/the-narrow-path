@@ -970,6 +970,11 @@ export default async function TodayPage({
   const optionalTasks = taskModels.filter(
     (task) => !task.isRequired && task.isOptional
   );
+  const displayOptionalTasks = optionalTasks.filter(
+    (task) =>
+      !isLiturgyOfTheHoursSlug(task.slug) ||
+      task.slug === "liturgy-of-the-hours-lauds"
+  );
 
   const quotaTasks = taskModels.filter((task) => task.progressLabel);
   const uniqueQuotaTasks = quotaTasks.filter(
@@ -1354,12 +1359,16 @@ export default async function TodayPage({
                   title="Optional Today"
                 />
                 <div className="mt-5 space-y-3">
-                  {optionalTasks.length > 0 ? (
-                    optionalTasks.map((task) => (
+                  {displayOptionalTasks.length > 0 ? (
+                    displayOptionalTasks.map((task) => (
                       <TodayTaskCard
                         key={task.id}
                         planDayTaskId={task.id}
-                        title={task.title}
+                        title={
+                          isLiturgyOfTheHoursSlug(task.slug)
+                            ? "Liturgy of the Hours"
+                            : task.title
+                        }
                         note={task.note}
                         isRequired={task.isRequired}
                         isOptional={task.isOptional}
