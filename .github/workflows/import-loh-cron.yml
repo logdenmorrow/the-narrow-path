@@ -1,0 +1,31 @@
+name: Import Liturgy of the Hours content
+
+on:
+  schedule:
+    # Runs at 6am UTC on the 1st of every month
+    - cron: '0 6 1 * *'
+  workflow_dispatch:
+    # Also triggerable manually from the GitHub Actions UI
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Import Liturgy of the Hours content
+        continue-on-error: true
+        run: node scripts/import-night-prayer.mjs --all-active-plan --delay-ms 4000
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
