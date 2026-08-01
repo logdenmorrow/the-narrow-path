@@ -1,0 +1,64 @@
+{
+  "slug": "saint-cajetan",
+  "type": "saint",
+  "title": "Saint Cajetan, Priest",
+  "short_summary": "Saint Cajetan was a sixteenth-century Italian priest who co-founded the Theatines to reform clerical life and worked to help the poor avoid predatory debt.",
+  "key_facts": [
+    "The Church permits his optional memorial on August 7.",
+    "The liturgical color is white.",
+    "He was born in Vicenza, Italy, in 1480, and trained first as a lawyer.",
+    "In 1524 he co-founded the Theatines, a community of priests devoted to reforming clerical life.",
+    "He worked to establish charitable lending institutions to help the poor avoid predatory debt.",
+    "He died in Naples in 1547."
+  ],
+  "sections": [
+    {
+      "heading": "From law to reform of the clergy",
+      "body": "Cajetan trained as a lawyer before turning to the priesthood and to the reform of clerical life, in a period when many in the Church recognized the need for renewal."
+    },
+    {
+      "heading": "Founder of the Theatines",
+      "body": "In 1524 Cajetan co-founded the Congregation of Clerics Regular, known as the Theatines, a community of priests committed to apostolic poverty and disciplined pastoral life. His companion in this work, Gian Pietro Carafa, later became Pope Paul IV."
+    },
+    {
+      "heading": "Charity toward the poor",
+      "body": "Cajetan supported charitable lending arrangements meant to offer the poor an alternative to predatory moneylenders, joining spiritual reform with practical concern for those in economic need."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Reform beginning with the clergy",
+      "body": "Cajetan's work points to a theme repeated across Church history: renewal of the whole Church often begins with the reform of priestly life."
+    },
+    {
+      "heading": "Charity and justice together",
+      "body": "His concern for fair lending shows that Catholic charity includes structural concern for justice, not only individual almsgiving."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Cajetan."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-07",
+      "url": "https://bible.usccb.org/bible/readings/080726.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Catholic Encyclopedia: Saint Cajetan",
+      "url": "https://www.newadvent.org/cathen/03145a.htm",
+      "note": "Biographical reference for his founding of the Theatines and death."
+    },
+    {
+      "label": "Franciscan Media: Saint Cajetan",
+      "url": "https://www.franciscanmedia.org/saint-of-the-day/saint-cajetan/",
+      "note": "Readable secondary biographical source on his life and charitable work."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Cajetan's reform work and founding of the Theatines in a Catholic and publication-safe way."
+  }
+}

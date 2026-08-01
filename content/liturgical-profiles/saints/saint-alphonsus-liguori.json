@@ -1,0 +1,64 @@
+{
+  "slug": "saint-alphonsus-liguori",
+  "type": "saint",
+  "title": "Saint Alphonsus Liguori, Bishop and Doctor of the Church",
+  "short_summary": "Saint Alphonsus Liguori was an Italian bishop, founder of the Redemptorists, and Doctor of the Church whose moral theology shaped Catholic pastoral practice for generations.",
+  "key_facts": [
+    "The U.S. calendar keeps his memorial on August 1.",
+    "The liturgical color is white.",
+    "He was born near Naples in 1696 and trained first as a lawyer.",
+    "He founded the Congregation of the Most Holy Redeemer, known as the Redemptorists, in 1732.",
+    "Pope Pius IX declared him a Doctor of the Church in 1871.",
+    "He died on August 1, 1787."
+  ],
+  "sections": [
+    {
+      "heading": "From law to the priesthood",
+      "body": "Alphonsus Liguori practiced law in Naples before turning to the priesthood after a professional setback led him to reconsider his path. He was ordained in 1726 and devoted himself to preaching missions among the poor and neglected in the countryside around Naples."
+    },
+    {
+      "heading": "Founder of the Redemptorists",
+      "body": "In 1732 Alphonsus founded the Congregation of the Most Holy Redeemer to continue mission preaching among the rural poor. The Redemptorists spread beyond Italy and remain committed to evangelization among those least served by the Church."
+    },
+    {
+      "heading": "Moral theologian and Doctor of the Church",
+      "body": "Alphonsus wrote extensively on moral theology, seeking a middle path between excessive rigor and excessive laxity in the confessional. His writings shaped Catholic pastoral practice for generations, and Pope Pius IX named him a Doctor of the Church in 1871."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Mercy in the confessional",
+      "body": "Alphonsus's moral theology sought to guide confessors toward genuine mercy grounded in truth, neither excusing sin nor overwhelming the penitent with excessive severity."
+    },
+    {
+      "heading": "Mission to the neglected",
+      "body": "His preaching to the rural poor reflects the Church's ongoing call to bring the Gospel to those furthest from ordinary pastoral care."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint Alphonsus Liguori."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-01",
+      "url": "https://bible.usccb.org/bible/readings/080126.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Catholic Encyclopedia: Saint Alphonsus Maria de Liguori",
+      "url": "https://www.newadvent.org/cathen/01334a.htm",
+      "note": "Biographical reference for dates, founding of the Redemptorists, and death."
+    },
+    {
+      "label": "Benedict XVI General Audience: Saint Alphonsus Maria de Liguori",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2011/documents/hf_ben-xvi_aud_20110330.html",
+      "note": "Catholic reflection on Alphonsus, his moral theology, and his pastoral witness."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint Alphonsus Liguori's founding of the Redemptorists, moral theology, and status as Doctor of the Church in a Catholic and publication-safe way."
+  }
+}

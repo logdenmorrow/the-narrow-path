@@ -1,0 +1,64 @@
+{
+  "slug": "saint-john-eudes",
+  "type": "saint",
+  "title": "Saint John Eudes, Priest",
+  "short_summary": "Saint John Eudes was a seventeenth-century French priest who founded communities devoted to forming priests and caring for women in need, and who promoted devotion to the Sacred Hearts of Jesus and Mary.",
+  "key_facts": [
+    "The Church permits his optional memorial on August 19.",
+    "The liturgical color is white.",
+    "He was born in Normandy, France, in 1601, and first served as a member of the Oratory of France.",
+    "In 1643 he founded the Congregation of Jesus and Mary, known as the Eudists, devoted to forming priests.",
+    "He also founded a community dedicated to the care and restoration of women in difficult circumstances.",
+    "He promoted liturgical devotion to the Sacred Hearts of Jesus and Mary and died in 1680."
+  ],
+  "sections": [
+    {
+      "heading": "From the Oratory to a new congregation",
+      "body": "John Eudes began his priestly ministry within the Oratory of France before founding his own congregation, the Congregation of Jesus and Mary, in 1643, focused on preaching missions and forming priests for parish ministry."
+    },
+    {
+      "heading": "Care for women in need",
+      "body": "Eudes also founded a religious community dedicated to the care and restoration of women facing difficult circumstances, extending his pastoral concern beyond the formation of clergy."
+    },
+    {
+      "heading": "Devotion to the Sacred Hearts",
+      "body": "Eudes composed liturgical texts promoting devotion to the Hearts of Jesus and Mary, work that helped prepare the ground for the wider development of this devotion in the Church."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Formation of priests",
+      "body": "Eudes's dedication to priestly formation reflects the Church's ongoing concern that those ordained to serve the faithful be well prepared in holiness and learning."
+    },
+    {
+      "heading": "The Hearts of Jesus and Mary",
+      "body": "Devotion to the Sacred Hearts, which Eudes helped advance, points to the interior love of Christ and the response of Mary's own heart, both ordered toward drawing believers closer to God."
+    }
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "Calendar observance, rank, and liturgical color for Saint John Eudes."
+    },
+    {
+      "label": "USCCB Daily Readings for 2026-08-19",
+      "url": "https://bible.usccb.org/bible/readings/081926.cfm",
+      "note": "Confirms the day title in the USCCB readings calendar."
+    },
+    {
+      "label": "Catholic Encyclopedia: Blessed John Eudes",
+      "url": "https://www.newadvent.org/cathen/05596a.htm",
+      "note": "Biographical reference for his founding of the Eudists and devotion to the Sacred Hearts."
+    },
+    {
+      "label": "Benedict XVI General Audience: Saint John Eudes",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2009/documents/hf_ben-xvi_aud_20090819.html",
+      "note": "Catholic reflection on Eudes's priestly formation work and devotion to the Sacred Hearts."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Reviewed and approved. The profile presents Saint John Eudes's founding work and devotion to the Sacred Hearts in a Catholic and publication-safe way."
+  }
+}
