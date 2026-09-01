@@ -1,10 +1,10 @@
 # The Narrow Path — Master Project Handoff
 
-**Replacement handoff version:** 2026-06-04  
+**Replacement handoff version:** 2026-09-01
 **Project domain:** thenarrowpath.xyz  
 **Repository:** logdenmorrow/the-narrow-path  
 **Preferred source format:** Markdown  
-**Purpose:** This document replaces the older May 9, 2026 PDF handoff and consolidates the original project history, ChatGPT Project audits, Codex Cloud audits, local repo-history audit, the May 17 reminder/branding/tone cleanup checkpoint, the completed June 2026 implementation/documentation checkpoint, and the June 4 Catholic Source Corpus / Today in the Church review checkpoint into one current source-of-truth document for future ChatGPT Project context.
+**Purpose:** This document replaces the older May 9, 2026 PDF handoff and consolidates project history through the verified September 1 Gospel-season launch into one current source-of-truth document for future ChatGPT Project context.
 
 ---
 
@@ -1424,19 +1424,97 @@ catch-up import run on 2026-07-20.
   per-request pacing without expecting `429`s; back off to a few seconds
   between requests if importing more than ~25-30 dates in one run.
 
-### Follow-up required: recurring monthly import
+### Follow-up status: recurring monthly import
 
 - Night Prayer content must be re-imported periodically to stay ahead of
   the gap, because DivineOffice.org only exposes ~2 months of lookahead
   at any given time.
-- 2026-09-01 is still missing (rate-limited on both attempts this run)
-  and should be picked up on the next run.
-- **Next run should happen in early August 2026** and should cover the
-  gap through **2026-10-01** (the rolling window's expected edge by
-  then), plus catch the still-missing 2026-09-01.
+- The previously missing 2026-09-01 content was imported successfully at the
+  Gospel launch: Lauds, Vespers, and Compline are all present (3 rows).
+- The scheduled monthly GitHub Actions import workflow is active; continue to
+  monitor it because the upstream lookahead boundary and rate limit still apply.
 - This is a recurring monthly task, not a one-time fix. Repeat in early
   September, early October, etc., each time extending through
   approximately two months out from that run's date.
+
+---
+
+## 1H. September 1, 2026 Gospel Season Launch Checkpoint
+
+This checkpoint records the approved production launch of
+`The Gospels: From September to Lent` and the accompanying deployment. It
+supersedes earlier “future metadata,” “inactive preview,” and “do not activate”
+language where those statements describe current state rather than history.
+
+### Root cause and implementation
+
+- Production still had `ordinary-time-james` active on September 1. The old
+  Gospel date-phase resolver did not require the expected Gospel row to be the
+  sole active plan, so it could fall back to James and surface stale Day 31 /
+  reset behavior.
+- `lib/season-plan-server.ts` now fails closed when the date phase and active
+  plan do not match. It never substitutes James for the Gospel phase.
+- Original and James plans remain accessible through explicit stable links as
+  read-only historical seasons. Task and reflection server actions reject
+  writes against inactive plans.
+- Season timing now has explicit start/end definitions and Monday-Sunday
+  calendar week windows. Gospel Week 1 is Days 1-6 (Sep 1-6); Week 2 begins
+  Monday, Sep 7. The closing week is Days 161-162.
+- Dashboard, This Week, Brotherhood/Sisterhood, member detail, admin plan tools,
+  and GroupMe weekly recap use authoritative weekly/monthly scope metadata and
+  season-aware calendar windows.
+- Legacy `night-prayer` assignments map only to Compline. Lauds and Vespers no
+  longer borrow the Night Prayer completion control.
+
+### Production activation and preservation
+
+- Applied migration:
+  `supabase/migrations/20260901120000_activate_gospels_september_lent.sql`.
+- The migration guards exact Gospel metadata, 162 days, 1,481 task rows, date
+  range, missing days, duplicate days/tasks, and empty days before changing
+  active flags.
+- Remote migration dry-run was clean before apply and up to date after apply.
+- Exactly one production plan is active:
+  `the-gospels-september-lent` / `The Gospels: From September to Lent`.
+- Sep 1 Lauds, Vespers, and Compline were imported and verified as three
+  `night_prayers` rows.
+
+Pre/post inventory and user-history counts were unchanged:
+
+| Plan | Days | Tasks | Completions | Reflections |
+|---|---:|---:|---:|---:|
+| `the-narrow-path-90` | 90 | 1,402 | 941 | 91 |
+| `ordinary-time-james` | 31 | 315 | 29 | 10 |
+| `the-gospels-september-lent` | 162 | 1,481 | 0 | 0 |
+
+### Verification and deployment
+
+- `npm test`: 2 files / 8 tests passed, including Aug 31 → Sep 1, Sep 6 → Sep
+  7, Feb 9 → Feb 10, inactive-Gospel fail-closed, and historical James cases.
+- `npx tsc --noEmit`: passed.
+- `npm run lint -- --max-warnings=0`: passed.
+- `npm run build`: passed; 54 routes built.
+- `npm run scan:gospel-activation`: PASS, zero issues.
+- PR `#57` merged as `69eda36`; GitHub Actions run `33530058048` built and
+  published the production container successfully.
+- The deployed image was confirmed by signed-in production behavior unique to
+  the new code: “Weekly and Monthly Progress,” Days 1-6 for the opening week,
+  and the James “Past season” read-only lock.
+- Focused production Playwright audit: 7/7 passed across 1440px desktop and
+  390px mobile for `/today`, `/dashboard`, `/this-week`, `/daily-reading`,
+  `/reflection`, `/hours/compline`, `/rosary`, `/settings`, `/brotherhood`, and
+  historical James access.
+- Live task-toggle and encrypted reflection-save mutations passed using the
+  dedicated test account. Both tests restored the exact initial database state;
+  final Gospel completion/reflection counts remained 0/0 at audit time.
+
+### Ongoing operational watch
+
+- Keep exactly one challenge plan active.
+- Preserve historical-plan write locks and Brotherhood/Sisterhood visibility.
+- The DivineOffice.org source has a rolling lookahead window. Keep the existing
+  recurring monthly import workflow healthy so future Lauds/Vespers/Compline
+  dates stay populated.
 
 ---
 
@@ -2067,10 +2145,10 @@ components/season-timeline.tsx
 
 Current roadmap:
 
-- July 4, 2026: Day 90 Celebration. Food, drink, and social media restrictions are relaxed for this day only. Challenge Feedback is Supabase-backed and exportable from `/admin/challenge-feedback`. Give Thanks is a real Day 90 task with placeholder text based on *Dignitatis Humanae*; final reading copy still needs to be supplied.
+- July 4, 2026: Day 90 Celebration. Food, drink, and social media restrictions were relaxed for this day only. Challenge Feedback is Supabase-backed and exportable from `/admin/challenge-feedback`. Give Thanks is a real Day 90 reading-only task using curated *Dignitatis Humanae* material.
 - July 5-31, 2026: Challenge Complete / Reset. No daily task pressure. Night Prayer, Rosary, Confession, community, and past-day review remain available as optional resources.
-- August 1-31, 2026: James: Faith That Works. Planned as a lighter Scripture bridge season with daily James reading, required reflection, Sunday Mass, weekly Adoration, and one Confession in August. Night Prayer, Rosary, workout, anchor check-in, and community are optional.
-- September 1, 2026-February 9, 2027: The Gospels. Future metadata only for now. Reading order is Mark -> Matthew -> Luke -> John.
+- August 1-31, 2026: James: Faith That Works completed. The plan is inactive and available through explicit read-only historical links; its 29 task completions and 10 reflections are preserved.
+- September 1, 2026-February 9, 2027: `The Gospels: From September to Lent` is the sole active production plan. It has 162 days and 1,481 task assignments. Reading order is Mark -> Matthew -> Luke -> John.
 - February 10-March 28, 2027: Lent 2027. Planned as a separate stricter Lenten challenge.
 
 Do not add XP, levels, leaderboards, holiness scores, consistency scores, or gamified spirituality. Keep copy plainspoken and minimal. Preserve track-aware behavior and keep `/brotherhood` as the shared internal community route unless explicitly told otherwise.
@@ -2317,11 +2395,12 @@ Tone notes for reviewed reading context:
 - Not a comment-section fight.
 - Real faith should be shown as becoming obedience, mercy, and works of charity.
 
-### Future Gospel plan workflow
+### Gospel plan workflow (completed for the active 2026-27 season)
 
-Reuse the same stored context system. Do not add live AI. Do not create new UI unless necessary.
+The active Gospel plan uses the same stored context system. Do not add live AI.
+The workflow below remains the pattern for later revisions or future seasons.
 
-For a future September-to-Lent four Gospels plan:
+For a future four-Gospels plan or a reviewed replacement:
 
 1. Create or seed the final Gospel reading plan in `plan_days` first.
 2. Export the exact seeded plan from Supabase with full `reading_text`.
@@ -2346,7 +2425,7 @@ select
   pd.reading_text
 from public.plan_days pd
 join public.challenge_plans cp on cp.id = pd.plan_id
-where cp.slug = '<future-gospels-plan-slug>'
+where cp.slug = '<gospels-plan-slug>'
 order by pd.day_number;
 ```
 
@@ -3575,7 +3654,9 @@ As of this rewritten handoff:
 - The core stack is Next.js + Supabase + GitHub/GHCR + Docker/Unraid.
 - The app includes daily tasks, weekly quotas, rotating Rosary, Confession final-week logic, Daily Reading, Reflection journaling, Night Prayer, Guided Rosary, Morning Scripture and Night Prayer push reminders, daily status/prayer requests, GroupMe integrations, admin/support tooling, auth diagnostics, and a developing monastic design system.
 - The latest product direction favors simple functional copy over slogan-heavy or fake-serious UI text.
+- The sole active production plan is `the-gospels-september-lent`, running September 1, 2026 through February 9, 2027. James and the original 90-day challenge are inactive, history-preserving, read-only seasons.
+- The active Gospel plan contains 162 days and 1,481 task assignments; Monday-Sunday weekly scopes and monthly quotas are production-verified.
 - The strongest confirmed source of truth for implementation is the committed repo plus production Supabase state.
-- The biggest risks are regressions around track separation, task cadence, completion semantics, reminder dedupe/source-of-truth, Supabase migration state, secrets, and UI changes made without visual/build verification.
+- The biggest risks are regressions around track separation, historical write locks, weekly/monthly task cadence, completion semantics, reminder dedupe/source-of-truth, rolling Liturgy of the Hours imports, Supabase migration state, secrets, and UI changes made without visual/build verification.
 - Future work should be careful, explicit, and small unless the user asks for a larger redesign or architecture pass.
 

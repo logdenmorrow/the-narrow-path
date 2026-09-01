@@ -1,36 +1,37 @@
-# Gospel Activation Plan
+# Gospel Activation Plan and Execution Record
 
-This is a planning document only. It does not activate the Gospel season.
+This document was originally the planning checklist. The activation was
+explicitly approved and completed on September 1, 2026; the later rollback and
+verification sections remain useful operational references.
 
-No migrations, Supabase commands, production writes, commits, pushes, or deploys
-were performed while creating this document.
+## Status: Applied and Production-Verified
 
-## Do Not Activate Yet
-
-Do not activate the Gospel plan until the deferred GroupMe decision is resolved
-and a human explicitly approves the activation write.
-
-The Gospel season exists in production but must remain inactive for now.
+The Gospel season is live in production:
 
 - Slug: `the-gospels-september-lent`
 - Name: `The Gospels: From September to Lent`
 - Total days: `162`
 - Gospel Day 1: `2026-09-01`
+- Gospel Day 162: `2027-02-09`
 - Original 90-day challenge Day 1: `2026-04-06`
+- Activation migration: `20260901120000_activate_gospels_september_lent.sql`
+- Launch merge: `69eda36` via PR `#57`
 
-## Current Readiness State
+Exactly one plan is active. The original and James plans are inactive and their
+task/completion/reflection history was preserved.
 
-The app is close to Gospel activation readiness, but activation remains a
-separate production operation that requires explicit approval.
+## Executed Readiness State
 
 Completed production verification:
 
-- Gospel season content is staged in production as inactive.
-- Admin-only inactive Gospel preview is implemented and production-verified.
+- Gospel season content is active in production.
 - Gospel Before You Read context is applied and production-verified.
 - Gospel Daily Reading rendering is production-verified.
 - Admin plan export no longer returns the previous Supabase relationship error.
-- Broad Playwright production audit passes: total `44`, passed `44`, failed `0`.
+- Focused signed-in launch audit passes: total `7`, passed `7`, failed `0`,
+  across desktop and mobile.
+- Dedicated production task-toggle and reflection-save mutations passed and
+  restored their original test-account state.
 
 The broad audit covered:
 
@@ -69,51 +70,45 @@ Production audit tooling is in place:
 - `scripts/audit-production-pages.mjs`
 - `docs/PRODUCTION_CHECKS.md`
 
-## Deferred Or Risky
+## Remaining Operational Watch Items
 
-GroupMe remains the main deferred activation risk.
+- `lib/groupme-weekly.ts` is season-aware. `lib/groupme-nightly.ts` is driven by
+  actual task dates rather than an April-based season offset.
+- Keep the recurring monthly Liturgy of the Hours import healthy because the
+  upstream source exposes a rolling date window.
+- Continue to preserve exactly one active challenge plan.
 
-- `lib/groupme-weekly.ts` still needs to be retired, refactored, or disabled
-  before Gospel activation if GroupMe remains in use.
-- `lib/groupme-nightly.ts` should be reviewed for Gospel-season messaging and
-  active-plan assumptions if GroupMe remains in use.
-- GroupMe may be retired in favor of in-app announcements or notifications
-  before the Gospel season begins.
+Ongoing regression risks:
 
-Other activation risks:
-
-- Activation is a production write to `challenge_plans` and must be treated as
-  a controlled release step.
-- There must be exactly one intended active challenge plan after activation.
 - Same-track Brotherhood/Sisterhood visibility must be preserved.
-- Gospel preview behavior should no longer be needed for normal users once the
-  Gospel plan is active, but admin preview routes should still not expose
-  inactive content incorrectly.
-- Day/date math must be verified against `2026-09-01` for Gospel Day 1 and
-  `2027-02-09` for Gospel Day 162.
+- Historical plan routes must remain read-only.
+- Day/date math and Monday-Sunday quota boundaries must remain anchored to the
+  Gospel plan dates.
 
-## Proposed Later Activation Sequence
+## Executed Activation Sequence
 
-Do not execute this sequence from this document. Use it later only after an
-explicit human activation decision.
+The controlled launch followed this sequence:
 
 1. Confirm final Gospel content and any final copy edits.
-2. Confirm GroupMe is retired, refactored, or disabled for Gospel timing.
-3. Confirm a current Supabase backup/export exists.
+2. Confirm GroupMe weekly timing is season-aware and nightly timing is date-based.
+3. Record pre-activation production inventory and history counts.
 4. Prepare the activation migration or exact SQL.
 5. If migration-based, run `npx supabase db push --dry-run`.
 6. Review the dry-run output and verify only the intended migration/write would
    run.
-7. Require explicit human approval before any real production push or write.
+7. Receive explicit human approval before the real production push/write.
 8. Apply activation.
 9. Verify exactly one active challenge plan.
 10. Verify the Gospel plan is active.
 11. Verify the original 90-day plan is inactive or archived as intended.
 12. Verify Gospel day/date math.
 13. Run the focused Gospel scanner.
-14. Run the broad production page audit.
+14. Run signed-in desktop/mobile route and mutation audits.
 
-## Production Activation Checklist
+## Historical Production Activation Checklist
+
+The following checklist was used for the completed launch and remains a useful
+template for future season transitions.
 
 Before activation:
 
