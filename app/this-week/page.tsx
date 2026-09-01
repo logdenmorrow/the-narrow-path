@@ -35,6 +35,7 @@ import {
   type PlanDayTaskRecord,
 } from "@/lib/task-progress";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
+import { getSeasonWeekWindowForDay } from "@/lib/season-plan";
 import {
   buildPlanDayHref,
   getPlanSlugForResolvedSeason,
@@ -161,7 +162,8 @@ export default async function ThisWeekPage({
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
-  const isInactivePreview = activePlan?.is_active !== true;
+  const isInactivePreview = seasonResolution.isInactivePreview;
+  const isHistoricalPlan = seasonResolution.isHistoricalPlan;
   const currentPlanSlug = getPlanSlugForResolvedSeason({
     phase: seasonResolution.phase,
     planSlug: activePlan?.slug,
@@ -240,9 +242,9 @@ export default async function ThisWeekPage({
     activePlan.total_days
   );
 
-  const weekIndex = Math.floor((selectedDay - 1) / 7);
-  const weekStartDayNumber = weekIndex * 7 + 1;
-  const weekEndDayNumber = Math.min(activePlan.total_days, weekStartDayNumber + 6);
+  const selectedWeek = getSeasonWeekWindowForDay(activePlan, selectedDay);
+  const weekStartDayNumber = selectedWeek.weekStartDay;
+  const weekEndDayNumber = selectedWeek.weekEndDay;
 
   const { data: weekPlanDays, error: weekPlanDaysError } = await supabase
     .from("plan_days")
@@ -317,12 +319,16 @@ export default async function ThisWeekPage({
     );
   }
 
-  const currentMonthStart = typedWeekTasks[0]?.month_start_date ?? null;
-  const hasMonthQuotaTasks = typedWeekTasks.some(
-    (task) => task.quota_scope === "month"
-  );
+  const monthStarts = [
+    ...new Set(
+      typedWeekTasks
+        .filter((task) => task.quota_scope === "month")
+        .map((task) => task.month_start_date)
+        .filter((value): value is string => Boolean(value))
+    ),
+  ];
   const { data: allPlanDaysForMonth } =
-    currentMonthStart && hasMonthQuotaTasks
+    monthStarts.length > 0
       ? await supabase
           .from("plan_days")
           .select("id")
@@ -331,7 +337,7 @@ export default async function ThisWeekPage({
   const allPlanDayIdsForMonth = ((allPlanDaysForMonth ?? []) as { id: number }[])
     .map((day) => day.id);
   const { data: monthTasks } =
-    currentMonthStart && hasMonthQuotaTasks && allPlanDayIdsForMonth.length > 0
+    monthStarts.length > 0 && allPlanDayIdsForMonth.length > 0
       ? await supabase
           .from("plan_day_tasks")
           .select(
@@ -356,7 +362,7 @@ export default async function ThisWeekPage({
             `
           )
           .in("plan_day_id", allPlanDayIdsForMonth)
-          .eq("month_start_date", currentMonthStart)
+          .in("month_start_date", monthStarts)
       : { data: [] as (PlanDayTaskRecord & { plan_day_id: number })[] };
   const visibleMonthTasks = filterTasksForTrack(
     (monthTasks ?? []) as (PlanDayTaskRecord & {
@@ -402,14 +408,29 @@ export default async function ThisWeekPage({
     .flatMap((entry) => entry.models.filter((task) => task.progressLabel))
     .filter(
       (task, index, arr) =>
-        arr.findIndex((other) => other.taskTemplateId === task.taskTemplateId) === index
+        arr.findIndex(
+          (other) =>
+            other.taskTemplateId === task.taskTemplateId &&
+            other.quotaScope === task.quotaScope &&
+            other.weekStartDate === task.weekStartDate &&
+            other.monthStartDate === task.monthStartDate
+        ) === index
     );
   const preserveViewTrack = isAdmin && isUsingViewOverride;
 
   return (
     <main className="monastic-page">
       <PageFrame className="max-w-7xl space-y-6">
-        {isInactivePreview ? (
+        {isHistoricalPlan ? (
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
+              Past season
+            </p>
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
+              This season is available for review. Progress is read-only.
+            </p>
+          </SurfaceCard>
+        ) : isInactivePreview ? (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               Admin preview only.
@@ -495,7 +516,7 @@ export default async function ThisWeekPage({
           <SurfaceCard>
             <SectionHeader
               kicker="Progress"
-              title="Week Progress"
+              title="Weekly and Monthly Progress"
             />
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {quotaSummaries.map((task) => {
@@ -510,7 +531,9 @@ export default async function ThisWeekPage({
                 const meterClasses = getQuotaMeterClasses(tone);
 
                 return (
-                  <SurfaceInset key={`quota-${task.taskTemplateId}`}>
+                  <SurfaceInset
+                    key={`quota-${task.taskTemplateId}-${task.weekStartDate ?? task.monthStartDate ?? "daily"}`}
+                  >
                     <div className="flex items-center justify-between gap-2">
                       <p className="text-sm font-semibold text-monastic-0">{task.title}</p>
                       <span
@@ -522,7 +545,7 @@ export default async function ThisWeekPage({
                     <div
                       className={`mt-3 h-2 rounded-full ${meterClasses.track}`}
                       role="progressbar"
-                      aria-label={`${task.title} weekly progress`}
+                      aria-label={`${task.title} ${task.quotaScope ?? "quota"} progress`}
                       aria-valuenow={meterNow}
                       aria-valuemin={0}
                       aria-valuemax={safeTarget}

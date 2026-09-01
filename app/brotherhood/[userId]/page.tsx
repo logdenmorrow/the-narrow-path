@@ -29,6 +29,7 @@ import { updateLastActiveAt } from "@/lib/last-active";
 import { getCommunityName, isVisibleForTrack, type Track } from "@/lib/track";
 import {
   getSeasonTimingForPlan,
+  getSeasonWeekWindowForDay,
   ORIGINAL_CHALLENGE_PLAN_SLUG,
 } from "@/lib/season-plan";
 import { loadActivePlan } from "@/lib/active-plan";
@@ -261,9 +262,9 @@ export default async function BrotherhoodMemberPage({
     notFound();
   }
 
-  const weekIndex = Math.floor((selectedDay - 1) / 7);
-  const weekStartDayNumber = weekIndex * 7 + 1;
-  const weekEndDayNumber = Math.min(activePlan.total_days, weekStartDayNumber + 6);
+  const selectedWeek = getSeasonWeekWindowForDay(activePlan, selectedDay);
+  const weekStartDayNumber = selectedWeek.weekStartDay;
+  const weekEndDayNumber = selectedWeek.weekEndDay;
 
   const weekPlanDayIds = typedAllPlanDays
     .filter(
@@ -302,6 +303,7 @@ export default async function BrotherhoodMemberPage({
     (dayTasks ?? []) as PlanDayTaskRecord[],
     viewerTrack
   );
+  const currentMonthStart = typedDayTasks[0]?.month_start_date ?? null;
 
   const { data: scopeTasks } = weekPlanDayIds.length
     ? await supabase
@@ -329,8 +331,43 @@ export default async function BrotherhoodMemberPage({
         .in("plan_day_id", weekPlanDayIds)
     : { data: [] as PlanDayTaskRecord[] };
 
+  const { data: monthScopeTasks } = currentMonthStart
+    ? await supabase
+        .from("plan_day_tasks")
+        .select(
+          `
+            id,
+            task_template_id,
+            is_required,
+            is_optional,
+            quota_scope,
+            quota_target,
+            requirement_note,
+            day_date,
+            week_start_date,
+            month_start_date,
+            display_order,
+            plan_days!inner (
+              plan_id
+            ),
+            task_templates (
+              title,
+              slug,
+              audience
+            )
+          `
+        )
+        .eq("plan_days.plan_id", activePlan.id)
+        .eq("month_start_date", currentMonthStart)
+    : { data: [] as PlanDayTaskRecord[] };
+
   const typedScopeTasks = filterTasksForTrack(
-    (scopeTasks ?? []) as PlanDayTaskRecord[],
+    [...new Map(
+      [
+        ...((scopeTasks ?? []) as PlanDayTaskRecord[]),
+        ...((monthScopeTasks ?? []) as PlanDayTaskRecord[]),
+      ].map((task) => [task.id, task])
+    ).values()],
     viewerTrack
   );
 

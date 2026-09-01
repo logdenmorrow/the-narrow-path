@@ -39,6 +39,7 @@ import {
 } from "@/lib/accountability";
 import {
   getSeasonTimingForPlan,
+  getSeasonWeekWindowForDay,
   ORIGINAL_CHALLENGE_PLAN_SLUG,
 } from "@/lib/season-plan";
 import { loadActivePlan } from "@/lib/active-plan";
@@ -208,9 +209,9 @@ export default async function BrotherhoodPage({
     );
   }
 
-  const weekIndex = Math.floor((selectedDay - 1) / 7);
-  const weekStartDayNumber = weekIndex * 7 + 1;
-  const weekEndDayNumber = Math.min(activePlan.total_days, weekStartDayNumber + 6);
+  const selectedWeek = getSeasonWeekWindowForDay(activePlan, selectedDay);
+  const weekStartDayNumber = selectedWeek.weekStartDay;
+  const weekEndDayNumber = selectedWeek.weekEndDay;
 
   const weekPlanDayIds = typedAllPlanDays
     .filter(
@@ -250,6 +251,7 @@ export default async function BrotherhoodPage({
     viewerTrack
   );
   const currentWeekStart = typedTodayTasks[0]?.week_start_date ?? null;
+  const currentMonthStart = typedTodayTasks[0]?.month_start_date ?? null;
 
   const { data: weekTasks } = currentWeekStart
     ? await supabase
@@ -278,8 +280,43 @@ export default async function BrotherhoodPage({
         .eq("week_start_date", currentWeekStart)
     : { data: [] as PlanDayTaskRecord[] };
 
+  const { data: monthTasks } = currentMonthStart
+    ? await supabase
+        .from("plan_day_tasks")
+        .select(
+          `
+            id,
+            task_template_id,
+            is_required,
+            is_optional,
+            quota_scope,
+            quota_target,
+            requirement_note,
+            day_date,
+            week_start_date,
+            month_start_date,
+            display_order,
+            plan_days!inner (
+              plan_id
+            ),
+            task_templates (
+              title,
+              slug,
+              audience
+            )
+          `
+        )
+        .eq("plan_days.plan_id", activePlan.id)
+        .eq("month_start_date", currentMonthStart)
+    : { data: [] as PlanDayTaskRecord[] };
+
   const scopeTasks = filterTasksForTrack(
-    (weekTasks ?? []) as PlanDayTaskRecord[],
+    [...new Map(
+      [
+        ...((weekTasks ?? []) as PlanDayTaskRecord[]),
+        ...((monthTasks ?? []) as PlanDayTaskRecord[]),
+      ].map((task) => [task.id, task])
+    ).values()],
     viewerTrack
   );
   const scopeTaskIds = uniqueTaskIds(scopeTasks);
@@ -374,7 +411,7 @@ export default async function BrotherhoodPage({
             arr.findIndex((other) => other.taskTemplateId === task.taskTemplateId) ===
             index
         );
-      const hasWeeklyMomentum = quotaRows.some((row) => (row.progressCount ?? 0) > 0);
+      const hasQuotaMomentum = quotaRows.some((row) => (row.progressCount ?? 0) > 0);
       const startedToday = requiredDoneToday > 0 || optionalDoneToday > 0;
 
       let statusLabel = "Not Started";
@@ -393,7 +430,7 @@ export default async function BrotherhoodPage({
         optionalDone,
         optionalTotal,
         quotaRows,
-        hasWeeklyMomentum,
+        hasQuotaMomentum,
         startedToday,
         completedToday: requiredSummary.completedAll,
         statusLabel,
@@ -478,8 +515,8 @@ export default async function BrotherhoodPage({
               <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">{communityName}</h1>
               <p className="mt-3 text-base leading-7 text-[#ead8bc] sm:text-lg sm:leading-8">
                 {isCurrentDayView
-                  ? "See today's required progress, weekly goals, and prayer requests."
-                  : `See Day ${selectedDay} progress and weekly goals.`}
+                  ? "See today's required progress, quota goals, and prayer requests."
+                  : `See Day ${selectedDay} progress and quota goals.`}
               </p>
             </div>
 
@@ -595,7 +632,7 @@ export default async function BrotherhoodPage({
           <SectionHeader
             kicker={isCurrentDayView ? "Today's Member Status" : `Day ${selectedDay} Member Status`}
             title="Member Status"
-            description="First name plus last initial, required tasks, optional tasks, and weekly progress."
+            description="First name plus last initial, required tasks, optional tasks, and quota progress."
           />
 
           <div className="mt-4 grid gap-2 sm:gap-3 xl:grid-cols-2">
@@ -670,10 +707,10 @@ export default async function BrotherhoodPage({
                         Optional: {member.optionalDone}/{member.optionalTotal}
                       </span>
                     </StatusPill>
-                    {member.hasWeeklyMomentum ? (
+                    {member.hasQuotaMomentum ? (
                       <StatusPill tone="momentum">
-                        <span className="sm:hidden">Weekly</span>
-                        <span className="hidden sm:inline">Weekly Progress</span>
+                        <span className="sm:hidden">Quota</span>
+                        <span className="hidden sm:inline">Quota Progress</span>
                       </StatusPill>
                     ) : null}
                   </TaskCardMeta>

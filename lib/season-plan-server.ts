@@ -1,18 +1,18 @@
-import { CHALLENGE_START_DATE, getIsoDateInTimeZone } from "@/lib/challenge";
+import { getIsoDateInTimeZone } from "@/lib/challenge";
 import { loadActivePlan as loadSingleActivePlan } from "@/lib/active-plan";
 import { createClient } from "@/lib/supabase/server";
 import {
   AUGUST_JAMES_LEGACY_PLAN_NAME,
   AUGUST_JAMES_PLAN_NAME,
   AUGUST_JAMES_PLAN_SLUG,
-  AUGUST_JAMES_START_DATE,
   GOSPELS_SEPTEMBER_LENT_PLAN_NAME,
   GOSPELS_SEPTEMBER_LENT_PLAN_SLUG,
-  GOSPELS_SEPTEMBER_LENT_START_DATE,
   ORIGINAL_CHALLENGE_PLAN_SLUG,
   ORIGINAL_CHALLENGE_TOTAL_DAYS,
   getResolvedSeasonPhase,
-  getSeasonTiming,
+  getSeasonPlanDefinition,
+  getSeasonTimingForPlan,
+  isSeasonPlanHistorical,
   type ResolvedSeasonPhase,
 } from "@/lib/season-plan";
 import {
@@ -39,18 +39,15 @@ export type SeasonPlanResolution = {
   isExpectedPlanMissing: boolean;
   isUsingNamedPlan: boolean;
   isReviewingOriginalChallenge: boolean;
+  isHistoricalPlan: boolean;
+  isInactivePreview: boolean;
   errorMessage: string | null;
-  timing: ReturnType<typeof getSeasonTiming> | null;
+  timing: ReturnType<typeof getSeasonTimingForPlan> | null;
 };
 
 type ServerSupabaseClient = Awaited<ReturnType<typeof createClient>>;
 
 const PLAN_SELECT = "id, slug, name, total_days, is_active";
-const AUGUST_JAMES_TOTAL_DAYS = 31;
-
-function normalizeRequestedDay(value?: number | null) {
-  return Number.isFinite(value ?? Number.NaN) ? Math.floor(value as number) : null;
-}
 
 async function loadPlanByName(supabase: ServerSupabaseClient, name: string) {
   const { data, error } = await supabase
@@ -89,7 +86,6 @@ export async function resolveSeasonPlan(
 ): Promise<SeasonPlanResolution> {
   const todayIso = options.todayIso ?? getIsoDateInTimeZone();
   const datePhase = getResolvedSeasonPhase(todayIso);
-  const requestedDay = normalizeRequestedDay(options.requestedDay);
   const requestedPlanSlug = normalizePlanSlug(options.requestedPlanSlug);
   const activeLookup = await loadSingleActivePlan(supabase);
   const activePlan = activeLookup.plan as SeasonPlanRow | null;
@@ -120,23 +116,28 @@ export async function resolveSeasonPlan(
       nameLookup?.plan ??
       legacyNameLookup?.plan ??
       fallbackActiveOriginal;
+    const isRequestedPlanActive = Boolean(
+      matchedRequestedPlan?.is_active === true &&
+        activeLookup.status === "single" &&
+        activePlan?.id === matchedRequestedPlan.id
+    );
+    const isHistoricalPlan = Boolean(
+      matchedRequestedPlan &&
+        !isRequestedPlanActive &&
+        isSeasonPlanHistorical(matchedRequestedPlan, todayIso)
+    );
+    const isInactivePreview = Boolean(
+      matchedRequestedPlan &&
+        !isRequestedPlanActive &&
+        !isHistoricalPlan &&
+        options.allowInactiveRequestedPlanPreview
+    );
     const requestedPlan =
-      (matchedRequestedPlan?.is_active === true ||
-      options.allowInactiveRequestedPlanPreview
+      (isRequestedPlanActive || isHistoricalPlan || isInactivePreview
         ? matchedRequestedPlan
         : null) ?? null;
-    const requestedPhase: ResolvedSeasonPhase | null =
-      requestedPlanSlug === AUGUST_JAMES_PLAN_SLUG
-        ? "james"
-        : requestedPlanSlug === GOSPELS_SEPTEMBER_LENT_PLAN_SLUG
-          ? "gospels"
-          : "challenge";
-    const startDate =
-      requestedPlanSlug === AUGUST_JAMES_PLAN_SLUG
-        ? AUGUST_JAMES_START_DATE
-        : requestedPlanSlug === GOSPELS_SEPTEMBER_LENT_PLAN_SLUG
-          ? GOSPELS_SEPTEMBER_LENT_START_DATE
-        : CHALLENGE_START_DATE;
+    const requestedPhase =
+      getSeasonPlanDefinition({ slug: requestedPlanSlug })?.phase ?? "challenge";
 
     return {
       todayIso,
@@ -148,87 +149,95 @@ export async function resolveSeasonPlan(
       isExpectedPlanMissing: !matchedRequestedPlan,
       isUsingNamedPlan: Boolean(requestedPlan),
       isReviewingOriginalChallenge: requestedPlanSlug === ORIGINAL_CHALLENGE_PLAN_SLUG,
+      isHistoricalPlan,
+      isInactivePreview,
       errorMessage:
         slugLookup.errorMessage ??
         nameLookup?.errorMessage ??
         legacyNameLookup?.errorMessage ??
         activeLookup.errorMessage,
       timing: requestedPlan
-        ? getSeasonTiming({
-            startDate,
-            totalDays: requestedPlan.total_days,
-            todayIso,
-          })
+        ? getSeasonTimingForPlan(requestedPlan, todayIso)
         : null,
     };
   }
 
-  if (
-    datePhase === "james" &&
-    requestedDay !== null &&
-    requestedDay > AUGUST_JAMES_TOTAL_DAYS &&
-    activePlan
-  ) {
+  if (datePhase === "reset") {
+    const originalLookup = await loadPlanBySlug(
+      supabase,
+      ORIGINAL_CHALLENGE_PLAN_SLUG
+    );
+    const originalPlan = originalLookup.plan;
+
     return {
       todayIso,
       phase: datePhase,
       activePlan,
-      plan: activePlan,
-      expectedPlanName: activePlan.name,
+      plan: originalPlan,
+      expectedPlanName: getExpectedPlanNameForSlug(ORIGINAL_CHALLENGE_PLAN_SLUG),
       requestedPlanSlug: null,
-      isExpectedPlanMissing: false,
-      isUsingNamedPlan: false,
+      isExpectedPlanMissing: !originalPlan,
+      isUsingNamedPlan: Boolean(originalPlan),
       isReviewingOriginalChallenge: true,
-      errorMessage: activeLookup.errorMessage,
-      timing: getSeasonTiming({
-        startDate: CHALLENGE_START_DATE,
-        totalDays: activePlan.total_days,
-        todayIso,
-      }),
+      isHistoricalPlan: Boolean(originalPlan),
+      isInactivePreview: false,
+      errorMessage: originalLookup.errorMessage ?? activeLookup.errorMessage,
+      timing: originalPlan
+        ? getSeasonTimingForPlan(originalPlan, todayIso)
+        : null,
     };
   }
 
-  if (datePhase === "james") {
-    const slugLookup = await loadPlanBySlug(supabase, AUGUST_JAMES_PLAN_SLUG);
+  if (datePhase === "james" || datePhase === "gospels") {
+    const expectedSlug =
+      datePhase === "james"
+        ? AUGUST_JAMES_PLAN_SLUG
+        : GOSPELS_SEPTEMBER_LENT_PLAN_SLUG;
+    const expectedName =
+      datePhase === "james"
+        ? AUGUST_JAMES_PLAN_NAME
+        : GOSPELS_SEPTEMBER_LENT_PLAN_NAME;
+    const slugLookup = await loadPlanBySlug(supabase, expectedSlug);
     const namedLookup = slugLookup.plan
       ? null
-      : await loadPlanByName(supabase, AUGUST_JAMES_PLAN_NAME);
+      : await loadPlanByName(supabase, expectedName);
     const legacyNamedLookup =
-      slugLookup.plan || namedLookup?.plan
+      datePhase !== "james" || slugLookup.plan || namedLookup?.plan
         ? null
         : await loadPlanByName(supabase, AUGUST_JAMES_LEGACY_PLAN_NAME);
     const namedPlan =
       slugLookup.plan ?? namedLookup?.plan ?? legacyNamedLookup?.plan ?? null;
+    const isExpectedPlanActive = Boolean(
+      namedPlan?.is_active === true &&
+        activeLookup.status === "single" &&
+        activePlan?.id === namedPlan.id
+    );
+    const plan = isExpectedPlanActive ? namedPlan : null;
 
     return {
       todayIso,
       phase: datePhase,
       activePlan,
-      plan: namedPlan,
-      expectedPlanName: AUGUST_JAMES_PLAN_NAME,
+      plan,
+      expectedPlanName: expectedName,
       requestedPlanSlug: null,
       isExpectedPlanMissing: !namedPlan,
-      isUsingNamedPlan: Boolean(namedPlan),
+      isUsingNamedPlan: Boolean(plan),
       isReviewingOriginalChallenge: false,
+      isHistoricalPlan: false,
+      isInactivePreview: false,
       errorMessage:
         slugLookup.errorMessage ??
         namedLookup?.errorMessage ??
         legacyNamedLookup?.errorMessage ??
         activeLookup.errorMessage,
-      timing: namedPlan
-        ? getSeasonTiming({
-            startDate: AUGUST_JAMES_START_DATE,
-            totalDays: namedPlan.total_days,
-            todayIso,
-          })
+      timing: plan
+        ? getSeasonTimingForPlan(plan, todayIso)
         : null,
     };
   }
 
   const plan = activePlan;
-  const isActiveGospelsPlan =
-    plan?.slug === GOSPELS_SEPTEMBER_LENT_PLAN_SLUG ||
-    plan?.name === GOSPELS_SEPTEMBER_LENT_PLAN_NAME;
 
   return {
     todayIso,
@@ -240,15 +249,9 @@ export async function resolveSeasonPlan(
     isExpectedPlanMissing: !plan,
     isUsingNamedPlan: false,
     isReviewingOriginalChallenge: false,
+    isHistoricalPlan: false,
+    isInactivePreview: false,
     errorMessage: activeLookup.errorMessage,
-    timing: plan
-      ? getSeasonTiming({
-          startDate: isActiveGospelsPlan
-            ? GOSPELS_SEPTEMBER_LENT_START_DATE
-            : CHALLENGE_START_DATE,
-          totalDays: plan.total_days,
-          todayIso,
-        })
-      : null,
+    timing: plan ? getSeasonTimingForPlan(plan, todayIso) : null,
   };
 }

@@ -5,6 +5,7 @@ const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 export type ChallengeTiming = {
   startDate: string;
+  endDate: string;
   startDateLabel: string;
   timeZone: string;
   hasStarted: boolean;
@@ -91,6 +92,7 @@ export function getChallengeTiming(totalDays: number): ChallengeTiming {
 
   return {
     startDate: CHALLENGE_START_DATE,
+    endDate: addDaysToIsoDate(CHALLENGE_START_DATE, safeTotalDays - 1),
     startDateLabel: getStartDateLabel(),
     timeZone: CHALLENGE_TIME_ZONE,
     hasStarted,

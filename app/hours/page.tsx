@@ -103,7 +103,7 @@ export default async function HoursPage() {
     .select("id, slug")
     .in(
       "slug",
-      VALID_HOURS.map((hour) => getHourTaskSlug(hour))
+      [...VALID_HOURS.map((hour) => getHourTaskSlug(hour)), "night-prayer"]
     );
 
   const templateIdBySlug = new Map<string, number>(
@@ -143,7 +143,12 @@ export default async function HoursPage() {
 
   function getHourCardState(hour: LiturgicalHour) {
     const templateId = templateIdBySlug.get(getHourTaskSlug(hour));
-    const taskId = templateId ? (taskIdByTemplateId.get(templateId) ?? null) : null;
+    const legacyNightPrayerTemplateId = templateIdBySlug.get("night-prayer");
+    const taskId =
+      (templateId ? (taskIdByTemplateId.get(templateId) ?? null) : null) ??
+      (hour === "compline" && legacyNightPrayerTemplateId
+        ? (taskIdByTemplateId.get(legacyNightPrayerTemplateId) ?? null)
+        : null);
 
     return {
       exists: taskId !== null,

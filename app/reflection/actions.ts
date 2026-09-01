@@ -50,6 +50,10 @@ export async function saveReflectionEntry(formData: FormData) {
     throw new Error("No current season plan was found.");
   }
 
+  if (activePlan.is_active !== true) {
+    throw new Error("Past and preview seasons are read-only.");
+  }
+
   if (planDay.plan_id !== activePlan.id) {
     throw new Error("You can only save reflections for the current season plan.");
   }

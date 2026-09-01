@@ -99,6 +99,10 @@ export async function toggleTaskCompletionWithResult(
     throw new Error("No current season plan was found.");
   }
 
+  if (activePlan.is_active !== true) {
+    throw new Error("Past and preview seasons are read-only.");
+  }
+
   if (!challenge.hasStarted) {
     return {
       status: "success",

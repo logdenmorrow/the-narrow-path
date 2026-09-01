@@ -589,9 +589,12 @@ export default async function LiturgicalHourPage({
     typedTaskRows.find(
       (task) => normalizeTaskTemplate(task.task_templates).slug === hourTaskSlug
     ) ??
-    typedTaskRows.find(
-      (task) => normalizeTaskTemplate(task.task_templates).slug === "night-prayer"
-    );
+    (hour === "compline"
+      ? typedTaskRows.find(
+          (task) =>
+            normalizeTaskTemplate(task.task_templates).slug === "night-prayer"
+        )
+      : undefined);
 
   const prayerDate = hourTask?.day_date ?? null;
   const displayDate = isTodayPreview ? todayIso : prayerDate;

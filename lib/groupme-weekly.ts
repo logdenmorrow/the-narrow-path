@@ -3,16 +3,18 @@ import "server-only";
 import {
   addDaysToIsoDate,
   CHALLENGE_TIME_ZONE,
-  getCurrentChallengeWeekWindow,
   getIsoDateInTimeZone,
 } from "@/lib/challenge";
 import { GroupMeError } from "@/lib/groupme";
 import { isPrayerRequestVisibleForTrack } from "@/lib/prayer-requests";
 import { getAppBaseUrl } from "@/lib/server-config";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { getSeasonWeekWindowForPlan } from "@/lib/season-plan";
 
 type ActivePlanRow = {
   id: number;
+  slug: string | null;
+  name: string;
   total_days: number;
 };
 
@@ -37,7 +39,7 @@ export async function generateWeeklyRecapPreview() {
 
   const { data: activePlan, error: activePlanError } = await supabase
     .from("challenge_plans")
-    .select("id, total_days")
+    .select("id, slug, name, total_days")
     .eq("is_active", true)
     .maybeSingle();
 
@@ -47,7 +49,7 @@ export async function generateWeeklyRecapPreview() {
     throw new GroupMeError("No active challenge plan was found.", 500);
   }
 
-  const weekWindow = getCurrentChallengeWeekWindow(typedPlan.total_days);
+  const weekWindow = getSeasonWeekWindowForPlan(typedPlan);
 
   const [
     { data: profileRows, error: profilesError },
@@ -70,7 +72,7 @@ export async function generateWeeklyRecapPreview() {
       .gte("completed_at", `${weekWindow.weekStartDate}T00:00:00.000Z`)
       .lt(
         "completed_at",
-        `${addDaysToIsoDate(weekWindow.weekEndDate, 2)}T00:00:00.000Z`
+        `${addDaysToIsoDate(weekWindow.weekEndDate, 1)}T00:00:00.000Z`
       ),
     supabase
       .from("user_prayer_requests")
