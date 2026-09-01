@@ -36,6 +36,7 @@ import {
   ORIGINAL_CHALLENGE_PLAN_SLUG,
   ORIGINAL_CHALLENGE_TOTAL_DAYS,
   getPostChallengeDisplay,
+  getSeasonWeekWindowForDay,
   getSeasonTimelineItem,
   isChallengeFeedbackWindowOpen,
   isDay90Celebration,
@@ -345,7 +346,8 @@ export default async function TodayPage({
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
-  const isInactivePreview = activePlan?.is_active !== true;
+  const isInactivePreview = seasonResolution.isInactivePreview;
+  const isHistoricalPlan = seasonResolution.isHistoricalPlan;
   const currentDateIso = seasonResolution.todayIso;
   const preserveViewTrack = isAdmin && isUsingViewOverride;
   const currentPlanSlug = getPlanSlugForResolvedSeason({
@@ -823,9 +825,9 @@ export default async function TodayPage({
     );
   }
 
-  const weekIndex = Math.floor((selectedDay - 1) / 7);
-  const weekStartDayNumber = weekIndex * 7 + 1;
-  const weekEndDayNumber = Math.min(activePlan.total_days, weekStartDayNumber + 6);
+  const selectedWeek = getSeasonWeekWindowForDay(activePlan, selectedDay);
+  const weekStartDayNumber = selectedWeek.weekStartDay;
+  const weekEndDayNumber = selectedWeek.weekEndDay;
 
   const weekPlanDayIds = allPlanDays
     .filter(
@@ -1056,7 +1058,16 @@ export default async function TodayPage({
   return (
     <main className="monastic-page">
       <PageFrame className="space-y-5 sm:space-y-6">
-        {isInactivePreview ? (
+        {isHistoricalPlan ? (
+          <SurfaceCard className="border-[rgba(168,129,81,0.38)]">
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
+              Past season
+            </p>
+            <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
+              This season is available for review. Task completion is read-only.
+            </p>
+          </SurfaceCard>
+        ) : isInactivePreview ? (
           <SurfaceCard className="border-[rgba(168,129,81,0.38)]">
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               Admin preview only.

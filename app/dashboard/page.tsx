@@ -46,14 +46,12 @@ import {
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
 import { updateLastActiveAt } from "@/lib/last-active";
 
-type TaskTemplateCadence = "daily" | "weekly_quota";
-
 type TaskTemplateRow = {
   id: number;
   slug: string;
   title: string;
   description: string | null;
-  cadence: TaskTemplateCadence;
+  cadence: string;
   weekly_target: number | null;
   audience: string | null;
 };
@@ -62,8 +60,14 @@ type PlanDayTaskRow = {
   id: number;
   plan_day_id: number;
   is_required: boolean;
+  is_optional: boolean;
   sort_order: number;
   task_template_id: number;
+  quota_scope: string | null;
+  quota_target: number | null;
+  day_date: string | null;
+  week_start_date: string | null;
+  month_start_date: string | null;
   task_templates: TaskTemplateRow | null;
 };
 
@@ -91,10 +95,12 @@ type ProfileRow = {
   track: string | null;
 };
 
-type WeeklyQuotaProgressRow = {
+type QuotaProgressRow = {
   templateId: number;
   title: string;
   description: string | null;
+  scope: string;
+  scopeLabel: string;
   target: number;
   completedCount: number;
 };
@@ -127,32 +133,47 @@ function filterTasksForTrack<
   );
 }
 
-function buildWeeklyQuotaProgress(
-  tasks: PlanDayTaskRow[],
+function buildQuotaProgress(
+  todayTasks: PlanDayTaskRow[],
+  scopeTasks: PlanDayTaskRow[],
   completionIds: Set<number>
-): WeeklyQuotaProgressRow[] {
-  const grouped = new Map<number, PlanDayTaskRow[]>();
+): QuotaProgressRow[] {
+  const quotaTasks = todayTasks.filter((task) => Boolean(task.quota_scope));
 
-  for (const task of tasks) {
-    if (task.task_templates?.cadence !== "weekly_quota") {
-      continue;
-    }
+  return quotaTasks
+    .filter(
+      (task, index, tasks) =>
+        tasks.findIndex(
+          (candidate) => candidate.task_template_id === task.task_template_id
+        ) === index
+    )
+    .map((task) => {
+      const matchingScopeTasks = scopeTasks.filter((candidate) => {
+        if (candidate.task_template_id !== task.task_template_id) return false;
 
-    const existing = grouped.get(task.task_template_id) ?? [];
-    existing.push(task);
-    grouped.set(task.task_template_id, existing);
-  }
+        if (task.quota_scope === "month") {
+          return candidate.month_start_date === task.month_start_date;
+        }
 
-  return Array.from(grouped.entries())
-    .map(([templateId, groupedTasks]) => {
-      const template = groupedTasks[0]?.task_templates;
+        return candidate.week_start_date === task.week_start_date;
+      });
+      const scopeLabel =
+        task.quota_scope === "month"
+          ? "Monthly"
+          : task.quota_scope === "last_week_of_month"
+            ? "Confession week"
+            : "Weekly";
 
       return {
-        templateId,
-        title: template?.title || "Untitled Task",
-        description: template?.description || null,
-        target: template?.weekly_target ?? 1,
-        completedCount: groupedTasks.filter((task) => completionIds.has(task.id)).length,
+        templateId: task.task_template_id,
+        title: task.task_templates?.title || "Untitled Task",
+        description: task.task_templates?.description || null,
+        scope: task.quota_scope ?? "week",
+        scopeLabel,
+        target: task.quota_target ?? task.task_templates?.weekly_target ?? 1,
+        completedCount: matchingScopeTasks.filter((candidate) =>
+          completionIds.has(candidate.id)
+        ).length,
       };
     })
     .sort((a, b) => a.title.localeCompare(b.title));
@@ -514,8 +535,14 @@ export default async function DashboardPage({
             id,
             plan_day_id,
             is_required,
+            is_optional,
             sort_order,
             task_template_id,
+            quota_scope,
+            quota_target,
+            day_date,
+            week_start_date,
+            month_start_date,
             task_templates (
               id,
               slug,
@@ -536,6 +563,8 @@ export default async function DashboardPage({
     track
   );
   const todayTaskIds = todayTasks.map((task) => task.id);
+  const currentWeekStart = todayTasks[0]?.week_start_date ?? null;
+  const currentMonthStart = todayTasks[0]?.month_start_date ?? null;
 
   const { data: weekDaysData } = await supabase
     .from("plan_days")
@@ -548,7 +577,7 @@ export default async function DashboardPage({
   const weekDays = (weekDaysData ?? []) as PlanDayRow[];
   const weekDayIds = weekDays.map((day) => day.id);
 
-  const { data: weekTasksData } = weekDayIds.length
+  const { data: weekTasksData } = weekDayIds.length && currentWeekStart
     ? await supabase
         .from("plan_day_tasks")
         .select(
@@ -556,8 +585,14 @@ export default async function DashboardPage({
             id,
             plan_day_id,
             is_required,
+            is_optional,
             sort_order,
             task_template_id,
+            quota_scope,
+            quota_target,
+            day_date,
+            week_start_date,
+            month_start_date,
             task_templates (
               id,
               slug,
@@ -570,15 +605,59 @@ export default async function DashboardPage({
           `
         )
         .in("plan_day_id", weekDayIds)
+        .eq("week_start_date", currentWeekStart)
     : { data: [] };
 
   const weekTasks = filterTasksForTrack(
     (weekTasksData ?? []) as unknown as PlanDayTaskRow[],
     track
   );
-  const weekTaskIds = weekTasks.map((task) => task.id);
+  const { data: monthTasksData } = currentMonthStart
+    ? await supabase
+        .from("plan_day_tasks")
+        .select(
+          `
+            id,
+            plan_day_id,
+            is_required,
+            is_optional,
+            sort_order,
+            task_template_id,
+            quota_scope,
+            quota_target,
+            day_date,
+            week_start_date,
+            month_start_date,
+            plan_days!inner (
+              plan_id
+            ),
+            task_templates (
+              id,
+              slug,
+              title,
+              description,
+              cadence,
+              weekly_target,
+              audience
+            )
+          `
+        )
+        .eq("plan_days.plan_id", activePlan.id)
+        .eq("month_start_date", currentMonthStart)
+    : { data: [] };
 
-  const relevantCompletionIds = Array.from(new Set([...todayTaskIds, ...weekTaskIds]));
+  const monthTasks = filterTasksForTrack(
+    (monthTasksData ?? []) as unknown as PlanDayTaskRow[],
+    track
+  );
+  const scopeTasks = [...new Map(
+    [...weekTasks, ...monthTasks].map((task) => [task.id, task])
+  ).values()];
+  const scopeTaskIds = scopeTasks.map((task) => task.id);
+
+  const relevantCompletionIds = Array.from(
+    new Set([...todayTaskIds, ...scopeTaskIds])
+  );
 
   const { data: completionsData } = relevantCompletionIds.length
     ? await supabase
@@ -607,18 +686,14 @@ export default async function DashboardPage({
   const hasSavedReflection = Boolean(reflectionEntry?.id);
 
   const requiredDailyToday = todayTasks.filter(
-    (task) =>
-      task.task_templates?.cadence !== "weekly_quota" && task.is_required
+    (task) => !task.quota_scope && task.is_required
   );
 
   const optionalToday = todayTasks.filter(
-    (task) =>
-      task.task_templates?.cadence !== "weekly_quota" && !task.is_required
+    (task) => !task.quota_scope && !task.is_required
   );
 
-  const weeklyQuotaToday = todayTasks.filter(
-    (task) => task.task_templates?.cadence === "weekly_quota"
-  );
+  const quotaTasksToday = todayTasks.filter((task) => Boolean(task.quota_scope));
 
   const completedRequiredDailyTodayCount = requiredDailyToday.filter((task) =>
     completionIds.has(task.id)
@@ -632,7 +707,7 @@ export default async function DashboardPage({
     completionIds.has(task.id)
   ).length;
 
-  const weeklyQuotaProgress = buildWeeklyQuotaProgress(weekTasks, completionIds);
+  const quotaProgress = buildQuotaProgress(todayTasks, scopeTasks, completionIds);
   const yesterdayDay = selectedDay > 1 ? selectedDay - 1 : null;
   const { data: yesterdayPlanDayData } = yesterdayDay
     ? await supabase
@@ -653,8 +728,14 @@ export default async function DashboardPage({
             id,
             plan_day_id,
             is_required,
+            is_optional,
             sort_order,
             task_template_id,
+            quota_scope,
+            quota_target,
+            day_date,
+            week_start_date,
+            month_start_date,
             task_templates (
               id,
               slug,
@@ -674,8 +755,7 @@ export default async function DashboardPage({
     track
   );
   const yesterdayRequiredTasks = yesterdayTasks.filter(
-    (task) =>
-      task.task_templates?.cadence !== "weekly_quota" && task.is_required
+    (task) => !task.quota_scope && task.is_required
   );
 
   const yesterdayTaskIds = yesterdayRequiredTasks.map((task) => task.id);
@@ -716,7 +796,7 @@ export default async function DashboardPage({
               The challenge begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
-              You&apos;re currently in preview mode. Daily and weekly quota
+              You&apos;re currently in preview mode. Daily and quota
               progress will begin counting at launch.
             </p>
           </div>
@@ -828,8 +908,8 @@ export default async function DashboardPage({
                 </p>
               </SurfaceInset>
               <SurfaceInset>
-                <div className="section-kicker">Weekly Available</div>
-                <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">{weeklyQuotaToday.length}</p>
+                <div className="section-kicker">Quota Goals</div>
+                <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">{quotaTasksToday.length}</p>
               </SurfaceInset>
               <SurfaceInset>
                 <div className="section-kicker">Reflection</div>
@@ -894,9 +974,9 @@ export default async function DashboardPage({
             }
           />
           <MetricCard
-            label="Weekly Quota Goals"
-            value={`${weeklyQuotaProgress.filter((quota) => quota.completedCount >= quota.target).length}/${weeklyQuotaProgress.length}`}
-            detail="Weekly goals currently met."
+            label="Quota Goals"
+            value={`${quotaProgress.filter((quota) => quota.completedCount >= quota.target).length}/${quotaProgress.length}`}
+            detail="Current weekly and monthly goals met."
           />
           <MetricCard
             label={`${communityName} Members`}
@@ -951,15 +1031,15 @@ export default async function DashboardPage({
           </SurfaceCard>
 
           <SurfaceCard>
-            <SectionHeader kicker="Weekly Goals" title="Weekly Quota Progress" />
+            <SectionHeader kicker="Progress" title="Weekly and Monthly Progress" />
 
-            {weeklyQuotaProgress.length === 0 ? (
+            {quotaProgress.length === 0 ? (
               <p className="mt-4 text-sm text-monastic-1 sm:text-base">
-                No weekly quota tasks are configured for this week.
+                No quota tasks are configured for this period.
               </p>
             ) : (
               <div className="mt-4 space-y-4">
-                {weeklyQuotaProgress.map((quota) => {
+                {quotaProgress.map((quota) => {
                   const safeTarget = Math.max(quota.target, 1);
                   const clampedCompleted = Math.max(quota.completedCount, 0);
                   const meterNow = Math.min(clampedCompleted, safeTarget);
@@ -978,9 +1058,12 @@ export default async function DashboardPage({
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div className="min-w-0">
                           <p className="font-medium text-monastic-0">{quota.title}</p>
+                          <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-monastic-2">
+                            {quota.scopeLabel}
+                          </p>
                           <p className="mt-1 text-xs text-monastic-1 sm:text-sm">
                             {quota.description ||
-                              "Flexible weekly task that can be completed on any assigned day."}
+                              "Complete this task on any assigned day in the current period."}
                           </p>
                         </div>
 
@@ -994,7 +1077,7 @@ export default async function DashboardPage({
                       <div
                         className={`mt-4 h-2 w-full rounded-full ${meterClasses.track}`}
                         role="progressbar"
-                        aria-label={`${quota.title} weekly progress`}
+                        aria-label={`${quota.title} ${quota.scopeLabel.toLowerCase()} progress`}
                         aria-valuenow={meterNow}
                         aria-valuemin={0}
                         aria-valuemax={safeTarget}

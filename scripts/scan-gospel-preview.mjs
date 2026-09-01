@@ -3,11 +3,18 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import readline from "node:readline/promises";
 
-const base = "https://thenarrowpath.xyz";
+const base = process.env.PLAYWRIGHT_BASE_URL ?? "https://thenarrowpath.xyz";
 const authPath = path.resolve("playwright-auth.json");
 const outputPath = path.resolve("gospel-preview-scan-log.json");
 
 const globalMustContain = ["LOGOUT"];
+const globalMustNotContain = [
+  "Admin preview only",
+  "Preview Locked",
+  "Day 31/31",
+  "Week 5",
+  "reset period",
+];
 
 const checks = [
   {
@@ -73,26 +80,27 @@ const checks = [
     mustNotContain: ["###", "**1.**", "No active challenge plan was found"],
   },
   {
-    name: "Day 1 Today Preview",
-    url: "/today?plan=the-gospels-september-lent&day=1",
+    name: "Current Gospel Day 1 Today",
+    url: "/today",
     mustContain: [
       "The Gospels: From September to Lent",
       "Day 1",
-      "Admin preview only",
-      "Preview Locked",
+      "The Beginning of the Gospel",
+      "Fast or Penance",
+      "this month",
     ],
-    mustNotContain: ["No active challenge plan was found"],
+    mustNotContain: ["No active challenge plan was found", "James: Faith That Works"],
   },
   {
-    name: "Day 1 This Week Preview",
-    url: "/this-week?plan=the-gospels-september-lent&day=1",
+    name: "Current Gospel Day 1 This Week",
+    url: "/this-week",
     mustContain: [
       "The Gospels: From September to Lent",
       "This Week",
-      "Days 1-7",
-      "Admin preview only",
+      "Days 1-6",
+      "Weekly and Monthly Progress",
     ],
-    mustNotContain: ["No active challenge plan was found"],
+    mustNotContain: ["No active challenge plan was found", "James: Faith That Works"],
   },
 ];
 
@@ -156,7 +164,9 @@ async function createOrLoadContext(browser) {
   return context;
 }
 
-const browser = await chromium.launch({ headless: false });
+const browser = await chromium.launch({
+  headless: process.argv.includes("--headless"),
+});
 const context = await createOrLoadContext(browser);
 
 const results = [];
@@ -178,7 +188,10 @@ for (const check of checks) {
       ...(check.mustContain ?? []),
     ]);
 
-    const forbiddenFound = findForbidden(bodyText, check.mustNotContain ?? []);
+    const forbiddenFound = findForbidden(bodyText, [
+      ...globalMustNotContain,
+      ...(check.mustNotContain ?? []),
+    ]);
 
     const passed =
       Boolean(response?.ok()) &&
@@ -235,7 +248,7 @@ console.table(
 console.log(`\nScan log written to:\n${outputPath}`);
 
 if (summary.failed > 0) {
-  console.log("\nOne or more checks failed. Copy/paste gospel-preview-scan-log.json here.");
+  console.log("\nOne or more checks failed. Review gospel-preview-scan-log.json.");
   process.exitCode = 1;
 } else {
   console.log("\nAll checks passed.");

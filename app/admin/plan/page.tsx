@@ -20,6 +20,7 @@ import { addDaysToIsoDate } from "@/lib/challenge";
 import {
   getSeasonStartDateForPlan,
   getSeasonTimingForPlan,
+  getSeasonWeekWindowForDay,
   type PlanTimingSource,
 } from "@/lib/season-plan";
 import { loadActivePlan } from "@/lib/active-plan";
@@ -97,11 +98,9 @@ function normalizeDayNumber(value: number, totalDays: number) {
   return rounded;
 }
 
-function normalizeWeekStartDay(value: number, totalDays: number) {
-  const normalizedDay = normalizeDayNumber(value, totalDays);
-  const weekStart = Math.floor((normalizedDay - 1) / 7) * 7 + 1;
-  const maxWeekStart = Math.floor((totalDays - 1) / 7) * 7 + 1;
-  return Math.min(weekStart, maxWeekStart);
+function normalizeWeekStartDay(value: number, plan: PlanTimingSource) {
+  const normalizedDay = normalizeDayNumber(value, plan.total_days);
+  return getSeasonWeekWindowForDay(plan, normalizedDay).weekStartDay;
 }
 
 function isEditableCadence(value: string | null | undefined) {
@@ -110,11 +109,12 @@ function isEditableCadence(value: string | null | undefined) {
 
 function getPlanDayTaskDates(dayNumber: number, seasonStartDate: string) {
   const dayDate = addDaysToIsoDate(seasonStartDate, dayNumber - 1);
-  const weekStartDayNumber = Math.floor((dayNumber - 1) / 7) * 7 + 1;
+  const weekday = new Date(`${dayDate}T12:00:00Z`).getUTCDay();
+  const weekStartDate = addDaysToIsoDate(dayDate, -((weekday + 6) % 7));
 
   return {
     day_date: dayDate,
-    week_start_date: addDaysToIsoDate(seasonStartDate, weekStartDayNumber - 1),
+    week_start_date: weekStartDate,
     month_start_date: `${dayDate.slice(0, 7)}-01`,
   };
 }
@@ -625,18 +625,33 @@ async function copyWeekToWeek(formData: FormData) {
   const targetWeekStartRaw = Number(formData.get("target_week_start_day"));
   const returnDayNumber = Number(formData.get("return_day_number"));
 
-  const sourceWeekStartDay = normalizeWeekStartDay(sourceWeekStartRaw, totalDays);
-  const targetWeekStartDay = normalizeWeekStartDay(targetWeekStartRaw, totalDays);
+  const planTimingSource = await loadPlanTimingSource(admin, planId);
+  if (totalDays !== planTimingSource.total_days) {
+    throw new Error("The selected plan length changed. Refresh and try again.");
+  }
+  const sourceWeekStartDay = normalizeWeekStartDay(
+    sourceWeekStartRaw,
+    planTimingSource
+  );
+  const targetWeekStartDay = normalizeWeekStartDay(
+    targetWeekStartRaw,
+    planTimingSource
+  );
 
   if (sourceWeekStartDay === targetWeekStartDay) {
     redirect(`/admin/plan?day=${returnDayNumber || sourceWeekStartDay}`);
   }
 
-  const planTimingSource = await loadPlanTimingSource(admin, planId);
   const seasonStartDate = getSeasonStartDateForPlan(planTimingSource);
 
-  const sourceWeekEndDay = Math.min(sourceWeekStartDay + 6, totalDays);
-  const targetWeekEndDay = Math.min(targetWeekStartDay + 6, totalDays);
+  const sourceWeekEndDay = getSeasonWeekWindowForDay(
+    planTimingSource,
+    sourceWeekStartDay
+  ).weekEndDay;
+  const targetWeekEndDay = getSeasonWeekWindowForDay(
+    planTimingSource,
+    targetWeekStartDay
+  ).weekEndDay;
 
   const { data: sourceDays, error: sourceDaysError } = await admin
     .from("plan_days")
@@ -869,7 +884,7 @@ export default async function AdminPlanPage({
   const currentWeekStartDay = challenge.weekStartDay;
   const suggestedTargetWeekStart = normalizeWeekStartDay(
     currentWeekStartDay + 7,
-    activePlan.total_days
+    activePlan
   );
 
   const weeklyQuotaTemplates = taskTemplates.filter(
@@ -1125,7 +1140,7 @@ export default async function AdminPlanPage({
                   type="number"
                   min={1}
                   max={activePlan.total_days}
-                  defaultValue={normalizeWeekStartDay(selectedDay, activePlan.total_days)}
+                  defaultValue={normalizeWeekStartDay(selectedDay, activePlan)}
                   className={fieldClassName}
                 />
               </div>

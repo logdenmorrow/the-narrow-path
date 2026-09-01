@@ -79,7 +79,8 @@ export default async function ReflectionPage({
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
-  const isInactivePreview = activePlan?.is_active !== true;
+  const isInactivePreview = seasonResolution.isInactivePreview;
+  const isHistoricalPlan = seasonResolution.isHistoricalPlan;
   const currentPlanSlug = getPlanSlugForResolvedSeason({
     phase: seasonResolution.phase,
     planSlug: activePlan?.slug,
@@ -186,7 +187,16 @@ export default async function ReflectionPage({
   return (
     <main className="monastic-page">
       <PageFrame className="max-w-6xl space-y-5 sm:space-y-6">
-        {isInactivePreview ? (
+        {isHistoricalPlan ? (
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
+              Past season
+            </p>
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
+              Your saved reflection remains available for review. Editing is locked.
+            </p>
+          </SurfaceCard>
+        ) : isInactivePreview ? (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               Admin preview only.
@@ -256,7 +266,9 @@ export default async function ReflectionPage({
             label="Editing"
             value={isLocked ? "Locked" : "Available"}
             detail={
-              activePlan.is_active !== true
+              isHistoricalPlan
+                ? "Past-season reflections are read-only."
+                : activePlan.is_active !== true
                 ? "This inactive plan is read-only in preview."
                 : isLocked
                 ? "Future-day reflection editing is disabled."

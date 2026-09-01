@@ -95,5 +95,13 @@ test.describe("/today task completion toggle", () => {
     const uncheckedButton = await getEnabledTaskButton(page);
     await expectPressed(uncheckedButton, false);
     await expectIdle(uncheckedButton);
+
+    if (initialState) {
+      await clickAndExpectFlip(uncheckedButton, false);
+      await page.reload();
+      const restoredButton = await getEnabledTaskButton(page);
+      await expectPressed(restoredButton, true);
+      await expectIdle(restoredButton);
+    }
   });
 });

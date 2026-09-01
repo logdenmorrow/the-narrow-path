@@ -25,6 +25,15 @@ export const GOSPELS_SEPTEMBER_LENT_PLAN_NAME =
 export const GOSPELS_SEPTEMBER_LENT_START_DATE = "2026-09-01";
 export const GOSPELS_SEPTEMBER_LENT_END_DATE = "2027-02-09";
 
+export type SeasonPlanDefinition = {
+  slug: string;
+  names: readonly string[];
+  startDate: string;
+  endDate: string;
+  totalDays: number;
+  phase: Extract<ResolvedSeasonPhase, "challenge" | "james" | "gospels">;
+};
+
 export type SeasonPhase =
   | "day-90-celebration"
   | "reset"
@@ -72,6 +81,33 @@ export type PlanTimingSource = {
   name?: string | null;
   total_days: number;
 };
+
+export const SEASON_PLAN_DEFINITIONS: readonly SeasonPlanDefinition[] = [
+  {
+    slug: ORIGINAL_CHALLENGE_PLAN_SLUG,
+    names: [ORIGINAL_CHALLENGE_PLAN_NAME],
+    startDate: CHALLENGE_START_DATE,
+    endDate: DAY_90_CELEBRATION_DATE,
+    totalDays: ORIGINAL_CHALLENGE_TOTAL_DAYS,
+    phase: "challenge",
+  },
+  {
+    slug: AUGUST_JAMES_PLAN_SLUG,
+    names: [AUGUST_JAMES_PLAN_NAME, AUGUST_JAMES_LEGACY_PLAN_NAME],
+    startDate: AUGUST_JAMES_START_DATE,
+    endDate: AUGUST_JAMES_END_DATE,
+    totalDays: 31,
+    phase: "james",
+  },
+  {
+    slug: GOSPELS_SEPTEMBER_LENT_PLAN_SLUG,
+    names: [GOSPELS_SEPTEMBER_LENT_PLAN_NAME],
+    startDate: GOSPELS_SEPTEMBER_LENT_START_DATE,
+    endDate: GOSPELS_SEPTEMBER_LENT_END_DATE,
+    totalDays: 162,
+    phase: "gospels",
+  },
+] as const;
 
 export const SEASON_TIMELINE: SeasonTimelineItem[] = [
   {
@@ -208,27 +244,60 @@ function formatStartDateLabel(startDate: string) {
 
 export function getSeasonTiming({
   startDate,
+  endDate,
   totalDays,
   todayIso,
 }: {
   startDate: string;
+  endDate?: string;
   totalDays: number;
   todayIso: string;
 }): ChallengeTiming {
   const safeTotalDays = Math.max(totalDays, 1);
+  const resolvedEndDate =
+    endDate ?? addDaysToIsoDate(startDate, safeTotalDays - 1);
   const diffDays = Math.floor(
     (toUtcDayValue(todayIso) - toUtcDayValue(startDate)) / (24 * 60 * 60 * 1000)
   );
   const hasStarted = diffDays >= 0;
-  const hasEnded = diffDays >= safeTotalDays;
+  const hasEnded = toUtcDayValue(todayIso) > toUtcDayValue(resolvedEndDate);
   const currentDayNumber = hasStarted
     ? Math.min(diffDays + 1, safeTotalDays)
     : 1;
-  const weekStartDay = Math.floor((currentDayNumber - 1) / 7) * 7 + 1;
-  const weekEndDay = Math.min(safeTotalDays, weekStartDay + 6);
+  const effectiveIso = !hasStarted
+    ? startDate
+    : hasEnded
+      ? resolvedEndDate
+      : todayIso;
+  const effectiveWeekday = new Date(`${effectiveIso}T12:00:00Z`).getUTCDay();
+  const daysSinceMonday = (effectiveWeekday + 6) % 7;
+  const calendarWeekStart = addDaysToIsoDate(effectiveIso, -daysSinceMonday);
+  const calendarWeekEnd = addDaysToIsoDate(calendarWeekStart, 6);
+  const weekStartDay = Math.max(
+    1,
+    Math.floor(
+      (toUtcDayValue(calendarWeekStart) - toUtcDayValue(startDate)) /
+        (24 * 60 * 60 * 1000)
+    ) + 1
+  );
+  const weekEndDay = Math.min(
+    safeTotalDays,
+    Math.floor(
+      (toUtcDayValue(calendarWeekEnd) - toUtcDayValue(startDate)) /
+        (24 * 60 * 60 * 1000)
+    ) + 1
+  );
+  const firstWeekday = new Date(`${startDate}T12:00:00Z`).getUTCDay();
+  const firstWeekStart = addDaysToIsoDate(startDate, -((firstWeekday + 6) % 7));
+  const weekNumber =
+    Math.floor(
+      (toUtcDayValue(calendarWeekStart) - toUtcDayValue(firstWeekStart)) /
+        (7 * 24 * 60 * 60 * 1000)
+    ) + 1;
 
   return {
     startDate,
+    endDate: resolvedEndDate,
     startDateLabel: formatStartDateLabel(startDate),
     timeZone: CHALLENGE_TIME_ZONE,
     hasStarted,
@@ -237,30 +306,35 @@ export function getSeasonTiming({
     currentDayNumber,
     weekStartDay,
     weekEndDay,
-    weekNumber: Math.floor((currentDayNumber - 1) / 7) + 1,
+    weekNumber,
   };
+}
+
+export function getSeasonPlanDefinition(plan: {
+  slug?: string | null;
+  name?: string | null;
+}) {
+  return (
+    SEASON_PLAN_DEFINITIONS.find(
+      (definition) =>
+        plan.slug === definition.slug ||
+        (Boolean(plan.name) && definition.names.includes(plan.name as string))
+    ) ?? null
+  );
 }
 
 export function getSeasonStartDateForPlan(plan: {
   slug?: string | null;
   name?: string | null;
 }) {
-  if (
-    plan.slug === GOSPELS_SEPTEMBER_LENT_PLAN_SLUG ||
-    plan.name === GOSPELS_SEPTEMBER_LENT_PLAN_NAME
-  ) {
-    return GOSPELS_SEPTEMBER_LENT_START_DATE;
-  }
+  return getSeasonPlanDefinition(plan)?.startDate ?? CHALLENGE_START_DATE;
+}
 
-  if (
-    plan.slug === AUGUST_JAMES_PLAN_SLUG ||
-    plan.name === AUGUST_JAMES_PLAN_NAME ||
-    plan.name === AUGUST_JAMES_LEGACY_PLAN_NAME
-  ) {
-    return AUGUST_JAMES_START_DATE;
-  }
-
-  return CHALLENGE_START_DATE;
+export function getSeasonEndDateForPlan(plan: PlanTimingSource) {
+  return (
+    getSeasonPlanDefinition(plan)?.endDate ??
+    addDaysToIsoDate(getSeasonStartDateForPlan(plan), Math.max(plan.total_days, 1) - 1)
+  );
 }
 
 export function getSeasonTimingForPlan(
@@ -269,9 +343,58 @@ export function getSeasonTimingForPlan(
 ) {
   return getSeasonTiming({
     startDate: getSeasonStartDateForPlan(plan),
+    endDate: getSeasonEndDateForPlan(plan),
     totalDays: plan.total_days,
     todayIso,
   });
+}
+
+export function isSeasonPlanHistorical(
+  plan: PlanTimingSource,
+  todayIso = getIsoDateInTimeZone()
+) {
+  return toUtcDayValue(todayIso) > toUtcDayValue(getSeasonEndDateForPlan(plan));
+}
+
+export function getSeasonWeekWindowForPlan(
+  plan: PlanTimingSource,
+  date = new Date()
+) {
+  const todayIso = getIsoDateInTimeZone(date);
+  const timing = getSeasonTimingForPlan(plan, todayIso);
+
+  return {
+    todayIso,
+    weekNumber: timing.weekNumber,
+    weekStartDay: timing.weekStartDay,
+    weekEndDay: timing.weekEndDay,
+    weekStartDate: addDaysToIsoDate(timing.startDate, timing.weekStartDay - 1),
+    weekEndDate: addDaysToIsoDate(timing.startDate, timing.weekEndDay - 1),
+  };
+}
+
+export function getSeasonWeekWindowForDay(
+  plan: PlanTimingSource,
+  dayNumber: number
+) {
+  const safeDayNumber = Math.min(
+    Math.max(Math.floor(dayNumber), 1),
+    Math.max(plan.total_days, 1)
+  );
+  const dayIso = addDaysToIsoDate(
+    getSeasonStartDateForPlan(plan),
+    safeDayNumber - 1
+  );
+  const timing = getSeasonTimingForPlan(plan, dayIso);
+
+  return {
+    dayIso,
+    weekNumber: timing.weekNumber,
+    weekStartDay: timing.weekStartDay,
+    weekEndDay: timing.weekEndDay,
+    weekStartDate: addDaysToIsoDate(timing.startDate, timing.weekStartDay - 1),
+    weekEndDate: addDaysToIsoDate(timing.startDate, timing.weekEndDay - 1),
+  };
 }
 
 export function getChallengeDayDate(dayNumber: number) {

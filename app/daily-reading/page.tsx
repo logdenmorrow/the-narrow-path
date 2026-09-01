@@ -244,7 +244,8 @@ export default async function DailyReadingPage({
   });
   const activePlan = seasonResolution.plan;
   const challenge = seasonResolution.timing;
-  const isInactivePreview = activePlan?.is_active !== true;
+  const isInactivePreview = seasonResolution.isInactivePreview;
+  const isHistoricalPlan = seasonResolution.isHistoricalPlan;
   const currentPlanSlug = getPlanSlugForResolvedSeason({
     phase: seasonResolution.phase,
     planSlug: activePlan?.slug,
@@ -423,7 +424,16 @@ export default async function DailyReadingPage({
   return (
     <main className="monastic-page">
       <PageFrame className="max-w-6xl space-y-5 sm:space-y-6">
-        {isInactivePreview ? (
+        {isHistoricalPlan ? (
+          <SurfaceCard>
+            <p className="text-base font-semibold text-monastic-0 sm:text-lg">
+              Past season
+            </p>
+            <p className="mt-2 text-sm text-monastic-1 sm:text-base">
+              This reading remains available for review.
+            </p>
+          </SurfaceCard>
+        ) : isInactivePreview ? (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
               Admin preview only.
