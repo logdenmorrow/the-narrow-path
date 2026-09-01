@@ -37,12 +37,16 @@ observances on the detail page, but they must not replace the primary
 liturgical day. The primary date still supports one main `profile_slug`.
 Related observance profiles display only when approved or locked.
 
-## August 1-31, 2026: James: Faith That Works
+## August 1-31, 2026: James: Faith That Works (Complete)
 
 A lighter Scripture bridge season after the 90 days. The public display name is
 `James: Faith That Works`; the internal slug remains `ordinary-time-james`.
 
-Required/planned:
+The season ran in production and is now inactive. It remains available as a
+read-only historical season through stable `?plan=ordinary-time-james&day=<n>`
+links; task toggles and reflection edits are locked.
+
+Required:
 
 - Daily Reading from James
 - Required reflection based on that day's James reading
@@ -58,17 +62,13 @@ Optional:
 - Anchor Check-In
 - Community
 
-Working display-only outline:
+Reading outline:
 
 - Aug 1-6: James 1
 - Aug 7-12: James 2
 - Aug 13-18: James 3
 - Aug 19-24: James 4
 - Aug 25-31: James 5
-
-June 3 readiness status: James content and task rows appear ready, but the plan
-remains inactive. A read-only readiness audit found no Critical or High issues.
-Activation must not happen without explicit approval.
 
 The August James content draft lives here:
 
@@ -91,37 +91,29 @@ The later production DB migration
 `20260603120000_update_august_james_public_name.sql` updated the public name by
 slug to `James: Faith That Works`.
 
-Latest production verification confirmed:
+September 1 post-season production verification confirmed:
 
 ```text
 slug: ordinary-time-james
 name: James: Faith That Works
 total_days: 31
 is_active: false
+plan_days: 31
+plan_day_tasks: 315
+user_task_completions: 29
+user_reflection_entries: 10
 ```
-
-Do not make that plan active until the launch has been reviewed and explicitly
-approved.
 
 Implementation notes:
 
 - Current reading content is stored on `plan_days` using `reading_mission`, `reading_focus`, `reading_title`, `reading_reference`, `reading_notes`, `reading_text`, and `reflection_prompt`.
 - Current task assignments use `task_templates` and `plan_day_tasks`.
-- Primary day-review pages now use date/plan-aware resolution; some non-core
-  routes still load the single `challenge_plans.is_active = true` plan and/or
-  use older challenge timing assumptions.
-- Current active production plan count remains 1: `the-narrow-path-90`.
-- Before August activation, either keep exactly one active plan at a time or
-  harden the remaining routes to use shared season resolution.
-- If August 1 arrives without activation, James can resolve by date/slug while
-  still inactive and may show locked/admin-preview behavior. This is a Medium
-  activation hygiene risk, not a current production blocker.
-- Do not mark a second plan active without first updating plan/season selection
-  logic; existing `.maybeSingle()` queries expect one active plan.
-- Before August 1, confirm the `ordinary-time-james` row is reviewed and
-  intentionally activated only after explicit approval.
+- Primary day-review pages use date/plan-aware resolution. Past seasons resolve
+  explicitly as read-only and cannot be mutated through server actions.
+- Production keeps exactly one active plan. As of September 1, that plan is
+  `the-gospels-september-lent`.
 - August task data should include reading/reflection, Sunday Mass, weekly Adoration, monthly Confession, and optional prayer/community tasks. It should not include the original food, drink, cold shower, social media, fasting, or meat-abstinence challenge restrictions.
-- Current task progress code supports `quota_scope = 'month'` for August Confession. Review dashboard summary copy before the plan is made active so the monthly requirement is surfaced clearly.
+- Task progress supports both weekly and monthly quota scopes.
 
 Routing convention:
 
@@ -130,23 +122,38 @@ Routing convention:
 - Bare `?day=<number>` remains a legacy shortcut and should keep working for existing shared links.
 - During August, use `/today?plan=ordinary-time-james&day=10` instead of relying on `/today?day=10`.
 
-Activation caution:
+## September 1, 2026 - February 9, 2027: The Gospels (Active)
 
-- Do not activate without explicit approval.
-- Keep exactly one active plan unless the remaining active-plan-only routes have
-  been hardened.
-- After activation, verify normal users do not see inactive/admin-preview/locked
-  behavior on August routes.
+The public plan name is `The Gospels: From September to Lent`; the internal
+slug is `the-gospels-september-lent`. Production activation was applied by
+`20260901120000_activate_gospels_september_lent.sql` on September 1, 2026.
+Exactly one plan is active.
 
-## September 1, 2026 - February 9, 2027: The Gospels
-
-Read the Gospels from September to Lent in this order:
+Read the Gospels in this order:
 
 ```text
 Mark -> Matthew -> Luke -> John
 ```
 
-Keep this as future metadata until daily Gospel splits are intentionally authored.
+Verified production inventory:
+
+```text
+plan_days: 162
+plan_day_tasks: 1481
+date range: 2026-09-01 through 2027-02-09
+```
+
+Daily tasks include Reading, Reflection, Adoration, Confession, Night Prayer,
+Rosary, Workout, Anchor Check-In, and Fast or Penance; Sunday Mass appears on
+23 days. Weekly scopes use Monday-Sunday calendar boundaries, so the opening
+week is Days 1-6 (Tuesday, September 1 through Sunday, September 6). Monthly
+Confession progress is surfaced alongside weekly goals.
+
+The normal signed-in routes `/today`, `/dashboard`, `/this-week`,
+`/daily-reading`, `/reflection`, `/hours/compline`, `/rosary`, `/settings`, and
+`/brotherhood` were production-verified on desktop and mobile after deployment.
+Task-toggle and reflection-save flows were exercised with the dedicated test
+account and restored to their exact starting state.
 
 ## February 10 - March 28, 2027: Lent 2027
 

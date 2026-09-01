@@ -1,56 +1,79 @@
-# Gospel Activation Readiness Audit
+# Gospel Activation and Post-Apply Audit
 
-This audit focuses on season timing, plan visibility, and routes that may still
-assume the original 90-day challenge timing.
+This document began as the pre-activation timing and visibility audit. The
+original findings remain below for history; this top section records the final
+September 1, 2026 production result.
 
-No activation, migration, Supabase CLI command, production SQL, or production
-write was performed during this audit.
+## Final Verdict: Launched and Verified
 
-## Overall Verdict
+The Gospel season is active in production. Migration
+`20260901120000_activate_gospels_september_lent.sql` was dry-run, applied, and
+then confirmed as the only remote migration delta. It changed only
+`challenge_plans.is_active` after fail-closed integrity guards passed.
 
-Core season timing refactors are mostly complete, but Gospel activation is still
-not ready until production scanner expansion and activation planning are done.
+Post-apply state:
 
-The Gospel plan content, admin-only inactive preview path, and Before You Read
-fields are in good shape. The first round of season-aware timing work has
-removed the original April 6 timing assumption from the main visible active-plan
-surfaces listed below.
+- sole active plan: `the-gospels-september-lent`
+- name: `The Gospels: From September to Lent`
+- plan days: `162`
+- task assignments: `1,481`
+- task date range: `2026-09-01` through `2027-02-09`
+- duplicate day numbers: `0`
+- duplicate day/task assignments: `0`
+- missing week/month scope dates: `0`
+- core reading/reflection content gaps: `0`
 
-The current preview-safe routes use `resolveSeasonPlan`, which already assigns
-the Gospel start date correctly and blocks inactive requested plans unless an
-admin preview option is explicitly passed.
+Historical-data preservation was verified before and after activation:
 
-## Refactor Progress
+| Plan | Days | Tasks | Completions | Reflections |
+|---|---:|---:|---:|---:|
+| `the-narrow-path-90` | 90 | 1,402 | 941 | 91 |
+| `ordinary-time-james` | 31 | 315 | 29 | 10 |
+| `the-gospels-september-lent` | 162 | 1,481 | 0 | 0 |
+
+The dedicated live task-toggle and reflection-save tests restored their exact
+starting state, so the final Gospel history counts remained 0/0 at audit time.
+
+## Final Implementation
 
 Completed:
 
-- Shared season-aware timing helper:
-  `getSeasonStartDateForPlan` and `getSeasonTimingForPlan`.
-- `components/progress-strip.tsx`
-- `lib/homepage-overview.ts`
-- `app/brotherhood/page.tsx`
-- `app/brotherhood/[userId]/page.tsx`
-- `app/night-prayer/page.tsx`
-- `app/rosary/page.tsx`
-- `app/admin/plan/page.tsx` display timing
-- `app/admin/plan/page.tsx` task-date generation
-- Post-complete final-day link copy in `app/today/page.tsx` and
-  `app/dashboard/page.tsx`
+- Central definitions for original, James, and Gospel start/end dates.
+- Fail-closed phase resolution: an inactive/mismatched Gospel plan can no
+  longer fall back to James during the Gospel date phase.
+- Explicit historical James/original links remain readable but server actions
+  reject task and reflection writes.
+- Monday-Sunday season week windows, including the partial Sep 1-6 opening
+  week and Feb 8-9 closing week.
+- Weekly and monthly quota progress on Dashboard, This Week, and community
+  views using authoritative task scope metadata.
+- Season-aware GroupMe weekly windows; nightly behavior remains date/task-row
+  based and requires no season offset.
+- Admin task-date and week-copy handling uses calendar week boundaries.
+- Legacy `night-prayer` tasks map only to Compline, not Lauds/Vespers.
+- Sep 1 Lauds, Vespers, and Compline content imported and verified (3 rows).
+- Automated boundary, fail-closed resolver, signed-in route, task mutation,
+  and reflection mutation coverage.
 
-Deferred:
+## Verification Evidence
 
-- `lib/groupme-weekly.ts`
-- `lib/groupme-nightly.ts`
+- `npm test`: 2 files, 8 tests, all passed.
+- `npx tsc --noEmit`: passed.
+- `npm run lint -- --max-warnings=0`: passed.
+- `npm run build`: passed; 54 application routes built.
+- `npm run scan:gospel-activation`: passed with zero issues.
+- Signed-in production Gospel suite: 7/7 passed across 1440px desktop and
+  390px mobile viewports.
+- Live production task-toggle mutation: passed and restored initial state.
+- Live production reflection-save mutation: passed, reloaded encrypted content,
+  and restored the exact original reflection/completion state.
+- PR `#57` merged as `69eda36`; the GHCR image workflow completed successfully,
+  and the deployed build was identified by new quota/calendar and historical
+  read-only behavior.
 
-GroupMe may be retired before Gospel activation in favor of in-app
-announcements/notifications. If GroupMe remains active during the Gospel
-season, weekly recap timing must be refactored or disabled before activation.
-
-Remaining open items:
-
-- Production scanner expansion for Brotherhood, Night Prayer, Rosary, and the
-  progress strip after deployment.
-- Final activation plan.
+Remaining operational watch item: DivineOffice.org exposes a rolling lookahead
+window. Continue the existing monthly Liturgy of the Hours import workflow so
+future dates remain populated.
 
 ## Initial Audit Findings
 

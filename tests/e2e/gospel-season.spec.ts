@@ -94,11 +94,13 @@ for (const viewport of [
       ).toBeVisible();
       await page.goto("/reflection");
       await expect(
-        page.getByText(GOSPEL_PLAN_NAME).filter({ visible: true }).first()
+        page.getByRole("heading", { name: "Scripture Reflection" })
       ).toBeVisible();
+      await expect(page.getByText("Day 1/162", { exact: true })).toBeVisible();
       await expect(
         page.getByText(/name one wilderness/i).filter({ visible: true }).first()
       ).toBeVisible();
+      await expectNoStaleSeasonText(await page.locator("body").innerText());
       await page.goto("/hours/compline");
       await expect(
         page
