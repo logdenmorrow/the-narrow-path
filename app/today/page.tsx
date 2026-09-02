@@ -61,6 +61,7 @@ import {
 } from "@/components/monastic-ui";
 import { TodayTaskCard } from "@/components/today-task-card";
 import {
+  buildLiturgyOfTheHoursSummary,
   buildTaskViewModels,
   formatReadableDate,
   type CompletionRecord,
@@ -972,11 +973,16 @@ export default async function TodayPage({
   const optionalTasks = taskModels.filter(
     (task) => !task.isRequired && task.isOptional
   );
-  const displayOptionalTasks = optionalTasks.filter(
-    (task) =>
-      !isLiturgyOfTheHoursSlug(task.slug) ||
-      task.slug === "liturgy-of-the-hours-lauds"
+  const liturgyOfTheHoursTasks = optionalTasks.filter((task) =>
+    isLiturgyOfTheHoursSlug(task.slug)
   );
+  const liturgyOfTheHoursSummary = buildLiturgyOfTheHoursSummary(
+    liturgyOfTheHoursTasks
+  );
+  const displayOptionalTasks = [
+    ...optionalTasks.filter((task) => !isLiturgyOfTheHoursSlug(task.slug)),
+    ...(liturgyOfTheHoursSummary ? [liturgyOfTheHoursSummary] : []),
+  ].sort((a, b) => a.displayOrder - b.displayOrder);
 
   const quotaTasks = taskModels.filter((task) => task.progressLabel);
   const uniqueQuotaTasks = quotaTasks.filter(

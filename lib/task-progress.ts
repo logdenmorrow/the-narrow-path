@@ -196,6 +196,27 @@ export function summarizeRequiredTasks(tasks: TaskViewModel[]) {
   };
 }
 
+export function buildLiturgyOfTheHoursSummary(
+  tasks: TaskViewModel[]
+): TaskViewModel | null {
+  const hours = tasks.filter(
+    (task) =>
+      task.isOptional && task.slug.startsWith("liturgy-of-the-hours-")
+  );
+  if (hours.length === 0) return null;
+
+  const completed = hours.filter((task) => task.isCompleted).length;
+  return {
+    ...hours[0],
+    title: "Liturgy of the Hours",
+    isCompleted: completed === hours.length,
+    progressCount: completed,
+    progressLabel: `${completed}/${hours.length}`,
+    note: "Morning Prayer, Evening Prayer, and Night Prayer.",
+    displayOrder: Math.min(...hours.map((task) => task.displayOrder)),
+  };
+}
+
 export function toShortDisplayName(name: string | null | undefined) {
   if (!name?.trim()) return "Member";
 

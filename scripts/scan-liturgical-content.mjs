@@ -2,7 +2,12 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const calendarPath = path.resolve("content/liturgical-calendar/us-2026.json");
+const gospelSeasonFactsPath = path.resolve(
+  "content/liturgical-calendar/us-gospel-season-facts.json"
+);
 const profilesRoot = path.resolve("content/liturgical-profiles");
+const gospelSeasonStart = "2026-09-01";
+const gospelSeasonEnd = "2027-02-09";
 
 const requiredCalendarFields = [
   "date",
@@ -85,12 +90,27 @@ const unsafeFeatureChecks = [
 
 const summary = {
   calendarEntries: 0,
+  gospelSeasonFactEntries: 0,
   profileFiles: 0,
   approvedLockedProfiles: 0,
   draftReviewProfiles: 0,
   errors: [],
   warnings: [],
 };
+
+function addDaysToIsoDate(dateIso, days) {
+  const parsed = new Date(`${dateIso}T00:00:00Z`);
+  parsed.setUTCDate(parsed.getUTCDate() + days);
+  return parsed.toISOString().slice(0, 10);
+}
+
+function enumerateDates(start, end) {
+  const dates = [];
+  for (let date = start; date <= end; date = addDaysToIsoDate(date, 1)) {
+    dates.push(date);
+  }
+  return dates;
+}
 
 function addError(message) {
   summary.errors.push(message);
@@ -311,6 +331,114 @@ function validateCalendarEntry(entry, index, seenDates, referencedProfiles) {
   });
 }
 
+function validateGospelSeasonFacts(document) {
+  if (!isPlainObject(document)) {
+    addError("Gospel-season factual calendar must contain an object.");
+    return;
+  }
+
+  if (
+    document.range?.start !== gospelSeasonStart ||
+    document.range?.end !== gospelSeasonEnd
+  ) {
+    addError(
+      `Gospel-season factual range must be ${gospelSeasonStart} through ${gospelSeasonEnd}.`
+    );
+  }
+
+  if (!Array.isArray(document.days)) {
+    addError("Gospel-season factual calendar must contain a days array.");
+    return;
+  }
+
+  summary.gospelSeasonFactEntries = document.days.length;
+  const factsByDate = new Map();
+  const requiredFields = [
+    "date",
+    "title",
+    "rank",
+    "liturgical_color",
+    "season",
+    "related_observances",
+    "sources",
+  ];
+  const prohibitedEditorialFields = [
+    "summary",
+    "description",
+    "catholic_connection",
+    "profile_slug",
+  ];
+
+  document.days.forEach((fact, index) => {
+    const label = `gospelSeasonFacts.days[${index}]`;
+    if (!isPlainObject(fact)) {
+      addError(`${label}: fact must be an object.`);
+      return;
+    }
+
+    for (const field of requiredFields) {
+      if (!(field in fact)) addError(`${label}: missing required field "${field}".`);
+    }
+    for (const field of requiredFields.slice(0, 5)) {
+      if (!hasText(fact[field])) addError(`${label}: "${field}" must be non-empty text.`);
+    }
+    for (const field of prohibitedEditorialFields) {
+      if (field in fact) {
+        addError(`${label}: imported facts must not contain editorial field "${field}".`);
+      }
+    }
+
+    if (!isIsoDate(fact.date)) {
+      addError(`${label}: date must be a valid YYYY-MM-DD value.`);
+    } else if (factsByDate.has(fact.date)) {
+      addError(`${label}: duplicate date "${fact.date}".`);
+    } else {
+      factsByDate.set(fact.date, fact);
+    }
+
+    if (
+      !sourceListIsValid(fact.sources) ||
+      fact.sources.some((source) => !/^https:\/\/(?:www\.)?usccb\.org\//i.test(source.url))
+    ) {
+      addError(`${label}: facts must cite an official USCCB source.`);
+    }
+
+    if (!Array.isArray(fact.related_observances)) {
+      addError(`${label}: related_observances must be an array.`);
+    } else {
+      fact.related_observances.forEach((observance, relatedIndex) => {
+        const relatedLabel = `${label}.related_observances[${relatedIndex}]`;
+        if (
+          !isPlainObject(observance) ||
+          !hasText(observance.title) ||
+          observance.rank !== "Optional Memorial" ||
+          observance.relation !== "optional_memorial"
+        ) {
+          addError(`${relatedLabel}: expected factual optional-memorial metadata.`);
+        }
+        for (const field of prohibitedEditorialFields) {
+          if (field in (observance ?? {})) {
+            addError(`${relatedLabel}: imported facts must not contain editorial field "${field}".`);
+          }
+        }
+      });
+    }
+  });
+
+  const missingDates = enumerateDates(gospelSeasonStart, gospelSeasonEnd).filter(
+    (date) => !factsByDate.has(date)
+  );
+  if (missingDates.length > 0) {
+    addError(
+      `Gospel-season factual calendar is missing ${missingDates.length} dates: ${missingDates.join(", ")}.`
+    );
+  }
+
+  if (document.days.length !== 162) {
+    addError(`Gospel-season factual calendar must contain 162 dates; found ${document.days.length}.`);
+  }
+}
+
 function validateRelatedObservances(entry, label, referencedProfiles) {
   if (!Array.isArray(entry.related_observances)) {
     addError(`${label}: related_observances must be an array when present.`);
@@ -484,6 +612,20 @@ async function main() {
     });
   }
 
+  if (!(await pathExists(gospelSeasonFactsPath))) {
+    addError(
+      `Missing factual calendar file: ${path.relative(process.cwd(), gospelSeasonFactsPath)}`
+    );
+  } else {
+    try {
+      validateGospelSeasonFacts(await readJson(gospelSeasonFactsPath));
+    } catch (error) {
+      addError(
+        `Could not parse factual calendar ${path.relative(process.cwd(), gospelSeasonFactsPath)}: ${error.message}`
+      );
+    }
+  }
+
   const profileFiles = await listJsonFiles(profilesRoot);
   summary.profileFiles = profileFiles.length;
   const profilesBySlug = new Map();
@@ -527,6 +669,7 @@ function printSummary() {
   console.log("Today in the Church content scan");
   console.log("");
   console.log(`Calendar entries: ${summary.calendarEntries}`);
+  console.log(`Gospel-season factual entries: ${summary.gospelSeasonFactEntries}`);
   console.log(`Profile files: ${summary.profileFiles}`);
   console.log(`Approved/locked profiles: ${summary.approvedLockedProfiles}`);
   console.log(`Draft/review profiles: ${summary.draftReviewProfiles}`);

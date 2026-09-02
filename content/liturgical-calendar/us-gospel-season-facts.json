@@ -1,0 +1,2722 @@
+{
+  "schema_version": 1,
+  "authority": {
+    "label": "United States Conference of Catholic Bishops liturgical calendar",
+    "url": "https://www.usccb.org/committees/divine-worship/liturgical-calendar"
+  },
+  "range": {
+    "start": "2026-09-01",
+    "end": "2027-02-09"
+  },
+  "days": [
+    {
+      "date": "2026-09-01",
+      "title": "Tuesday of the 22nd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-02",
+      "title": "Wednesday of the 22nd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-03",
+      "title": "Saint Gregory the Great, Pope and Doctor of the Church",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-04",
+      "title": "Friday of the 22nd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-05",
+      "title": "Saturday of the 22nd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Teresa of Calcutta, Virgin",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-06",
+      "title": "23rd Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-07",
+      "title": "Monday of the 23rd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-08",
+      "title": "The Nativity of the Blessed Virgin Mary",
+      "rank": "Feast",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-09",
+      "title": "Saint Peter Claver, Priest",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-10",
+      "title": "Thursday of the 23rd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-11",
+      "title": "Friday of the 23rd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-12",
+      "title": "Saturday of the 23rd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "The Most Holy Name of Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-13",
+      "title": "24th Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-14",
+      "title": "The Exaltation of the Holy Cross",
+      "rank": "Feast",
+      "liturgical_color": "red",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-15",
+      "title": "Our Lady of Sorrows",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-16",
+      "title": "Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs",
+      "rank": "Memorial",
+      "liturgical_color": "red",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "title": "Thursday of the 24th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Robert Bellarmine, Bishop and Doctor of the Church",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Saint Hildegard of Bingen, Virgin and Doctor of the Church",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-18",
+      "title": "Friday of the 24th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-19",
+      "title": "Saturday of the 24th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Januarius, Bishop and Martyr",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "title": "25th Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "title": "Saint Matthew, Apostle and Evangelist",
+      "rank": "Feast",
+      "liturgical_color": "red",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-22",
+      "title": "Tuesday of the 25th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-23",
+      "title": "Saint Pius of Pietrelcina, Priest",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "title": "Thursday of the 25th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-25",
+      "title": "Friday of the 25th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-26",
+      "title": "Saturday of the 25th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saints Cosmas and Damian, Martyrs",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-27",
+      "title": "26th Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-28",
+      "title": "Monday of the 26th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Wenceslaus, Martyr",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Saint Lawrence Ruiz and Companions, Martyrs",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-29",
+      "title": "Saints Michael, Gabriel and Raphael, Archangels",
+      "rank": "Feast",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-30",
+      "title": "Saint Jerome, Priest and Doctor of the Church",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-01",
+      "title": "Saint Thérèse of the Child Jesus, Virgin and Doctor of the Church",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-02",
+      "title": "The Holy Guardian Angels",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-03",
+      "title": "Saturday of the 26th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-04",
+      "title": "27th Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-05",
+      "title": "Monday of the 27th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Faustina Kowalska, Virgin",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "USA: Blessed Francis Xavier Seelos, Priest",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-06",
+      "title": "Tuesday of the 27th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Bruno, Priest",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "USA: Blessed Marie Rose Durocher, Virgin",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-07",
+      "title": "Our Lady of the Rosary",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-08",
+      "title": "Thursday of the 27th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-09",
+      "title": "Friday of the 27th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Denis, Bishop, and Companions, Martyrs",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Saint John Leonardi, Priest",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Saint John Henry Newman, Priest and Doctor of the Church",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-10",
+      "title": "Saturday of the 27th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-11",
+      "title": "28th Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-12",
+      "title": "Monday of the 28th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-13",
+      "title": "Tuesday of the 28th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-14",
+      "title": "Wednesday of the 28th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Callistus I, Pope and Martyr",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "title": "Saint Teresa of Jesus, Virgin and Doctor of the Church",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-16",
+      "title": "Friday of the 28th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Hedwig, Religious",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Saint Margaret Mary Alacoque, Virgin",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-17",
+      "title": "Saint Ignatius of Antioch, Bishop and Martyr",
+      "rank": "Memorial",
+      "liturgical_color": "red",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-18",
+      "title": "29th Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-19",
+      "title": "Saints John de Brébeuf and Isaac Jogues, Priests, and Companions, Martyrs",
+      "rank": "Memorial",
+      "liturgical_color": "red",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-20",
+      "title": "Tuesday of the 29th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Paul of the Cross, Priest",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-21",
+      "title": "Wednesday of the 29th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-22",
+      "title": "Thursday of the 29th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint John Paul II, Pope",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "title": "Friday of the 29th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint John of Capistrano, Priest",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "title": "Saturday of the 29th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Anthony Mary Claret, Bishop",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-25",
+      "title": "30th Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-26",
+      "title": "Monday of the 30th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "title": "Tuesday of the 30th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "title": "Saints Simon and Jude, Apostles",
+      "rank": "Feast",
+      "liturgical_color": "red",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "title": "Thursday of the 30th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-30",
+      "title": "Friday of the 30th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-31",
+      "title": "Saturday of the 30th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-01",
+      "title": "All Saints",
+      "rank": "Solemnity",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-02",
+      "title": "The Commemoration of All the Faithful Departed",
+      "rank": "Commemoration",
+      "liturgical_color": "violet or white or black",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "title": "Tuesday of the 31st Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Martin de Porres, Religious",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "title": "Saint Charles Borromeo, Bishop",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "title": "Thursday of the 31st Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "title": "Friday of the 31st Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-07",
+      "title": "Saturday of the 31st Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-08",
+      "title": "32nd Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "title": "The Dedication of the Lateran Basilica",
+      "rank": "Feast",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-10",
+      "title": "Saint Leo the Great, Pope and Doctor of the Church",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-11",
+      "title": "Saint Martin of Tours, Bishop",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-12",
+      "title": "Saint Josaphat, Bishop and Martyr",
+      "rank": "Memorial",
+      "liturgical_color": "red",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-13",
+      "title": "Saint Frances Xavier Cabrini, Virgin",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-14",
+      "title": "Saturday of the 32nd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-15",
+      "title": "33rd Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-16",
+      "title": "Monday of the 33rd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Margaret of Scotland",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Saint Gertrude, Virgin",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-17",
+      "title": "Saint Elizabeth of Hungary, Religious",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-18",
+      "title": "Wednesday of the 33rd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "The Dedication of the Basilicas of Saints Peter and Paul, Apostles",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "USA: Saint Rose Philippine Duchesne, Virgin",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-19",
+      "title": "Thursday of the 33rd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-20",
+      "title": "Friday of the 33rd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-21",
+      "title": "The Presentation of the Blessed Virgin Mary",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-22",
+      "title": "Our Lord Jesus Christ, King of the Universe",
+      "rank": "Solemnity",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-23",
+      "title": "Monday of the 34th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Clement I, Pope and Martyr",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Saint Columban, Abbot",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "USA: Blessed Miguel Agustín Pro, Priest and Martyr",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-24",
+      "title": "Saint Andrew Dũng-Lạc, Priest, and Companions, Martyrs",
+      "rank": "Memorial",
+      "liturgical_color": "red",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-25",
+      "title": "Wednesday in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Catherine of Alexandria, Virgin and Martyr",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-26",
+      "title": "Thursday in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Thanksgiving Day",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-27",
+      "title": "Friday in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-28",
+      "title": "Saturday in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-29",
+      "title": "1st Sunday of Advent",
+      "rank": "Sunday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-30",
+      "title": "Saint Andrew, Apostle",
+      "rank": "Feast",
+      "liturgical_color": "red",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-01",
+      "title": "Tuesday of the 1st Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-02",
+      "title": "Wednesday of the 1st Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-03",
+      "title": "Saint Francis Xavier, Priest",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-04",
+      "title": "Friday of the 1st Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [
+        {
+          "title": "Saint John Damascene, Priest and Doctor of the Church",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-05",
+      "title": "Saturday of the 1st Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-06",
+      "title": "2nd Sunday of Advent",
+      "rank": "Sunday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-07",
+      "title": "Saint Ambrose, Bishop and Doctor of the Church",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-08",
+      "title": "The Immaculate Conception of the Blessed Virgin Mary",
+      "rank": "Solemnity",
+      "liturgical_color": "white",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-09",
+      "title": "Wednesday of the 2nd Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [
+        {
+          "title": "Saint Juan Diego Cuauhtlatoatzin",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-10",
+      "title": "Thursday of the 2nd Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [
+        {
+          "title": "Our Lady of Loreto",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-11",
+      "title": "Friday of the 2nd Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [
+        {
+          "title": "Saint Damasus I, Pope",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-12",
+      "title": "Our Lady of Guadalupe",
+      "rank": "Feast",
+      "liturgical_color": "white",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-13",
+      "title": "3rd Sunday of Advent",
+      "rank": "Sunday",
+      "liturgical_color": "violet or rose",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-14",
+      "title": "Saint John of the Cross, Priest and Doctor of the Church",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-15",
+      "title": "Tuesday of the 3rd Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-16",
+      "title": "Wednesday of the 3rd Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-17",
+      "title": "Thursday of the 3rd Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-18",
+      "title": "Friday of the 3rd Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-19",
+      "title": "Saturday of the 3rd Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-20",
+      "title": "4th Sunday of Advent",
+      "rank": "Sunday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-21",
+      "title": "Monday of the 4th Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [
+        {
+          "title": "Saint Peter Canisius, Priest and Doctor of the Church",
+          "rank": "Optional Memorial",
+          "liturgical_color": null,
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-22",
+      "title": "Tuesday of the 4th Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-23",
+      "title": "Wednesday of the 4th Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [
+        {
+          "title": "Saint John of Kanty, Priest",
+          "rank": "Optional Memorial",
+          "liturgical_color": null,
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-24",
+      "title": "Thursday of the 4th Week of Advent",
+      "rank": "Weekday",
+      "liturgical_color": "violet",
+      "season": "Advent",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-25",
+      "title": "The Nativity of the Lord (Christmas)",
+      "rank": "Solemnity",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-26",
+      "title": "Saint Stephen, The First Martyr",
+      "rank": "Feast",
+      "liturgical_color": "red",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-27",
+      "title": "The Holy Family of Jesus, Mary and Joseph",
+      "rank": "Feast",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-28",
+      "title": "The Holy Innocents, Martyrs",
+      "rank": "Feast",
+      "liturgical_color": "red",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-29",
+      "title": "Fifth Day within the Octave of the Nativity of the Lord",
+      "rank": "Weekday",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [
+        {
+          "title": "Saint Thomas Becket, Bishop and Martyr",
+          "rank": "Optional Memorial",
+          "liturgical_color": null,
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-30",
+      "title": "Sixth Day within the Octave of the Nativity of the Lord",
+      "rank": "Weekday",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2026-12-31",
+      "title": "Seventh Day within the Octave of the Nativity of the Lord",
+      "rank": "Weekday",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [
+        {
+          "title": "Saint Sylvester I, Pope",
+          "rank": "Optional Memorial",
+          "liturgical_color": null,
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2026 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2026cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-01",
+      "title": "Solemnity of Mary, the Holy Mother of God",
+      "rank": "Solemnity",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-02",
+      "title": "Saints Basil the Great and Gregory Nazianzen, Bishops and Doctors of the Church",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-03",
+      "title": "The Epiphany of the Lord",
+      "rank": "Solemnity",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-04",
+      "title": "Saint Elizabeth Ann Seton, Religious",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-05",
+      "title": "Saint John Neumann, Bishop",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-06",
+      "title": "Wednesday of Christmas Time",
+      "rank": "Weekday",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [
+        {
+          "title": "Saint André Bessette, Religious",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-07",
+      "title": "Thursday of Christmas Time",
+      "rank": "Weekday",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [
+        {
+          "title": "Saint Raymond of Penyafort, Priest",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-08",
+      "title": "Friday of Christmas Time",
+      "rank": "Weekday",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-09",
+      "title": "Saturday of Christmas Time",
+      "rank": "Weekday",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-10",
+      "title": "The Baptism of the Lord",
+      "rank": "Feast",
+      "liturgical_color": "white",
+      "season": "Christmas Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-11",
+      "title": "Monday of the 1st Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-12",
+      "title": "Tuesday of the 1st Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-13",
+      "title": "Wednesday of the 1st Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Hilary, Bishop and Doctor of the Church",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-14",
+      "title": "Thursday of the 1st Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-15",
+      "title": "Friday of the 1st Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-16",
+      "title": "Saturday of the 1st Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-17",
+      "title": "2nd Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-18",
+      "title": "Monday of the 2nd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-19",
+      "title": "Tuesday of the 2nd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-20",
+      "title": "Wednesday of the 2nd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Fabian, Pope and Martyr",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Saint Sebastian, Martyr",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-21",
+      "title": "Saint Agnes, Virgin and Martyr",
+      "rank": "Memorial",
+      "liturgical_color": "red",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-22",
+      "title": "Day of Prayer for the Legal Protection of Unborn Children",
+      "rank": "Observance",
+      "liturgical_color": "white or violet",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-23",
+      "title": "Saturday of the 2nd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Vincent, Deacon and Martyr",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "USA: Saint Marianne Cope, Virgin",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-24",
+      "title": "3rd Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-25",
+      "title": "The Conversion of Saint Paul the Apostle",
+      "rank": "Feast",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-26",
+      "title": "Saints Timothy and Titus, Bishops",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-27",
+      "title": "Wednesday of the 3rd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Angela Merici, Virgin",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-28",
+      "title": "Saint Thomas Aquinas, Priest and Doctor of the Church",
+      "rank": "Memorial",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-29",
+      "title": "Friday of the 3rd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-30",
+      "title": "Saturday of the 3rd Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Blessed Virgin Mary",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-01-31",
+      "title": "4th Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-02-01",
+      "title": "Monday of the 4th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-02-02",
+      "title": "The Presentation of the Lord",
+      "rank": "Feast",
+      "liturgical_color": "white",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-02-03",
+      "title": "Wednesday of the 4th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Blaise, Bishop and Martyr",
+          "rank": "Optional Memorial",
+          "liturgical_color": "red",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Saint Ansgar, Bishop",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-02-04",
+      "title": "Thursday of the 4th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-02-05",
+      "title": "Saint Agatha, Virgin and Martyr",
+      "rank": "Memorial",
+      "liturgical_color": "red",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-02-06",
+      "title": "Saint Paul Miki and Companions, Martyrs",
+      "rank": "Memorial",
+      "liturgical_color": "red",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-02-07",
+      "title": "5th Sunday in Ordinary Time",
+      "rank": "Sunday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-02-08",
+      "title": "Monday of the 5th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [
+        {
+          "title": "Saint Jerome Emiliani",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        },
+        {
+          "title": "Saint Josephine Bakhita, Virgin",
+          "rank": "Optional Memorial",
+          "liturgical_color": "white",
+          "relation": "optional_memorial"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    },
+    {
+      "date": "2027-02-09",
+      "title": "Tuesday of the 5th Week in Ordinary Time",
+      "rank": "Weekday",
+      "liturgical_color": "green",
+      "season": "Ordinary Time",
+      "related_observances": [],
+      "sources": [
+        {
+          "label": "USCCB 2027 Liturgical Calendar",
+          "url": "https://www.usccb.org/resources/2027cal.pdf"
+        }
+      ]
+    }
+  ]
+}
