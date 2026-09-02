@@ -23,10 +23,10 @@ for (const viewport of [
   test.describe(`Gospel launch (${viewport.name})`, () => {
     test.use({ viewport: { width: viewport.width, height: viewport.height } });
 
-    test("loads September 1 as active Gospel Day 1 without preview parameters", async ({
+    test("loads September 1 as active Gospel Day 1", async ({
       page,
     }) => {
-      await page.goto("/today");
+      await page.goto("/today?day=1");
       await expect(
         page.getByText(GOSPEL_PLAN_NAME).filter({ visible: true }).first()
       ).toBeVisible();
@@ -49,13 +49,19 @@ for (const viewport of [
         "Adoration",
         "Fast or Penance",
         "Confession",
-        "Night Prayer",
         "Rosary",
       ]) {
         await expect(
           page.getByText(task, { exact: true }).filter({ visible: true }).first()
         ).toBeVisible();
       }
+
+      await expect(
+        page.getByRole("heading", { name: "Liturgy of the Hours", exact: true })
+      ).toHaveCount(1);
+      await expect(
+        page.getByText(/^[0-3]\/3$/).filter({ visible: true }).first()
+      ).toBeVisible();
 
       const readingToggle = page.getByRole("button", {
         name: /Toggle completion for Reading/i,
@@ -85,29 +91,38 @@ for (const viewport of [
     test("loads Gospel reading, reflection, prayer, and reminder resources", async ({
       page,
     }) => {
-      await page.goto("/daily-reading");
+      await page.goto("/daily-reading?day=1");
       await expect(
         page.getByText(GOSPEL_PLAN_NAME).filter({ visible: true }).first()
       ).toBeVisible();
       await expect(
         page.getByText("Mark 1:1-13").filter({ visible: true }).first()
       ).toBeVisible();
-      await page.goto("/reflection");
+      await page.goto("/reflection?day=1");
       await expect(
         page.getByRole("heading", { name: "Scripture Reflection" })
       ).toBeVisible();
-      await expect(page.getByText("Day 1/162", { exact: true })).toBeVisible();
+      await expect(page.getByText("Day 1", { exact: true }).first()).toBeVisible();
       await expect(
         page.getByText(/name one wilderness/i).filter({ visible: true }).first()
       ).toBeVisible();
       await expectNoStaleSeasonText(await page.locator("body").innerText());
-      await page.goto("/hours/compline");
+      await page.goto("/hours");
+      for (const hour of ["Morning Prayer", "Evening Prayer", "Night Prayer"]) {
+        await expect(
+          page.getByText(hour, { exact: true }).filter({ visible: true }).first()
+        ).toBeVisible();
+      }
+
+      await page.goto("/today-in-the-church?date=2026-09-02");
       await expect(
-        page
-          .getByText("Night Prayer", { exact: true })
-          .filter({ visible: true })
-          .first()
+        page.getByRole("heading", {
+          name: "Wednesday of the 22nd Week in Ordinary Time",
+        })
       ).toBeVisible();
+      await expect(page.getByText(/Weekday.*green.*Ordinary Time/i)).toBeVisible();
+      await expect(page.getByText("About today", { exact: true })).toBeVisible();
+      await expect(page.getByText("Why this day matters", { exact: true })).toHaveCount(0);
       await page.goto("/rosary");
       await expect(
         page.getByText(/Sorrowful Mysteries/i).filter({ visible: true }).first()

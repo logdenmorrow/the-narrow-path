@@ -93,8 +93,7 @@ export default async function TodayInTheChurchPage({
           {day.isFallback ? (
             <SurfaceInset className="mt-5 border-[rgba(168,129,81,0.34)] bg-[rgba(168,129,81,0.08)]">
               <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
-                A reviewed Today in the Church entry for this date has not been
-                added yet.
+                U.S. liturgical calendar metadata is not available for this date.
               </p>
             </SurfaceInset>
           ) : null}
@@ -118,7 +117,7 @@ export default async function TodayInTheChurchPage({
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.34fr)]">
           <div className="grid gap-5">
             <SurfaceCard>
-              <SectionHeader kicker="Overview" title="Why this day matters" />
+              <SectionHeader kicker="Overview" title="About today" />
               <p className="mt-5 text-base leading-7 text-monastic-1">
                 {profile?.short_summary ?? day.summary}
               </p>
@@ -144,14 +143,14 @@ export default async function TodayInTheChurchPage({
                   </p>
                 </SurfaceCard>
               ))
-            ) : (
+            ) : !day.isFactualOnly && day.description !== day.summary ? (
               <SurfaceCard>
                 <SectionHeader kicker="About" title="About this day" />
                 <p className="mt-5 text-base leading-7 text-monastic-1">
                   {day.description}
                 </p>
               </SurfaceCard>
-            )}
+            ) : null}
 
             {profile ? (
               <SurfaceCard>
@@ -172,7 +171,7 @@ export default async function TodayInTheChurchPage({
                   ))}
                 </div>
               </SurfaceCard>
-            ) : (
+            ) : day.catholic_connection ? (
               <SurfaceCard>
                 <SectionHeader
                   kicker="Catholic connection"
@@ -182,7 +181,7 @@ export default async function TodayInTheChurchPage({
                   {day.catholic_connection}
                 </p>
               </SurfaceCard>
-            )}
+            ) : null}
 
             {profile?.historical_cautions?.length ? (
               <SurfaceCard>

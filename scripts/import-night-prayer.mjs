@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { existsSync, readFileSync } from "node:fs";
+import { appendFileSync, existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const SOURCE = "divineoffice";
@@ -8,11 +8,10 @@ const ATTRIBUTION_TEXT =
 const ATTRIBUTION_HTML =
   '<p>Liturgy of the Hours text provided with permission from <a href="https://divineoffice.org/">DivineOffice.org</a>. All rights remain with their respective owners.</p>';
 const DEFAULT_DELAY_MS = 500;
+const MAX_UPSTREAM_ATTEMPTS = 5;
 
-// Each date's API response contains all Hours in one payload. 'compline'
-// keeps its original required-and-throws-if-missing behavior for backward
-// compatibility; 'lauds' and 'vespers' are skipped and logged if a date's
-// response doesn't include them.
+// Each date's API response contains all three Hours in one payload. A missing
+// Hour inside DivineOffice's advertised window is an unexpected failure.
 const HOUR_DEFINITIONS = [
   {
     hour: "lauds",
@@ -107,6 +106,32 @@ function yyyymmdd(date) {
 function sleep(ms) {
   if (ms <= 0) return Promise.resolve();
   return new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
+}
+
+class UpstreamUnavailableError extends Error {
+  constructor(message, status) {
+    super(message);
+    this.name = "UpstreamUnavailableError";
+    this.status = status;
+  }
+}
+
+function getEasternDateIso(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+
+  const getPart = (type) => parts.find((part) => part.type === type)?.value;
+  return `${getPart("year")}-${getPart("month")}-${getPart("day")}`;
+}
+
+function addMonthsToFirstOfMonth(dateIso, months) {
+  const date = new Date(`${dateIso.slice(0, 7)}-01T00:00:00Z`);
+  date.setUTCMonth(date.getUTCMonth() + months);
+  return date.toISOString().slice(0, 10);
 }
 
 function decodeHtmlEntities(value) {
@@ -251,18 +276,53 @@ function collectCopyrightNotice(html) {
 
 async function fetchJsonPrayer(date) {
   const endpoint = `https://divineoffice.org/wp-json/do/v1/prayers/?date_start=${yyyymmdd(date)}&date_end=${yyyymmdd(date)}`;
-  const response = await fetch(endpoint, {
-    headers: {
-      accept: "application/json",
-      "user-agent": "The Narrow Path Night Prayer importer",
-    },
-  });
+  let response;
+  let body;
 
-  if (!response.ok) {
-    throw new Error(`DivineOffice JSON request failed: ${response.status}`);
+  for (let attempt = 1; attempt <= MAX_UPSTREAM_ATTEMPTS; attempt += 1) {
+    response = await fetch(endpoint, {
+      headers: {
+        accept: "application/json",
+        "user-agent": "The Narrow Path Liturgy of the Hours importer",
+      },
+    });
+    body = await response.text();
+
+    if (response.ok) break;
+
+    const unavailable =
+      response.status === 400 &&
+      /date[_ -]?range|too far|future|unavailable/i.test(body);
+    if (unavailable) {
+      throw new UpstreamUnavailableError(
+        `DivineOffice has not published ${date} yet (HTTP ${response.status}).`,
+        response.status
+      );
+    }
+
+    const retryable = response.status === 429 || response.status >= 500;
+    if (!retryable || attempt === MAX_UPSTREAM_ATTEMPTS) {
+      throw new Error(
+        `DivineOffice JSON request failed for ${date}: HTTP ${response.status} after ${attempt} attempt(s).`
+      );
+    }
+
+    const retryAfterSeconds = Number(response.headers.get("retry-after"));
+    const backoffMs = Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0
+      ? retryAfterSeconds * 1000
+      : Math.min(60_000, 15_000 * 2 ** (attempt - 1));
+    console.warn(
+      `DivineOffice returned HTTP ${response.status} for ${date}; retrying attempt ${attempt + 1}/${MAX_UPSTREAM_ATTEMPTS} in ${Math.ceil(backoffMs / 1000)}s.`
+    );
+    await sleep(backoffMs);
   }
 
-  const json = await response.json();
+  let json;
+  try {
+    json = JSON.parse(body);
+  } catch {
+    throw new Error(`DivineOffice returned invalid JSON for ${date}.`);
+  }
   const dayKey = yyyymmdd(date);
   const day = json?.[dayKey];
   const prayers = Array.isArray(day?.prayers) ? day.prayers : [];
@@ -375,31 +435,13 @@ async function buildAllHourResults(date) {
     const hourPrayer = extractHourPrayer(jsonResult.prayers, definition);
 
     if (!hourPrayer) {
-      const reason = `${definition.label} not present in API response for this date.`;
-
-      if (definition.hour === "compline") {
-        throw new Error(
-          `No Night Prayer item found. Labels: ${jsonResult.responseShape.prayerLabels.join(", ")}`
-        );
-      }
-
-      hourResults.push({ hour: definition.hour, skipped: true, reason });
-      continue;
+      throw new Error(
+        `${definition.label} is missing for ${date}. Labels: ${jsonResult.responseShape.prayerLabels.join(", ")}`
+      );
     }
 
-    if (definition.hour === "compline") {
-      const built = await buildHourPayload(date, jsonResult, definition, hourPrayer);
-      hourResults.push({ hour: definition.hour, skipped: false, ...built });
-      continue;
-    }
-
-    try {
-      const built = await buildHourPayload(date, jsonResult, definition, hourPrayer);
-      hourResults.push({ hour: definition.hour, skipped: false, ...built });
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      hourResults.push({ hour: definition.hour, skipped: true, reason: message });
-    }
+    const built = await buildHourPayload(date, jsonResult, definition, hourPrayer);
+    hourResults.push({ hour: definition.hour, skipped: false, ...built });
   }
 
   return { jsonResult, hourResults };
@@ -423,8 +465,7 @@ function createSupabaseAdminClient() {
   });
 }
 
-async function upsertPayload(payload) {
-  const supabase = createSupabaseAdminClient();
+async function upsertPayload(supabase, payload) {
   const { error } = await supabase
     .from("night_prayers")
     .upsert(payload, { onConflict: "prayer_date,hour" });
@@ -513,10 +554,10 @@ async function importOneDate(date, { dryRun }) {
 
   const { jsonResult, hourResults } = await buildAllHourResults(date);
 
-  if (!dryRun) {
+  const supabase = dryRun ? null : createSupabaseAdminClient();
+  if (supabase) {
     for (const result of hourResults) {
-      if (result.skipped) continue;
-      await upsertPayload(result.payload);
+      await upsertPayload(supabase, result.payload);
     }
   }
 
@@ -541,15 +582,56 @@ async function importOneDate(date, { dryRun }) {
   return { jsonResult, hourResults };
 }
 
-async function importAllActivePlan({ dryRun, force, delayMs }) {
+function writeActionsSummary(summary) {
+  const summaryPath = process.env.GITHUB_STEP_SUMMARY;
+  if (!summaryPath) return;
+
+  const unavailable = summary.unavailableUpstreamDates.length
+    ? summary.unavailableUpstreamDates.join(", ")
+    : "None";
+  const failed = summary.failures.length
+    ? summary.failures.map((failure) => `${failure.date}: ${failure.message}`).join("<br>")
+    : "None";
+
+  appendFileSync(
+    summaryPath,
+    [
+      "## Liturgy of the Hours rolling import",
+      "",
+      `- Date range: ${summary.dateRange.start} through ${summary.dateRange.end}`,
+      `- Dates checked: ${summary.datesChecked}`,
+      `- Hours imported: ${summary.hoursImported}`,
+      `- Existing rows skipped: ${summary.existingRowsSkipped}`,
+      `- Unavailable upstream dates: ${unavailable}`,
+      `- Failures: ${failed}`,
+      "",
+    ].join("\n"),
+    "utf8"
+  );
+}
+
+async function importRolling({ dryRun, force, delayMs, from, through }) {
   const supabase = createSupabaseAdminClient();
-  const { activePlan, dates } = await fetchActivePlanNightPrayerDates(supabase);
+  const { activePlan, dates: activePlanDates } = await fetchActivePlanNightPrayerDates(supabase);
+  const today = getEasternDateIso();
+  const rangeStart = from ?? today;
+  const rangeEnd = through ?? addMonthsToFirstOfMonth(today, 2);
+  assertIsoDate(rangeStart);
+  assertIsoDate(rangeEnd);
+
+  if (rangeStart > rangeEnd) {
+    throw new Error(`Import range start ${rangeStart} is after end ${rangeEnd}.`);
+  }
+
+  const dates = activePlanDates.filter(
+    (date) => date >= rangeStart && date <= rangeEnd
+  );
   const existingHourPairs = await fetchExistingNightPrayerHourPairs(supabase, dates);
   const failures = [];
-  let datesProcessed = 0;
+  const unavailableUpstreamDates = [];
+  let datesChecked = 0;
   let hoursImported = 0;
-  let hoursSkippedExisting = 0;
-  let hoursUnavailable = 0;
+  let existingRowsSkipped = 0;
 
   console.log(
     JSON.stringify(
@@ -561,7 +643,8 @@ async function importAllActivePlan({ dryRun, force, delayMs }) {
           name: activePlan.name,
           totalDays: activePlan.total_days,
         },
-        totalDates: dates.length,
+        dateRange: { start: rangeStart, end: rangeEnd },
+        datesToCheck: dates.length,
         existingHourPairs: existingHourPairs.size,
         force,
         delayMs,
@@ -573,27 +656,32 @@ async function importAllActivePlan({ dryRun, force, delayMs }) {
 
   for (const [index, date] of dates.entries()) {
     const position = index + 1;
+    datesChecked += 1;
+    const missingDefinitions = HOUR_DEFINITIONS.filter(
+      (definition) => force || !existingHourPairs.has(`${date}|${definition.hour}`)
+    );
+
+    if (missingDefinitions.length === 0) {
+      existingRowsSkipped += HOUR_DEFINITIONS.length;
+      console.log(`[${position}/${dates.length}] SKIP ${date} all three Hours already exist`);
+      continue;
+    }
+
     try {
       console.log(`[${position}/${dates.length}] ${dryRun ? "Parsing" : "Importing"} ${date}`);
       const { hourResults } = await buildAllHourResults(date);
       const hourSummaryParts = [];
 
       for (const result of hourResults) {
-        if (result.skipped) {
-          hoursUnavailable += 1;
-          hourSummaryParts.push(`${result.hour}=unavailable`);
-          continue;
-        }
-
         const alreadyImported = existingHourPairs.has(`${date}|${result.hour}`);
         if (!force && alreadyImported) {
-          hoursSkippedExisting += 1;
+          existingRowsSkipped += 1;
           hourSummaryParts.push(`${result.hour}=already-imported`);
           continue;
         }
 
         if (!dryRun) {
-          await upsertPayload(result.payload);
+          await upsertPayload(supabase, result.payload);
         }
 
         hoursImported += 1;
@@ -602,32 +690,36 @@ async function importAllActivePlan({ dryRun, force, delayMs }) {
         );
       }
 
-      datesProcessed += 1;
       console.log(`[${position}/${dates.length}] OK ${date} ${hourSummaryParts.join(" ")}`);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      failures.push({ date, message });
-      console.error(`[${position}/${dates.length}] FAILED ${date}: ${message}`);
+      if (error instanceof UpstreamUnavailableError) {
+        unavailableUpstreamDates.push(date);
+        console.warn(`[${position}/${dates.length}] UNAVAILABLE ${date}: ${message}`);
+      } else {
+        failures.push({ date, message });
+        console.error(`[${position}/${dates.length}] FAILED ${date}: ${message}`);
+      }
     }
 
-    if (position < dates.length) {
+    if (position < dates.length && missingDefinitions.length > 0) {
       await sleep(delayMs);
     }
   }
 
   const summary = {
-    status: failures.length > 0 ? "bulk-completed-with-failures" : "bulk-completed",
+    status: failures.length > 0 ? "rolling-completed-with-failures" : "rolling-completed",
     mode: dryRun ? "dry-run" : "import",
-    totalDates: dates.length,
-    datesProcessed,
+    dateRange: { start: rangeStart, end: rangeEnd },
+    datesChecked,
     hoursImported,
-    hoursSkippedExisting,
-    hoursUnavailable,
-    failed: failures.length,
-    failedDates: failures.map((failure) => failure.date),
+    existingRowsSkipped,
+    unavailableUpstreamDates,
+    failures,
   };
 
   console.log(JSON.stringify(summary, null, 2));
+  writeActionsSummary(summary);
 
   if (failures.length > 0) {
     console.error(JSON.stringify({ failures }, null, 2));
@@ -641,21 +733,23 @@ async function main() {
   const date = readArg("date");
   const dryRun = hasFlag("dry-run");
   const force = hasFlag("force");
-  const allActivePlan = hasFlag("all-active-plan");
+  const rolling = hasFlag("rolling") || hasFlag("all-active-plan");
   const delayMs = readDelayMs();
+  const from = readArg("from");
+  const through = readArg("through");
 
-  if (date && allActivePlan) {
-    throw new Error("Use either --date or --all-active-plan, not both.");
+  if (date && rolling) {
+    throw new Error("Use either --date or --rolling, not both.");
   }
 
-  if (allActivePlan) {
-    await importAllActivePlan({ dryRun, force, delayMs });
+  if (rolling) {
+    await importRolling({ dryRun, force, delayMs, from, through });
     return;
   }
 
   if (!date) {
     throw new Error(
-      "Usage: npm run import:night-prayer -- --date YYYY-MM-DD [--dry-run]\n   or: npm run import:night-prayer -- --all-active-plan [--dry-run] [--force] [--delay-ms 500]"
+      "Usage: npm run import:night-prayer -- --date YYYY-MM-DD [--dry-run]\n   or: npm run import:night-prayer -- --rolling [--from YYYY-MM-DD] [--through YYYY-MM-DD] [--dry-run] [--force] [--delay-ms 500]"
     );
   }
 

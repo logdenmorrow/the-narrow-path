@@ -1,4 +1,5 @@
 import calendarData from "@/content/liturgical-calendar/us-2026.json";
+import gospelSeasonFacts from "@/content/liturgical-calendar/us-gospel-season-facts.json";
 import properOverlayData from "@/content/liturgical-calendar/proper-overlays-2026.json";
 import saintBonifaceProfile from "@/content/liturgical-profiles/saints/saint-boniface.json";
 import corpusChristiProfile from "@/content/liturgical-profiles/solemnities/corpus-christi.json";
@@ -108,6 +109,7 @@ export type LiturgicalCalendarDay = {
   calendar_scope?: LiturgicalCalendarScope;
   is_optional?: boolean;
   related_observances?: LiturgicalRelatedObservance[];
+  isFactualOnly?: boolean;
 };
 
 export type LiturgicalCalendarEntry = LiturgicalCalendarDay & {
@@ -159,9 +161,95 @@ export type LiturgicalProfile = {
 const EASTERN_TIME_ZONE = "America/New_York";
 const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
-const daysByDate = new Map(
+type ImportedLiturgicalFact = {
+  date: string;
+  title: string;
+  rank: string;
+  liturgical_color: string;
+  season: string;
+  related_observances: Array<{
+    title: string;
+    rank: string;
+    liturgical_color: string | null;
+    relation: LiturgicalRelatedObservanceRelation;
+  }>;
+  sources: LiturgicalCalendarSource[];
+};
+
+const editorialDaysByDate = new Map(
   (calendarData as LiturgicalCalendarDay[]).map((day) => [day.date, day])
 );
+
+function comparableObservanceTitle(value: string) {
+  return value
+    .replace(/^USA:\s*/i, "")
+    .replace(/[^a-z0-9]/gi, "")
+    .toLowerCase();
+}
+
+function factualSummary(fact: ImportedLiturgicalFact) {
+  const rank = fact.rank.toLowerCase();
+
+  if (fact.rank === "Weekday") {
+    return `This is a weekday of ${fact.season} on the U.S. liturgical calendar.`;
+  }
+
+  if (fact.rank === "Sunday") {
+    return `This Sunday is observed in ${fact.season} on the U.S. liturgical calendar.`;
+  }
+
+  if (/^(?:Saint|Saints)\b/.test(fact.title)) {
+    return `The Church commemorates ${fact.title} as a ${rank}.`;
+  }
+
+  return `The Church celebrates ${fact.title} as a ${rank}.`;
+}
+
+function factualDay(fact: ImportedLiturgicalFact): LiturgicalCalendarDay {
+  const editorial = editorialDaysByDate.get(fact.date);
+  const related = fact.related_observances.map((observance) => {
+    const editorialRelated = editorial?.related_observances?.find(
+      (candidate) =>
+        comparableObservanceTitle(candidate.title) ===
+        comparableObservanceTitle(observance.title)
+    );
+
+    return {
+      ...observance,
+      liturgical_color: observance.liturgical_color ?? undefined,
+      summary: `The optional memorial of ${observance.title} may also be observed.`,
+      profile_slug: editorialRelated?.profile_slug,
+      profile_type: editorialRelated?.profile_type,
+      calendar_scope: editorialRelated?.calendar_scope,
+    };
+  });
+  const summary = factualSummary(fact);
+
+  return {
+    ...fact,
+    summary,
+    description: summary,
+    catholic_connection: "",
+    profile_slug: editorial?.profile_slug,
+    profile_type: editorial?.profile_type,
+    calendar_scope: editorial?.calendar_scope ?? "us",
+    is_optional: editorial?.is_optional,
+    related_observances: related,
+    isFactualOnly: true,
+  };
+}
+
+const importedFactDays = (gospelSeasonFacts.days as ImportedLiturgicalFact[]).map(
+  factualDay
+);
+const daysByDate = new Map<string, LiturgicalCalendarDay>([
+  ...(calendarData as LiturgicalCalendarDay[]).map(
+    (day) => [day.date, day] as [string, LiturgicalCalendarDay]
+  ),
+  ...importedFactDays.map(
+    (day) => [day.date, day] as [string, LiturgicalCalendarDay]
+  ),
+]);
 
 const properOverlays = properOverlayData as LiturgicalProperCalendarOverlay[];
 
@@ -278,21 +366,20 @@ export function getLiturgicalCalendarDay(dateIso: string): LiturgicalCalendarEnt
 
   return {
     date: dateIso,
-    title: "Liturgical calendar day",
-    rank: "Date pending review",
-    liturgical_color: "Varies",
-    season: "Liturgical Year",
-    summary: "A reviewed Today in the Church entry for this date has not been added yet.",
-    description:
-      "The Church still marks this day within the rhythm of the liturgical year. More specific U.S. calendar details will appear here after review.",
-    catholic_connection:
-      "The Church marks time through seasons, solemnities, feasts, memorials, and weekdays so that the mystery of Christ shapes ordinary life.",
+    title: "Calendar details unavailable",
+    rank: "Not available",
+    liturgical_color: "Not available",
+    season: "Liturgical year",
+    summary: "U.S. liturgical calendar details are not available for this date.",
+    description: "U.S. liturgical calendar details are not available for this date.",
+    catholic_connection: "",
     sources: [
       {
         label: "USCCB Liturgical Calendar",
         url: "https://www.usccb.org/committees/divine-worship/liturgical-calendar",
       },
     ],
+    isFactualOnly: true,
     isFallback: true,
   };
 }

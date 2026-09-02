@@ -2,14 +2,27 @@ name: Import Liturgy of the Hours content
 
 on:
   schedule:
-    # Runs at 6am UTC on the 1st of every month
-    - cron: '0 6 1 * *'
+    # Daily at 09:17 UTC. A non-round minute reduces shared-runner congestion.
+    - cron: '17 9 * * *'
   workflow_dispatch:
-    # Also triggerable manually from the GitHub Actions UI
+    inputs:
+      force:
+        description: Re-import and replace existing hour/date rows
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: import-liturgy-of-the-hours
+  cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
   import:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Checkout repository
@@ -24,8 +37,13 @@ jobs:
         run: npm ci
 
       - name: Import Liturgy of the Hours content
-        continue-on-error: true
-        run: node scripts/import-night-prayer.mjs --all-active-plan --delay-ms 4000
+        shell: bash
+        run: |
+          args=(--rolling --delay-ms 4000)
+          if [[ "${{ inputs.force }}" == "true" ]]; then
+            args+=(--force)
+          fi
+          node scripts/import-night-prayer.mjs "${args[@]}"
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
