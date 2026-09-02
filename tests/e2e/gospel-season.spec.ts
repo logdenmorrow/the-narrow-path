@@ -120,12 +120,14 @@ for (const viewport of [
           name: "Wednesday of the 22nd Week in Ordinary Time",
         })
       ).toBeVisible();
-      await expect(page.getByText(/Weekday.*green.*Ordinary Time/i)).toBeVisible();
+      await expect(
+        page.getByText(/Weekday.*green.*Ordinary Time/i).first()
+      ).toBeVisible();
       await expect(page.getByText("About today", { exact: true })).toBeVisible();
       await expect(page.getByText("Why this day matters", { exact: true })).toHaveCount(0);
       await page.goto("/rosary");
       await expect(
-        page.getByText(/Sorrowful Mysteries/i).filter({ visible: true }).first()
+        page.getByText(/Glorious Mysteries/i).filter({ visible: true }).first()
       ).toBeVisible();
       await page.goto("/settings");
       await expect(page.getByText("Morning Scripture", { exact: true })).toBeVisible();
