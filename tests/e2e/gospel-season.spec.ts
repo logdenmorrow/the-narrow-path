@@ -125,7 +125,7 @@ for (const viewport of [
       ).toBeVisible();
       await expect(page.getByText("About today", { exact: true })).toBeVisible();
       await expect(page.getByText("Why this day matters", { exact: true })).toHaveCount(0);
-      await page.goto("/rosary");
+      await page.goto("/rosary?day=2");
       await expect(
         page.getByText(/Glorious Mysteries/i).filter({ visible: true }).first()
       ).toBeVisible();
