@@ -10,7 +10,9 @@ const EXPECTED_TASK_COUNTS = {
   reflection: 162,
   adoration: 162,
   confession: 162,
-  "night-prayer": 162,
+  "liturgy-of-the-hours-lauds": 162,
+  "liturgy-of-the-hours-vespers": 162,
+  "liturgy-of-the-hours-compline": 162,
   rosary: 162,
   workout: 162,
   check_in_anchor: 162,
@@ -127,7 +129,7 @@ async function main() {
         supabase
           .from("plan_day_tasks")
           .select(
-            "id, plan_day_id, task_template_id, day_date, week_start_date, month_start_date, task_templates(slug)"
+            "id, plan_day_id, task_template_id, is_required, is_optional, day_date, week_start_date, month_start_date, task_templates(slug)"
           )
           .in("plan_day_id", dayIds)
           .order("id")
@@ -178,6 +180,25 @@ async function main() {
         `Expected ${expectedCount} ${slug} rows; found ${taskCounts[slug] ?? 0}.`
       );
     }
+  }
+  if ((taskCounts["night-prayer"] ?? 0) !== 0) {
+    issues.push(
+      `Expected zero legacy night-prayer rows; found ${taskCounts["night-prayer"]}.`
+    );
+  }
+  const hourTaskSlugs = new Set([
+    "liturgy-of-the-hours-lauds",
+    "liturgy-of-the-hours-vespers",
+    "liturgy-of-the-hours-compline",
+  ]);
+  if (
+    tasks.some((task) => {
+      const slug = normalizeRelation(task.task_templates)?.slug;
+      return hourTaskSlugs.has(slug) &&
+        (task.is_required !== false || task.is_optional !== true);
+    })
+  ) {
+    issues.push("One or more Gospel Liturgy of the Hours rows are not optional.");
   }
   if (
     duplicateKeys(
