@@ -33,12 +33,9 @@ import {
   type PrayerRequestVisibility,
 } from "@/lib/prayer-requests";
 import {
-  ORIGINAL_CHALLENGE_PLAN_SLUG,
-  ORIGINAL_CHALLENGE_TOTAL_DAYS,
   getPostChallengeDisplay,
   getSeasonWeekWindowForDay,
   getSeasonTimelineItem,
-  isChallengeFeedbackWindowOpen,
   isDay90Celebration,
 } from "@/lib/season-plan";
 import {
@@ -51,6 +48,10 @@ import {
   normalizeReligiousOrderCalendar,
 } from "@/lib/liturgical-calendar";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
+import {
+  buildSeasonFeatureHref,
+  getSeasonFeatureByTaskSlug,
+} from "@/lib/season-features";
 import {
   HeroPanel,
   MetricCard,
@@ -116,17 +117,19 @@ function getTaskSecondaryAction(
   dayNumber: number,
   planSlug: string
 ) {
-  if (slug === "challenge_feedback") {
-    return {
-      href: buildPlanDayHref("/challenge-feedback", planSlug, dayNumber),
-      label: "Open Challenge Feedback",
-      statusText: "Open feedback form",
-    };
-  }
+  const seasonFeature = getSeasonFeatureByTaskSlug(slug);
 
-  if (slug === "give_thanks") {
+  if (seasonFeature) {
+    const href = buildSeasonFeatureHref({
+      featureKey: seasonFeature.key,
+      planSlug,
+      dayNumber,
+    });
+
+    if (!href) return undefined;
+
     return {
-      href: buildPlanDayHref("/give-thanks", planSlug, dayNumber),
+      href,
       label: "Open Give Thanks",
       statusText: "Open reading",
     };
@@ -232,7 +235,7 @@ const DAY_90_HIDDEN_SLUGS = new Set([
 
 const DAY_90_TITLE_OVERRIDES = new Map([
   ["reflection", "Final Scripture Reflection"],
-  ["challenge_feedback", "Challenge Feedback"],
+  ["challenge_feedback", "Challenge Feedback (retired)"],
   ["give_thanks", "Give Thanks"],
   ["attend_mass", "Sunday Vigil Mass"],
   ["give_up_alcohol", "Alcohol: relaxed moderation"],
@@ -409,9 +412,6 @@ export default async function TodayPage({
     };
 
     let resetOptionalTasks: TaskViewModel[] = [];
-    let resetChallengeFeedbackTask: TaskViewModel | null = null;
-    let resetHasSubmittedFeedback = false;
-    let resetIsFeedbackWindowOpen = false;
 
     if (isReset) {
       const { data: finalPlanDayRow } = await supabase
@@ -526,25 +526,6 @@ export default async function TodayPage({
             ? attendMassTaskModel
             : finalDayTaskModels.find((task) => task.slug === slug)
         ).filter((task): task is TaskViewModel => Boolean(task));
-        resetChallengeFeedbackTask =
-          finalDayTaskModels.find((task) => task.slug === "challenge_feedback") ??
-          null;
-
-        resetIsFeedbackWindowOpen = isChallengeFeedbackWindowOpen({
-          dayNumber: finalPlanDayRow.day_number,
-          totalDays: activePlan.total_days,
-          todayIso: currentDateIso,
-        });
-
-        if (resetIsFeedbackWindowOpen) {
-          const { data: feedbackResponseRow } = await supabase
-            .from("challenge_feedback_responses")
-            .select("id")
-            .eq("user_id", user.id)
-            .eq("plan_day_id", finalPlanDayRow.id)
-            .maybeSingle();
-          resetHasSubmittedFeedback = Boolean(feedbackResponseRow?.id);
-        }
       }
     }
 
@@ -601,15 +582,6 @@ export default async function TodayPage({
                   {
                     href: withViewTrack("/brotherhood", track, preserveViewTrack),
                     label: `Open ${communityName}`,
-                    variant: "secondary",
-                  },
-                  {
-                    href: buildPlanDayHref(
-                      "/challenge-feedback",
-                      ORIGINAL_CHALLENGE_PLAN_SLUG,
-                      ORIGINAL_CHALLENGE_TOTAL_DAYS
-                    ),
-                    label: "Challenge Feedback",
                     variant: "secondary",
                   },
                   {
@@ -670,30 +642,7 @@ export default async function TodayPage({
                   );
                 })}
 
-                {resetIsFeedbackWindowOpen && resetChallengeFeedbackTask ? (
-                  <TodayTaskCard
-                    planDayTaskId={resetChallengeFeedbackTask.id}
-                    title="Challenge Feedback"
-                    note={null}
-                    isRequired={false}
-                    isOptional={true}
-                    completed={resetHasSubmittedFeedback}
-                    locked={false}
-                    toggleDisabled
-                    planSlug={currentPlanSlug}
-                    secondaryAction={{
-                      href: "/challenge-feedback",
-                      label: resetHasSubmittedFeedback
-                        ? "Review Challenge Feedback"
-                        : "Open Challenge Feedback",
-                      statusText: resetHasSubmittedFeedback
-                        ? "Feedback saved"
-                        : "Open feedback form",
-                    }}
-                  />
-                ) : null}
-
-                {resetOptionalTasks.length === 0 && !resetIsFeedbackWindowOpen ? (
+                {resetOptionalTasks.length === 0 ? (
                   <p className="text-base leading-7 text-monastic-1">
                     No optional resources are available right now.
                   </p>
@@ -1206,11 +1155,11 @@ export default async function TodayPage({
               <div className="mt-2 grid gap-3 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
                 <p>
                   Required today: Morning Prayer, Daily Reading, Final Scripture
-                  Reflection, Challenge Feedback, Give Thanks, and Anchor
+                  Reflection, Challenge Feedback (now retired), Give Thanks, and Anchor
                   Check-In.
                 </p>
                 <p>
-                  Challenge Feedback opens a short form. Give Thanks is a
+                  The Challenge Feedback form is closed. Give Thanks is a
                   reflection on religious freedom and Christians who cannot
                   practice the faith freely.
                 </p>

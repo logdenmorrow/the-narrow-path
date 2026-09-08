@@ -138,17 +138,18 @@ The June 3 hardening pass was a verification/documentation checkpoint around
 post-90 season behavior, August James readiness, scheduled announcement push
 hardening, and reading integrity.
 
-July reset / Challenge Feedback:
+July reset / Challenge Feedback historical note:
 
 - July 5-31 reset behavior is implemented as code-level reset state, not as a
   July database plan.
 - July reset does not show Daily Reading or Scripture Reflection as active July
   tasks.
 - Night Prayer, Rosary, Confession, community, past-day review, and Challenge
-  Feedback remain available as optional resources where applicable.
-- Challenge Feedback opens on Day 90 / July 4 and remains available through
-  July 31.
-- Challenge Feedback is not treated as overdue or required after July 4.
+  Feedback were available as optional resources where applicable.
+- Challenge Feedback was open from Day 90 / July 4 through July 31. It was
+  retired on September 8, 2026; the public route redirects to `/dashboard`.
+- Historical submissions remain read-only and exportable from
+  `/admin/challenge-feedback`.
 - A production manual check of the reset/feedback behavior looked good.
 
 August James:
@@ -233,10 +234,9 @@ current displayed state instead of stale server props. `app/today/actions.ts`
 treats one-or-more completion rows as complete and deletes all matching rows on
 toggle-off, which makes the feature resilient to duplicate completion rows.
 
-Reflection and challenge feedback records no longer override task completion
-unless a matching `user_task_completions` row exists. Their save actions may
-still auto-complete their own tasks, but duplicate completion inserts are
-avoided.
+Reflection records do not override task completion unless a matching
+`user_task_completions` row exists. The retired Challenge Feedback form no
+longer has a public save action.
 
 Important files:
 
@@ -246,7 +246,6 @@ app/today/actions.ts
 app/today/page.tsx
 lib/task-progress.ts
 app/reflection/actions.ts
-app/challenge-feedback/actions.ts
 app/brotherhood/page.tsx
 app/brotherhood/[userId]/page.tsx
 app/dashboard/page.tsx
@@ -2145,7 +2144,7 @@ components/season-timeline.tsx
 
 Current roadmap:
 
-- July 4, 2026: Day 90 Celebration. Food, drink, and social media restrictions were relaxed for this day only. Challenge Feedback is Supabase-backed and exportable from `/admin/challenge-feedback`. Give Thanks is a real Day 90 reading-only task using curated *Dignitatis Humanae* material.
+- July 4, 2026: Day 90 Celebration. Food, drink, and social media restrictions were relaxed for this day only. Challenge Feedback collected Supabase-backed responses through July 31 and was retired on September 8; its read-only archive remains exportable from `/admin/challenge-feedback`. Give Thanks is a real Day 90 reading-only task using curated *Dignitatis Humanae* material.
 - July 5-31, 2026: Challenge Complete / Reset. No daily task pressure. Night Prayer, Rosary, Confession, community, and past-day review remain available as optional resources.
 - August 1-31, 2026: James: Faith That Works completed. The plan is inactive and available through explicit read-only historical links; its 29 task completions and 10 reflections are preserved.
 - September 1, 2026-February 9, 2027: `The Gospels: From September to Lent` is the sole active production plan. It has 162 days and 1,481 task assignments. Reading order is Mark -> Matthew -> Luke -> John.

@@ -49,8 +49,7 @@ export default function FastingAndPenanceGuidePage() {
                 Fasting and Penance
               </h1>
               <p className="mt-5 text-lg leading-8 text-[#f0dec1]">
-                A simple Catholic guide for choosing a concrete weekly act of
-                conversion.
+                How to choose and complete the weekly fast or penance.
               </p>
             </div>
 
@@ -66,9 +65,9 @@ export default function FastingAndPenanceGuidePage() {
 
         <SurfaceCard>
           <SectionHeader
-            kicker="The Point"
-            title="Turn Back to God"
-            description="Fasting and penance are not about showing off, punishing yourself, or proving that you are tough. They are concrete ways to bring your body, habits, and desires back under the love of God."
+            kicker="Purpose"
+            title="Prayer and Self-Denial"
+            description="Fasting and penance are concrete acts of prayer, self-denial, charity, or reparation offered to God."
           />
         </SurfaceCard>
 
@@ -78,9 +77,8 @@ export default function FastingAndPenanceGuidePage() {
               What Penance Is
             </h2>
             <p className="mt-3 text-base leading-7 text-monastic-1">
-              Penance is a concrete act of prayer, self-denial, charity, or
-              reparation offered to God. It should help turn the heart back to
-              Him and make love more real.
+              Penance is a deliberate sacrifice offered to God for conversion,
+              reparation, or the good of another person.
             </p>
           </SurfaceInset>
 
@@ -89,9 +87,8 @@ export default function FastingAndPenanceGuidePage() {
               What Fasting Is
             </h2>
             <p className="mt-3 text-base leading-7 text-monastic-1">
-              Fasting means eating less as a bodily act of prayer, conversion,
-              and self-mastery. Catholic fasting does not mean eating nothing
-              at all. It is meant to be joined to prayer.
+              Fasting means eating less as an act of prayer and self-mastery.
+              Catholic fasting does not ordinarily require eating nothing.
             </p>
           </SurfaceInset>
 
@@ -111,13 +108,13 @@ export default function FastingAndPenanceGuidePage() {
         <SurfaceCard>
           <SectionHeader
             kicker="Catholic Fast"
-            title="Not Starvation"
+            title="A Common Form"
             description="A common Catholic fast is one full meal, plus up to two smaller meals that together do not equal another full meal."
           />
           <div className="mt-5 space-y-4 text-base leading-8 text-monastic-1 sm:text-lg">
             <p>
-              The point is not to harm yourself or obsess over food. The point
-              is to make hunger a prayer: Lord, I need You more than comfort.
+              Join the hunger to prayer and offer the fast for a specific
+              intention.
             </p>
             <p>
               If a full fast is not prudent for you, choose another concrete
@@ -129,9 +126,9 @@ export default function FastingAndPenanceGuidePage() {
         <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
           <SurfaceCard>
             <SectionHeader
-              kicker="Choose Well"
-              title="A Good Penance"
-              description="Choose something specific enough to do today and simple enough that you can offer it quietly."
+              kicker="Choosing a Penance"
+              title="Guidelines"
+              description="Choose something specific, quiet, and appropriate to your duties."
             />
             <ul className="mt-5 grid gap-3 text-base leading-7 text-monastic-1">
               {goodPenanceMarks.map((mark) => (
@@ -146,7 +143,7 @@ export default function FastingAndPenanceGuidePage() {
             <SectionHeader
               kicker="Examples"
               title="Concrete Penances"
-              description="Pick one that actually costs a little, then connect it to prayer instead of mere self-improvement."
+              description="Choose one and connect it to prayer."
             />
             <ul className="mt-5 grid gap-3 sm:grid-cols-2">
               {penanceExamples.map((example) => (
@@ -163,8 +160,8 @@ export default function FastingAndPenanceGuidePage() {
 
         <SurfaceCard className="border-[rgba(168,129,81,0.38)]">
           <SectionHeader
-            kicker="Common Sense"
-            title="Do Not Harm Your Duties"
+            kicker="Health and Duties"
+            title="When Fasting Is Not Prudent"
             description="Do not fast in a way that harms your health or keeps you from fulfilling your responsibilities."
           />
           <p className="mt-5 text-base leading-8 text-monastic-1 sm:text-lg">
@@ -178,18 +175,18 @@ export default function FastingAndPenanceGuidePage() {
         <SurfaceCard>
           <SectionHeader
             kicker="Gospel Season"
-            title="The Future Fast or Penance Task"
-            description="The planned Gospel season task is meant to be completed once per Monday-Sunday week."
+            title="Weekly Requirement"
+            description="Complete one fast or other concrete penance during each Monday-Sunday week."
           />
           <div className="mt-5 grid gap-4 text-base leading-8 text-monastic-1 sm:text-lg lg:grid-cols-2">
             <p>
-              Friday is the natural day for penance, but the task can be
-              completed on any day of the week. Choose a Catholic fast or
-              another concrete penance that fits your state in life.
+              Friday is the traditional day for penance, but any day of the
+              week counts. Choose a Catholic fast or another concrete penance
+              appropriate to your state in life.
             </p>
             <p>
-              The goal is conversion, not box-checking. Do the act, join it to
-              prayer, and ask Christ to make your heart freer for Him.
+              Join the penance to prayer. If fasting is not prudent, choose
+              another form of self-denial, charity, or service.
             </p>
           </div>
         </SurfaceCard>

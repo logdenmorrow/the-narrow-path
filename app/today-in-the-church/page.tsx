@@ -68,6 +68,8 @@ export default async function TodayInTheChurchPage({
   const selectedProperProfile = selectedProperOverlay
     ? getLiturgicalProfileForProperOverlay(selectedProperOverlay)
     : null;
+  const selectedProperProfileIsPrimary =
+    selectedProperProfile?.slug === profile?.slug;
   const sources = getLiturgicalSourcesForProfiles(
     day,
     [profile, selectedRelatedProfile, selectedProperProfile],
@@ -107,7 +109,9 @@ export default async function TodayInTheChurchPage({
           />
         ) : null}
 
-        {selectedProperOverlay && selectedProperProfile ? (
+        {selectedProperOverlay &&
+        selectedProperProfile &&
+        !selectedProperProfileIsPrimary ? (
           <ProperProfileSection
             overlay={selectedProperOverlay}
             profile={selectedProperProfile}
@@ -183,30 +187,12 @@ export default async function TodayInTheChurchPage({
               </SurfaceCard>
             ) : null}
 
-            {profile?.historical_cautions?.length ? (
-              <SurfaceCard>
-                <SectionHeader
-                  kicker="Review note"
-                  title="Historical cautions"
-                />
-                <div className="mt-5 grid gap-3">
-                  {profile.historical_cautions.map((caution) => (
-                    <SurfaceInset key={caution}>
-                      <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
-                        {caution}
-                      </p>
-                    </SurfaceInset>
-                  ))}
-                </div>
-              </SurfaceCard>
-            ) : null}
-
             {day.related_observances?.length ? (
               <SurfaceCard>
                 <SectionHeader
                   kicker="Related observances"
                   title="Optional and related observances"
-                  description="These do not replace the primary liturgical day."
+                  description="Optional memorials and other observances for this date."
                 />
                 <div className="mt-5 grid gap-4">
                   {day.related_observances.map((observance) => {
@@ -390,7 +376,7 @@ function ProperCalendarSection({
       <SectionHeader
         kicker="Dominican calendar"
         title="Also observed locally"
-        description="This does not replace the general calendar day."
+        description="Dominican observances for this date."
       />
       <div className="mt-5 grid gap-3">
         {overlays.map((overlay) => {
@@ -455,7 +441,7 @@ function ProperProfileSection({
     <SurfaceCard id="proper-profile" className="scroll-mt-6">
       <SectionHeader
         kicker="Dominican calendar"
-        title={`Learn more: ${profile.title}`}
+        title={profile.title}
         description={profile.short_summary}
       />
       <p className="mt-4 text-sm leading-6 text-monastic-2">
@@ -504,22 +490,6 @@ function ProperProfileSection({
           </div>
         </div>
 
-        {profile.historical_cautions?.length ? (
-          <div>
-            <h3 className="text-lg font-semibold text-monastic-0">
-              Historical cautions
-            </h3>
-            <div className="mt-3 grid gap-3">
-              {profile.historical_cautions.map((caution) => (
-                <SurfaceInset key={caution}>
-                  <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
-                    {caution}
-                  </p>
-                </SurfaceInset>
-              ))}
-            </div>
-          </div>
-        ) : null}
       </div>
     </SurfaceCard>
   );
@@ -579,22 +549,6 @@ function RelatedProfileSection({
           </div>
         </div>
 
-        {profile.historical_cautions?.length ? (
-          <div>
-            <h3 className="text-lg font-semibold text-monastic-0">
-              Historical cautions
-            </h3>
-            <div className="mt-3 grid gap-3">
-              {profile.historical_cautions.map((caution) => (
-                <SurfaceInset key={caution}>
-                  <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
-                    {caution}
-                  </p>
-                </SurfaceInset>
-              ))}
-            </div>
-          </div>
-        ) : null}
       </div>
     </SurfaceCard>
   );

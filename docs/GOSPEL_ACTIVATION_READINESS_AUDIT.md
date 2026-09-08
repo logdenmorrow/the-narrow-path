@@ -51,6 +51,8 @@ Completed:
   based and requires no season offset.
 - Admin task-date and week-copy handling uses calendar week boundaries.
 - Legacy `night-prayer` tasks map only to Compline, not Lauds/Vespers.
+- Legacy Challenge Feedback was retired on September 8, 2026. Its public route
+  redirects to `/dashboard`; historical responses remain in the admin archive.
 - Sep 1 Lauds, Vespers, and Compline content imported and verified (3 rows).
 - Automated boundary, fail-closed resolver, signed-in route, task mutation,
   and reflection mutation coverage.

@@ -6,9 +6,10 @@ This note records the current plan after the first 90-day challenge. Treat the l
 
 Special Celebration day. Food, drink, and social media restrictions are relaxed for this day only.
 
-- Challenge Feedback is Supabase-backed and exportable from `/admin/challenge-feedback`.
-- Challenge Feedback opens on Day 90 / July 4 and remains available through July 31.
-- Challenge Feedback is not treated as overdue or required after July 4.
+- Challenge Feedback collected Supabase-backed responses from Day 90 through
+  July 31. It was retired on September 8, 2026; the public route redirects to
+  `/dashboard` and the read-only admin archive remains exportable from
+  `/admin/challenge-feedback`.
 - Give Thanks is a real Day 90 reading-only task at `/give-thanks?plan=the-narrow-path-90&day=90`.
 - Give Thanks uses a curated reading based on selected sections of Vatican II's *Dignitatis Humanae*.
 - Production manual check of the reset/feedback behavior looked good.
@@ -19,9 +20,8 @@ July reset is implemented as code-level reset state, not as a July database
 plan. It does not show Daily Reading or Scripture Reflection as active July
 tasks.
 
-No daily task pressure. Night Prayer, Rosary, Confession, community, past-day
-review, and Challenge Feedback remain available as optional resources where
-applicable.
+No daily task pressure. Night Prayer, Rosary, Confession, community, and
+past-day review remained available as optional resources where applicable.
 
 `/today` also shows a read-only Today in the Church card. It is not a task, is
 not completable, and does not write to task completions or daily check-ins.

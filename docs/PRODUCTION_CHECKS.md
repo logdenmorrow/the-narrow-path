@@ -317,17 +317,17 @@ resolve by date/slug while still inactive and may show locked/admin-preview
 behavior. This is a Medium activation hygiene risk, not a current production
 blocker.
 
-## July Reset and Challenge Feedback
+## July Reset and Retired Challenge Feedback
 
 July 5-31 reset behavior is implemented as code-level reset state, not as a
 July database plan. July reset does not show Daily Reading or Scripture
 Reflection as active July tasks.
 
-Night Prayer, Rosary, Confession, community, past-day review, and Challenge
-Feedback remain available as optional resources where applicable. Challenge
-Feedback opens on Day 90 / July 4 and remains available through July 31. It is
-not treated as overdue or required after July 4. The production manual check
-looked good.
+Night Prayer, Rosary, Confession, community, and past-day review remained
+available as optional resources during the reset. Challenge Feedback was open
+from Day 90 through July 31 and was retired on September 8, 2026. The public
+route now redirects to `/dashboard`; the admin archive and CSV remain
+available for historical review.
 
 ## Release Checklist
 

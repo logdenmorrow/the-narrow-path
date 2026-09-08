@@ -57,7 +57,12 @@ const checks = [
   },
   { name: "Admin Notifications", path: "/admin/notifications", auth: true, admin: true },
   { name: "Admin Support", path: "/admin/support", auth: true, admin: true },
-  { name: "Challenge Feedback", path: "/challenge-feedback", auth: true },
+  {
+    name: "Retired Challenge Feedback Redirect",
+    path: "/challenge-feedback",
+    auth: true,
+    expectedFinalPath: "/dashboard",
+  },
   { name: "Give Thanks", path: "/give-thanks", auth: true },
   { name: "Today Day 1", path: "/today?day=1", auth: true },
   { name: "Today Day 90", path: "/today?day=90", auth: true },
@@ -416,6 +421,15 @@ async function auditPage(context, check) {
 
     if (isUnexpectedLoginRedirect(check, finalUrl)) {
       failureReasons.push("Signed-in/admin route ended at login.");
+    }
+
+    if (
+      check.expectedFinalPath &&
+      new URL(finalUrl).pathname !== check.expectedFinalPath
+    ) {
+      failureReasons.push(
+        `Expected final path ${check.expectedFinalPath}, received ${new URL(finalUrl).pathname}.`
+      );
     }
 
     return {

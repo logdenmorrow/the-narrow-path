@@ -54,10 +54,10 @@ export default async function AdminChallengeFeedbackPage() {
             <div className="text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">Admin</p>
               <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">
-                Challenge Feedback
+                Feedback Archive
               </h1>
               <p className="mt-3 text-lg leading-8 text-[#ead8bc]">
-                Day 90 responses submitted by members.
+                Read-only Day 90 responses from The Narrow Path 90.
               </p>
             </div>
 
@@ -80,7 +80,7 @@ export default async function AdminChallengeFeedbackPage() {
           <MetricCard
             label="Responses"
             value={`${rows.length}`}
-            detail="Challenge Feedback submissions loaded."
+            detail="Archived submissions loaded."
           />
           <MetricCard
             label="Brotherhood"

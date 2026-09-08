@@ -11,6 +11,10 @@ import {
   getSeasonWeekWindowForDay,
   isSeasonPlanHistorical,
 } from "@/lib/season-plan";
+import {
+  buildSeasonFeatureHref,
+  SEASON_FEATURES,
+} from "@/lib/season-features";
 
 const gospelPlan = {
   slug: GOSPELS_SEPTEMBER_LENT_PLAN_SLUG,
@@ -87,5 +91,35 @@ describe("Gospel season boundary", () => {
     expect(isSeasonPlanHistorical(jamesPlan, "2026-09-01")).toBe(true);
     expect(isSeasonPlanHistorical(gospelPlan, "2026-09-01")).toBe(false);
     expect(isSeasonPlanHistorical(gospelPlan, "2027-02-10")).toBe(true);
+  });
+});
+
+describe("plan-specific feature lifecycle", () => {
+  it("does not expose retired Challenge Feedback for any plan", () => {
+    expect(SEASON_FEATURES.challengeFeedback.status).toBe("retired");
+    expect(
+      buildSeasonFeatureHref({
+        featureKey: "challengeFeedback",
+        planSlug: "the-narrow-path-90",
+        dayNumber: 90,
+      })
+    ).toBeNull();
+  });
+
+  it("only exposes Give Thanks for its declared plan and day", () => {
+    expect(
+      buildSeasonFeatureHref({
+        featureKey: "giveThanks",
+        planSlug: "the-narrow-path-90",
+        dayNumber: 90,
+      })
+    ).toBe("/give-thanks?plan=the-narrow-path-90&day=90");
+    expect(
+      buildSeasonFeatureHref({
+        featureKey: "giveThanks",
+        planSlug: "the-gospels-september-lent",
+        dayNumber: 90,
+      })
+    ).toBeNull();
   });
 });

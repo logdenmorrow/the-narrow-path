@@ -632,7 +632,7 @@ export default async function BrotherhoodPage({
           <SectionHeader
             kicker={isCurrentDayView ? "Today's Member Status" : `Day ${selectedDay} Member Status`}
             title="Member Status"
-            description="First name plus last initial, required tasks, optional tasks, and quota progress."
+            description="Member names, required tasks, optional tasks, and quota progress."
           />
 
           <div className="mt-4 grid gap-2 sm:gap-3 xl:grid-cols-2">

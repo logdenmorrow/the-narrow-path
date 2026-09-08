@@ -52,6 +52,10 @@ Use the strongest available Catholic source for each claim.
 6. Franciscan Media, Catholic Culture, EWTN, and Catholic Answers: readable secondary support.
 7. Wikipedia: lead-finding only, not final authority.
 
+Wikipedia can be used to locate names, dates, alternate spellings, article
+structure, and cited sources. Verify important claims in the strongest source
+available and write original prose rather than adapting Wikipedia wording.
+
 Do not use Protestant, secular, generic-Christian, modernist, sedevacantist,
 rage-blog, or random-blog framing as final source authority.
 
@@ -70,6 +74,40 @@ Only `approved` and `locked` profiles display in the app.
 - Optional memorial medium: concise profile or stronger calendar fallback.
 - Memorial, doctor, or major saint richer: profile with key facts and Catholic meaning.
 - Feast or solemnity richest: profile with richer doctrinal and liturgical explanation.
+
+## Published Prose Style
+
+Write the public profile as a concise encyclopedia article:
+
+- Open with who or what the observance is, followed by the most important dates,
+  roles, works, and historical significance.
+- Use direct, declarative sentences and specific facts.
+- Organize longer profiles with ordinary headings such as Life, Ministry,
+  Writings, Death, Veneration, and Liturgical observance.
+- State Catholic doctrine and significance plainly. Do not add a separate
+  application paragraph merely to restate the article in devotional language.
+- Describe genuine historical uncertainty in normal prose: identify what the
+  sources establish, what belongs to tradition, and what remains uncertain.
+- Keep `historical_cautions` and `review.notes` as internal editorial guidance.
+  They must not be rendered as public article sections.
+- Keep calendar hierarchy in the page interface. Do not repeat that an
+  optional or proper observance "does not replace" another day throughout the
+  article.
+- Keep source links visible, but keep source-selection and review commentary
+  internal.
+
+Avoid:
+
+- References to "this profile," "this article," "the app," the drafting
+  process, review status, or publication safety.
+- Catchy slogans, motivational taglines, rhetorical questions, and ornamental
+  contrasts such as "not merely X, but Y."
+- Repeating the same point in the summary, key facts, article sections, and
+  Catholic-meaning sections.
+- Explaining familiar Catholic terms unless the explanation is necessary for
+  the subject.
+- Defensive disclaimers. One concise interface label is preferable when a
+  calendar distinction genuinely needs explanation.
 
 ## What Not To Include
 
@@ -108,6 +146,7 @@ Draft Today in the Church local JSON content from the source packet below.
 
 Rules:
 - Write original plain-English Catholic prose.
+- Use a concise, neutral, encyclopedic voice.
 - Do not invent facts.
 - Every major factual claim must trace to the supplied Catholic sources.
 - Do not copy biographies, prayers, Mass readings, Collects, or long source text.
@@ -115,6 +154,12 @@ Rules:
 - Do not include tasks, completion language, gamification, reminders, or notifications.
 - Do not present legends or uncertain details as certain history.
 - If a traditional or uncertain account is included, add historical_cautions.
+- Keep historical_cautions as internal review notes; do not write them as
+  reader-facing disclaimers.
+- Do not refer to the profile, article, app, drafting process, source packet,
+  review status, or publication safety in public fields.
+- Avoid slogans, rhetorical flourishes, motivational endings, and repeated
+  "not X, but Y" constructions.
 - Keep all fields plain text. No Markdown or HTML.
 - Set review.status to "needs_catholic_review" unless a human reviewer explicitly approves it.
 

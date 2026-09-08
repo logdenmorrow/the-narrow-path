@@ -34,8 +34,6 @@ import {
 } from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
 import {
-  ORIGINAL_CHALLENGE_PLAN_SLUG,
-  ORIGINAL_CHALLENGE_TOTAL_DAYS,
   getPostChallengeDisplay,
   getSeasonTimelineItem,
 } from "@/lib/season-plan";
@@ -405,15 +403,6 @@ export default async function DashboardPage({
                     variant: "secondary",
                   },
                   {
-                    href: buildPlanDayHref(
-                      "/challenge-feedback",
-                      ORIGINAL_CHALLENGE_PLAN_SLUG,
-                      ORIGINAL_CHALLENGE_TOTAL_DAYS
-                    ),
-                    label: "Challenge Feedback",
-                    variant: "secondary",
-                  },
-                  {
                     href: "#whats-next",
                     label: "View What's Next",
                     variant: "outline",
@@ -452,15 +441,6 @@ export default async function DashboardPage({
                 <QuickAccessTile href="/hours">
                   Liturgy of the Hours
                 </QuickAccessTile>
-                <QuickAccessTile
-                  href={buildPlanDayHref(
-                    "/challenge-feedback",
-                    ORIGINAL_CHALLENGE_PLAN_SLUG,
-                    ORIGINAL_CHALLENGE_TOTAL_DAYS
-                  )}
-                >
-                  Challenge Feedback
-                </QuickAccessTile>
                 <QuickAccessTile href="/rosary">Rosary</QuickAccessTile>
                 <QuickAccessTile href="/settings">Settings</QuickAccessTile>
                 {isAdmin && (
@@ -470,7 +450,7 @@ export default async function DashboardPage({
                 )}
                 {isAdmin && (
                   <QuickAccessTile href="/admin/challenge-feedback">
-                    Challenge Feedback
+                    Feedback Archive
                   </QuickAccessTile>
                 )}
               </div>
@@ -878,7 +858,7 @@ export default async function DashboardPage({
               )}
               {isAdmin && (
                 <QuickAccessTile href="/admin/challenge-feedback">
-                  Challenge Feedback
+                  Feedback Archive
                 </QuickAccessTile>
               )}
               {isAdmin && (
