@@ -1,0 +1,71 @@
+{
+  "slug": "nativity-of-the-lord",
+  "type": "solemnity",
+  "title": "The Nativity of the Lord (Christmas)",
+  "short_summary": "Christmas celebrates the birth of Jesus Christ, the eternal Son of God made man for the salvation of the world. The Gospel narratives place his birth within the history of Israel and the Roman world; the liturgy proclaims the deeper mystery that the Word became flesh and dwelt among us.",
+  "key_facts": [
+    "The Nativity of the Lord is celebrated on December 25.",
+    "It is a solemnity and the liturgical color is white.",
+    "The Roman liturgy provides four distinct Masses: Vigil, Night, Dawn, and Day.",
+    "Matthew and Luke narrate Jesus' infancy from different perspectives; John's prologue announces the mystery of the Incarnation.",
+    "A Roman celebration of Christ's birth on December 25 is documented by the fourth century."
+  ],
+  "sections": [
+    {
+      "heading": "The birth of Jesus",
+      "body": "Luke places the birth during the reign of Augustus and tells how Mary gave birth at Bethlehem, wrapped Jesus in cloths, and laid him in a manger because lodging was unavailable. Angels announce good news to shepherds: a Savior, Christ the Lord, has been born in David's city. Matthew approaches the same mystery through Joseph, the visit of the Magi, Herod's violence, the flight into Egypt, and the family's settlement at Nazareth."
+    },
+    {
+      "heading": "The Word became flesh",
+      "body": "The Mass during the Day proclaims the opening of John's Gospel. The child born of Mary is the eternal Word who was with God and is God. In the Incarnation, the Son assumes a complete human nature without ceasing to be divine. Christmas celebrates God entering human history to save, reveal the Father, and draw humanity into his own life."
+    },
+    {
+      "heading": "How December 25 became the feast",
+      "body": "Christians initially organized the yearly cycle around Easter. A feast of the Nativity emerged as the calendar developed, and a Roman observance on December 25 is attested in the fourth century. Scholars have proposed several influences on the date, including Christian calculations linking Christ's conception and death and the setting of Roman midwinter festivals. The historical date of Jesus' birth is not known."
+    },
+    {
+      "heading": "Four Masses, one mystery",
+      "body": "The Roman liturgy lets Christmas unfold through four sets of prayers and readings. The Vigil traces Jesus' descent from Abraham and David. The Mass during the Night announces the birth to the shepherds. Dawn follows their journey to Bethlehem. The Mass during the Day contemplates the Word through whom all things were made. Together they move from promise and historical event to the divine identity of the child."
+    },
+    {
+      "heading": "Christmas Time",
+      "body": "December 25 begins an octave and belongs to a season extending through the Baptism of the Lord in the current Roman calendar. The days around Christmas celebrate Stephen, John, the Holy Innocents, the Holy Family, Mary the Mother of God, and the Epiphany, placing the manger within the larger mystery of witness, family life, suffering, and Christ's manifestation to the nations."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "The Incarnation",
+      "body": "Jesus Christ is one divine person with a true divine nature and a true human nature. His humanity is not an appearance, and his divinity is not a later honor; the eternal Son truly became man while remaining God."
+    },
+    {
+      "heading": "God enters human poverty",
+      "body": "The manger, the shepherds, and the vulnerability of the infant reveal how God chooses to draw near. Christian celebration of Christmas is inseparable from worship and from care for people who are poor, displaced, lonely, or excluded."
+    }
+  ],
+  "historical_cautions": [
+    "The Gospels do not provide enough information to establish Jesus' exact birth date.",
+    "The origin of December 25 remains debated; avoid presenting either pagan-festival borrowing or calculation from March 25 as the sole settled explanation.",
+    "Popular nativity scenes combine details from Matthew and Luke and sometimes add later traditional elements."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, season, and liturgical color."
+    },
+    {
+      "label": "Vatican News: Solemnity of the Nativity of Our Lord",
+      "url": "https://www.vaticannews.va/en/liturgical-holidays/solemnity-of-the-nativity-of-our-lord-or-christmas.html",
+      "note": "History of the feast, four Masses, Gospel narratives, and liturgical meaning."
+    },
+    {
+      "label": "Catechism of the Catholic Church 456-483",
+      "url": "https://www.vatican.va/content/catechism/en/part_one/section_two/chapter_two/artcile_3/he_was_conceived_by_the_power_of_the_holy_spirit,_and_was_born_of_the_virgin_mary.html",
+      "note": "Catholic doctrine of the Incarnation and the true humanity and divinity of Christ."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026. Review Christological language, December 25 origin summary, and Roman-calendar season wording before publication."
+  }
+}

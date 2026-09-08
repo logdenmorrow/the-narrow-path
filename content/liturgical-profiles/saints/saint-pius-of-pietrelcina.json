@@ -1,0 +1,67 @@
+{
+  "slug": "saint-pius-of-pietrelcina",
+  "type": "saint",
+  "title": "Saint Pius of Pietrelcina, Priest",
+  "short_summary": "Saint Pius of Pietrelcina (1887-1968), widely known as Padre Pio, was an Italian Capuchin priest renowned as a confessor and spiritual director. His life at San Giovanni Rotondo also produced a major hospital, the Casa Sollievo della Sofferenza, and attracted worldwide devotion.",
+  "key_facts": [
+    "The U.S. calendar keeps Saint Pius of Pietrelcina as a memorial on September 23.",
+    "The liturgical color is white.",
+    "He was born Francesco Forgione at Pietrelcina in southern Italy in 1887 and entered the Capuchins as a teenager.",
+    "He was ordained a priest in 1910 and lived at San Giovanni Rotondo from 1916 until his death.",
+    "John Paul II canonized him on June 16, 2002."
+  ],
+  "sections": [
+    {
+      "heading": "Capuchin vocation",
+      "body": "Francesco Forgione grew up in a farming family in Pietrelcina. He entered the novitiate of the Capuchin Franciscans at Morcone in 1903 and took the name Pio. Persistent illness complicated his early religious formation and often kept him near his family home after ordination. In 1916 he was assigned to the friary of Our Lady of Grace at San Giovanni Rotondo, where he remained for more than fifty years."
+    },
+    {
+      "heading": "Confessor and spiritual director",
+      "body": "Padre Pio became known for long hours in the confessional, exacting spiritual counsel, and intense celebration of Mass. Large numbers of pilgrims traveled to the remote friary. Prayer groups formed under his guidance and later spread internationally. His pastoral influence rested on sacramental ministry and correspondence as well as on reports of extraordinary spiritual gifts."
+    },
+    {
+      "heading": "The stigmata and investigation",
+      "body": "From 1918 Padre Pio bore wounds associated with the Crucifixion. Church authorities subjected the phenomenon and his ministry to repeated medical and canonical investigation, and restrictions were imposed at different times. Some investigators accepted the wounds as unexplained, while critics questioned them and aspects of the devotion surrounding him. The restrictions were eventually relaxed, but the Church's canonization judgment concerned his heroic Christian life rather than requiring Catholics to accept every reported phenomenon."
+    },
+    {
+      "heading": "Relief of suffering",
+      "body": "With donations from supporters, Padre Pio established the Casa Sollievo della Sofferenza, a modern hospital inaugurated in 1956. He regarded medical care as a direct extension of Christian charity toward the sick. He died on September 23, 1968. John Paul II beatified him in 1999 and canonized him in 2002."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Reconciliation",
+      "body": "Padre Pio's many years as a confessor placed the Sacrament of Penance at the center of his priestly work. He called penitents to honesty, conversion, and confidence in divine mercy."
+    },
+    {
+      "heading": "Prayer and care for the sick",
+      "body": "His prayer groups and hospital joined contemplation with organized works of mercy. The combination reflects the Capuchin vocation to prayer, fraternity, simplicity, and service among ordinary people."
+    }
+  ],
+  "historical_cautions": [
+    "Reports of stigmata, bilocation, healings, and extraordinary knowledge should be attributed to witnesses and devotional tradition rather than described as independently demonstrable facts.",
+    "Canonization recognizes heroic virtue and holiness; it does not make every claim in popular hagiography an article of faith.",
+    "The history of ecclesiastical investigations and restrictions is complex and should not be reduced to either uncritical acceptance or simple persecution."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color for the memorial."
+    },
+    {
+      "label": "Vatican News: Saint Pius of Pietrelcina",
+      "url": "https://www.vaticannews.va/en/saints/09/23/st--pius-of-pietrelcina--priest-.html",
+      "note": "Catholic biography covering his Capuchin life, confessional ministry, hospital, death, and canonization."
+    },
+    {
+      "label": "Holy See: Canonization of Padre Pio",
+      "url": "https://www.vatican.va/content/john-paul-ii/en/homilies/2002/documents/hf_jp-ii_hom_20020616_padre-pio.html",
+      "note": "Saint John Paul II's canonization homily on Padre Pio's life and mission."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026 from USCCB, Vatican News, and Holy See sources. Review treatment of investigations and extraordinary phenomena before publication."
+  }
+}

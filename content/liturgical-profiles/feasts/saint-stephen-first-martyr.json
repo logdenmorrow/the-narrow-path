@@ -1,0 +1,66 @@
+{
+  "slug": "saint-stephen-first-martyr",
+  "type": "feast",
+  "title": "Saint Stephen, the First Martyr",
+  "short_summary": "Stephen, one of the seven chosen to serve the Jerusalem church in Acts, became the first recorded person killed for bearing witness to Jesus. His preaching, vision of Christ in glory, and prayer for his killers closely echo the Passion of the Lord he followed.",
+  "key_facts": [
+    "His feast is celebrated on December 26.",
+    "The liturgical color is red.",
+    "Acts names Stephen first among seven men appointed for service in the Jerusalem community.",
+    "His speech before the council is the longest speech in Acts.",
+    "Saul, the future apostle Paul, approved of his execution."
+  ],
+  "sections": [
+    {
+      "heading": "One of the Seven",
+      "body": "Acts 6 describes a dispute because Greek-speaking widows were being neglected in the community's daily distribution. The apostles asked the disciples to choose seven reputable men filled with the Spirit and wisdom. Stephen is named first and described as full of faith and the Holy Spirit. Later Christian tradition called the Seven deacons, although Acts itself emphasizes their appointment for service without giving them that title in the passage."
+    },
+    {
+      "heading": "Witness before the council",
+      "body": "Stephen's preaching led to conflict with members of a synagogue, and he was brought before the Sanhedrin on accusations of speaking against Moses and the Temple. His long defense retells Israel's history from Abraham through Solomon. He argues that God's presence has never been confined to one place and accuses his hearers of resisting the Holy Spirit and rejecting the Righteous One."
+    },
+    {
+      "heading": "The first martyr",
+      "body": "Stephen declares that he sees heaven opened and the Son of Man standing at God's right hand. The crowd drives him outside the city and stones him. He entrusts his spirit to Jesus and asks that the sin not be held against his killers, prayers that echo Jesus on the Cross. The Greek word martyr means witness; Stephen's death made him the pattern for later Christian martyrs."
+    },
+    {
+      "heading": "Stephen and Saul",
+      "body": "The witnesses place their cloaks at the feet of a young man named Saul, who approves of the killing and soon leads a persecution of the Church. Acts later presents Saul's encounter with Christ and transformation into the apostle Paul. Placing the two figures together shows the reach of grace from a dying martyr's forgiveness to the conversion of a persecutor."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Christmas and costly witness",
+      "body": "Celebrating Stephen immediately after Christmas prevents the Nativity from becoming sentimental. The Son of God enters a world that resists his light, and discipleship can require the complete gift of life."
+    },
+    {
+      "heading": "Forgiveness at the point of death",
+      "body": "Stephen imitates Christ by praying for those who kill him. His final act reveals Christian martyrdom as testimony grounded in love rather than hatred of an enemy."
+    }
+  ],
+  "historical_cautions": [
+    "Acts presents a theological narrative as well as history; claims beyond the text about Stephen's early life are speculative.",
+    "The Seven are traditionally called the first deacons, but the noun 'deacon' is not applied to them in Acts 6 itself."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Vatican News: Saint Stephen, First Martyr",
+      "url": "https://www.vaticannews.va/en/saints/12/26/st--stephen--first-martyr.html",
+      "note": "Biography based on Acts, Stephen's speech, martyrdom, and prayer for his persecutors."
+    },
+    {
+      "label": "USCCB Bible: Acts 6-7",
+      "url": "https://bible.usccb.org/bible/acts/6",
+      "note": "Primary New Testament narrative of Stephen's service, preaching, trial, and death."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026. Review the technical qualification concerning the Seven and diaconal terminology before publication."
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "slug": "saint-matthew-apostle-and-evangelist",
+  "type": "saint",
+  "title": "Saint Matthew, Apostle and Evangelist",
+  "short_summary": "Saint Matthew was one of the Twelve Apostles and is traditionally honored as the evangelist whose name is attached to the first Gospel in the New Testament. The Gospel portrays him as a tax collector called by Jesus to leave his post and become a disciple.",
+  "key_facts": [
+    "The Roman calendar celebrates Saint Matthew with the rank of feast on September 21.",
+    "The liturgical color is red.",
+    "Matthew appears in every New Testament list of the Twelve Apostles.",
+    "The Gospel of Matthew identifies the tax collector called by Jesus as Matthew; Mark and Luke call the tax collector Levi.",
+    "Early Christian tradition associates Matthew with the Gospel that bears his name."
+  ],
+  "sections": [
+    {
+      "heading": "The call of the tax collector",
+      "body": "Matthew's Gospel places him at a customs post when Jesus says, 'Follow me.' He rises and follows, then Jesus eats with tax collectors and sinners. In Roman-ruled Galilee, tax collection carried associations of collaboration and exploitation. Matthew's inclusion among the Twelve therefore became a vivid account of conversion and of Christ's call reaching a man regarded with suspicion by his neighbors."
+    },
+    {
+      "heading": "One of the Twelve",
+      "body": "Matthew is named in the apostolic lists of Matthew, Mark, Luke, and Acts. Beyond these references, the New Testament gives little certain information about his later life. Traditions place his preaching in several regions and differ about whether and where he died as a martyr. His relics have long been venerated at Salerno in southern Italy."
+    },
+    {
+      "heading": "The Gospel according to Matthew",
+      "body": "The first Gospel presents Jesus as Israel's Messiah and authoritative teacher, repeatedly showing how his life fulfills the Scriptures. It contains the Sermon on the Mount, a structured collection of parables, teaching on the Church, and the command to make disciples of all nations. The text itself does not name its author, but early Christian writers consistently associated it with the apostle Matthew."
+    },
+    {
+      "heading": "Matthew in Christian art",
+      "body": "Matthew is commonly represented with a winged human figure, one of the four living creatures from Ezekiel and Revelation applied to the evangelists. The symbol was linked to the Gospel's opening genealogy and its emphasis on the human ancestry of Jesus. Caravaggio's paintings of Matthew's call, inspiration, and martyrdom are among the best-known later depictions of the apostle."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Apostolic witness",
+      "body": "The Church receives the apostolic writings as testimony to Jesus Christ handed on in the community founded by the apostles. Matthew's feast honors both his personal discipleship and the Gospel proclaimed under his name."
+    },
+    {
+      "heading": "Call and conversion",
+      "body": "Matthew's departure from the customs post illustrates the authority of Christ's call. His meal with Jesus also displays the mercy at the center of the Gospel: Christ summons sinners into discipleship and communion."
+    }
+  ],
+  "historical_cautions": [
+    "The New Testament does not explicitly identify Matthew and Levi as the same person outside the parallel call narratives; Christian tradition commonly makes that identification.",
+    "The Gospel is internally anonymous. State apostolic authorship as the Church's ancient tradition while recognizing that modern scholarship discusses its literary composition and sources.",
+    "Accounts of Matthew's later travels and martyrdom vary considerably."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color for the feast."
+    },
+    {
+      "label": "Vatican News: Saint Matthew",
+      "url": "https://www.vaticannews.va/fr/saint-du-jour/09/21/saint-matthieu--apotre-et-evangeliste.html",
+      "note": "Catholic overview of Matthew's call, apostolic mission, tradition, and iconography."
+    },
+    {
+      "label": "USCCB: Introduction to the Gospel according to Matthew",
+      "url": "https://bible.usccb.org/bible/matthew/0",
+      "note": "Catholic introduction to the Gospel's contents, structure, setting, and authorship tradition."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026 from USCCB and Vatican News sources. Review authorship language and later-life traditions before publication."
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "slug": "our-lady-of-sorrows",
+  "type": "other",
+  "title": "Our Lady of Sorrows",
+  "short_summary": "Our Lady of Sorrows honors the compassion of Mary in the suffering and death of Jesus Christ. Celebrated on September 15, the memorial is closely connected with the Passion, especially Mary's presence at the Cross, and with the Servite tradition of the Seven Sorrows.",
+  "key_facts": [
+    "The U.S. calendar keeps Our Lady of Sorrows as a memorial on September 15.",
+    "The liturgical color is white.",
+    "The memorial follows the Feast of the Exaltation of the Holy Cross on September 14.",
+    "The Servants of Mary helped spread devotion to Mary's sorrows from the Middle Ages onward.",
+    "Pope Pius X fixed the observance on September 15 in the early twentieth century."
+  ],
+  "sections": [
+    {
+      "heading": "Mary at the Cross",
+      "body": "The Gospel of John places Mary beside the Cross with the beloved disciple. From the Cross, Jesus entrusts them to one another. Christian devotion has long contemplated Mary's steadfast presence there and the grief of a mother who witnesses her son's suffering while remaining united to his mission."
+    },
+    {
+      "heading": "The Seven Sorrows",
+      "body": "The traditional Seven Sorrows are the prophecy of Simeon, the flight into Egypt, the loss of the child Jesus in Jerusalem, the meeting on the way to Calvary, the Crucifixion, the taking down of Jesus' body, and his burial. The sequence gathers episodes from Luke and John together with scenes preserved in the Church's devotional tradition."
+    },
+    {
+      "heading": "Development of the memorial",
+      "body": "Devotion to Mary's compassion developed strongly in medieval Europe. The Servite Order, founded in the thirteenth century, made the Sorrows of Mary central to its spirituality and helped spread the devotion. A feast was extended to the Latin Church in the nineteenth century, and Pius X assigned it to September 15, immediately after the feast of the Holy Cross."
+    },
+    {
+      "heading": "Art and prayer",
+      "body": "The subject shaped Christian art through images of the Pietà, Mary pierced by swords, and the mourning at the Cross. The medieval hymn Stabat Mater likewise contemplates Mary standing in sorrow at Calvary and asks that the believer share spiritually in the Passion of Christ."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Compassion with Christ",
+      "body": "Mary's sorrow is understood through her union with Jesus. She does not add another sacrifice to his saving death; she receives and accompanies his sacrifice with the faith of a mother and disciple."
+    },
+    {
+      "heading": "Mother of the disciples",
+      "body": "Catholic tradition reads Jesus' words to Mary and the beloved disciple as having significance for the whole Church. Mary is received among Christ's disciples as a mother who remained faithful beneath the Cross."
+    }
+  ],
+  "historical_cautions": [
+    "The Seven Sorrows combine events stated in Scripture with traditional scenes such as Mary's meeting with Jesus on the way to Calvary.",
+    "Dates and titles for the liturgical observance changed several times before September 15 became standard."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color for the memorial."
+    },
+    {
+      "label": "Vatican News: Memorial of Our Lady of Sorrows",
+      "url": "https://www.vaticannews.va/en/liturgical-holidays/memorial-of-our-lady-of-sorrows.html",
+      "note": "Catholic account of the devotion, the Servites, the feast's history, and Mary at the Cross."
+    },
+    {
+      "label": "Catechism of the Catholic Church 964-970",
+      "url": "https://www.vatican.va/archive/ENG0015/__P2C.HTM",
+      "note": "Catholic teaching on Mary's union with her Son and maternal role in the Church."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026 from USCCB, Vatican News, and Catechism sources. Review the distinction between Scripture and devotional tradition before publication."
+  }
+}

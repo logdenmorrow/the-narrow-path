@@ -1,0 +1,61 @@
+{
+  "slug": "saint-martin-of-tours",
+  "type": "saint",
+  "title": "Saint Martin of Tours, Bishop",
+  "short_summary": "Martin of Tours (c. 316-397) was a Roman soldier who became a Christian monk and bishop in Gaul. The story of his dividing his cloak with a poor man became one of Christianity's best-known images of mercy, while his monasteries and pastoral journeys helped shape the Church in western Europe.",
+  "key_facts": [
+    "His memorial is celebrated on November 11.",
+    "The liturgical color is white.",
+    "Martin was born in Pannonia and served in the Roman army before pursuing monastic life.",
+    "He founded a community at Ligugé, often described as the first monastery in Gaul.",
+    "He became bishop of Tours in 371 and died at Candes in 397."
+  ],
+  "sections": [
+    {
+      "heading": "Soldier and catechumen",
+      "body": "Martin was born in the Roman province of Pannonia, in the region of modern Hungary, and grew up largely in Italy. As the son of a military officer he entered imperial service. His early biographer Sulpicius Severus tells that, while still a catechumen, Martin met a poorly clothed man at the gate of Amiens and cut his military cloak in two to share it. In a dream that night, he saw Christ wearing the portion he had given away."
+    },
+    {
+      "heading": "Monastic life in Gaul",
+      "body": "After baptism and departure from military service, Martin became associated with Hilary of Poitiers. He founded an ascetic community at Ligugé and later, as bishop, established Marmoutier near Tours. These communities joined prayer and discipline to missionary work and became influential in the growth of Western monasticism."
+    },
+    {
+      "heading": "Bishop of Tours",
+      "body": "The Christians of Tours chose Martin as their bishop in 371. He retained a simple monastic manner of life, traveled through rural districts, organized parishes, trained clergy, and worked to displace remaining pagan cults. He also intervened against the execution of heretics, arguing that ecclesiastical disputes should not be settled by state violence."
+    },
+    {
+      "heading": "Memory and feast",
+      "body": "Martin died at Candes in 397 and was buried at Tours. His shrine became a major pilgrimage center, and churches across Europe took his name. November 11 became known as Martinmas in many countries and accumulated local customs connected with harvest, charity, food, and the beginning of winter."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Christ encountered in the poor",
+      "body": "The cloak story endures because it gives narrative form to Matthew 25: care offered to a person in need is offered to Christ. Martin's charity preceded his baptism and became a sign of the life toward which grace was drawing him."
+    },
+    {
+      "heading": "A monk made bishop",
+      "body": "Martin joined contemplation to the practical burdens of pastoral office. His life helped establish a Western pattern in which monastic prayer could renew missionary and episcopal service."
+    }
+  ],
+  "historical_cautions": [
+    "The principal narrative source is Sulpicius Severus, an admirer and contemporary who wrote hagiography rather than a modern critical biography.",
+    "Martin's birth year is uncertain and is commonly given as either 316 or 336; this profile uses the traditional earlier dating without treating it as certain."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Vatican News: Saint Martin of Tours",
+      "url": "https://www.vaticannews.va/en/saints/11/11/st--martin--bishop-of-tours-.html",
+      "note": "Biography, the cloak tradition, monastic foundations, and episcopal ministry."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026. Review disputed birth chronology and wording about Priscillianist executions before publication."
+  }
+}

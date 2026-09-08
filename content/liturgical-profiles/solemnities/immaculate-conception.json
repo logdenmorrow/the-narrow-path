@@ -1,0 +1,66 @@
+{
+  "slug": "immaculate-conception",
+  "type": "solemnity",
+  "title": "The Immaculate Conception of the Blessed Virgin Mary",
+  "short_summary": "The Immaculate Conception is the Catholic teaching that Mary, from the first moment of her own conception, was preserved from original sin by a singular grace of God in view of the merits of Jesus Christ. The solemnity celebrates the saving work of Christ applied to his mother in a unique way.",
+  "key_facts": [
+    "The solemnity is celebrated on December 8, nine months before Mary's nativity on September 8.",
+    "The liturgical color is white.",
+    "It concerns Mary's conception, not the virginal conception of Jesus.",
+    "Pope Pius IX defined the dogma in 1854 in Ineffabilis Deus.",
+    "Mary's freedom from original sin comes entirely from Christ's grace and saving merits."
+  ],
+  "sections": [
+    {
+      "heading": "What the doctrine says",
+      "body": "Catholic teaching holds that Mary was preserved free from every stain of original sin from the first instant of her existence. This was not something she achieved and did not place her outside humanity's need for redemption. God saved her through Jesus Christ in a unique, preventive manner, preparing her to become the mother of the incarnate Son."
+    },
+    {
+      "heading": "Scripture and the development of belief",
+      "body": "The doctrine is read within the whole biblical story of creation, fall, promise, and fulfillment. Catholic tradition connects it especially with the woman's offspring in Genesis 3, Gabriel's greeting to Mary as full of grace, and her free consent at the Annunciation. Reflection developed gradually as Christians considered Mary's place in Christ's saving work and celebrated her holiness in worship."
+    },
+    {
+      "heading": "From feast to definition",
+      "body": "A feast of Mary's conception developed in the East and was known in the West by the Middle Ages. Theological debate continued over how her complete holiness could be reconciled with the universal redemption accomplished by Christ. The Franciscan theologian John Duns Scotus helped articulate that Mary was redeemed more perfectly by being preserved from sin in advance. Pius IX solemnly defined the doctrine on December 8, 1854."
+    },
+    {
+      "heading": "Patroness of the United States",
+      "body": "The bishops of the United States chose Mary under the title of the Immaculate Conception as patroness of the country in 1846, before the dogmatic definition. The National Shrine of the Immaculate Conception in Washington, D.C., reflects the feast's particular place in American Catholic life."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Redeemed by Christ",
+      "body": "The doctrine is centered on Christ's power to save. Mary receives everything from God; her preservation from original sin is the first fruit of the grace her Son won for the human race."
+    },
+    {
+      "heading": "Grace and human freedom",
+      "body": "Mary's holiness does not make her passive. Sustained by grace, she gives a real human answer to God. Her consent at the Annunciation becomes a model of freedom brought to fulfillment through trust and obedience."
+    }
+  ],
+  "historical_cautions": [
+    "The Immaculate Conception must not be confused with Jesus' virginal conception or with Mary's perpetual virginity.",
+    "Descriptions of the doctrine's history should acknowledge centuries of theological development and debate before 1854."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Vatican News: Solemnity of the Immaculate Conception",
+      "url": "https://www.vaticannews.va/en/liturgical-holidays/solemnity-of-the-immaculate-conception-of-the-blessed-virgin-mar.html",
+      "note": "Historical development and the 1854 definition."
+    },
+    {
+      "label": "Catechism of the Catholic Church 490-493",
+      "url": "https://www.vatican.va/content/catechism/en/part_one/section_two/chapter_two/artcile_3/paragraph_2_conceived_by_the_power_of_the_holy_spirit_and_born_of_the_virgin_mary.html",
+      "note": "Authoritative summary of the Immaculate Conception and its relation to Christ's grace."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026. Theological review required for the formulation of preventive redemption and the compressed account of doctrinal development."
+  }
+}

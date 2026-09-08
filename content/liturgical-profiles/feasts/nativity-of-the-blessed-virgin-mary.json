@@ -1,0 +1,62 @@
+{
+  "slug": "nativity-of-the-blessed-virgin-mary",
+  "type": "feast",
+  "title": "The Nativity of the Blessed Virgin Mary",
+  "short_summary": "The Nativity of the Blessed Virgin Mary celebrates the birth of Mary, the mother of Jesus. Observed on September 8, it is one of the oldest Marian feasts and places Mary's life within the history of salvation that leads to the Incarnation.",
+  "key_facts": [
+    "The Roman calendar celebrates Mary's birth on September 8 with the rank of feast.",
+    "The liturgical color is white.",
+    "The feast was known in the Christian East before it became established at Rome in the early Middle Ages.",
+    "The canonical Gospels do not narrate Mary's birth or name her parents; the names Joachim and Anne come from early Christian tradition.",
+    "Mary's nativity is one of three births celebrated liturgically by the Roman Church, together with those of Jesus Christ and Saint John the Baptist."
+  ],
+  "sections": [
+    {
+      "heading": "Origins of the feast",
+      "body": "The celebration arose in the East and was associated with a church dedicated to Mary in Jerusalem, traditionally identified with the place where Joachim and Anne lived. Evidence for the feast appears by the sixth century. It entered the Roman liturgy by the eighth century and eventually spread throughout the Western Church. Its date falls nine months after the Solemnity of the Immaculate Conception on December 8."
+    },
+    {
+      "heading": "Mary's family tradition",
+      "body": "The New Testament says nothing about the circumstances of Mary's birth. The names of her parents, Joachim and Anne, are preserved in the second-century Protoevangelium of James and later Christian tradition. The Church receives their memory without treating that apocryphal work as Scripture. The feast therefore celebrates Mary's birth itself rather than asserting a detailed biography of her childhood."
+    },
+    {
+      "heading": "Place in the history of salvation",
+      "body": "Mary was born into the people of Israel and would freely consent to become the mother of the Messiah at the Annunciation. Her birth is celebrated because of the mission God entrusted to her and because the Son she bore took his human nature from her. The feast looks forward to Christ while honoring the woman whom the Council of Ephesus confessed as Theotokos, Mother of God."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Mother of God",
+      "body": "Mary is called Mother of God because the son she conceived and bore is one divine person, Jesus Christ, true God and true man. The title safeguards the Church's confession about Christ before it says anything about Mary's dignity."
+    },
+    {
+      "heading": "Prepared by grace",
+      "body": "Catholic teaching understands Mary's life as the work of God's grace from its beginning. Her vocation reaches its center in her assent at the Annunciation and in her faithful union with Christ throughout his life, Passion, and Resurrection."
+    }
+  ],
+  "historical_cautions": [
+    "The canonical Gospels do not record Mary's birth or the names of her parents. Attribute details about Joachim, Anne, and Mary's childhood to early Christian tradition rather than to Scripture.",
+    "Ancient evidence establishes the feast's early development, but modern sources differ on the exact date and circumstances of its first celebration."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color for the feast."
+    },
+    {
+      "label": "Vatican News: Feast of the Nativity of the Blessed Virgin Mary",
+      "url": "https://www.vaticannews.va/en/liturgical-holidays/feast-of-the-nativity-of-the-blessed-virgin-mary-.html",
+      "note": "Catholic overview of the feast's history, Jerusalem tradition, and arrival in Rome."
+    },
+    {
+      "label": "Catechism of the Catholic Church 495",
+      "url": "https://www.vatican.va/archive/ENG0015/__P1K.HTM",
+      "note": "Catholic teaching on Mary as Mother of God because Jesus Christ is one divine person."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026 from USCCB, Vatican News, and Catechism sources. Review the concise historical account before publication."
+  }
+}

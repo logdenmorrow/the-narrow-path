@@ -1,0 +1,67 @@
+{
+  "slug": "north-american-martyrs",
+  "type": "saint",
+  "title": "Saints John de Brébeuf and Isaac Jogues, Priests, and Companions, Martyrs",
+  "short_summary": "The North American Martyrs were eight French Jesuit missionaries killed between 1642 and 1649 in territories now divided between the United States and Canada. Their work among Indigenous peoples took place amid epidemic disease, conflict between the Wendat and Haudenosaunee, European colonial rivalry, and the expansion of Christian missions in New France.",
+  "key_facts": [
+    "The U.S. calendar keeps their memorial on October 19.",
+    "The liturgical color is red.",
+    "The eight martyrs are Jean de Brébeuf, Isaac Jogues, Gabriel Lalemant, Antoine Daniel, Charles Garnier, Noël Chabanel, René Goupil, and Jean de Lalande.",
+    "René Goupil, Isaac Jogues, and Jean de Lalande died in present-day New York; the other five died in present-day Ontario.",
+    "Pius XI canonized the group in 1930."
+  ],
+  "sections": [
+    {
+      "heading": "Missions in New France",
+      "body": "French Jesuits entered networks of Wendat communities and other Indigenous nations during the seventeenth century. They learned languages, compiled dictionaries and grammars, traveled by canoe and foot, and established mission settlements. Their preaching was intertwined with French trade and political presence, while Indigenous responses ranged from conversion and alliance to rejection and resistance."
+    },
+    {
+      "heading": "Disease and war",
+      "body": "European diseases caused catastrophic mortality among Indigenous communities that lacked immunity. Missionaries were sometimes blamed for epidemics, and conversion could intensify divisions within villages. At the same time, warfare involving Wendat and Haudenosaunee peoples was connected to older rivalries, the fur trade, and competition among European powers. The deaths of the missionaries occurred within this violent and rapidly changing world."
+    },
+    {
+      "heading": "Jogues, Goupil, and Lalande",
+      "body": "René Goupil was killed in 1642 after capture by Mohawk warriors. Isaac Jogues survived captivity and mutilation, escaped to Europe, and received permission to celebrate Mass despite damaged hands. He returned as a missionary and diplomatic envoy and was killed in 1646 near the Mohawk settlement of Ossernenon, followed by Jean de Lalande. The National Shrine of the North American Martyrs stands at Auriesville, New York."
+    },
+    {
+      "heading": "Brébeuf and the Ontario martyrs",
+      "body": "Jean de Brébeuf spent many years learning the Wendat language and culture and became one of the mission's leading figures. Antoine Daniel was killed in 1648. Brébeuf and Gabriel Lalemant were tortured and killed after Haudenosaunee forces attacked the Wendat mission settlements in March 1649; Charles Garnier and Noël Chabanel died later that year. Their principal Canadian shrine is at Midland, Ontario."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Mission and martyrdom",
+      "body": "The Church honors the eight because they continued their missionary service despite a known danger of death and were killed in connection with that work. Their canonization presents their endurance as witness to Christ."
+    },
+    {
+      "heading": "History and conversion",
+      "body": "Their story also belongs to the history of colonization and Indigenous-Christian encounter. A truthful account can honor personal courage while recognizing epidemic loss, cultural conflict, and the agency of Indigenous converts and opponents."
+    }
+  ],
+  "historical_cautions": [
+    "Avoid older descriptions that reduce Indigenous nations to a single hostile population or ignore the effects of European disease and colonial rivalry.",
+    "The precise motives of individual killings varied and are reconstructed mainly from Jesuit sources written within the mission.",
+    "Use the current names Wendat and Haudenosaunee when possible while noting Huron and Iroquois where historically necessary."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color for the memorial."
+    },
+    {
+      "label": "Jesuits USA: North American Martyrs",
+      "url": "https://www.jesuits.org/stories/society-of-jesus-in-the-u-s-celebrates-the-feast-of-the-north-american-martyrs/",
+      "note": "Official Jesuit identification of the eight missionaries, their mission region, deaths, and shrines."
+    },
+    {
+      "label": "Vatican News: John de Brébeuf, Isaac Jogues, and Companions",
+      "url": "https://www.vaticannews.va/pt/santo-do-dia/10/19/ss--joao-de-brebeuf-e-isaac-jogues-presbiteros--e-companheiros-j.html",
+      "note": "Catholic biography and chronology of the eight martyrs."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026 from USCCB, Jesuit, and Vatican News sources. Historical review should include careful Indigenous terminology and colonial context before publication."
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "slug": "holy-family",
+  "type": "feast",
+  "title": "The Holy Family of Jesus, Mary and Joseph",
+  "short_summary": "The Holy Family feast contemplates the household of Jesus, Mary, and Joseph at Bethlehem, in exile, and at Nazareth. The Gospels portray a family shaped by trust in God, ordinary labor, obedience, danger, migration, and the gradual unfolding of Jesus' mission.",
+  "key_facts": [
+    "In 2026 the feast is celebrated on Sunday, December 27.",
+    "The liturgical color is white.",
+    "It normally falls on the Sunday within the Octave of Christmas.",
+    "The feast developed in the nineteenth century and was extended to the universal Church in 1920.",
+    "Its Gospel selections draw from Matthew and Luke's accounts of Jesus' childhood."
+  ],
+  "sections": [
+    {
+      "heading": "The family in the Gospels",
+      "body": "Matthew tells how Joseph receives Mary into his home, protects Jesus from Herod, leads the family into Egypt, and later settles at Nazareth. Luke describes the journey to Bethlehem, the presentation in the Temple, the annual Passover pilgrimage, and the twelve-year-old Jesus among the teachers. The narratives say little about daily life at Nazareth, but they place Jesus within a real family, town, religious tradition, and life of work."
+    },
+    {
+      "heading": "Danger, migration, and home",
+      "body": "Christian art often depicts the Holy Family in domestic peace, but the biblical story includes uncertainty and displacement. A ruler seeks the child's life; the family flees across a border and later returns. Simeon foretells contradiction and suffering. Mary and Joseph do not understand everything at once, yet they act faithfully with the light they have."
+    },
+    {
+      "heading": "How the feast developed",
+      "body": "Devotion to the Holy Family grew strongly in the nineteenth century, with important roots in Canada. Pope Leo XIII approved a feast and office, and Pope Benedict XV extended the celebration to the universal Church in 1920. The revised Roman calendar places it on the Sunday within the Christmas octave, or on December 30 when no Sunday occurs between Christmas and January 1."
+    },
+    {
+      "heading": "A model without sentimentality",
+      "body": "The Holy Family is called a model because its members receive one another and God's will in love, not because their life lacked strain. The Gospels include poverty, anxiety, political violence, misunderstanding, work, and grief. The feast sets family life within discipleship and recognizes holiness in patient, repeated acts of responsibility."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "The domestic church",
+      "body": "Catholic tradition calls the Christian household a domestic church because faith is first learned and practiced there through prayer, forgiveness, service, and love. The term also honors families whose lives do not match an idealized picture and who depend daily on grace."
+    },
+    {
+      "heading": "Solidarity with vulnerable families",
+      "body": "The flight into Egypt connects the feast with refugees, migrants, and parents protecting children from violence. Devotion to the Holy Family carries a practical obligation to support families under pressure."
+    }
+  ],
+  "historical_cautions": [
+    "The canonical Gospels give few details about the years at Nazareth; later stories should not be presented as biblical biography.",
+    "The feast's calendar placement has changed over time and differs in some liturgical traditions."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Vatican News: Feast of the Holy Family",
+      "url": "https://www.vaticannews.va/en/liturgical-holidays/feast-of-the-holy-family-of-jesus--mary-and-joseph-.html",
+      "note": "Biblical readings, feast history, and the Holy Family's significance for family life."
+    },
+    {
+      "label": "Catechism of the Catholic Church 531-534",
+      "url": "https://www.vatican.va/content/catechism/en/part_one/section_two/chapter_two/artcile_3/he_was_conceived_by_the_power_of_the_holy_spirit,_and_was_born_of_the_virgin_mary.html",
+      "note": "The hidden life of Jesus at Nazareth and the finding in the Temple."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026. Review the historical calendar summary and domestic-church phrasing before publication."
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "slug": "saint-frances-xavier-cabrini",
+  "type": "saint",
+  "title": "Saint Frances Xavier Cabrini, Virgin",
+  "short_summary": "Frances Xavier Cabrini (1850-1917), founder of the Missionary Sisters of the Sacred Heart of Jesus, built schools, hospitals, orphanages, and social services for immigrants in the United States and beyond. An Italian-born American citizen, she became the first U.S. citizen to be canonized.",
+  "key_facts": [
+    "The United States keeps her memorial on November 13.",
+    "The liturgical color is white.",
+    "She was born in Sant'Angelo Lodigiano, Italy, in 1850.",
+    "She founded the Missionary Sisters of the Sacred Heart of Jesus in 1880.",
+    "She became a United States citizen in 1909 and was canonized in 1946."
+  ],
+  "sections": [
+    {
+      "heading": "A missionary vocation",
+      "body": "Francesca Cabrini grew up in Lombardy and trained as a teacher. Poor health complicated her attempts to enter religious life, but in 1880 she founded a new congregation at Codogno and took Francis Xavier as part of her religious name. She hoped to serve in Asia, following the missionary saint whose name she bore. Pope Leo XIII instead urged her to go west and attend to Italian migrants in the Americas."
+    },
+    {
+      "heading": "New York and the immigrant mission",
+      "body": "Cabrini arrived in New York in 1889 with six sisters. Italian immigrants often lived in crowded districts, faced dangerous work, and lacked schools, medical care, and stable parish support. Beginning with few resources, the sisters opened catechetical programs and an orphanage, visited families, and raised money across language and class barriers."
+    },
+    {
+      "heading": "Schools, hospitals, and institutions",
+      "body": "Over the following decades Cabrini crossed the Atlantic repeatedly and established foundations in the United States, Central and South America, and Europe. Her congregation operated schools, orphanages, and hospitals, including Columbus Hospital in New York and institutions in Chicago. She combined personal attention to migrants with unusually effective administration, fundraising, and the formation of sisters for demanding work."
+    },
+    {
+      "heading": "American saint and patron of migrants",
+      "body": "Cabrini became a U.S. citizen in 1909 and died in Chicago on December 22, 1917. Pope Pius XII canonized her in 1946, making her the first citizen of the United States to be declared a saint, and named her patroness of immigrants in 1950. Her memorial is kept in the United States on November 13, the date of her beatification, rather than on the anniversary of her death within the Christmas octave."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Faith expressed through institutions",
+      "body": "Cabrini saw schools and hospitals as concrete forms of evangelization. Her work joined devotion to the Sacred Heart with professional organization and long-term service to people uprooted from home."
+    },
+    {
+      "heading": "The dignity of migrants",
+      "body": "Her ministry insists that migrants are people with families, faith, skills, and claims on Christian solidarity. The Church remembers her life while continuing the work of welcome, accompaniment, and advocacy."
+    }
+  ],
+  "historical_cautions": [
+    "She was the first U.S. citizen canonized, not the first saint born in territory that later became the United States.",
+    "Counts of institutions attributed to Cabrini vary depending on whether missions, schools, orphanages, and hospitals are grouped separately."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Vatican News: Pope Leo XIV on Saint Cabrini",
+      "url": "https://www.vaticannews.va/en/pope/news/2026-06/pope-leo-sant-angelo-lodigiano-visit-cabrini-migrants-witness.html",
+      "note": "Recent papal reflection on Cabrini's biography, Sacred Heart spirituality, and migrant ministry."
+    },
+    {
+      "label": "Saint Frances Xavier Cabrini Shrine: Her Life",
+      "url": "https://cabrinishrinenyc.org/",
+      "note": "Institutional biography and chronology of Cabrini's mission in the United States."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026. Verify the U.S. memorial-date explanation and institutional examples before publication."
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "slug": "saint-charles-borromeo",
+  "type": "saint",
+  "title": "Saint Charles Borromeo, Bishop",
+  "short_summary": "Charles Borromeo (1538-1584) was archbishop of Milan and one of the leading Catholic reformers after the Council of Trent. He reorganized his vast diocese, established seminaries, visited parishes personally, and remained with the people of Milan during famine and plague.",
+  "key_facts": [
+    "The U.S. calendar keeps his memorial on November 4.",
+    "The liturgical color is white.",
+    "He was born in 1538 into the Borromeo family of northern Italy.",
+    "As a cardinal and papal official, he helped bring the Council of Trent to completion.",
+    "As archbishop of Milan, he applied its reforms through synods, seminaries, pastoral visits, and works of charity."
+  ],
+  "sections": [
+    {
+      "heading": "From papal court to reform",
+      "body": "Charles was born at Arona on Lake Maggiore and trained in civil and canon law. His uncle, Pope Pius IV, made him a cardinal while he was still a young man and entrusted him with major responsibilities in Rome. Charles used his position to support the final sessions of the Council of Trent, which concluded in 1563 after addressing doctrine, clerical formation, worship, and the reform of Church government."
+    },
+    {
+      "heading": "Archbishop of Milan",
+      "body": "Although appointed archbishop in 1560, Charles did not settle permanently in Milan until after the council. The archdiocese had long lacked a resident bishop. He convened councils and synods, founded seminaries, reformed religious communities, promoted catechesis, and traveled through difficult Alpine districts to visit clergy and people. His program treated reform as a matter of personal discipline and pastoral presence as well as legislation."
+    },
+    {
+      "heading": "Famine and plague",
+      "body": "When famine struck Milan, Charles organized relief and exhausted much of his own wealth to feed the poor. During the epidemic of 1576-1577, he remained in the city while many officials left. He coordinated care, raised funds, visited the sick, and led public penance while taking practical measures intended to limit contagion. The crisis became one of the defining episodes of his episcopate."
+    },
+    {
+      "heading": "Death and influence",
+      "body": "Years of severe work and ascetic practice damaged Charles's health. He died in Milan on November 3, 1584, at the age of forty-six. Canonized in 1610, he became a model of the resident, reforming bishop and a patron of bishops, seminarians, and catechists."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Reform begins with conversion",
+      "body": "Charles joined institutional reform to prayer, penance, study, and direct care for his people. His life illustrates the Catholic conviction that structures serve the Gospel only when those responsible for them are themselves being converted."
+    },
+    {
+      "heading": "The bishop among his people",
+      "body": "His pastoral visits and conduct during plague expressed the bishop's duty to teach, sanctify, govern, and remain close to the local Church entrusted to him."
+    }
+  ],
+  "historical_cautions": [
+    "Accounts of the Milan plague use different estimates for casualties and relief expenditures; avoid unsupported totals.",
+    "Descriptions of Tridentine reform should not imply that Charles alone designed or implemented the council's program."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Vatican News: Saint Charles Borromeo",
+      "url": "https://www.vaticannews.va/en/saints/11/04/st--charles-borromeo--archbishop-of-milan-and-cardinal.html",
+      "note": "Biography, diocesan reform, and care during famine and plague."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026 from USCCB and Vatican News. Review plague-era wording and council chronology before publication."
+  }
+}

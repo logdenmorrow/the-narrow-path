@@ -1,10 +1,13 @@
 {
   "private": true,
   "scripts": {
+    "predev": "npm run generate:liturgical-profile-registry",
     "dev": "next dev",
+    "prebuild": "npm run generate:liturgical-profile-registry",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "pretest": "npm run generate:liturgical-profile-registry",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:auth": "playwright test --project=setup",
@@ -13,6 +16,9 @@
     "scan:season-activation": "node scripts/scan-season-activation-readiness.mjs",
     "scan:gospel-activation": "node scripts/scan-gospel-activation.mjs",
     "scan:reading-integrity": "node scripts/scan-reading-integrity.mjs",
+    "generate:liturgical-profile-registry": "node scripts/generate-liturgical-profile-registry.mjs",
+    "check:liturgical-profile-registry": "node scripts/generate-liturgical-profile-registry.mjs --check",
+    "draft:liturgical-profiles": "node scripts/draft-liturgical-profiles.mjs",
     "import:liturgical-calendar": "node scripts/import-usccb-liturgical-calendar.mjs",
     "check:liturgical-calendar": "node scripts/import-usccb-liturgical-calendar.mjs --check",
     "build:reading-context-sql": "node scripts/build-reading-context-sql.mjs",

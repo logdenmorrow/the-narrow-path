@@ -1,0 +1,62 @@
+{
+  "slug": "holy-guardian-angels",
+  "type": "other",
+  "title": "The Holy Guardian Angels",
+  "short_summary": "The Memorial of the Holy Guardian Angels celebrates God's providential care exercised through the ministry of angels. Catholic teaching holds that angels accompany human life and assist the faithful on the way to salvation while remaining entirely subject to God.",
+  "key_facts": [
+    "The U.S. calendar keeps the Holy Guardian Angels as a memorial on October 2.",
+    "The liturgical color is white.",
+    "The Catechism teaches that angels are personal, spiritual creatures with intelligence and will.",
+    "Scripture repeatedly presents angels as messengers, protectors, worshipers, and servants of God's plan.",
+    "A distinct feast of the Guardian Angels spread in the Western Church during the late Middle Ages and early modern period."
+  ],
+  "sections": [
+    {
+      "heading": "Angels and providence",
+      "body": "In Catholic teaching, angels are created spirits rather than divine beings or the souls of deceased humans. Their existence belongs to the Church's doctrine of creation. Scripture describes them carrying messages, guarding God's people, worshiping before the divine throne, and ministering to Christ. Their power is creaturely and always serves the will of God."
+    },
+    {
+      "heading": "Biblical foundations",
+      "body": "Psalm 91 speaks of angels commanded to guard the faithful. Jesus refers to the angels of the little ones beholding the face of the Father, and Acts recounts an angel freeing Peter from prison. These passages contributed to Christian confidence that God entrusts persons and communities to angelic care. Scripture does not provide a systematic account of how an individual guardian angel acts in every circumstance."
+    },
+    {
+      "heading": "Development of the memorial",
+      "body": "Devotion to protecting angels is ancient, while a separate liturgical observance developed gradually. Local feasts appeared in medieval Europe, and the celebration entered the general Roman calendar in the seventeenth century. Its October 2 date follows closely after the September 29 feast of Michael, Gabriel, and Raphael."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Care from infancy to death",
+      "body": "The Catechism summarizes the tradition by teaching that human life is surrounded by the watchful care and intercession of angels. This care points beyond the angel to the providence of the Father who sends and sustains every heavenly messenger."
+    },
+    {
+      "heading": "Devotion ordered to God",
+      "body": "Catholics may ask the angels for assistance and honor their service, but worship belongs to God alone. Healthy devotion avoids attempts to name, command, or seek secret knowledge from angels."
+    }
+  ],
+  "historical_cautions": [
+    "Catholic doctrine affirms angelic guardianship without defining many popular details about the identity or daily actions of an individual's guardian angel.",
+    "Avoid practices drawn from occult or New Age angel systems, including invented names and claims of private revelation treated as doctrine."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color for the memorial."
+    },
+    {
+      "label": "Catechism of the Catholic Church 328-336",
+      "url": "https://www.vatican.va/content/catechism/en/part_one/section_two/chapter_one/article_1/paragraph_5_heaven_and_earth.html",
+      "note": "Catholic doctrine on angels, their service to Christ, and guardian angels."
+    },
+    {
+      "label": "Vatican News: Holy Guardian Angels",
+      "url": "https://www.vaticannews.va/en/saints/10/02/sts--guardian-angels--.html",
+      "note": "Catholic liturgical reference for the October 2 memorial."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026 from USCCB, Catechism, and Vatican News sources. Review the concise liturgical history before publication."
+  }
+}

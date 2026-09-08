@@ -1,0 +1,66 @@
+{
+  "slug": "exaltation-of-the-holy-cross",
+  "type": "feast",
+  "title": "The Exaltation of the Holy Cross",
+  "short_summary": "The Exaltation of the Holy Cross celebrates the Cross of Jesus Christ as the instrument of his saving death and victory. Its September 14 date is connected with the fourth-century dedication of the Jerusalem churches built at the sites of Christ's Crucifixion and Resurrection.",
+  "key_facts": [
+    "The Roman calendar celebrates the Exaltation of the Holy Cross as a feast on September 14.",
+    "The liturgical color is red.",
+    "The feast is connected with the dedication of the Constantinian church complex in Jerusalem in September 335.",
+    "Ancient tradition associates the discovery of the Cross with Saint Helena, mother of Emperor Constantine.",
+    "The feast also recalls the recovery of the relic of the Cross from Persian forces in the seventh century."
+  ],
+  "sections": [
+    {
+      "heading": "Jerusalem and the holy places",
+      "body": "After Emperor Constantine legalized Christianity, a basilica and shrine were built in Jerusalem over the places venerated as Calvary and Christ's tomb. The complex, whose surviving successor is the Church of the Holy Sepulchre, was dedicated in September 335. A public showing of the relic honored as the True Cross became associated with the dedication and with September 14."
+    },
+    {
+      "heading": "Helena and the Cross",
+      "body": "Christian tradition credits Constantine's mother, Saint Helena, with finding the Cross during her pilgrimage to Jerusalem in the fourth century. Accounts of the discovery developed over time and differ in their details. Whatever can be established about the relic's history, the feast became a public celebration of Christ's Crucifixion and of the holy places connected with it."
+    },
+    {
+      "heading": "Loss and restoration",
+      "body": "The Persian king Khosrow II captured Jerusalem in 614 and carried away the relic of the Cross. Byzantine emperor Heraclius recovered it after his victory over Persia and restored it to Jerusalem in the seventh century. This event strengthened the feast's theme of the Cross raised again in triumph."
+    },
+    {
+      "heading": "The Cross in Christian worship",
+      "body": "Christians venerate the Cross because the incarnate Son accepted death upon it and rose from the dead. The honor given to the Cross passes to Christ himself. The feast therefore holds together the historical suffering of Crucifixion, the self-giving love of Jesus, and the victory of the Resurrection."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "The instrument of salvation",
+      "body": "The Cross was a Roman instrument of execution, but Christ's obedience transformed its meaning. By offering himself to the Father for humanity, he made the place of apparent defeat the sign of reconciliation and victory over sin and death."
+    },
+    {
+      "heading": "Veneration and worship",
+      "body": "Catholics venerate representations and relics of the Cross without worshiping wood as God. The act is directed to Jesus Christ and to the saving event the Cross makes present to Christian memory."
+    }
+  ],
+  "historical_cautions": [
+    "The Constantinian church dedication is well attested, while narratives about Saint Helena's discovery of the True Cross were written later and vary in detail.",
+    "Avoid treating every relic tradition associated with the True Cross as equally documented."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color for the feast."
+    },
+    {
+      "label": "Vatican News: Exaltation of the Holy Cross",
+      "url": "https://www.vaticannews.va/es/fiestas-liturgicas/exaltacion-de-la-santa-cruz.html",
+      "note": "Catholic account of the Jerusalem dedication, Persian capture, and restoration of the Cross."
+    },
+    {
+      "label": "Catechism of the Catholic Church 617-618",
+      "url": "https://www.vatican.va/archive/ENG0015/__P1O.HTM",
+      "note": "Catholic teaching on Christ's sacrifice on the Cross and participation in his Paschal mystery."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026 from USCCB, Vatican News, and Catechism sources. Review historical distinctions about the relic before publication."
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "slug": "dedication-of-the-lateran-basilica",
+  "type": "feast",
+  "title": "The Dedication of the Lateran Basilica",
+  "short_summary": "The November 9 feast marks the dedication of the cathedral of Rome, the Archbasilica of Saint John Lateran. As the pope's cathedral and the oldest great public church of Rome, it represents the unity of local Churches with the Church of Rome and the bishop who presides there.",
+  "key_facts": [
+    "The feast is celebrated throughout the Latin Church on November 9.",
+    "The liturgical color is white.",
+    "Saint John Lateran, not Saint Peter's Basilica, is the cathedral of the Diocese of Rome.",
+    "The original basilica was dedicated in the fourth century after the legalization of Christianity.",
+    "Its full dedication honors Christ the Savior as well as Saints John the Baptist and John the Evangelist."
+  ],
+  "sections": [
+    {
+      "heading": "The cathedral of Rome",
+      "body": "The Archbasilica of the Most Holy Savior and of Saints John the Baptist and John the Evangelist at the Lateran is the episcopal church of the pope as bishop of Rome. Saint Peter's is larger and is closely associated with the tomb and ministry of the apostle Peter, but the Lateran holds the cathedral chair of Rome and therefore occupies first place among the major basilicas."
+    },
+    {
+      "heading": "Constantine and the first basilica",
+      "body": "After imperial persecution ended, the Lateran property came into Christian use during the reign of Constantine. A large basilica was built and dedicated in the early fourth century, traditionally under Pope Sylvester I. It gave Roman Christians a monumental public place of worship after generations in which the Church had lived under intermittent threat."
+    },
+    {
+      "heading": "Destruction and rebuilding",
+      "body": "The complex served for centuries as the principal papal residence and hosted several councils. Earthquakes, fires, sackings, and repeated renovations changed the ancient structure. The present building preserves its historic site and role while reflecting major medieval and baroque rebuilding, including the seventeenth-century work associated with Francesco Borromini."
+    },
+    {
+      "heading": "Why the whole Church celebrates",
+      "body": "A church dedication ordinarily belongs to a particular place. The Lateran anniversary is kept widely because the cathedral of Rome has a distinctive place in Catholic communion. The feast also turns attention from stone and architecture to the baptized people whom the New Testament calls God's temple."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "A visible sign of communion",
+      "body": "Celebrating Rome's cathedral expresses the bond among local Churches and their communion with the bishop of Rome. The building serves that ecclesial reality; it does not replace it."
+    },
+    {
+      "heading": "The living temple",
+      "body": "The dedication liturgy uses biblical images of the Church and of each Christian as a dwelling place of God. Care for sacred buildings points toward the holiness of the community gathered within them."
+    }
+  ],
+  "historical_cautions": [
+    "The exact year and circumstances of the first dedication are described differently in historical summaries.",
+    "The present basilica is the result of many rebuilding campaigns and should not be presented as an unchanged fourth-century structure."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Vatican News: Dedication of the Lateran Basilica",
+      "url": "https://www.vaticannews.va/en/liturgical-holidays/dedication-of-the-lateran-basilica-.html",
+      "note": "History, cathedral status, and liturgical meaning."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026. Review dedication chronology and the basilica's formal title before publication."
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "slug": "saint-andrew-apostle",
+  "type": "feast",
+  "title": "Saint Andrew, Apostle",
+  "short_summary": "Andrew was a fisherman from Bethsaida, brother of Simon Peter, and one of the Twelve Apostles. John's Gospel presents him as the first named disciple to follow Jesus and repeatedly shows him bringing other people to the Lord.",
+  "key_facts": [
+    "His feast is celebrated on November 30.",
+    "The liturgical color is red.",
+    "Andrew and his brother Simon Peter were fishermen from Bethsaida in Galilee.",
+    "John's Gospel says Andrew had been a disciple of John the Baptist before following Jesus.",
+    "Ancient tradition associates his mission and martyrdom with the Greek city of Patras."
+  ],
+  "sections": [
+    {
+      "heading": "The first-called disciple",
+      "body": "In the Gospel of John, Andrew hears John the Baptist identify Jesus and spends the day with him. He then finds his brother Simon and tells him that they have found the Messiah, bringing Simon to Jesus. Because he appears at the beginning of the disciples' response, Eastern Christian tradition calls Andrew the Protoclete, or First-Called."
+    },
+    {
+      "heading": "Among the Twelve",
+      "body": "The Synoptic Gospels describe Jesus calling Andrew and Peter from their fishing nets beside the Sea of Galilee. Andrew appears in every list of the Twelve. Before the feeding of the five thousand, he points out the boy who has five barley loaves and two fish. Later, when Greek pilgrims wish to see Jesus, they approach Philip, who consults Andrew before the two bring the request to the Lord."
+    },
+    {
+      "heading": "Mission and martyrdom",
+      "body": "The New Testament does not describe Andrew's later travels or death. Early traditions connect his preaching with regions around the Black Sea and with Greece. By the fourth century his martyrdom was associated with Patras. The familiar X-shaped cross became his symbol in medieval Western art, although the earliest accounts do not specify that form."
+    },
+    {
+      "heading": "Apostle of East and West",
+      "body": "Andrew is patron of the Ecumenical Patriarchate of Constantinople, while his brother Peter is inseparably linked with Rome. Their shared feast-day visits and exchange of delegations have become visible signs of Catholic-Orthodox dialogue and the desire for restored communion."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Bringing others to Jesus",
+      "body": "Andrew's Gospel appearances are quiet but decisive: he notices, introduces, and makes what is available known to Christ. His apostolic pattern begins with personal encounter and leads immediately to another person."
+    },
+    {
+      "heading": "Prayer for Christian unity",
+      "body": "The brotherhood of Andrew and Peter gives the feast an ecumenical significance. Catholics honor Andrew with gratitude for the apostolic heritage preserved in the Churches of the Christian East."
+    }
+  ],
+  "historical_cautions": [
+    "The New Testament does not record Andrew's later missionary route or manner of death.",
+    "The X-shaped cross is a later iconographic tradition and should not be stated as an established first-century fact."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Benedict XVI on Andrew, the Protoclete",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2006/documents/hf_ben-xvi_aud_20060614.html",
+      "note": "Scriptural portrait, early tradition, and Andrew's connection with the Greek world."
+    },
+    {
+      "label": "Benedict XVI to Ecumenical Patriarch Bartholomew I",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/letters/2010/documents/hf_ben-xvi_let_20101130_bartolomeo-s-andrea.html",
+      "note": "Andrew's mission, martyrdom, and place in Catholic-Orthodox relations."
+    }
+  ],
+  "review": {
+    "status": "needs_catholic_review",
+    "notes": "Drafted September 8, 2026. Review distinctions between New Testament evidence and later traditions before publication."
+  }
+}

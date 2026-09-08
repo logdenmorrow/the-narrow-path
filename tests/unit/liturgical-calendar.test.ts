@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { getLiturgicalCalendarDay } from "@/lib/liturgical-calendar";
+import {
+  getLiturgicalCalendarDay,
+  getLiturgicalProfileForDay,
+} from "@/lib/liturgical-calendar";
 
 describe("Gospel-season USCCB calendar facts", () => {
   it.each([
@@ -43,5 +46,17 @@ describe("Gospel-season USCCB calendar facts", () => {
         relation: "optional_memorial",
       }),
     ]);
+  });
+
+  it("links review-gated editorial profiles without displaying draft prose", () => {
+    const day = getLiturgicalCalendarDay("2026-09-08");
+
+    expect(day).toMatchObject({
+      title: "The Nativity of the Blessed Virgin Mary",
+      profile_slug: "nativity-of-the-blessed-virgin-mary",
+      profile_type: "feast",
+      calendar_scope: "us",
+    });
+    expect(getLiturgicalProfileForDay(day)).toBeNull();
   });
 });

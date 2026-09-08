@@ -5,6 +5,9 @@ const calendarPath = path.resolve("content/liturgical-calendar/us-2026.json");
 const gospelSeasonFactsPath = path.resolve(
   "content/liturgical-calendar/us-gospel-season-facts.json"
 );
+const profileLinksPath = path.resolve(
+  "content/liturgical-calendar/profile-links.json"
+);
 const profilesRoot = path.resolve("content/liturgical-profiles");
 const gospelSeasonStart = "2026-09-01";
 const gospelSeasonEnd = "2027-02-09";
@@ -47,6 +50,8 @@ const validRelatedObservanceRelations = new Set([
   "also_observed",
   "local_option",
 ]);
+const validProfileLinkRelations = new Set(["primary", "related"]);
+const validCalendarScopes = new Set(["universal", "us", "diocesan", "parish"]);
 
 const displayableReviewStatuses = new Set(["approved", "locked"]);
 const validReviewStatuses = new Set([
@@ -57,8 +62,14 @@ const validReviewStatuses = new Set([
 ]);
 
 const appLanguageChecks = [
-  { label: "complete", pattern: /\bcomplete\b/i },
-  { label: "completed", pattern: /\bcompleted\b/i },
+  {
+    label: "mark complete",
+    pattern: /\b(?:mark(?:ed|ing)?|set)\s+(?:it\s+|as\s+)?complete\b/i,
+  },
+  {
+    label: "task completion",
+    pattern: /\b(?:complete|completed)\s+(?:the\s+)?(?:daily\s+)?task\b/i,
+  },
   { label: "streak", pattern: /\bstreak\b/i },
   { label: "score", pattern: /\bscore\b/i },
   { label: "XP", pattern: /\bXP\b/ },
@@ -91,9 +102,11 @@ const unsafeFeatureChecks = [
 const summary = {
   calendarEntries: 0,
   gospelSeasonFactEntries: 0,
+  profileLinks: 0,
   profileFiles: 0,
   approvedLockedProfiles: 0,
   draftReviewProfiles: 0,
+  linkedDraftProfiles: 0,
   errors: [],
   warnings: [],
 };
@@ -135,6 +148,13 @@ function isIsoDate(value) {
 
   const parsed = new Date(`${value}T00:00:00Z`);
   return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
+}
+
+function comparableObservanceTitle(value) {
+  return String(value ?? "")
+    .replace(/^USA:\s*/i, "")
+    .replace(/[^a-z0-9]/gi, "")
+    .toLowerCase();
 }
 
 async function readJson(filePath) {
@@ -439,6 +459,91 @@ function validateGospelSeasonFacts(document) {
   }
 }
 
+function validateProfileLinks(links, factsByDate, referencedProfiles) {
+  if (!Array.isArray(links)) {
+    addError("Profile links file must contain an array.");
+    return;
+  }
+
+  summary.profileLinks = links.length;
+  const seen = new Set();
+
+  links.forEach((link, index) => {
+    const label = `profileLinks[${index}]`;
+    if (!isPlainObject(link)) {
+      addError(`${label}: link must be an object.`);
+      return;
+    }
+
+    for (const field of [
+      "date",
+      "observance_title",
+      "relation",
+      "profile_slug",
+      "profile_type",
+      "calendar_scope",
+    ]) {
+      if (!hasText(link[field])) addError(`${label}: "${field}" must be non-empty text.`);
+    }
+
+    if (!isIsoDate(link.date)) {
+      addError(`${label}: date must be a valid YYYY-MM-DD value.`);
+    }
+    if (!validProfileLinkRelations.has(link.relation)) {
+      addError(`${label}: relation must be "primary" or "related".`);
+    }
+    if (!validProfileTypes.has(link.profile_type)) {
+      addError(`${label}: profile_type "${link.profile_type}" is not supported.`);
+    }
+    if (!validCalendarScopes.has(link.calendar_scope)) {
+      addError(`${label}: calendar_scope "${link.calendar_scope}" is not supported.`);
+    }
+
+    const uniqueKey =
+      link.relation === "primary"
+        ? `${link.date}:primary`
+        : `${link.date}:related:${comparableObservanceTitle(link.observance_title)}`;
+    if (seen.has(uniqueKey)) {
+      addError(`${label}: duplicate profile link "${uniqueKey}".`);
+    } else {
+      seen.add(uniqueKey);
+    }
+
+    const fact = factsByDate.get(link.date);
+    if (!fact) {
+      addError(`${label}: date ${link.date} is outside the imported factual calendar.`);
+    } else if (link.relation === "primary") {
+      if (
+        comparableObservanceTitle(fact.title) !==
+        comparableObservanceTitle(link.observance_title)
+      ) {
+        addError(
+          `${label}: primary title does not match factual title "${fact.title}".`
+        );
+      }
+    } else {
+      const relatedMatch = fact.related_observances?.some(
+        (observance) =>
+          comparableObservanceTitle(observance.title) ===
+          comparableObservanceTitle(link.observance_title)
+      );
+      if (!relatedMatch) {
+        addError(
+          `${label}: related observance "${link.observance_title}" is not present on ${link.date}.`
+        );
+      }
+    }
+
+    if (hasText(link.profile_slug)) {
+      referencedProfiles.set(link.profile_slug, {
+        date: link.date,
+        profileType: link.profile_type,
+        context: `Profile link for ${link.date} "${link.observance_title}"`,
+      });
+    }
+  });
+}
+
 function validateRelatedObservances(entry, label, referencedProfiles) {
   if (!Array.isArray(entry.related_observances)) {
     addError(`${label}: related_observances must be an array when present.`);
@@ -612,16 +717,37 @@ async function main() {
     });
   }
 
+  let gospelSeasonFactsDocument = null;
   if (!(await pathExists(gospelSeasonFactsPath))) {
     addError(
       `Missing factual calendar file: ${path.relative(process.cwd(), gospelSeasonFactsPath)}`
     );
   } else {
     try {
-      validateGospelSeasonFacts(await readJson(gospelSeasonFactsPath));
+      gospelSeasonFactsDocument = await readJson(gospelSeasonFactsPath);
+      validateGospelSeasonFacts(gospelSeasonFactsDocument);
     } catch (error) {
       addError(
         `Could not parse factual calendar ${path.relative(process.cwd(), gospelSeasonFactsPath)}: ${error.message}`
+      );
+    }
+  }
+
+  const factsByDate = new Map(
+    (gospelSeasonFactsDocument?.days ?? []).map((fact) => [fact.date, fact])
+  );
+  if (!(await pathExists(profileLinksPath))) {
+    addError(`Missing profile links file: ${path.relative(process.cwd(), profileLinksPath)}`);
+  } else {
+    try {
+      validateProfileLinks(
+        await readJson(profileLinksPath),
+        factsByDate,
+        referencedProfiles
+      );
+    } catch (error) {
+      addError(
+        `Could not parse profile links ${path.relative(process.cwd(), profileLinksPath)}: ${error.message}`
       );
     }
   }
@@ -651,10 +777,22 @@ async function main() {
     }
 
     const status = profileRow.profile.review?.status;
-    if (!displayableReviewStatuses.has(status)) {
-      addWarning(
-        `${context} references profile "${slug}" with review.status "${status}". The app should fall back to calendar copy.`
+    if (
+      reference.profileType &&
+      profileRow.profile.type !== reference.profileType
+    ) {
+      addError(
+        `${context} declares profile_type "${reference.profileType}" but profile "${slug}" has type "${profileRow.profile.type}".`
       );
+    }
+    if (!displayableReviewStatuses.has(status)) {
+      if (context.startsWith("Profile link for ")) {
+        summary.linkedDraftProfiles += 1;
+      } else {
+        addWarning(
+          `${context} references profile "${slug}" with review.status "${status}". The app should fall back to calendar copy.`
+        );
+      }
     }
   }
 
@@ -670,9 +808,11 @@ function printSummary() {
   console.log("");
   console.log(`Calendar entries: ${summary.calendarEntries}`);
   console.log(`Gospel-season factual entries: ${summary.gospelSeasonFactEntries}`);
+  console.log(`Editorial profile links: ${summary.profileLinks}`);
   console.log(`Profile files: ${summary.profileFiles}`);
   console.log(`Approved/locked profiles: ${summary.approvedLockedProfiles}`);
   console.log(`Draft/review profiles: ${summary.draftReviewProfiles}`);
+  console.log(`Review-gated profile links: ${summary.linkedDraftProfiles}`);
   console.log(`Errors: ${summary.errors.length}`);
   console.log(`Warnings: ${summary.warnings.length}`);
 

@@ -1,0 +1,306 @@
+[
+  {
+    "date": "2026-09-08",
+    "observance_title": "The Nativity of the Blessed Virgin Mary",
+    "relation": "primary",
+    "profile_slug": "nativity-of-the-blessed-virgin-mary",
+    "profile_type": "feast",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-09-09",
+    "observance_title": "Saint Peter Claver, Priest",
+    "relation": "primary",
+    "profile_slug": "saint-peter-claver",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-09-14",
+    "observance_title": "The Exaltation of the Holy Cross",
+    "relation": "primary",
+    "profile_slug": "exaltation-of-the-holy-cross",
+    "profile_type": "feast",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-09-15",
+    "observance_title": "Our Lady of Sorrows",
+    "relation": "primary",
+    "profile_slug": "our-lady-of-sorrows",
+    "profile_type": "other",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-09-16",
+    "observance_title": "Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs",
+    "relation": "primary",
+    "profile_slug": "saints-cornelius-and-cyprian",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-09-21",
+    "observance_title": "Saint Matthew, Apostle and Evangelist",
+    "relation": "primary",
+    "profile_slug": "saint-matthew-apostle-and-evangelist",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-09-23",
+    "observance_title": "Saint Pius of Pietrelcina, Priest",
+    "relation": "primary",
+    "profile_slug": "saint-pius-of-pietrelcina",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-09-29",
+    "observance_title": "Saints Michael, Gabriel and Raphael, Archangels",
+    "relation": "primary",
+    "profile_slug": "saints-michael-gabriel-and-raphael",
+    "profile_type": "feast",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-09-30",
+    "observance_title": "Saint Jerome, Priest and Doctor of the Church",
+    "relation": "primary",
+    "profile_slug": "saint-jerome",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-10-01",
+    "observance_title": "Saint Thérèse of the Child Jesus, Virgin and Doctor of the Church",
+    "relation": "primary",
+    "profile_slug": "saint-therese-of-lisieux",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-10-02",
+    "observance_title": "The Holy Guardian Angels",
+    "relation": "primary",
+    "profile_slug": "holy-guardian-angels",
+    "profile_type": "other",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-10-07",
+    "observance_title": "Our Lady of the Rosary",
+    "relation": "primary",
+    "profile_slug": "our-lady-of-the-rosary",
+    "profile_type": "other",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-10-15",
+    "observance_title": "Saint Teresa of Jesus, Virgin and Doctor of the Church",
+    "relation": "primary",
+    "profile_slug": "saint-teresa-of-jesus",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-10-17",
+    "observance_title": "Saint Ignatius of Antioch, Bishop and Martyr",
+    "relation": "primary",
+    "profile_slug": "saint-ignatius-of-antioch",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-10-19",
+    "observance_title": "Saints John de Brébeuf and Isaac Jogues, Priests, and Companions, Martyrs",
+    "relation": "primary",
+    "profile_slug": "north-american-martyrs",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-10-28",
+    "observance_title": "Saints Simon and Jude, Apostles",
+    "relation": "primary",
+    "profile_slug": "saints-simon-and-jude",
+    "profile_type": "feast",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-01",
+    "observance_title": "All Saints",
+    "relation": "primary",
+    "profile_slug": "all-saints",
+    "profile_type": "solemnity",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-02",
+    "observance_title": "The Commemoration of All the Faithful Departed",
+    "relation": "primary",
+    "profile_slug": "all-faithful-departed",
+    "profile_type": "other",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-04",
+    "observance_title": "Saint Charles Borromeo, Bishop",
+    "relation": "primary",
+    "profile_slug": "saint-charles-borromeo",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-09",
+    "observance_title": "The Dedication of the Lateran Basilica",
+    "relation": "primary",
+    "profile_slug": "dedication-of-the-lateran-basilica",
+    "profile_type": "feast",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-10",
+    "observance_title": "Saint Leo the Great, Pope and Doctor of the Church",
+    "relation": "primary",
+    "profile_slug": "saint-leo-the-great",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-11",
+    "observance_title": "Saint Martin of Tours, Bishop",
+    "relation": "primary",
+    "profile_slug": "saint-martin-of-tours",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-12",
+    "observance_title": "Saint Josaphat, Bishop and Martyr",
+    "relation": "primary",
+    "profile_slug": "saint-josaphat",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-13",
+    "observance_title": "Saint Frances Xavier Cabrini, Virgin",
+    "relation": "primary",
+    "profile_slug": "saint-frances-xavier-cabrini",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-17",
+    "observance_title": "Saint Elizabeth of Hungary, Religious",
+    "relation": "primary",
+    "profile_slug": "saint-elizabeth-of-hungary",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-21",
+    "observance_title": "The Presentation of the Blessed Virgin Mary",
+    "relation": "primary",
+    "profile_slug": "presentation-of-the-blessed-virgin-mary",
+    "profile_type": "other",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-22",
+    "observance_title": "Our Lord Jesus Christ, King of the Universe",
+    "relation": "primary",
+    "profile_slug": "christ-the-king",
+    "profile_type": "solemnity",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-24",
+    "observance_title": "Saint Andrew Dũng-Lạc, Priest, and Companions, Martyrs",
+    "relation": "primary",
+    "profile_slug": "saint-andrew-dung-lac-and-companions",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-11-30",
+    "observance_title": "Saint Andrew, Apostle",
+    "relation": "primary",
+    "profile_slug": "saint-andrew-apostle",
+    "profile_type": "feast",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-12-03",
+    "observance_title": "Saint Francis Xavier, Priest",
+    "relation": "primary",
+    "profile_slug": "saint-francis-xavier",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-12-07",
+    "observance_title": "Saint Ambrose, Bishop and Doctor of the Church",
+    "relation": "primary",
+    "profile_slug": "saint-ambrose",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-12-08",
+    "observance_title": "The Immaculate Conception of the Blessed Virgin Mary",
+    "relation": "primary",
+    "profile_slug": "immaculate-conception",
+    "profile_type": "solemnity",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-12-12",
+    "observance_title": "Our Lady of Guadalupe",
+    "relation": "primary",
+    "profile_slug": "our-lady-of-guadalupe",
+    "profile_type": "feast",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-12-14",
+    "observance_title": "Saint John of the Cross, Priest and Doctor of the Church",
+    "relation": "primary",
+    "profile_slug": "saint-john-of-the-cross",
+    "profile_type": "saint",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-12-25",
+    "observance_title": "The Nativity of the Lord (Christmas)",
+    "relation": "primary",
+    "profile_slug": "nativity-of-the-lord",
+    "profile_type": "solemnity",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-12-26",
+    "observance_title": "Saint Stephen, The First Martyr",
+    "relation": "primary",
+    "profile_slug": "saint-stephen-first-martyr",
+    "profile_type": "feast",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-12-27",
+    "observance_title": "The Holy Family of Jesus, Mary and Joseph",
+    "relation": "primary",
+    "profile_slug": "holy-family",
+    "profile_type": "feast",
+    "calendar_scope": "us"
+  },
+  {
+    "date": "2026-12-28",
+    "observance_title": "The Holy Innocents, Martyrs",
+    "relation": "primary",
+    "profile_slug": "holy-innocents",
+    "profile_type": "feast",
+    "calendar_scope": "us"
+  }
+]
