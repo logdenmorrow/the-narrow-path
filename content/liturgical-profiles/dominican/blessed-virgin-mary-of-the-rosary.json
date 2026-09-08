@@ -2,46 +2,49 @@
   "slug": "blessed-virgin-mary-of-the-rosary",
   "type": "feast",
   "title": "Blessed Virgin Mary of the Rosary",
-  "short_summary": "The Blessed Virgin Mary of the Rosary is kept in the Dominican calendar as a feast that turns Marian devotion toward contemplation of Christ and the mysteries of salvation.",
+  "short_summary": "Our Lady of the Rosary is a title of the Blessed Virgin Mary associated with the Rosary, a meditative prayer centered on the life, death, and Resurrection of Jesus Christ. The October 7 feast grew from the Christian victory at Lepanto in 1571 and has a special place in Dominican tradition.",
   "key_facts": [
     "The Dominican Calendarium keeps the Blessed Virgin Mary of the Rosary as a feast on October 7.",
     "The liturgical color is white.",
-    "The Order of Preachers connects this feast with the Church's celebration of the wonders of salvation.",
-    "Saint John Paul II described the Rosary as a simple and profound prayer within the Christian life.",
-    "The Rosary is Marian, but its meditation is centered on Christ.",
-    "This Dominican profile is local or proper in the app; the general U.S. calendar remains primary."
+    "The Rosary developed gradually during the second millennium, and Dominican preachers helped shape and spread its familiar form.",
+    "A commonly used Rosary consists of five decades, each built around an Our Father, ten Hail Marys, a Glory Be, and meditation on a mystery from the lives of Jesus and Mary.",
+    "Pope Pius V established the feast of Our Lady of Victory after the Battle of Lepanto on October 7, 1571; Gregory XIII later gave it the title Our Lady of the Rosary.",
+    "Saint John Paul II proposed the Luminous Mysteries in 2002, joining the traditional Joyful, Sorrowful, and Glorious Mysteries."
   ],
   "sections": [
     {
-      "heading": "A Dominican Marian feast",
-      "body": "The Rosary has a deep place in Dominican devotion. In this feast, the Order honors Mary while directing prayer toward the saving mysteries of her Son."
+      "heading": "Origins and development",
+      "body": "The Rosary took shape over centuries from the Christian practice of repeating familiar prayers while meditating on the mysteries of salvation. Medieval forms were sometimes called a Marian Psalter because sets of Hail Marys offered ordinary Christians a pattern of prayer comparable to the 150 Psalms. By the late Middle Ages, Dominican preachers such as Blessed Alan de la Roche were organizing Rosary confraternities and promoting the devotion across Europe."
     },
     {
-      "heading": "Meditating on Christ",
-      "body": "The Rosary is not a substitute for the Gospel. It is a way of lingering with the mysteries of Christ's life, death, and Resurrection in the company of Mary."
+      "heading": "Saint Dominic and the Dominican Order",
+      "body": "Catholic tradition closely associates the Rosary with Saint Dominic and the Order of Preachers. The modern prayer developed after Dominic's lifetime, but Dominicans played a central role in its formation and spread. The Rosary became a characteristic part of Dominican life, worn on the habit and used to join contemplation of Christ with the Order's mission of preaching."
     },
     {
-      "heading": "Prayer that forms attention",
-      "body": "The repeated prayers of the Rosary are meant to steady the heart for contemplation. They train attention toward the Lord rather than toward spiritual distraction."
+      "heading": "Lepanto and the feast",
+      "body": "In 1571 Pope Pius V asked Christians to pray the Rosary while the Holy League confronted the Ottoman fleet at Lepanto. The fleet's victory on October 7 was attributed to Mary's intercession. Pius established a feast of Our Lady of Victory in thanksgiving, and Gregory XIII later renamed it Our Lady of the Rosary. Clement XI extended the observance to the universal Church in the early eighteenth century, and Saint Pius X fixed its date as October 7 in 1913."
     },
     {
-      "heading": "A proper Dominican feast",
-      "body": "The app presents the Dominican feast as a proper calendar observance for Dominican users. It does not make the observance the primary general U.S. calendar day."
+      "heading": "Prayers and mysteries",
+      "body": "Each decade of the Rosary combines spoken prayer with meditation on a mystery from the Gospel. The Joyful Mysteries concern Christ's infancy, the Luminous Mysteries his public ministry, the Sorrowful Mysteries his Passion, and the Glorious Mysteries his Resurrection and the life of the Church. Saint John Paul II proposed the Luminous Mysteries in 2002 to give greater attention to the years between Christ's Baptism and Passion."
     }
   ],
   "catholic_connection_sections": [
     {
-      "heading": "Marian devotion ordered to Jesus",
-      "body": "Catholic devotion to Mary is faithful when it leads more deeply into the mystery of Christ and the Gospel."
+      "heading": "A Christ-centered Marian prayer",
+      "body": "The Hail Mary gives the Rosary its Marian form, but Jesus is the center of every mystery. Catholics pray with Mary while contemplating her Son, from the Annunciation and Nativity through the Cross, Resurrection, Ascension, and the sending of the Holy Spirit."
     },
     {
-      "heading": "Prayer with the Church",
-      "body": "The Rosary belongs to the Church's living devotional tradition and invites the faithful to receive the mysteries of salvation with Mary's faith."
+      "heading": "Scripture and contemplation",
+      "body": "The mysteries provide a framework for returning repeatedly to the events of the Gospel. The repetition of the prayers supplies a steady rhythm while the mind attends to Christ's words and deeds."
     },
     {
-      "heading": "Contemplation and mission",
-      "body": "For Dominicans, contemplation is never closed in on itself. Prayer prepares the heart to speak and live the truth of Christ with charity."
+      "heading": "Dominican prayer and preaching",
+      "body": "Dominican spirituality joins contemplation to preaching. The Rosary gathers the principal mysteries of Christ into a form of prayer that can also teach, preserve, and proclaim the Gospel."
     }
+  ],
+  "historical_cautions": [
+    "The traditional account of Mary personally giving the Rosary to Saint Dominic appears in sources written well after his death. Describe it as Dominican or Catholic tradition rather than as a securely dated historical event."
   ],
   "source_refs": [
     {
@@ -58,10 +61,25 @@
       "label": "Holy See: Rosarium Virginis Mariae",
       "url": "https://www.vatican.va/content/john-paul-ii/en/apost_letters/2002/documents/hf_jp-ii_apl_20021016_rosarium-virginis-mariae.html",
       "note": "Magisterial source for the Rosary as a Christ-centered Marian prayer."
+    },
+    {
+      "label": "Vatican News: Memorial of Our Lady of the Rosary",
+      "url": "https://www.vaticannews.va/en/liturgical-holidays/memorial-of-our-lady-of-the-rosary.html",
+      "note": "Catholic overview of the October 7 feast and its connection with Lepanto."
+    },
+    {
+      "label": "English Province of the Order of Preachers: The Rosary",
+      "url": "https://english.op.org/godzdogz/the-rosary-introduction/",
+      "note": "Dominican account of the prayer's form, history, and place in the Order."
+    },
+    {
+      "label": "Catholic Encyclopedia: The Rosary",
+      "url": "https://www.newadvent.org/cathen/13184b.htm",
+      "note": "Historical reference for the prayer's gradual medieval development."
     }
   ],
   "review": {
     "status": "approved",
-    "notes": "Reviewed for Dominican proper-calendar use from official Order of Preachers sources and Holy See teaching on the Rosary."
+    "notes": "Rewritten in an encyclopedic style using Holy See, Vatican News, Dominican, and historical reference material; approved for publication September 8, 2026."
   }
 }

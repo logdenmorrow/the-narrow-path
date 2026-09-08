@@ -2,45 +2,54 @@
   "slug": "saint-albert-the-great",
   "type": "saint",
   "title": "Saint Albert the Great, Bishop and Doctor of the Church",
-  "short_summary": "Saint Albert the Great is honored by the Dominican family as a bishop, Doctor of the Church, and teacher whose learning served the truth of God and the formation of the Church.",
+  "short_summary": "Saint Albert the Great (c. 1200-1280) was a German Dominican friar, bishop, theologian, philosopher, and student of the natural world. His vast body of work helped introduce Aristotle to medieval Christian scholarship, and his most famous student was Saint Thomas Aquinas.",
   "key_facts": [
     "The Dominican Calendarium lists Saint Albert the Great on November 15.",
     "The liturgical color is white.",
-    "The Order of Preachers identifies him as a bishop and Doctor of the Church.",
-    "The Order's saints and blesseds page says Albert was born at Lauingen in Swabia.",
-    "Benedict XVI presented Albert as a teacher whose study ranged across philosophy, theology, and the natural sciences.",
-    "In 2026, November 15 falls on a Sunday, so the app keeps the general U.S. calendar day primary."
+    "Albert was born in Germany around 1200, studied at Padua, and entered the Order of Preachers while still a young man.",
+    "He taught at Paris and Cologne and brought Thomas Aquinas from Paris to the new Dominican school at Cologne in 1248.",
+    "Albert served as provincial of the German Dominicans and as bishop of Regensburg before returning to teaching and writing.",
+    "Pius XI canonized Albert and declared him a Doctor of the Church in 1931; Pius XII later named him patron of the natural sciences."
   ],
   "sections": [
     {
-      "heading": "Learning in the service of preaching",
-      "body": "Albert's memory belongs naturally to an Order that values study for the service of preaching. His learning was not merely academic; it was directed toward truth and the good of the Church."
+      "heading": "Early life and Dominican vocation",
+      "body": "Albert was born at Lauingen in Swabia around the beginning of the thirteenth century. He studied the liberal arts at Padua, including logic, arithmetic, geometry, astronomy, and music. While in Italy he encountered the recently founded Order of Preachers and received the Dominican habit from Blessed Jordan of Saxony. After ordination, the Order assigned him to teach in several of its schools."
     },
     {
-      "heading": "Creation and truth",
-      "body": "Albert's attention to the created world shows that faith does not fear honest inquiry. The world can be studied as God's creation without reducing it to a closed system apart from its Creator."
+      "heading": "Paris, Cologne, and Thomas Aquinas",
+      "body": "Albert pursued advanced theological studies at the University of Paris and became one of its masters. In 1248 he was sent to establish a Dominican studium at Cologne. He brought Thomas Aquinas with him, beginning a lasting intellectual partnership between two of the leading theologians of the Middle Ages. Albert later defended Thomas's work when it faced criticism after Thomas's death."
     },
     {
-      "heading": "Teacher and bishop",
-      "body": "The title Doctor of the Church points to teaching that serves the whole Church. Albert's witness joins intellectual breadth with ecclesial service."
+      "heading": "Religious superior and bishop",
+      "body": "The Dominican Order elected Albert provincial of its large German province in 1254. Pope Alexander IV appointed him bishop of Regensburg in 1260, where he restored order to the diocese, reorganized parishes and religious houses, and encouraged charitable work. He resigned the office in 1262 and returned to the work of teaching, writing, preaching, and mediation. He also participated in the Second Council of Lyon in 1274."
     },
     {
-      "heading": "A Sunday occurrence in 2026",
-      "body": "Because this date falls on a Sunday in 2026, the Dominican overlay is presented as local information while the primary liturgical day remains the general U.S. calendar day."
+      "heading": "Philosophy and the natural sciences",
+      "body": "Albert wrote across theology, philosophy, biblical interpretation, ethics, logic, physics, astronomy, mineralogy, botany, and zoology. He produced commentaries on nearly the whole Aristotelian corpus available to him and argued that philosophy and the natural sciences had their own methods while remaining compatible with Christian theology. His scientific work relied heavily on observation, description, and classification, methods that distinguished him among medieval scholars."
+    },
+    {
+      "heading": "Death and recognition",
+      "body": "Albert spent his final years in Cologne and died there on November 15, 1280. He was beatified in 1622. Pope Pius XI canonized him and declared him a Doctor of the Church in 1931, recognizing both his sanctity and the enduring value of his teaching. Pope Pius XII later named him patron of those who study the natural sciences."
     }
   ],
   "catholic_connection_sections": [
     {
-      "heading": "Faith seeking understanding",
-      "body": "Albert's witness shows that reason, learning, and careful attention to creation can serve faith when they are ordered toward God."
+      "heading": "Faith and reason",
+      "body": "Albert distinguished the methods of philosophy, natural science, and theology while holding that truths discovered by sound reason cannot ultimately contradict revelation. His scholarship helped Christian thinkers engage seriously with Greek, Jewish, and Muslim learning."
     },
     {
-      "heading": "Study as charity",
-      "body": "Dominican study is not self-display. At its best, it becomes charity: patient labor so that the truth can be preached with clarity."
+      "heading": "Creation as an object of study",
+      "body": "For Albert, the created world could be investigated on its own terms because it came from an intelligible Creator. Study of nature therefore belonged within a Christian search for truth rather than outside it."
+    },
+    {
+      "heading": "Study and preaching",
+      "body": "Dominican study prepares preachers to explain the faith accurately and to address the questions of their time. Albert's teaching, administration, and public service all grew from that union of study and mission."
     }
   ],
   "historical_cautions": [
-    "The OP Saints & Blesseds index displays Saint Albert as a feast, while the Calendarium row used for this overlay gives the proper-calendar rank followed in the app."
+    "Sources place Albert's birth near the beginning of the thirteenth century, but the exact year is uncertain; use circa 1200 rather than a precise date.",
+    "The OP Saints & Blesseds index displays Saint Albert as a feast, while the Calendarium row used for this overlay gives the proper-calendar rank followed in the calendar data."
   ],
   "source_refs": [
     {
@@ -61,6 +70,6 @@
   ],
   "review": {
     "status": "approved",
-    "notes": "Reviewed for Dominican proper-calendar use from official Order of Preachers and Holy See sources, with a rank-display caution retained."
+    "notes": "Rewritten in an encyclopedic style using Holy See, Dominican, and historical reference material; approved for publication September 8, 2026."
   }
 }

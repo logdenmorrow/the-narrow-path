@@ -2,42 +2,53 @@
   "slug": "saint-martin-de-porres",
   "type": "saint",
   "title": "Saint Martin de Porres, Religious",
-  "short_summary": "Saint Martin de Porres is honored in the Dominican calendar as a religious whose humble charity, mercy, and service to the poor made visible the compassion of Christ.",
+  "short_summary": "Saint Martin de Porres (1579-1639) was a Peruvian Dominican lay brother, medical caregiver, and organizer of aid for the poor. Born into poverty in colonial Lima, he crossed the racial and social divisions of his city through a life of prayer and practical service.",
   "key_facts": [
     "The Dominican Calendarium keeps Saint Martin de Porres as a feast on November 3.",
     "The liturgical color is white.",
-    "The Order of Preachers identifies him as a Dominican religious.",
-    "The Order's saints and blesseds page says Martin was born in Lima, Peru, in 1579.",
-    "The USCCB provides readings for his memorial and identifies him as a religious.",
-    "His feast is shown as a Dominican proper observance in the app, not as a replacement for the general U.S. calendar day."
+    "Martin was born in Lima in 1579 to Ana Velazquez, a freed woman of African ancestry, and Juan de Porres, a Spaniard.",
+    "He trained as a barber-surgeon, learning the medical skills that he later used in the Dominican infirmary and among Lima's poor.",
+    "He entered the Dominican priory in Lima at about fifteen and made profession as a lay brother in 1603.",
+    "He died in Lima on November 3, 1639, was beatified by Gregory XVI in 1837, and was canonized by John XXIII on May 6, 1962."
   ],
   "sections": [
     {
-      "heading": "Humble service",
-      "body": "Martin's holiness is remembered through charity, humility, and care for those in need. His Dominican witness shows that preaching the Gospel includes works of mercy."
+      "heading": "Early life and medical training",
+      "body": "Martin was born in Lima late in 1579 and was baptized on December 9. His parents were not married, and his father was absent for much of his childhood, leaving Martin, his mother, and his sister in poverty. At about twelve he was apprenticed to a barber-surgeon. The trade included cutting hair, treating wounds, preparing medicines, and performing basic surgical procedures, giving him practical skills that shaped his later work."
     },
     {
-      "heading": "Mercy without display",
-      "body": "His sanctity does not need to be made dramatic to be compelling. Patient service, prayer, and compassion reveal Christ's mercy in ordinary human need."
+      "heading": "Entrance into the Dominicans",
+      "body": "Martin entered Lima's Dominican Priory of the Holy Rosary in 1594 as a lay helper. Colonial laws and customs restricted people of African or mixed ancestry from full membership in religious orders, but Prior Juan de Lorenzana eventually admitted him to profession. Martin made his vows as a Dominican lay brother in 1603 and remained at the priory for the rest of his life."
     },
     {
-      "heading": "Religious life as charity",
-      "body": "As a Dominican religious, Martin's life was shaped by prayer and community. His service shows that consecrated life is fruitful when it becomes concrete love."
+      "heading": "Care for the sick and poor",
+      "body": "Martin worked in the priory's kitchen, laundry, and infirmary before being placed in charge of care for the sick. He treated friars and people from outside the community, serving nobles, laborers, enslaved Africans, and Indigenous Peruvians without distinction. Donations entrusted to him supported food, medicine, and clothing for the poor. Dominican accounts also credit him with establishing an orphanage and a hospital for abandoned children in Lima."
     },
     {
-      "heading": "A saint of the Dominican family",
-      "body": "The Dominican calendar honors Martin as part of the Order's proper rhythm of prayer. The app presents that observance only for users who choose the Dominican calendar preference."
+      "heading": "Prayer and reputation for holiness",
+      "body": "Martin's active charity rested on an intense life of prayer. He was devoted to the Eucharist and the Rosary and practiced demanding penances. Accounts preserved by the Dominican community describe cures, bilocation, extraordinary knowledge, and a striking gentleness toward animals. These traditions helped establish his reputation for holiness throughout Lima during his lifetime."
+    },
+    {
+      "heading": "Death and canonization",
+      "body": "Martin died at the Dominican priory on November 3, 1639, at the age of fifty-nine. His funeral drew civic and ecclesiastical leaders as well as the poor he had served. Gregory XVI beatified him in 1837. John XXIII canonized him in 1962 and presented his love of God and neighbor, especially his care for the sick, poor, Black, and mixed-race people of colonial Peru, as central to his sanctity."
     }
   ],
   "catholic_connection_sections": [
     {
-      "heading": "Mercy made concrete",
-      "body": "Martin's life reminds the faithful that love of Christ must become patient, practical charity toward neighbors."
+      "heading": "The works of mercy",
+      "body": "Martin's nursing, distribution of food and medicine, and care for abandoned children joined prayer directly to the corporal works of mercy. His ministry treated service to the sick and poor as service to Christ."
     },
     {
-      "heading": "Dignity of the poor",
-      "body": "His witness points to the poor and vulnerable not as problems to manage, but as neighbors in whom Christ calls for love."
+      "heading": "Human dignity across divisions",
+      "body": "The racial hierarchy of colonial Lima shaped Martin's own poverty and exclusion. His care crossed those boundaries and affirmed the equal dignity of people whom society separated by ancestry, legal status, and wealth."
+    },
+    {
+      "heading": "Dominican religious life",
+      "body": "As a lay brother, Martin shared fully in the Order's life through vows, common prayer, manual work, and service. His vocation shows the place of non-ordained brothers in the Dominican mission."
     }
+  ],
+  "historical_cautions": [
+    "Miraculous cures, bilocation, levitation, and stories involving animals belong to Martin's hagiographical tradition. Attribute them to contemporary or later accounts rather than presenting each episode as independently documented history."
   ],
   "source_refs": [
     {
@@ -51,13 +62,23 @@
       "note": "Official proper calendar source for the November 3 Dominican feast."
     },
     {
-      "label": "USCCB: Optional Memorial of Saint Martin de Porres",
-      "url": "https://bible.usccb.org/bible/readings/1103-memorial-martin-de-porres.cfm",
-      "note": "USCCB source identifying the memorial of Saint Martin de Porres, religious."
+      "label": "Vatican News: Saint Martin de Porres",
+      "url": "https://www.vaticannews.va/en/saints/11/03/st--martin-de-porres--dominican.html",
+      "note": "Catholic biography covering Martin's childhood, Dominican vocation, and care for the sick."
+    },
+    {
+      "label": "Dominican Friars: A Novena to Saint Martin de Porres",
+      "url": "https://dominicanfriars.org/wp-content/uploads/2020/07/saint_martin_novena.pdf",
+      "note": "Dominican biography drawing on modern studies of lay and cooperator brothers."
+    },
+    {
+      "label": "Holy See: Canonization of Saint Martin de Porres",
+      "url": "https://www.vatican.va/content/john-xxiii/es/homilies/1962/documents/hf_j-xxiii_hom_19620506_martino-porres.html",
+      "note": "Saint John XXIII's canonization homily on Martin's prayer, charity, and service."
     }
   ],
   "review": {
     "status": "approved",
-    "notes": "Reviewed for Dominican proper-calendar use from official Order of Preachers and USCCB sources."
+    "notes": "Rewritten in an encyclopedic style using Holy See, Vatican News, Dominican, and historical reference material; approved for publication September 8, 2026."
   }
 }
