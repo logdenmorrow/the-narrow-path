@@ -93,8 +93,18 @@ from the USCCB calendar. It may link to a reviewed profile and may define a
 date-scoped in-app notice. The notice is shown only to signed-in users, only on
 the exact event date in the application's Eastern time zone, and only when both
 the event and profile are approved or locked. Dismissing or opening it records a
-local dismissal so it does not repeatedly interrupt the same browser. This is
-an in-app announcement, not a push notification or reminder.
+local dismissal under the same event key, so either the article button or close
+button prevents it from repeatedly interrupting the same browser. This is an
+in-app announcement, not a push notification or reminder.
+
+## Article presentation
+
+Render a reviewed profile as one continuous encyclopedia-style article. Use a
+single article surface with a lead paragraph, a plain key-facts list, ordinary
+section headings, and full paragraphs separated by simple rules. Do not wrap
+each fact or section in its own card or inset. Calendar metadata, date movement,
+sources, and related-observance navigation may remain separate from the article
+when that separation helps the reader.
 
 ## Content Tiers
 

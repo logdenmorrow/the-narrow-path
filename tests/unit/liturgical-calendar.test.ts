@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   getDisplayableRelatedProfileForDay,
   getDisplayableSpecialEventNotice,
+  formatLiturgicalColor,
   getLiturgicalCalendarDay,
   getLiturgicalProfileForDay,
   isDisplayableProfile,
@@ -9,6 +10,12 @@ import {
 } from "@/lib/liturgical-calendar";
 
 describe("Gospel-season USCCB calendar facts", () => {
+  it("formats liturgical colors for display", () => {
+    expect(formatLiturgicalColor("white")).toBe("White");
+    expect(formatLiturgicalColor("red")).toBe("Red");
+    expect(formatLiturgicalColor("Not available")).toBe("Not available");
+  });
+
   it.each([
     ["2026-09-01", "Tuesday of the 22nd Week in Ordinary Time", "Weekday", "green", "Ordinary Time"],
     ["2026-09-02", "Wednesday of the 22nd Week in Ordinary Time", "Weekday", "green", "Ordinary Time"],

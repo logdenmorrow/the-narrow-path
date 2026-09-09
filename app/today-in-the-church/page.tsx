@@ -10,6 +10,7 @@ import {
 import {
   addDaysToIsoDate,
   formatLiturgicalDate,
+  formatLiturgicalColor,
   getDisplayableRelatedProfileForDay,
   getEasternDateIso,
   getLiturgicalCalendarDay,
@@ -85,7 +86,7 @@ export default async function TodayInTheChurchPage({
           <SectionHeader
             kicker={formatLiturgicalDate(dateIso)}
             title={day.title}
-            description={`${day.rank} • ${day.liturgical_color} • ${day.season}`}
+            description={`${day.rank} • ${formatLiturgicalColor(day.liturgical_color)} • ${day.season}`}
             action={
               <Button asChild variant="secondary">
                 <Link href="/today">Back to Today</Link>
@@ -120,72 +121,39 @@ export default async function TodayInTheChurchPage({
 
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.34fr)]">
           <div className="grid gap-5">
-            <SurfaceCard>
-              <SectionHeader kicker="Overview" title="About today" />
-              <p className="mt-5 text-base leading-7 text-monastic-1">
-                {profile?.short_summary ?? day.summary}
-              </p>
-              {profile ? (
-                <div className="mt-5 grid gap-3">
-                  {profile.key_facts.map((fact) => (
-                    <SurfaceInset key={fact}>
-                      <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
-                        {fact}
-                      </p>
-                    </SurfaceInset>
-                  ))}
-                </div>
-              ) : null}
-            </SurfaceCard>
-
             {profile ? (
-              profile.sections.map((section) => (
-                <SurfaceCard key={section.heading}>
-                  <SectionHeader kicker="About" title={section.heading} />
-                  <p className="mt-5 text-base leading-7 text-monastic-1">
-                    {section.body}
-                  </p>
-                </SurfaceCard>
-              ))
+              <LiturgicalProfileArticle
+                kicker="Today in the Church"
+                profile={profile}
+              />
             ) : !day.isFactualOnly && day.description !== day.summary ? (
               <SurfaceCard>
                 <SectionHeader kicker="About" title="About this day" />
                 <p className="mt-5 text-base leading-7 text-monastic-1">
+                  {day.summary}
+                </p>
+                <p className="mt-5 text-base leading-7 text-monastic-1">
                   {day.description}
                 </p>
               </SurfaceCard>
-            ) : null}
-
-            {profile ? (
+            ) : (
               <SurfaceCard>
-                <SectionHeader
-                  kicker="Catholic connection"
-                  title="Catholic meaning"
-                />
-                <div className="mt-5 grid gap-5">
-                  {profile.catholic_connection_sections.map((section) => (
-                    <div key={section.heading}>
-                      <h3 className="text-lg font-semibold text-monastic-0">
-                        {section.heading}
-                      </h3>
-                      <p className="mt-2 text-base leading-7 text-monastic-1">
-                        {section.body}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </SurfaceCard>
-            ) : day.catholic_connection ? (
-              <SurfaceCard>
-                <SectionHeader
-                  kicker="Catholic connection"
-                  title="Catholic connection"
-                />
+                <SectionHeader kicker="Overview" title="About today" />
                 <p className="mt-5 text-base leading-7 text-monastic-1">
-                  {day.catholic_connection}
+                  {day.summary}
                 </p>
+                {day.catholic_connection ? (
+                  <div className="mt-6 border-t border-[color:var(--line-soft)] pt-6">
+                    <h3 className="text-lg font-semibold text-monastic-0">
+                      Catholic meaning
+                    </h3>
+                    <p className="mt-2 text-base leading-7 text-monastic-1">
+                      {day.catholic_connection}
+                    </p>
+                  </div>
+                ) : null}
               </SurfaceCard>
-            ) : null}
+            )}
 
             {day.related_observances?.length ? (
               <SurfaceCard>
@@ -204,7 +172,10 @@ export default async function TodayInTheChurchPage({
                         observance.profile_slug;
 
                     return (
-                      <SurfaceInset key={`${observance.title}-${observance.relation}`}>
+                      <div
+                        key={`${observance.title}-${observance.relation}`}
+                        className="border-t border-[color:var(--line-soft)] pt-5 first:border-t-0 first:pt-0"
+                      >
                         <div className="section-kicker">
                           {getRelatedObservanceRelationLabel(observance.relation)}
                         </div>
@@ -214,7 +185,7 @@ export default async function TodayInTheChurchPage({
                         <p className="mt-1 text-sm leading-6 text-monastic-2">
                           {observance.rank}
                           {observance.liturgical_color
-                            ? ` • ${observance.liturgical_color}`
+                            ? ` • ${formatLiturgicalColor(observance.liturgical_color)}`
                             : ""}
                         </p>
                         <p className="mt-3 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
@@ -245,7 +216,7 @@ export default async function TodayInTheChurchPage({
                             </Link>
                           </Button>
                         ) : null}
-                      </SurfaceInset>
+                      </div>
                     );
                   })}
                 </div>
@@ -263,26 +234,26 @@ export default async function TodayInTheChurchPage({
           <aside className="grid gap-5 self-start">
             <SurfaceCard>
               <SectionHeader kicker="Calendar" title="Date" />
-              <div className="mt-5 grid gap-3">
-                <SurfaceInset>
-                  <div className="section-kicker">Rank</div>
-                  <p className="mt-2 text-lg font-semibold text-monastic-0">
+              <dl className="mt-5 divide-y divide-[color:var(--line-soft)] border-y border-[color:var(--line-soft)]">
+                <div className="flex items-baseline justify-between gap-4 py-3">
+                  <dt className="text-sm text-monastic-2">Rank</dt>
+                  <dd className="text-right font-semibold text-monastic-0">
                     {day.rank}
-                  </p>
-                </SurfaceInset>
-                <SurfaceInset>
-                  <div className="section-kicker">Color</div>
-                  <p className="mt-2 text-lg font-semibold text-monastic-0">
-                    {day.liturgical_color}
-                  </p>
-                </SurfaceInset>
-                <SurfaceInset>
-                  <div className="section-kicker">Season</div>
-                  <p className="mt-2 text-lg font-semibold text-monastic-0">
+                  </dd>
+                </div>
+                <div className="flex items-baseline justify-between gap-4 py-3">
+                  <dt className="text-sm text-monastic-2">Color</dt>
+                  <dd className="text-right font-semibold text-monastic-0">
+                    {formatLiturgicalColor(day.liturgical_color)}
+                  </dd>
+                </div>
+                <div className="flex items-baseline justify-between gap-4 py-3">
+                  <dt className="text-sm text-monastic-2">Season</dt>
+                  <dd className="text-right font-semibold text-monastic-0">
                     {day.season}
-                  </p>
-                </SurfaceInset>
-              </div>
+                  </dd>
+                </div>
+              </dl>
               <p className="mt-4 text-xs leading-5 text-monastic-2">
                 <Link
                   href="/settings#liturgical-calendar"
@@ -386,14 +357,17 @@ function ProperCalendarSection({
             selectedOverlay.profile_slug === overlay.profile_slug;
 
           return (
-            <SurfaceInset key={`${overlay.scope}-${overlay.scope_key}-${overlay.title}`}>
+            <div
+              key={`${overlay.scope}-${overlay.scope_key}-${overlay.title}`}
+              className="border-t border-[color:var(--line-soft)] pt-5 first:border-t-0 first:pt-0"
+            >
               <div className="section-kicker">{overlay.rank}</div>
               <h2 className="mt-2 text-xl font-semibold text-monastic-0">
                 {overlay.title}
               </h2>
               {overlay.liturgical_color ? (
                 <p className="mt-1 text-sm leading-6 text-monastic-2">
-                  Color if celebrated: {overlay.liturgical_color}
+                  Color if celebrated: {formatLiturgicalColor(overlay.liturgical_color)}
                 </p>
               ) : null}
               {overlay.display_note ? (
@@ -422,7 +396,7 @@ function ProperCalendarSection({
                   </Link>
                 </Button>
               ) : null}
-            </SurfaceInset>
+            </div>
           );
         })}
       </div>
@@ -438,60 +412,16 @@ function ProperProfileSection({
   profile: LiturgicalProfile;
 }) {
   return (
-    <SurfaceCard id="proper-profile" className="scroll-mt-6">
-      <SectionHeader
-        kicker="Dominican calendar"
-        title={profile.title}
-        description={profile.short_summary}
-      />
-      <p className="mt-4 text-sm leading-6 text-monastic-2">
-        {overlay.rank}
-        {overlay.liturgical_color
-          ? ` • Color if celebrated: ${overlay.liturgical_color}`
-          : ""}
-      </p>
-      <div className="mt-5 grid gap-5">
-        <div className="grid gap-3">
-          {profile.key_facts.map((fact) => (
-            <SurfaceInset key={fact}>
-              <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
-                {fact}
-              </p>
-            </SurfaceInset>
-          ))}
-        </div>
-
-        {profile.sections.map((section) => (
-          <div key={section.heading}>
-            <h3 className="text-lg font-semibold text-monastic-0">
-              {section.heading}
-            </h3>
-            <p className="mt-2 text-base leading-7 text-monastic-1">
-              {section.body}
-            </p>
-          </div>
-        ))}
-
-        <div>
-          <h3 className="text-lg font-semibold text-monastic-0">
-            Catholic meaning
-          </h3>
-          <div className="mt-3 grid gap-4">
-            {profile.catholic_connection_sections.map((section) => (
-              <div key={section.heading}>
-                <h4 className="font-semibold text-monastic-0">
-                  {section.heading}
-                </h4>
-                <p className="mt-2 text-base leading-7 text-monastic-1">
-                  {section.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-      </div>
-    </SurfaceCard>
+    <LiturgicalProfileArticle
+      id="proper-profile"
+      kicker="Dominican calendar"
+      profile={profile}
+      meta={`${overlay.rank}${
+        overlay.liturgical_color
+          ? ` • Color if celebrated: ${formatLiturgicalColor(overlay.liturgical_color)}`
+          : ""
+      }`}
+    />
   );
 }
 
@@ -503,53 +433,91 @@ function RelatedProfileSection({
   profile: LiturgicalProfile;
 }) {
   return (
-    <SurfaceCard id="related-profile" className="scroll-mt-6">
-      <SectionHeader
-        kicker={getRelatedObservanceRelationLabel(observance.relation)}
-        title={profile.title}
-        description={profile.short_summary}
-      />
-      <div className="mt-5 grid gap-5">
-        <div className="grid gap-3">
-          {profile.key_facts.map((fact) => (
-            <SurfaceInset key={fact}>
-              <p className="text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
-                {fact}
-              </p>
-            </SurfaceInset>
-          ))}
-        </div>
+    <LiturgicalProfileArticle
+      id="related-profile"
+      kicker={getRelatedObservanceRelationLabel(observance.relation)}
+      profile={profile}
+      meta={`${observance.rank}${
+        observance.liturgical_color
+          ? ` • ${formatLiturgicalColor(observance.liturgical_color)}`
+          : ""
+      }`}
+    />
+  );
+}
+
+function LiturgicalProfileArticle({
+  profile,
+  kicker,
+  id,
+  meta,
+}: {
+  profile: LiturgicalProfile;
+  kicker: string;
+  id?: string;
+  meta?: string;
+}) {
+  return (
+    <SurfaceCard id={id} className="scroll-mt-24 sm:scroll-mt-48">
+      <article>
+        <header>
+          <p className="section-kicker">{kicker}</p>
+          <h2 className="mt-2 text-3xl font-semibold leading-tight text-monastic-0 sm:text-4xl">
+            {profile.title}
+          </h2>
+          {meta ? (
+            <p className="mt-3 text-sm leading-6 text-monastic-2">{meta}</p>
+          ) : null}
+          <p className="mt-5 text-lg leading-8 text-monastic-1">
+            {profile.short_summary}
+          </p>
+        </header>
+
+        {profile.key_facts.length > 0 ? (
+          <section className="mt-7 border-t border-[color:var(--line-soft)] pt-6">
+            <h3 className="text-xl font-semibold text-monastic-0">Key facts</h3>
+            <ul className="mt-3 grid list-disc gap-2 pl-5 text-base leading-7 text-monastic-1">
+              {profile.key_facts.map((fact) => (
+                <li key={fact} className="pl-1">
+                  {fact}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
 
         {profile.sections.map((section) => (
-          <div key={section.heading}>
-            <h3 className="text-lg font-semibold text-monastic-0">
+          <section
+            key={section.heading}
+            className="mt-7 border-t border-[color:var(--line-soft)] pt-6"
+          >
+            <h3 className="text-xl font-semibold leading-8 text-monastic-0 sm:text-2xl">
               {section.heading}
             </h3>
-            <p className="mt-2 text-base leading-7 text-monastic-1">
+            <p className="mt-3 text-base leading-8 text-monastic-1">
               {section.body}
             </p>
-          </div>
+          </section>
         ))}
 
-        <div>
-          <h3 className="text-lg font-semibold text-monastic-0">
+        <section className="mt-7 border-t border-[color:var(--line-soft)] pt-6">
+          <h3 className="text-xl font-semibold leading-8 text-monastic-0 sm:text-2xl">
             Catholic meaning
           </h3>
-          <div className="mt-3 grid gap-4">
+          <div className="mt-4 grid gap-6">
             {profile.catholic_connection_sections.map((section) => (
-              <div key={section.heading}>
-                <h4 className="font-semibold text-monastic-0">
+              <section key={section.heading}>
+                <h4 className="text-lg font-semibold text-monastic-0">
                   {section.heading}
                 </h4>
-                <p className="mt-2 text-base leading-7 text-monastic-1">
+                <p className="mt-2 text-base leading-8 text-monastic-1">
                   {section.body}
                 </p>
-              </div>
+              </section>
             ))}
           </div>
-        </div>
-
-      </div>
+        </section>
+      </article>
     </SurfaceCard>
   );
 }
