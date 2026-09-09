@@ -390,6 +390,10 @@ export function getLiturgicalCalendarDay(dateIso: string): LiturgicalCalendarEnt
   };
 }
 
+export function formatLiturgicalColor(color: string) {
+  return color ? `${color.charAt(0).toUpperCase()}${color.slice(1)}` : color;
+}
+
 export function normalizeReligiousOrderCalendar(
   value: unknown
 ): ReligiousOrderCalendar | null {

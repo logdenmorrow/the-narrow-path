@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
+  formatLiturgicalColor,
   getLiturgicalProfileForProperOverlay,
   type LiturgicalCalendarEntry,
   type LiturgicalProperCalendarOverlay,
@@ -24,7 +25,7 @@ export function TodayInTheChurchCard({
         className="block rounded-[1.1rem] border border-monastic bg-[color:var(--surface-2)] p-4 transition hover:border-[color:var(--line-strong)] hover:bg-[color:var(--surface-3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]"
       >
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-monastic-2">
-          {day.rank} • {day.liturgical_color}
+          {day.rank} • {formatLiturgicalColor(day.liturgical_color)}
           {day.season ? ` • ${day.season}` : ""}
         </p>
         <p className="mt-3 text-xl font-semibold leading-7 text-monastic-0">
@@ -55,7 +56,7 @@ export function TodayInTheChurchCard({
                   <p className="mt-1 text-xs leading-5 text-monastic-2">
                     {overlay.rank}
                     {overlay.liturgical_color
-                      ? ` • Color if celebrated: ${overlay.liturgical_color}`
+                      ? ` • Color if celebrated: ${formatLiturgicalColor(overlay.liturgical_color)}`
                       : ""}
                   </p>
                   {overlay.display_note ? (

@@ -1,15 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { LiturgicalSpecialEventNotice } from "@/lib/liturgical-calendar";
+import {
+  dismissScheduledChurchEvent,
+  isScheduledChurchEventDismissed,
+} from "@/lib/scheduled-church-event-dismissal";
 
 type ScheduledChurchEventDialogProps = {
   notice: LiturgicalSpecialEventNotice;
 };
-
-const STORAGE_PREFIX = "tnp-scheduled-church-event-dismissed:";
 
 export function ScheduledChurchEventDialog({
   notice,
@@ -19,8 +22,10 @@ export function ScheduledChurchEventDialog({
   useEffect(() => {
     try {
       setIsOpen(
-        window.localStorage.getItem(`${STORAGE_PREFIX}${notice.eventKey}`) !==
-          "true"
+        !isScheduledChurchEventDismissed(
+          window.localStorage,
+          notice.eventKey
+        )
       );
     } catch {
       setIsOpen(true);
@@ -31,10 +36,7 @@ export function ScheduledChurchEventDialog({
 
   const dismiss = () => {
     try {
-      window.localStorage.setItem(
-        `${STORAGE_PREFIX}${notice.eventKey}`,
-        "true"
-      );
+      dismissScheduledChurchEvent(window.localStorage, notice.eventKey);
     } catch {
       // The dialog can still close when storage is unavailable.
     }
@@ -49,8 +51,16 @@ export function ScheduledChurchEventDialog({
         aria-modal="true"
         aria-labelledby="scheduled-church-event-title"
         aria-describedby="scheduled-church-event-description"
-        className="monastic-card w-full max-w-lg p-5 shadow-2xl sm:p-7"
+        className="monastic-card relative w-full max-w-lg p-5 shadow-2xl sm:p-7"
       >
+        <button
+          type="button"
+          aria-label="Close announcement"
+          onClick={dismiss}
+          className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-lg text-monastic-2 transition-colors hover:bg-white/5 hover:text-monastic-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]"
+        >
+          <X aria-hidden="true" className="h-5 w-5" />
+        </button>
         <p className="section-kicker">Today in the Church</p>
         <h2
           id="scheduled-church-event-title"
@@ -65,17 +75,9 @@ export function ScheduledChurchEventDialog({
           {notice.body}
         </p>
 
-        <div className="mt-6 grid gap-2 sm:grid-cols-[1fr_auto]">
+        <div className="mt-6">
           <Button asChild className="w-full" onClick={dismiss}>
             <Link href={notice.href}>{notice.ctaLabel}</Link>
-          </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            className="w-full sm:w-auto"
-            onClick={dismiss}
-          >
-            Close
           </Button>
         </div>
       </div>
