@@ -32,7 +32,6 @@ const profileOutputSchema = {
     "short_summary",
     "key_facts",
     "sections",
-    "catholic_connection_sections",
     "historical_cautions",
     "source_refs",
     "review_notes",
@@ -56,20 +55,6 @@ const profileOutputSchema = {
         properties: {
           heading: { type: "string", minLength: 3 },
           body: { type: "string", minLength: 100 },
-        },
-      },
-    },
-    catholic_connection_sections: {
-      type: "array",
-      minItems: 1,
-      maxItems: 3,
-      items: {
-        type: "object",
-        additionalProperties: false,
-        required: ["heading", "body"],
-        properties: {
-          heading: { type: "string", minLength: 3 },
-          body: { type: "string", minLength: 70 },
         },
       },
     },
@@ -323,7 +308,7 @@ Calendar relation: ${candidate.relationDetail}
 Official calendar source:
 ${calendarSources}
 
-The short summary should identify the subject and its significance in two or three sentences. Key facts must include the calendar date/rank/color plus the most important biographical, historical, or doctrinal facts. Write three to six substantial article sections with ordinary reference headings. Add one to three Catholic-connection sections only where they supply distinct Catholic doctrine or ecclesial context rather than generic application. Return at least two exact research sources in source_refs in addition to the calendar source supplied above.`;
+The short summary should identify the subject and its significance in two or three sentences. Key facts must include the calendar date/rank/color plus the most important biographical, historical, or doctrinal facts. Write three to six substantial article sections with ordinary reference headings. When Catholic doctrine, liturgical meaning, or ecclesial context is materially relevant, explain it in the appropriate article section. Never add a separate "Catholic meaning," "Catholic connection," application, or takeaway appendix. Return at least two exact research sources in source_refs in addition to the calendar source supplied above.`;
 }
 
 function responseText(response) {
@@ -412,7 +397,6 @@ function validateDraft(draft) {
     short_summary: draft.short_summary,
     key_facts: draft.key_facts,
     sections: draft.sections,
-    catholic_connection_sections: draft.catholic_connection_sections,
   });
   if (/\b(?:this article|this profile|the app|not an official Church article)\b/i.test(publicText)) {
     throw new Error("Draft contains prohibited reader-facing meta language.");
@@ -538,7 +522,6 @@ async function main() {
       short_summary: generated.short_summary,
       key_facts: generated.key_facts,
       sections: generated.sections,
-      catholic_connection_sections: generated.catholic_connection_sections,
       historical_cautions: generated.historical_cautions,
       source_refs: uniqueSources([
         ...candidate.calendarSources.map((source) => ({

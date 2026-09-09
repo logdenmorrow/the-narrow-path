@@ -104,7 +104,6 @@ export type LiturgicalProfile = {
   short_summary: string;
   key_facts: string[];
   sections: LiturgicalProfileSection[];
-  catholic_connection_sections: LiturgicalProfileSection[];
   historical_cautions?: string[];
   source_refs: LiturgicalCalendarSource[];
   review: {

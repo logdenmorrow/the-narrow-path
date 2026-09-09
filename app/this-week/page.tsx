@@ -92,24 +92,24 @@ function getQuotaMeterTone(completed: number, target: number): MeterTone {
 function getQuotaMeterClasses(tone: MeterTone) {
   if (tone === "success") {
     return {
-      track: "bg-emerald-950/60",
-      fill: "bg-emerald-400",
-      text: "text-emerald-200 border-emerald-700",
+      track: "bg-[rgba(126,167,145,0.18)]",
+      fill: "bg-[#6f9c82] dark:bg-[#9ab9a5]",
+      text: "text-[#365b47] dark:text-[#b8dbc8]",
     };
   }
 
   if (tone === "accent") {
     return {
-      track: "bg-blue-950/60",
-      fill: "bg-blue-400",
-      text: "text-blue-200 border-blue-700",
+      track: "bg-[color:var(--surface-3)]",
+      fill: "bg-[color:var(--surface-strong)]",
+      text: "text-[color:var(--surface-strong)]",
     };
   }
 
   return {
-    track: "bg-zinc-800",
-    fill: "bg-zinc-300",
-    text: "text-zinc-300 border-zinc-700",
+    track: "bg-[color:var(--surface-3)]",
+    fill: "bg-[color:var(--surface-strong-2)]",
+    text: "text-monastic-0",
   };
 }
 
@@ -536,10 +536,8 @@ export default async function ThisWeekPage({
                   >
                     <div className="flex items-center justify-between gap-2">
                       <p className="text-sm font-semibold text-monastic-0">{task.title}</p>
-                      <span
-                        className={`rounded-full border px-2 py-1 text-[10px] font-semibold tracking-wide ${meterClasses.text}`}
-                      >
-                        {meterNow}/{safeTarget}
+                      <span className={`shrink-0 text-sm font-semibold tabular-nums ${meterClasses.text}`}>
+                        {meterNow} / {safeTarget}
                       </span>
                     </div>
                     <div
