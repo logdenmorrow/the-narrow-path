@@ -61,6 +61,10 @@ for (const viewport of [
           page.getByText(task, { exact: true }).filter({ visible: true }).first()
         ).toBeVisible();
       }
+      await expect(page.getByText("Optional.", { exact: true })).toHaveCount(0);
+      await expect(
+        page.getByText("Optional every day.", { exact: true })
+      ).toHaveCount(0);
 
       await expect(
         page.getByRole("heading", { name: "Liturgy of the Hours", exact: true })

@@ -110,6 +110,10 @@ export function TodayTaskCard({
     isRequired,
     isOptional,
   });
+  const displayedNote =
+    isOptional && /^optional(?: every day)?\.?$/i.test(note?.trim() ?? "")
+      ? null
+      : note;
 
   const submitTask = async (formData: FormData) => {
     if (isBusy) return;
@@ -193,7 +197,7 @@ export function TodayTaskCard({
             ) : null}
           </div>
 
-          {note ? (
+          {displayedNote ? (
             <p
               className={`text-sm leading-6 ${
                 optimisticCompleted
@@ -201,7 +205,7 @@ export function TodayTaskCard({
                   : "text-monastic-1"
               }`}
             >
-              {note}
+              {displayedNote}
             </p>
           ) : null}
         </div>
