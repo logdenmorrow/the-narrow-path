@@ -18,7 +18,6 @@ import {
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 import { DashboardLoginRedirectClear } from "@/components/dashboard-login-redirect-clear";
-import { GospelTemperanceRuleCard } from "@/components/gospel-temperance-rule-card";
 import { PushNotificationControl } from "@/components/push-notification-control";
 import {
   GospelScaffoldingCard,
@@ -411,10 +410,6 @@ export default async function DashboardPage({
               />
             </div>
           </HeroPanel>
-
-          {postChallengePhase === "gospels" ? (
-            <GospelTemperanceRuleCard />
-          ) : null}
 
           <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
             <SurfaceCard>
@@ -825,10 +820,6 @@ export default async function DashboardPage({
           </div>
         </HeroPanel>
 
-        {seasonResolution.phase === "gospels" ? (
-          <GospelTemperanceRuleCard />
-        ) : null}
-
         <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
           <SurfaceCard>
             <SectionHeader
@@ -1047,10 +1038,8 @@ export default async function DashboardPage({
                           </p>
                         </div>
 
-                        <span
-                          className={`w-fit rounded-full border px-3 py-1 text-[10px] uppercase tracking-wide sm:text-xs ${meterClasses.text}`}
-                        >
-                          {meterNow}/{safeTarget}
+                        <span className={`w-fit text-sm font-semibold tabular-nums ${meterClasses.text}`}>
+                          {meterNow} / {safeTarget}
                         </span>
                       </div>
 

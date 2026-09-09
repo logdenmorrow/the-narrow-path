@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import {
   HeroPanel,
   PageFrame,
-  SectionHeader,
   SurfaceCard,
-  SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 
@@ -63,132 +61,96 @@ export default function FastingAndPenanceGuidePage() {
           </div>
         </HeroPanel>
 
-        <SurfaceCard>
-          <SectionHeader
-            kicker="Purpose"
-            title="Prayer and Self-Denial"
-            description="Fasting and penance are concrete acts of prayer, self-denial, charity, or reparation offered to God."
-          />
-        </SurfaceCard>
+        <SurfaceCard className="px-5 py-7 sm:px-8 sm:py-10">
+          <article className="mx-auto max-w-5xl text-base leading-8 text-monastic-1 sm:text-lg">
+            <header>
+              <h2 className="text-3xl font-semibold text-monastic-0 sm:text-4xl">
+                Prayer and Self-Denial
+              </h2>
+              <p className="mt-4 max-w-3xl">
+                Fasting and penance are concrete acts of prayer, self-denial,
+                charity, or reparation offered to God.
+              </p>
+            </header>
 
-        <div className="grid gap-4 lg:grid-cols-3">
-          <SurfaceInset>
-            <h2 className="text-2xl font-semibold text-monastic-0">
-              What Penance Is
-            </h2>
-            <p className="mt-3 text-base leading-7 text-monastic-1">
-              Penance is a deliberate sacrifice offered to God for conversion,
-              reparation, or the good of another person.
-            </p>
-          </SurfaceInset>
+            <section className="mt-8 border-t border-[color:var(--line-soft)] pt-7">
+              <div className="grid gap-7 lg:grid-cols-3">
+                <div>
+                  <h3 className="text-2xl font-semibold text-monastic-0">Penance</h3>
+                  <p className="mt-3">
+                    A deliberate sacrifice offered to God for conversion,
+                    reparation, or the good of another person.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-semibold text-monastic-0">Fasting</h3>
+                  <p className="mt-3">
+                    Eating less as an act of prayer and self-mastery. Catholic
+                    fasting does not ordinarily require eating nothing.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-semibold text-monastic-0">Abstinence</h3>
+                  <p className="mt-3">
+                    Giving up a particular good thing. Catholics traditionally
+                    abstain from meat on Fridays; a personal penance may involve
+                    alcohol, sweets, entertainment, social media, or another good.
+                  </p>
+                </div>
+              </div>
+            </section>
 
-          <SurfaceInset>
-            <h2 className="text-2xl font-semibold text-monastic-0">
-              What Fasting Is
-            </h2>
-            <p className="mt-3 text-base leading-7 text-monastic-1">
-              Fasting means eating less as an act of prayer and self-mastery.
-              Catholic fasting does not ordinarily require eating nothing.
-            </p>
-          </SurfaceInset>
+            <section className="mt-8 border-t border-[color:var(--line-soft)] pt-7">
+              <h3 className="text-2xl font-semibold text-monastic-0">A Common Catholic Fast</h3>
+              <p className="mt-3">
+                One full meal, plus up to two smaller meals that together do not
+                equal another full meal. Join the hunger to prayer and offer the
+                fast for a specific intention. If a full fast is not prudent,
+                choose another concrete penance and offer it with a generous heart.
+              </p>
+            </section>
 
-          <SurfaceInset>
-            <h2 className="text-2xl font-semibold text-monastic-0">
-              What Abstinence Is
-            </h2>
-            <p className="mt-3 text-base leading-7 text-monastic-1">
-              Abstinence means giving up a particular good thing. Traditionally
-              Catholics abstain from meat on Fridays, but a personal penance
-              might involve alcohol, sweets, entertainment, social media, or
-              another good you can freely offer to God.
-            </p>
-          </SurfaceInset>
-        </div>
+            <section className="mt-8 border-t border-[color:var(--line-soft)] pt-7">
+              <div className="grid gap-8 lg:grid-cols-2">
+                <div>
+                  <h3 className="text-2xl font-semibold text-monastic-0">Choosing a Penance</h3>
+                  <p className="mt-3">Choose something specific, quiet, and appropriate to your duties.</p>
+                  <ul className="mt-4 list-disc space-y-2 pl-6">
+                    {goodPenanceMarks.map((mark) => <li key={mark}>{mark}</li>)}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-semibold text-monastic-0">Concrete Penances</h3>
+                  <p className="mt-3">Choose one and connect it to prayer.</p>
+                  <ul className="mt-4 grid list-disc gap-x-8 gap-y-2 pl-6 sm:grid-cols-2">
+                    {penanceExamples.map((example) => <li key={example}>{example}</li>)}
+                  </ul>
+                </div>
+              </div>
+            </section>
 
-        <SurfaceCard>
-          <SectionHeader
-            kicker="Catholic Fast"
-            title="A Common Form"
-            description="A common Catholic fast is one full meal, plus up to two smaller meals that together do not equal another full meal."
-          />
-          <div className="mt-5 space-y-4 text-base leading-8 text-monastic-1 sm:text-lg">
-            <p>
-              Join the hunger to prayer and offer the fast for a specific
-              intention.
-            </p>
-            <p>
-              If a full fast is not prudent for you, choose another concrete
-              penance and offer it with a generous heart.
-            </p>
-          </div>
-        </SurfaceCard>
+            <section className="mt-8 border-t border-[color:var(--line-soft)] pt-7">
+              <h3 className="text-2xl font-semibold text-monastic-0">When Fasting Is Not Prudent</h3>
+              <p className="mt-3">
+                Do not fast in a way that harms your health or keeps you from
+                fulfilling your responsibilities. If you have medical concerns,
+                an eating-disorder history, medication needs, pregnancy or nursing
+                concerns, or heavy labor obligations, choose a different penance
+                or ask a priest or doctor as appropriate.
+              </p>
+            </section>
 
-        <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-          <SurfaceCard>
-            <SectionHeader
-              kicker="Choosing a Penance"
-              title="Guidelines"
-              description="Choose something specific, quiet, and appropriate to your duties."
-            />
-            <ul className="mt-5 grid gap-3 text-base leading-7 text-monastic-1">
-              {goodPenanceMarks.map((mark) => (
-                <li key={mark} className="monastic-subcard px-4 py-3">
-                  {mark}
-                </li>
-              ))}
-            </ul>
-          </SurfaceCard>
-
-          <SurfaceCard>
-            <SectionHeader
-              kicker="Examples"
-              title="Concrete Penances"
-              description="Choose one and connect it to prayer."
-            />
-            <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-              {penanceExamples.map((example) => (
-                <li
-                  key={example}
-                  className="monastic-subcard px-4 py-3 text-base leading-7 text-monastic-1"
-                >
-                  {example}
-                </li>
-              ))}
-            </ul>
-          </SurfaceCard>
-        </div>
-
-        <SurfaceCard className="border-[rgba(168,129,81,0.38)]">
-          <SectionHeader
-            kicker="Health and Duties"
-            title="When Fasting Is Not Prudent"
-            description="Do not fast in a way that harms your health or keeps you from fulfilling your responsibilities."
-          />
-          <p className="mt-5 text-base leading-8 text-monastic-1 sm:text-lg">
-            If you have medical concerns, an eating-disorder history,
-            medication needs, pregnancy or nursing concerns, or heavy labor
-            obligations, choose a different penance or ask a priest or doctor as
-            appropriate.
-          </p>
-        </SurfaceCard>
-
-        <SurfaceCard>
-          <SectionHeader
-            kicker="Gospel Season"
-            title="Weekly Requirement"
-            description="Complete one fast or other concrete penance during each Monday-Sunday week."
-          />
-          <div className="mt-5 grid gap-4 text-base leading-8 text-monastic-1 sm:text-lg lg:grid-cols-2">
-            <p>
-              Friday is the traditional day for penance, but any day of the
-              week counts. Choose a Catholic fast or another concrete penance
-              appropriate to your state in life.
-            </p>
-            <p>
-              Join the penance to prayer. If fasting is not prudent, choose
-              another form of self-denial, charity, or service.
-            </p>
-          </div>
+            <section className="mt-8 border-t border-[color:var(--line-soft)] pt-7">
+              <h3 className="text-2xl font-semibold text-monastic-0">Weekly Requirement</h3>
+              <p className="mt-3">
+                Complete one fast or other concrete penance during each Monday-Sunday
+                week. Friday is the traditional day for penance, but any day counts.
+                Choose a Catholic fast or another concrete penance appropriate to
+                your state in life, and join the penance to prayer. If fasting is
+                not prudent, choose another form of self-denial, charity, or service.
+              </p>
+            </section>
+          </article>
         </SurfaceCard>
       </PageFrame>
     </main>

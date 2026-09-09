@@ -1268,8 +1268,8 @@ export default async function TodayPage({
                             <p className="text-lg font-semibold text-monastic-0 sm:text-xl">{task.title}</p>
                             <p className="mt-2 text-sm leading-6 text-monastic-1">{task.progressLabel}</p>
                           </div>
-                          <div className="rounded-full border border-monastic px-2.5 py-1 text-[9px] uppercase tracking-[0.14em] text-monastic-1 sm:px-3 sm:text-[10px] sm:tracking-[0.22em]">
-                            {task.progressCount ?? 0}/{task.quotaTarget ?? 0}
+                          <div className="shrink-0 text-sm font-semibold tabular-nums text-monastic-0">
+                            {task.progressCount ?? 0} / {task.quotaTarget ?? 0}
                           </div>
                         </div>
                         <div className="monastic-meter mt-4">
