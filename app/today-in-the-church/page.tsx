@@ -142,16 +142,6 @@ export default async function TodayInTheChurchPage({
                 <p className="mt-5 text-base leading-7 text-monastic-1">
                   {day.summary}
                 </p>
-                {day.catholic_connection ? (
-                  <div className="mt-6 border-t border-[color:var(--line-soft)] pt-6">
-                    <h3 className="text-lg font-semibold text-monastic-0">
-                      Catholic meaning
-                    </h3>
-                    <p className="mt-2 text-base leading-7 text-monastic-1">
-                      {day.catholic_connection}
-                    </p>
-                  </div>
-                ) : null}
               </SurfaceCard>
             )}
 
@@ -500,23 +490,6 @@ function LiturgicalProfileArticle({
           </section>
         ))}
 
-        <section className="mt-7 border-t border-[color:var(--line-soft)] pt-6">
-          <h3 className="text-xl font-semibold leading-8 text-monastic-0 sm:text-2xl">
-            Catholic meaning
-          </h3>
-          <div className="mt-4 grid gap-6">
-            {profile.catholic_connection_sections.map((section) => (
-              <section key={section.heading}>
-                <h4 className="text-lg font-semibold text-monastic-0">
-                  {section.heading}
-                </h4>
-                <p className="mt-2 text-base leading-8 text-monastic-1">
-                  {section.body}
-                </p>
-              </section>
-            ))}
-          </div>
-        </section>
       </article>
     </SurfaceCard>
   );

@@ -57,7 +57,7 @@ Use the strongest available Catholic source for each claim.
 
 1. USCCB liturgical calendar: U.S. date, rank, color, and observance.
 2. General Roman Calendar, Universal Norms, and GIRM: liturgical structure.
-3. Catechism, councils, papal documents, Vatican/Holy See: doctrine and Catholic meaning.
+3. Catechism, councils, papal documents, Vatican/Holy See: doctrine and ecclesial context.
 4. Roman Martyrology: official saint identification.
 5. New Advent, Butler's, religious orders, and diocesan sources: historical background.
 6. Franciscan Media, Catholic Culture, EWTN, and Catholic Answers: readable secondary support.
@@ -106,11 +106,15 @@ each fact or section in its own card or inset. Calendar metadata, date movement,
 sources, and related-observance navigation may remain separate from the article
 when that separation helps the reader.
 
+Do not append a separate "Catholic meaning," "Catholic connection," application,
+or takeaway section. Explain relevant doctrine, liturgical significance, and
+ecclesial context naturally inside the article section where each belongs.
+
 ## Content Tiers
 
 - Ordinary weekday short: calendar fallback copy is usually enough.
 - Optional memorial medium: concise profile or stronger calendar fallback.
-- Memorial, doctor, or major saint richer: profile with key facts and Catholic meaning.
+- Memorial, doctor, or major saint richer: profile with key facts and substantial biography.
 - Feast or solemnity richest: profile with richer doctrinal and liturgical explanation.
 
 ## Published Prose Style

@@ -34,7 +34,6 @@ const requiredProfileFields = [
   "short_summary",
   "key_facts",
   "sections",
-  "catholic_connection_sections",
   "source_refs",
   "review",
 ];
@@ -742,12 +741,6 @@ function validateProfile(profile, filePath, profilesBySlug) {
     addError(`${label}: sections must be a non-empty array of { heading, body } objects.`);
   }
 
-  if (!sectionListIsValid(profile.catholic_connection_sections)) {
-    addError(
-      `${label}: catholic_connection_sections must be a non-empty array of { heading, body } objects.`
-    );
-  }
-
   if (!sourceListIsValid(profile.source_refs)) {
     addError(`${label}: source_refs must be a non-empty array of { label, url } objects.`);
   }
@@ -766,12 +759,6 @@ function validateProfile(profile, filePath, profilesBySlug) {
   if (isApprovedContent) {
     if (!sectionListIsValid(profile.sections)) {
       addError(`${label}: approved/locked profiles must have non-empty sections.`);
-    }
-
-    if (!sectionListIsValid(profile.catholic_connection_sections)) {
-      addError(
-        `${label}: approved/locked profiles must have non-empty catholic_connection_sections.`
-      );
     }
 
     if (
