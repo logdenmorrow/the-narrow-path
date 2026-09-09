@@ -1208,6 +1208,19 @@ export default async function TodayPage({
                 typedPlanDay.reading_title ?? typedPlanDay.title ?? "Daily Reading"
               )
             }
+            action={
+              <Button asChild>
+                <Link
+                  href={buildPlanDayHref(
+                    "/daily-reading",
+                    currentPlanSlug,
+                    typedPlanDay.day_number
+                  )}
+                >
+                  Open Daily Reading
+                </Link>
+              </Button>
+            }
           />
           <SurfaceCard
             className={

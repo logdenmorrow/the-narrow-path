@@ -42,6 +42,12 @@ for (const viewport of [
       await expect(
         page.getByText("Mark 1:1-13").filter({ visible: true }).first()
       ).toBeVisible();
+      await expect(
+        page.getByRole("link", { name: "Open Daily Reading", exact: true })
+      ).toHaveAttribute(
+        "href",
+        "/daily-reading?plan=the-gospels-september-lent&day=1"
+      );
 
       for (const task of [
         "Reading",
