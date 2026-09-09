@@ -10,6 +10,7 @@ import MobileAccountMenu from "@/components/mobile-account-menu";
 import MobileTabBar from "@/components/mobile-tab-bar";
 import ProgressStrip from "@/components/progress-strip";
 import { ReminderOnboardingCard } from "@/components/reminder-onboarding-card";
+import { ScheduledChurchEventDialog } from "@/components/scheduled-church-event-dialog";
 import ServiceWorkerRegister from "@/components/service-worker-register";
 import SignOutButton from "@/components/sign-out-button";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -17,6 +18,7 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 import { syncAdminProfileVisibility } from "@/lib/admin";
 import { isServerAuthDebugEnabled } from "@/lib/auth-debug";
 import { getIsoDateInTimeZone } from "@/lib/challenge";
+import { getDisplayableSpecialEventNotice } from "@/lib/liturgical-calendar";
 import { isResetPhase } from "@/lib/season-plan";
 import { createClient } from "@/lib/supabase/server";
 import { getCommunityName, normalizeTrack } from "@/lib/track";
@@ -134,7 +136,11 @@ export default async function RootLayout({
     reminderSlots?.some((slot) => slot.enabled)
   );
   const communityName = getCommunityName(normalizeTrack(profileData?.track));
-  const isResetSeason = isResetPhase(getIsoDateInTimeZone());
+  const todayIso = getIsoDateInTimeZone();
+  const isResetSeason = isResetPhase(todayIso);
+  const scheduledChurchEventNotice = isSignedIn
+    ? getDisplayableSpecialEventNotice(todayIso)
+    : null;
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -225,7 +231,10 @@ export default async function RootLayout({
           </header>
 
           <div className={isSignedIn ? "mobile-page-shell" : undefined}>{children}</div>
-          {isSignedIn ? (
+          {scheduledChurchEventNotice ? (
+            <ScheduledChurchEventDialog notice={scheduledChurchEventNotice} />
+          ) : null}
+          {isSignedIn && !scheduledChurchEventNotice ? (
             <ReminderOnboardingCard hasEnabledReminder={hasEnabledReminder} />
           ) : null}
           {isSignedIn ? (

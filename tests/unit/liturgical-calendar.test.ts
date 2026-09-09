@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
+  getDisplayableRelatedProfileForDay,
+  getDisplayableSpecialEventNotice,
   getLiturgicalCalendarDay,
   getLiturgicalProfileForDay,
   isDisplayableProfile,
@@ -63,6 +65,42 @@ describe("Gospel-season USCCB calendar facts", () => {
       slug: "nativity-of-the-blessed-virgin-mary",
       review: { status: "approved" },
     });
+  });
+
+  it("adds Sheen's beatification as a special event without replacing the weekday", () => {
+    const day = getLiturgicalCalendarDay("2026-09-24");
+
+    expect(day).toMatchObject({
+      title: "Thursday of the 25th Week in Ordinary Time",
+      rank: "Weekday",
+      liturgical_color: "green",
+    });
+    expect(day.related_observances).toContainEqual(
+      expect.objectContaining({
+        title: "Beatification of Venerable Fulton J. Sheen",
+        rank: "Beatification",
+        relation: "also_observed",
+        profile_slug: "fulton-j-sheen",
+        profile_type: "person",
+      })
+    );
+
+    const profile = getDisplayableRelatedProfileForDay(day, "fulton-j-sheen");
+    expect(profile).toMatchObject({
+      title: "Archbishop Fulton J. Sheen",
+      review: { status: "approved" },
+    });
+    expect(profile?.sections[0]?.heading).toBe("What is beatification?");
+  });
+
+  it("shows the Sheen login notice only on the beatification date", () => {
+    expect(getDisplayableSpecialEventNotice("2026-09-23")).toBeNull();
+    expect(getDisplayableSpecialEventNotice("2026-09-24")).toMatchObject({
+      title: "Today is the Beatification of Archbishop Fulton Sheen",
+      ctaLabel: "Read about Fulton Sheen",
+      href: "/today-in-the-church?date=2026-09-24&profile=fulton-j-sheen#related-profile",
+    });
+    expect(getDisplayableSpecialEventNotice("2026-09-25")).toBeNull();
   });
 
   it.each([

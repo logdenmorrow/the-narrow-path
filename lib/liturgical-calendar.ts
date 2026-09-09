@@ -3,6 +3,7 @@ import gospelSeasonFacts from "@/content/liturgical-calendar/us-gospel-season-fa
 import properOverlayData from "@/content/liturgical-calendar/proper-overlays-2026.json";
 import profileRegistry from "@/content/liturgical-calendar/generated-profile-registry.json";
 import profileLinkData from "@/content/liturgical-calendar/profile-links.json";
+import specialEventData from "@/content/liturgical-calendar/special-events.json";
 
 export type LiturgicalCalendarSource = {
   label: string;
@@ -12,6 +13,7 @@ export type LiturgicalCalendarSource = {
 
 export type LiturgicalProfileType =
   | "saint"
+  | "person"
   | "feast"
   | "solemnity"
   | "season"
@@ -129,6 +131,32 @@ type ImportedLiturgicalFact = {
   sources: LiturgicalCalendarSource[];
 };
 
+export type LiturgicalSpecialEvent = {
+  date: string;
+  title: string;
+  rank: string;
+  relation: "also_observed";
+  profile_slug: string;
+  profile_type: LiturgicalProfileType;
+  calendar_scope: LiturgicalCalendarScope;
+  summary: string;
+  sources: LiturgicalCalendarSource[];
+  notice?: {
+    title: string;
+    body: string;
+    cta_label: string;
+  };
+  review_status: LiturgicalOverlayReviewStatus;
+};
+
+export type LiturgicalSpecialEventNotice = {
+  eventKey: string;
+  title: string;
+  body: string;
+  ctaLabel: string;
+  href: string;
+};
+
 export type LiturgicalProfileLink = {
   date: string;
   observance_title: string;
@@ -142,6 +170,7 @@ const editorialDaysByDate = new Map(
   (calendarData as LiturgicalCalendarDay[]).map((day) => [day.date, day])
 );
 const profileLinks = profileLinkData as LiturgicalProfileLink[];
+const specialEvents = specialEventData as LiturgicalSpecialEvent[];
 const primaryProfileLinksByDate = new Map(
   profileLinks
     .filter((link) => link.relation === "primary")
@@ -155,6 +184,17 @@ const relatedProfileLinksByDateAndTitle = new Map(
       link,
     ])
 );
+const specialEventsByDate = new Map<string, LiturgicalSpecialEvent[]>();
+
+for (const event of specialEvents) {
+  const events = specialEventsByDate.get(event.date) ?? [];
+  events.push(event);
+  specialEventsByDate.set(event.date, events);
+}
+
+function isDisplayableReviewStatus(status: LiturgicalOverlayReviewStatus) {
+  return status === "approved" || status === "locked";
+}
 
 function comparableObservanceTitle(value: string) {
   return value
@@ -204,6 +244,19 @@ function factualDay(fact: ImportedLiturgicalFact): LiturgicalCalendarDay {
         profileLink?.calendar_scope ?? editorialRelated?.calendar_scope,
     };
   });
+  const specialRelated: LiturgicalRelatedObservance[] = (
+    specialEventsByDate.get(fact.date) ?? []
+  )
+    .filter((event) => isDisplayableReviewStatus(event.review_status))
+    .map((event) => ({
+      title: event.title,
+      rank: event.rank,
+      relation: event.relation,
+      summary: event.summary,
+      profile_slug: event.profile_slug,
+      profile_type: event.profile_type,
+      calendar_scope: event.calendar_scope,
+    }));
   const summary = factualSummary(fact);
 
   return {
@@ -216,7 +269,7 @@ function factualDay(fact: ImportedLiturgicalFact): LiturgicalCalendarDay {
     calendar_scope:
       primaryProfileLink?.calendar_scope ?? editorial?.calendar_scope ?? "us",
     is_optional: editorial?.is_optional,
-    related_observances: related,
+    related_observances: [...related, ...specialRelated],
     isFactualOnly: true,
   };
 }
@@ -242,9 +295,32 @@ const profilesBySlug = new Map(
 export function isDisplayableProfile(
   profile: LiturgicalProfile | undefined
 ): profile is LiturgicalProfile {
-  return (
-    profile?.review.status === "approved" || profile?.review.status === "locked"
+  return Boolean(
+    profile && isDisplayableReviewStatus(profile.review.status)
   );
+}
+
+export function getDisplayableSpecialEventNotice(
+  dateIso: string
+): LiturgicalSpecialEventNotice | null {
+  const event = (specialEventsByDate.get(dateIso) ?? []).find(
+    (candidate) =>
+      candidate.notice &&
+      isDisplayableReviewStatus(candidate.review_status) &&
+      isDisplayableProfile(profilesBySlug.get(candidate.profile_slug))
+  );
+
+  if (!event?.notice) return null;
+
+  return {
+    eventKey: `${event.date}:${event.profile_slug}`,
+    title: event.notice.title,
+    body: event.notice.body,
+    ctaLabel: event.notice.cta_label,
+    href: `/today-in-the-church?date=${event.date}&profile=${encodeURIComponent(
+      event.profile_slug
+    )}#related-profile`,
+  };
 }
 
 export function getEasternDateIso(date = new Date()) {

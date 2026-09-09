@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-09-24",
+    "title": "Beatification of Venerable Fulton J. Sheen",
+    "rank": "Beatification",
+    "relation": "also_observed",
+    "profile_slug": "fulton-j-sheen",
+    "profile_type": "person",
+    "calendar_scope": "us",
+    "summary": "The Church will beatify Archbishop Fulton J. Sheen at a Mass in St. Louis, recognizing his heroic Christian life and permitting him to be honored publicly as Blessed Fulton J. Sheen.",
+    "sources": [
+      {
+        "label": "Vatican News: Fulton Sheen to be beatified September 24",
+        "url": "https://www.vaticannews.va/en/vatican-city/news/2026-03/fulton-sheen-to-be-beatified-in-st-louis-on-24-september.html",
+        "note": "Official date, place, papal representative, and status after the beatification."
+      },
+      {
+        "label": "Archbishop Fulton J. Sheen Foundation: Beatification details",
+        "url": "https://www.celebratesheen.com/news/beatification-details",
+        "note": "Announcement from the official promoter of Sheen's cause with the time and venue."
+      }
+    ],
+    "notice": {
+      "title": "Today is the Beatification of Archbishop Fulton Sheen",
+      "body": "The Church will declare the renowned American preacher and missionary Blessed Fulton J. Sheen today in St. Louis. Read about beatification, his life, his work in radio and television, and his service to the worldwide missions.",
+      "cta_label": "Read about Fulton Sheen"
+    },
+    "review_status": "approved"
+  }
+]

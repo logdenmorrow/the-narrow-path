@@ -8,6 +8,9 @@ const gospelSeasonFactsPath = path.resolve(
 const profileLinksPath = path.resolve(
   "content/liturgical-calendar/profile-links.json"
 );
+const specialEventsPath = path.resolve(
+  "content/liturgical-calendar/special-events.json"
+);
 const profilesRoot = path.resolve("content/liturgical-profiles");
 const gospelSeasonStart = "2026-09-01";
 const gospelSeasonEnd = "2027-02-09";
@@ -38,6 +41,7 @@ const requiredProfileFields = [
 
 const validProfileTypes = new Set([
   "saint",
+  "person",
   "feast",
   "solemnity",
   "season",
@@ -103,6 +107,7 @@ const summary = {
   calendarEntries: 0,
   gospelSeasonFactEntries: 0,
   profileLinks: 0,
+  specialEvents: 0,
   profileFiles: 0,
   approvedLockedProfiles: 0,
   draftReviewProfiles: 0,
@@ -544,6 +549,95 @@ function validateProfileLinks(links, factsByDate, referencedProfiles) {
   });
 }
 
+function validateSpecialEvents(events, factsByDate, referencedProfiles) {
+  if (!Array.isArray(events)) {
+    addError("Special events file must contain an array.");
+    return;
+  }
+
+  summary.specialEvents = events.length;
+  const seen = new Set();
+
+  events.forEach((event, index) => {
+    const label = `specialEvents[${index}]`;
+    if (!isPlainObject(event)) {
+      addError(`${label}: event must be an object.`);
+      return;
+    }
+
+    for (const field of [
+      "date",
+      "title",
+      "rank",
+      "relation",
+      "profile_slug",
+      "profile_type",
+      "calendar_scope",
+      "summary",
+      "review_status",
+    ]) {
+      if (!hasText(event[field])) {
+        addError(`${label}: "${field}" must be non-empty text.`);
+      }
+    }
+
+    if (!isIsoDate(event.date)) {
+      addError(`${label}: date must be a valid YYYY-MM-DD value.`);
+    } else if (!factsByDate.has(event.date)) {
+      addError(`${label}: date ${event.date} is outside the imported factual calendar.`);
+    }
+
+    const uniqueKey = `${event.date}:${event.profile_slug}`;
+    if (seen.has(uniqueKey)) {
+      addError(`${label}: duplicate special event "${uniqueKey}".`);
+    } else {
+      seen.add(uniqueKey);
+    }
+
+    if (event.relation !== "also_observed") {
+      addError(`${label}: relation must be "also_observed".`);
+    }
+    if (!validProfileTypes.has(event.profile_type)) {
+      addError(`${label}: profile_type "${event.profile_type}" is not supported.`);
+    }
+    if (!validCalendarScopes.has(event.calendar_scope)) {
+      addError(`${label}: calendar_scope "${event.calendar_scope}" is not supported.`);
+    }
+    if (!validReviewStatuses.has(event.review_status)) {
+      addError(`${label}: review_status "${event.review_status}" is not supported.`);
+    }
+    if (!sourceListIsValid(event.sources)) {
+      addError(`${label}: sources must be a non-empty array of { label, url } objects.`);
+    }
+
+    if (event.notice !== undefined) {
+      if (!isPlainObject(event.notice)) {
+        addError(`${label}: notice must be an object when present.`);
+      } else {
+        for (const field of ["title", "body", "cta_label"]) {
+          if (!hasText(event.notice[field])) {
+            addError(`${label}.notice: "${field}" must be non-empty text.`);
+          }
+        }
+      }
+    }
+
+    if (hasText(event.profile_slug)) {
+      referencedProfiles.set(event.profile_slug, {
+        date: event.date,
+        profileType: event.profile_type,
+        context: `Special event for ${event.date} "${event.title}"`,
+      });
+    }
+
+    checkTextHeuristics({
+      label,
+      value: event,
+      isApprovedContent: displayableReviewStatuses.has(event.review_status),
+    });
+  });
+}
+
 function validateRelatedObservances(entry, label, referencedProfiles) {
   if (!Array.isArray(entry.related_observances)) {
     addError(`${label}: related_observances must be an array when present.`);
@@ -752,6 +846,22 @@ async function main() {
     }
   }
 
+  if (!(await pathExists(specialEventsPath))) {
+    addError(`Missing special events file: ${path.relative(process.cwd(), specialEventsPath)}`);
+  } else {
+    try {
+      validateSpecialEvents(
+        await readJson(specialEventsPath),
+        factsByDate,
+        referencedProfiles
+      );
+    } catch (error) {
+      addError(
+        `Could not parse special events ${path.relative(process.cwd(), specialEventsPath)}: ${error.message}`
+      );
+    }
+  }
+
   const profileFiles = await listJsonFiles(profilesRoot);
   summary.profileFiles = profileFiles.length;
   const profilesBySlug = new Map();
@@ -786,7 +896,10 @@ async function main() {
       );
     }
     if (!displayableReviewStatuses.has(status)) {
-      if (context.startsWith("Profile link for ")) {
+      if (
+        context.startsWith("Profile link for ") ||
+        context.startsWith("Special event for ")
+      ) {
         summary.linkedDraftProfiles += 1;
       } else {
         addWarning(
@@ -809,6 +922,7 @@ function printSummary() {
   console.log(`Calendar entries: ${summary.calendarEntries}`);
   console.log(`Gospel-season factual entries: ${summary.gospelSeasonFactEntries}`);
   console.log(`Editorial profile links: ${summary.profileLinks}`);
+  console.log(`Special Church events: ${summary.specialEvents}`);
   console.log(`Profile files: ${summary.profileFiles}`);
   console.log(`Approved/locked profiles: ${summary.approvedLockedProfiles}`);
   console.log(`Draft/review profiles: ${summary.draftReviewProfiles}`);
