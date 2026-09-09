@@ -65,6 +65,7 @@ type MetricCardProps = {
   label: React.ReactNode;
   value: React.ReactNode;
   detail?: React.ReactNode;
+  action?: React.ReactNode;
   meterValue?: number;
   className?: string;
   valueClassName?: string;
@@ -74,6 +75,7 @@ export function MetricCard({
   label,
   value,
   detail,
+  action,
   meterValue,
   className,
   valueClassName,
@@ -88,6 +90,7 @@ export function MetricCard({
           <span style={{ width: `${Math.max(0, Math.min(100, meterValue))}%` }} />
         </div>
       ) : null}
+      {action ? <div className="mt-5">{action}</div> : null}
     </SurfaceCard>
   );
 }

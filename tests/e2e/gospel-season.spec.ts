@@ -42,6 +42,12 @@ for (const viewport of [
       await expect(
         page.getByText("Mark 1:1-13").filter({ visible: true }).first()
       ).toBeVisible();
+      await expect(
+        page.getByRole("link", { name: "Open Daily Reading", exact: true })
+      ).toHaveAttribute(
+        "href",
+        "/daily-reading?plan=the-gospels-september-lent&day=1"
+      );
 
       for (const task of [
         "Reading",
@@ -55,6 +61,10 @@ for (const viewport of [
           page.getByText(task, { exact: true }).filter({ visible: true }).first()
         ).toBeVisible();
       }
+      await expect(page.getByText("Optional.", { exact: true })).toHaveCount(0);
+      await expect(
+        page.getByText("Optional every day.", { exact: true })
+      ).toHaveCount(0);
 
       await expect(
         page.getByRole("heading", { name: "Liturgy of the Hours", exact: true })
