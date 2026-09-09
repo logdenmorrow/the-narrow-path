@@ -66,6 +66,7 @@ const BASELINE_TASK_NAMES = new Set([
   "no social media",
   "give up alcohol",
   "check in with anchor",
+  "talk about faith",
   "no soda or sweet drinks",
   "no desserts or sweets",
   "heroic minute",
