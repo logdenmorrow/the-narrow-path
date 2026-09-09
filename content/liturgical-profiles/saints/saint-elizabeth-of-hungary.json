@@ -1,0 +1,61 @@
+{
+  "slug": "saint-elizabeth-of-hungary",
+  "type": "saint",
+  "title": "Saint Elizabeth of Hungary, Religious",
+  "short_summary": "Elizabeth of Hungary (1207-1231) was a royal princess and landgravine of Thuringia who devoted her wealth and personal labor to the poor and sick. Widowed at twenty, she founded a hospital at Marburg and spent the last years of her brief life in prayer and service under Franciscan influence.",
+  "key_facts": [
+    "Her memorial is celebrated on November 17.",
+    "The liturgical color is white.",
+    "She was born in 1207, a daughter of King Andrew II of Hungary.",
+    "She married Ludwig IV of Thuringia and had three children.",
+    "After Ludwig's death, she founded a hospital at Marburg and died there in 1231 at age twenty-four."
+  ],
+  "sections": [
+    {
+      "heading": "A Hungarian princess in Thuringia",
+      "body": "Elizabeth was sent as a child from the Hungarian court to be raised in Thuringia for a dynastic marriage. She married Ludwig IV in 1221. Contemporary testimony describes an affectionate marriage and a young ruler whose religious life included direct service to the poor, distribution of food and clothing, and care for people with illnesses that others feared to approach."
+    },
+    {
+      "heading": "Famine and works of mercy",
+      "body": "During a severe famine in 1226, while Ludwig was away, Elizabeth opened stores of grain and expanded relief for the population. She supported a hospital near the Wartburg and personally tended patients. Her conduct could alarm members of the court, but Ludwig defended her charitable use of their resources."
+    },
+    {
+      "heading": "Widowhood",
+      "body": "Ludwig died of disease in 1227 while traveling to join a crusade. Elizabeth, then about twenty, faced conflict over her income and residence. A settlement eventually provided for her support. At Marburg she established a hospital dedicated to Saint Francis, adopted a plain habit, and organized her life around prayer and care of the sick."
+    },
+    {
+      "heading": "Death and memory",
+      "body": "Elizabeth died on November 17, 1231. Reports of holiness and miracles spread rapidly, and Pope Gregory IX canonized her in 1235. She became a patron of hospitals, charitable organizations, nurses, widows, and members of the Secular Franciscan tradition. The rose miracle familiar in later art is a beloved legend rather than an episode found in the earliest testimony."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Charity face to face",
+      "body": "Elizabeth gave money and food, but she also crossed the distance between a court and a hospital ward. Her holiness took visible form in sustained personal contact with people who were poor or ill."
+    },
+    {
+      "heading": "Holiness in marriage and widowhood",
+      "body": "Her life includes years as wife, mother, public figure, and widow. The Church remembers all of these as places where Christian vocation can mature."
+    }
+  ],
+  "historical_cautions": [
+    "The miracle in which bread hidden in Elizabeth's cloak becomes roses appears in later tradition and should be identified as legend.",
+    "Descriptions of her spiritual director Conrad of Marburg and of family conflict require care because the sources reflect competing interests."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Vatican News: Saint Elizabeth of Hungary",
+      "url": "https://www.vaticannews.va/en/saints/11/17/st--elisabeth-of-ungary--franciscan-tertiary-.html",
+      "note": "Biography, marriage, widowhood, and service at Marburg."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026. Review Franciscan affiliation terminology and the Conrad of Marburg caution before publication. Approved for publication September 9, 2026."
+  }
+}

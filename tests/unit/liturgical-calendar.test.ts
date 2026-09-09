@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { getLiturgicalCalendarDay } from "@/lib/liturgical-calendar";
+import {
+  getLiturgicalCalendarDay,
+  getLiturgicalProfileForDay,
+  isDisplayableProfile,
+  type LiturgicalProfile,
+} from "@/lib/liturgical-calendar";
 
 describe("Gospel-season USCCB calendar facts", () => {
   it.each([
@@ -43,5 +48,30 @@ describe("Gospel-season USCCB calendar facts", () => {
         relation: "optional_memorial",
       }),
     ]);
+  });
+
+  it("displays an approved linked editorial profile", () => {
+    const day = getLiturgicalCalendarDay("2026-09-08");
+
+    expect(day).toMatchObject({
+      title: "The Nativity of the Blessed Virgin Mary",
+      profile_slug: "nativity-of-the-blessed-virgin-mary",
+      profile_type: "feast",
+      calendar_scope: "us",
+    });
+    expect(getLiturgicalProfileForDay(day)).toMatchObject({
+      slug: "nativity-of-the-blessed-virgin-mary",
+      review: { status: "approved" },
+    });
+  });
+
+  it.each([
+    ["draft", false],
+    ["needs_catholic_review", false],
+    ["approved", true],
+    ["locked", true],
+  ] as const)("applies the editorial review gate to %s profiles", (status, expected) => {
+    const profile = { review: { status } } as LiturgicalProfile;
+    expect(isDisplayableProfile(profile)).toBe(expected);
   });
 });

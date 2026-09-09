@@ -1,0 +1,61 @@
+{
+  "slug": "saint-ambrose",
+  "type": "saint",
+  "title": "Saint Ambrose, Bishop and Doctor of the Church",
+  "short_summary": "Ambrose of Milan (c. 339-397) went from imperial governor to bishop while still a catechumen. As pastor, theologian, hymn writer, and defender of the Church's freedom, he became one of the most influential Latin Fathers and played a decisive role in the conversion of Augustine.",
+  "key_facts": [
+    "His memorial is celebrated on December 7, the anniversary of his episcopal ordination.",
+    "The liturgical color is white.",
+    "He was serving as governor of the province around Milan when the city's Christians chose him as bishop in 374.",
+    "He baptized Augustine at the Easter Vigil of 387.",
+    "He died in Milan in 397 and is one of the four traditional great Doctors of the Western Church."
+  ],
+  "sections": [
+    {
+      "heading": "A governor chosen as bishop",
+      "body": "Ambrose was born into a Roman Christian family and trained for public administration. As provincial governor based in Milan, he entered a church in 374 to prevent violence during a disputed episcopal election. Although he was only a catechumen, the assembly acclaimed him bishop. He resisted at first, then received baptism and the necessary orders in rapid succession before his episcopal consecration on December 7."
+    },
+    {
+      "heading": "Learning to teach",
+      "body": "Ambrose gave away much of his wealth and studied Scripture and Greek Christian theology under the guidance of the priest Simplician. His preaching interpreted the Old Testament spiritually and defended the full divinity of Christ against Arian theology. He also promoted congregational hymn singing; several Latin hymns are securely attributed to him, and the Milanese liturgical tradition still bears his name."
+    },
+    {
+      "heading": "Church and imperial power",
+      "body": "Because Milan was an imperial residence, Ambrose dealt directly with emperors and their courts. He resisted attempts to transfer a basilica to Arian worship and insisted that rulers belonged within the Church rather than standing above it. After troops of Emperor Theodosius killed civilians at Thessalonica, Ambrose required public penance before restoring the emperor to communion."
+    },
+    {
+      "heading": "Augustine and the final years",
+      "body": "Augustine first came to hear Ambrose for his eloquence, but the bishop's interpretation of Scripture helped remove intellectual obstacles to Christian faith. Ambrose baptized Augustine in 387. He continued preaching and writing until his death during Holy Week in 397. His works on the sacraments, moral life, virginity, and the duties of clergy shaped Western theology for centuries."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "The independence of the Church",
+      "body": "Ambrose's confrontations with emperors helped define a lasting principle: political rulers are morally accountable and cannot make themselves masters of Christian doctrine or sacramental life."
+    },
+    {
+      "heading": "Preaching that opened Scripture",
+      "body": "His patient teaching helped Augustine discover that biblical faith was intellectually serious. Ambrose shows how preaching can unite learning, worship, moral conversion, and pastoral care."
+    }
+  ],
+  "historical_cautions": [
+    "The speed of Ambrose's baptism and ordination was exceptional and should not be presented as normal Church practice.",
+    "Later tradition attributed many hymns to Ambrose; modern scholarship accepts only a smaller core with confidence."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Benedict XVI on Saint Ambrose",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2007/documents/hf_ben-xvi_aud_20071024.html",
+      "note": "Ambrose's episcopate, teaching, relation with Augustine, and death."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026. Review the Theodosius episode and hymn-attribution wording before publication. Approved for publication September 9, 2026."
+  }
+}

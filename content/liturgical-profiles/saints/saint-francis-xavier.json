@@ -1,0 +1,66 @@
+{
+  "slug": "saint-francis-xavier",
+  "type": "saint",
+  "title": "Saint Francis Xavier, Priest",
+  "short_summary": "Francis Xavier (1506-1552) was one of the first Jesuits and the leading Catholic missionary of his generation. During a decade in Asia he worked in India, the Malay world, and Japan, building Christian communities and preparing for a mission to China that he died before entering.",
+  "key_facts": [
+    "His memorial is celebrated on December 3.",
+    "The liturgical color is white.",
+    "He was born at Xavier Castle in Navarre in 1506.",
+    "At the University of Paris he became one of the first companions of Ignatius of Loyola.",
+    "He died in 1552 on Shangchuan Island while waiting to enter China."
+  ],
+  "sections": [
+    {
+      "heading": "Paris and the first Jesuits",
+      "body": "Francis was born into a noble Navarrese family whose fortunes had been damaged by war. He went to Paris to study and teach, sharing rooms with Peter Faber and later meeting Ignatius of Loyola. Ignatius gradually drew him toward a different measure of success. In 1534 Francis joined Ignatius, Faber, and four other companions in vows at Montmartre; the group received papal approval as the Society of Jesus in 1540."
+    },
+    {
+      "heading": "India and the Indian Ocean",
+      "body": "Sent under Portuguese patronage, Francis sailed from Lisbon in 1541 and reached Goa the next year. He preached, taught catechism, cared for the sick and imprisoned, and traveled among fishing communities along the southern coast of India. His letters describe constant journeys and the urgent need for clergy who could learn local languages and sustain new communities."
+    },
+    {
+      "heading": "Japan",
+      "body": "After meeting the Japanese convert Anjirō, Francis entered Japan in 1549. He came to see education, disciplined debate, and respect for local culture as essential to mission there. He worked at Kagoshima, Hirado, Yamaguchi, and Bungo, and left a small but durable Christian community before returning to India in 1551."
+    },
+    {
+      "heading": "The unfinished journey to China",
+      "body": "Francis believed that a mission in China would influence the wider intellectual and cultural world of East Asia. Because foreigners were barred from entry, he waited for passage on Shangchuan Island off the Chinese coast. He became ill and died there on December 3, 1552. Canonized with Ignatius of Loyola in 1622, he was later named a patron of Catholic missions."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Mission across cultures",
+      "body": "Francis's methods developed through experience. His years in Asia show both the zeal of early modern mission and the necessity of language, education, and serious encounter with the cultures in which the Gospel is preached."
+    },
+    {
+      "heading": "A worldwide Church",
+      "body": "His travels connected young communities separated by oceans and empires. The feast recalls that Catholic mission belongs to the whole Church and depends on local Christians who receive, translate, and hand on the faith."
+    }
+  ],
+  "historical_cautions": [
+    "Large traditional estimates of baptisms performed by Francis are difficult to verify and should not be presented as exact counts.",
+    "His work took place within Portuguese imperial networks; accounts should address that setting without reducing the mission either to colonial policy or to a story detached from it."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Vatican News: Saint Francis Xavier",
+      "url": "https://www.vaticannews.va/en/saints/12/03.html",
+      "note": "Overview of Xavier as Jesuit founder and missionary in Asia."
+    },
+    {
+      "label": "Benedict XVI to the Society of Jesus",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/speeches/2006/april/documents/hf_ben-xvi_spe_20060422_gesuiti.html",
+      "note": "Xavier's Asian mission and continuing missionary influence."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026. Review geographical names and the brief treatment of mission within Portuguese imperial structures before publication. Approved for publication September 9, 2026."
+  }
+}

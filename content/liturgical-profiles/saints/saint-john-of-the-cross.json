@@ -1,0 +1,65 @@
+{
+  "slug": "saint-john-of-the-cross",
+  "type": "saint",
+  "title": "Saint John of the Cross, Priest and Doctor of the Church",
+  "short_summary": "John of the Cross (1542-1591) was a Spanish Carmelite friar, reformer, spiritual teacher, and poet. His major works trace the soul's purification and transformation in union with God, using the imagery of night, ascent, fire, and the love between bride and bridegroom.",
+  "key_facts": [
+    "His memorial is celebrated on December 14.",
+    "The liturgical color is white.",
+    "He was born Juan de Yepes at Fontiveros, Spain, in 1542.",
+    "With Teresa of Ávila he helped establish the Discalced Carmelite reform.",
+    "His best-known works include The Ascent of Mount Carmel, Dark Night, Spiritual Canticle, and Living Flame of Love."
+  ],
+  "sections": [
+    {
+      "heading": "Poverty, study, and Carmel",
+      "body": "John's father died when he was young, leaving the family in severe poverty. At Medina del Campo he worked in a hospital and studied with the Jesuits before entering the Carmelite Order in 1563. He continued his studies at Salamanca and was ordained a priest in 1567. Considering a more secluded vocation, he instead met Teresa of Ávila, who enlisted him in her effort to renew Carmelite life."
+    },
+    {
+      "heading": "The Discalced reform",
+      "body": "John joined the first house of reformed Carmelite friars at Duruelo in 1568 and took the name John of the Cross. He later served as confessor to the nuns of the Incarnation at Ávila, where Teresa was prioress. The reform emphasized contemplative prayer, simplicity, and fidelity to the Carmelite rule, but resistance within the order led to years of conflict."
+    },
+    {
+      "heading": "Imprisonment and poetry",
+      "body": "In 1577 opponents seized John and confined him for about nine months in the Carmelite house at Toledo under harsh conditions. During imprisonment he composed the beginnings of the Spiritual Canticle and other poetry. He escaped in August 1578 and later held leadership roles as the Discalced branch gained legal independence."
+    },
+    {
+      "heading": "The dark night and union with God",
+      "body": "John's poems and prose commentaries describe spiritual growth as God's work of freeing a person from disordered attachments, inadequate images, and the need for consoling feelings. The 'dark night' is not simply depression or any period of hardship. In his theology it belongs to a process of purification by faith that opens the person to a more complete union of love with God."
+    },
+    {
+      "heading": "Death and influence",
+      "body": "After losing offices in an internal dispute, John became seriously ill and died at Úbeda during the night of December 13-14, 1591. He was canonized in 1726 and declared a Doctor of the Church in 1926. His poetry is also recognized as a major achievement of Spanish literature."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Faith beyond consolation",
+      "body": "John teaches that God cannot be reduced to feelings, images, or spiritual achievements. The theological virtues of faith, hope, and charity unite a person to God even when prayer feels empty or obscure."
+    },
+    {
+      "heading": "Purification for love",
+      "body": "Detachment in John's writing is not contempt for creation. It is freedom from possessiveness so that God and created things can be loved according to truth rather than used to satisfy a restless self."
+    }
+  ],
+  "historical_cautions": [
+    "John's technical term 'dark night' should not be used as a casual synonym for clinical depression, trauma, or every experience of suffering.",
+    "Accounts of Carmelite conflict should avoid turning a complicated institutional struggle into a simple contrast between reformers and opponents."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Benedict XVI on Saint John of the Cross",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2011/documents/hf_ben-xvi_aud_20110216.html",
+      "note": "Biography, Carmelite reform, major writings, and mystical teaching."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026. Carmelite theological review requested for the explanation of the dark night, detachment, and union with God. Approved for publication September 9, 2026."
+  }
+}

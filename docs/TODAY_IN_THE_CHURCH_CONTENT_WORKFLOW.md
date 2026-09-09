@@ -9,15 +9,26 @@ change task completion state.
 
 ## Architecture
 
-Calendar entries answer what the Church assigns to a date:
+Imported calendar facts answer what the Church assigns to a date:
 
 ```text
-content/liturgical-calendar/us-2026.json
+content/liturgical-calendar/us-gospel-season-facts.json
 ```
 
 Use this file for date, U.S. observance, season, rank, liturgical color, and
-short fallback summary. A calendar entry may include one primary `profile_slug`
-and `profile_type` for the main liturgical day.
+related observances. Do not add editorial prose or profile references to the
+imported facts file.
+
+Editorial profile links live separately:
+
+```text
+content/liturgical-calendar/profile-links.json
+```
+
+Each link identifies an exact date and observance title, whether it is the
+primary or a related observance, and the reusable profile slug. This separation
+keeps calendar refreshes deterministic and lets a reviewer approve, replace, or
+retire article content without editing imported facts.
 
 Calendar entries may also include secondary `related_observances` for optional,
 local, also-observed, or displaced observances. Related observances must not
@@ -50,11 +61,12 @@ Use the strongest available Catholic source for each claim.
 4. Roman Martyrology: official saint identification.
 5. New Advent, Butler's, religious orders, and diocesan sources: historical background.
 6. Franciscan Media, Catholic Culture, EWTN, and Catholic Answers: readable secondary support.
-7. Wikipedia: lead-finding only, not final authority.
+7. Wikipedia and Britannica: readable secondary synthesis and lead-finding.
 
-Wikipedia can be used to locate names, dates, alternate spellings, article
-structure, and cited sources. Verify important claims in the strongest source
-available and write original prose rather than adapting Wikipedia wording.
+Wikipedia can be used as a working base for names, dates, alternate spellings,
+article structure, and broad biographical coverage. Follow its citations and
+verify important claims in the strongest source available. Write original prose
+rather than copying or closely adapting Wikipedia wording.
 
 Do not use Protestant, secular, generic-Christian, modernist, sedevacantist,
 rage-blog, or random-blog framing as final source authority.
@@ -133,6 +145,35 @@ npm run scan:liturgical-content
 The scanner checks required fields, duplicate dates/slugs, profile references,
 related observances, review statuses, source presence, and obvious unsafe
 content. Warnings should be reviewed before commit. Errors must be fixed.
+
+The generated runtime registry must also match the individual profile files:
+
+```powershell
+npm run check:liturgical-profile-registry
+```
+
+## Rolling Draft Automation
+
+`.github/workflows/draft-liturgical-profiles.yml` runs weekly and can also be
+started manually. It looks ahead 70 days, finds primary or related observances
+without linked profiles, researches up to three of them, writes local JSON, and
+opens or updates a pull request. It never changes a profile to `approved` or
+`locked`, so generated prose cannot appear in the app without human review.
+
+The workflow requires the repository secret `OPENAI_API_KEY`. The optional
+repository variable `OPENAI_LITURGICAL_PROFILE_MODEL` selects the drafting model;
+the default is `gpt-5.4-mini`. When the secret is absent, the scheduled workflow
+exits successfully and records that drafting is not configured.
+
+Preview the candidate queue locally without an API call or file changes:
+
+```powershell
+npm run draft:liturgical-profiles -- --dry-run --start 2026-09-08 --days 70 --limit 10
+```
+
+Generated pull requests require factual, source, prose, and Catholic review.
+After review, change the selected profiles to `approved`, regenerate the
+registry, rerun both checks above, and then merge.
 
 ## Offline AI Drafting Prompt
 

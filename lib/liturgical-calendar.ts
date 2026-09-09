@@ -1,55 +1,8 @@
 import calendarData from "@/content/liturgical-calendar/us-2026.json";
 import gospelSeasonFacts from "@/content/liturgical-calendar/us-gospel-season-facts.json";
 import properOverlayData from "@/content/liturgical-calendar/proper-overlays-2026.json";
-import saintBonifaceProfile from "@/content/liturgical-profiles/saints/saint-boniface.json";
-import corpusChristiProfile from "@/content/liturgical-profiles/solemnities/corpus-christi.json";
-import saintJamesApostleProfile from "@/content/liturgical-profiles/feasts/saint-james-apostle.json";
-import saintMaryMagdaleneProfile from "@/content/liturgical-profiles/feasts/saint-mary-magdalene.json";
-import saintThomasApostleProfile from "@/content/liturgical-profiles/feasts/saint-thomas-apostle.json";
-import ourLadyOfMountCarmelProfile from "@/content/liturgical-profiles/other/our-lady-of-mount-carmel.json";
-import saintBarnabasProfile from "@/content/liturgical-profiles/saints/saint-barnabas.json";
-import saintBenedictProfile from "@/content/liturgical-profiles/saints/saint-benedict.json";
-import saintBernardProfile from "@/content/liturgical-profiles/saints/saint-bernard.json";
-import saintBonaventureProfile from "@/content/liturgical-profiles/saints/saint-bonaventure.json";
-import saintClareProfile from "@/content/liturgical-profiles/saints/saint-clare.json";
-import saintIgnatiusOfLoyolaProfile from "@/content/liturgical-profiles/saints/saint-ignatius-of-loyola.json";
-import saintJohnVianneyProfile from "@/content/liturgical-profiles/saints/saint-john-vianney.json";
-import saintKateriTekakwithaProfile from "@/content/liturgical-profiles/saints/saint-kateri-tekakwitha.json";
-import saintMaximilianKolbeProfile from "@/content/liturgical-profiles/saints/saint-maximilian-kolbe.json";
-import saintMonicaProfile from "@/content/liturgical-profiles/saints/saint-monica.json";
-import saintsJoachimAndAnneProfile from "@/content/liturgical-profiles/saints/saints-joachim-and-anne.json";
-import saintsMarthaMaryAndLazarusProfile from "@/content/liturgical-profiles/saints/saints-martha-mary-and-lazarus.json";
-import assumptionOfTheBlessedVirginMaryProfile from "@/content/liturgical-profiles/solemnities/assumption-of-the-blessed-virgin-mary.json";
-import nativityOfSaintJohnTheBaptistProfile from "@/content/liturgical-profiles/solemnities/nativity-of-saint-john-the-baptist.json";
-import sacredHeartOfJesusProfile from "@/content/liturgical-profiles/solemnities/sacred-heart-of-jesus.json";
-import saintsPeterAndPaulProfile from "@/content/liturgical-profiles/solemnities/saints-peter-and-paul.json";
-import transfigurationOfTheLordProfile from "@/content/liturgical-profiles/feasts/transfiguration-of-the-lord.json";
-import saintLawrenceProfile from "@/content/liturgical-profiles/feasts/saint-lawrence.json";
-import saintBartholomewApostleProfile from "@/content/liturgical-profiles/feasts/saint-bartholomew-apostle.json";
-import saintAugustineProfile from "@/content/liturgical-profiles/feasts/saint-augustine.json";
-import passionOfSaintJohnTheBaptistProfile from "@/content/liturgical-profiles/feasts/passion-of-saint-john-the-baptist.json";
-import blessedDianaAndCeciliaProfile from "@/content/liturgical-profiles/dominican/blessed-diana-and-cecilia.json";
-import blessedVirginMaryOfTheRosaryProfile from "@/content/liturgical-profiles/dominican/blessed-virgin-mary-of-the-rosary.json";
-import saintAlbertTheGreatProfile from "@/content/liturgical-profiles/dominican/saint-albert-the-great.json";
-import saintCatherineOfSienaProfile from "@/content/liturgical-profiles/dominican/saint-catherine-of-siena.json";
-import saintDominicProfile from "@/content/liturgical-profiles/dominican/saint-dominic.json";
-import saintMartinDePorresProfile from "@/content/liturgical-profiles/dominican/saint-martin-de-porres.json";
-import saintPiusVProfile from "@/content/liturgical-profiles/dominican/saint-pius-v.json";
-import saintRoseOfLimaProfile from "@/content/liturgical-profiles/dominican/saint-rose-of-lima.json";
-import saintThomasAquinasProfile from "@/content/liturgical-profiles/dominican/saint-thomas-aquinas.json";
-import saintAlphonsusLiguoriProfile from "@/content/liturgical-profiles/saints/saint-alphonsus-liguori.json";
-import saintEusebiusOfVercelliProfile from "@/content/liturgical-profiles/saints/saint-eusebius-of-vercelli.json";
-import saintPeterJulianEymardProfile from "@/content/liturgical-profiles/saints/saint-peter-julian-eymard.json";
-import dedicationOfTheBasilicaOfSaintMaryMajorProfile from "@/content/liturgical-profiles/feasts/dedication-of-the-basilica-of-saint-mary-major.json";
-import saintSixtusIIAndCompanionsProfile from "@/content/liturgical-profiles/saints/saint-sixtus-ii-and-companions.json";
-import saintCajetanProfile from "@/content/liturgical-profiles/saints/saint-cajetan.json";
-import saintJaneFrancesDeChantalProfile from "@/content/liturgical-profiles/saints/saint-jane-frances-de-chantal.json";
-import saintsPontianAndHippolytusProfile from "@/content/liturgical-profiles/saints/saints-pontian-and-hippolytus.json";
-import saintJohnEudesProfile from "@/content/liturgical-profiles/saints/saint-john-eudes.json";
-import saintPiusXProfile from "@/content/liturgical-profiles/saints/saint-pius-x.json";
-import queenshipOfTheBlessedVirginMaryProfile from "@/content/liturgical-profiles/other/queenship-of-the-blessed-virgin-mary.json";
-import saintLouisProfile from "@/content/liturgical-profiles/saints/saint-louis.json";
-import saintJosephCalasanzProfile from "@/content/liturgical-profiles/saints/saint-joseph-calasanz.json";
+import profileRegistry from "@/content/liturgical-calendar/generated-profile-registry.json";
+import profileLinkData from "@/content/liturgical-calendar/profile-links.json";
 
 export type LiturgicalCalendarSource = {
   label: string;
@@ -176,8 +129,31 @@ type ImportedLiturgicalFact = {
   sources: LiturgicalCalendarSource[];
 };
 
+export type LiturgicalProfileLink = {
+  date: string;
+  observance_title: string;
+  relation: "primary" | "related";
+  profile_slug: string;
+  profile_type: LiturgicalProfileType;
+  calendar_scope: LiturgicalCalendarScope;
+};
+
 const editorialDaysByDate = new Map(
   (calendarData as LiturgicalCalendarDay[]).map((day) => [day.date, day])
+);
+const profileLinks = profileLinkData as LiturgicalProfileLink[];
+const primaryProfileLinksByDate = new Map(
+  profileLinks
+    .filter((link) => link.relation === "primary")
+    .map((link) => [link.date, link])
+);
+const relatedProfileLinksByDateAndTitle = new Map(
+  profileLinks
+    .filter((link) => link.relation === "related")
+    .map((link) => [
+      `${link.date}:${comparableObservanceTitle(link.observance_title)}`,
+      link,
+    ])
 );
 
 function comparableObservanceTitle(value: string) {
@@ -207,7 +183,11 @@ function factualSummary(fact: ImportedLiturgicalFact) {
 
 function factualDay(fact: ImportedLiturgicalFact): LiturgicalCalendarDay {
   const editorial = editorialDaysByDate.get(fact.date);
+  const primaryProfileLink = primaryProfileLinksByDate.get(fact.date);
   const related = fact.related_observances.map((observance) => {
+    const profileLink = relatedProfileLinksByDateAndTitle.get(
+      `${fact.date}:${comparableObservanceTitle(observance.title)}`
+    );
     const editorialRelated = editorial?.related_observances?.find(
       (candidate) =>
         comparableObservanceTitle(candidate.title) ===
@@ -218,9 +198,10 @@ function factualDay(fact: ImportedLiturgicalFact): LiturgicalCalendarDay {
       ...observance,
       liturgical_color: observance.liturgical_color ?? undefined,
       summary: `The optional memorial of ${observance.title} may also be observed.`,
-      profile_slug: editorialRelated?.profile_slug,
-      profile_type: editorialRelated?.profile_type,
-      calendar_scope: editorialRelated?.calendar_scope,
+      profile_slug: profileLink?.profile_slug ?? editorialRelated?.profile_slug,
+      profile_type: profileLink?.profile_type ?? editorialRelated?.profile_type,
+      calendar_scope:
+        profileLink?.calendar_scope ?? editorialRelated?.calendar_scope,
     };
   });
   const summary = factualSummary(fact);
@@ -230,9 +211,10 @@ function factualDay(fact: ImportedLiturgicalFact): LiturgicalCalendarDay {
     summary,
     description: summary,
     catholic_connection: "",
-    profile_slug: editorial?.profile_slug,
-    profile_type: editorial?.profile_type,
-    calendar_scope: editorial?.calendar_scope ?? "us",
+    profile_slug: primaryProfileLink?.profile_slug ?? editorial?.profile_slug,
+    profile_type: primaryProfileLink?.profile_type ?? editorial?.profile_type,
+    calendar_scope:
+      primaryProfileLink?.calendar_scope ?? editorial?.calendar_scope ?? "us",
     is_optional: editorial?.is_optional,
     related_observances: related,
     isFactualOnly: true,
@@ -254,62 +236,10 @@ const daysByDate = new Map<string, LiturgicalCalendarDay>([
 const properOverlays = properOverlayData as LiturgicalProperCalendarOverlay[];
 
 const profilesBySlug = new Map(
-  (
-    [
-      saintBonifaceProfile,
-      corpusChristiProfile,
-      saintJamesApostleProfile,
-      saintMaryMagdaleneProfile,
-      saintThomasApostleProfile,
-      ourLadyOfMountCarmelProfile,
-      saintBarnabasProfile,
-      saintBenedictProfile,
-      saintBernardProfile,
-      saintBonaventureProfile,
-      saintClareProfile,
-      saintIgnatiusOfLoyolaProfile,
-      saintJohnVianneyProfile,
-      saintKateriTekakwithaProfile,
-      saintMaximilianKolbeProfile,
-      saintMonicaProfile,
-      saintsJoachimAndAnneProfile,
-      saintsMarthaMaryAndLazarusProfile,
-      assumptionOfTheBlessedVirginMaryProfile,
-      nativityOfSaintJohnTheBaptistProfile,
-      sacredHeartOfJesusProfile,
-      saintsPeterAndPaulProfile,
-      transfigurationOfTheLordProfile,
-      saintLawrenceProfile,
-      saintBartholomewApostleProfile,
-      saintAugustineProfile,
-      passionOfSaintJohnTheBaptistProfile,
-      blessedDianaAndCeciliaProfile,
-      blessedVirginMaryOfTheRosaryProfile,
-      saintAlbertTheGreatProfile,
-      saintCatherineOfSienaProfile,
-      saintDominicProfile,
-      saintMartinDePorresProfile,
-      saintPiusVProfile,
-      saintRoseOfLimaProfile,
-      saintThomasAquinasProfile,
-      saintAlphonsusLiguoriProfile,
-      saintEusebiusOfVercelliProfile,
-      saintPeterJulianEymardProfile,
-      dedicationOfTheBasilicaOfSaintMaryMajorProfile,
-      saintSixtusIIAndCompanionsProfile,
-      saintCajetanProfile,
-      saintJaneFrancesDeChantalProfile,
-      saintsPontianAndHippolytusProfile,
-      saintJohnEudesProfile,
-      saintPiusXProfile,
-      queenshipOfTheBlessedVirginMaryProfile,
-      saintLouisProfile,
-      saintJosephCalasanzProfile,
-    ] as LiturgicalProfile[]
-  ).map((profile) => [profile.slug, profile])
+  (profileRegistry as LiturgicalProfile[]).map((profile) => [profile.slug, profile])
 );
 
-function isDisplayableProfile(
+export function isDisplayableProfile(
   profile: LiturgicalProfile | undefined
 ): profile is LiturgicalProfile {
   return (

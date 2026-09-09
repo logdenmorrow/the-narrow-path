@@ -1,0 +1,67 @@
+{
+  "slug": "saint-ignatius-of-antioch",
+  "type": "saint",
+  "title": "Saint Ignatius of Antioch, Bishop and Martyr",
+  "short_summary": "Saint Ignatius of Antioch was an early second-century bishop and martyr whose seven surviving letters are among the most important Christian writings immediately after the New Testament. Written during his journey to execution at Rome, they defend Christ's real humanity, the Eucharist, ecclesial unity, and the ministry of bishops.",
+  "key_facts": [
+    "The U.S. calendar keeps Saint Ignatius of Antioch as a memorial on October 17.",
+    "The liturgical color is red.",
+    "Ignatius served as bishop of Antioch in Syria and was condemned to death during the Roman period.",
+    "He wrote seven letters while being taken under guard from Syria toward Rome.",
+    "His Letter to the Smyrnaeans contains the earliest surviving use of the expression Catholic Church."
+  ],
+  "sections": [
+    {
+      "heading": "Bishop of Antioch",
+      "body": "Antioch was one of the largest cities of the Roman Empire and an early center of Christianity. Acts records that followers of Jesus were first called Christians there. Later tradition places Ignatius among the city's earliest bishops. Little is securely known about his life before his arrest, but his letters reveal an experienced pastor addressing communities across Asia Minor."
+    },
+    {
+      "heading": "Journey to Rome",
+      "body": "Ignatius was sent west under military guard for execution. At Smyrna he wrote to the churches of Ephesus, Magnesia, Tralles, and Rome; at Troas he wrote to Philadelphia, Smyrna, and Bishop Polycarp. The letters thank churches for their support, warn against teachings he regarded as false, and ask Christians at Rome not to interfere with his expected martyrdom."
+    },
+    {
+      "heading": "Christ, Eucharist, and Church",
+      "body": "Against groups that denied the full reality of the Incarnation and Passion, Ignatius insisted that Jesus was truly born, truly suffered, and truly rose. He described the Eucharist in strongly realistic language and treated unity around the bishop, presbyters, and deacons as a safeguard of communion. His writing joins doctrine about Christ to the visible worship and organization of local churches."
+    },
+    {
+      "heading": "Martyrdom and legacy",
+      "body": "Tradition holds that Ignatius was killed by wild beasts in the Roman arena during the reign of Trajan. The exact year is uncertain, though a date near 107 is customary. His authentic letters circulated widely and influenced later Christian teaching about martyrdom, ordained ministry, the Eucharist, and the universal communion of the Church."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "The Catholic Church",
+      "body": "Ignatius used catholic to describe the Church gathered in the fullness of Christ. In his letters, universality did not dissolve local communities; it appeared through their shared faith, sacramental life, and communion."
+    },
+    {
+      "heading": "Martyrdom as witness",
+      "body": "The Greek word martyr means witness. Ignatius saw his death as testimony to the real Passion and Resurrection of Christ, not as contempt for bodily life or a search for suffering detached from faith."
+    }
+  ],
+  "historical_cautions": [
+    "Ancient chronology does not establish an exact year for Ignatius's martyrdom; around 107 is traditional but debated.",
+    "Later collections include expanded and spurious Ignatian letters. Historical discussion should rely on the recognized middle recension of seven letters.",
+    "Details about death by wild beasts at Rome belong to early tradition but are not narrated in the seven letters themselves."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color for the memorial."
+    },
+    {
+      "label": "Holy See: Benedict XVI on Saint Ignatius of Antioch",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2007/documents/hf_ben-xvi_aud_20070314.html",
+      "note": "Papal overview of Ignatius's episcopate, letters, Christology, Eucharistic teaching, and ecclesial unity."
+    },
+    {
+      "label": "New Advent: Saint Ignatius of Antioch",
+      "url": "https://www.newadvent.org/cathen/07644a.htm",
+      "note": "Historical reference on the letters, journey, and martyrdom tradition."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026 from USCCB, Holy See, and Catholic Encyclopedia sources. Review letter recension and chronology wording before publication. Approved for publication September 9, 2026."
+  }
+}

@@ -1,0 +1,154 @@
+name: Draft Today in the Church profiles
+
+on:
+  schedule:
+    - cron: '17 11 * * 2'
+  workflow_dispatch:
+    inputs:
+      start:
+        description: First calendar date (YYYY-MM-DD); blank uses the run date
+        required: false
+        type: string
+      days:
+        description: Inclusive lookahead window
+        required: false
+        default: '70'
+        type: string
+      limit:
+        description: Maximum profiles to draft
+        required: false
+        default: '3'
+        type: string
+      relations:
+        description: Calendar entries to draft
+        required: false
+        default: all
+        type: choice
+        options:
+          - all
+          - primary
+          - related
+
+concurrency:
+  group: draft-liturgical-profiles
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check drafting configuration
+        id: key
+        shell: bash
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [[ -n "$OPENAI_API_KEY" ]]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            {
+              echo "## Today in the Church drafting"
+              echo
+              echo "No drafts were created because the OPENAI_API_KEY repository secret is not configured."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Prepare persistent automation branch
+        if: steps.key.outputs.configured == 'true'
+        shell: bash
+        run: |
+          branch="automation/liturgical-profile-drafts"
+          default_branch="${{ github.event.repository.default_branch }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "$default_branch"
+          if git fetch origin "$branch"; then
+            git checkout -B "$branch" "origin/$branch"
+            git rebase "origin/$default_branch"
+          else
+            git checkout -b "$branch" "origin/$default_branch"
+          fi
+
+      - name: Set up Node.js
+        if: steps.key.outputs.configured == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.key.outputs.configured == 'true'
+        run: npm ci
+
+      - name: Draft source-backed profiles
+        if: steps.key.outputs.configured == 'true'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_LITURGICAL_PROFILE_MODEL || 'gpt-5.4-mini' }}
+          TODAY_DATE: ${{ inputs.start }}
+          LOOKAHEAD_DAYS: ${{ inputs.days || '70' }}
+          PROFILE_LIMIT: ${{ inputs.limit || '3' }}
+          PROFILE_RELATIONS: ${{ inputs.relations || 'all' }}
+        shell: bash
+        run: |
+          args=(--days "$LOOKAHEAD_DAYS" --limit "$PROFILE_LIMIT" --relations "$PROFILE_RELATIONS")
+          if [[ -n "$TODAY_DATE" ]]; then
+            args+=(--start "$TODAY_DATE")
+          fi
+          npm run draft:liturgical-profiles -- "${args[@]}"
+
+      - name: Validate generated content
+        if: steps.key.outputs.configured == 'true'
+        run: |
+          npm run check:liturgical-profile-registry
+          npm run scan:liturgical-content
+
+      - name: Detect draft changes
+        id: changes
+        if: steps.key.outputs.configured == 'true'
+        shell: bash
+        run: |
+          if git diff --quiet -- content/liturgical-profiles content/liturgical-calendar/profile-links.json content/liturgical-calendar/generated-profile-registry.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit drafts and open review pull request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          branch="automation/liturgical-profile-drafts"
+          git add content/liturgical-profiles content/liturgical-calendar/profile-links.json content/liturgical-calendar/generated-profile-registry.json
+          git commit -m "content: draft upcoming liturgical profiles"
+          git push --force-with-lease origin "HEAD:$branch"
+          if ! gh pr list --head "$branch" --state open --json number --jq 'length > 0' | grep -q true; then
+            gh pr create \
+              --head "$branch" \
+              --base "${{ github.event.repository.default_branch }}" \
+              --title "content: review upcoming Today in the Church profiles" \
+              --body "Automated, source-backed Today in the Church drafts. Every new profile remains marked needs_catholic_review and is hidden from the app until a reviewer explicitly approves it. Review facts, theology, prose, and source links before changing status or merging."
+          fi
+
+      - name: Record no-change result
+        if: steps.key.outputs.configured == 'true' && steps.changes.outputs.changed != 'true'
+        shell: bash
+        run: |
+          {
+            echo
+            echo "No new profile changes were needed in the configured lookahead window."
+          } >> "$GITHUB_STEP_SUMMARY"

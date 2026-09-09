@@ -1,0 +1,61 @@
+{
+  "slug": "saint-leo-the-great",
+  "type": "saint",
+  "title": "Saint Leo the Great, Pope and Doctor of the Church",
+  "short_summary": "Leo I, pope from 440 to 461, strengthened the teaching and pastoral authority of the Roman see during a period of theological controversy and political collapse. His Tome helped shape the Council of Chalcedon's account of Christ as truly divine and truly human in one person.",
+  "key_facts": [
+    "The Church keeps Saint Leo's memorial on November 10.",
+    "The liturgical color is white.",
+    "He served as bishop of Rome from 440 until his death in 461.",
+    "His letter to Flavian, commonly called the Tome of Leo, was influential at the Council of Chalcedon in 451.",
+    "He is one of the few popes traditionally given the title 'the Great.'"
+  ],
+  "sections": [
+    {
+      "heading": "Bishop of Rome in an age of crisis",
+      "body": "Leo became pope as the western Roman Empire was weakening under invasion, internal conflict, and administrative breakdown. He worked to preserve ecclesial discipline, settle disputes among bishops, oppose teachings he judged contrary to the apostolic faith, and explain the responsibilities of the Roman see. Nearly one hundred sermons and a large collection of letters survive from his pontificate."
+    },
+    {
+      "heading": "The Tome and Chalcedon",
+      "body": "A dispute about the person of Christ led Leo to write to Flavian, patriarch of Constantinople. The Tome insisted that the one person of Jesus Christ acts in both a complete divine nature and a complete human nature. The Council of Chalcedon received the letter in 451 and defined that Christ is one and the same Son, acknowledged in two natures without confusion, change, division, or separation."
+    },
+    {
+      "heading": "Pastor and preacher",
+      "body": "Leo's sermons connect doctrine to the Church year and Christian conduct. He preached that the Incarnation reveals both God's saving mercy and the dignity restored to humanity in Christ. He also urged almsgiving, fasting, reconciliation, and care for the poor, presenting worship and moral life as inseparable."
+    },
+    {
+      "heading": "Encounters with invaders",
+      "body": "Later memory especially associated Leo with his meeting with Attila the Hun in 452, after which Attila withdrew from Italy, and with his negotiations when the Vandals entered Rome in 455. The sources do not permit simple claims that Leo alone stopped either threat, but they show a pope assuming public responsibility when imperial institutions could offer little protection."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Jesus Christ, true God and true man",
+      "body": "Leo's Christological teaching protects the heart of Christian salvation: the eternal Son truly took human nature without ceasing to be God. What is not assumed is not healed; in Christ, divinity and humanity are united without being confused."
+    },
+    {
+      "heading": "Doctrine preached for life",
+      "body": "Leo did not treat theology as an abstract exercise. His Christmas and Passion sermons show how belief about Christ changes the way Christians understand their dignity, worship, and obligations to other people."
+    }
+  ],
+  "historical_cautions": [
+    "Ancient accounts do not establish that Leo single-handedly caused Attila's withdrawal from Italy.",
+    "Chalcedon's teaching drew on Scripture and earlier tradition as well as Leo's Tome; avoid portraying the definition as his work alone."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Benedict XVI on Saint Leo the Great",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2008/documents/hf_ben-xvi_aud_20080305.html",
+      "note": "Papal catechesis on Leo's life, preaching, Christology, and public role."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026 from USCCB and Holy See sources. Review the compressed Chalcedon formula and Attila cautions before publication. Approved for publication September 9, 2026."
+  }
+}

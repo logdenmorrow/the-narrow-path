@@ -1,0 +1,66 @@
+{
+  "slug": "saint-teresa-of-jesus",
+  "type": "saint",
+  "title": "Saint Teresa of Jesus, Virgin and Doctor of the Church",
+  "short_summary": "Saint Teresa of Jesus (1515-1582), also called Teresa of Ávila, was a Spanish Carmelite nun, reformer, mystic, and author. She founded a network of reformed Carmelite monasteries and wrote major works on prayer that led Paul VI to declare her a Doctor of the Church.",
+  "key_facts": [
+    "The U.S. calendar keeps Saint Teresa of Jesus as a memorial on October 15.",
+    "The liturgical color is white.",
+    "Teresa entered the Carmelite Monastery of the Incarnation at Ávila in 1535.",
+    "She founded the reformed monastery of Saint Joseph in 1562 and eventually established sixteen additional monasteries for women.",
+    "Her principal works include The Book of Her Life, The Way of Perfection, and The Interior Castle."
+  ],
+  "sections": [
+    {
+      "heading": "Early life and vocation",
+      "body": "Teresa de Cepeda y Ahumada was born at Ávila in 1515 into a large family. Her mother died when Teresa was young, and her father opposed her first desire to enter religious life. At twenty she entered the Carmelite Monastery of the Incarnation. Serious illness followed, along with years in which prayer, friendships, and the expectations of a large convent competed for her attention."
+    },
+    {
+      "heading": "Renewal of Carmel",
+      "body": "A deepening conversion in her late thirties led Teresa toward a more recollected form of Carmelite life. In 1562 she founded Saint Joseph's at Ávila, a small community committed to poverty, enclosure, common life, and sustained prayer. Despite opposition, she traveled across Spain to establish further monasteries. She also worked with Saint John of the Cross and others to begin the reform among Carmelite friars."
+    },
+    {
+      "heading": "Teacher of prayer",
+      "body": "Teresa wrote from experience rather than from university training. The Book of Her Life recounts her spiritual development; The Way of Perfection instructs her communities; and The Interior Castle describes growth in prayer through the image of a castle with many dwelling places. She treated prayer as friendship with Christ and insisted that authentic contemplation bears fruit in virtue, humility, obedience, and love of neighbor."
+    },
+    {
+      "heading": "Death and recognition",
+      "body": "Teresa died at Alba de Tormes in October 1582 while returning from a foundation. Her death coincided with Spain's adoption of the Gregorian calendar, which advanced the civil date from October 4 to October 15. Gregory XV canonized her in 1622. Paul VI proclaimed her a Doctor of the Church in 1970, making her one of the first women to receive the title."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Prayer as friendship",
+      "body": "Teresa understood prayer as a relationship with the humanity of Christ that develops through recollection, meditation, and contemplative grace. Extraordinary experiences remained secondary to love, humility, and fidelity within the Church."
+    },
+    {
+      "heading": "Reform and community",
+      "body": "Her reform joined solitude to common life. Small communities, material simplicity, and mutual charity created the setting in which contemplative prayer could serve the needs of the whole Church."
+    }
+  ],
+  "historical_cautions": [
+    "Teresa died during the calendar change in October 1582; sources describe the night as October 4 passing directly to October 15.",
+    "Descriptions of visions and mystical favors come principally from Teresa's own writings and the testimony surrounding her canonization."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color for the memorial."
+    },
+    {
+      "label": "Holy See: Benedict XVI on Saint Teresa of Ávila",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2011/documents/hf_ben-xvi_aud_20110202.html",
+      "note": "Papal biography and overview of Teresa's foundations, writings, and teaching on prayer."
+    },
+    {
+      "label": "Catechism of the Catholic Church 2709-2719",
+      "url": "https://www.vatican.va/archive/ENG0015/__P9M.HTM",
+      "note": "Catholic teaching on contemplative prayer, including Teresa's description of mental prayer."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026 from USCCB, Holy See, and Catechism sources. Review foundation count and calendar-transition wording before publication. Approved for publication September 9, 2026."
+  }
+}

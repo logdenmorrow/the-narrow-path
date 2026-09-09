@@ -1,0 +1,66 @@
+{
+  "slug": "all-faithful-departed",
+  "type": "other",
+  "title": "The Commemoration of All the Faithful Departed",
+  "short_summary": "All Souls' Day is the Church's annual commemoration of the faithful departed. Catholics pray that those who have died in friendship with God may be purified and brought into the joy of heaven, entrusting every person to the mercy won by Christ's death and resurrection.",
+  "key_facts": [
+    "The commemoration is observed on November 2.",
+    "It is commonly known as All Souls' Day.",
+    "The liturgy may use violet, white, or black vestments.",
+    "The day is devoted especially to prayer and Masses for the dead.",
+    "The observance follows All Saints and expresses the communion of the whole Church."
+  ],
+  "sections": [
+    {
+      "heading": "Prayer for the dead",
+      "body": "From its earliest generations, the Church prayed for Christians who had died. All Souls' Day concentrates that ancient practice in a universal commemoration. The names remembered include relatives and friends, members of local communities, victims of war and disaster, and people who died forgotten or unknown. Christian prayer for them rests on hope in the resurrection rather than on an attempt to deny the reality of death."
+    },
+    {
+      "heading": "The growth of the observance",
+      "body": "Monastic communities kept collective commemorations of their dead during the early Middle Ages. In 998, Odilo, abbot of Cluny, directed monasteries associated with Cluny to observe November 2 as a day of prayer for all the faithful departed. The practice spread through the Western Church and eventually entered the general Roman calendar."
+    },
+    {
+      "heading": "Purgatory and the mercy of God",
+      "body": "Catholic teaching holds that people who die in God's grace and friendship but still need purification are assured of salvation and are purified before entering the full joy of heaven. The Church has traditionally offered the Eucharistic sacrifice, prayers, almsgiving, and works of penance for the dead. This teaching is distinct from final condemnation: purgatory concerns those who belong to Christ."
+    },
+    {
+      "heading": "Cemeteries and remembrance",
+      "body": "Visits to cemeteries are a widespread part of the day. Families clean graves, light candles, pray, and remember the lives of those who have died. The custom joins personal grief to the Church's public prayer and places the dead within the Paschal mystery proclaimed at every Christian funeral."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Hope in the resurrection",
+      "body": "The Church mourns honestly while professing that death does not have the last word. Christ's resurrection is the foundation of prayer for the dead and of hope for the resurrection of the body."
+    },
+    {
+      "heading": "A continuing bond of charity",
+      "body": "Prayer for the dead is an act of love within the communion of saints. Those on earth can assist the departed through prayer, especially the offering of Mass."
+    }
+  ],
+  "historical_cautions": [
+    "Odilo of Cluny helped spread the November 2 observance but did not originate Christian prayer for the dead.",
+    "Popular descriptions should not present purgatory as a second chance after death or as equivalent to hell."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, title, and permitted liturgical colors."
+    },
+    {
+      "label": "Vatican News: Commemoration of All the Faithful Departed",
+      "url": "https://www.vaticannews.va/en/liturgical-holidays/commemoration-of-all-the-faithful-departed--all-souls-day-.html",
+      "note": "History, liturgy, and the Paschal character of prayer for the dead."
+    },
+    {
+      "label": "Catechism of the Catholic Church 1030-1032",
+      "url": "https://www.vatican.va/content/catechism/en/part_one/section_two/chapter_three/article_12/iii_the_final_purification,_or_purgatory.html",
+      "note": "Catholic doctrine on final purification and prayer for the dead."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026. Review the explanation of purgatory and confirm the Catechism anchor before publication. Approved for publication September 9, 2026."
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "slug": "saint-jerome",
+  "type": "saint",
+  "title": "Saint Jerome, Priest and Doctor of the Church",
+  "short_summary": "Saint Jerome (c. 347-419/420) was a priest, monk, biblical scholar, and Doctor of the Church. His translations and revisions of Scripture formed the basis of the Latin Vulgate, and his commentaries, letters, and biographies shaped Western Christian study for centuries.",
+  "key_facts": [
+    "The U.S. calendar keeps Saint Jerome as a memorial on September 30.",
+    "The liturgical color is white.",
+    "Jerome was born at Stridon, studied at Rome, and learned Greek and Hebrew as well as Latin.",
+    "Pope Damasus I commissioned him to revise the existing Latin Gospel texts.",
+    "He lived and worked at Bethlehem from 386 until his death around 420."
+  ],
+  "sections": [
+    {
+      "heading": "Education and conversion",
+      "body": "Jerome was born around 347 at Stridon, on the border of Dalmatia and Pannonia. He received a classical education at Rome and was baptized there as a young adult. After joining an ascetic circle at Aquileia, he traveled east and spent time as a hermit near Chalcis in Syria. His study of Greek and then Hebrew gave him linguistic tools rare among Latin Christian writers of his period."
+    },
+    {
+      "heading": "Rome and the biblical text",
+      "body": "Jerome returned to Rome in 382 and served Pope Damasus as secretary and adviser. Damasus asked him to revise the Latin Gospels against Greek manuscripts because existing Latin copies varied widely. Jerome also became a teacher and spiritual adviser to a circle of Roman women, including Paula and Marcella, who pursued Scripture and ascetic life with him."
+    },
+    {
+      "heading": "Bethlehem and the Vulgate",
+      "body": "After Damasus died, Jerome left Rome and settled at Bethlehem with Paula and other companions. There he directed monastic communities, received pilgrims, wrote biblical commentaries, and translated much of the Old Testament from Hebrew. His work, together with older Latin books retained alongside it, became the Vulgate. The Council of Trent later recognized the Vulgate's authoritative use in the Latin Church, and a revised Neo-Vulgate remains the Church's official Latin edition."
+    },
+    {
+      "heading": "Writer and controversialist",
+      "body": "Jerome's surviving letters reveal wide learning, pastoral attention, fierce friendships, and an often combative temperament. He defended Christian asceticism and perpetual virginity, wrote lives of monks and a catalogue of Christian authors, and entered major theological disputes. He died at Bethlehem on September 30 around 420."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Scripture in the Church",
+      "body": "Jerome joined close attention to biblical languages with reading inside the faith of the Church. His work shows why translation, textual study, preaching, liturgy, and Christian life belong together in Catholic engagement with Scripture."
+    },
+    {
+      "heading": "A Doctor of the Church",
+      "body": "Jerome's title recognizes the lasting importance of his biblical scholarship and teaching. It does not imply that every opinion or polemical judgment in his extensive writings is adopted by the Church."
+    }
+  ],
+  "historical_cautions": [
+    "Jerome's year of death is variously given as 419 or 420.",
+    "The Vulgate is a collection with a complex textual history; avoid suggesting that Jerome personally translated every book in its later standard form.",
+    "Claims about Jerome should distinguish his own writings from later artistic traditions, including the familiar image of a cardinal's red garments."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color for the memorial."
+    },
+    {
+      "label": "Holy See: Benedict XVI on Saint Jerome",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2007/documents/hf_ben-xvi_aud_20071107.html",
+      "note": "Papal biography covering Jerome's life, biblical work, writings, and the Vulgate."
+    },
+    {
+      "label": "Holy See: Benedict XVI on Jerome's Teaching",
+      "url": "https://www.vatican.va/content/benedict-xvi/en/audiences/2007/documents/hf_ben-xvi_aud_20071114.html",
+      "note": "Papal account of Jerome's approach to Scripture, Church teaching, asceticism, and education."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026 from USCCB and Holy See sources. Review Vulgate terminology and death-date uncertainty before publication. Approved for publication September 9, 2026."
+  }
+}

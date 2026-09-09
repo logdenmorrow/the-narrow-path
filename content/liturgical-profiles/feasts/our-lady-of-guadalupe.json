@@ -1,0 +1,71 @@
+{
+  "slug": "our-lady-of-guadalupe",
+  "type": "feast",
+  "title": "Our Lady of Guadalupe",
+  "short_summary": "Our Lady of Guadalupe is the title given to Mary in connection with the apparitions received by Saint Juan Diego near Mexico City in December 1531 and the image preserved on his tilma. The shrine at Tepeyac became a center of Mexican Catholic life and one of the world's great pilgrimage destinations.",
+  "key_facts": [
+    "The feast is celebrated throughout the Americas on December 12.",
+    "The liturgical color is white.",
+    "Catholic tradition dates the apparitions to December 9-12, 1531.",
+    "Saint Juan Diego Cuauhtlatoatzin was canonized in 2002.",
+    "Our Lady of Guadalupe is honored as patroness of the Americas."
+  ],
+  "sections": [
+    {
+      "heading": "The Guadalupe tradition",
+      "body": "According to the traditional account, Mary appeared to the Indigenous convert Juan Diego on the hill of Tepeyac and asked that a church be built there. Bishop Juan de Zumárraga requested a sign. On December 12 Juan Diego gathered Castilian roses, out of season and not native to the region, in his cloak. When he opened the tilma before the bishop, the flowers fell and an image of Mary appeared on the fabric."
+    },
+    {
+      "heading": "The image",
+      "body": "The image shows a young woman standing before the sun, clothed in a rose-colored garment and a blue-green mantle patterned with stars, with the moon beneath her feet. Its imagery has been interpreted through Revelation 12 as well as through Spanish and Indigenous visual languages. The tilma is displayed above the main altar of the modern Basilica of Our Lady of Guadalupe in Mexico City."
+    },
+    {
+      "heading": "Sources and historical record",
+      "body": "The fullest early narrative is the Nican Mopohua, written in Nahuatl and published in 1649 by Luis Laso de la Vega, probably drawing on older oral or written material. Other sixteenth- and seventeenth-century sources attest growing devotion at Tepeyac. Historians continue to discuss the dating and authorship of particular documents, while the Catholic cult and shrine have an unbroken public history extending over centuries."
+    },
+    {
+      "heading": "A continental feast",
+      "body": "Guadalupe became a powerful religious and cultural symbol in Mexico and among communities throughout the Americas. Pope John Paul II canonized Juan Diego at the basilica in 2002. The Holy See established December 12 as a feast across the American continent, and the title is closely associated with evangelization, solidarity among peoples, and the dignity of Indigenous cultures."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Mary points to Christ",
+      "body": "Guadalupe devotion presents Mary as the mother who brings Christ to a people and gathers them around him. Authentic Marian devotion is directed toward deeper faith in her Son and a more faithful life of discipleship."
+    },
+    {
+      "heading": "Faith expressed in a local culture",
+      "body": "The image and Nahuatl tradition show Catholic faith taking root through particular languages, symbols, and communities. Inculturation does not make the Gospel less universal; it gives the universal faith a lived home."
+    }
+  ],
+  "historical_cautions": [
+    "The documentary history includes scholarly disputes about dates, authorship, and the relationship between written accounts and earlier oral tradition.",
+    "Scientific claims about the tilma and image vary in quality; do not repeat sensational claims without a reliable primary study."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Holy See Decree for the Feast of Our Lady of Guadalupe",
+      "url": "https://www.vatican.va/roman_curia/congregations/ccdds/documents/rc_con_ccdds_doc_20000628_guadalupe_sp.html",
+      "note": "Establishment of the December 12 feast throughout the Americas and its Marian theology."
+    },
+    {
+      "label": "John Paul II: Canonization of Saint Juan Diego",
+      "url": "https://www.vatican.va/content/john-paul-ii/en/homilies/2002/documents/hf_jp-ii_hom_20020731_canonization-mexico.html",
+      "note": "Juan Diego, Guadalupe, Indigenous dignity, and the 2002 canonization."
+    },
+    {
+      "label": "Francis at the Basilica of Guadalupe",
+      "url": "https://www.vatican.va/content/francesco/en/homilies/2016/documents/papa-francesco_20160213_omelia-messico-guadalupe.html",
+      "note": "Papal account of the traditional narrative and its spiritual meaning."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026. Historical and cultural review required, especially for the Nican Mopohua chronology, image symbolism, and description of documentary debates. Approved for publication September 9, 2026."
+  }
+}

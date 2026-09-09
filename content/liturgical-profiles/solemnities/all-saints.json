@@ -1,0 +1,66 @@
+{
+  "slug": "all-saints",
+  "type": "solemnity",
+  "title": "All Saints",
+  "short_summary": "All Saints honors the whole company of the blessed in heaven: famous saints, little-known saints, and the countless holy men and women whose names are known only to God. The solemnity presents sanctity as the common vocation of every Christian and heaven as the fulfillment of life in Christ.",
+  "key_facts": [
+    "The Church celebrates All Saints on November 1.",
+    "It is a solemnity and the liturgical color is white.",
+    "The celebration includes canonized saints and all others who share the life of heaven.",
+    "Its Gospel is the Beatitudes, which describe the character of life in God's kingdom.",
+    "In the United States, November 1 is ordinarily a holy day of obligation, subject to the rules of the bishops' conference."
+  ],
+  "sections": [
+    {
+      "heading": "The saints in glory",
+      "body": "The solemnity gathers into one celebration all who have reached the fullness of life with God. Some are remembered throughout the world and others belonged to a single family, parish, monastery, or place. Many passed through history without public recognition. What unites them is not fame but communion with Christ, whose grace brought their lives to completion."
+    },
+    {
+      "heading": "How the feast developed",
+      "body": "Christians first commemorated groups of martyrs, especially where persecution had made individual anniversaries difficult to observe. A common celebration of the saints developed in the early centuries. In Rome, Pope Boniface IV dedicated the Pantheon as a church in honor of the Blessed Virgin Mary and all the martyrs in 609 or 610. The November 1 observance became established in the West during the early Middle Ages and was extended more broadly through the Latin Church."
+    },
+    {
+      "heading": "The Beatitudes",
+      "body": "The Mass proclaims Matthew's account of the Beatitudes. Jesus calls blessed the poor in spirit, the merciful, the pure of heart, the peacemakers, and those who suffer for righteousness. The saints are not a separate class of humanity; their lives show the many forms that fidelity to these words can take in different periods, cultures, vocations, and circumstances."
+    },
+    {
+      "heading": "All Saints and All Souls",
+      "body": "All Saints is followed on November 2 by the Commemoration of All the Faithful Departed. The first day rejoices in those who already share the vision of God; the second is devoted to prayer for the dead who still await the fullness of purification. Together the two days express the communion of the Church on earth, the souls being purified, and the saints in heaven."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "The universal call to holiness",
+      "body": "Holiness is not reserved for clergy, religious, or unusually dramatic lives. By baptism every Christian is called to union with God and to the perfection of charity in the duties and relationships of ordinary life."
+    },
+    {
+      "heading": "The communion of saints",
+      "body": "Catholics ask the saints to pray with and for the Church because death does not break the unity of Christ's Body. Worship belongs to God alone; the saints are honored as his redeemed friends and witnesses."
+    }
+  ],
+  "historical_cautions": [
+    "Accounts differ on whether the Pantheon dedication occurred in 609 or 610.",
+    "The history of a common feast for all saints developed through several local traditions; avoid reducing it to a single founding event."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Vatican News: Solemnity of All Saints",
+      "url": "https://www.vaticannews.va/en/liturgical-holidays/solemnity-of-all-saints.html",
+      "note": "Liturgical meaning, readings, and historical development of the solemnity."
+    },
+    {
+      "label": "Catechism of the Catholic Church 946-962",
+      "url": "https://www.vatican.va/content/catechism/en/part_one/section_two/chapter_three/article_9/paragraph_5_the_communion_of_saints.html",
+      "note": "Catholic teaching on the communion of saints and the Church's three states."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026 from USCCB, Holy See, and Vatican News sources. Verify holy-day wording and the compressed history of the November observance before publication. Approved for publication September 9, 2026."
+  }
+}

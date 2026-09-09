@@ -1,0 +1,66 @@
+{
+  "slug": "saints-cornelius-and-cyprian",
+  "type": "saint",
+  "title": "Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs",
+  "short_summary": "Saints Cornelius and Cyprian were third-century bishops who defended the unity of the Church during persecution and schism. Though they served in Rome and Carthage, their friendship and surviving correspondence joined them in the controversy over Christians who had denied the faith under threat and later sought reconciliation.",
+  "key_facts": [
+    "The U.S. calendar keeps their joint memorial on September 16.",
+    "The liturgical color is red.",
+    "Cornelius was elected bishop of Rome in 251 and opposed the schism led by Novatian.",
+    "Cyprian became bishop of Carthage around 249 and was one of the leading Latin Christian writers of the third century.",
+    "Cornelius died in exile in 253, and Cyprian was executed at Carthage in 258."
+  ],
+  "sections": [
+    {
+      "heading": "Persecution and the lapsed",
+      "body": "The emperor Decius ordered inhabitants of the empire to perform a public sacrifice in 250. Many Christians refused and were imprisoned or killed, while others complied or obtained certificates saying they had sacrificed. When persecution eased, the Church faced a difficult question: how should those who had lapsed be reconciled? Cornelius and Cyprian supported repentance and ecclesial restoration, resisting both automatic readmission and the rigorist claim that the Church could never absolve grave post-baptismal sin."
+    },
+    {
+      "heading": "Cornelius and the Roman schism",
+      "body": "Cornelius was elected bishop of Rome in 251 after a vacancy caused by persecution. Novatian rejected his election and established a rival community, arguing for a permanently exclusionary policy toward the lapsed. Cyprian and other bishops recognized Cornelius. Their correspondence records the effort to preserve communion while maintaining serious penance. Emperor Gallus later exiled Cornelius to Civitavecchia, where he died in 253."
+    },
+    {
+      "heading": "Cyprian of Carthage",
+      "body": "Cyprian was a trained rhetorician who converted to Christianity as an adult and soon became bishop of Carthage. His writings on unity, prayer, suffering, and ecclesial discipline became influential in Latin Christianity. He sometimes disagreed sharply with Rome, especially over the rebaptism of heretics, but he regarded the communion of bishops as essential to the Church. He was beheaded during the persecution of Valerian on September 14, 258."
+    },
+    {
+      "heading": "A shared memorial",
+      "body": "The Roman tradition joined Cornelius and Cyprian because of their friendship, their common defense of ecclesial unity, and their deaths under persecution. Their memorial is observed on September 16, an ancient date associated with Cornelius and close to the anniversary of Cyprian's martyrdom."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Penance and reconciliation",
+      "body": "Their controversy concerned the Church's authority to reconcile baptized Christians after grave sin. The position they defended held together the seriousness of apostasy, the necessity of repentance, and the mercy Christ entrusted to his Church."
+    },
+    {
+      "heading": "Communion of the bishops",
+      "body": "Cornelius and Cyprian understood Christian unity as a visible communion of local churches gathered around their bishops. Their friendship across the Mediterranean showed that persecution could not be faced by isolated communities alone."
+    }
+  ],
+  "historical_cautions": [
+    "Ancient sources differ over whether Cornelius died directly from mistreatment or from the hardships of exile; the Church venerates him as a martyr.",
+    "Cyprian's disputes with Pope Stephen I should be described alongside, rather than used to erase, his strong teaching on ecclesial unity."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color for the memorial."
+    },
+    {
+      "label": "Vatican News: Saints Cornelius and Cyprian",
+      "url": "https://www.vaticannews.va/es/santos/09/16/ss--cornelio--papa-y-cipriano--obispo--martires.html",
+      "note": "Catholic biography of the two martyrs and the controversy over reconciliation of the lapsed."
+    },
+    {
+      "label": "Catechism of the Catholic Church 981-983",
+      "url": "https://www.vatican.va/archive/ENG0015/__P2E.HTM",
+      "note": "Catholic teaching on the Church's ministry of forgiveness after Baptism."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026 from USCCB, Vatican News, and Catechism sources. Review martyrdom wording and third-century chronology before publication. Approved for publication September 9, 2026."
+  }
+}

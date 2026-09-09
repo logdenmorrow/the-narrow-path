@@ -1,0 +1,71 @@
+{
+  "slug": "holy-innocents",
+  "type": "feast",
+  "title": "The Holy Innocents, Martyrs",
+  "short_summary": "The Holy Innocents are the children of Bethlehem killed in Matthew's Gospel after Herod learned of the birth of a possible rival king. Christian tradition honors them as martyrs because they died in the violence directed against Christ, even though they could not knowingly profess him.",
+  "key_facts": [
+    "Their feast is celebrated on December 28.",
+    "The liturgical color is red.",
+    "The massacre is narrated in Matthew 2:16-18.",
+    "Matthew connects the event with Rachel's lament in Jeremiah 31.",
+    "The Church has commemorated the children as martyrs since late antiquity."
+  ],
+  "sections": [
+    {
+      "heading": "Herod and the Magi",
+      "body": "Matthew tells that Magi from the east came to Jerusalem seeking the newborn king of the Jews. Herod, whose rule depended on Rome and whose family history included the execution of perceived rivals, asked them to report where the child was found. Warned in a dream, they returned by another route. Joseph likewise received a warning and took Jesus and Mary into Egypt."
+    },
+    {
+      "heading": "The children of Bethlehem",
+      "body": "When the Magi did not return, Herod ordered the killing of boys in Bethlehem and its vicinity who were two years old or younger. Matthew interprets the grief through Jeremiah's image of Rachel weeping for her children. The account places political terror alongside the joy of the Nativity and identifies Jesus from childhood with Israel's suffering and deliverance."
+    },
+    {
+      "heading": "History and the Gospel account",
+      "body": "No surviving non-biblical source independently records the massacre. Bethlehem was a small settlement, so the number of victims would likely have been far below the large totals proposed in later tradition. The episode is consistent with the brutality attributed to Herod in ancient sources, but its historical assessment depends primarily on Matthew's narrative."
+    },
+    {
+      "heading": "Why they are called martyrs",
+      "body": "The children did not choose death or articulate a confession of faith. The Church nevertheless honors them as martyrs because their deaths were caused by Herod's rejection of Christ. Augustine described them as witnesses who could not yet speak, baptized not with water but with their own blood. Their feast is documented in the Western Church by the early medieval period and has roots in late-antique commemoration."
+    }
+  ],
+  "catholic_connection_sections": [
+    {
+      "heading": "Christmas amid human suffering",
+      "body": "The feast refuses to separate the birth of Christ from the violence endured by children and families. It calls Christians to protect vulnerable life and to hear the grief of parents whose children are threatened, exploited, displaced, or killed."
+    },
+    {
+      "heading": "Grace before conscious achievement",
+      "body": "Honoring the Innocents expresses the conviction that God's saving love is not limited by age, speech, or human accomplishment. Their dignity rests in God's gift and in their mysterious association with Christ."
+    }
+  ],
+  "historical_cautions": [
+    "The massacre is not independently attested outside Matthew's Gospel; state that clearly without claiming either historical proof or disproof beyond the evidence.",
+    "Later estimates ranging into thousands are implausible for the probable population of ancient Bethlehem and should not be repeated as fact."
+  ],
+  "source_refs": [
+    {
+      "label": "USCCB 2026 Liturgical Calendar",
+      "url": "https://www.usccb.org/resources/2026cal.pdf",
+      "note": "U.S. date, rank, and liturgical color."
+    },
+    {
+      "label": "Vatican News: Holy Innocents, Martyrs",
+      "url": "https://www.vaticannews.va/en/saints/12/28.html",
+      "note": "Liturgical identification of the children of Bethlehem as martyrs."
+    },
+    {
+      "label": "Holy See Directory on Popular Piety and the Liturgy 107, 113",
+      "url": "https://press.vatican.va/roman_curia/congregations/ccdds/documents/rc_con_ccdds_doc_20020513_vers-direttorio_en.html",
+      "note": "The feast within Christmas Time and the Church's ancient commemoration of the children as martyrs."
+    },
+    {
+      "label": "USCCB Bible: Matthew 2",
+      "url": "https://bible.usccb.org/bible/matthew/2",
+      "note": "Primary Gospel narrative of the Magi, flight into Egypt, and massacre at Bethlehem."
+    }
+  ],
+  "review": {
+    "status": "approved",
+    "notes": "Drafted September 8, 2026. Scripture and historical-method review required for the discussion of independent attestation and probable victim counts. Approved for publication September 9, 2026."
+  }
+}
