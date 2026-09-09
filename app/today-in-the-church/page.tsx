@@ -503,7 +503,7 @@ function RelatedProfileSection({
   profile: LiturgicalProfile;
 }) {
   return (
-    <SurfaceCard>
+    <SurfaceCard id="related-profile" className="scroll-mt-6">
       <SectionHeader
         kicker={getRelatedObservanceRelationLabel(observance.relation)}
         title={profile.title}

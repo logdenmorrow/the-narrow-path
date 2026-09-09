@@ -80,6 +80,22 @@ rage-blog, or random-blog framing as final source authority.
 
 Only `approved` and `locked` profiles display in the app.
 
+Special Church events that are real, dated ecclesial events but are not entries
+in the USCCB liturgical calendar live separately:
+
+```text
+content/liturgical-calendar/special-events.json
+```
+
+Use this file for events such as a beatification. A special event appears as an
+also-observed item and must never replace the primary liturgical day imported
+from the USCCB calendar. It may link to a reviewed profile and may define a
+date-scoped in-app notice. The notice is shown only to signed-in users, only on
+the exact event date in the application's Eastern time zone, and only when both
+the event and profile are approved or locked. Dismissing or opening it records a
+local dismissal so it does not repeatedly interrupt the same browser. This is
+an in-app announcement, not a push notification or reminder.
+
 ## Content Tiers
 
 - Ordinary weekday short: calendar fallback copy is usually enough.
