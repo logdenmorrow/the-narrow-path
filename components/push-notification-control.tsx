@@ -22,6 +22,10 @@ type PreviousState = Exclude<ControlState, "saving">;
 
 const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? "";
 
+type PushNotificationControlProps = {
+  onEnabled?: () => void;
+};
+
 async function getServiceWorkerRegistration() {
   const existingRegistration = await navigator.serviceWorker.getRegistration("/");
 
@@ -59,7 +63,7 @@ function getPermissionState() {
   return "Notification" in window ? Notification.permission : "default";
 }
 
-export function PushNotificationControl() {
+export function PushNotificationControl({ onEnabled }: PushNotificationControlProps = {}) {
   const [state, setState] = useState<ControlState>("checking");
   const [previousState, setPreviousState] = useState<PreviousState>("checking");
   const [message, setMessage] = useState<string>("Checking this browser...");
@@ -99,6 +103,7 @@ export function PushNotificationControl() {
         setState("enabled");
         setPreviousState("enabled");
         setMessage("Notifications are enabled on this device.");
+        onEnabled?.();
         return;
       }
 
@@ -117,7 +122,7 @@ export function PushNotificationControl() {
       setPreviousState("error");
       setMessage("Unable to read notification status in this browser.");
     }
-  }, []);
+  }, [onEnabled]);
 
   useEffect(() => {
     void refreshState();
@@ -191,6 +196,7 @@ export function PushNotificationControl() {
       setState("enabled");
       setPreviousState("enabled");
       setMessage("Notifications are enabled on this device.");
+      onEnabled?.();
     } catch (error) {
       console.error("Unable to enable push notifications.", error);
       setState("error");

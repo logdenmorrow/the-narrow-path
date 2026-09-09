@@ -161,3 +161,100 @@ test("keeps James available as a read-only past season", async ({ page }) => {
   await expect(page.getByRole("button", { name: /Toggle completion/i }).first()).toBeDisabled();
   await expect(page.getByText("Admin preview only")).toHaveCount(0);
 });
+
+test("hides the Dashboard notification card for an active device subscription", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const subscription = {
+      endpoint: "https://push.example.test/subscription",
+      toJSON: () => ({ endpoint: "https://push.example.test/subscription" }),
+    };
+    const registration = {
+      pushManager: {
+        getSubscription: async () => {
+          (
+            window as typeof window & {
+              __pushSubscriptionChecked?: boolean;
+            }
+          ).__pushSubscriptionChecked = true;
+          return subscription;
+        },
+      },
+      update: async () => undefined,
+    };
+    const serviceWorker = {
+      controller: null,
+      getRegistration: async () => registration,
+      register: async () => registration,
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+    };
+
+    Object.defineProperty(window, "PushManager", {
+      configurable: true,
+      value: function PushManager() {},
+    });
+    Object.defineProperty(window.Notification, "permission", {
+      configurable: true,
+      get: () => "granted",
+    });
+    Object.defineProperty(window.navigator, "serviceWorker", {
+      configurable: true,
+      value: serviceWorker,
+    });
+  });
+
+  await page.goto("/dashboard");
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () =>
+          (
+            window as typeof window & {
+              __pushSubscriptionChecked?: boolean;
+            }
+          ).__pushSubscriptionChecked
+      )
+    )
+    .toBe(true);
+  await expect(
+    page.getByRole("heading", { name: "Device Notifications", exact: true })
+  ).toHaveCount(0);
+});
+
+test("shows the Dashboard notification card when this device is not subscribed", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const registration = {
+      update: async () => undefined,
+    };
+    const serviceWorker = {
+      controller: null,
+      getRegistration: async () => undefined,
+      register: async () => registration,
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+    };
+
+    Object.defineProperty(window, "PushManager", {
+      configurable: true,
+      value: function PushManager() {},
+    });
+    Object.defineProperty(window.Notification, "permission", {
+      configurable: true,
+      get: () => "default",
+    });
+    Object.defineProperty(window.navigator, "serviceWorker", {
+      configurable: true,
+      value: serviceWorker,
+    });
+  });
+
+  await page.goto("/dashboard");
+  await expect(
+    page.getByRole("heading", { name: "Device Notifications", exact: true })
+  ).toBeVisible();
+  await expect(page.getByRole("button", { name: "Enable", exact: true })).toBeVisible();
+});
