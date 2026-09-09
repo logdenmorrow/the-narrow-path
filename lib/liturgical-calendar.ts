@@ -239,7 +239,7 @@ const profilesBySlug = new Map(
   (profileRegistry as LiturgicalProfile[]).map((profile) => [profile.slug, profile])
 );
 
-function isDisplayableProfile(
+export function isDisplayableProfile(
   profile: LiturgicalProfile | undefined
 ): profile is LiturgicalProfile {
   return (

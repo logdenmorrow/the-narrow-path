@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
   getLiturgicalCalendarDay,
   getLiturgicalProfileForDay,
+  isDisplayableProfile,
+  type LiturgicalProfile,
 } from "@/lib/liturgical-calendar";
 
 describe("Gospel-season USCCB calendar facts", () => {
@@ -48,7 +50,7 @@ describe("Gospel-season USCCB calendar facts", () => {
     ]);
   });
 
-  it("links review-gated editorial profiles without displaying draft prose", () => {
+  it("displays an approved linked editorial profile", () => {
     const day = getLiturgicalCalendarDay("2026-09-08");
 
     expect(day).toMatchObject({
@@ -57,6 +59,19 @@ describe("Gospel-season USCCB calendar facts", () => {
       profile_type: "feast",
       calendar_scope: "us",
     });
-    expect(getLiturgicalProfileForDay(day)).toBeNull();
+    expect(getLiturgicalProfileForDay(day)).toMatchObject({
+      slug: "nativity-of-the-blessed-virgin-mary",
+      review: { status: "approved" },
+    });
+  });
+
+  it.each([
+    ["draft", false],
+    ["needs_catholic_review", false],
+    ["approved", true],
+    ["locked", true],
+  ] as const)("applies the editorial review gate to %s profiles", (status, expected) => {
+    const profile = { review: { status } } as LiturgicalProfile;
+    expect(isDisplayableProfile(profile)).toBe(expected);
   });
 });
