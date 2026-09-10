@@ -382,7 +382,7 @@ export default async function TodayPage({
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="monastic-card p-6">
             <h1 className="text-3xl font-bold">Today</h1>
-            <p className="mt-3 text-monastic-1">No active challenge plan was found.</p>
+            <p className="mt-3 text-monastic-1">No active season plan was found.</p>
           </div>
         </div>
       </main>
@@ -602,9 +602,9 @@ export default async function TodayPage({
               <SectionHeader
                 kicker="Reset"
                 title="Optional Today"
-                description="There is no daily task pressure during the reset period. These stay available if you want them."
+                description="There is no daily task pressure during the break. These stay available if you want them."
               />
-              <div className="mt-5 space-y-3">
+              <div className="mt-5 space-y-2 sm:space-y-3">
                 {resetOptionalTasks.map((task) => {
                   const route = RESET_TASK_ROUTES[task.slug];
                   return (
@@ -621,6 +621,7 @@ export default async function TodayPage({
                       isOptional={true}
                       completed={task.isCompleted}
                       locked={false}
+                      compact
                       hideToggle={isLiturgyOfTheHoursSlug(task.slug)}
                       planSlug={currentPlanSlug}
                       secondaryAction={
@@ -654,7 +655,7 @@ export default async function TodayPage({
               <SectionHeader
                 kicker="Reset"
                 title="Prayer Resources Stay Open"
-                description="There is no daily task pressure during the reset period. Community and past days remain available."
+                description="There is no daily task pressure during the break. Community and past days remain available."
               />
               <div className="mt-5 grid gap-3 sm:grid-cols-4">
                 <SurfaceInset>
@@ -1006,8 +1007,8 @@ export default async function TodayPage({
   const prayerRequest = (prayerRequestData ?? null) as PrayerRequestRow | null;
   const accountabilityHelperText = !accountabilityEnabled
     ? challenge.hasStarted
-      ? "Prayer Requests are only available on today's challenge day."
-      : "These fields will open when the challenge begins."
+      ? "Prayer Requests are only available for today's plan day."
+      : "These fields will open when the season begins."
     : "This is separate from individual task completion.";
 
   return (
@@ -1034,7 +1035,7 @@ export default async function TodayPage({
         ) : !challenge.hasStarted ? (
           <SurfaceCard className="border-[rgba(168,129,81,0.38)]">
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
-              The challenge begins on {challenge.startDateLabel}.
+              The season begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
               You&apos;re previewing the plan before launch.
@@ -1155,8 +1156,8 @@ export default async function TodayPage({
               <div className="mt-2 grid gap-3 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
                 <p>
                   Required today: Morning Prayer, Daily Reading, Final Scripture
-                  Reflection, Challenge Feedback (now retired), Give Thanks, and Anchor
-                  Check-In.
+                  Reflection, Challenge Feedback (now retired), Give Thanks, and Talk
+                  About Faith.
                 </p>
                 <p>
                   The Challenge Feedback form is closed. Give Thanks is a
@@ -1172,7 +1173,7 @@ export default async function TodayPage({
           <SurfaceCard className="border-[rgba(168,129,81,0.38)]">
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">Future days are view-only.</p>
             <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
-              You can mark tasks complete for today or any earlier challenge day.
+              You can mark tasks complete for today or any earlier plan day.
             </p>
           </SurfaceCard>
         )}
@@ -1337,7 +1338,7 @@ export default async function TodayPage({
                   kicker="Optional"
                   title="Optional Today"
                 />
-                <div className="mt-5 space-y-3">
+                <div className="mt-5 space-y-2 sm:space-y-3">
                   {displayOptionalTasks.length > 0 ? (
                     displayOptionalTasks.map((task) => (
                       <TodayTaskCard
@@ -1355,6 +1356,7 @@ export default async function TodayPage({
                         completed={task.isCompleted}
                         locked={!canEditSelectedDay}
                         lockedLabel={lockLabel}
+                        compact
                         hideToggle={isLiturgyOfTheHoursSlug(task.slug)}
                         planSlug={currentPlanSlug}
                         secondaryAction={getTaskSecondaryAction(
@@ -1377,7 +1379,7 @@ export default async function TodayPage({
             <SectionHeader
               kicker="Day at a Glance"
               title={`Day ${typedPlanDay.day_number}`}
-              description={formatReadableDate(taskModels[0]?.dayDate) || "Challenge day"}
+              description={formatReadableDate(taskModels[0]?.dayDate) || "Plan day"}
             />
 
             <div className="mt-5 grid gap-3">

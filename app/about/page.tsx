@@ -87,7 +87,7 @@ export default function AboutPage() {
             </p>
             <p>
               There are separate Brotherhood and Sisterhood tracks, but the
-              heart of the challenge is the same: live the Catholic faith more
+              heart of the practice is the same: live the Catholic faith more
               intentionally, stay accountable, and stay close to the Church
               that Christ founded. God bless!
             </p>

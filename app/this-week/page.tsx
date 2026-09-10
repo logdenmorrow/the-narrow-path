@@ -187,7 +187,7 @@ export default async function ThisWeekPage({
                 This Week Opens August 1
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-7 text-[#f0dec1] sm:text-lg sm:leading-8">
-                July is a reset period between challenges. There is no
+                July is a break between seasons. There is no
                 weekly plan to review right now — This Week returns when
                 James: Faith That Works begins August 1.
               </p>
@@ -229,7 +229,7 @@ export default async function ThisWeekPage({
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
             <h1 className="text-3xl font-bold">This Week</h1>
-            <p className="mt-3 text-zinc-300">No active challenge plan was found.</p>
+            <p className="mt-3 text-zinc-300">No active season plan was found.</p>
           </div>
         </div>
       </main>
@@ -442,7 +442,7 @@ export default async function ThisWeekPage({
         ) : !challenge.hasStarted ? (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
-              The challenge begins on {challenge.startDateLabel}.
+              The season begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               You&apos;re previewing the plan before launch.

@@ -516,7 +516,7 @@ export default async function LiturgicalHourPage({
           <SurfaceCard>
             <SectionHeader
               kicker={hourDisplayName}
-              title="No active challenge plan was found."
+              title="No active season plan was found."
               description={`${hourKicker} will appear here once an active plan is available.`}
             />
           </SurfaceCard>
@@ -555,7 +555,7 @@ export default async function LiturgicalHourPage({
             <SectionHeader
               kicker={hourDisplayName}
               title={`Day ${selectedDay} was not found.`}
-              description="Return to Today and choose another challenge day."
+              description="Return to Today and choose another plan day."
             />
             <div className="mt-5">
               <Button asChild variant="secondary">
@@ -653,7 +653,7 @@ export default async function LiturgicalHourPage({
         {!challenge.hasStarted && (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
-              The challenge begins on {challenge.startDateLabel}.
+              The season begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               {hourDisplayName} is available in preview mode, but completion stays locked until launch.

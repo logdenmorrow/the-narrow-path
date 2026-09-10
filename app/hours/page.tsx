@@ -77,7 +77,7 @@ export default async function HoursPage() {
           <SurfaceCard>
             <SectionHeader
               kicker="Liturgy of the Hours"
-              title="No active challenge plan was found."
+              title="No active season plan was found."
               description="Hours will appear here once an active plan is available."
             />
           </SurfaceCard>
@@ -173,7 +173,7 @@ export default async function HoursPage() {
           </p>
           {!challenge.hasStarted ? (
             <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base">
-              The challenge begins on {challenge.startDateLabel}. Hours are available
+              The season begins on {challenge.startDateLabel}. Hours are available
               to preview now, but completion stays locked until launch.
             </p>
           ) : null}

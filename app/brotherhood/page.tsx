@@ -146,7 +146,7 @@ export default async function BrotherhoodPage({
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="monastic-card p-6">
             <h1 className="text-3xl font-bold">{communityName}</h1>
-            <p className="mt-3 text-monastic-1">No active challenge plan was found.</p>
+            <p className="mt-3 text-monastic-1">No active season plan was found.</p>
           </div>
         </div>
       </main>
@@ -491,7 +491,7 @@ export default async function BrotherhoodPage({
         {!challenge.hasStarted && (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
-              The challenge begins on {challenge.startDateLabel}.
+              The season begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               {communityName} statuses will go live on launch day. For now, everyone is
@@ -567,7 +567,7 @@ export default async function BrotherhoodPage({
             detail={
               formatReadableDate(typedTodayTasks[0]?.day_date) ||
               typedSelectedPlanDay.title ||
-              "Challenge calendar date."
+              "Plan calendar date."
             }
           />
           <MetricCard

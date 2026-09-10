@@ -212,7 +212,7 @@ export const AUGUST_JAMES_PLAN: AugustJamesPlan = {
     "Liturgy of the Hours",
     "Rosary",
     "Workout",
-    "Anchor Check-In",
+    "Talk About Faith",
     "Community",
   ],
   removedOrEased: [
@@ -221,7 +221,7 @@ export const AUGUST_JAMES_PLAN: AugustJamesPlan = {
     "No Soda / Sweet Drinks",
     "Cold Shower",
     "No Social Media",
-    "Challenge-wide fasting and meat abstinence",
+    "Plan-wide fasting and meat abstinence",
   ],
   displayOutline: JAMES_SCAFFOLDING,
 } as const;
@@ -496,7 +496,7 @@ export function getPostChallengeDisplay(phase: SeasonPhase | null) {
   }
 
   return {
-    title: "Challenge Complete",
-    body: `You finished the 90 days. The rest of July is a reset period. ${AUGUST_JAMES_PLAN_NAME} begins August 1.`,
+    title: "Season Complete",
+    body: `You finished the 90 days. The rest of July is a break between seasons. ${AUGUST_JAMES_PLAN_NAME} begins August 1.`,
   };
 }

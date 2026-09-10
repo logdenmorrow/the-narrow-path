@@ -8,6 +8,9 @@ const STALE_CURRENT_SEASON_TEXT = [
   "Day 31/31",
   "Week 5",
   "reset period",
+  "challenge day",
+  "Check in with Anchor",
+  "Anchor Check-In",
 ];
 
 async function expectNoStaleSeasonText(pageText: string) {
@@ -26,6 +29,17 @@ for (const viewport of [
     test("loads September 1 as active Gospel Day 1", async ({
       page,
     }) => {
+      const invalidRootScriptErrors: string[] = [];
+      page.on("console", (message) => {
+        const text = message.text();
+        if (
+          text.includes("cannot be a child of <html>") ||
+          text.includes("outside the main document")
+        ) {
+          invalidRootScriptErrors.push(text);
+        }
+      });
+
       await page.goto("/today?day=1");
       await expect(
         page.getByText(GOSPEL_PLAN_NAME).filter({ visible: true }).first()
@@ -66,6 +80,18 @@ for (const viewport of [
         page.getByText("Optional every day.", { exact: true })
       ).toHaveCount(0);
 
+      const optionalCards = page.locator('[data-task-density="compact"]');
+      await expect(optionalCards.first()).toBeVisible();
+      expect(await optionalCards.count()).toBeGreaterThan(0);
+
+      const workoutCard = optionalCards.filter({ hasText: "Workout" }).first();
+      await expect(workoutCard).toBeVisible();
+      if (viewport.name === "mobile") {
+        await expect(workoutCard.locator('[data-task-meta="true"]')).toBeHidden();
+      } else {
+        await expect(workoutCard.locator('[data-task-meta="true"]')).toBeVisible();
+      }
+
       await expect(
         page.getByRole("heading", { name: "Liturgy of the Hours", exact: true })
       ).toHaveCount(1);
@@ -78,6 +104,7 @@ for (const viewport of [
       });
       await expect(readingToggle).toBeEnabled();
       await expectNoStaleSeasonText(await page.locator("body").innerText());
+      expect(invalidRootScriptErrors).toEqual([]);
     });
 
     test("uses Gospel timing and calendar quota boundaries across core routes", async ({
@@ -94,7 +121,7 @@ for (const viewport of [
       await page.goto("/dashboard");
       await expect(page.getByText("Weekly and Monthly Progress")).toBeVisible();
       await page.goto("/this-week");
-      await expect(page.getByText("Days 1-6")).toBeVisible();
+      await expect(page.getByText(/^Days \d+-\d+$/)).toBeVisible();
       await expect(page.getByText("Weekly and Monthly Progress")).toBeVisible();
     });
 

@@ -5,7 +5,7 @@ export default function Loading() {
     <MonasticLoading
       label="Admin"
       title="Loading plan editor"
-      description="Preparing the challenge plan, templates, and assignment controls."
+      description="Preparing the season plan, templates, and assignment controls."
     />
   );
 }

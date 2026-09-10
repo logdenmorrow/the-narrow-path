@@ -97,7 +97,7 @@ export default async function HomePage() {
                 Welcome Back
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-7 text-[#f3e5cf] sm:text-lg sm:leading-8">
-                July is a reset period. There is no daily task pressure right
+                July is a break between seasons. There is no daily task pressure right
                 now — James: Faith That Works begins August 1.
               </p>
 

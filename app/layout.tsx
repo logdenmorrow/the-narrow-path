@@ -144,11 +144,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <Script
-        id="tnp-pwa-install-listener"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: pwaInstallListenerScript }}
-      />
+      <head>
+        <Script
+          id="tnp-pwa-install-listener"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: pwaInstallListenerScript }}
+        />
+      </head>
       <body className="monastic-shell" data-auth-debug-default={authDebugEnabled ? "true" : "false"}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ServiceWorkerRegister />

@@ -218,7 +218,7 @@ export async function saveDailyStatus(formData: FormData) {
   const challenge = seasonResolution.timing;
 
   if (!challenge?.hasStarted) {
-    throw new Error("Daily status is not available before the challenge begins.");
+    throw new Error("Daily status is not available before the season begins.");
   }
 
   const todayIso = getIsoDateInTimeZone();
@@ -282,7 +282,7 @@ export async function savePrayerRequest(formData: FormData) {
   const challenge = seasonResolution.timing;
 
   if (!challenge?.hasStarted) {
-    throw new Error("Prayer requests are not available before the challenge begins.");
+    throw new Error("Prayer requests are not available before the season begins.");
   }
 
   const todayIso = getIsoDateInTimeZone();

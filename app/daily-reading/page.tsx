@@ -263,7 +263,7 @@ export default async function DailyReadingPage({
                 Daily Reading Opens August 1
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-7 text-[#f0dec1] sm:text-lg sm:leading-8">
-                July is a reset period between challenges. There is no
+                July is a break between seasons. There is no
                 assigned reading right now — Daily Reading returns when
                 James: Faith That Works begins August 1.
               </p>
@@ -302,7 +302,7 @@ export default async function DailyReadingPage({
               Daily Reading
             </h1>
             <p className="mt-4 text-sm text-zinc-300 sm:text-base">
-              No active challenge plan was found.
+              No active season plan was found.
             </p>
           </div>
         </div>
@@ -445,7 +445,7 @@ export default async function DailyReadingPage({
         ) : !challenge.hasStarted ? (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
-              The challenge begins on {challenge.startDateLabel}.
+              The season begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               You&apos;re previewing the reading plan before launch.
