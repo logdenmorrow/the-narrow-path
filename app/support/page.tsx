@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { PageFrame, SectionHeader, SurfaceCard } from "@/components/monastic-ui";
+import { PageFrame, SectionHeader } from "@/components/monastic-ui";
 import { Button } from "@/components/ui/button";
 import { submitSupportRequest } from "@/app/support/actions";
 import { createClient } from "@/lib/supabase/server";
@@ -36,21 +36,21 @@ export default async function SupportPage({
   return (
     <main className="monastic-page">
       <PageFrame className="max-w-4xl space-y-6">
-        <SurfaceCard>
+        <section>
           <SectionHeader
-            kicker="Support"
+            level="h1"
             title="Support"
             description="Found a bug or something confusing? Send it here and I&apos;ll take a look."
           />
 
           {saved ? (
-            <div className="mt-5 rounded-[1rem] border border-emerald-700/40 bg-emerald-950/20 px-4 py-3 text-sm text-emerald-100">
+            <div className="mt-5 border-l-2 border-emerald-700 bg-emerald-950/10 px-4 py-3 text-sm text-emerald-800 dark:text-emerald-100">
               Your report was saved.
             </div>
           ) : null}
 
           {errorCode ? (
-            <div className="mt-5 rounded-[1rem] border border-red-700/40 bg-red-950/20 px-4 py-3 text-sm text-red-100">
+            <div className="mt-5 border-l-2 border-red-700 bg-red-950/10 px-4 py-3 text-sm text-red-800 dark:text-red-100">
               {errorCode === "missing"
                 ? "Add a type, title, and description before sending."
                 : errorCode === "url"
@@ -130,7 +130,7 @@ export default async function SupportPage({
               <Button type="submit">Send Report</Button>
             </div>
           </form>
-        </SurfaceCard>
+        </section>
       </PageFrame>
     </main>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SectionHeader, SurfaceCard } from "@/components/monastic-ui";
+import { SectionHeader } from "@/components/monastic-ui";
 import { PushNotificationControl } from "@/components/push-notification-control";
 import { getPushSupportStatus } from "@/lib/push/client";
 
@@ -62,7 +62,7 @@ export function DashboardPushNotificationCard() {
   }
 
   return (
-    <SurfaceCard>
+    <section className="border-y border-monastic py-5">
       <SectionHeader
         kicker="Notifications"
         title="Device Notifications"
@@ -71,6 +71,6 @@ export function DashboardPushNotificationCard() {
       <div className="mt-4">
         <PushNotificationControl onEnabled={() => setState("hidden")} />
       </div>
-    </SurfaceCard>
+    </section>
   );
 }

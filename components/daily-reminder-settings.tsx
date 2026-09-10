@@ -237,7 +237,7 @@ export function DailyReminderSettings({
         <p className="min-w-0 break-words text-sm leading-6 text-monastic-1">
           Reminders send to enabled devices for this account.
         </p>
-        <span className="w-fit shrink-0 rounded-full border border-monastic px-3 py-1 text-[10px] uppercase tracking-[0.14em] text-monastic-1">
+        <span className="w-fit shrink-0 rounded-md border border-monastic px-2 py-0.5 text-xs font-medium text-monastic-1">
           {enabledCount} enabled
         </span>
       </div>
@@ -260,7 +260,7 @@ export function DailyReminderSettings({
                     <p className="min-w-0 break-words text-lg font-semibold text-monastic-0">
                       {slot.title}
                     </p>
-                    <span className="shrink-0 rounded-full border border-monastic px-3 py-1 text-[10px] uppercase tracking-[0.14em] text-monastic-1">
+                    <span className="shrink-0 rounded-md border border-monastic px-2 py-0.5 text-xs font-medium text-monastic-1">
                       {slot.enabled ? "On" : "Off"}
                     </span>
                   </div>

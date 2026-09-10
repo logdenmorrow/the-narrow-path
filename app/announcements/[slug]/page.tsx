@@ -6,7 +6,6 @@ import {
   PageFrame,
   ReadingColumn,
   SectionHeader,
-  SurfaceCard,
 } from "@/components/monastic-ui";
 import { Button } from "@/components/ui/button";
 import {
@@ -74,8 +73,9 @@ export default async function AnnouncementDetailPage({ params }: PageProps) {
           </Link>
         </Button>
 
-        <SurfaceCard>
+        <header className="border-b border-monastic pb-5">
           <SectionHeader
+            level="h1"
             kicker={formatAnnouncementLabel(announcement.category)}
             title={announcement.title}
             description={announcement.summary}
@@ -83,9 +83,9 @@ export default async function AnnouncementDetailPage({ params }: PageProps) {
           <p className="mt-5 text-sm text-monastic-2">
             {formatAnnouncementDate(announcement.published_at)}
           </p>
-        </SurfaceCard>
+        </header>
 
-        <SurfaceCard>
+        <article className="border-b border-monastic pb-6">
           <ReadingColumn className="space-y-5">
             {paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
@@ -97,7 +97,7 @@ export default async function AnnouncementDetailPage({ params }: PageProps) {
               <Link href={announcement.cta_href}>{announcement.cta_label}</Link>
             </Button>
           ) : null}
-        </SurfaceCard>
+        </article>
       </PageFrame>
     </main>
   );

@@ -19,16 +19,16 @@ export function TodayInTheChurchCard({
   const href = `/today-in-the-church?date=${day.date}`;
 
   return (
-    <div className="mt-5 space-y-4">
+    <div className="mt-5 space-y-5">
       <Link
         href={href}
-        className="block rounded-[1.1rem] border border-monastic bg-[color:var(--surface-2)] p-4 transition hover:border-[color:var(--line-strong)] hover:bg-[color:var(--surface-3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]"
+        className="block border-l-2 border-[color:var(--line-strong)] py-1 pl-4 transition-colors hover:border-[color:var(--surface-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]"
       >
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-monastic-2">
+        <p className="text-sm text-monastic-2">
           {day.rank} • {formatLiturgicalColor(day.liturgical_color)}
           {day.season ? ` • ${day.season}` : ""}
         </p>
-        <p className="mt-3 text-xl font-semibold leading-7 text-monastic-0">
+        <p className="mt-2 text-xl font-semibold leading-7 text-monastic-0">
           {day.title}
         </p>
         <p className="mt-2 text-sm leading-6 text-monastic-1">{day.summary}</p>
@@ -40,8 +40,8 @@ export function TodayInTheChurchCard({
       </Link>
 
       {properOverlays.length > 0 ? (
-        <div className="rounded-[1.1rem] border border-monastic bg-[color:var(--surface-1)] p-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-monastic-2">
+        <div className="border-t border-monastic pt-4">
+          <p className="text-sm font-semibold text-monastic-2">
             Dominican calendar
           </p>
           <div className="mt-3 space-y-3">
@@ -87,9 +87,6 @@ export function TodayInTheChurchCard({
         </div>
       ) : null}
 
-      <Button asChild variant="secondary">
-        <Link href={href}>Learn about today</Link>
-      </Button>
       <p className="text-xs leading-5 text-monastic-2">
         <Link
           href="/settings#liturgical-calendar"

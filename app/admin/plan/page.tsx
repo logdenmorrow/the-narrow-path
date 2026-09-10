@@ -944,7 +944,7 @@ export default async function AdminPlanPage({
         )}
 
         {!adminKeyConfigured && (
-          <SurfaceCard className="border-[rgba(145,53,53,0.42)] bg-[linear-gradient(180deg,rgba(107,24,24,0.16),rgba(61,15,15,0.08))]">
+          <SurfaceCard className="border-[rgba(145,53,53,0.42)] bg-[rgba(107,24,24,0.08)]">
             <p className="font-semibold text-[#7c1d1d] dark:text-[#fecaca]">
               Admin writes are not configured yet.
             </p>
@@ -956,7 +956,7 @@ export default async function AdminPlanPage({
         )}
 
         {!adminEmailsConfigured && (
-          <SurfaceCard className="border-[rgba(161,98,7,0.42)] bg-[linear-gradient(180deg,rgba(161,98,7,0.12),rgba(120,53,15,0.08))]">
+          <SurfaceCard className="border-[rgba(161,98,7,0.42)] bg-[rgba(161,98,7,0.07)]">
             <p className="font-semibold text-[#854d0e] dark:text-[#fde68a]">
               Admin email lock is not configured yet.
             </p>
@@ -997,7 +997,7 @@ export default async function AdminPlanPage({
             description="Jump by day, follow the live season window, or step day by day."
           />
           <div className="mt-5 flex flex-col gap-4">
-            <div className="grid gap-3 rounded-[1.4rem] border border-monastic bg-monastic-panel p-2 shadow-[0_18px_34px_-30px_rgba(42,25,15,0.8)] sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-2 border-y border-monastic py-3 sm:grid-cols-2 xl:grid-cols-4">
               {[previousDay, nextDay, challenge.currentDayNumber, challenge.weekStartDay].map(
                 (day, index) => (
                   <Button

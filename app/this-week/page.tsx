@@ -317,12 +317,12 @@ export default async function ThisWeekPage({
   if (!activePlan || !challenge) {
     return (
       <main className="monastic-page">
-        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+        <PageFrame className="max-w-5xl">
+          <section className="border-l-2 border-[color:var(--line-strong)] pl-4">
             <h1 className="text-3xl font-bold">Week</h1>
-            <p className="mt-3 text-zinc-300">No active season plan was found.</p>
-          </div>
-        </div>
+            <p className="mt-3 text-monastic-1">No active season plan was found.</p>
+          </section>
+        </PageFrame>
       </main>
     );
   }
@@ -350,12 +350,12 @@ export default async function ThisWeekPage({
   if (weekPlanDaysError || typedWeekPlanDays.length === 0) {
     return (
       <main className="monastic-page">
-        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+        <PageFrame className="max-w-5xl">
+          <section className="border-l-2 border-[color:var(--line-strong)] pl-4">
             <h1 className="text-3xl font-bold">Week</h1>
-            <p className="mt-3 text-zinc-300">Could not load the current week.</p>
-          </div>
-        </div>
+            <p className="mt-3 text-monastic-1">Could not load the current week.</p>
+          </section>
+        </PageFrame>
       </main>
     );
   }
@@ -400,12 +400,12 @@ export default async function ThisWeekPage({
   if (weekTasksError) {
     return (
       <main className="monastic-page">
-        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+        <PageFrame className="max-w-5xl">
+          <section className="border-l-2 border-[color:var(--line-strong)] pl-4">
             <h1 className="text-3xl font-bold">Week</h1>
-            <p className="mt-3 text-zinc-300">Could not load the week&apos;s tasks.</p>
-          </div>
-        </div>
+            <p className="mt-3 text-monastic-1">Could not load the week&apos;s tasks.</p>
+          </section>
+        </PageFrame>
       </main>
     );
   }

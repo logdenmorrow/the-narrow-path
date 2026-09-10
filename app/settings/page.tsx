@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Download, LifeBuoy, Map as MapIcon, Megaphone } from "lucide-react";
-import { PageFrame, SectionHeader, SurfaceCard, SurfaceInset } from "@/components/monastic-ui";
+import { PageFrame, SectionHeader, SurfaceInset } from "@/components/monastic-ui";
 import { DailyReminderSettings } from "@/components/daily-reminder-settings";
 import { LiturgicalCalendarSettings } from "@/components/liturgical-calendar-settings";
 import { PushNotificationControl } from "@/components/push-notification-control";
@@ -48,42 +48,38 @@ export default async function SettingsPage() {
   return (
     <main className="monastic-page">
       <PageFrame className="max-w-4xl space-y-6">
-        <SurfaceCard>
+        <header className="border-b border-monastic pb-6">
           <SectionHeader
-            kicker="Account"
+            level="h1"
             title="Settings"
             description="Manage notifications, reminders, support, and install options."
           />
           <p className="mt-5 break-all text-sm text-monastic-1 sm:break-normal">
             Signed in as {user.email}
           </p>
-        </SurfaceCard>
+        </header>
 
-        <SurfaceCard id="notifications" className="scroll-mt-24">
+        <section id="notifications" className="scroll-mt-24 border-b border-monastic pb-6">
           <SectionHeader
-            kicker="Notifications"
             title="Device notifications"
             description="Enable or disable notifications for this browser or Home Screen app."
           />
           <div className="mt-4 min-w-0 max-w-full">
             <PushNotificationControl />
           </div>
-        </SurfaceCard>
+        </section>
 
-        <SurfaceCard id="reminders" className="scroll-mt-24">
+        <section id="reminders" className="scroll-mt-24 border-b border-monastic pb-6">
           <SectionHeader
-            kicker="Reminders"
             title="Reminders"
-            description="Choose the preset reminder times for this account. Reminders send to enabled devices for this account."
           />
           <div className="mt-4 min-w-0 max-w-full">
             <DailyReminderSettings initialSlots={reminderSlots ?? []} />
           </div>
-        </SurfaceCard>
+        </section>
 
-        <SurfaceCard id="liturgical-calendar" className="scroll-mt-24">
+        <section id="liturgical-calendar" className="scroll-mt-24 border-b border-monastic pb-6">
           <SectionHeader
-            kicker="Today in the Church"
             title="Liturgical calendar"
             description="Choose whether The Narrow Path should also show a proper local calendar when available."
           />
@@ -92,7 +88,7 @@ export default async function SettingsPage() {
               initialPreference={religiousOrderCalendar}
             />
           </div>
-        </SurfaceCard>
+        </section>
 
         <div className="grid min-w-0 max-w-full gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <SurfaceInset>

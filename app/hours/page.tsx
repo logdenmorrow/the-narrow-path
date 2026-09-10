@@ -186,12 +186,12 @@ export default async function HoursPage() {
           </div>
         </SurfaceCard>
 
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="divide-y divide-[color:var(--line-soft)] border-y border-[color:var(--line-soft)] sm:grid sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           {VALID_HOURS.map((hour) => {
             const state = getHourCardState(hour);
 
             return (
-              <SurfaceCard key={hour}>
+              <section key={hour} className="py-5 sm:px-5 first:sm:pl-0 last:sm:pr-0">
                 <p className="section-kicker">{getHourKicker(hour)}</p>
                 <h2 className="mt-2 text-xl font-semibold text-monastic-0 sm:text-2xl">
                   {getHourDisplayName(hour)}
@@ -218,7 +218,7 @@ export default async function HoursPage() {
                     </Link>
                   </Button>
                 </div>
-              </SurfaceCard>
+              </section>
             );
           })}
         </div>

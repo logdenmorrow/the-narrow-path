@@ -134,7 +134,7 @@ export function SignUpForm({
                   required
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+                  className="monastic-field h-12 rounded-lg px-4 py-3 text-base shadow-none md:text-base"
                 />
               </div>
 
@@ -152,7 +152,7 @@ export function SignUpForm({
                   required
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+                  className="monastic-field h-12 rounded-lg px-4 py-3 text-base shadow-none md:text-base"
                 />
               </div>
             </div>
@@ -162,7 +162,7 @@ export function SignUpForm({
                 Sex
               </Label>
               <div className="grid gap-3 sm:grid-cols-2">
-                <label className="monastic-field flex h-12 cursor-pointer items-center gap-3 rounded-2xl border-0 px-4 py-3 text-base text-monastic-0 shadow-none">
+                <label className="monastic-field flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-base text-monastic-0 shadow-none">
                   <input
                     type="radio"
                     name="gender"
@@ -174,7 +174,7 @@ export function SignUpForm({
                   />
                   Male
                 </label>
-                <label className="monastic-field flex h-12 cursor-pointer items-center gap-3 rounded-2xl border-0 px-4 py-3 text-base text-monastic-0 shadow-none">
+                <label className="monastic-field flex h-12 cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-base text-monastic-0 shadow-none">
                   <input
                     type="radio"
                     name="gender"
@@ -203,7 +203,7 @@ export function SignUpForm({
                 required
                 value={inviteCode}
                 onChange={(e) => setInviteCode(e.target.value)}
-                className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+                className="monastic-field h-12 rounded-lg px-4 py-3 text-base shadow-none md:text-base"
               />
             </div>
 
@@ -219,7 +219,7 @@ export function SignUpForm({
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+                className="monastic-field h-12 rounded-lg px-4 py-3 text-base shadow-none md:text-base"
               />
             </div>
 
@@ -238,7 +238,7 @@ export function SignUpForm({
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+                  className="monastic-field h-12 rounded-lg px-4 py-3 text-base shadow-none md:text-base"
                 />
               </div>
 
@@ -256,14 +256,14 @@ export function SignUpForm({
                   autoComplete="new-password"
                   value={repeatPassword}
                   onChange={(e) => setRepeatPassword(e.target.value)}
-                  className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+                  className="monastic-field h-12 rounded-lg px-4 py-3 text-base shadow-none md:text-base"
                 />
               </div>
             </div>
           </div>
 
           {error ? (
-            <div className="rounded-2xl border border-red-500/30 bg-red-950/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+            <div className="rounded-lg border border-red-500/30 bg-red-950/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
               {error}
             </div>
           ) : null}

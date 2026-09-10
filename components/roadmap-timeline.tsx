@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import {
   SectionHeader,
-  SurfaceCard,
 } from "@/components/monastic-ui";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -44,14 +43,14 @@ export function RoadmapTimeline({
   const isCompact = variant === "compact";
 
   return (
-    <SurfaceCard className={cn("overflow-hidden", className)}>
+    <section className={cn("overflow-hidden", className)}>
       <SectionHeader
         kicker="Roadmap"
         title={isCompact ? "What's ahead" : "Roadmap"}
         description={
           isCompact
-            ? "A look at what is planned after Narrow Path 90."
-            : "A simple look at what is planned after Narrow Path 90."
+            ? undefined
+            : "Plans after Narrow Path 90."
         }
         action={
           actionHref ? (
@@ -74,17 +73,17 @@ export function RoadmapTimeline({
             <li
               key={item.phase}
               className={cn(
-                "relative grid min-w-0 grid-cols-[2.75rem_minmax(0,1fr)] gap-3 lg:grid-cols-1 lg:grid-rows-[2.75rem_1fr] lg:gap-4",
+                "relative grid min-w-0 grid-cols-[1.5rem_minmax(0,1fr)] gap-3 lg:grid-cols-1 lg:grid-rows-[1.5rem_1fr] lg:gap-3",
                 !isLast &&
-                  "after:absolute after:left-[1.375rem] after:top-12 after:h-[calc(100%+0.25rem)] after:w-px after:bg-[color:var(--line-soft)] after:content-[''] lg:after:left-1/2 lg:after:top-[1.375rem] lg:after:h-px lg:after:w-full"
+                  "after:absolute after:left-3 after:top-7 after:h-[calc(100%+0.25rem)] after:w-px after:bg-[color:var(--line-soft)] after:content-[''] lg:after:left-1/2 lg:after:top-3 lg:after:h-px lg:after:w-full"
               )}
             >
-              <div className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface-2)] text-[color:var(--surface-strong)] shadow-[0_10px_24px_-18px_rgba(42,25,15,0.82)] lg:mx-auto">
-                <Icon className="h-5 w-5" aria-hidden="true" />
+              <div className="relative z-10 flex h-6 w-6 items-center justify-center bg-[color:var(--surface-0)] text-[color:var(--surface-strong)] lg:mx-auto">
+                <Icon className="h-4 w-4" aria-hidden="true" />
               </div>
 
-              <div className="relative z-10 min-w-0 rounded-[1rem] border border-monastic bg-[color:var(--surface-2)]/72 p-4 shadow-[0_16px_34px_-30px_rgba(42,25,15,0.8)]">
-                <div className="inline-flex max-w-full rounded-full border border-[color:var(--line-soft)] bg-[color:var(--surface-1)] px-2.5 py-1 text-[10px] font-semibold uppercase leading-none tracking-[0.12em] text-monastic-2">
+              <div className="relative z-10 min-w-0 border-t border-monastic pt-3">
+                <div className="max-w-full text-xs font-medium leading-none text-monastic-2">
                   <span className="truncate">{item.dateLabel}</span>
                 </div>
                 <h2
@@ -114,6 +113,6 @@ export function RoadmapTimeline({
           Dates and details may be adjusted as plans are finalized.
         </p>
       ) : null}
-    </SurfaceCard>
+    </section>
   );
 }

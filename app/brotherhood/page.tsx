@@ -478,7 +478,7 @@ export default async function BrotherhoodPage({
           {categoryLabel}
           {request.note ? `: ${request.note}` : ""}
         </p>
-        <span className="mt-1 inline-flex rounded-full border border-[color:var(--line-soft)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-monastic-1">
+        <span className="mt-1 inline-flex rounded-md border border-[color:var(--line-soft)] px-2 py-0.5 text-xs font-medium text-monastic-1">
           {visibilityLabel}
         </span>
       </div>
