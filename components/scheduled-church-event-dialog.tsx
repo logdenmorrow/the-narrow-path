@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useAccessibleModal } from "@/components/use-accessible-modal";
 import type { LiturgicalSpecialEventNotice } from "@/lib/liturgical-calendar";
 import {
   dismissScheduledChurchEvent,
@@ -18,6 +19,9 @@ export function ScheduledChurchEventDialog({
   notice,
 }: ScheduledChurchEventDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     try {
@@ -32,9 +36,7 @@ export function ScheduledChurchEventDialog({
     }
   }, [notice.eventKey]);
 
-  if (!isOpen) return null;
-
-  const dismiss = () => {
+  const dismiss = useCallback(() => {
     try {
       dismissScheduledChurchEvent(window.localStorage, notice.eventKey);
     } catch {
@@ -42,18 +44,34 @@ export function ScheduledChurchEventDialog({
     }
 
     setIsOpen(false);
-  };
+  }, [notice.eventKey]);
+
+  useAccessibleModal({
+    isOpen,
+    onDismiss: dismiss,
+    overlayRef,
+    dialogRef,
+    initialFocusRef: closeButtonRef,
+  });
+
+  if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 px-4 py-8 backdrop-blur-[2px]">
+    <div
+      ref={overlayRef}
+      className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 px-4 py-8 backdrop-blur-[2px]"
+    >
       <div
+        ref={dialogRef}
         role="dialog"
+        tabIndex={-1}
         aria-modal="true"
         aria-labelledby="scheduled-church-event-title"
         aria-describedby="scheduled-church-event-description"
         className="monastic-card relative w-full max-w-lg p-5 shadow-2xl sm:p-7"
       >
         <button
+          ref={closeButtonRef}
           type="button"
           aria-label="Close announcement"
           onClick={dismiss}

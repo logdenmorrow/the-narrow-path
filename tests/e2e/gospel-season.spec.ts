@@ -121,8 +121,19 @@ for (const viewport of [
       await page.goto("/dashboard");
       await expect(page.getByText("Weekly and Monthly Progress")).toBeVisible();
       await page.goto("/this-week");
-      await expect(page.getByText(/^Days \d+-\d+$/)).toBeVisible();
-      await expect(page.getByText("Weekly and Monthly Progress")).toBeVisible();
+      await expect(page.getByText(/Days \d+-\d+/)).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Schedule" })).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Progress" })).toBeVisible();
+      await expect(
+        page.getByRole("link", { name: "Nativity of the Blessed Virgin Mary" })
+      ).toHaveAttribute("href", "/today-in-the-church?date=2026-09-08");
+      await expect(page.getByText(/Required done:/i)).toHaveCount(0);
+      expect(await page.locator("[data-week-day]").count()).toBeGreaterThan(0);
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= window.innerWidth
+        )
+      ).toBe(true);
     });
 
     test("loads Gospel reading, reflection, prayer, and reminder resources", async ({
@@ -177,6 +188,68 @@ for (const viewport of [
     });
   });
 }
+
+test("includes scheduled Church events and their articles in Week", async ({
+  page,
+}) => {
+  await page.goto("/this-week?day=24");
+  await expect(
+    page.getByRole("link", {
+      name: "Beatification of Venerable Fulton J. Sheen",
+    })
+  ).toHaveAttribute(
+    "href",
+    "/today-in-the-church?date=2026-09-24&profile=fulton-j-sheen#related-profile"
+  );
+});
+
+test.describe("modal accessibility", () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+
+  test("moves and traps focus, makes the page inert, and closes with Escape", async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      window.localStorage.removeItem("tnp-reminder-onboarding-dismissed-until");
+      Object.defineProperty(window, "PushManager", {
+        configurable: true,
+        value: function PushManager() {},
+      });
+      Object.defineProperty(window.Notification, "permission", {
+        configurable: true,
+        get: () => "default",
+      });
+      Object.defineProperty(window.navigator, "serviceWorker", {
+        configurable: true,
+        value: {
+          register: async () => ({ update: async () => undefined }),
+        },
+      });
+    });
+
+    await page.goto("/dashboard");
+    const dialog = page.getByRole("dialog", { name: "Enable reminders" });
+    const openSettings = dialog.getByRole("link", { name: "Open Settings" });
+    const notNow = dialog.getByRole("button", { name: "Not now" });
+
+    await expect(dialog).toBeVisible();
+    await expect(openSettings).toBeFocused();
+    await expect
+      .poll(() => page.locator("header").evaluate((element) => element.inert))
+      .toBe(true);
+
+    await page.keyboard.press("Shift+Tab");
+    await expect(notNow).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(openSettings).toBeFocused();
+    await page.keyboard.press("Escape");
+
+    await expect(dialog).toHaveCount(0);
+    await expect
+      .poll(() => page.locator("header").evaluate((element) => element.inert))
+      .toBe(false);
+  });
+});
 
 test("keeps James available as a read-only past season", async ({ page }) => {
   await page.goto("/today?plan=ordinary-time-james&day=1");
