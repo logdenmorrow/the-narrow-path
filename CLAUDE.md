@@ -12,3 +12,10 @@ When a feature branch is ready to ship:
 3. Report when the deploy is complete. Do not stop at "open a PR"
    and do not ask me to go to GitHub manually unless the API
    call itself fails.
+
+## UI direction
+
+- Do not install or use the Uncodixfy skill in this repository.
+- Preserve The Narrow Path's established warm cream-and-brown monastic visual
+  system. New pages should reuse the existing page frame, hero, surface, and
+  button components so they remain consistent with the rest of the app.
