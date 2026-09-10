@@ -318,7 +318,7 @@ export default async function HomePage() {
                 Reflection
               </Link>
               <Link href="/this-week" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
-                This Week
+                Week
               </Link>
               <Link href="/brotherhood" className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]">
                 {communityName}

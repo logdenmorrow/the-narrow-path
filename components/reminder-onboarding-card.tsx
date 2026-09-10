@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAccessibleModal } from "@/components/use-accessible-modal";
 import { getPushSupportStatus } from "@/lib/push/client";
 
 type ReminderOnboardingCardProps = {
@@ -72,6 +73,9 @@ export function ReminderOnboardingCard({
 }: ReminderOnboardingCardProps) {
   const [state, setState] = useState<CardState>("checking");
   const pathname = usePathname();
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const settingsLinkRef = useRef<HTMLAnchorElement>(null);
 
   const refreshState = useCallback(async () => {
     if (pathname === "/settings") {
@@ -143,6 +147,19 @@ export function ReminderOnboardingCard({
     };
   }, [refreshState]);
 
+  const handleDismiss = useCallback(() => {
+    dismissForCooldown();
+    setState("hidden");
+  }, []);
+
+  useAccessibleModal({
+    isOpen: state !== "checking" && state !== "hidden",
+    onDismiss: handleDismiss,
+    overlayRef,
+    dialogRef,
+    initialFocusRef: settingsLinkRef,
+  });
+
   if (state === "checking" || state === "hidden") {
     return null;
   }
@@ -160,17 +177,18 @@ export function ReminderOnboardingCard({
   const settingsHref =
     state === "push-off" ? "/settings#notifications" : "/settings#reminders";
 
-  const handleDismiss = () => {
-    dismissForCooldown();
-    setState("hidden");
-  };
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 px-4 py-8 backdrop-blur-[2px] sm:hidden">
+    <div
+      ref={overlayRef}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 px-4 py-8 backdrop-blur-[2px] sm:hidden"
+    >
       <div
+        ref={dialogRef}
         role="dialog"
+        tabIndex={-1}
         aria-modal="true"
         aria-labelledby="reminder-onboarding-title"
+        aria-describedby="reminder-onboarding-description"
         className="monastic-card w-full max-w-sm p-5 shadow-2xl"
       >
         <h2
@@ -179,11 +197,16 @@ export function ReminderOnboardingCard({
         >
           {copy.title}
         </h2>
-        <p className="mt-2 text-sm leading-6 text-monastic-1">{copy.body}</p>
+        <p
+          id="reminder-onboarding-description"
+          className="mt-2 text-sm leading-6 text-monastic-1"
+        >
+          {copy.body}
+        </p>
 
         <div className="mt-5 grid gap-2">
           <Button asChild size="sm" className="w-full">
-            <Link href={settingsHref}>
+            <Link ref={settingsLinkRef} href={settingsHref}>
               <Settings aria-hidden="true" />
               Open Settings
             </Link>

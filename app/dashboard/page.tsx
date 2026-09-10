@@ -803,7 +803,7 @@ export default async function DashboardPage({
                 },
                 {
                   href: withViewTrack("/this-week", track, preserveViewTrack),
-                  label: "View This Week",
+                  label: "View Week",
                   variant: "secondary",
                 },
               ]}
@@ -822,7 +822,7 @@ export default async function DashboardPage({
                 Today
               </QuickAccessTile>
               <QuickAccessTile href={withViewTrack("/this-week", track, preserveViewTrack)}>
-                This Week
+                Week
               </QuickAccessTile>
               <QuickAccessTile href={withViewTrack("/brotherhood", track, preserveViewTrack)}>
                 {communityName}

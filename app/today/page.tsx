@@ -1123,7 +1123,7 @@ export default async function TodayPage({
                     track,
                     preserveViewTrack
                   ),
-                  label: "This Week",
+                  label: "Week",
                   variant: "primary",
                   className: "hidden sm:inline-flex",
                 },

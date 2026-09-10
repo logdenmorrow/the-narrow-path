@@ -4,7 +4,7 @@ export const desktopNavItems = [
   { href: "/", label: "Home" },
   { href: "/dashboard", label: "Dashboard" },
   { href: "/today", label: "Today" },
-  { href: "/this-week", label: "This Week" },
+  { href: "/this-week", label: "Week" },
   { href: "/daily-reading", label: "Daily Reading" },
   { href: "/brotherhood", label: "Brotherhood" },
 ] as const;

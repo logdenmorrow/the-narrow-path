@@ -2,21 +2,11 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
   HeroPanel,
-  MetricCard,
   PageFrame,
-  SectionHeader,
   SurfaceCard,
-  SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 import { AdminViewTrackSwitcher } from "@/components/admin-view-track-switcher";
-import {
-  StatusPill,
-  TaskCard,
-  TaskCardHeader,
-  TaskCardMeta,
-} from "@/components/task-card";
-import { Button } from "@/components/ui/button";
 import { JamesScaffoldingCard, SeasonTimeline } from "@/components/season-timeline";
 import { createClient } from "@/lib/supabase/server";
 import { isVisibleForTrack, type Track } from "@/lib/track";
@@ -30,9 +20,9 @@ import { updateLastActiveAt } from "@/lib/last-active";
 import {
   buildTaskViewModels,
   formatReadableDate,
-  getTaskStatusPillState,
   type CompletionRecord,
   type PlanDayTaskRecord,
+  type TaskViewModel,
 } from "@/lib/task-progress";
 import { resolveSeasonPlan } from "@/lib/season-plan-server";
 import { getSeasonWeekWindowForDay } from "@/lib/season-plan";
@@ -40,6 +30,15 @@ import {
   buildPlanDayHref,
   getPlanSlugForResolvedSeason,
 } from "@/lib/plan-day-url";
+import {
+  getDisplayableLiturgicalProfileBySlug,
+  getLiturgicalCalendarDay,
+  getLiturgicalProfileForDay,
+  getLiturgicalProfileForProperOverlay,
+  getLiturgicalProperCalendarOverlays,
+  normalizeReligiousOrderCalendar,
+  type ReligiousOrderCalendar,
+} from "@/lib/liturgical-calendar";
 
 type SearchParams = Promise<SearchParamRecord>;
 
@@ -52,6 +51,14 @@ type PlanDayRow = {
 };
 
 type MeterTone = "neutral" | "accent" | "success";
+
+type WeekChurchItem = {
+  key: string;
+  title: string;
+  rank: string;
+  href: string;
+  hasArticle: boolean;
+};
 
 function normalizeDayNumber(value: number, totalDays: number) {
   if (!Number.isFinite(value)) return 1;
@@ -72,6 +79,14 @@ function getTaskAudience(task: PlanDayTaskRecord) {
 
 function filterTasksForTrack<T extends PlanDayTaskRecord>(tasks: T[], track: Track) {
   return tasks.filter((task) => isVisibleForTrack(getTaskAudience(task), track));
+}
+
+function getTaskPatternKey(task: TaskViewModel) {
+  return [
+    task.slug,
+    task.isRequired ? "required" : task.isOptional ? "optional" : "other",
+    task.quotaScope ?? "daily",
+  ].join(":");
 }
 
 function getQuotaMeterTone(completed: number, target: number): MeterTone {
@@ -113,6 +128,79 @@ function getQuotaMeterClasses(tone: MeterTone) {
   };
 }
 
+function getWeekChurchItems(
+  dateIso: string | null,
+  religiousOrderCalendar: ReligiousOrderCalendar | null
+): WeekChurchItem[] {
+  if (!dateIso) return [];
+
+  const day = getLiturgicalCalendarDay(dateIso);
+  const items: WeekChurchItem[] = [];
+  const seen = new Set<string>();
+  const addItem = (item: WeekChurchItem) => {
+    const titleKey = item.title.replace(/[^a-z0-9]/gi, "").toLowerCase();
+    if (seen.has(titleKey)) return;
+    seen.add(titleKey);
+    items.push(item);
+  };
+  const primaryProfile = getLiturgicalProfileForDay(day);
+
+  if (primaryProfile || day.rank !== "Weekday") {
+    addItem({
+      key: `primary:${day.title}`,
+      title: day.title,
+      rank: day.rank,
+      href: `/today-in-the-church?date=${dateIso}`,
+      hasArticle: Boolean(primaryProfile),
+    });
+  }
+
+  for (const observance of day.related_observances ?? []) {
+    const relatedProfile = getDisplayableLiturgicalProfileBySlug(
+      observance.profile_slug
+    );
+    const isFeast = /solemnity|feast/i.test(observance.rank);
+    if (!relatedProfile && !isFeast) continue;
+
+    const profileParam = observance.profile_slug
+      ? `&profile=${encodeURIComponent(observance.profile_slug)}`
+      : "";
+    addItem({
+      key: `related:${observance.title}`,
+      title: observance.title,
+      rank: observance.rank,
+      href: `/today-in-the-church?date=${dateIso}${profileParam}${
+        relatedProfile ? "#related-profile" : ""
+      }`,
+      hasArticle: Boolean(relatedProfile),
+    });
+  }
+
+  for (const overlay of getLiturgicalProperCalendarOverlays({
+    dateIso,
+    religiousOrderCalendar,
+  })) {
+    const properProfile = getLiturgicalProfileForProperOverlay(overlay);
+    const isFeast = /solemnity|feast/i.test(overlay.rank);
+    if (!properProfile && !isFeast) continue;
+
+    const profileParam = overlay.profile_slug
+      ? `&profile=${encodeURIComponent(overlay.profile_slug)}`
+      : "";
+    addItem({
+      key: `proper:${overlay.scope_key}:${overlay.title}`,
+      title: overlay.title,
+      rank: overlay.rank,
+      href: `/today-in-the-church?date=${dateIso}${profileParam}${
+        properProfile ? "#proper-profile" : ""
+      }`,
+      hasArticle: Boolean(properProfile),
+    });
+  }
+
+  return items;
+}
+
 export default async function ThisWeekPage({
   searchParams,
 }: {
@@ -135,7 +223,7 @@ export default async function ThisWeekPage({
 
   const { data: profileData } = await supabase
     .from("profiles")
-    .select("track")
+    .select("track, religious_order_calendar")
     .eq("id", user.id)
     .maybeSingle();
   const requestedViewTrack = getViewTrackFromSearchParams(resolvedSearchParams);
@@ -148,6 +236,9 @@ export default async function ThisWeekPage({
     profileTrack: profileData?.track,
     requestedTrack: requestedViewTrack,
   });
+  const religiousOrderCalendar = normalizeReligiousOrderCalendar(
+    profileData?.religious_order_calendar
+  );
 
   const rawDay = Array.isArray(resolvedSearchParams.day)
     ? resolvedSearchParams.day[0]
@@ -184,11 +275,11 @@ export default async function ThisWeekPage({
             <div className="text-[#f7ebd8]">
               <p className="section-kicker text-[#ead6b0]">Reset</p>
               <h1 className="mt-3 text-4xl font-semibold sm:text-5xl">
-                This Week Opens August 1
+                Week Opens August 1
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-7 text-[#f0dec1] sm:text-lg sm:leading-8">
                 July is a break between seasons. There is no
-                weekly plan to review right now — This Week returns when
+                weekly plan to review right now — Week returns when
                 James: Faith That Works begins August 1.
               </p>
               <AppActionBar
@@ -228,7 +319,7 @@ export default async function ThisWeekPage({
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <h1 className="text-3xl font-bold">This Week</h1>
+            <h1 className="text-3xl font-bold">Week</h1>
             <p className="mt-3 text-zinc-300">No active season plan was found.</p>
           </div>
         </div>
@@ -261,7 +352,7 @@ export default async function ThisWeekPage({
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <h1 className="text-3xl font-bold">This Week</h1>
+            <h1 className="text-3xl font-bold">Week</h1>
             <p className="mt-3 text-zinc-300">Could not load the current week.</p>
           </div>
         </div>
@@ -311,7 +402,7 @@ export default async function ThisWeekPage({
       <main className="monastic-page">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <h1 className="text-3xl font-bold">This Week</h1>
+            <h1 className="text-3xl font-bold">Week</h1>
             <p className="mt-3 text-zinc-300">Could not load the week&apos;s tasks.</p>
           </div>
         </div>
@@ -394,15 +485,39 @@ export default async function ThisWeekPage({
   const dayModels = typedWeekPlanDays.map((day) => {
     const dayTasks = tasksByPlanDayId.get(day.id) ?? [];
     const models = buildTaskViewModels(dayTasks, visibleScopeTasks, typedCompletions, user.id);
+    const dateIso = models[0]?.dayDate ?? null;
 
     return {
       day,
       models,
-      required: models.filter((task) => task.isRequired),
-      optional: models.filter((task) => !task.isRequired && task.isOptional),
-      dateLabel: formatReadableDate(models[0]?.dayDate),
+      dateIso,
+      dateLabel: formatReadableDate(dateIso),
+      churchItems: getWeekChurchItems(dateIso, religiousOrderCalendar),
     };
   });
+
+  const taskDaysByPattern = new Map<string, Set<number>>();
+  for (const { day, models } of dayModels) {
+    for (const task of models) {
+      const pattern = getTaskPatternKey(task);
+      const days = taskDaysByPattern.get(pattern) ?? new Set<number>();
+      days.add(day.id);
+      taskDaysByPattern.set(pattern, days);
+    }
+  }
+  const recurringTaskPatterns = new Set(
+    [...taskDaysByPattern.entries()]
+      .filter(([, days]) => days.size === dayModels.length)
+      .map(([pattern]) => pattern)
+  );
+  const scheduleDays = dayModels.map((entry) => ({
+    ...entry,
+    exceptions: entry.models.filter(
+      (task) =>
+        !task.progressLabel &&
+        !recurringTaskPatterns.has(getTaskPatternKey(task))
+    ),
+  }));
 
   const quotaSummaries = dayModels
     .flatMap((entry) => entry.models.filter((task) => task.progressLabel))
@@ -417,10 +532,12 @@ export default async function ThisWeekPage({
         ) === index
     );
   const preserveViewTrack = isAdmin && isUsingViewOverride;
+  const previousWeekDay = Math.max(1, weekStartDayNumber - 1);
+  const nextWeekDay = Math.min(activePlan.total_days, weekEndDayNumber + 1);
 
   return (
     <main className="monastic-page">
-      <PageFrame className="max-w-7xl space-y-6">
+      <PageFrame className="max-w-5xl space-y-6">
         {isHistoricalPlan ? (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
@@ -458,67 +575,85 @@ export default async function ThisWeekPage({
           />
         ) : null}
 
-        <HeroPanel className="py-7 sm:py-8">
-          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-            <div className="text-[#f7ebd8]">
-              <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
-              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">This Week</h1>
-              <p className="mt-3 text-lg text-[#ead8bc]">
-                Days {weekStartDayNumber}-{weekEndDayNumber}
+        <header className="border-b border-[color:var(--line-soft)] pb-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h1 className="text-3xl font-semibold text-monastic-0 sm:text-4xl">
+                Week
+              </h1>
+              <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base">
+                {activePlan.name} · Days {weekStartDayNumber}-{weekEndDayNumber}
               </p>
             </div>
-
-            <AppActionBar
-              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
-              actions={[
-                {
-                  href: withViewTrack(
-                    buildPlanDayHref("/today", currentPlanSlug, selectedDay),
-                    track,
-                    preserveViewTrack
-                  ),
-                  label: "Back to Today",
-                  variant: "secondary",
-                },
-                {
-                  href: buildPlanDayHref(
-                    "/daily-reading",
-                    currentPlanSlug,
-                    selectedDay
-                  ),
-                  label: "Daily Reading",
-                  variant: "primary",
-                },
-              ]}
-            />
+            <nav
+              aria-label="Week actions"
+              className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold"
+            >
+              <Link
+                href={withViewTrack(
+                  buildPlanDayHref("/today", currentPlanSlug, selectedDay),
+                  track,
+                  preserveViewTrack
+                )}
+                className="underline decoration-[color:var(--line-strong)] underline-offset-4 transition-colors hover:text-monastic-0"
+              >
+                Today
+              </Link>
+              <Link
+                href={buildPlanDayHref(
+                  "/daily-reading",
+                  currentPlanSlug,
+                  selectedDay
+                )}
+                className="underline decoration-[color:var(--line-strong)] underline-offset-4 transition-colors hover:text-monastic-0"
+              >
+                Daily Reading
+              </Link>
+            </nav>
           </div>
-        </HeroPanel>
 
-        <div className="grid gap-4 md:grid-cols-3">
-          <MetricCard
-            label="Week Span"
-            value={`${weekStartDayNumber}-${weekEndDayNumber}`}
-            detail="Current week."
-          />
-          <MetricCard
-            label="Days in View"
-            value={`${dayModels.length}`}
-            detail="Days shown."
-          />
-          <MetricCard
-            label="Reference Day"
-            value={`Day ${selectedDay}`}
-            detail="Selected day."
-          />
-        </div>
+          <nav
+            aria-label="Browse weeks"
+            className="mt-5 flex items-center justify-between border-t border-[color:var(--line-soft)] pt-4 text-sm"
+          >
+            {previousWeekDay < weekStartDayNumber ? (
+              <Link
+                href={withViewTrack(
+                  buildPlanDayHref("/this-week", currentPlanSlug, previousWeekDay),
+                  track,
+                  preserveViewTrack
+                )}
+                className="underline underline-offset-4"
+              >
+                Previous week
+              </Link>
+            ) : (
+              <span />
+            )}
+            {nextWeekDay > weekEndDayNumber ? (
+              <Link
+                href={withViewTrack(
+                  buildPlanDayHref("/this-week", currentPlanSlug, nextWeekDay),
+                  track,
+                  preserveViewTrack
+                )}
+                className="underline underline-offset-4"
+              >
+                Next week
+              </Link>
+            ) : null}
+          </nav>
+        </header>
 
         {quotaSummaries.length > 0 && (
-          <SurfaceCard>
-            <SectionHeader
-              kicker="Progress"
-              title="Weekly and Monthly Progress"
-            />
-            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <section aria-labelledby="week-progress-title">
+            <h2
+              id="week-progress-title"
+              className="text-xl font-semibold text-monastic-0 sm:text-2xl"
+            >
+              Progress
+            </h2>
+            <div className="mt-4 divide-y divide-[color:var(--line-soft)] border-y border-[color:var(--line-soft)]">
               {quotaSummaries.map((task) => {
                 const safeTarget = Math.max(task.quotaTarget ?? 1, 1);
                 const clampedCompleted = Math.max(task.progressCount ?? 0, 0);
@@ -531,153 +666,147 @@ export default async function ThisWeekPage({
                 const meterClasses = getQuotaMeterClasses(tone);
 
                 return (
-                  <SurfaceInset
+                  <div
                     key={`quota-${task.taskTemplateId}-${task.weekStartDate ?? task.monthStartDate ?? "daily"}`}
+                    className="grid gap-2 py-4 sm:grid-cols-[minmax(0,1fr)_minmax(12rem,0.45fr)] sm:items-center sm:gap-6"
                   >
-                    <div className="flex items-center justify-between gap-2">
-                      <p className="text-sm font-semibold text-monastic-0">{task.title}</p>
+                    <div>
+                      <p className="font-semibold text-monastic-0">{task.title}</p>
+                      <p className="mt-1 text-sm text-monastic-1">{task.progressLabel}</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`h-1.5 flex-1 overflow-hidden rounded-full ${meterClasses.track}`}
+                        role="progressbar"
+                        aria-label={`${task.title} ${task.quotaScope ?? "quota"} progress`}
+                        aria-valuenow={meterNow}
+                        aria-valuemin={0}
+                        aria-valuemax={safeTarget}
+                      >
+                        <div
+                          className={`h-full rounded-full transition-all ${meterClasses.fill}`}
+                          style={{ width: `${meterPercent}%` }}
+                        />
+                      </div>
                       <span className={`shrink-0 text-sm font-semibold tabular-nums ${meterClasses.text}`}>
-                        {meterNow} / {safeTarget}
+                        {meterNow}/{safeTarget}
                       </span>
                     </div>
-                    <div
-                      className={`mt-3 h-2 rounded-full ${meterClasses.track}`}
-                      role="progressbar"
-                      aria-label={`${task.title} ${task.quotaScope ?? "quota"} progress`}
-                      aria-valuenow={meterNow}
-                      aria-valuemin={0}
-                      aria-valuemax={safeTarget}
-                    >
-                      <div
-                        className={`h-2 rounded-full transition-all ${meterClasses.fill}`}
-                        style={{ width: `${meterPercent}%` }}
-                      />
-                    </div>
-                    <p className="mt-2 text-sm text-monastic-1">{task.progressLabel}</p>
-                  </SurfaceInset>
+                  </div>
                 );
               })}
             </div>
-          </SurfaceCard>
+          </section>
         )}
 
-        <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-          {dayModels.map(({ day, required, optional, dateLabel }) => (
-            <TaskCard key={day.id}>
-              <TaskCardHeader
-                eyebrow={`Day ${day.day_number}`}
-                title={dateLabel || `Day ${day.day_number}`}
-                description={day.reading_title ?? day.title ?? "Daily Reading"}
-                action={
-                  <Button asChild size="xs" variant="secondary">
-                    <Link
-                      href={buildPlanDayHref(
-                        "/today",
-                        currentPlanSlug,
-                        day.day_number
-                      )}
-                    >
-                      Open
-                    </Link>
-                  </Button>
-                }
-              />
+        <section aria-labelledby="week-schedule-title">
+          <h2
+            id="week-schedule-title"
+            className="text-xl font-semibold text-monastic-0 sm:text-2xl"
+          >
+            Schedule
+          </h2>
+          <div className="mt-4 divide-y divide-[color:var(--line-soft)] border-y border-[color:var(--line-soft)]">
+            {scheduleDays.map(
+              ({ day, dateLabel, churchItems, exceptions }) => {
+                const isCurrentDay =
+                  activePlan.is_active === true &&
+                  challenge.hasStarted &&
+                  day.day_number === challenge.currentDayNumber;
+                const readingHref = buildPlanDayHref(
+                  "/daily-reading",
+                  currentPlanSlug,
+                  day.day_number
+                );
+                const todayHref = withViewTrack(
+                  buildPlanDayHref("/today", currentPlanSlug, day.day_number),
+                  track,
+                  preserveViewTrack
+                );
 
-              <TaskCardMeta className="mt-3">
-                <span>
-                  Required done: {required.filter((task) => task.isCompleted).length}/
-                  {required.length}
-                </span>
-                {day.reading_reference ? <span>{day.reading_reference}</span> : null}
-              </TaskCardMeta>
+                return (
+                  <article
+                    key={day.id}
+                    data-week-day={day.day_number}
+                    className="grid gap-3 py-5 sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-6"
+                  >
+                    <div>
+                      <p className="font-semibold text-monastic-0">
+                        {dateLabel || `Day ${day.day_number}`}
+                      </p>
+                      <p className="mt-1 text-sm text-monastic-2">
+                        Day {day.day_number}
+                        {isCurrentDay ? " · Today" : ""}
+                      </p>
+                    </div>
 
-              <div className="mt-5 space-y-4">
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-monastic-2">
-                    Required
-                  </h3>
-                  <div className="mt-3 space-y-2">
-                    {required.length > 0 ? (
-                      required.map((task) => {
-                        const statusPill = getTaskStatusPillState(task);
+                    <div className="min-w-0">
+                      <h3 className="text-lg font-semibold leading-7 text-monastic-0 sm:text-xl">
+                        <Link
+                          href={readingHref}
+                          className="underline decoration-[color:var(--line-strong)] underline-offset-4"
+                        >
+                          {day.reading_title ?? day.title ?? "Daily Reading"}
+                        </Link>
+                      </h3>
+                      {day.reading_reference ? (
+                        <p className="mt-1 text-sm text-monastic-1">
+                          {day.reading_reference}
+                        </p>
+                      ) : null}
 
-                        return (
-                          <div
-                            key={task.id}
-                            className="monastic-subcard p-3"
-                          >
-                            <div className="flex items-center justify-between gap-3">
-                              <p className="text-sm font-medium text-monastic-0">
-                                {task.title}
-                              </p>
-                              {statusPill ? (
-                                <StatusPill tone={statusPill.tone}>
-                                  {statusPill.label}
-                                </StatusPill>
-                              ) : null}
-                            </div>
-                            {task.note ? (
-                              <p className="mt-2 text-xs leading-5 text-monastic-1">
-                                {task.note}
-                              </p>
-                            ) : null}
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <p className="text-sm text-monastic-1">No required tasks.</p>
-                    )}
-                  </div>
-                </div>
+                      {churchItems.length > 0 ? (
+                        <div className="mt-4 border-l-2 border-[color:var(--line-strong)] pl-4">
+                          <p className="text-sm font-semibold text-monastic-0">
+                            Church calendar
+                          </p>
+                          <ul className="mt-2 space-y-2">
+                            {churchItems.map((item) => (
+                              <li key={item.key}>
+                                <Link
+                                  href={item.href}
+                                  className="font-semibold text-monastic-0 underline decoration-[color:var(--line-strong)] underline-offset-4"
+                                >
+                                  {item.title}
+                                </Link>
+                                <p className="mt-0.5 text-xs leading-5 text-monastic-2">
+                                  {item.rank} · {item.hasArticle ? "Article" : "Calendar"}
+                                </p>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
 
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-monastic-2">
-                    Optional
-                  </h3>
-                  <div className="mt-3 space-y-2">
-                    {optional.length > 0 ? (
-                      optional.map((task) => {
-                        const statusPill = getTaskStatusPillState(task);
+                      {exceptions.length > 0 ? (
+                        <p className="mt-4 text-sm leading-6 text-monastic-1">
+                          <span className="font-semibold text-monastic-0">
+                            Also today:
+                          </span>{" "}
+                          {exceptions
+                            .map(
+                              (task) =>
+                                `${task.title}${task.isRequired ? " (required)" : ""}`
+                            )
+                            .join(", ")}
+                        </p>
+                      ) : null}
 
-                        return (
-                          <div
-                            key={task.id}
-                            className="monastic-subcard p-3"
-                          >
-                            <div className="flex items-center justify-between gap-3">
-                              <p className="text-sm font-medium text-monastic-0">
-                                {task.title}
-                              </p>
-                              {statusPill ? (
-                                <StatusPill tone={statusPill.tone}>
-                                  {statusPill.label}
-                                </StatusPill>
-                              ) : null}
-                            </div>
-
-                            {task.progressLabel ? (
-                              <p className="mt-2 text-xs leading-5 text-monastic-1">
-                                {task.progressLabel}
-                              </p>
-                            ) : null}
-
-                            {task.note ? (
-                              <p className="mt-2 text-xs leading-5 text-monastic-1">
-                                {task.note}
-                              </p>
-                            ) : null}
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <p className="text-sm text-monastic-1">No optional tasks.</p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </TaskCard>
-          ))}
-        </div>
+                      <div className="mt-4 flex gap-5 text-sm font-semibold">
+                        <Link href={readingHref} className="underline underline-offset-4">
+                          Read
+                        </Link>
+                        <Link href={todayHref} className="underline underline-offset-4">
+                          View day
+                        </Link>
+                      </div>
+                    </div>
+                  </article>
+                );
+              }
+            )}
+          </div>
+        </section>
       </PageFrame>
     </main>
   );

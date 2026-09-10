@@ -471,7 +471,7 @@ export default async function DailyReadingPage({
               className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
               actions={[
                 { href: todayHref, label: "Back to Today", variant: "secondary" },
-                { href: thisWeekHref, label: "View This Week", variant: "primary" },
+                { href: thisWeekHref, label: "View Week", variant: "primary" },
               ]}
             />
           </div>
