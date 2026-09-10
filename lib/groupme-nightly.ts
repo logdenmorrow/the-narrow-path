@@ -61,6 +61,8 @@ type VariantConfig = {
   names: string[];
 };
 
+// Matching aliases only. Keep historical task names here for old plan rows, but
+// do not reuse them as display copy in the app.
 const BASELINE_TASK_NAMES = new Set([
   "reading",
   "no social media",
@@ -222,7 +224,7 @@ export async function generateNightlyReminderPreview() {
   const typedPlan = (activePlan ?? null) as ActivePlanRow | null;
 
   if (activePlanError || !typedPlan) {
-    throw new GroupMeError("No active challenge plan was found.", 500);
+    throw new GroupMeError("No active season plan was found.", 500);
   }
 
   const { data: tasks, error: tasksError } = await supabase

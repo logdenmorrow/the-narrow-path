@@ -208,7 +208,7 @@ export default async function ReflectionPage({
         ) : !challenge.hasStarted ? (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
-              The challenge begins on {challenge.startDateLabel}.
+              The season begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               Scripture Reflection is available in preview mode, but future-day saving stays locked until launch.

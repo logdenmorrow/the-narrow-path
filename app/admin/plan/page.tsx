@@ -798,7 +798,7 @@ export default async function AdminPlanPage({
             <SectionHeader
               kicker="Admin"
               title="Admin Plan Editor"
-              description="No active challenge plan was found. Add or activate a plan in Supabase before using this page."
+              description="No active season plan was found. Add or activate a plan in Supabase before using this page."
             />
           </SurfaceCard>
         </PageFrame>
@@ -923,7 +923,7 @@ export default async function AdminPlanPage({
         {!challenge.hasStarted && (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
-              Challenge starts on {challenge.startDateLabel}.
+              Season starts on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               You&apos;re currently building preview content before launch day.
@@ -934,10 +934,10 @@ export default async function AdminPlanPage({
         {challenge.isComplete && (
           <SurfaceCard>
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
-              The challenge is complete.
+              The season is complete.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
-              Admin preview is currently anchored to the final challenge day and
+              Admin preview is currently set to the final season day and
               final week.
             </p>
           </SurfaceCard>
@@ -979,7 +979,7 @@ export default async function AdminPlanPage({
             detail={planDay ? "Day exists" : "Day not created yet"}
           />
           <MetricCard
-            label="Live Challenge Day"
+            label="Live Season Day"
             value={challenge.hasStarted ? `Day ${challenge.currentDayNumber}` : "Pre-start"}
             detail={challenge.startDateLabel}
           />
@@ -994,7 +994,7 @@ export default async function AdminPlanPage({
           <SectionHeader
             kicker="Navigation"
             title="Move through the plan quickly."
-            description="Jump by day, follow the live challenge window, or step day by day."
+            description="Jump by day, follow the live season window, or step day by day."
           />
           <div className="mt-5 flex flex-col gap-4">
             <div className="grid gap-3 rounded-[1.4rem] border border-monastic bg-monastic-panel p-2 shadow-[0_18px_34px_-30px_rgba(42,25,15,0.8)] sm:grid-cols-2 xl:grid-cols-4">

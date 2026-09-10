@@ -51,7 +51,7 @@ export async function loadActivePlan(
       status: "none",
       plan: null,
       plans,
-      errorMessage: "No active challenge plan was found.",
+      errorMessage: "No active season plan was found.",
     };
   }
 
@@ -60,7 +60,7 @@ export async function loadActivePlan(
       status: "multiple",
       plan: null,
       plans,
-      errorMessage: `Expected exactly one active challenge plan, found ${plans.length}.`,
+      errorMessage: `Expected exactly one active season plan, found ${plans.length}.`,
     };
   }
 

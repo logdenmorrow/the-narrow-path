@@ -22,6 +22,7 @@ type TodayTaskCardProps = {
   lockedLabel?: string;
   toggleDisabled?: boolean;
   hideToggle?: boolean;
+  compact?: boolean;
   planSlug?: string;
   secondaryAction?: {
     href: string;
@@ -55,6 +56,7 @@ export function TodayTaskCard({
   lockedLabel,
   toggleDisabled = false,
   hideToggle = false,
+  compact = false,
   planSlug,
   secondaryAction,
 }: TodayTaskCardProps) {
@@ -114,6 +116,8 @@ export function TodayTaskCard({
     isOptional && /^optional(?: every day)?\.?$/i.test(note?.trim() ?? "")
       ? null
       : note;
+  const hideCompactMetaOnMobile =
+    compact && !secondaryAction && !locked && !errorMessage;
 
   const submitTask = async (formData: FormData) => {
     if (isBusy) return;
@@ -170,14 +174,18 @@ export function TodayTaskCard({
 
   const cardBody = (
     <TaskCard
-      className={`p-4 transition duration-200 ${
+      className={`${compact ? "p-3 sm:p-4" : "p-4"} transition duration-200 ${
         optimisticCompleted
           ? "border-[rgba(86,124,102,0.45)] bg-[rgba(151,186,164,0.09)]"
           : "hover:border-[color:var(--line-strong)] hover:bg-[color:var(--surface-2)]"
       } active:scale-[0.99]`}
     >
       <div className="flex items-start justify-between gap-3 sm:gap-4">
-        <div className="min-w-0 space-y-2.5 sm:space-y-3">
+        <div
+          className={`min-w-0 ${
+            compact ? "space-y-1.5 sm:space-y-3" : "space-y-2.5 sm:space-y-3"
+          }`}
+        >
           <div className="flex flex-wrap items-center gap-2">
             <h3
               className={`text-[0.95rem] font-semibold sm:text-lg ${
@@ -199,7 +207,11 @@ export function TodayTaskCard({
 
           {displayedNote ? (
             <p
-              className={`text-sm leading-6 ${
+              className={`${
+                compact
+                  ? "text-[0.82rem] leading-5 sm:text-sm sm:leading-6"
+                  : "text-sm leading-6"
+              } ${
                 optimisticCompleted
                   ? "text-[#6f776d] dark:text-[#c2b49c]"
                   : "text-monastic-1"
@@ -219,7 +231,11 @@ export function TodayTaskCard({
             aria-busy={isSubmitting}
             variant="secondary"
             size="icon"
-            className="h-12 w-12 shrink-0 rounded-[1.1rem]"
+            className={`${
+              compact
+                ? "h-11 w-11 rounded-[0.8rem] sm:h-12 sm:w-12 sm:rounded-[1.1rem]"
+                : "h-12 w-12 rounded-[1.1rem]"
+            } shrink-0`}
           >
             <span
               aria-hidden="true"
@@ -241,7 +257,12 @@ export function TodayTaskCard({
         )}
       </div>
 
-      <TaskCardMeta className="mt-2.5 justify-between gap-2.5 sm:mt-3 sm:gap-3">
+      <TaskCardMeta
+        data-task-meta="true"
+        className={`mt-2.5 justify-between gap-2.5 sm:mt-3 sm:gap-3 ${
+          hideCompactMetaOnMobile ? "hidden sm:flex" : ""
+        }`}
+      >
         <span
           className={
             errorMessage
@@ -273,7 +294,11 @@ export function TodayTaskCard({
 
   if (hideToggle) {
     return (
-      <div className="group" onClick={handleRowClick}>
+      <div
+        className="group"
+        data-task-density={compact ? "compact" : "regular"}
+        onClick={handleRowClick}
+      >
         {cardBody}
       </div>
     );
@@ -285,6 +310,7 @@ export function TodayTaskCard({
       action={submitTask}
       onClick={handleRowClick}
       className="group"
+      data-task-density={compact ? "compact" : "regular"}
     >
       <input type="hidden" name="planDayTaskId" value={planDayTaskId} />
       {planSlug ? <input type="hidden" name="planSlug" value={planSlug} /> : null}

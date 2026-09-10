@@ -46,7 +46,7 @@ export async function generateWeeklyRecapPreview() {
   const typedPlan = (activePlan ?? null) as ActivePlanRow | null;
 
   if (activePlanError || !typedPlan) {
-    throw new GroupMeError("No active challenge plan was found.", 500);
+    throw new GroupMeError("No active season plan was found.", 500);
   }
 
   const weekWindow = getSeasonWeekWindowForPlan(typedPlan);

@@ -454,7 +454,7 @@ export default async function DashboardPage({
             <SurfaceCard>
               <SectionHeader
                 kicker="Reset"
-                title="No Daily Challenge Pressure"
+                title="No Daily Task Pressure"
                 description="Community, account controls, notifications, and past day review remain available."
               />
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -759,7 +759,7 @@ export default async function DashboardPage({
         {!challenge.hasStarted && (
           <div className="mb-6 monastic-card p-4 sm:p-6">
             <p className="text-base font-semibold text-monastic-0 sm:text-lg">
-              The challenge begins on {challenge.startDateLabel}.
+              The season begins on {challenge.startDateLabel}.
             </p>
             <p className="mt-2 text-sm text-monastic-1 sm:text-base">
               You&apos;re currently in preview mode. Daily and quota
