@@ -3,9 +3,12 @@ import { redirect } from "next/navigation";
 import {
   HeroPanel,
   PageFrame,
+  SectionHeader,
   SurfaceCard,
+  SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
+import { Button } from "@/components/ui/button";
 import { AdminViewTrackSwitcher } from "@/components/admin-view-track-switcher";
 import { JamesScaffoldingCard, SeasonTimeline } from "@/components/season-timeline";
 import { createClient } from "@/lib/supabase/server";
@@ -575,85 +578,80 @@ export default async function ThisWeekPage({
           />
         ) : null}
 
-        <header className="border-b border-[color:var(--line-soft)] pb-5">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h1 className="text-3xl font-semibold text-monastic-0 sm:text-4xl">
-                Week
-              </h1>
-              <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base">
-                {activePlan.name} · Days {weekStartDayNumber}-{weekEndDayNumber}
+        <HeroPanel className="py-7 sm:py-8">
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <div className="text-[#f7ebd8]">
+              <p className="section-kicker text-[#ead6b0]">{activePlan.name}</p>
+              <h1 className="mt-3 text-5xl font-semibold sm:text-6xl">Week</h1>
+              <p className="mt-3 text-lg text-[#ead8bc]">
+                Days {weekStartDayNumber}-{weekEndDayNumber}
               </p>
             </div>
-            <nav
-              aria-label="Week actions"
-              className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold"
-            >
-              <Link
-                href={withViewTrack(
-                  buildPlanDayHref("/today", currentPlanSlug, selectedDay),
-                  track,
-                  preserveViewTrack
-                )}
-                className="underline decoration-[color:var(--line-strong)] underline-offset-4 transition-colors hover:text-monastic-0"
-              >
-                Today
-              </Link>
-              <Link
-                href={buildPlanDayHref(
-                  "/daily-reading",
-                  currentPlanSlug,
-                  selectedDay
-                )}
-                className="underline decoration-[color:var(--line-strong)] underline-offset-4 transition-colors hover:text-monastic-0"
-              >
-                Daily Reading
-              </Link>
-            </nav>
-          </div>
 
-          <nav
-            aria-label="Browse weeks"
-            className="mt-5 flex items-center justify-between border-t border-[color:var(--line-soft)] pt-4 text-sm"
-          >
-            {previousWeekDay < weekStartDayNumber ? (
+            <AppActionBar
+              className="grid gap-3 border-white/10 bg-[rgba(22,16,13,0.28)] sm:grid-cols-2"
+              actions={[
+                {
+                  href: withViewTrack(
+                    buildPlanDayHref("/today", currentPlanSlug, selectedDay),
+                    track,
+                    preserveViewTrack
+                  ),
+                  label: "Go to Today",
+                  variant: "secondary",
+                },
+                {
+                  href: buildPlanDayHref(
+                    "/daily-reading",
+                    currentPlanSlug,
+                    selectedDay
+                  ),
+                  label: "Daily Reading",
+                  variant: "primary",
+                },
+              ]}
+            />
+          </div>
+        </HeroPanel>
+
+        <nav aria-label="Browse weeks" className="flex items-center justify-between gap-3">
+          {previousWeekDay < weekStartDayNumber ? (
+            <Button asChild variant="secondary" size="sm">
               <Link
                 href={withViewTrack(
                   buildPlanDayHref("/this-week", currentPlanSlug, previousWeekDay),
                   track,
                   preserveViewTrack
                 )}
-                className="underline underline-offset-4"
               >
-                Previous week
+                Previous Week
               </Link>
-            ) : (
-              <span />
-            )}
-            {nextWeekDay > weekEndDayNumber ? (
+            </Button>
+          ) : (
+            <span />
+          )}
+          {nextWeekDay > weekEndDayNumber ? (
+            <Button asChild variant="secondary" size="sm">
               <Link
                 href={withViewTrack(
                   buildPlanDayHref("/this-week", currentPlanSlug, nextWeekDay),
                   track,
                   preserveViewTrack
                 )}
-                className="underline underline-offset-4"
               >
-                Next week
+                Next Week
               </Link>
-            ) : null}
-          </nav>
-        </header>
+            </Button>
+          ) : null}
+        </nav>
 
         {quotaSummaries.length > 0 && (
-          <section aria-labelledby="week-progress-title">
-            <h2
-              id="week-progress-title"
-              className="text-xl font-semibold text-monastic-0 sm:text-2xl"
-            >
-              Progress
-            </h2>
-            <div className="mt-4 divide-y divide-[color:var(--line-soft)] border-y border-[color:var(--line-soft)]">
+          <SurfaceCard aria-labelledby="week-progress-title">
+            <SectionHeader
+              kicker="Progress"
+              title={<span id="week-progress-title">Weekly and Monthly Progress</span>}
+            />
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {quotaSummaries.map((task) => {
                 const safeTarget = Math.max(task.quotaTarget ?? 1, 1);
                 const clampedCompleted = Math.max(task.progressCount ?? 0, 0);
@@ -666,47 +664,44 @@ export default async function ThisWeekPage({
                 const meterClasses = getQuotaMeterClasses(tone);
 
                 return (
-                  <div
+                  <SurfaceInset
                     key={`quota-${task.taskTemplateId}-${task.weekStartDate ?? task.monthStartDate ?? "daily"}`}
-                    className="grid gap-2 py-4 sm:grid-cols-[minmax(0,1fr)_minmax(12rem,0.45fr)] sm:items-center sm:gap-6"
                   >
-                    <div>
+                    <div className="flex items-start justify-between gap-3">
                       <p className="font-semibold text-monastic-0">{task.title}</p>
-                      <p className="mt-1 text-sm text-monastic-1">{task.progressLabel}</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`h-1.5 flex-1 overflow-hidden rounded-full ${meterClasses.track}`}
-                        role="progressbar"
-                        aria-label={`${task.title} ${task.quotaScope ?? "quota"} progress`}
-                        aria-valuenow={meterNow}
-                        aria-valuemin={0}
-                        aria-valuemax={safeTarget}
-                      >
-                        <div
-                          className={`h-full rounded-full transition-all ${meterClasses.fill}`}
-                          style={{ width: `${meterPercent}%` }}
-                        />
-                      </div>
                       <span className={`shrink-0 text-sm font-semibold tabular-nums ${meterClasses.text}`}>
-                        {meterNow}/{safeTarget}
+                        {meterNow} / {safeTarget}
                       </span>
                     </div>
-                  </div>
+                    <div
+                      className={`mt-3 h-2 overflow-hidden rounded-full ${meterClasses.track}`}
+                      role="progressbar"
+                      aria-label={`${task.title} ${task.quotaScope ?? "quota"} progress`}
+                      aria-valuenow={meterNow}
+                      aria-valuemin={0}
+                      aria-valuemax={safeTarget}
+                    >
+                      <div
+                        className={`h-full rounded-full transition-all ${meterClasses.fill}`}
+                        style={{ width: `${meterPercent}%` }}
+                      />
+                    </div>
+                    <p className="mt-2 text-sm leading-6 text-monastic-1">
+                      {task.progressLabel}
+                    </p>
+                  </SurfaceInset>
                 );
               })}
             </div>
-          </section>
+          </SurfaceCard>
         )}
 
-        <section aria-labelledby="week-schedule-title">
-          <h2
-            id="week-schedule-title"
-            className="text-xl font-semibold text-monastic-0 sm:text-2xl"
-          >
-            Schedule
-          </h2>
-          <div className="mt-4 divide-y divide-[color:var(--line-soft)] border-y border-[color:var(--line-soft)]">
+        <SurfaceCard aria-labelledby="week-schedule-title">
+          <SectionHeader
+            kicker="This Week"
+            title={<span id="week-schedule-title">Schedule</span>}
+          />
+          <div className="mt-5 grid gap-3 md:grid-cols-2">
             {scheduleDays.map(
               ({ day, dateLabel, churchItems, exceptions }) => {
                 const isCurrentDay =
@@ -725,88 +720,89 @@ export default async function ThisWeekPage({
                 );
 
                 return (
-                  <article
+                  <SurfaceInset
                     key={day.id}
                     data-week-day={day.day_number}
-                    className="grid gap-3 py-5 sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-6"
+                    className={isCurrentDay ? "ring-2 ring-[hsl(var(--ring)/0.42)]" : undefined}
                   >
-                    <div>
-                      <p className="font-semibold text-monastic-0">
-                        {dateLabel || `Day ${day.day_number}`}
-                      </p>
-                      <p className="mt-1 text-sm text-monastic-2">
-                        Day {day.day_number}
-                        {isCurrentDay ? " · Today" : ""}
-                      </p>
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="section-kicker">Day {day.day_number}</p>
+                        <p className="mt-2 font-semibold text-monastic-0">
+                          {dateLabel || `Day ${day.day_number}`}
+                        </p>
+                      </div>
+                      {isCurrentDay ? (
+                        <span className="rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface-3)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-monastic-0">
+                          Today
+                        </span>
+                      ) : null}
                     </div>
 
-                    <div className="min-w-0">
-                      <h3 className="text-lg font-semibold leading-7 text-monastic-0 sm:text-xl">
-                        <Link
-                          href={readingHref}
-                          className="underline decoration-[color:var(--line-strong)] underline-offset-4"
-                        >
-                          {day.reading_title ?? day.title ?? "Daily Reading"}
-                        </Link>
-                      </h3>
-                      {day.reading_reference ? (
-                        <p className="mt-1 text-sm text-monastic-1">
-                          {day.reading_reference}
+                    <h3 className="mt-4 text-xl font-semibold leading-7 text-monastic-0">
+                      {day.reading_title ?? day.title ?? "Daily Reading"}
+                    </h3>
+                    {day.reading_reference ? (
+                      <p className="mt-1 text-sm text-monastic-1">
+                        {day.reading_reference}
+                      </p>
+                    ) : null}
+
+                    {churchItems.length > 0 ? (
+                      <div className="mt-4 border-t border-[color:var(--line-soft)] pt-4">
+                        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-monastic-2">
+                          Church Calendar
                         </p>
-                      ) : null}
+                        <ul className="mt-2 space-y-2">
+                          {churchItems.map((item) => (
+                            <li key={item.key}>
+                              <Link
+                                href={item.href}
+                                className="font-semibold text-monastic-0 underline decoration-[color:var(--line-strong)] underline-offset-4"
+                              >
+                                {item.title}
+                              </Link>
+                              <p className="mt-0.5 text-xs leading-5 text-monastic-2">
+                                {item.rank} · {item.hasArticle ? "Article" : "Calendar"}
+                              </p>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
 
-                      {churchItems.length > 0 ? (
-                        <div className="mt-4 border-l-2 border-[color:var(--line-strong)] pl-4">
-                          <p className="text-sm font-semibold text-monastic-0">
-                            Church calendar
-                          </p>
-                          <ul className="mt-2 space-y-2">
-                            {churchItems.map((item) => (
-                              <li key={item.key}>
-                                <Link
-                                  href={item.href}
-                                  className="font-semibold text-monastic-0 underline decoration-[color:var(--line-strong)] underline-offset-4"
-                                >
-                                  {item.title}
-                                </Link>
-                                <p className="mt-0.5 text-xs leading-5 text-monastic-2">
-                                  {item.rank} · {item.hasArticle ? "Article" : "Calendar"}
-                                </p>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : null}
+                    {exceptions.length > 0 ? (
+                      <p className="mt-4 text-sm leading-6 text-monastic-1">
+                        <span className="font-semibold text-monastic-0">
+                          Also today:
+                        </span>{" "}
+                        {exceptions
+                          .map(
+                            (task) =>
+                              `${task.title}${task.isRequired ? " (required)" : ""}`
+                          )
+                          .join(", ")}
+                      </p>
+                    ) : null}
 
-                      {exceptions.length > 0 ? (
-                        <p className="mt-4 text-sm leading-6 text-monastic-1">
-                          <span className="font-semibold text-monastic-0">
-                            Also today:
-                          </span>{" "}
-                          {exceptions
-                            .map(
-                              (task) =>
-                                `${task.title}${task.isRequired ? " (required)" : ""}`
-                            )
-                            .join(", ")}
-                        </p>
-                      ) : null}
-
-                      <div className="mt-4 flex gap-5 text-sm font-semibold">
-                        <Link href={readingHref} className="underline underline-offset-4">
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      <Button asChild size="xs" variant="primary">
+                        <Link href={readingHref}>
                           Read
                         </Link>
-                        <Link href={todayHref} className="underline underline-offset-4">
+                      </Button>
+                      <Button asChild size="xs" variant="secondary">
+                        <Link href={todayHref}>
                           View day
                         </Link>
-                      </div>
+                      </Button>
                     </div>
-                  </article>
+                  </SurfaceInset>
                 );
               }
             )}
           </div>
-        </section>
+        </SurfaceCard>
       </PageFrame>
     </main>
   );
