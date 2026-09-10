@@ -1223,11 +1223,11 @@ export default async function TodayPage({
               </Button>
             }
           />
-          <SurfaceCard
+          <div
             className={
               isReflectionComplete
-                ? "border-[rgba(86,124,102,0.45)] bg-[rgba(151,186,164,0.09)]"
-                : undefined
+                ? "monastic-stat border-[rgba(86,124,102,0.55)] bg-[rgba(151,186,164,0.05)]"
+                : "monastic-stat"
             }
           >
             <div className="section-kicker">{reflectionCardLabel}</div>
@@ -1256,16 +1256,15 @@ export default async function TodayPage({
                 </Button>
               </div>
             ) : null}
-          </SurfaceCard>
+          </div>
         </section>
 
-        <div className="grid gap-6 2xl:grid-cols-[minmax(0,1.45fr)_minmax(22rem,0.55fr)] 2xl:items-start">
+        <div className="space-y-8">
           <div className="grid gap-6">
             {uniqueQuotaTasks.length > 0 && (
-              <SurfaceCard>
+              <section className="border-t border-monastic pt-6">
                 <SectionHeader
-                  kicker="Progress"
-                  title="Weekly and Monthly Progress"
+                  title="Weekly and monthly progress"
                 />
 
                 <div className="mt-4 grid gap-3 sm:mt-6 sm:grid-cols-2 xl:grid-cols-3">
@@ -1296,15 +1295,12 @@ export default async function TodayPage({
                     );
                   })}
                 </div>
-              </SurfaceCard>
+              </section>
             )}
 
             <div className="grid gap-6 xl:grid-cols-2">
-              <SurfaceCard>
-                <SectionHeader
-                  kicker="Required"
-                  title="Required Today"
-                />
+              <section className="border-t border-monastic pt-6">
+                <SectionHeader title="Required today" />
                 <div className="mt-5 space-y-3">
                   {requiredTasks.length > 0 ? (
                     requiredTasks.map((task) => (
@@ -1331,13 +1327,10 @@ export default async function TodayPage({
                     <p className="text-base leading-7 text-monastic-1">No required tasks for this day.</p>
                   )}
                 </div>
-              </SurfaceCard>
+              </section>
 
-              <SurfaceCard>
-                <SectionHeader
-                  kicker="Optional"
-                  title="Optional Today"
-                />
+              <section className="border-t border-monastic pt-6">
+                <SectionHeader title="Optional today" />
                 <div className="mt-5 space-y-2 sm:space-y-3">
                   {displayOptionalTasks.length > 0 ? (
                     displayOptionalTasks.map((task) => (
@@ -1370,99 +1363,22 @@ export default async function TodayPage({
                     <p className="text-base leading-7 text-monastic-1">No optional tasks for this day.</p>
                   )}
                 </div>
-              </SurfaceCard>
+              </section>
             </div>
           </div>
 
-        <aside className="grid gap-6 xl:grid-cols-2 2xl:sticky 2xl:top-[12rem] 2xl:self-start 2xl:grid-cols-1">
-          <SurfaceCard className="hidden 2xl:block">
-            <SectionHeader
-              kicker="Day at a Glance"
-              title={`Day ${typedPlanDay.day_number}`}
-              description={formatReadableDate(taskModels[0]?.dayDate) || "Plan day"}
-            />
-
-            <div className="mt-5 grid gap-3">
-              <SurfaceInset>
-                <div className="section-kicker">Required</div>
-                <p className="mt-2 text-2xl font-semibold text-monastic-0">
-                  {completedRequiredCount}/{requiredTasks.length}
-                </p>
-                <div className="monastic-meter mt-3">
-                  <span style={{ width: `${requiredCompletionPercent}%` }} />
-                </div>
-              </SurfaceInset>
-
-              <SurfaceInset>
-                <div className="section-kicker">Optional</div>
-                <p className="mt-2 text-2xl font-semibold text-monastic-0">
-                  {optionalTasks.filter((task) => task.isCompleted).length}/{optionalTasks.length}
-                </p>
-              </SurfaceInset>
-
-              {uniqueQuotaTasks.length > 0 ? (
-                <SurfaceInset>
-                  <div className="section-kicker">Quota Context</div>
-                  <p className="mt-2 text-sm leading-6 text-monastic-1">
-                    {uniqueQuotaTasks.length} weekly or monthly task
-                    {uniqueQuotaTasks.length === 1 ? "" : "s"} for this day.
-                  </p>
-                </SurfaceInset>
-              ) : null}
-
-              {!canEditSelectedDay ? (
-                <SurfaceInset className="border-[rgba(168,129,81,0.34)] bg-[rgba(168,129,81,0.08)]">
-                  <div className="section-kicker">Status</div>
-                  <p className="mt-2 text-sm leading-6 text-monastic-1">
-                    {lockLabel}
-                  </p>
-                </SurfaceInset>
-              ) : null}
-            </div>
-
-            <div className="mt-5 grid gap-3">
-              <Button asChild variant="secondary" className="w-full">
-                <Link
-                  href={buildPlanDayHref(
-                    "/daily-reading",
-                    currentPlanSlug,
-                    typedPlanDay.day_number
-                  )}
-                >
-                  Open Reading
-                </Link>
-              </Button>
-              {hasReflectionPrompt ? (
-                <Button asChild variant={isReflectionComplete ? "secondary" : "default"} className="w-full">
-                  <Link
-                    href={buildPlanDayHref(
-                      "/reflection",
-                      currentPlanSlug,
-                      typedPlanDay.day_number
-                    )}
-                  >
-                    {reflectionActionLabel}
-                  </Link>
-                </Button>
-              ) : null}
-            </div>
-          </SurfaceCard>
-
-          <SurfaceCard>
-            <SectionHeader
-              kicker="Today in the Church"
-              title={liturgicalDay.title}
-              description={`${liturgicalDay.rank} • ${liturgicalDay.liturgical_color}${
-                liturgicalDay.season ? ` • ${liturgicalDay.season}` : ""
-              }`}
-            />
+        <aside className="grid gap-8 lg:grid-cols-2">
+          <section className="border-t border-monastic pt-6">
+            <h2 className="text-2xl font-semibold text-monastic-0 sm:text-3xl">
+              Today in the Church
+            </h2>
             <TodayInTheChurchCard
               day={liturgicalDay}
               properOverlays={properCalendarOverlays}
             />
-          </SurfaceCard>
+          </section>
 
-          <SurfaceCard>
+          <section className="border-t border-monastic pt-6">
             <SectionHeader
               kicker="Prayer"
               title="Need prayer?"
@@ -1488,7 +1404,7 @@ export default async function TodayPage({
                 {accountabilityHelperText}
               </p>
             )}
-          </SurfaceCard>
+          </section>
         </aside>
         </div>
       </PageFrame>

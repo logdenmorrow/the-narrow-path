@@ -377,24 +377,24 @@ export default async function RosaryPage({
 
         {signedAudioUrl ? (
           <>
-            <SurfaceCard className={`${PAGE_CARD_CLASS} py-4 sm:py-5`}>
+            <section className={`${PAGE_CARD_CLASS} border-t border-monastic pt-6`}>
               <SectionHeader
                 kicker="Audio"
                 title="Pray along"
                 description="Use the floating player to pray this day's Rosary."
               />
-            </SurfaceCard>
+            </section>
             <RosaryAudioPlayer src={signedAudioUrl} />
           </>
         ) : signedAudioError ? (
-          <SurfaceCard className={`${PAGE_CARD_CLASS} py-4 sm:py-5`}>
+          <section className={`${PAGE_CARD_CLASS} border-t border-monastic pt-6`}>
             <p className="text-sm leading-6 text-monastic-1">
               Rosary audio is temporarily unavailable. The full prayer text remains below.
             </p>
-          </SurfaceCard>
+          </section>
         ) : null}
 
-        <SurfaceCard className={PAGE_CARD_CLASS}>
+        <section className={`${PAGE_CARD_CLASS} border-t border-monastic pt-6`}>
           <div className="mx-auto max-w-3xl text-center">
             <p className="section-kicker">Opening Prayers</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-monastic-0 sm:text-4xl">
@@ -414,10 +414,10 @@ export default async function RosaryPage({
               <PrayerBlock label="Glory Be">{GLORY_BE}</PrayerBlock>
             </article>
           </SurfaceInset>
-        </SurfaceCard>
+        </section>
 
         {mysterySet.mysteries.map((mystery, index) => (
-          <SurfaceCard key={mystery.title} className={PAGE_CARD_CLASS}>
+          <section key={mystery.title} className={`${PAGE_CARD_CLASS} border-t border-monastic pt-6`}>
             <SectionHeader
               kicker={`${MYSTERY_ORDINALS[index]} Mystery`}
               title={mystery.title}
@@ -441,10 +441,10 @@ export default async function RosaryPage({
                 <PrayerBlock label="Fatima Prayer">{FATIMA_PRAYER}</PrayerBlock>
               </article>
             </SurfaceInset>
-          </SurfaceCard>
+          </section>
         ))}
 
-        <SurfaceCard className={PAGE_CARD_CLASS}>
+        <section className={`${PAGE_CARD_CLASS} border-t border-monastic pt-6`}>
           <SectionHeader
             kicker="Closing Prayers"
             title="Closing Prayers"
@@ -473,10 +473,10 @@ export default async function RosaryPage({
               <PrayerBlock label="Sign of the Cross">{SIGN_OF_THE_CROSS}</PrayerBlock>
             </article>
           </SurfaceInset>
-        </SurfaceCard>
+        </section>
 
         {rosaryTask ? (
-          <SurfaceCard className={PAGE_CARD_CLASS}>
+          <section className={`${PAGE_CARD_CLASS} border-t border-monastic pt-6`}>
             <SectionHeader
               kicker="Completion"
               title={completion?.id ? "Rosary completed." : "Mark Rosary complete."}
@@ -495,15 +495,15 @@ export default async function RosaryPage({
                 planSlug={activePlanSlug}
               />
             </div>
-          </SurfaceCard>
+          </section>
         ) : (
-          <SurfaceCard className={PAGE_CARD_CLASS}>
+          <section className={`${PAGE_CARD_CLASS} border-t border-monastic pt-6`}>
             <SectionHeader
               kicker="Completion"
               title="Rosary is not assigned to this day."
               description="The guide remains available, but there is no Rosary task to mark complete for this day."
             />
-          </SurfaceCard>
+          </section>
         )}
       </PageFrame>
     </main>

@@ -671,7 +671,7 @@ export default async function LiturgicalHourPage({
               </p>
               <h1 className="mt-2 text-4xl font-semibold sm:text-5xl">{hourDisplayName}</h1>
               <p className="mt-2 text-base leading-7 text-[#ead8bc] sm:text-lg">
-                Pray Compline with the Church before sleep.
+                Pray {hourDisplayName} with the Church.
               </p>
               <h2 className="mt-5 text-2xl font-semibold text-white sm:text-3xl">
                 {title}
@@ -724,7 +724,7 @@ export default async function LiturgicalHourPage({
           {metadataParts.join(" • ")}
         </p>
 
-        <SurfaceCard className={PAGE_CARD_CLASS}>
+        <section className={`${PAGE_CARD_CLASS} border-t border-monastic pt-6`}>
           <div className="mx-auto max-w-3xl text-center">
             <p className="section-kicker">{hourKicker}</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-monastic-0 sm:text-4xl">
@@ -764,10 +764,10 @@ export default async function LiturgicalHourPage({
               </div>
             </SurfaceInset>
           )}
-        </SurfaceCard>
+        </section>
 
         {hourTask ? (
-          <SurfaceCard className={PAGE_CARD_CLASS}>
+          <section className={`${PAGE_CARD_CLASS} border-t border-monastic pt-6`}>
             <SectionHeader
               kicker="Completion"
               title={completion?.id ? `${hourDisplayName} completed.` : `Mark ${hourDisplayName} complete.`}
@@ -786,19 +786,19 @@ export default async function LiturgicalHourPage({
                 planSlug={activePlanSlug}
               />
             </div>
-          </SurfaceCard>
+          </section>
         ) : (
-          <SurfaceCard className={PAGE_CARD_CLASS}>
+          <section className={`${PAGE_CARD_CLASS} border-t border-monastic pt-6`}>
             <SectionHeader
               kicker="Completion"
               title={`${hourDisplayName} is not assigned to this day yet.`}
               description="No Liturgy of the Hours or Night Prayer task exists for this plan day."
             />
-          </SurfaceCard>
+          </section>
         )}
 
         {sourceDetailBlocks.length > 0 ? (
-          <SurfaceCard className={`${PAGE_CARD_CLASS} py-4 sm:py-5`}>
+          <section className={`${PAGE_CARD_CLASS} border-t border-monastic py-4`}>
             <details>
               <summary className="cursor-pointer text-[10px] font-semibold uppercase tracking-[0.16em] text-monastic-1 transition hover:text-monastic-0 sm:text-xs sm:tracking-[0.22em]">
                 Source details / book reference
@@ -807,7 +807,7 @@ export default async function LiturgicalHourPage({
                 {sourceDetailBlocks.map(renderSourceDetailBlock)}
               </div>
             </details>
-          </SurfaceCard>
+          </section>
         ) : null}
       </PageFrame>
     </main>

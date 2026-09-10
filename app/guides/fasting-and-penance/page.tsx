@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import {
   HeroPanel,
   PageFrame,
-  SurfaceCard,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 
@@ -61,8 +60,7 @@ export default function FastingAndPenanceGuidePage() {
           </div>
         </HeroPanel>
 
-        <SurfaceCard className="px-5 py-7 sm:px-8 sm:py-10">
-          <article className="mx-auto max-w-5xl text-base leading-8 text-monastic-1 sm:text-lg">
+        <article className="mx-auto max-w-5xl text-base leading-8 text-monastic-1 sm:text-lg">
             <header>
               <h2 className="text-3xl font-semibold text-monastic-0 sm:text-4xl">
                 Prayer and Self-Denial
@@ -106,7 +104,7 @@ export default function FastingAndPenanceGuidePage() {
                 One full meal, plus up to two smaller meals that together do not
                 equal another full meal. Join the hunger to prayer and offer the
                 fast for a specific intention. If a full fast is not prudent,
-                choose another concrete penance and offer it with a generous heart.
+                choose another concrete penance and offer it to God.
               </p>
             </section>
 
@@ -150,8 +148,7 @@ export default function FastingAndPenanceGuidePage() {
                 not prudent, choose another form of self-denial, charity, or service.
               </p>
             </section>
-          </article>
-        </SurfaceCard>
+        </article>
       </PageFrame>
     </main>
   );

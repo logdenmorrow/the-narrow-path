@@ -5,7 +5,6 @@ import { Megaphone, Pin } from "lucide-react";
 import {
   PageFrame,
   SectionHeader,
-  SurfaceCard,
   SurfaceInset,
 } from "@/components/monastic-ui";
 import { Button } from "@/components/ui/button";
@@ -42,20 +41,20 @@ export default async function AnnouncementsPage() {
   return (
     <main className="monastic-page">
       <PageFrame className="max-w-5xl space-y-6">
-        <SurfaceCard>
+        <header className="border-b border-monastic pb-5">
           <SectionHeader
-            kicker="Announcements"
+            level="h1"
             title="Announcements"
             description="Official updates for signed-in members."
           />
-        </SurfaceCard>
+        </header>
 
         {announcements.length === 0 ? (
-          <SurfaceCard>
+          <section className="border-y border-monastic py-5">
             <p className="text-sm leading-6 text-monastic-1 sm:text-base">
               No announcements right now.
             </p>
-          </SurfaceCard>
+          </section>
         ) : (
           <div className="space-y-4">
             {announcements.map((announcement) => (
@@ -67,12 +66,12 @@ export default async function AnnouncementsPage() {
                         {formatAnnouncementLabel(announcement.category)}
                       </span>
                       {announcement.is_pinned ? (
-                        <span className="inline-flex items-center gap-1 rounded-full border border-[color:var(--line-soft)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-monastic-1">
+                        <span className="inline-flex items-center gap-1 rounded-md border border-[color:var(--line-soft)] px-2 py-0.5 text-xs font-medium text-monastic-1">
                           <Pin className="h-3 w-3" aria-hidden="true" />
                           Pinned
                         </span>
                       ) : null}
-                      <span className="inline-flex rounded-full border border-[color:var(--line-soft)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-monastic-1">
+                      <span className="inline-flex rounded-md border border-[color:var(--line-soft)] px-2 py-0.5 text-xs font-medium text-monastic-1">
                         {announcement.is_read ? "Read" : "Unread"}
                       </span>
                     </div>

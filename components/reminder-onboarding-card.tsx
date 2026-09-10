@@ -189,7 +189,7 @@ export function ReminderOnboardingCard({
         aria-modal="true"
         aria-labelledby="reminder-onboarding-title"
         aria-describedby="reminder-onboarding-description"
-        className="monastic-card w-full max-w-sm p-5 shadow-2xl"
+        className="monastic-card w-full max-w-sm p-5"
       >
         <h2
           id="reminder-onboarding-title"

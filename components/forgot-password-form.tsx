@@ -49,7 +49,7 @@ export function ForgotPasswordForm({
             </p>
           }
         >
-          <div className="rounded-[1.35rem] border border-monastic bg-[color:var(--surface-2)]/70 p-5">
+          <div className="rounded-lg border border-monastic bg-[color:var(--surface-2)] p-5">
             <p className="text-sm leading-7 text-monastic-1">
               Open the message from The Narrow Path and follow the reset link to
               choose a new password.
@@ -80,11 +80,11 @@ export function ForgotPasswordForm({
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
+                className="monastic-field h-12 rounded-lg px-4 py-3 text-base shadow-none md:text-base"
               />
             </div>
             {error ? (
-              <div className="rounded-2xl border border-red-500/30 bg-red-950/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+              <div className="rounded-lg border border-red-500/30 bg-red-950/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
                 {error}
               </div>
             ) : null}

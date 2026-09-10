@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 type PageFrameProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function PageFrame({ className, ...props }: PageFrameProps) {
-  return <div className={cn("monastic-frame min-w-0 max-w-full py-6 sm:py-10 lg:py-12", className)} {...props} />;
+  return <div className={cn("monastic-frame min-w-0 max-w-full py-5 sm:py-8", className)} {...props} />;
 }
 
 type SurfaceProps = React.HTMLAttributes<HTMLDivElement>;
@@ -14,7 +14,7 @@ export function SurfaceCard({ className, ...props }: SurfaceProps) {
 }
 
 export function SurfaceInset({ className, ...props }: SurfaceProps) {
-  return <div className={cn("monastic-subcard min-w-0 max-w-full p-3.5 sm:p-5", className)} {...props} />;
+  return <div className={cn("monastic-subcard min-w-0 max-w-full py-3.5 sm:py-4", className)} {...props} />;
 }
 
 type SectionHeaderProps = {
@@ -23,6 +23,7 @@ type SectionHeaderProps = {
   description?: React.ReactNode;
   action?: React.ReactNode;
   align?: "left" | "center";
+  level?: "h1" | "h2" | "h3";
   className?: string;
 };
 
@@ -32,25 +33,28 @@ export function SectionHeader({
   description,
   action,
   align = "left",
+  level = "h2",
   className,
 }: SectionHeaderProps) {
+  const Heading = level;
+
   return (
     <div
       className={cn(
-        "flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between",
+        "flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between",
         align === "center" && "items-center text-center sm:flex-col sm:items-center",
         className
       )}
     >
-      <div className="min-w-0 max-w-full space-y-3">
-        {kicker ? <div className="section-kicker">{kicker}</div> : null}
-        <div className="section-rule">
-          <h2 className="text-2xl font-semibold tracking-tight text-monastic-0 sm:text-4xl">
+      <div className="min-w-0 max-w-full space-y-2">
+        {kicker ? <p className="section-kicker">{kicker}</p> : null}
+        <div>
+          <Heading className="text-2xl font-semibold tracking-tight text-monastic-0 sm:text-3xl">
             {title}
-          </h2>
+          </Heading>
         </div>
         {description ? (
-          <p className="max-w-3xl text-sm leading-6 text-monastic-1 sm:text-lg sm:leading-7">
+          <p className="max-w-3xl text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
             {description}
           </p>
         ) : null}
@@ -81,9 +85,9 @@ export function MetricCard({
   valueClassName,
 }: MetricCardProps) {
   return (
-    <SurfaceCard className={cn("h-full", className)}>
-      <div className="section-kicker">{label}</div>
-      <div className={cn("mt-2 text-2xl font-semibold text-monastic-0 sm:mt-3 sm:text-4xl", valueClassName)}>{value}</div>
+    <div className={cn("monastic-stat h-full", className)}>
+      <div className="text-sm font-medium text-monastic-1">{label}</div>
+      <div className={cn("mt-1 text-2xl font-semibold text-monastic-0 sm:text-3xl", valueClassName)}>{value}</div>
       {detail ? <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base">{detail}</p> : null}
       {typeof meterValue === "number" ? (
         <div className="monastic-meter mt-4 sm:mt-5">
@@ -91,14 +95,14 @@ export function MetricCard({
         </div>
       ) : null}
       {action ? <div className="mt-5">{action}</div> : null}
-    </SurfaceCard>
+    </div>
   );
 }
 
 type HeroPanelProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function HeroPanel({ className, ...props }: HeroPanelProps) {
-  return <section className={cn("monastic-hero px-5 py-6 sm:px-8 sm:py-10 lg:px-10 lg:py-12", className)} {...props} />;
+  return <section className={cn("monastic-hero px-0 py-4 sm:py-6", className)} {...props} />;
 }
 
 type ReadingColumnProps = React.HTMLAttributes<HTMLDivElement>;

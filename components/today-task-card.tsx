@@ -174,11 +174,11 @@ export function TodayTaskCard({
 
   const cardBody = (
     <TaskCard
-      className={`${compact ? "p-3 sm:p-4" : "p-4"} transition duration-200 ${
+      className={`transition-colors duration-150 ${
         optimisticCompleted
-          ? "border-[rgba(86,124,102,0.45)] bg-[rgba(151,186,164,0.09)]"
-          : "hover:border-[color:var(--line-strong)] hover:bg-[color:var(--surface-2)]"
-      } active:scale-[0.99]`}
+          ? "border-[rgba(86,124,102,0.45)] bg-[rgba(151,186,164,0.05)]"
+          : "hover:bg-[color:var(--surface-2)]"
+      }`}
     >
       <div className="flex items-start justify-between gap-3 sm:gap-4">
         <div
@@ -229,17 +229,17 @@ export function TodayTaskCard({
             aria-label={`Toggle completion for ${title}`}
             aria-pressed={optimisticCompleted}
             aria-busy={isSubmitting}
-            variant="secondary"
+            variant="ghost"
             size="icon"
             className={`${
               compact
-                ? "h-11 w-11 rounded-[0.8rem] sm:h-12 sm:w-12 sm:rounded-[1.1rem]"
-                : "h-12 w-12 rounded-[1.1rem]"
+                ? "h-10 w-10"
+                : "h-11 w-11"
             } shrink-0`}
           >
             <span
               aria-hidden="true"
-              className={`flex h-7 w-7 items-center justify-center rounded-[0.7rem] border transition ${
+              className={`flex h-6 w-6 items-center justify-center rounded border transition-colors ${
                 isSubmitting
                   ? "border-[#7d887b] bg-[rgba(154,185,165,0.12)] text-[#7d887b]"
                   : optimisticCompleted

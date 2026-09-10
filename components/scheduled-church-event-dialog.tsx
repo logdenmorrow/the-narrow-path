@@ -68,7 +68,7 @@ export function ScheduledChurchEventDialog({
         aria-modal="true"
         aria-labelledby="scheduled-church-event-title"
         aria-describedby="scheduled-church-event-description"
-        className="monastic-card relative w-full max-w-lg p-5 shadow-2xl sm:p-7"
+        className="monastic-card relative w-full max-w-lg p-5 sm:p-7"
       >
         <button
           ref={closeButtonRef}
