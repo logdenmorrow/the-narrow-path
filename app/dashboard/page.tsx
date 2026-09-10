@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import {
   getCommunityName,
@@ -12,6 +13,8 @@ import {
   MetricCard,
   PageFrame,
   SectionHeader,
+  SurfaceCard,
+  SurfaceInset,
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 import { DashboardLoginRedirectClear } from "@/components/dashboard-login-redirect-clear";
@@ -75,6 +78,10 @@ type PlanDayRow = {
 type UserTaskCompletionRow = {
   plan_day_task_id: number;
   completed_at?: string | null;
+};
+
+type ReflectionEntryRow = {
+  id: number;
 };
 
 type ProfileRow = {
@@ -209,6 +216,23 @@ function getQuotaMeterClasses(tone: MeterTone) {
   }
 }
 
+function QuickAccessTile({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className="monastic-subcard px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:text-sm sm:tracking-[0.18em]"
+    >
+      {children}
+    </Link>
+  );
+}
+
 export default async function DashboardPage({
   searchParams,
 }: {
@@ -311,6 +335,15 @@ export default async function DashboardPage({
     const currentSeason = postChallengePhase
       ? getSeasonTimelineItem(postChallengePhase)
       : null;
+    const memberCount =
+      (
+        await supabase
+          .from("profiles")
+          .select("id")
+          .eq("track", track)
+          .eq("is_hidden_from_community", false)
+      ).data?.length ?? 0;
+
     return (
       <main className="monastic-page">
         <DashboardLoginRedirectClear />
@@ -377,6 +410,69 @@ export default async function DashboardPage({
               />
             </div>
           </HeroPanel>
+
+          <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+            <SurfaceCard>
+              <SectionHeader kicker="Quick Access" title="Quick Access" />
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <QuickAccessTile
+                  href={withViewTrack(
+                    buildPlanDayHref(
+                      "/today",
+                      currentPlanSlug,
+                      activePlan.total_days
+                    ),
+                    track,
+                    preserveViewTrack
+                  )}
+                >
+                  Review Day {activePlan.total_days}
+                </QuickAccessTile>
+                <QuickAccessTile
+                  href={withViewTrack("/brotherhood", track, preserveViewTrack)}
+                >
+                  {communityName}
+                </QuickAccessTile>
+                <QuickAccessTile href="/hours">
+                  Liturgy of the Hours
+                </QuickAccessTile>
+                <QuickAccessTile href="/rosary">Rosary</QuickAccessTile>
+                <QuickAccessTile href="/settings">Settings</QuickAccessTile>
+                {isAdmin && (
+                  <QuickAccessTile href="/admin/plan">
+                    Admin Plan
+                  </QuickAccessTile>
+                )}
+                {isAdmin && (
+                  <QuickAccessTile href="/admin/challenge-feedback">
+                    Feedback Archive
+                  </QuickAccessTile>
+                )}
+              </div>
+            </SurfaceCard>
+
+            <SurfaceCard>
+              <SectionHeader
+                kicker="Reset"
+                title="No Daily Task Pressure"
+                description="Community, account controls, notifications, and past day review remain available."
+              />
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <SurfaceInset>
+                  <div className="section-kicker">Current Day</div>
+                  <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">
+                    Complete
+                  </p>
+                </SurfaceInset>
+                <SurfaceInset>
+                  <div className="section-kicker">{communityName} Members</div>
+                  <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">
+                    {memberCount}
+                  </p>
+                </SurfaceInset>
+              </div>
+            </SurfaceCard>
+          </div>
 
           <DashboardPushNotificationCard />
 
@@ -543,11 +639,37 @@ export default async function DashboardPage({
     )
   );
 
+  const { data: reflectionEntryData } = planDay
+    ? await supabase
+        .from("user_reflection_entries")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("plan_day_id", planDay.id)
+        .maybeSingle()
+    : { data: null };
+
+  const reflectionEntry = (reflectionEntryData ?? null) as ReflectionEntryRow | null;
+  const hasSavedReflection = Boolean(reflectionEntry?.id);
+
   const requiredDailyToday = todayTasks.filter(
     (task) => !task.quota_scope && task.is_required
   );
 
+  const optionalToday = todayTasks.filter(
+    (task) => !task.quota_scope && !task.is_required
+  );
+
+  const quotaTasksToday = todayTasks.filter((task) => Boolean(task.quota_scope));
+
   const completedRequiredDailyTodayCount = requiredDailyToday.filter((task) =>
+    completionIds.has(task.id)
+  ).length;
+
+  const completedOptionalTodayCount = optionalToday.filter((task) =>
+    completionIds.has(task.id)
+  ).length;
+
+  const completedTodayCount = todayTasks.filter((task) =>
     completionIds.has(task.id)
   ).length;
 
@@ -667,7 +789,7 @@ export default async function DashboardPage({
                 Welcome, {getDisplayName(profile, user.email, getMemberName(track))}
               </h1>
               <p className="mt-3 text-base leading-7 text-[#f0dec1] sm:text-lg sm:leading-8">
-                Day {selectedDay} of {activePlan.total_days}
+                Quick access, catch-up, and today&apos;s progress.
               </p>
             </div>
 
@@ -689,14 +811,86 @@ export default async function DashboardPage({
           </div>
         </HeroPanel>
 
+        <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Quick Access"
+              title="Quick Access"
+            />
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <QuickAccessTile href={withViewTrack("/today", track, preserveViewTrack)}>
+                Today
+              </QuickAccessTile>
+              <QuickAccessTile href={withViewTrack("/this-week", track, preserveViewTrack)}>
+                Week
+              </QuickAccessTile>
+              <QuickAccessTile href={withViewTrack("/brotherhood", track, preserveViewTrack)}>
+                {communityName}
+              </QuickAccessTile>
+              <QuickAccessTile href={withViewTrack(buildPlanDayHref("/today", currentPlanSlug, Math.max(selectedDay - 1, 1)), track, preserveViewTrack)}>
+                Review Yesterday
+              </QuickAccessTile>
+              {isAdmin && (
+                <QuickAccessTile href="/admin/plan">Admin Plan</QuickAccessTile>
+              )}
+              {isAdmin && (
+                <QuickAccessTile href="/admin/auth-reports">
+                  Auth Reports
+                </QuickAccessTile>
+              )}
+              {isAdmin && (
+                <QuickAccessTile href="/admin/challenge-feedback">
+                  Feedback Archive
+                </QuickAccessTile>
+              )}
+              {isAdmin && (
+                <QuickAccessTile href="/admin/support">
+                  Support Tickets
+                </QuickAccessTile>
+              )}
+            </div>
+          </SurfaceCard>
+
+          <SurfaceCard>
+            <SectionHeader
+              kicker="Today&apos;s Summary"
+              title="Today"
+            />
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <SurfaceInset>
+                <div className="section-kicker">Completed Today</div>
+                <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">
+                  {completedTodayCount}/{todayTasks.length}
+                </p>
+              </SurfaceInset>
+              <SurfaceInset>
+                <div className="section-kicker">Optional Done</div>
+                <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">
+                  {completedOptionalTodayCount}/{optionalToday.length}
+                </p>
+              </SurfaceInset>
+              <SurfaceInset>
+                <div className="section-kicker">Quota Goals</div>
+                <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">{quotaTasksToday.length}</p>
+              </SurfaceInset>
+              <SurfaceInset>
+                <div className="section-kicker">Reflection</div>
+                <p className="mt-2 text-2xl font-semibold text-monastic-0 sm:text-3xl">
+                  {hasSavedReflection ? "Saved" : "Open"}
+                </p>
+              </SurfaceInset>
+            </div>
+          </SurfaceCard>
+        </div>
+
         <DashboardPushNotificationCard />
 
         {yesterdayDay && (
-          <section
+          <SurfaceCard
             className={
               missedYesterdayCount > 0
-                ? "border-y border-[rgba(168,129,81,0.42)] bg-[rgba(168,129,81,0.06)] py-5"
-                : "border-y border-monastic py-5"
+                ? "border-[rgba(168,129,81,0.42)] bg-[rgba(168,129,81,0.08)]"
+                : undefined
             }
           >
             <SectionHeader
@@ -709,11 +903,11 @@ export default async function DashboardPage({
             </p>
             <Link
               href={buildPlanDayHref("/today", currentPlanSlug, yesterdayDay)}
-              className="mt-4 inline-flex rounded-lg border border-monastic px-4 py-2.5 text-sm font-semibold text-monastic-0 transition hover:bg-[color:var(--surface-3)]"
+              className="mt-4 inline-flex rounded-[1rem] border border-monastic px-4 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-monastic-0 transition hover:bg-[color:var(--surface-3)] sm:tracking-[0.18em]"
             >
               Review Day {yesterdayDay}
             </Link>
-          </section>
+          </SurfaceCard>
         )}
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -749,8 +943,8 @@ export default async function DashboardPage({
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <section>
-            <SectionHeader title="Today&apos;s required tasks" />
+          <SurfaceCard>
+            <SectionHeader kicker="Daily Core" title="Today&apos;s Required Daily Tasks" />
 
             {requiredDailyToday.length === 0 ? (
               <p className="mt-4 text-sm text-monastic-1 sm:text-base">
@@ -778,7 +972,7 @@ export default async function DashboardPage({
                           )}
                         </div>
 
-                        <span className="w-fit rounded-md border border-monastic px-2 py-0.5 text-xs font-medium text-monastic-1">
+                        <span className="w-fit rounded-full border border-monastic px-3 py-1 text-[10px] uppercase tracking-wide text-monastic-1 sm:text-xs">
                           {isCompleted ? "Completed" : "Open"}
                         </span>
                       </div>
@@ -787,10 +981,10 @@ export default async function DashboardPage({
                 })}
               </div>
             )}
-          </section>
+          </SurfaceCard>
 
-          <section>
-            <SectionHeader title="Weekly and monthly progress" />
+          <SurfaceCard>
+            <SectionHeader kicker="Progress" title="Weekly and Monthly Progress" />
 
             {quotaProgress.length === 0 ? (
               <p className="mt-4 text-sm text-monastic-1 sm:text-base">
@@ -849,10 +1043,10 @@ export default async function DashboardPage({
                 })}
               </div>
             )}
-          </section>
+          </SurfaceCard>
         </div>
 
-        <section className="mt-6 border-t border-monastic pt-6">
+        <SurfaceCard className="mt-6">
           <SectionHeader kicker="Examen" title="Reflection Prompt" />
           <p className="mt-4 text-sm text-monastic-1 sm:text-base">
             {planDay?.reflection_prompt ||
@@ -860,11 +1054,11 @@ export default async function DashboardPage({
           </p>
           <Link
             href={buildPlanDayHref("/reflection", currentPlanSlug, selectedDay)}
-            className="mt-4 inline-flex rounded-lg border border-monastic px-4 py-2.5 text-sm font-semibold text-monastic-0 transition hover:bg-[color:var(--surface-3)]"
+            className="mt-4 inline-flex rounded-[1rem] border border-monastic px-4 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-monastic-0 transition hover:bg-[color:var(--surface-3)]"
           >
             Open Reflection
           </Link>
-        </section>
+        </SurfaceCard>
       </PageFrame>
     </main>
   );

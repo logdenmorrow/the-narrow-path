@@ -62,11 +62,11 @@ export function UpdatePasswordForm({
               autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="monastic-field h-12 rounded-lg px-4 py-3 text-base shadow-none md:text-base"
+              className="monastic-field h-12 rounded-2xl border-0 px-4 py-3 text-base shadow-none md:text-base"
             />
           </div>
           {error ? (
-            <div className="rounded-lg border border-red-500/30 bg-red-950/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+            <div className="rounded-2xl border border-red-500/30 bg-red-950/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
               {error}
             </div>
           ) : null}

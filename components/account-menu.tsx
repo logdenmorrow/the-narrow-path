@@ -62,9 +62,9 @@ export function AccountMenu({
       <DropdownMenuContent
         align="end"
         sideOffset={10}
-        className="w-64 rounded-lg border-monastic bg-[color:var(--surface-1)] p-1.5 shadow-md"
+        className="w-64 rounded-[1rem] border-monastic bg-[color:var(--surface-1)] p-2 shadow-[0_20px_48px_-28px_rgba(24,16,12,0.85)] backdrop-blur-xl"
       >
-        <DropdownMenuLabel className="px-3 py-2 text-xs font-medium text-monastic-2">
+        <DropdownMenuLabel className="px-3 py-2 text-xs uppercase tracking-[0.18em] text-monastic-2">
           Account
         </DropdownMenuLabel>
         <DropdownMenuItem asChild className="rounded-[0.85rem] px-3 py-2 text-monastic-1">
@@ -94,7 +94,7 @@ export function AccountMenu({
 
         <DropdownMenuSeparator className="my-2 bg-[color:var(--line-soft)]" />
 
-          <DropdownMenuLabel className="px-3 py-1.5 text-xs font-medium text-monastic-2">
+        <DropdownMenuLabel className="px-3 py-1.5 text-xs uppercase tracking-[0.18em] text-monastic-2">
           Theme
         </DropdownMenuLabel>
         <DropdownMenuRadioGroup

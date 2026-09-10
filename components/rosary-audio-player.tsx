@@ -97,8 +97,11 @@ export function RosaryAudioPlayer({ src }: RosaryAudioPlayerProps) {
   };
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-monastic bg-[color:var(--surface-1)] pb-[max(0.5rem,env(safe-area-inset-bottom))]">
-      <div className="mx-auto w-full max-w-4xl px-3 py-2.5 sm:px-4 sm:py-3">
+    <div
+      className="fixed inset-x-0 bottom-0 z-50 px-3 pb-2 sm:px-4 sm:pb-3"
+      style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
+    >
+      <div className="mx-auto w-full max-w-4xl rounded-[1.1rem] border border-[rgba(168,129,81,0.42)] bg-[linear-gradient(180deg,rgba(255,248,235,0.94),rgba(238,222,193,0.9))] px-3 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.62),0_18px_36px_-22px_rgba(42,25,15,0.88)] backdrop-blur-md dark:bg-[linear-gradient(180deg,rgba(49,34,23,0.94),rgba(32,24,19,0.92))] sm:px-4 sm:py-3">
         <audio
           ref={audioRef}
           src={src}
@@ -120,12 +123,12 @@ export function RosaryAudioPlayer({ src }: RosaryAudioPlayerProps) {
               aria-label={isPlaying ? "Pause Rosary Audio" : "Play Rosary Audio"}
               aria-pressed={isPlaying}
               onClick={togglePlayback}
-              className="h-10 w-10 shrink-0"
+              className="h-12 w-12 shrink-0 rounded-full border-[rgba(138,95,50,0.52)] bg-[linear-gradient(180deg,#f6ead5,#ddc39a)] text-[#5e3a1d] shadow-[inset_0_1px_0_rgba(255,255,255,0.58),0_12px_18px_-16px_rgba(42,25,15,0.82)] hover:bg-[linear-gradient(180deg,#fff3dd,#e5cfa8)] dark:bg-[linear-gradient(180deg,#4e3724,#35261b)] dark:text-[#f0dec1]"
             >
               {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
             </Button>
 
-            <div className="flex min-w-0 flex-1 items-center justify-between gap-3 text-sm font-semibold text-monastic-0">
+            <div className="flex min-w-0 flex-1 items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-[#7b5430] dark:text-[#dcc39c]">
               <span>Rosary Audio</span>
               <span className="shrink-0 tabular-nums text-monastic-1">
                 {formatAudioTime(currentTime)} / {formatAudioTime(duration)}

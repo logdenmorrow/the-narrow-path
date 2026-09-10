@@ -24,7 +24,7 @@ export default function MainNav({
         "flex flex-wrap items-center",
         mobile
           ? "justify-around gap-2"
-          : "gap-1 border-b border-monastic"
+          : "rounded-full border border-monastic bg-monastic-panel p-1.5 shadow-[0_16px_34px_-28px_rgba(42,25,15,0.9)]"
       )}
     >
       {navItems.map((item) => {
@@ -37,11 +37,11 @@ export default function MainNav({
             href={item.href}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "relative px-3 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
-              "after:absolute after:inset-x-3 after:bottom-[-1px] after:h-0.5 after:transition-colors after:content-['']",
+              "relative rounded-full px-4 py-2.5 text-sm font-semibold tracking-[0.16em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
+              "after:absolute after:bottom-1 after:left-4 after:right-4 after:h-px after:rounded-full after:transition after:content-['']",
               active
-                ? "text-monastic-0 after:bg-[color:var(--surface-strong)]"
-                : "text-monastic-1 hover:text-monastic-0 after:bg-transparent"
+                ? "bg-[color:var(--surface-strong)] text-[hsl(var(--primary-foreground))] shadow-[inset_0_1px_0_rgba(255,255,255,0.14)] after:bg-[rgba(255,239,216,0.8)]"
+                : "text-monastic-1 hover:bg-[color:var(--surface-3)] hover:text-monastic-0 after:bg-transparent"
             )}
           >
             {label}

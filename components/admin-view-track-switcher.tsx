@@ -31,7 +31,7 @@ export function AdminViewTrackSwitcher({
   params,
 }: AdminViewTrackSwitcherProps) {
   return (
-    <div className="flex flex-col gap-3 border-y border-amber-700/40 bg-amber-950/10 py-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-3 rounded-[1.4rem] border border-amber-700/40 bg-amber-950/20 p-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <p className="section-kicker text-amber-200">Admin Diagnostic View</p>
         <p className="mt-2 text-sm text-monastic-1">

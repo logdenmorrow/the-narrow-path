@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import {
   PageFrame,
   SectionHeader,
+  SurfaceCard,
   SurfaceInset,
 } from "@/components/monastic-ui";
 import {
@@ -81,9 +82,8 @@ export default async function TodayInTheChurchPage({
   return (
     <main className="monastic-page">
       <PageFrame className="max-w-5xl space-y-5 sm:space-y-6">
-        <header className="border-b border-monastic pb-5 sm:pb-6">
+        <SurfaceCard>
           <SectionHeader
-            level="h1"
             kicker={formatLiturgicalDate(dateIso)}
             title={day.title}
             description={`${day.rank} • ${formatLiturgicalColor(day.liturgical_color)} • ${day.season}`}
@@ -100,7 +100,7 @@ export default async function TodayInTheChurchPage({
               </p>
             </SurfaceInset>
           ) : null}
-        </header>
+        </SurfaceCard>
 
         {properOverlays.length > 0 ? (
           <ProperCalendarSection
@@ -127,7 +127,7 @@ export default async function TodayInTheChurchPage({
                 profile={profile}
               />
             ) : !day.isFactualOnly && day.description !== day.summary ? (
-              <section>
+              <SurfaceCard>
                 <SectionHeader kicker="About" title="About this day" />
                 <p className="mt-5 text-base leading-7 text-monastic-1">
                   {day.summary}
@@ -135,18 +135,18 @@ export default async function TodayInTheChurchPage({
                 <p className="mt-5 text-base leading-7 text-monastic-1">
                   {day.description}
                 </p>
-              </section>
+              </SurfaceCard>
             ) : (
-              <section>
+              <SurfaceCard>
                 <SectionHeader kicker="Overview" title="About today" />
                 <p className="mt-5 text-base leading-7 text-monastic-1">
                   {day.summary}
                 </p>
-              </section>
+              </SurfaceCard>
             )}
 
             {day.related_observances?.length ? (
-              <section className="border-t border-monastic pt-6">
+              <SurfaceCard>
                 <SectionHeader
                   kicker="Related observances"
                   title="Optional and related observances"
@@ -210,7 +210,7 @@ export default async function TodayInTheChurchPage({
                     );
                   })}
                 </div>
-              </section>
+              </SurfaceCard>
             ) : null}
 
             {selectedRelatedObservance && selectedRelatedProfile ? (
@@ -221,8 +221,8 @@ export default async function TodayInTheChurchPage({
             ) : null}
           </div>
 
-          <aside className="grid gap-6 self-start border-t border-monastic pt-6 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
-            <section className="border-b border-monastic pb-6">
+          <aside className="grid gap-5 self-start">
+            <SurfaceCard>
               <SectionHeader kicker="Calendar" title="Date" />
               <dl className="mt-5 divide-y divide-[color:var(--line-soft)] border-y border-[color:var(--line-soft)]">
                 <div className="flex items-baseline justify-between gap-4 py-3">
@@ -252,9 +252,9 @@ export default async function TodayInTheChurchPage({
                   Calendar preference
                 </Link>
               </p>
-            </section>
+            </SurfaceCard>
 
-            <section className="border-b border-monastic pb-6">
+            <SurfaceCard>
               <SectionHeader kicker="Move" title="Other dates" />
               <div className="mt-5 grid gap-3">
                 <Button asChild variant="secondary" className="w-full">
@@ -268,9 +268,9 @@ export default async function TodayInTheChurchPage({
                   </Link>
                 </Button>
               </div>
-            </section>
+            </SurfaceCard>
 
-            <section>
+            <SurfaceCard>
               <SectionHeader kicker="Sources" title="Learn more" />
               <div className="mt-5 grid gap-3 text-sm leading-6 text-monastic-1">
                 {sources.map((source) => (
@@ -291,7 +291,7 @@ export default async function TodayInTheChurchPage({
                   </div>
                 ))}
               </div>
-            </section>
+            </SurfaceCard>
           </aside>
         </div>
       </PageFrame>
@@ -333,7 +333,7 @@ function ProperCalendarSection({
   selectedOverlay: LiturgicalProperCalendarOverlay | null;
 }) {
   return (
-    <section className="border-y border-monastic py-6">
+    <SurfaceCard>
       <SectionHeader
         kicker="Dominican calendar"
         title="Also observed locally"
@@ -390,7 +390,7 @@ function ProperCalendarSection({
           );
         })}
       </div>
-    </section>
+    </SurfaceCard>
   );
 }
 
@@ -448,7 +448,8 @@ function LiturgicalProfileArticle({
   meta?: string;
 }) {
   return (
-    <article id={id} className="scroll-mt-24 sm:scroll-mt-48">
+    <SurfaceCard id={id} className="scroll-mt-24 sm:scroll-mt-48">
+      <article>
         <header>
           <p className="section-kicker">{kicker}</p>
           <h2 className="mt-2 text-3xl font-semibold leading-tight text-monastic-0 sm:text-4xl">
@@ -489,6 +490,7 @@ function LiturgicalProfileArticle({
           </section>
         ))}
 
-    </article>
+      </article>
+    </SurfaceCard>
   );
 }

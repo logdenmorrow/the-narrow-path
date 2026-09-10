@@ -297,11 +297,11 @@ export default async function DailyReadingPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-lg border border-monastic bg-[color:var(--surface-1)] p-5 sm:p-6">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Daily Reading
             </h1>
-            <p className="mt-4 text-sm text-monastic-1 sm:text-base">
+            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
               No active season plan was found.
             </p>
           </div>
@@ -347,11 +347,11 @@ export default async function DailyReadingPage({
     return (
       <main className="monastic-page">
         <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
-          <div className="rounded-lg border border-monastic bg-[color:var(--surface-1)] p-5 sm:p-6">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Daily Reading
             </h1>
-            <p className="mt-4 text-sm text-monastic-1 sm:text-base">
+            <p className="mt-4 text-sm text-zinc-300 sm:text-base">
               Day {selectedDay} has not been created yet.
             </p>
           </div>
@@ -507,9 +507,11 @@ export default async function DailyReadingPage({
         />
 
         {hasBeforeYouRead && (
-          <section className="border-t border-monastic pt-6">
+          <SurfaceCard>
             <SectionHeader
-              title="Before you read"
+              kicker="Before You Read"
+              title="Know what to look for."
+              description="Short context for the assigned reading."
             />
 
             <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -549,32 +551,32 @@ export default async function DailyReadingPage({
                 </section>
               )}
             </div>
-          </section>
+          </SurfaceCard>
         )}
 
-        <div className="space-y-8">
-          <section className="grid gap-6 border-t border-monastic pt-6 lg:grid-cols-3">
-            <section>
+        <div className="grid gap-6 lg:grid-cols-[minmax(18rem,0.78fr)_minmax(0,1.42fr)] lg:items-start">
+          <aside className="grid gap-6 lg:sticky lg:top-28">
+            <SurfaceCard>
               <SectionHeader kicker="Mission" title={planDay.reading_mission || "No mission assigned yet"} />
               <p className="mt-3 text-sm leading-6 text-monastic-1 sm:mt-4 sm:text-base sm:leading-7">
                 {planDay.reading_focus || "No mission focus has been added yet."}
               </p>
-            </section>
+            </SurfaceCard>
 
-            <section>
+            <SurfaceCard>
               <SectionHeader
                 kicker="Reading"
                 title={planDay.reading_title || "No reading title assigned yet"}
                 description={planDay.reading_reference || "No reference assigned yet"}
                 action={
-                  <span className="rounded-md border border-monastic px-2 py-0.5 text-xs font-medium text-monastic-1">
+                  <span className="rounded-full border border-monastic px-2.5 py-1 text-[9px] uppercase tracking-[0.14em] text-monastic-1 sm:px-3 sm:text-[10px] sm:tracking-[0.22em]">
                     {catechismDay ? "Catechism Day" : "Scripture Day"}
                   </span>
                 }
               />
-            </section>
+            </SurfaceCard>
 
-            <section>
+            <SurfaceCard>
               <SectionHeader
                 kicker="Reading Focus"
                 title={catechismDay ? "Catechism Reading" : "Focus"}
@@ -603,10 +605,10 @@ export default async function DailyReadingPage({
                   No reading focus has been added yet.
                 </p>
               )}
-            </section>
+            </SurfaceCard>
 
             {noteParagraphs.length > 0 && (
-              <section className="lg:col-span-3">
+              <SurfaceCard>
                 <SectionHeader
                   kicker={catechismDay ? "Catholic Insight" : "Companion Note"}
                   title={catechismDay ? "Catechism Note" : "Reading Note"}
@@ -622,11 +624,11 @@ export default async function DailyReadingPage({
                     </p>
                   ))}
                 </div>
-              </section>
+              </SurfaceCard>
             )}
-          </section>
+          </aside>
 
-          <section className="border-t border-monastic pt-6">
+          <SurfaceCard>
             <SectionHeader
               kicker={catechismDay ? "Catechism Text" : "RSV-2CE Text"}
               title="Reading Text"
@@ -650,11 +652,11 @@ export default async function DailyReadingPage({
                 </div>
               )}
             </SurfaceInset>
-          </section>
+          </SurfaceCard>
         </div>
 
         {readingTask ? (
-          <section className="border-t border-monastic pt-6">
+          <SurfaceCard>
             <SectionHeader
               kicker="Completion"
               title={
@@ -695,9 +697,9 @@ export default async function DailyReadingPage({
                 },
               ]}
             />
-          </section>
+          </SurfaceCard>
         ) : (
-          <section className="border-t border-monastic pt-6">
+          <SurfaceCard>
             <SectionHeader
               kicker="Completion"
               title="Daily Reading is not assigned to this day."
@@ -715,7 +717,7 @@ export default async function DailyReadingPage({
                 },
               ]}
             />
-          </section>
+          </SurfaceCard>
         )}
       </PageFrame>
     </main>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { PageFrame, SectionHeader } from "@/components/monastic-ui";
+import { PageFrame, SectionHeader, SurfaceCard } from "@/components/monastic-ui";
 import { Button } from "@/components/ui/button";
 import { LaunchRedirect } from "./launch-redirect";
 
@@ -15,17 +15,18 @@ export default function AppLaunchPage() {
     <main className="monastic-page">
       <LaunchRedirect />
       <PageFrame>
-        <section className="mx-auto max-w-xl border-y border-monastic py-6">
+        <SurfaceCard className="mx-auto max-w-xl">
           <SectionHeader
+            kicker="Opening"
             title="The Narrow Path"
-            description="Opening Today."
+            description="Opening Today. If you are signed out, the existing sign-in flow will handle access."
           />
           <div className="mt-5">
             <Button asChild>
               <Link href="/today">Open Today</Link>
             </Button>
           </div>
-        </section>
+        </SurfaceCard>
       </PageFrame>
     </main>
   );

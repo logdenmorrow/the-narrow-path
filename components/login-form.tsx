@@ -245,6 +245,7 @@ export function LoginForm({
       <AuthCard
         title="Welcome back"
         description="Enter your email and password to continue."
+        className="shadow-[0_32px_70px_-40px_rgba(0,0,0,0.95)]"
         footer={
           <p className="text-center">
             Don&apos;t have an account?{" "}
@@ -269,7 +270,7 @@ export function LoginForm({
                 spellCheck={false}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="monastic-field h-11 rounded-lg px-3.5 py-3 text-base shadow-none sm:h-12 sm:px-4 md:text-base"
+                className="monastic-field h-11 rounded-[1rem] px-3.5 py-3 text-base shadow-none sm:h-12 sm:rounded-2xl sm:px-4 md:text-base"
               />
             </div>
 
@@ -295,18 +296,18 @@ export function LoginForm({
                 spellCheck={false}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="monastic-field h-11 rounded-lg px-3.5 py-3 text-base shadow-none sm:h-12 sm:px-4 md:text-base"
+                className="monastic-field h-11 rounded-[1rem] px-3.5 py-3 text-base shadow-none sm:h-12 sm:rounded-2xl sm:px-4 md:text-base"
               />
             </div>
           </div>
 
           {error ? (
-            <div className="rounded-lg border border-red-400/35 bg-red-950/20 px-4 py-3 text-sm text-red-200">
+            <div className="rounded-2xl border border-red-400/35 bg-red-950/20 px-4 py-3 text-sm text-red-200">
               {error}
             </div>
           ) : null}
 
-          <Button type="submit" className="h-12 w-full" disabled={isLoading}>
+          <Button type="submit" className="h-12 w-full text-[13px] tracking-[0.18em]" disabled={isLoading}>
             {isLoading ? "Logging in..." : "Login"}
           </Button>
         </form>

@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import { Smartphone } from "lucide-react";
+
 import {
   HeroPanel,
   PageFrame,
+  SurfaceCard,
 } from "@/components/monastic-ui";
 import { PwaInstallPrompt } from "@/components/pwa-install-prompt";
 
@@ -25,7 +28,7 @@ const androidSteps = [
   "Open Narrow Path from the Home Screen.",
 ];
 
-function InstructionSection({
+function InstructionCard({
   title,
   steps,
 }: {
@@ -33,20 +36,28 @@ function InstructionSection({
   steps: string[];
 }) {
   return (
-    <section className="border-t border-monastic pt-5">
-      <h2 className="text-2xl font-semibold text-monastic-0">{title}</h2>
+    <SurfaceCard className="h-full">
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[color:var(--line-soft)] bg-[color:var(--surface-2)] text-[color:var(--surface-strong)]">
+          <Smartphone aria-hidden className="h-5 w-5" />
+        </div>
+        <div>
+          <div className="section-kicker">Home Screen</div>
+          <h2 className="mt-1 text-2xl font-semibold text-monastic-0">{title}</h2>
+        </div>
+      </div>
 
-      <ol className="mt-4 divide-y divide-[color:var(--line-soft)] border-b border-[color:var(--line-soft)]">
+      <ol className="mt-5 space-y-3">
         {steps.map((step, index) => (
-          <li key={step} className="flex gap-3 py-3 text-base leading-7 text-monastic-1">
-            <span className="w-5 shrink-0 font-semibold text-monastic-0">
+          <li key={step} className="flex gap-3 text-base leading-7 text-monastic-1">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[color:var(--line-soft)] bg-[color:var(--surface-2)] text-sm font-semibold text-monastic-0">
               {index + 1}
             </span>
             <span>{step}</span>
           </li>
         ))}
       </ol>
-    </section>
+    </SurfaceCard>
   );
 }
 
@@ -63,7 +74,7 @@ export default function InstallPage() {
             <p className="mt-3 max-w-2xl text-base leading-7 text-[#f0dec1]">
               Use the instructions below to add The Narrow Path to your phone.
             </p>
-            <div className="mt-4 max-w-xl border-t border-white/15 pt-3 text-sm leading-6 text-[#ead6b0]">
+            <div className="mt-4 inline-flex max-w-full flex-col gap-1 rounded-lg border border-white/10 bg-white/[0.06] px-3 py-2 text-sm leading-6 text-[#ead6b0]">
               <p className="font-semibold text-[#f7ebd8]">
                 Recommended: iPhone Safari · Android Chrome
               </p>
@@ -75,8 +86,8 @@ export default function InstallPage() {
         <PwaInstallPrompt />
 
         <div className="grid gap-4 md:grid-cols-2">
-          <InstructionSection title="iPhone" steps={iphoneSteps} />
-          <InstructionSection title="Android" steps={androidSteps} />
+          <InstructionCard title="iPhone" steps={iphoneSteps} />
+          <InstructionCard title="Android" steps={androidSteps} />
         </div>
       </PageFrame>
     </main>
