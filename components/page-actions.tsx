@@ -29,7 +29,7 @@ export function AppActionBar({
   return (
     <div
       className={cn(
-        "app-action-bar flex flex-wrap gap-2",
+        "flex flex-wrap gap-3 rounded-[0.85rem] border border-monastic bg-monastic-panel p-2",
         stackOnMobile && "flex-col items-stretch sm:flex-row sm:items-center",
         className
       )}

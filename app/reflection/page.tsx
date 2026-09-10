@@ -277,9 +277,9 @@ export default async function ReflectionPage({
           />
         </div>
 
-        <div className="grid gap-8 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] xl:items-start">
-          <div className="grid gap-8">
-        <section className="border-t border-monastic pt-6">
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] xl:items-start">
+          <div className="grid gap-6 xl:sticky xl:top-28">
+        <SurfaceCard>
           <SectionHeader
             kicker="Today’s Reading"
             title={readingTitle}
@@ -316,9 +316,9 @@ export default async function ReflectionPage({
               </p>
             </SurfaceInset>
           ) : null}
-        </section>
+        </SurfaceCard>
 
-        <section className="border-t border-monastic pt-6">
+        <SurfaceCard>
           <SectionHeader
             kicker="Prompt"
             title="Reflection Prompt"
@@ -338,10 +338,10 @@ export default async function ReflectionPage({
               {promptText}
             </p>
           </SurfaceInset>
-        </section>
+        </SurfaceCard>
           </div>
 
-        <section className="border-t border-monastic pt-6 xl:border-l xl:border-t-0 xl:pl-8 xl:pt-0">
+        <SurfaceCard>
           <SectionHeader
             kicker="Journal"
             title="Journal Entry"
@@ -359,7 +359,7 @@ export default async function ReflectionPage({
             selectedDay={selectedDay}
             planSlug={currentPlanSlug}
           />
-        </section>
+        </SurfaceCard>
         </div>
       </PageFrame>
     </main>

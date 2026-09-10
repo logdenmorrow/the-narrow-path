@@ -480,12 +480,12 @@ export function PwaInstallPrompt({
   return (
     <section
       className={cn(
-        "border-y border-[color:var(--line-soft)] py-4 sm:py-5",
+        "rounded-[1.2rem] border border-[color:var(--line-soft)] bg-[linear-gradient(180deg,color-mix(in_srgb,var(--surface-1)_94%,transparent),color-mix(in_srgb,var(--surface-2)_98%,transparent))] p-4 shadow-[0_18px_42px_-32px_rgba(19,12,8,0.8)] sm:p-5",
         className
       )}
     >
       <div className="flex items-start gap-3">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center text-[color:var(--surface-strong)]">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[color:var(--line-soft)] bg-[color:var(--surface-2)] text-[color:var(--surface-strong)]">
           {canUseNativePrompt ? (
             <Download aria-hidden className="h-5 w-5" />
           ) : (
@@ -493,7 +493,8 @@ export function PwaInstallPrompt({
           )}
         </div>
         <div className="min-w-0 flex-1">
-          <h2 className="text-xl font-semibold text-monastic-0">{fallbackTitle}</h2>
+          <div className="section-kicker">Home Screen App</div>
+          <h2 className="mt-1 text-2xl font-semibold text-monastic-0">{fallbackTitle}</h2>
           {showPromptBody ? (
             <p className="mt-2 text-sm leading-6 text-monastic-1 sm:text-base sm:leading-7">
               {promptBody}
@@ -616,14 +617,16 @@ export function SoftMobileInstallPrompt({ className }: { className?: string }) {
   return (
     <section
       className={cn(
-        "border-y border-[color:var(--line-soft)] py-4",
+        "rounded-[1.2rem] border border-[color:var(--line-soft)] bg-[color:var(--surface-1)] p-4 shadow-[0_18px_42px_-34px_rgba(19,12,8,0.72)]",
         className
       )}
     >
-      <div>
-        <div className="min-w-0">
-          <h2 className="flex items-center gap-2 text-lg font-semibold text-monastic-0">
-            <Smartphone aria-hidden className="h-4 w-4 text-[color:var(--surface-strong)]" />
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[color:var(--line-soft)] bg-[color:var(--surface-2)] text-[color:var(--surface-strong)]">
+          <Smartphone aria-hidden className="h-5 w-5" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h2 className="text-xl font-semibold text-monastic-0">
             Add The Narrow Path to your Home Screen
           </h2>
           <p className="mt-2 text-sm leading-6 text-monastic-1">
@@ -632,13 +635,13 @@ export function SoftMobileInstallPrompt({ className }: { className?: string }) {
         </div>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center gap-2">
-        <Button asChild size="sm">
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <Button asChild className="w-full sm:w-auto">
           <Link href="/install">Install</Link>
         </Button>
         <Button
+          className="w-full sm:w-auto"
           onClick={handleDismiss}
-          size="sm"
           type="button"
           variant="ghost"
         >

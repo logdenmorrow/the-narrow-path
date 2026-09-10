@@ -126,14 +126,14 @@ export function PrayerRequestCard({
     <div className="mt-5 space-y-4">
       {hasPrayerRequest && !isEditing ? (
         <div className="space-y-4">
-          <div className="rounded-lg border border-[rgba(86,124,102,0.45)] bg-[rgba(151,186,164,0.06)] p-4">
+          <div className="rounded-[1.1rem] border border-[rgba(86,124,102,0.45)] bg-[rgba(151,186,164,0.09)] p-4">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#5d725f] dark:text-[#a7ccb9]">
               Prayer requested
             </p>
             <p className="mt-3 text-lg font-semibold text-monastic-0">
               {savedCategory ? PRAYER_REQUEST_CATEGORY_LABELS[savedCategory] : ""}
             </p>
-            <p className="mt-2 inline-flex rounded-md border border-[color:var(--line-soft)] px-2 py-0.5 text-xs font-medium text-monastic-1">
+            <p className="mt-2 inline-flex rounded-full border border-[color:var(--line-soft)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-monastic-1">
               {savedVisibilityLabel}
             </p>
             {savedNote ? (
@@ -179,7 +179,7 @@ export function PrayerRequestCard({
           ) : null}
 
           {isEditing ? (
-            <div className="space-y-4 rounded-lg border border-[color:var(--line-strong)] bg-[color:var(--surface-2)] p-4">
+            <div className="space-y-4 rounded-[1.1rem] border border-[color:var(--line-strong)] bg-[color:var(--surface-2)] p-4">
               <div className="space-y-2">
                 <label
                   htmlFor="prayer-category"

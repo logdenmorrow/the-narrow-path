@@ -276,7 +276,7 @@ export function PushNotificationControl({ onEnabled }: PushNotificationControlPr
           <div className="section-kicker">Device Notifications</div>
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <p className="text-lg font-semibold text-monastic-0">Push Notifications</p>
-            <span className="rounded-md border border-monastic px-2 py-0.5 text-xs font-medium text-monastic-1">
+            <span className="rounded-full border border-monastic px-3 py-1 text-[10px] uppercase tracking-[0.14em] text-monastic-1">
               {statusLabel}
             </span>
           </div>

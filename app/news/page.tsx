@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {
   PageFrame,
   SectionHeader,
+  SurfaceCard,
 } from "@/components/monastic-ui";
 import { RoadmapTimeline } from "@/components/roadmap-timeline";
 
@@ -13,13 +14,13 @@ export default async function NewsPage() {
   return (
     <main className="monastic-page">
       <PageFrame className="max-w-6xl space-y-6">
-        <header className="border-b border-monastic pb-5">
+        <SurfaceCard>
           <SectionHeader
-            level="h1"
+            kicker="Roadmap"
             title="What's ahead"
             description="A simple look at what is planned after Narrow Path 90. Dates and details may be adjusted as plans are finalized."
           />
-        </header>
+        </SurfaceCard>
 
         <RoadmapTimeline />
       </PageFrame>

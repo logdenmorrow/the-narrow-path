@@ -41,7 +41,7 @@ export default function Page({
       }
     >
       <div className="space-y-5">
-        <div className="rounded-lg border border-monastic bg-[color:var(--surface-2)] p-5">
+        <div className="rounded-[1.35rem] border border-monastic bg-[color:var(--surface-2)]/70 p-5">
           <Suspense>
             <ErrorContent searchParams={searchParams} />
           </Suspense>
