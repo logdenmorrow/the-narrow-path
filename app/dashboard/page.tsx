@@ -18,7 +18,7 @@ import {
 } from "@/components/monastic-ui";
 import { AppActionBar } from "@/components/page-actions";
 import { DashboardLoginRedirectClear } from "@/components/dashboard-login-redirect-clear";
-import { PushNotificationControl } from "@/components/push-notification-control";
+import { DashboardPushNotificationCard } from "@/components/dashboard-push-notification-card";
 import {
   GospelScaffoldingCard,
   JamesScaffoldingCard,
@@ -474,16 +474,7 @@ export default async function DashboardPage({
             </SurfaceCard>
           </div>
 
-          <SurfaceCard>
-            <SectionHeader
-              kicker="Notifications"
-              title="Device Notifications"
-              description="Enable or disable push notifications for the browser or Home Screen app you are using now."
-            />
-            <div className="mt-4">
-              <PushNotificationControl />
-            </div>
-          </SurfaceCard>
+          <DashboardPushNotificationCard />
 
           {postChallengePhase === "james" ? <JamesScaffoldingCard /> : null}
           {postChallengePhase === "gospels" ? <GospelScaffoldingCard /> : null}
@@ -892,16 +883,7 @@ export default async function DashboardPage({
           </SurfaceCard>
         </div>
 
-        <SurfaceCard>
-          <SectionHeader
-            kicker="Notifications"
-            title="Device Notifications"
-            description="Enable or disable push notifications for the browser or Home Screen app you are using now."
-          />
-          <div className="mt-4">
-            <PushNotificationControl />
-          </div>
-        </SurfaceCard>
+        <DashboardPushNotificationCard />
 
         {yesterdayDay && (
           <SurfaceCard
