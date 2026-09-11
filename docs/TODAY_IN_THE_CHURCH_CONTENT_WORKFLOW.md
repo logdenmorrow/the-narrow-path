@@ -199,7 +199,10 @@ prose, and source quality. The complete standard and rubric live in
 
 A rejected draft is regenerated once with the exact failure reasons. If it
 still fails, no profile or link is written and the Actions summary records the
-rejection. Passing articles receive `review.status: approved`; repository
+rejection. The workflow opens or updates a date-and-article-specific GitHub
+issue, mentions `@logdenmorrow`, links to the failed run, and marks the run
+failed. Infrastructure or validation failures create a separate publisher
+failure issue. Passing articles receive `review.status: approved`; repository
 scanners run; and an audit pull request is created, merged, and sent to the
 container deployment workflow automatically. No routine human approval is
 required. Existing approved or locked profiles are never overwritten.

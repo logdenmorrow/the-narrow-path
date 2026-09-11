@@ -36,6 +36,7 @@ concurrency:
 permissions:
   actions: write
   contents: write
+  issues: write
   pull-requests: write
 
 jobs:
@@ -99,6 +100,7 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.OPENAI_LITURGICAL_PROFILE_MODEL || 'gpt-5.4-mini' }}
           OPENAI_REVIEW_MODEL: ${{ vars.OPENAI_LITURGICAL_REVIEW_MODEL || vars.OPENAI_LITURGICAL_PROFILE_MODEL || 'gpt-5.4-mini' }}
+          LITURGICAL_REJECTION_REPORT: ${{ runner.temp }}/liturgical-article-rejections.json
           TODAY_DATE: ${{ inputs.start }}
           LOOKAHEAD_DAYS: ${{ inputs.days || '70' }}
           PROFILE_LIMIT: ${{ inputs.limit || '3' }}
@@ -159,3 +161,93 @@ jobs:
             echo
             echo "No new profile changes were needed in the configured lookahead window."
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Notify owner about rejected articles
+        id: rejection_notice
+        if: always() && steps.key.outputs.configured == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REJECTION_REPORT: ${{ runner.temp }}/liturgical-article-rejections.json
+        shell: bash
+        run: |
+          count=0
+          if [[ -f "$REJECTION_REPORT" ]]; then
+            count="$(jq 'length' "$REJECTION_REPORT")"
+          fi
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          if [[ "$count" -eq 0 ]]; then
+            exit 0
+          fi
+
+          gh label create "article-rejected" \
+            --description "An automatically drafted Today in the Church article failed publication gates" \
+            --color "B60205" \
+            --force
+
+          while IFS= read -r rejection; do
+            date="$(jq -r '.date' <<< "$rejection")"
+            title="$(jq -r '.title' <<< "$rejection")"
+            issue_title="[Today in the Church] Rejected: $date — $title"
+            body_file="$RUNNER_TEMP/liturgical-rejection-${date}.md"
+            {
+              printf '@logdenmorrow, the automated publisher rejected **%s** for **%s** after both drafting attempts. Nothing from this candidate was published.\n\n' "$title" "$date"
+              printf 'Rejection reasons:\n\n'
+              jq -r '.reasons[] | "- " + .' <<< "$rejection"
+              printf '\n[Open the failed workflow run](%s)\n' "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            } > "$body_file"
+
+            issues="$(gh issue list --state all --limit 10 --search "\"$issue_title\" in:title" --json number,title,state)"
+            match="$(jq -c --arg title "$issue_title" '.[] | select(.title == $title)' <<< "$issues" | head -n 1)"
+            if [[ -n "$match" ]]; then
+              issue_number="$(jq -r '.number' <<< "$match")"
+              issue_state="$(jq -r '.state' <<< "$match")"
+              if [[ "$issue_state" == "CLOSED" ]]; then
+                gh issue reopen "$issue_number"
+              fi
+              gh issue comment "$issue_number" --body-file "$body_file"
+            else
+              gh issue create \
+                --title "$issue_title" \
+                --label "article-rejected" \
+                --body-file "$body_file"
+            fi
+          done < <(jq -c '.[]' "$REJECTION_REPORT")
+
+      - name: Notify owner about publisher failure
+        if: failure() && steps.key.outputs.configured == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          issue_title="[Today in the Church] Automated publisher failed"
+          body_file="$RUNNER_TEMP/liturgical-publisher-failure.md"
+          {
+            printf '@logdenmorrow, the Today in the Church publisher encountered an infrastructure or validation failure.\n\n'
+            printf '[Open the failed workflow run](%s)\n' "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          } > "$body_file"
+          gh label create "automation-failure" \
+            --description "A production content automation failed" \
+            --color "D93F0B" \
+            --force
+          issues="$(gh issue list --state all --limit 10 --search "\"$issue_title\" in:title" --json number,title,state)"
+          match="$(jq -c --arg title "$issue_title" '.[] | select(.title == $title)' <<< "$issues" | head -n 1)"
+          if [[ -n "$match" ]]; then
+            issue_number="$(jq -r '.number' <<< "$match")"
+            issue_state="$(jq -r '.state' <<< "$match")"
+            if [[ "$issue_state" == "CLOSED" ]]; then
+              gh issue reopen "$issue_number"
+            fi
+            gh issue comment "$issue_number" --body-file "$body_file"
+          else
+            gh issue create \
+              --title "$issue_title" \
+              --label "automation-failure" \
+              --body-file "$body_file"
+          fi
+
+      - name: Fail the run when articles are rejected
+        if: always() && steps.rejection_notice.outputs.count != '' && steps.rejection_notice.outputs.count != '0'
+        shell: bash
+        run: |
+          echo "One or more articles were rejected. GitHub issues contain the details."
+          exit 1

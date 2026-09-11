@@ -231,8 +231,11 @@ or material repetition. Any failed dimension rejects the draft.
 A rejected first draft receives its exact gate failures and may be regenerated
 once. The second attempt begins from fresh research and must correct every
 failure. If the second attempt fails, no profile or calendar link is written.
-The GitHub Actions summary records the rejected observance and reasons so a
-future run or maintainer can diagnose it.
+The GitHub Actions summary records the rejected observance and reasons. The
+workflow also opens or updates a GitHub issue named for that date and article,
+mentions the repository owner, links to the failed run, and finishes with a
+failed status. A repeated rejection updates the existing issue instead of
+creating unlimited duplicates.
 
 An article that passes all gates is saved with `review.status: "approved"`, the
 registry is regenerated, repository scanners run, and an automation pull
@@ -242,4 +245,6 @@ overwritten by the rolling automation.
 
 Automatic publication is fail-closed: API errors, malformed structured output,
 unreachable sources, failed repository scanners, failed editorial checks, or a
-merge failure prevent publication.
+merge failure prevent publication. Infrastructure and validation failures that
+stop the publisher before an article-level report can be written open or update
+a separate publisher-failure issue.
