@@ -1,4 +1,4 @@
-name: Draft Today in the Church profiles
+name: Publish Today in the Church profiles
 
 on:
   schedule:
@@ -34,6 +34,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
+  actions: write
   contents: write
   pull-requests: write
 
@@ -48,7 +49,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check drafting configuration
+      - name: Check publishing configuration
         id: key
         shell: bash
         env:
@@ -59,9 +60,9 @@ jobs:
           else
             echo "configured=false" >> "$GITHUB_OUTPUT"
             {
-              echo "## Today in the Church drafting"
+              echo "## Today in the Church automated publication"
               echo
-              echo "No drafts were created because the OPENAI_API_KEY repository secret is not configured."
+              echo "No articles were created because the OPENAI_API_KEY repository secret is not configured."
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
@@ -69,7 +70,7 @@ jobs:
         if: steps.key.outputs.configured == 'true'
         shell: bash
         run: |
-          branch="automation/liturgical-profile-drafts"
+          branch="automation/liturgical-profile-publishing"
           default_branch="${{ github.event.repository.default_branch }}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -92,11 +93,12 @@ jobs:
         if: steps.key.outputs.configured == 'true'
         run: npm ci
 
-      - name: Draft source-backed profiles
+      - name: Research, draft, and gate profiles
         if: steps.key.outputs.configured == 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.OPENAI_LITURGICAL_PROFILE_MODEL || 'gpt-5.4-mini' }}
+          OPENAI_REVIEW_MODEL: ${{ vars.OPENAI_LITURGICAL_REVIEW_MODEL || vars.OPENAI_LITURGICAL_PROFILE_MODEL || 'gpt-5.4-mini' }}
           TODAY_DATE: ${{ inputs.start }}
           LOOKAHEAD_DAYS: ${{ inputs.days || '70' }}
           PROFILE_LIMIT: ${{ inputs.limit || '3' }}
@@ -115,7 +117,7 @@ jobs:
           npm run check:liturgical-profile-registry
           npm run scan:liturgical-content
 
-      - name: Detect draft changes
+      - name: Detect approved article changes
         id: changes
         if: steps.key.outputs.configured == 'true'
         shell: bash
@@ -126,23 +128,28 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Commit drafts and open review pull request
+      - name: Commit, merge, and deploy approved articles
         if: steps.changes.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          branch="automation/liturgical-profile-drafts"
+          branch="automation/liturgical-profile-publishing"
+          default_branch="${{ github.event.repository.default_branch }}"
           git add content/liturgical-profiles content/liturgical-calendar/profile-links.json content/liturgical-calendar/generated-profile-registry.json
-          git commit -m "content: draft upcoming liturgical profiles"
+          git commit -m "content: publish upcoming liturgical profiles"
           git push --force-with-lease origin "HEAD:$branch"
-          if ! gh pr list --head "$branch" --state open --json number --jq 'length > 0' | grep -q true; then
-            gh pr create \
+          pr_number="$(gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty')"
+          if [[ -z "$pr_number" ]]; then
+            pr_url="$(gh pr create \
               --head "$branch" \
-              --base "${{ github.event.repository.default_branch }}" \
-              --title "content: review upcoming Today in the Church profiles" \
-              --body "Automated, source-backed Today in the Church drafts. Every new profile remains marked needs_catholic_review and is hidden from the app until a reviewer explicitly approves it. Review facts, theology, prose, and source links before changing status or merging."
+              --base "$default_branch" \
+              --title "content: publish approved Today in the Church profiles" \
+              --body "Automatically researched Today in the Church articles. Every included profile passed deterministic structure, prose, source diversity, URL, and search-trace checks; a separate source-checking editorial review; the profile registry check; and the full liturgical content scanner. Failed candidates were excluded and reported in the workflow summary.")"
+            pr_number="${pr_url##*/}"
           fi
+          gh pr merge "$pr_number" --merge --delete-branch
+          gh workflow run publish-ghcr.yml --ref "$default_branch"
 
       - name: Record no-change result
         if: steps.key.outputs.configured == 'true' && steps.changes.outputs.changed != 'true'

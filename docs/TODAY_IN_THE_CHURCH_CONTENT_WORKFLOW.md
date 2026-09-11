@@ -27,8 +27,8 @@ content/liturgical-calendar/profile-links.json
 
 Each link identifies an exact date and observance title, whether it is the
 primary or a related observance, and the reusable profile slug. This separation
-keeps calendar refreshes deterministic and lets a reviewer approve, replace, or
-retire article content without editing imported facts.
+keeps calendar refreshes deterministic and lets maintainers replace or retire
+article content without editing imported facts.
 
 Calendar entries may also include secondary `related_observances` for optional,
 local, also-observed, or displaced observances. Related observances must not
@@ -44,7 +44,9 @@ content/liturgical-profiles/
 
 Use profiles for reusable saint, feast, solemnity, season, or other rich
 explanations. The app may show a profile only when `review.status` is
-`approved` or `locked`; otherwise it falls back to the calendar copy.
+`approved` or `locked`; otherwise it falls back to the calendar copy. The
+rolling automation may assign `approved` only after every gate in
+`TODAY_IN_THE_CHURCH_ARTICLE_STANDARD.md` passes.
 
 Use profiles for related observances when approved rich content should be
 available without implying that the optional or displaced observance is the
@@ -182,18 +184,32 @@ The generated runtime registry must also match the individual profile files:
 npm run check:liturgical-profile-registry
 ```
 
-## Rolling Draft Automation
+## Rolling Publication Automation
 
 `.github/workflows/draft-liturgical-profiles.yml` runs weekly and can also be
 started manually. It looks ahead 70 days, finds primary or related observances
-without linked profiles, researches up to three of them, writes local JSON, and
-opens or updates a pull request. It never changes a profile to `approved` or
-`locked`, so generated prose cannot appear in the app without human review.
+without linked profiles, and processes up to three of them. Each candidate is
+researched and drafted with web search and strict structured output. A
+deterministic gate checks depth, organization, source diversity, reachable
+URLs, search-trace provenance, repetition, prohibited headings, meta language,
+and templated prose. A separate editorial model then researches the subject
+again and grades factual grounding, Catholic accuracy, depth, organization,
+prose, and source quality. The complete standard and rubric live in
+`docs/TODAY_IN_THE_CHURCH_ARTICLE_STANDARD.md`.
+
+A rejected draft is regenerated once with the exact failure reasons. If it
+still fails, no profile or link is written and the Actions summary records the
+rejection. Passing articles receive `review.status: approved`; repository
+scanners run; and an audit pull request is created, merged, and sent to the
+container deployment workflow automatically. No routine human approval is
+required. Existing approved or locked profiles are never overwritten.
 
 The workflow requires the repository secret `OPENAI_API_KEY`. The optional
 repository variable `OPENAI_LITURGICAL_PROFILE_MODEL` selects the drafting model;
-the default is `gpt-5.4-mini`. When the secret is absent, the scheduled workflow
-exits successfully and records that drafting is not configured.
+the default is `gpt-5.4-mini`. `OPENAI_LITURGICAL_REVIEW_MODEL` may select a
+different independent review model; by default it uses the drafting model. When
+the secret is absent, the scheduled workflow exits successfully and records
+that publishing is not configured.
 
 Preview the candidate queue locally without an API call or file changes:
 
@@ -201,14 +217,15 @@ Preview the candidate queue locally without an API call or file changes:
 npm run draft:liturgical-profiles -- --dry-run --start 2026-09-08 --days 70 --limit 10
 ```
 
-Generated pull requests require factual, source, prose, and Catholic review.
-After review, change the selected profiles to `approved`, regenerate the
-registry, rerun both checks above, and then merge.
+The pull request is an audit record rather than an approval queue. The workflow
+merges it only after both article gates and both repository validation commands
+pass.
 
 ## Offline AI Drafting Prompt
 
 AI may draft offline from approved source packets, but AI must never be runtime
-app behavior. Final content must be reviewed and saved into local JSON.
+app behavior. Final content must satisfy the same automated publication standard
+before it is saved as approved local JSON.
 
 Use this prompt only after gathering source links and source notes:
 
@@ -232,7 +249,8 @@ Rules:
 - Avoid slogans, rhetorical flourishes, motivational endings, and repeated
   "not X, but Y" constructions.
 - Keep all fields plain text. No Markdown or HTML.
-- Set review.status to "needs_catholic_review" unless a human reviewer explicitly approves it.
+- Evaluate the result against TODAY_IN_THE_CHURCH_ARTICLE_STANDARD.md before
+  setting review.status to "approved".
 
 Source packet:
 - Date:
