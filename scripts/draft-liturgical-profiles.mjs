@@ -699,7 +699,11 @@ async function main() {
         .map((reason) => String(reason).replace(/[\r\n]+/g, " ").trim())
         .filter(Boolean)
         .slice(0, 8);
-      rejected.push(`${candidate.date} ${candidate.title}: ${conciseReasons.join("; ")}`);
+      rejected.push({
+        date: candidate.date,
+        title: candidate.title,
+        reasons: conciseReasons,
+      });
       continue;
     }
 
@@ -724,13 +728,23 @@ async function main() {
     published.push(`${candidate.date} ${candidate.title}: ${path.relative(process.cwd(), outputPath)}`);
   }
 
+  if (process.env.LITURGICAL_REJECTION_REPORT) {
+    await fs.writeFile(
+      process.env.LITURGICAL_REJECTION_REPORT,
+      `${JSON.stringify(rejected, null, 2)}\n`,
+      "utf8"
+    );
+  }
+
   if (published.length > 0) {
     await fs.writeFile(LINKS_PATH, `${JSON.stringify(sortLinks(links), null, 2)}\n`, "utf8");
     execFileSync(process.execPath, [REGISTRY_GENERATOR], { stdio: "inherit" });
   }
 
   console.log(`Approved for publication: ${published.length}. Rejected: ${rejected.length}. Skipped: ${skipped.length}.`);
-  for (const line of rejected) console.warn(`- Rejected ${line}`);
+  for (const item of rejected) {
+    console.warn(`- Rejected ${item.date} ${item.title}: ${item.reasons.join("; ")}`);
+  }
   for (const line of skipped) console.log(`- Skipped ${line}`);
   await appendGitHubSummary([
     "## Today in the Church automated publication",
@@ -741,7 +755,9 @@ async function main() {
     `- Skipped: ${skipped.length}`,
     "- Publication rule: only articles passing deterministic, source, and independent editorial gates receive approved status",
     ...published.map((line) => `- Published ${line}`),
-    ...rejected.map((line) => `- Rejected ${line}`),
+    ...rejected.map(
+      (item) => `- Rejected ${item.date} ${item.title}: ${item.reasons.join("; ")}`
+    ),
     ...skipped.map((line) => `- Skipped ${line}`),
   ]);
 }
