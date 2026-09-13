@@ -63,6 +63,16 @@ for (const viewport of [
         "/daily-reading?plan=the-gospels-september-lent&day=1"
       );
 
+      await page.goto("/today?day=13");
+      await expect(
+        page.getByText("Heroic Minute", { exact: true }).filter({ visible: true }).first()
+      ).toBeVisible();
+      await expect(
+        page.getByRole("button", { name: /Toggle completion for Heroic Minute/i })
+      ).toBeEnabled();
+
+      await page.goto("/today?day=1");
+
       for (const task of [
         "Reading",
         "Reflection",
