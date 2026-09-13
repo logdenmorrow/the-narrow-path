@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { AuthDebugPanel } from "@/components/auth-debug-panel";
 import AuthNav from "@/components/auth-nav";
 import AuthStateListener from "@/components/auth-state-listener";
+import DayRolloverRefresh from "@/components/day-rollover-refresh";
 import MainNav from "@/components/main-nav";
 import MobileAccountMenu from "@/components/mobile-account-menu";
 import MobileTabBar from "@/components/mobile-tab-bar";
@@ -155,6 +156,7 @@ export default async function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ServiceWorkerRegister />
           <AuthStateListener />
+          <DayRolloverRefresh renderedDateIso={todayIso} />
           <Suspense fallback={null}>
             <AuthDebugPanel />
           </Suspense>

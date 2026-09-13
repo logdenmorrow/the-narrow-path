@@ -16,6 +16,7 @@ const EXPECTED_TASK_COUNTS = {
   rosary: 162,
   workout: 162,
   check_in_anchor: 162,
+  heroic_minute: 150,
   attend_mass: 23,
   weekly_fast_or_penance: 162,
 };
@@ -199,6 +200,23 @@ async function main() {
     })
   ) {
     issues.push("One or more Gospel Liturgy of the Hours rows are not optional.");
+  }
+  const heroicMinuteTasks = tasks.filter(
+    (task) => normalizeRelation(task.task_templates)?.slug === "heroic_minute"
+  );
+  if (
+    heroicMinuteTasks.some(
+      (task) => task.is_required !== true || task.is_optional !== false
+    )
+  ) {
+    issues.push("One or more Gospel Heroic Minute rows are not required.");
+  }
+  if (
+    heroicMinuteTasks.some(
+      (task) => task.day_date < "2026-09-13" || task.day_date > "2027-02-09"
+    )
+  ) {
+    issues.push("One or more Gospel Heroic Minute rows are outside the intended date range.");
   }
   if (
     duplicateKeys(
