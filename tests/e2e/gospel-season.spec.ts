@@ -71,14 +71,6 @@ for (const viewport of [
         page.getByRole("button", { name: /Toggle completion for Heroic Minute/i })
       ).toBeEnabled();
 
-      await page.goto("/today?day=15");
-      await expect(
-        page.getByText("Memorial • White • Ordinary Time", { exact: true })
-      ).toBeVisible();
-      await expect(
-        page.getByText("Memorial • white • Ordinary Time", { exact: true })
-      ).toHaveCount(0);
-
       await page.goto("/today?day=1");
 
       for (const task of [
@@ -123,6 +115,18 @@ for (const viewport of [
       await expect(readingToggle).toBeEnabled();
       await expectNoStaleSeasonText(await page.locator("body").innerText());
       expect(invalidRootScriptErrors).toEqual([]);
+    });
+
+    test("capitalizes liturgical colors in Today metadata", async ({ page }) => {
+      await page.goto("/today?day=15");
+      await expect(
+        page
+          .getByText("Memorial • White • Ordinary Time", { exact: true })
+          .first()
+      ).toBeVisible();
+      await expect(
+        page.getByText("Memorial • white • Ordinary Time", { exact: true })
+      ).toHaveCount(0);
     });
 
     test("uses Gospel timing and calendar quota boundaries across core routes", async ({
