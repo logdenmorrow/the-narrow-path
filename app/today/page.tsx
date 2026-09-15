@@ -43,6 +43,7 @@ import {
   getPlanSlugForResolvedSeason,
 } from "@/lib/plan-day-url";
 import {
+  formatLiturgicalColor,
   getLiturgicalCalendarDay,
   getLiturgicalProperCalendarOverlays,
   normalizeReligiousOrderCalendar,
@@ -691,7 +692,9 @@ export default async function TodayPage({
               <SectionHeader
                 kicker="Today in the Church"
                 title={liturgicalDay.title}
-                description={`${liturgicalDay.rank} • ${liturgicalDay.liturgical_color}${
+                description={`${liturgicalDay.rank} • ${formatLiturgicalColor(
+                  liturgicalDay.liturgical_color
+                )}${
                   liturgicalDay.season ? ` • ${liturgicalDay.season}` : ""
                 }`}
               />
@@ -1452,7 +1455,9 @@ export default async function TodayPage({
             <SectionHeader
               kicker="Today in the Church"
               title={liturgicalDay.title}
-              description={`${liturgicalDay.rank} • ${liturgicalDay.liturgical_color}${
+              description={`${liturgicalDay.rank} • ${formatLiturgicalColor(
+                liturgicalDay.liturgical_color
+              )}${
                 liturgicalDay.season ? ` • ${liturgicalDay.season}` : ""
               }`}
             />
